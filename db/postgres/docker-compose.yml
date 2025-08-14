@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:17
+    container_name: ayala_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ayala_01
+      POSTGRES_USER: nestuser
+      POSTGRES_PASSWORD: XXXperu2020XXX.
+    volumes:
+      - postgres_/var/lib/postgresql/data
+    networks:
+      - shared_network
+
+  pgbouncer:
+    image: edoburu/pgbouncer:1.21
+    container_name: ayala_pgbouncer
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - '5432:5432'
+    environment:
+      PGBOUNCER_DATABASE: 'ayala_01'
+      PGBOUNCER_USER: 'nestuser'
+      PGBOUNCER_PASSWORD: 'XXXperu2020XXX.'
+      PGBOUNCER_SERVER_RESET_QUERY: 'DISCARD ALL'
+      PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
+      PGBOUNCER_MAX_CLIENT_CONN: '200'
+      PGBOUNCER_DEFAULT_POOL_SIZE: '30'
+      PGBOUNCER_MIN_POOL_SIZE: '10'
+      PGBOUNCER_RESERVE_POOL_SIZE: '5'
+      PGBOUNCER_SERVER_IDLE_TIMEOUT: '300'
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true
+
+volumes:
+  postgres_data:
+    # Volumen manejado por Docker, sin configuración adicional
