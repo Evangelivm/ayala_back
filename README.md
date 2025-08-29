@@ -1,98 +1,374 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Ayala Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API para el Sistema de Reportes de Maquinarias Ayala, construido con NestJS, Prisma ORM y MySQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🏗️ Arquitectura
 
-## Description
+### Stack Tecnológico
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Framework**: NestJS
+- **ORM**: Prisma
+- **Base de Datos**: MySQL
+- **Validación**: Zod DTOs
+- **Módulos**: ES6
+- **Autenticación**: JWT (implementable)
 
-## Project setup
+### Características Principales
 
-```bash
-$ npm install
+- ✅ Sistema de personal normalizado con roles contextuales
+- ✅ Catálogo de equipos independiente de inventario físico
+- ✅ Reportes master-detail con relaciones de foreign keys
+- ✅ Validación robusta con Zod DTOs
+- ✅ Arquitectura modular escalable
+- ✅ API RESTful con documentación automática
+
+## 📊 Estructura de Base de Datos
+
+### Tablas Principales
+
+#### **Personal**
+
+Tabla normalizada sin roles predefinidos. Los roles se deducen contextualmente.
+
+```sql
+- id_personal (PK)
+- nombres, apellidos, dni (UNIQUE)
+- telefono, correo, fecha_ingreso
+- activo, observaciones
 ```
 
-## Compile and run the project
+#### **Equipos** (Catálogo de Servicios)
 
-```bash
-# development
-$ npm run start
+Diferente de `maquinarias` (inventario físico).
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sql
+- id_equipo (PK)
+- tipo_equipo (ENUM: EXCAVADORA, CARGADOR, etc.)
+- marca, modelo, descripcion
+- unidad, precio_referencial
 ```
 
-## Run tests
+#### **Reportes Operadores** (Master-Detail)
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sql
+Master: codigo_reporte, fecha, id_proyecto
+Personal: id_operador, id_vigia, id_mantero, etc.
+Detail: detalle_produccion[]
 ```
 
-## Deployment
+#### **Viajes Eliminación** (Master-Detail)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```sql
+Master: codigo_reporte, fecha, id_proyecto
+Personal: id_responsable, id_operador, id_vigia, etc.
+Detail: detalle_viajes[] + detalle_horarios[]
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 🚀 Instalación y Configuración
 
-## Resources
+### Prerrequisitos
 
-Check out a few resources that may come in handy when working with NestJS:
+- Node.js 18+
+- MySQL 8.0+
+- npm o pnpm
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Instalación
 
-## Support
+```bash
+# Clonar dependencias
+npm install
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Configurar variables de entorno
+cp .env.example .env
 
-## Stay in touch
+# Configurar base de datos en .env (Ejemplo)
+DATABASE_URL="mysql://usuario:password@localhost:3306/db"
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Generar cliente Prisma
+npx prisma generate
 
-## License
+# Ejecutar migraciones (opcional)
+npx prisma db push
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Ejecución
+
+```bash
+# Desarrollo
+npm run start:dev
+
+# Producción
+npm run start:prod
+
+# Modo watch
+npm run start
+```
+
+## 📡 API Endpoints
+
+### **Base URL**: `http://localhost:3001/api`
+
+### **Información del API**
+
+- `GET /` - Información general del API
+- `GET /health` - Estado de salud del sistema
+
+### **Personal** (Normalizado)
+
+- `GET /personal` - Listar personal activo
+- `GET /personal/:id` - Obtener personal por ID
+- `POST /personal` - Crear nuevo personal
+- `PUT /personal/:id` - Actualizar personal
+- `DELETE /personal/:id` - Eliminar personal
+
+### **Proyectos**
+
+- `GET /proyectos` - Listar proyectos
+- `GET /proyectos/:id` - Obtener proyecto por ID
+- `POST /proyectos` - Crear proyecto
+- `PUT /proyectos/:id` - Actualizar proyecto
+
+### **Equipos** (Catálogo)
+
+- `GET /equipos` - Listar equipos
+- `GET /equipos?tipo_equipo=EXCAVADORA` - Filtrar por tipo
+- `GET /equipos/:id` - Obtener equipo por ID
+- `POST /equipos` - Crear equipo
+- `PUT /equipos/:id` - Actualizar equipo
+
+### **Maquinarias** (Inventario Físico)
+
+- `GET /maquinaria` - Listar maquinarias
+- `GET /maquinaria/:id` - Obtener maquinaria por ID
+- `POST /maquinaria` - Crear maquinaria
+
+### **Reportes Operadores**
+
+- `GET /reportes-operadores` - Listar reportes con filtros
+- `GET /reportes-operadores/:id` - Obtener reporte por ID
+- `POST /reportes-operadores` - Crear reporte (master + detail)
+- `PATCH /reportes-operadores/:id` - Actualizar reporte
+- `DELETE /reportes-operadores/:id` - Soft delete
+
+### **Reportes Plantilleros**
+
+- `GET /reportes-plantilleros` - Listar reportes
+- `GET /reportes-plantilleros/:id` - Obtener reporte por ID
+- `POST /reportes-plantilleros` - Crear reporte
+- `PATCH /reportes-plantilleros/:id` - Actualizar reporte
+
+### **Viajes Eliminación**
+
+- `GET /viajes-eliminacion` - Listar viajes con filtros
+- `GET /viajes-eliminacion/:id` - Obtener viaje por ID
+- `POST /viajes-eliminacion` - Crear viaje (master + detail)
+- `PATCH /viajes-eliminacion/:id` - Actualizar viaje
+
+## 🔧 Validación y DTOs
+
+### Zod Schemas
+
+Todos los endpoints utilizan validación con Zod:
+
+```typescript
+// Ejemplo: Personal DTO
+export const PersonalSchema = z.object({
+  nombres: z.string().min(1).max(100),
+  apellidos: z.string().min(1).max(100),
+  dni: z.string().length(8),
+  telefono: z.string().optional(),
+  correo: z.string().email().optional(),
+  fecha_ingreso: z.string().datetime(),
+  activo: z.boolean().optional().default(true),
+});
+```
+
+### Tipos de Equipos
+
+```typescript
+enum TipoEquipoEnum {
+  EXCAVADORA,
+  CARGADOR,
+  MINICARGADOR,
+  MOTONIVELADORA,
+  PAVIMENTADORA,
+  RODILLO,
+  VIBROAPRISIONADOR,
+  FLETE_TRANSPORTE,
+  COMPRESOR,
+  GRUA,
+  PLATAFORMA_ELEVADORA,
+  SERVICIO_PERSONAL,
+  SERVICIO_ESPECIALIZADO,
+  HERRAMIENTA_MANUAL,
+  EQUIPO_TOPOGRAFIA,
+}
+```
+
+## 🏛️ Arquitectura de Roles Contextuales
+
+### Problema Resuelto
+
+Anteriormente, el sistema tenía roles predefinidos en strings, causando:
+
+- Inconsistencias en datos
+- Dificultad para mantener relaciones
+- Limitaciones de escalabilidad
+
+### Solución Implementada
+
+**Roles Contextuales**: Los roles se deducen del contexto donde aparece el ID de la persona.
+
+```sql
+-- Si id_personal = 5 aparece en:
+viajes_eliminacion.id_vigia = 5     → Persona actúa como Vigía
+reportes_operadores.id_operador = 5 → Persona actúa como Operador
+```
+
+### Beneficios
+
+- ✅ Flexibilidad: Una persona puede tener múltiples roles
+- ✅ Consistencia: Relaciones de FK garantizan integridad
+- ✅ Escalabilidad: Fácil agregar nuevos roles
+- ✅ Trazabilidad: Histórico completo de asignaciones
+
+## 🗄️ Gestión de Base de Datos
+
+### Prisma Commands
+
+```bash
+# Ver estado actual
+npx prisma status
+
+# Aplicar cambios al schema
+npx prisma db push
+
+# Generar cliente después de cambios
+npx prisma generate
+
+# Abrir Prisma Studio
+npx prisma studio
+
+# Reset completo (⚠️ CUIDADO)
+npx prisma db push --force-reset
+```
+
+### Backups
+
+```bash
+# Crear backup
+mysqldump -u usuario -p ayala_db > backup_$(date +%Y%m%d).sql
+
+# Restaurar backup
+mysql -u usuario -p ayala_db < backup_20241222.sql
+```
+
+## 🧪 Testing
+
+```bash
+# Tests unitarios
+npm run test
+
+# Tests e2e
+npm run test:e2e
+
+# Coverage
+npm run test:cov
+```
+
+## 📦 Estructura del Proyecto
+
+```
+src/
+├── app.module.ts          # Módulo principal
+├── app.service.ts         # Información del API
+├── app.controller.ts      # Rutas principales
+├── dto/                   # Zod validation schemas
+│   ├── personal.dto.ts
+│   ├── equipos.dto.ts
+│   └── reportes.dto.ts
+├── personal/              # Módulo Personal
+├── equipos/               # Módulo Equipos
+├── reportes-operadores/   # Módulo Reportes Operadores
+├── reportes-plantilleros/ # Módulo Reportes Plantilleros
+├── viajes-eliminacion/    # Módulo Viajes Eliminación
+└── prisma/
+    └── schema.prisma      # Schema de base de datos
+```
+
+## 🔄 Versionado del API
+
+### v2.0.0 (Actual)
+
+- ✅ Sistema de personal normalizado
+- ✅ Catálogo de equipos independiente
+- ✅ Roles contextuales
+- ✅ Reportes master-detail
+
+### v1.0.0 (Legacy)
+
+- ❌ Roles como strings
+- ❌ Equipos mezclados con maquinarias
+- ❌ Datos denormalizados
+
+## 🚀 Deployment
+
+### Desarrollo
+
+```bash
+npm run start:dev
+# API disponible en http://localhost:3001
+```
+
+### Producción
+
+```bash
+# Build
+npm run build
+
+# Start
+npm run start:prod
+```
+
+### Variables de Entorno
+
+```env
+DATABASE_URL="mysql://user:pass@host:port/db"
+PORT=3001
+NODE_ENV=production
+JWT_SECRET=your-secret-key
+```
+
+## 📝 Changelog
+
+### v2.0.0 - Diciembre 2024
+
+- Migración a arquitectura normalizada
+- Implementación de roles contextuales
+- Separación equipos/maquinarias
+- Validación con Zod DTOs
+
+### v1.0.0 - Inicial
+
+- API básica con NestJS
+- Estructura legacy con strings
+
+## 🤝 Contribución
+
+1. Fork del proyecto
+2. Crear branch de feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push al branch (`git push origin feature/nueva-funcionalidad`)
+5. Crear Pull Request
+
+## 📞 Soporte
+
+Para soporte técnico o consultas:
+
+- **Equipo**: Desarrollo Ayala
+- **API Base**: `GET /api/` para información general
+- **Health Check**: `GET /api/health` para estado del sistema
+
+---
+
+**© 2025 Maquinarias Ayala - Sistema de Reportes Backend**

@@ -1,0 +1,1107 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model DETALLE_ORDEN_COMPRA {
+  ID_DETALLE      Int             @id @default(autoincrement())
+  ID_ORDEN        Int
+  ITEM            Int
+  DESCRIPCION     String          @db.VarChar(200)
+  OT              String?         @db.VarChar(50)
+  UNIDAD_MEDIDA   String          @db.VarChar(20)
+  CANTIDAD        Decimal         @db.Decimal(10, 2)
+  VALOR_UNITARIO  Decimal         @db.Decimal(10, 2)
+  SUB_TOTAL       Decimal         @db.Decimal(10, 2)
+  IGV             Decimal         @db.Decimal(10, 2)
+  TOTAL           Decimal         @db.Decimal(10, 2)
+  NETO_A_PAGAR    Decimal         @db.Decimal(10, 2)
+  ORDEN_DE_COMPRA ORDEN_DE_COMPRA @relation(fields: [ID_ORDEN], references: [ID_ORDEN], onDelete: Cascade, onUpdate: NoAction, map: "DETALLE_ORDEN_COMPRA_ibfk_1")
+
+  @@index([ID_ORDEN], map: "idx_detalle_orden")
+}
+
+model ORDEN_DE_COMPRA {
+  ID_ORDEN             Int                    @id @default(autoincrement())
+  TITULO               String                 @default("ORDEN DE COMPRA") @db.VarChar(50)
+  NUMERO               String                 @unique(map: "NUMERO") @db.VarChar(20)
+  FECHA_EMISION        DateTime               @db.Date
+  DIRECCION            String                 @db.VarChar(200)
+  RUC                  String                 @db.VarChar(20)
+  EMPRESA_PROVEEDOR    String                 @db.VarChar(100)
+  RUC_PROVEEDOR        String                 @db.VarChar(20)
+  ATENCION_PROVEEDOR   String?                @db.VarChar(100)
+  TELEFONO_PROVEEDOR   String?                @db.VarChar(20)
+  DIRECCION_COMPRA     String?                @db.VarChar(200)
+  CONDICION_COMPRA     String?                @db.VarChar(50)
+  MONEDA_COMPRA        String?                @default("PEN") @db.VarChar(10)
+  OBSERVACION_COMPRA   String?                @db.Text
+  FECHA_REGISTRO       DateTime?              @default(now()) @db.Timestamp(0)
+  DETALLE_ORDEN_COMPRA DETALLE_ORDEN_COMPRA[]
+
+  @@index([NUMERO], map: "idx_orden_numero")
+}
+
+model camiones {
+  id_camion                     Int                 @id @default(autoincrement())
+  placa                         String              @unique(map: "uk_placa") @db.VarChar(10)
+  marca                         String?             @db.VarChar(50)
+  modelo                        String?             @db.VarChar(50)
+  a_o                           Int?                @map("año") @db.Year
+  capacidad_tanque              Decimal?            @db.Decimal(10, 2)
+  id_tipo_combustible_preferido Int?
+  activo                        Boolean?            @default(true)
+  fecha_registro                DateTime?           @default(now()) @db.Timestamp(0)
+  tipos_combustible             tipos_combustible?  @relation(fields: [id_tipo_combustible_preferido], references: [id_tipo_combustible], onDelete: Restrict, onUpdate: Restrict, map: "camiones_ibfk_1")
+  vales_combustible             vales_combustible[]
+
+  @@index([id_tipo_combustible_preferido], map: "id_tipo_combustible_preferido")
+}
+
+model centros_de_costos_2025 {
+  id              Int        @id @default(autoincrement())
+  CecoCodi        String     @db.VarChar(255)
+  Centro_de_costo String?    @db.VarChar(255)
+  facturas        facturas[]
+}
+
+model choferes {
+  id_chofer         Int                 @id @default(autoincrement())
+  nombre_chofer     String              @db.VarChar(100)
+  cedula_chofer     String              @unique(map: "uk_cedula") @db.VarChar(20)
+  licencia_conducir String?             @db.VarChar(20)
+  telefono_chofer   String?             @db.VarChar(20)
+  correo_chofer     String?             @db.VarChar(100)
+  activo            Boolean?            @default(true)
+  fecha_registro    DateTime?           @default(now()) @db.Timestamp(0)
+  vales_combustible vales_combustible[]
+}
+
+model clientes2025 {
+  id                       Int       @id @default(autoincrement())
+  nombre                   String?   @db.VarChar(255)
+  direccion                String?   @db.VarChar(255)
+  ruc                      String?   @db.VarChar(255)
+  imagenes                 String?   @db.VarChar(255)
+  numRuc                   String?   @db.VarChar(255)
+  codComp                  String?   @db.VarChar(255)
+  numeroSerie              String?   @db.VarChar(255)
+  numero                   String?   @db.VarChar(255)
+  fecha_emision            DateTime? @db.Date
+  monto                    Decimal?  @db.Decimal(10, 2)
+  tipo_moneda              String?   @db.VarChar(255)
+  estado_cp                String?   @db.VarChar(255)
+  estadoRuc                String?   @db.VarChar(255)
+  condDomiRuc              String?   @db.VarChar(255)
+  factDoc                  String?   @db.VarChar(255)
+  xmlDoc                   String?   @db.VarChar(255)
+  guiaDoc                  String?   @db.VarChar(255)
+  pedidoDoc                String?   @db.VarChar(255)
+  estado_contabilidad      String?   @db.VarChar(255)
+  estado_tesoreria         String?   @db.VarChar(255)
+  estado_administracion    String?   @db.VarChar(255)
+  estado_operaciones       String?   @db.VarChar(255)
+  fecha_ingreso            DateTime? @db.Date
+  condPago                 String?   @db.VarChar(255)
+  numeroSerial             String?   @db.VarChar(255)
+  fecha_estimada_pago      DateTime? @db.Date
+  fecha_vencimiento        DateTime? @db.Date
+  observaciones            String?   @db.Text
+  tipo_facturacion         String?   @db.VarChar(255)
+  cotiza_descripcion       String?   @db.VarChar(255)
+  cotiza_cantidad          Int?
+  cotiza_precio_unit       Decimal?  @db.Decimal(10, 2)
+  cotiza_sub_total         Decimal?  @db.Decimal(10, 2)
+  cotiza_igv               Decimal?  @db.Decimal(10, 2)
+  cotiza_observaciones     String?   @db.VarChar(255)
+  cotiza_forma_pago        String?   @db.VarChar(255)
+  cotiza_fecha_ingreso     DateTime? @db.Date
+  cotiza_referencia        String?   @db.VarChar(255)
+  cotiza_autorizacion      String?   @db.VarChar(255)
+  cotiza_imagen            String?   @db.VarChar(255)
+  cotiza_evidencia         String?   @db.VarChar(255)
+  cotiza_estado            String?   @db.VarChar(255)
+  cotiza_nombre_empresa    String?   @db.VarChar(255)
+  cotiza_ruc_empresa       String?   @db.VarChar(255)
+  cotiza_direccion_empresa String?   @db.VarChar(255)
+  cotiza_email_empresa     String?   @db.VarChar(255)
+  cotiza_fecha_cotizacion  DateTime? @db.Date
+  cotiza_tipo_entrega      String?   @db.VarChar(255)
+  cotiza_fecha_validez     String?   @db.VarChar(255)
+  cotiza_tipo_moneda       String?   @db.VarChar(255)
+  cotiza_num_cta_soles     String?   @db.VarChar(255)
+  cotiza_num_cta_dolar     String?   @db.VarChar(255)
+  cotiza_banco_pago        String?   @db.VarChar(255)
+}
+
+model empresas_2025 {
+  C_digo       String  @id @map("Código") @db.VarChar(255)
+  Raz_n_social String? @map("Razón social") @db.VarChar(255)
+  N__documento String? @map("N° documento") @db.VarChar(255)
+  Tipo         String? @db.VarChar(255)
+  Direcci_n    String? @map("Dirección") @db.VarChar(255)
+}
+
+model facturas {
+  id_factura             Int                     @id @default(autoincrement())
+  id_proveedor           Int
+  id_orden_compra        Int?
+  numero_factura         String                  @unique(map: "uk_numero_factura") @db.VarChar(50)
+  fecha_factura          DateTime                @db.Date
+  fecha_vencimiento      DateTime                @db.Date
+  subtotal               Decimal                 @db.Decimal(12, 2)
+  iva                    Decimal                 @db.Decimal(12, 2)
+  total                  Decimal                 @db.Decimal(12, 2)
+  galones_facturados     Decimal                 @db.Decimal(10, 2)
+  galones_utilizados     Decimal?                @default(0.00) @db.Decimal(10, 2)
+  estado                 String?                 @default("PENDIENTE") @db.VarChar(20)
+  ruta_imagen_factura    String?                 @db.VarChar(255)
+  observaciones          String?                 @db.Text
+  fecha_registro         DateTime?               @default(now()) @db.Timestamp(0)
+  nombre_proyecto        String?                 @db.VarChar(255)
+  centro_costo           String?                 @db.VarChar(10)
+  id_proyecto            Int?
+  id_centrocosto         Int?
+  proveedores            proveedores             @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "facturas_ibfk_1")
+  ordenes_compra         ordenes_compra?         @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_2")
+  centros_de_costos_2025 centros_de_costos_2025? @relation(fields: [id_centrocosto], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_3")
+  proyecto               proyecto?               @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_4")
+  vales_combustible      vales_combustible[]
+
+  @@index([id_orden_compra], map: "idx_factura_orden")
+  @@index([id_proveedor], map: "idx_factura_proveedor")
+  @@index([id_centrocosto], map: "facturas_ibfk_3_idx")
+  @@index([id_proyecto], map: "facturas_ibfk_4_idx")
+}
+
+model gensec_apps {
+  app_name           String               @id @db.VarChar(128)
+  app_type           String?              @db.VarChar(255)
+  description        String?              @db.VarChar(255)
+  gensec_groups_apps gensec_groups_apps[]
+}
+
+model gensec_groups {
+  group_id            Int                   @id @default(autoincrement())
+  description         String?               @db.VarChar(255)
+  gensec_groups_apps  gensec_groups_apps[]
+  gensec_users_groups gensec_users_groups[]
+}
+
+model gensec_groups_apps {
+  group_id      Int
+  app_name      String        @db.VarChar(128)
+  priv_access   String?       @db.VarChar(1)
+  priv_insert   String?       @db.VarChar(1)
+  priv_delete   String?       @db.VarChar(1)
+  priv_update   String?       @db.VarChar(1)
+  priv_export   String?       @db.VarChar(1)
+  priv_print    String?       @db.VarChar(1)
+  gensec_groups gensec_groups @relation(fields: [group_id], references: [group_id], onDelete: Cascade, onUpdate: NoAction, map: "gensec_groups_apps_ibfk_1")
+  gensec_apps   gensec_apps   @relation(fields: [app_name], references: [app_name], onDelete: Cascade, onUpdate: NoAction, map: "gensec_groups_apps_ibfk_2")
+
+  @@id([group_id, app_name])
+  @@index([app_name], map: "gensec_groups_apps_ibfk_2")
+}
+
+model gensec_settings {
+  set_name  String  @id @db.VarChar(255)
+  set_value String? @db.VarChar(255)
+}
+
+model gensec_users {
+  login               String                @id @db.VarChar(190)
+  pswd                String                @db.VarChar(255)
+  name                String?               @db.VarChar(255)
+  email               String?               @db.VarChar(255)
+  active              String?               @db.VarChar(1)
+  activation_code     String?               @db.VarChar(32)
+  priv_admin          String?               @db.VarChar(1)
+  mfa                 String?               @db.VarChar(255)
+  picture             Bytes?
+  role                String?               @db.VarChar(128)
+  phone               String?               @db.VarChar(64)
+  pswd_last_updated   DateTime?             @db.Timestamp(0)
+  mfa_last_updated    DateTime?             @db.Timestamp(0)
+  gensec_users_groups gensec_users_groups[]
+}
+
+model gensec_users_groups {
+  login         String        @db.VarChar(190)
+  group_id      Int
+  gensec_users  gensec_users  @relation(fields: [login], references: [login], onDelete: Cascade, onUpdate: NoAction, map: "gensec_users_groups_ibfk_1")
+  gensec_groups gensec_groups @relation(fields: [group_id], references: [group_id], onDelete: Cascade, onUpdate: NoAction, map: "gensec_users_groups_ibfk_2")
+
+  @@id([login, group_id])
+  @@index([group_id], map: "gensec_users_groups_ibfk_2")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model historico_2024_2025 {
+  OT                     String?   @db.VarChar(255)
+  Descripci_n            String?   @map("Descripción") @db.VarChar(255)
+  Estado                 String?   @db.VarChar(255)
+  Enti_Codi              String?   @map("Enti Codi") @db.VarChar(255)
+  Enti_Nrodoc            String?   @map("Enti Nrodoc") @db.VarChar(255)
+  Enti_Nomb              String?   @map("Enti Nomb") @db.VarChar(255)
+  Fecha                  DateTime? @db.Date
+  Mes                    String?   @db.VarChar(255)
+  Ejer_Anio              Int?      @map("Ejer Anio")
+  CecoCodi               String?   @db.VarChar(255)
+  Ceco_Nomb              String?   @map("Ceco Nomb") @db.VarChar(255)
+  Proy_Base_Venta        Float?    @map("Proy Base Venta")
+  Proy_Base_Compra       Float?    @map("Proy Base Compra")
+  Proy_Porc_Margen       Float?    @map("Proy Porc Margen")
+  Venta_Sum_Monto        Float?    @map("Venta Sum Monto")
+  Compra_Sum_Monto       Float?    @map("Compra Sum Monto")
+  Margen_Real_Monto      Float?    @map("Margen Real Monto")
+  Margen_Real_Porc       Float?    @map("Margen Real Porc")
+  Saldo_Venta            Float?    @map("Saldo Venta")
+  Saldo_Compra           Float?    @map("Saldo Compra")
+  Saldo_Presupuesto      Float?    @map("Saldo Presupuesto")
+  Saldo_Presupuesto_en__ Float?    @map("Saldo Presupuesto en %")
+  Margen_Real            Float?    @map("Margen Real")
+  Consumo_almac_n_S_     Float?    @map("Consumo almacén S/")
+  Costo_Mod_S_           Int?      @map("Costo Mod S/")
+  Costo_Mq_S_            Int?      @map("Costo Mq S/")
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model maquinarias {
+  id_maquinaria       Int                   @id @default(autoincrement())
+  codigo              String                @unique(map: "uk_codigo") @db.VarChar(20)
+  marca               String?               @db.VarChar(50)
+  modelo              String?               @db.VarChar(50)
+  a_o                 Int?                  @map("año") @db.Year
+  capacidad_tanque    Decimal?              @db.Decimal(10, 2)
+  id_tipo_combustible Int?
+  id_operador         Int?
+  activo              Boolean?              @default(true)
+  fecha_registro      DateTime?             @default(now()) @db.Timestamp(0)
+  autorizacion        String?               @db.VarChar(100)
+  tipos_combustible   tipos_combustible?    @relation(fields: [id_tipo_combustible], references: [id_tipo_combustible], map: "maquinarias_ibfk_1")
+  operadores          operadores?           @relation(fields: [id_operador], references: [id_operador], map: "maquinarias_ibfk_2")
+  reportes_operadores reportes_operadores[]
+  vales_combustible   vales_combustible[]
+
+  @@index([id_operador], map: "id_operador")
+  @@index([id_tipo_combustible], map: "idx_maquinaria_tipo")
+}
+
+model operadores {
+  id_operador     Int           @id @default(autoincrement())
+  codigo          String        @unique(map: "uk_codigo") @db.VarChar(20)
+  nombre_operador String        @db.VarChar(100)
+  dni             String        @unique(map: "uk_dni") @db.VarChar(20)
+  fecha_ingreso   DateTime      @db.Date
+  telefono        String?       @db.VarChar(20)
+  correo          String?       @db.VarChar(100)
+  activo          Boolean?      @default(true)
+  fecha_registro  DateTime?     @default(now()) @db.Timestamp(0)
+  maquinarias     maquinarias[]
+}
+
+model ordenes_compra {
+  id_orden_compra     Int               @id @default(autoincrement())
+  id_proveedor        Int
+  numero_orden        String            @unique(map: "uk_numero_orden") @db.VarChar(50)
+  fecha_orden         DateTime          @db.Date
+  id_tipo_combustible Int
+  cantidad_galones    Decimal           @db.Decimal(10, 2)
+  precio_galon        Decimal           @db.Decimal(10, 2)
+  total_orden         Decimal           @db.Decimal(12, 2)
+  estado              String?           @default("PENDIENTE") @db.VarChar(20)
+  observaciones       String?           @db.Text
+  fecha_registro      DateTime?         @default(now()) @db.Timestamp(0)
+  facturas            facturas[]
+  proveedores         proveedores       @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "ordenes_compra_ibfk_1")
+  tipos_combustible   tipos_combustible @relation(fields: [id_tipo_combustible], references: [id_tipo_combustible], onUpdate: Restrict, map: "ordenes_compra_ibfk_2")
+
+  @@index([id_proveedor], map: "id_proveedor")
+  @@index([id_tipo_combustible], map: "id_tipo_combustible")
+  @@index([fecha_orden], map: "idx_orden_fecha")
+}
+
+model proveedores {
+  id_proveedor     Int              @id @default(autoincrement())
+  codigo           String           @unique(map: "uk_codigo") @db.VarChar(20)
+  razon_social     String           @db.VarChar(255)
+  numero_documento String           @unique(map: "uk_numero_documento") @db.VarChar(20)
+  tipo_proveedor   String?          @db.VarChar(50)
+  direccion        String?          @db.VarChar(255)
+  telefono         String?          @db.VarChar(20)
+  correo           String?          @db.VarChar(100)
+  activo           Boolean?         @default(true)
+  fecha_registro   DateTime?        @default(now()) @db.Timestamp(0)
+  facturas         facturas[]
+  ordenes_compra   ordenes_compra[]
+}
+
+model proveedores2025 {
+  C_digo       String  @map("Código") @db.VarChar(255)
+  Raz_n_social String? @map("Razón social") @db.VarChar(255)
+  N__documento String? @map("N° documento") @db.VarChar(255)
+  Tipo         String? @db.VarChar(255)
+  Direcci_n    String? @map("Dirección") @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+}
+
+model registro_produccion_2025 {
+  id                  Int       @id @default(autoincrement())
+  nro_documento       String?   @db.VarChar(255)
+  fecha_trabajo       DateTime? @db.Date
+  nombre_proyecto     String?   @db.VarChar(255)
+  nombre_sector       String?   @db.VarChar(255)
+  nombre_frente       String?   @db.VarChar(255)
+  nombre_partida      String?   @db.VarChar(255)
+  recurso             String?   @db.VarChar(255)
+  placa_serie         String?   @db.VarChar(255)
+  unidad              String?   @db.VarChar(255)
+  cantidad            Decimal?  @db.Decimal(10, 2)
+  tipo_contractual    String?   @db.VarChar(255)
+  codigo_valorizacion String?   @db.VarChar(255)
+  f14                 String?   @db.VarChar(255)
+  f15                 String?   @db.VarChar(255)
+  f16                 String?   @db.VarChar(255)
+}
+
+model sec_apps {
+  app_name       String           @id @db.VarChar(128)
+  app_type       String?          @db.VarChar(255)
+  description    String?          @db.VarChar(255)
+  sec_users_apps sec_users_apps[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sec_logged {
+  login      String  @db.VarChar(190)
+  date_login String? @db.VarChar(128)
+  sc_session String? @db.VarChar(128)
+  ip         String? @db.VarChar(255)
+
+  @@ignore
+}
+
+model sec_settings {
+  set_name  String  @id @db.VarChar(255)
+  set_value String? @db.VarChar(255)
+}
+
+model sec_users {
+  login             String           @id @db.VarChar(190)
+  pswd              String           @db.VarChar(255)
+  name              String?          @db.VarChar(255)
+  email             String?          @db.VarChar(255)
+  active            String?          @db.VarChar(1)
+  activation_code   String?          @db.VarChar(32)
+  priv_admin        String?          @db.VarChar(1)
+  mfa               String?          @db.VarChar(255)
+  picture           Bytes?
+  role              String?          @db.VarChar(128)
+  phone             String?          @db.VarChar(64)
+  pswd_last_updated DateTime?        @db.Timestamp(0)
+  mfa_last_updated  DateTime?        @db.Timestamp(0)
+  sec_users_apps    sec_users_apps[]
+}
+
+model sec_users_apps {
+  login       String    @db.VarChar(190)
+  app_name    String    @db.VarChar(128)
+  priv_access String?   @db.VarChar(1)
+  priv_insert String?   @db.VarChar(1)
+  priv_delete String?   @db.VarChar(1)
+  priv_update String?   @db.VarChar(1)
+  priv_export String?   @db.VarChar(1)
+  priv_print  String?   @db.VarChar(1)
+  sec_users   sec_users @relation(fields: [login], references: [login], onDelete: Cascade, onUpdate: NoAction, map: "sec_users_apps_ibfk_1")
+  sec_apps    sec_apps  @relation(fields: [app_name], references: [app_name], onDelete: Cascade, onUpdate: NoAction, map: "sec_users_apps_ibfk_2")
+
+  @@id([login, app_name])
+  @@index([app_name], map: "sec_users_apps_ibfk_2")
+}
+
+model tipo_vale {
+  id                Int                 @id @default(autoincrement())
+  tipo_vale         String              @db.VarChar(45)
+  vales_combustible vales_combustible[]
+}
+
+model tipos_combustible {
+  id_tipo_combustible Int                 @id @default(autoincrement())
+  nombre_combustible  String              @unique(map: "uk_nombre") @db.VarChar(50)
+  descripcion         String?             @db.VarChar(100)
+  precio_actual       Decimal             @db.Decimal(10, 2)
+  activo              Boolean?            @default(true)
+  fecha_registro      DateTime?           @default(now()) @db.Timestamp(0)
+  camiones            camiones[]
+  maquinarias         maquinarias[]
+  ordenes_compra      ordenes_compra[]
+  vales_combustible   vales_combustible[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model vales_combustible {
+  id_vale              Int               @id @default(autoincrement())
+  id_factura           Int
+  id_camion            Int?
+  id_chofer            Int?
+  id_maquinaria        Int?
+  id_tipo_combustible  Int
+  numero_vale          String            @unique(map: "uk_numero_vale") @db.VarChar(50)
+  fecha_abastecimiento DateTime          @db.Date
+  hora_abastecimiento  DateTime          @db.Time(0)
+  kilometraje_actual   Decimal?          @db.Decimal(10, 2)
+  horas_trabajadas     Decimal?          @db.Decimal(10, 2)
+  cantidad_galones     Decimal           @db.Decimal(10, 2)
+  precio_galon         Decimal           @db.Decimal(10, 2)
+  total_vale           Decimal           @db.Decimal(12, 2)
+  observaciones        String?           @db.Text
+  fecha_registro       DateTime?         @default(now()) @db.Timestamp(0)
+  imagen_vale          String?           @db.VarChar(255)
+  id_tipo_vale         Int?
+  facturas             facturas          @relation(fields: [id_factura], references: [id_factura], onUpdate: Restrict, map: "vales_combustible_ibfk_1")
+  camiones             camiones?         @relation(fields: [id_camion], references: [id_camion], onDelete: Cascade, map: "vales_combustible_ibfk_2")
+  choferes             choferes?         @relation(fields: [id_chofer], references: [id_chofer], map: "vales_combustible_ibfk_3")
+  maquinarias          maquinarias?      @relation(fields: [id_maquinaria], references: [id_maquinaria], onDelete: Cascade, map: "vales_combustible_ibfk_4")
+  tipos_combustible    tipos_combustible @relation(fields: [id_tipo_combustible], references: [id_tipo_combustible], onUpdate: Restrict, map: "vales_combustible_ibfk_5")
+  tipo_vale            tipo_vale?        @relation(fields: [id_tipo_vale], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "vales_combustible_ibfk_6")
+
+  @@index([id_factura], map: "id_factura")
+  @@index([id_tipo_combustible], map: "id_tipo_combustible")
+  @@index([id_camion], map: "idx_vale_camion")
+  @@index([id_chofer], map: "idx_vale_chofer")
+  @@index([fecha_abastecimiento], map: "idx_vale_fecha")
+  @@index([id_maquinaria], map: "idx_vale_maquinaria")
+  @@index([id_tipo_vale], map: "vales_combustible_ibfk_6_idx")
+}
+
+model frente {
+  id_frente   Int       @id @default(autoincrement())
+  id_sector   Int
+  nombre      String    @db.VarChar(100)
+  descripcion String?   @db.Text
+  responsable String?   @db.VarChar(100)
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  updated_at  DateTime? @default(now()) @db.Timestamp(0)
+  activo      Boolean?  @default(true)
+  orden       Int?      @default(1)
+  sector      sector    @relation(fields: [id_sector], references: [id_sector], onDelete: Cascade, onUpdate: Restrict, map: "frente_ibfk_1")
+  partida     partida[]
+
+  @@index([id_sector], map: "id_sector")
+  @@index([activo], map: "idx_frente_activo")
+}
+
+model partida {
+  id_partida      Int       @id @default(autoincrement())
+  id_frente       Int
+  codigo          String    @db.VarChar(50)
+  descripcion     String    @db.Text
+  unidad_medida   String?   @db.VarChar(20)
+  cantidad        Decimal   @db.Decimal(10, 2)
+  precio_unitario Decimal?  @default(0.00) @db.Decimal(12, 2)
+  total           Decimal?  @db.Decimal(12, 2)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @default(now()) @db.Timestamp(0)
+  activo          Boolean?  @default(true)
+  orden           Int?      @default(1)
+  frente          frente    @relation(fields: [id_frente], references: [id_frente], onDelete: Cascade, onUpdate: Restrict, map: "partida_ibfk_1")
+
+  @@index([id_frente], map: "id_frente")
+  @@index([activo], map: "idx_partida_activo")
+}
+
+model proyecto {
+  id_proyecto           Int                     @id @default(autoincrement())
+  nombre                String                  @db.VarChar(100)
+  descripcion           String?                 @db.Text
+  fecha_inicio          DateTime?               @db.Date
+  fecha_fin             DateTime?               @db.Date
+  estado                proyecto_estado?        @default(activo)
+  created_at            DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at            DateTime?               @default(now()) @db.Timestamp(0)
+  cliente               String                  @db.VarChar(200)
+  ubicacion             String                  @db.VarChar(255)
+  asignaciones_personal asignaciones_personal[]
+  etapas                etapas[]
+  facturas              facturas[]
+  reportes_operadores   reportes_operadores[]
+  reportes_plantilleros reportes_plantilleros[]
+  subproyectos          subproyectos[]
+  viajes_eliminacion    viajes_eliminacion[]
+}
+
+model sector {
+  id_sector   Int       @id @default(autoincrement())
+  nombre      String    @db.VarChar(100)
+  descripcion String?   @db.Text
+  ubicacion   String?   @db.VarChar(255)
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  updated_at  DateTime? @default(now()) @db.Timestamp(0)
+  activo      Boolean?  @default(true)
+  id_etapa    Int
+  orden       Int?      @default(1)
+  frente      frente[]
+  etapa       etapas    @relation(fields: [id_etapa], references: [id_etapa], onDelete: Cascade, onUpdate: Restrict, map: "sector_ibfk_1")
+
+  @@index([id_etapa], map: "idx_sector_etapa")
+  @@index([activo], map: "idx_sector_activo")
+}
+
+model reportes_operadores {
+  id_reporte         Int                  @id @default(autoincrement())
+  codigo_reporte     String               @unique(map: "uk_codigo_reporte_op") @db.VarChar(50)
+  id_proyecto        Int?
+  fecha              DateTime             @db.Date
+  activo             Boolean?             @default(true)
+  created_at         DateTime?            @default(now()) @db.Timestamp(0)
+  updated_at         DateTime?            @default(now()) @db.Timestamp(0)
+  id_operador        Int?
+  horario1           String?              @db.VarChar(8)
+  horario2           String?              @db.VarChar(8)
+  horario3           String?              @db.VarChar(8)
+  horometro_final    Decimal?             @db.Decimal(10, 2)
+  horometro_inicial  Decimal?             @db.Decimal(10, 2)
+  id_equipo          Int?
+  id_etapa           Int?
+  id_vigia1          Int?
+  id_vigia2          Int?
+  id_vigia3          Int?
+  id_maquinaria      Int?
+  detalle_produccion detalle_produccion[]
+  proyecto           proyecto?            @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_1")
+  maquinaria         maquinarias?         @relation(fields: [id_maquinaria], references: [id_maquinaria], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_10")
+  operador           personal?            @relation("PersonalOperador", fields: [id_operador], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_2")
+  vigia1             personal?            @relation("PersonalVigia1", fields: [id_vigia1], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_3")
+  vigia2             personal?            @relation("PersonalVigia2", fields: [id_vigia2], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_3b")
+  vigia3             personal?            @relation("PersonalVigia3", fields: [id_vigia3], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_3c")
+  etapa              etapas?              @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_8")
+  equipo             equipos?             @relation(fields: [id_equipo], references: [id_equipo], onDelete: Restrict, onUpdate: Restrict, map: "reportes_operadores_ibfk_9")
+
+  @@index([id_proyecto], map: "idx_reporte_operador_proyecto")
+  @@index([fecha], map: "idx_reporte_operador_fecha")
+  @@index([id_operador], map: "idx_reporte_operador")
+  @@index([id_vigia1], map: "idx_reporte_vigia1")
+  @@index([id_vigia2], map: "idx_reporte_vigia2")
+  @@index([id_vigia3], map: "idx_reporte_vigia3")
+  @@index([id_etapa], map: "idx_reporte_etapa")
+  @@index([id_equipo], map: "idx_reporte_equipo")
+  @@index([id_maquinaria], map: "idx_reporte_maquinaria")
+}
+
+model reportes_plantilleros {
+  id_reporte     Int       @id @default(autoincrement())
+  codigo_reporte String    @unique(map: "uk_codigo_reporte_pl") @db.VarChar(50)
+  id_proyecto    Int?
+  fecha          DateTime  @db.Date
+  comentarios    String?   @db.Text
+  activo         Boolean?  @default(true)
+  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  cargo          String?   @db.VarChar(100)
+  hora_fin       String?   @db.VarChar(8)
+  hora_inicio    String?   @db.VarChar(8)
+  material       String?   @db.VarChar(100)
+  partida        String?   @db.VarChar(50)
+  sector         String?   @db.VarChar(100)
+  id_etapa       Int?
+  id_frente      Int?
+  id_maquinaria  Int?
+  id_personal    Int?
+  proyecto       proyecto? @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "reportes_plantilleros_ibfk_1")
+
+  @@index([id_proyecto], map: "idx_reporte_plantillero_proyecto")
+  @@index([fecha], map: "idx_reporte_plantillero_fecha")
+}
+
+model viajes_eliminacion {
+  id_viaje          Int              @id @default(autoincrement())
+  codigo_reporte    String           @unique(map: "uk_codigo_viaje") @db.VarChar(50)
+  id_proyecto       Int?
+  fecha             DateTime         @db.Date
+  maquinaria_pesada String?          @db.VarChar(100)
+  comentarios       String?          @db.Text
+  activo            Boolean?         @default(true)
+  created_at        DateTime?        @default(now()) @db.Timestamp(0)
+  updated_at        DateTime?        @default(now()) @db.Timestamp(0)
+  id_capataz        Int?
+  id_controlador    Int?
+  id_mantero        Int?
+  id_operador       Int?
+  id_responsable    Int?
+  id_supervisor     Int?
+  id_vigia          Int?
+  detalle_viajes    detalle_viajes[]
+  proyecto          proyecto?        @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_1")
+  responsable       personal?        @relation("PersonalResponsableViajes", fields: [id_responsable], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_2")
+  operador          personal?        @relation("PersonalOperadorViajes", fields: [id_operador], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_3")
+  vigia             personal?        @relation("PersonalVigiaViajes", fields: [id_vigia], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_4")
+  mantero           personal?        @relation("PersonalManteroViajes", fields: [id_mantero], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_5")
+  controlador       personal?        @relation("PersonalControladorViajes", fields: [id_controlador], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_6")
+  capataz           personal?        @relation("PersonalCapatazViajes", fields: [id_capataz], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_7")
+  supervisor        personal?        @relation("PersonalSupervisorViajes", fields: [id_supervisor], references: [id_personal], onDelete: Restrict, onUpdate: Restrict, map: "viajes_eliminacion_ibfk_8")
+
+  @@index([id_proyecto], map: "idx_viaje_proyecto")
+  @@index([fecha], map: "idx_viaje_fecha")
+  @@index([id_responsable], map: "idx_viaje_responsable")
+  @@index([id_operador], map: "idx_viaje_operador")
+  @@index([id_vigia], map: "idx_viaje_vigia")
+  @@index([id_mantero], map: "idx_viaje_mantero")
+  @@index([id_controlador], map: "idx_viaje_controlador")
+  @@index([id_capataz], map: "idx_viaje_capataz")
+  @@index([id_supervisor], map: "idx_viaje_supervisor")
+}
+
+model detalle_produccion {
+  id_detalle          Int                 @id @default(autoincrement())
+  id_reporte          Int
+  item                Int
+  frente              String?             @db.VarChar(100)
+  horas_trabajadas    Decimal?            @db.Decimal(8, 2)
+  created_at          DateTime?           @default(now()) @db.Timestamp(0)
+  descripcion         String?             @db.VarChar(200)
+  m3                  Decimal?            @db.Decimal(10, 2)
+  material            String?             @db.VarChar(100)
+  sector              String?             @db.VarChar(100)
+  viajes              Int?
+  reportes_operadores reportes_operadores @relation(fields: [id_reporte], references: [id_reporte], onDelete: Cascade, onUpdate: Restrict, map: "detalle_produccion_ibfk_1")
+
+  @@index([id_reporte], map: "idx_detalle_produccion_reporte")
+}
+
+model detalle_viajes {
+  id_detalle         Int                @id @default(autoincrement())
+  id_viaje           Int
+  item               Int
+  conductor          String?            @db.VarChar(100)
+  placa              String?            @db.VarChar(20)
+  viajes             Int?               @default(0)
+  m3_tolva           Decimal?           @db.Decimal(10, 2)
+  created_at         DateTime?          @default(now()) @db.Timestamp(0)
+  detalle_horarios   detalle_horarios[]
+  viajes_eliminacion viajes_eliminacion @relation(fields: [id_viaje], references: [id_viaje], onDelete: Cascade, onUpdate: Restrict, map: "detalle_viajes_ibfk_1")
+
+  @@index([id_viaje], map: "idx_detalle_viaje")
+}
+
+model detalle_horarios {
+  id_horario       Int            @id @default(autoincrement())
+  id_detalle_viaje Int
+  numero_entrada   Int
+  hora_inicio      String?        @db.VarChar(8)
+  hora_salida      String?        @db.VarChar(8)
+  created_at       DateTime?      @default(now()) @db.Timestamp(0)
+  detalle_viajes   detalle_viajes @relation(fields: [id_detalle_viaje], references: [id_detalle], onDelete: Cascade, onUpdate: Restrict, map: "detalle_horarios_ibfk_1")
+
+  @@index([id_detalle_viaje], map: "idx_detalle_horario")
+}
+
+model personal {
+  id_personal                    Int                     @id @default(autoincrement())
+  nombres                        String                  @db.VarChar(100)
+  apellidos                      String                  @db.VarChar(100)
+  dni                            String                  @unique(map: "uk_dni_personal") @db.VarChar(20)
+  telefono                       String?                 @db.VarChar(20)
+  correo                         String?                 @db.VarChar(100)
+  fecha_ingreso                  DateTime                @db.Date
+  activo                         Boolean?                @default(true)
+  observaciones                  String?                 @db.Text
+  created_at                     DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at                     DateTime?               @default(now()) @db.Timestamp(0)
+  asignaciones_proyecto          asignaciones_personal[]
+  reportes_operadores_operador   reportes_operadores[]   @relation("PersonalOperador")
+  reportes_operadores_vigia1     reportes_operadores[]   @relation("PersonalVigia1")
+  reportes_operadores_vigia2     reportes_operadores[]   @relation("PersonalVigia2")
+  reportes_operadores_vigia3     reportes_operadores[]   @relation("PersonalVigia3")
+  viajes_eliminacion_responsable viajes_eliminacion[]    @relation("PersonalResponsableViajes")
+  viajes_eliminacion_operador    viajes_eliminacion[]    @relation("PersonalOperadorViajes")
+  viajes_eliminacion_vigia       viajes_eliminacion[]    @relation("PersonalVigiaViajes")
+  viajes_eliminacion_mantero     viajes_eliminacion[]    @relation("PersonalManteroViajes")
+  viajes_eliminacion_controlador viajes_eliminacion[]    @relation("PersonalControladorViajes")
+  viajes_eliminacion_capataz     viajes_eliminacion[]    @relation("PersonalCapatazViajes")
+  viajes_eliminacion_supervisor  viajes_eliminacion[]    @relation("PersonalSupervisorViajes")
+
+  @@index([activo], map: "idx_personal_activo")
+  @@index([dni], map: "idx_personal_dni")
+}
+
+model asignaciones_personal {
+  id_asignacion    Int       @id @default(autoincrement())
+  id_personal      Int
+  id_proyecto      Int
+  fecha_asignacion DateTime  @db.Date
+  fecha_fin        DateTime? @db.Date
+  activo           Boolean?  @default(true)
+  observaciones    String?   @db.Text
+  created_at       DateTime? @default(now()) @db.Timestamp(0)
+  updated_at       DateTime? @default(now()) @db.Timestamp(0)
+  personal         personal  @relation(fields: [id_personal], references: [id_personal], onDelete: Cascade, onUpdate: Restrict, map: "asignaciones_personal_ibfk_1")
+  proyecto         proyecto  @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade, onUpdate: Restrict, map: "asignaciones_personal_ibfk_2")
+
+  @@unique([id_personal, id_proyecto, fecha_asignacion], map: "uk_asignacion_unica")
+  @@index([id_personal], map: "idx_asignacion_personal")
+  @@index([id_proyecto], map: "idx_asignacion_proyecto")
+}
+
+model cisterna {
+  id_cisterna          Int       @id @default(autoincrement())
+  capacidad_total      Decimal   @db.Decimal(10, 2)
+  nivel_actual         Decimal?  @default(0.00) @db.Decimal(10, 2)
+  unidad_medida        String?   @default("litros") @db.VarChar(10)
+  ubicacion            String?   @db.VarChar(100)
+  ultima_actualizacion DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model equipo {
+  id_equipo               Int                       @id @default(autoincrement())
+  placa                   String                    @unique(map: "placa") @db.VarChar(20)
+  marca                   String?                   @db.VarChar(50)
+  modelo                  String?                   @db.VarChar(50)
+  anio                    Int?                      @db.Year
+  capacidad_tanque        Decimal?                  @db.Decimal(10, 2)
+  id_tipo                 Int
+  estado                  equipo_estado?            @default(activo)
+  tipo_equipo             tipo_equipo               @relation(fields: [id_tipo], references: [id_tipo], map: "equipo_ibfk_1")
+  vale_combustible        vale_combustible[]
+  vale_combustible_camion vale_combustible_camion[]
+
+  @@index([id_tipo], map: "id_tipo")
+}
+
+model factura_general {
+  id_factura        Int                @id @default(autoincrement())
+  numero_factura    String             @unique(map: "numero_factura") @db.VarChar(50)
+  fecha_emision     DateTime           @db.Date
+  id_orden          Int
+  id_proveedor      Int
+  subtotal          Decimal?           @default(0.00) @db.Decimal(12, 2)
+  igv               Decimal?           @default(0.00) @db.Decimal(12, 2)
+  total             Decimal            @db.Decimal(12, 2)
+  estado            String?            @default("emitida") @db.VarChar(50)
+  fecha_vencimiento DateTime?          @db.Date
+  guia_remision     String?            @db.VarChar(50)
+  forma_pago        String?            @db.VarChar(50)
+  cantidad_galones  Decimal?           @db.Decimal(12, 2)
+  descripcion       String?            @db.VarChar(255)
+  unidad            String?            @db.VarChar(50)
+  proyecto          String?            @db.VarChar(255)
+  venta_cant_galon  Decimal?           @db.Decimal(12, 2)
+  valor_venta_galon Decimal?           @db.Decimal(12, 2)
+  saldo_galones     Decimal?           @db.Decimal(12, 2)
+  captura_fact      String?            @db.VarChar(255)
+  orden_compra      orden_compra       @relation(fields: [id_orden], references: [id_orden], map: "factura_general_ibfk_1")
+  proveedor         proveedor          @relation(fields: [id_proveedor], references: [id_proveedor], map: "factura_general_ibfk_2")
+  vale_combustible  vale_combustible[]
+
+  @@index([id_orden], map: "id_orden")
+  @@index([id_proveedor], map: "id_proveedor")
+}
+
+model factura_general_camion {
+  id_factura              Int                       @id @default(autoincrement())
+  numero_factura          String                    @unique(map: "numero_factura") @db.VarChar(50)
+  fecha_emision           DateTime                  @db.Date
+  id_orden                Int
+  id_proveedor            Int
+  subtotal                Decimal?                  @default(0.00) @db.Decimal(12, 2)
+  igv                     Decimal?                  @default(0.00) @db.Decimal(12, 2)
+  total                   Decimal                   @db.Decimal(12, 2)
+  estado                  String?                   @default("emitida") @db.VarChar(50)
+  fecha_vencimiento       DateTime?                 @db.Date
+  guia_remision           String?                   @db.VarChar(50)
+  forma_pago              String?                   @db.VarChar(50)
+  cantidad_galones        Decimal?                  @db.Decimal(12, 2)
+  descripcion             String?                   @db.VarChar(255)
+  unidad                  String?                   @db.VarChar(50)
+  proyecto                String?                   @db.VarChar(255)
+  venta_cant_galon        Decimal?                  @db.Decimal(12, 2)
+  valor_venta_galon       Decimal?                  @db.Decimal(12, 2)
+  saldo_galones           Decimal?                  @db.Decimal(12, 2)
+  captura_fact            String?                   @db.VarChar(255)
+  orden_compra            orden_compra              @relation(fields: [id_orden], references: [id_orden], map: "factura_general_camion_ibfk_1")
+  proveedor               proveedor                 @relation(fields: [id_proveedor], references: [id_proveedor], map: "factura_general_camion_ibfk_2")
+  vale_combustible_camion vale_combustible_camion[]
+
+  @@index([id_orden], map: "id_orden")
+  @@index([id_proveedor], map: "id_proveedor")
+}
+
+model orden_compra {
+  id_orden               Int                      @id @default(autoincrement())
+  numero_orden           String                   @unique(map: "numero_orden") @db.VarChar(50)
+  fecha_emision          DateTime                 @db.Date
+  id_proveedor           Int
+  monto_total            Decimal?                 @default(0.00) @db.Decimal(12, 2)
+  estado                 orden_compra_estado?     @default(pendiente)
+  factura_general        factura_general[]
+  factura_general_camion factura_general_camion[]
+  proveedor              proveedor                @relation(fields: [id_proveedor], references: [id_proveedor], map: "orden_compra_ibfk_1")
+
+  @@index([id_proveedor], map: "id_proveedor")
+}
+
+model proveedor {
+  id_proveedor           Int                      @id @default(autoincrement())
+  nombre                 String                   @db.VarChar(100)
+  nit                    String?                  @unique(map: "nit") @db.VarChar(20)
+  direccion              String?                  @db.VarChar(150)
+  telefono               String?                  @db.VarChar(15)
+  email                  String?                  @db.VarChar(100)
+  factura_general        factura_general[]
+  factura_general_camion factura_general_camion[]
+  orden_compra           orden_compra[]
+
+  @@index([nit], map: "idx_nit")
+}
+
+model tipo_abastecimiento {
+  id_tipo_abastecimiento  Int                       @id @default(autoincrement())
+  nombre                  String                    @unique(map: "nombre") @db.VarChar(30)
+  descripcion             String?                   @db.Text
+  vale_combustible        vale_combustible[]
+  vale_combustible_camion vale_combustible_camion[]
+}
+
+model tipo_equipo {
+  id_tipo     Int      @id @default(autoincrement())
+  nombre      String   @unique(map: "nombre") @db.VarChar(50)
+  descripcion String?  @db.Text
+  equipo      equipo[]
+}
+
+model vale_combustible {
+  id_vale                Int                 @id @default(autoincrement())
+  codigo_vale            String              @unique(map: "codigo_vale") @db.VarChar(50)
+  fecha                  DateTime            @db.Date
+  hora                   DateTime?           @db.Time(0)
+  id_equipo              Int
+  litros                 Decimal             @db.Decimal(10, 2)
+  id_tipo_abastecimiento Int
+  id_factura             Int
+  observaciones          String?             @db.Text
+  creado_por             String?             @db.VarChar(100)
+  fecha_creacion         DateTime?           @default(now()) @db.Timestamp(0)
+  horometro              Decimal?            @db.Decimal(10, 2)
+  equipo                 equipo              @relation(fields: [id_equipo], references: [id_equipo], map: "vale_combustible_ibfk_1")
+  tipo_abastecimiento    tipo_abastecimiento @relation(fields: [id_tipo_abastecimiento], references: [id_tipo_abastecimiento], map: "vale_combustible_ibfk_2")
+  factura_general        factura_general     @relation(fields: [id_factura], references: [id_factura], map: "vale_combustible_ibfk_3")
+
+  @@index([id_equipo], map: "id_equipo")
+  @@index([id_factura], map: "id_factura")
+  @@index([id_tipo_abastecimiento], map: "id_tipo_abastecimiento")
+  @@index([fecha], map: "idx_fecha")
+}
+
+model vale_combustible_camion {
+  id_vale                Int                    @id @default(autoincrement())
+  codigo_vale            String                 @unique(map: "codigo_vale") @db.VarChar(50)
+  fecha                  DateTime               @db.Date
+  hora                   DateTime?              @db.Time(0)
+  id_equipo              Int
+  galones                Decimal                @db.Decimal(10, 2)
+  id_tipo_abastecimiento Int
+  id_factura             Int
+  observaciones          String?                @db.Text
+  creado_por             String?                @db.VarChar(100)
+  fecha_creacion         DateTime?              @default(now()) @db.Timestamp(0)
+  odometro               Decimal?               @db.Decimal(10, 2)
+  equipo                 equipo                 @relation(fields: [id_equipo], references: [id_equipo], map: "vale_combustible_camion_ibfk_1")
+  tipo_abastecimiento    tipo_abastecimiento    @relation(fields: [id_tipo_abastecimiento], references: [id_tipo_abastecimiento], map: "vale_combustible_camion_ibfk_2")
+  factura_general_camion factura_general_camion @relation(fields: [id_factura], references: [id_factura], map: "vale_combustible_camion_ibfk_3")
+
+  @@index([id_equipo], map: "id_equipo")
+  @@index([id_factura], map: "id_factura")
+  @@index([id_tipo_abastecimiento], map: "id_tipo_abastecimiento")
+  @@index([fecha], map: "idx_fecha")
+}
+
+model equipos {
+  id_equipo           Int                   @id @default(autoincrement())
+  tipo_equipo         tipo_equipo_enum
+  marca               String                @db.VarChar(100)
+  modelo              String                @db.VarChar(100)
+  descripcion         String?               @db.Text
+  unidad              String                @db.VarChar(50)
+  precio_referencial  Decimal               @db.Decimal(10, 2)
+  activo              Boolean?              @default(true)
+  created_at          DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at          DateTime?             @updatedAt @db.Timestamp(0)
+  reportes_operadores reportes_operadores[]
+
+  @@index([tipo_equipo], map: "idx_equipo_tipo")
+  @@index([activo], map: "idx_equipo_activo")
+}
+
+model estado {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model etapas {
+  id_etapa            Int                   @id @default(autoincrement())
+  id_proyecto         Int
+  nombre              String                @db.VarChar(100)
+  descripcion         String?               @db.Text
+  orden               Int?                  @default(1)
+  activo              Boolean?              @default(true)
+  created_at          DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at          DateTime?             @default(now()) @db.Timestamp(0)
+  proyecto            proyecto              @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade)
+  reportes_operadores reportes_operadores[]
+  sector              sector[]
+
+  @@index([id_proyecto], map: "idx_etapa_proyecto")
+  @@index([activo], map: "idx_etapa_activo")
+}
+
+model subproyectos {
+  id_subproyecto Int          @id @default(autoincrement())
+  id_proyecto    Int
+  nombre         String       @db.VarChar(100)
+  descripcion    String?      @db.Text
+  orden          Int?         @default(1)
+  activo         Boolean?     @default(true)
+  created_at     DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at     DateTime?    @default(now()) @db.Timestamp(0)
+  sub_etapas     sub_etapas[]
+  proyecto       proyecto     @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade)
+
+  @@index([id_proyecto], map: "idx_subproyecto_proyecto")
+  @@index([activo], map: "idx_subproyecto_activo")
+}
+
+model sub_etapas {
+  id_sub_etapa   Int          @id @default(autoincrement())
+  id_subproyecto Int
+  nombre         String       @db.VarChar(100)
+  descripcion    String?      @db.Text
+  orden          Int?         @default(1)
+  activo         Boolean?     @default(true)
+  created_at     DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at     DateTime?    @default(now()) @db.Timestamp(0)
+  subproyecto    subproyectos @relation(fields: [id_subproyecto], references: [id_subproyecto], onDelete: Cascade)
+  subsector      subsector[]
+
+  @@index([id_subproyecto], map: "idx_sub_etapa_subproyecto")
+  @@index([activo], map: "idx_sub_etapa_activo")
+}
+
+model subsector {
+  id_subsector Int         @id @default(autoincrement())
+  id_sub_etapa Int
+  nombre       String      @db.VarChar(100)
+  descripcion  String?     @db.Text
+  ubicacion    String?     @db.VarChar(255)
+  orden        Int?        @default(1)
+  activo       Boolean?    @default(true)
+  created_at   DateTime?   @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?   @default(now()) @db.Timestamp(0)
+  subfrente    subfrente[]
+  sub_etapa    sub_etapas  @relation(fields: [id_sub_etapa], references: [id_sub_etapa], onDelete: Cascade)
+
+  @@index([id_sub_etapa], map: "idx_subsector_sub_etapa")
+  @@index([activo], map: "idx_subsector_activo")
+}
+
+model subfrente {
+  id_subfrente Int          @id @default(autoincrement())
+  id_subsector Int
+  nombre       String       @db.VarChar(100)
+  descripcion  String?      @db.Text
+  responsable  String?      @db.VarChar(100)
+  orden        Int?         @default(1)
+  activo       Boolean?     @default(true)
+  created_at   DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?    @default(now()) @db.Timestamp(0)
+  subsector    subsector    @relation(fields: [id_subsector], references: [id_subsector], onDelete: Cascade)
+  subpartida   subpartida[]
+
+  @@index([id_subsector], map: "idx_subfrente_subsector")
+  @@index([activo], map: "idx_subfrente_activo")
+}
+
+model subpartida {
+  id_subpartida   Int       @id @default(autoincrement())
+  id_subfrente    Int
+  codigo          String    @db.VarChar(50)
+  descripcion     String    @db.Text
+  unidad_medida   String?   @db.VarChar(20)
+  cantidad        Decimal   @db.Decimal(10, 2)
+  precio_unitario Decimal?  @default(0.00) @db.Decimal(12, 2)
+  total           Decimal?  @db.Decimal(12, 2)
+  orden           Int?      @default(1)
+  activo          Boolean?  @default(true)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @default(now()) @db.Timestamp(0)
+  subfrente       subfrente @relation(fields: [id_subfrente], references: [id_subfrente], onDelete: Cascade)
+
+  @@index([id_subfrente], map: "idx_subpartida_subfrente")
+  @@index([activo], map: "idx_subpartida_activo")
+}
+
+model condicion_pago {
+  id        Int     @id @default(autoincrement())
+  condicion String? @db.VarChar(255)
+}
+
+model ruteo {
+  id          Int       @id @default(autoincrement())
+  fecha       DateTime? @db.Date
+  mes         String?   @db.VarChar(255)
+  num_sem     Int?
+  placa       String?   @db.VarChar(255)
+  m3          Int?
+  conductor   String?   @db.VarChar(255)
+  proveedor   String?   @db.VarChar(255)
+  proyecto    String?   @db.VarChar(255)
+  tipo        String?   @db.VarChar(255)
+  detalle     String?   @db.VarChar(255)
+  cant_v      Int?
+  horometro   Float?    @db.Float
+  galones     Float?    @db.Float
+  hora_inicio DateTime? @db.Time(0)
+  hora_fin    DateTime? @db.Time(0)
+}
+
+enum proyecto_estado {
+  activo
+  inactivo
+  finalizado
+}
+
+enum orden_compra_estado {
+  pendiente
+  completada
+  cancelada
+}
+
+enum equipo_estado {
+  activo
+  inactivo
+  mantenimiento
+}
+
+enum tipo_equipo_enum {
+  EXCAVADORA
+  CARGADOR
+  MINICARGADOR
+  MOTONIVELADORA
+  PAVIMENTADORA
+  RODILLO
+  VIBROAPRISIONADOR
+  FLETE_TRANSPORTE
+  COMPRESOR
+  GRUA
+  PLATAFORMA_ELEVADORA
+  SERVICIO_PERSONAL
+  SERVICIO_ESPECIALIZADO
+  HERRAMIENTA_MANUAL
+  EQUIPO_TOPOGRAFIA
+}
