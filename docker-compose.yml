@@ -7,7 +7,9 @@ services:
       - '3001:3001'
     environment:
       DATABASE_URL: mysql://root:XXXperu2020XXX.@ayala_back:3306/ayala2025
-      NODE_ENV: production # Opcional pero recomendado
+      NODE_ENV: ${NODE_ENV:-production}
+      FRONTEND_URL: ${FRONTEND_URL}
+      PORT: ${PORT:-3001}
     networks:
       - shared_network
     privileged: true
