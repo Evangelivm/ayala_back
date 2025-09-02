@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    environment:
+      DATABASE_URL: mysql://root:XXXperu2020XXX.@161.132.54.103:3306/ayala2025
+      NODE_ENV: production # Opcional pero recomendado
+    networks:
+      - shared_network
+    privileged: true
+
+networks:
+  shared_network:
+    external: true
