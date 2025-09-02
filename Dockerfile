@@ -28,7 +28,7 @@ COPY . .
 RUN npm run build
 
 # Expone el puerto que usará la aplicación
-EXPOSE 3000
+EXPOSE 3001
 
 # Comando para sincronizar el esquema con la base de datos y ejecutar la aplicación
 CMD ["sh", "-c", "npm run start:prod"]
