@@ -45,12 +45,17 @@ export class InformeConsumoCombustibleService {
         b.guia_remision,
         a.codigo_vale,
         d.placa,
-        a.galones AS cantidad,
+        a.galones AS 'cantidad',
         b.descripcion,
-        a.odometro AS km,
+        a.odometro AS 'km',
         a.odometro,
-        b.valor_venta_galon AS val_unit,
-        b.total
+        b.valor_venta_galon AS 'val_unit',
+        CASE 
+            WHEN (a.galones * b.valor_venta_galon) IS NULL THEN NULL
+            WHEN ABS(a.galones * b.valor_venta_galon - ROUND(a.galones * b.valor_venta_galon)) < 0.000001 
+            THEN CAST(a.galones * b.valor_venta_galon AS DECIMAL(10, 0))
+            ELSE ROUND(a.galones * b.valor_venta_galon, 2)
+        END AS total
       FROM vale_combustible_camion a
       JOIN factura_general_camion b ON a.id_factura = b.id_factura
       JOIN proveedor c ON b.id_proveedor = c.id_proveedor
