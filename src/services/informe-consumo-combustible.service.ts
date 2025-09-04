@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import {
   InformeConsumoCombustibleFilterDto,
   InformeConsumoCombustibleResponse,
+  InformeConsumoCombustibleDetalle,
 } from '../dto/informe-consumo-combustible.dto';
 
 @Injectable()
@@ -59,15 +60,40 @@ export class InformeConsumoCombustibleService {
     `;
 
     const dataResult = await this.prisma.$queryRawUnsafe(dataQuery, ...params);
-    const data = dataResult as InformeConsumoCombustibleResponse[];
+    const rawData = dataResult as any[];
 
-    return data.map(item => ({
-      ...item,
-      cantidad: item.cantidad ? Number(item.cantidad) : null,
-      val_unit: item.val_unit ? Number(item.val_unit) : null,
-      total: item.total ? Number(item.total) : null,
-      km: item.km ? Number(item.km) : null,
-      odometro: item.odometro ? Number(item.odometro) : null,
-    }));
+    // Agrupar por numero_factura
+    const groupedData = rawData.reduce((acc, item) => {
+      const key = item.numero_factura;
+      
+      if (!acc[key]) {
+        acc[key] = {
+          fecha_emision: item.fecha_emision,
+          almacenes: item.almacenes,
+          numero_factura: item.numero_factura,
+          nombre: item.nombre,
+          glosa: item.glosa,
+          guia_remision: item.guia_remision,
+          detalles: []
+        };
+      }
+
+      const detalle: InformeConsumoCombustibleDetalle = {
+        codigo_vale: item.codigo_vale,
+        placa: item.placa,
+        cantidad: item.cantidad ? Number(item.cantidad) : 0,
+        descripcion: item.descripcion,
+        km: item.km ? Number(item.km) : 0,
+        odometro: item.odometro ? Number(item.odometro) : 0,
+        val_unit: item.val_unit ? Number(item.val_unit) : 0,
+        total: item.total ? Number(item.total) : 0,
+      };
+
+      acc[key].detalles.push(detalle);
+      return acc;
+    }, {});
+
+    // Convertir el objeto agrupado en array
+    return Object.values(groupedData) as InformeConsumoCombustibleResponse[];
   }
 }
