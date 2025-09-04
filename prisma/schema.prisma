@@ -167,7 +167,7 @@ model facturas {
   centro_costo           String?                 @db.VarChar(10)
   id_proyecto            Int?
   id_centrocosto         Int?
-  proveedores            proveedores             @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "facturas_ibfk_1")
+  proveedores            nombres_proveedores     @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "facturas_ibfk_1")
   ordenes_compra         ordenes_compra?         @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_2")
   centros_de_costos_2025 centros_de_costos_2025? @relation(fields: [id_centrocosto], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_3")
   proyecto               proyecto?               @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "facturas_ibfk_4")
@@ -309,48 +309,33 @@ model operadores {
 }
 
 model ordenes_compra {
-  id_orden_compra     Int               @id @default(autoincrement())
+  id_orden_compra     Int                 @id @default(autoincrement())
   id_proveedor        Int
-  numero_orden        String            @unique(map: "uk_numero_orden") @db.VarChar(50)
-  fecha_orden         DateTime          @db.Date
+  numero_orden        String              @unique(map: "uk_numero_orden") @db.VarChar(50)
+  fecha_orden         DateTime            @db.Date
   id_tipo_combustible Int
-  cantidad_galones    Decimal           @db.Decimal(10, 2)
-  precio_galon        Decimal           @db.Decimal(10, 2)
-  total_orden         Decimal           @db.Decimal(12, 2)
-  estado              String?           @default("PENDIENTE") @db.VarChar(20)
-  observaciones       String?           @db.Text
-  fecha_registro      DateTime?         @default(now()) @db.Timestamp(0)
+  cantidad_galones    Decimal             @db.Decimal(10, 2)
+  precio_galon        Decimal             @db.Decimal(10, 2)
+  total_orden         Decimal             @db.Decimal(12, 2)
+  estado              String?             @default("PENDIENTE") @db.VarChar(20)
+  observaciones       String?             @db.Text
+  fecha_registro      DateTime?           @default(now()) @db.Timestamp(0)
   facturas            facturas[]
-  proveedores         proveedores       @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "ordenes_compra_ibfk_1")
-  tipos_combustible   tipos_combustible @relation(fields: [id_tipo_combustible], references: [id_tipo_combustible], onUpdate: Restrict, map: "ordenes_compra_ibfk_2")
+  proveedores         nombres_proveedores @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: Restrict, map: "ordenes_compra_ibfk_1")
+  tipos_combustible   tipos_combustible   @relation(fields: [id_tipo_combustible], references: [id_tipo_combustible], onUpdate: Restrict, map: "ordenes_compra_ibfk_2")
 
   @@index([id_proveedor], map: "id_proveedor")
   @@index([id_tipo_combustible], map: "id_tipo_combustible")
   @@index([fecha_orden], map: "idx_orden_fecha")
 }
 
-model proveedores {
-  id_proveedor     Int              @id @default(autoincrement())
-  codigo           String           @unique(map: "uk_codigo") @db.VarChar(20)
-  razon_social     String           @db.VarChar(255)
-  numero_documento String           @unique(map: "uk_numero_documento") @db.VarChar(20)
-  tipo_proveedor   String?          @db.VarChar(50)
-  direccion        String?          @db.VarChar(255)
-  telefono         String?          @db.VarChar(20)
-  correo           String?          @db.VarChar(100)
-  activo           Boolean?         @default(true)
-  fecha_registro   DateTime?        @default(now()) @db.Timestamp(0)
-  facturas         facturas[]
-  ordenes_compra   ordenes_compra[]
-}
-
 model proveedores2025 {
-  C_digo       String  @map("Código") @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+  C_digo       String? @map("Código") @db.VarChar(255)
   Raz_n_social String? @map("Razón social") @db.VarChar(255)
   N__documento String? @map("N° documento") @db.VarChar(255)
   Tipo         String? @db.VarChar(255)
   Direcci_n    String? @map("Dirección") @db.VarChar(255)
-  id           Int     @id @default(autoincrement())
 }
 
 model registro_produccion_2025 {
@@ -527,8 +512,8 @@ model proyecto {
   estado                proyecto_estado?        @default(activo)
   created_at            DateTime?               @default(now()) @db.Timestamp(0)
   updated_at            DateTime?               @default(now()) @db.Timestamp(0)
-  cliente               String                  @db.VarChar(200)
-  ubicacion             String                  @db.VarChar(255)
+  cliente               String?                 @db.VarChar(200)
+  ubicacion             String?                 @db.VarChar(255)
   asignaciones_personal asignaciones_personal[]
   etapas                etapas[]
   facturas              facturas[]
@@ -768,6 +753,9 @@ model equipo {
   capacidad_tanque        Decimal?                  @db.Decimal(10, 2)
   id_tipo                 Int
   estado                  equipo_estado?            @default(activo)
+  chofer                  String?                   @db.VarChar(200)
+  consumo_km              String?                   @db.VarChar(255)
+  toneladas               String?                   @db.VarChar(10)
   tipo_equipo             tipo_equipo               @relation(fields: [id_tipo], references: [id_tipo], map: "equipo_ibfk_1")
   vale_combustible        vale_combustible[]
   vale_combustible_camion vale_combustible_camion[]
@@ -796,6 +784,11 @@ model factura_general {
   valor_venta_galon Decimal?           @db.Decimal(12, 2)
   saldo_galones     Decimal?           @db.Decimal(12, 2)
   captura_fact      String?            @db.VarChar(255)
+  glosa             String?            @db.VarChar(255)
+  referencia        String?            @db.VarChar(255)
+  almacenes         String?            @db.VarChar(255)
+  usuario           String?            @db.VarChar(255)
+  obras             String?            @db.VarChar(255)
   orden_compra      orden_compra       @relation(fields: [id_orden], references: [id_orden], map: "factura_general_ibfk_1")
   proveedor         proveedor          @relation(fields: [id_proveedor], references: [id_proveedor], map: "factura_general_ibfk_2")
   vale_combustible  vale_combustible[]
@@ -825,6 +818,11 @@ model factura_general_camion {
   valor_venta_galon       Decimal?                  @db.Decimal(12, 2)
   saldo_galones           Decimal?                  @db.Decimal(12, 2)
   captura_fact            String?                   @db.VarChar(255)
+  glosa                   String?                   @db.VarChar(255)
+  referencia              String?                   @db.VarChar(255)
+  almacenes               String?                   @db.VarChar(255)
+  usuario                 String?                   @db.VarChar(255)
+  obras                   String?                   @db.VarChar(255)
   orden_compra            orden_compra              @relation(fields: [id_orden], references: [id_orden], map: "factura_general_camion_ibfk_1")
   proveedor               proveedor                 @relation(fields: [id_proveedor], references: [id_proveedor], map: "factura_general_camion_ibfk_2")
   vale_combustible_camion vale_combustible_camion[]
@@ -927,6 +925,7 @@ model equipos {
   tipo_equipo         tipo_equipo_enum
   marca               String                @db.VarChar(100)
   modelo              String                @db.VarChar(100)
+  placa               String?               @db.VarChar(45)
   descripcion         String?               @db.Text
   unidad              String                @db.VarChar(50)
   precio_referencial  Decimal               @db.Decimal(10, 2)
@@ -1052,22 +1051,204 @@ model condicion_pago {
 }
 
 model ruteo {
-  id          Int       @id @default(autoincrement())
-  fecha       DateTime? @db.Date
-  mes         String?   @db.VarChar(255)
-  num_sem     Int?
-  placa       String?   @db.VarChar(255)
-  m3          Int?
-  conductor   String?   @db.VarChar(255)
-  proveedor   String?   @db.VarChar(255)
-  proyecto    String?   @db.VarChar(255)
-  tipo        String?   @db.VarChar(255)
-  detalle     String?   @db.VarChar(255)
-  cant_v      Int?
-  horometro   Float?    @db.Float
-  galones     Float?    @db.Float
-  hora_inicio DateTime? @db.Time(0)
-  hora_fin    DateTime? @db.Time(0)
+  id               Int       @id @default(autoincrement())
+  fecha            DateTime? @db.Date
+  mes              String?   @db.VarChar(255)
+  num_sem          Int?
+  placa            String?   @db.VarChar(255)
+  m3               Int?
+  conductor        String?   @db.VarChar(255)
+  proveedor        String?   @db.VarChar(255)
+  proyecto         String?   @db.VarChar(255)
+  tipo             String?   @db.VarChar(255)
+  detalle          String?   @db.VarChar(255)
+  cant_v           Int?
+  kilome_inicio    Int?
+  kilome_final     Int?
+  kilome_recorrido Int
+  galones          Float?    @db.Float
+  hora_inicio      DateTime? @db.Time(0)
+  hora_fin         DateTime? @db.Time(0)
+  kilome_consumo   Int?
+  kilome_x_galon   Int?      @db.UnsignedInt
+  validacion       String?   @db.VarChar(255)
+}
+
+model almacenes {
+  id      Int     @id @default(autoincrement())
+  almacen String? @db.VarChar(255)
+}
+
+model detalles {
+  id      Int     @id @default(autoincrement())
+  detalle String? @db.VarChar(255)
+}
+
+model nombres_proveedores {
+  id_proveedor     Int              @id @default(autoincrement())
+  codigo           String?          @unique(map: "uk_codigo") @db.VarChar(20)
+  razon_social     String?          @db.VarChar(255)
+  numero_documento String?          @unique(map: "uk_numero_documento") @db.VarChar(20)
+  tipo_proveedor   String?          @db.VarChar(50)
+  direccion        String?          @db.VarChar(255)
+  telefono         String?          @db.VarChar(20)
+  correo           String?          @db.VarChar(100)
+  activo           Boolean?         @default(true)
+  fecha_registro   DateTime?        @default(now()) @db.Timestamp(0)
+  facturas         facturas[]
+  ordenes_compra   ordenes_compra[]
+}
+
+model nombres_proyecto {
+  id_proyecto Int     @id @default(autoincrement())
+  nombre      String  @db.VarChar(100)
+  descripcion String? @db.Text
+}
+
+model notif_inbox {
+  inbox_id        Int       @id @default(autoincrement())
+  notif_id        Int
+  login           String    @db.VarChar(255)
+  notif_dtsent    DateTime  @default(now()) @db.DateTime(0)
+  notif_ontop     Int       @default(0)
+  notif_isread    Int       @default(0)
+  notif_dtread    DateTime? @db.DateTime(0)
+  notif_tags      String?   @db.VarChar(255)
+  notif_important Int?
+}
+
+model notif_notifications {
+  notif_id           Int       @id @default(autoincrement())
+  notif_title        String    @db.VarChar(255)
+  notif_message      String    @db.Text
+  notif_dtcreated    DateTime  @default(now()) @db.DateTime(0)
+  notif_ontop        Int       @default(0)
+  notif_dtexpire     DateTime? @db.DateTime(0)
+  notif_categ        String?   @db.VarChar(60)
+  notif_login_sender String    @db.VarChar(255)
+  notif_type         String?   @db.VarChar(60)
+  notif_link         String?   @db.VarChar(255)
+  deleted_at         DateTime? @db.DateTime(0)
+}
+
+model notif_pref {
+  login         String @id @db.VarChar(255)
+  receive_email Int    @default(0)
+  receive_sms   Int    @default(0)
+}
+
+model notif_profiles {
+  profile_id     Int     @id @default(autoincrement())
+  profile_name   String? @db.VarChar(255)
+  profile_users  String? @db.Text
+  profile_groups String? @db.Text
+  profile_public Int     @default(0)
+  profile_owner  String? @db.VarChar(255)
+}
+
+model notif_tags {
+  tag_id     Int     @id @default(autoincrement())
+  tag_title  String  @db.VarChar(50)
+  login      String  @db.VarChar(255)
+  tag_color  String? @db.VarChar(100)
+  tag_active Int     @default(1)
+}
+
+model notif_user_tags {
+  user_tags_id Int     @id @default(autoincrement())
+  login        String  @db.VarChar(255)
+  login_sender String  @db.VarChar(255)
+  tags         String? @db.VarChar(255)
+}
+
+model obras {
+  id      Int     @id @default(autoincrement())
+  almacen String? @db.VarChar(255)
+}
+
+model programacion {
+  id                  Int       @id @default(autoincrement())
+  fecha               DateTime? @db.Date
+  unidad              String?   @db.VarChar(255)
+  apellidos_nombres   String?   @db.VarChar(255)
+  proyectos           String?   @db.VarChar(255)
+  programacion        String?   @db.VarChar(255)
+  hora_partida        DateTime? @db.Time(0)
+  estado_programacion String?   @db.VarChar(255)
+}
+
+model tipo_equipos {
+  id      Int     @id @default(autoincrement())
+  almacen String? @db.VarChar(255)
+}
+
+model tipo_programacion {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model tipo_transporte {
+  id              Int     @id @default(autoincrement())
+  tipo_transporte String? @db.VarChar(255)
+}
+
+model validacion {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model volketes_caracteristicas {
+  id                    Int       @id @default(autoincrement())
+  marca                 String?   @db.VarChar(255)
+  peso                  String?   @db.VarChar(255)
+  longitud              String?   @db.VarChar(255)
+  anchura               String?   @db.VarChar(255)
+  altura                String?   @db.VarChar(255)
+  distancia_entre_ejes  String?   @db.VarChar(255)
+  velocidad_maxima      String?   @db.VarChar(255)
+  motor_marca           String?   @db.VarChar(255)
+  motor_modelo          String?   @db.VarChar(255)
+  motor_potencia        String?   @db.VarChar(255)
+  motor_torque          String?   @db.VarChar(255)
+  motor_velo_nominal    String?   @db.VarChar(255)
+  motor_desplazamiento  String?   @db.VarChar(255)
+  trasmi_marca          String?   @db.VarChar(255)
+  trasmi_modelo         String?   @db.VarChar(255)
+  trasmi_tipo           String?   @db.VarChar(255)
+  trasmi_cambio         String?   @db.VarChar(255)
+  retar_marca           String?   @db.VarChar(255)
+  retar_modelo          String?   @db.VarChar(255)
+  freno_tipo            String?   @db.VarChar(255)
+  freno_servicio        String?   @db.VarChar(255)
+  freno_estacionamiento String?   @db.VarChar(255)
+  direcc_tipo           String?   @db.VarChar(255)
+  chasis_tipo           String?   @db.VarChar(255)
+  suspen_delantera      String?   @db.VarChar(255)
+  suspen_trasera        String?   @db.VarChar(255)
+  ejes_marca            String?   @db.VarChar(255)
+  neuma_delantero       String?   @db.VarChar(255)
+  neuma_trasero         String?   @db.VarChar(255)
+  neuma_aros            String?   @db.VarChar(255)
+  tanque_capacidad      String?   @db.VarChar(255)
+  tanque_material       String?   @db.VarChar(255)
+  cabina_tipo           String?   @db.VarChar(255)
+  tolva_tipo            String?   @db.VarChar(255)
+  tolva_volumen         String?   @db.VarChar(255)
+  tolva_dimensiones     String?   @db.VarChar(255)
+  tolva_material        String?   @db.VarChar(255)
+  tolva_piston          String?   @db.VarChar(255)
+  tolva_descarga        String?   @db.VarChar(255)
+  imagen_cam_frente     String?   @db.VarChar(255)
+  imagen_cam_cabina     String?   @db.VarChar(255)
+  imagen_cam_tolva      String?   @db.VarChar(255)
+  imagen_cam_trasero    String?   @db.VarChar(255)
+  revision_tecnica      String?   @db.VarChar(255)
+  estado_operativo      String?   @db.VarChar(255)
+  camion_mantenimiento  String?   @db.VarChar(255)
+  camion_reparacion     String?   @db.VarChar(255)
+  camion_km_recorrido   String?   @db.VarChar(255)
+  placa_volkete         String?   @db.VarChar(255)
+  a_o_fabricacion       DateTime? @map("año_fabricacion") @db.Date
 }
 
 enum proyecto_estado {

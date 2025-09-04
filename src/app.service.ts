@@ -14,7 +14,8 @@ export class AppService {
         equipos: '/api/equipos',
         reportes: {
           operadores: '/api/reportes-operadores',
-          plantilleros: '/api/reportes-plantilleros'
+          plantilleros: '/api/reportes-plantilleros',
+          consumoCombustible: '/api/informe-consumo-combustible'
         },
         viajes: '/api/viajes-eliminacion'
       },
