@@ -1,7 +1,16 @@
-import { Injectable, Logger, BadRequestException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { type CreateProgramacionDto, type ProgramacionItemDto, type ProgramacionResponseDto } from '../dto/programacion.dto';
-import { Prisma } from '@prisma/client';
+import {
+  type CreateProgramacionDto,
+  type ProgramacionItemDto,
+  type ProgramacionResponseDto,
+} from '../dto/programacion.dto';
+import { Prisma } from '../../generated/prisma';
 
 @Injectable()
 export class ProgramacionService {
@@ -9,7 +18,9 @@ export class ProgramacionService {
 
   constructor(private prisma: PrismaService) {}
 
-  async createBatch(createProgramacionDto: CreateProgramacionDto): Promise<ProgramacionResponseDto> {
+  async createBatch(
+    createProgramacionDto: CreateProgramacionDto,
+  ): Promise<ProgramacionResponseDto> {
     const startTime = Date.now();
     const { data } = createProgramacionDto;
 
@@ -17,7 +28,9 @@ export class ProgramacionService {
       throw new BadRequestException('El array de datos no puede estar vacío');
     }
 
-    this.logger.log(`Iniciando inserción masiva de ${data.length} registros de programación`);
+    this.logger.log(
+      `Iniciando inserción masiva de ${data.length} registros de programación`,
+    );
 
     try {
       // Preparar datos para inserción
@@ -36,7 +49,9 @@ export class ProgramacionService {
       const result = await this.prisma.$transaction(
         async (tx) => {
           // Log para debug
-          this.logger.debug(`Insertando ${programacionData.length} registros en transacción`);
+          this.logger.debug(
+            `Insertando ${programacionData.length} registros en transacción`,
+          );
 
           // Inserción masiva optimizada con createMany
           const insertResult = await tx.programacion.createMany({
@@ -44,8 +59,10 @@ export class ProgramacionService {
             skipDuplicates: false, // Fallar si hay duplicados para mantener integridad
           });
 
-          this.logger.log(`Insertados ${insertResult.count} registros exitosamente`);
-          
+          this.logger.log(
+            `Insertados ${insertResult.count} registros exitosamente`,
+          );
+
           return {
             count: insertResult.count,
             data: programacionData,
@@ -54,7 +71,7 @@ export class ProgramacionService {
         {
           isolationLevel: 'Serializable',
           timeout: 30000, // 30 segundos timeout
-        }
+        },
       );
 
       const processingTime = Date.now() - startTime;
@@ -67,41 +84,43 @@ export class ProgramacionService {
         successCount: result.count,
         processingTime,
       };
-
     } catch (error) {
       const processingTime = Date.now() - startTime;
-      
-      this.logger.error(`Error en inserción masiva después de ${processingTime}ms:`, error);
+
+      this.logger.error(
+        `Error en inserción masiva después de ${processingTime}ms:`,
+        error,
+      );
 
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         switch (error.code) {
           case 'P2002':
             throw new BadRequestException(
-              'Error de duplicado: Algunos registros ya existen en la base de datos'
+              'Error de duplicado: Algunos registros ya existen en la base de datos',
             );
           case 'P2003':
             throw new BadRequestException(
-              'Error de referencia: Algunos datos hacen referencia a registros que no existen'
+              'Error de referencia: Algunos datos hacen referencia a registros que no existen',
             );
           case 'P2025':
             throw new BadRequestException(
-              'Error de datos: Algunos registros no pudieron ser procesados'
+              'Error de datos: Algunos registros no pudieron ser procesados',
             );
           default:
             throw new InternalServerErrorException(
-              `Error de base de datos: ${error.message}`
+              `Error de base de datos: ${error.message}`,
             );
         }
       }
 
       if (error instanceof Prisma.PrismaClientValidationError) {
         throw new BadRequestException(
-          'Error de validación: Los datos proporcionados no cumplen con el formato requerido'
+          'Error de validación: Los datos proporcionados no cumplen con el formato requerido',
         );
       }
 
       throw new InternalServerErrorException(
-        'Error interno del servidor durante la inserción masiva'
+        'Error interno del servidor durante la inserción masiva',
       );
     }
   }
@@ -160,12 +179,15 @@ export class ProgramacionService {
       });
 
       this.logger.log(`Registro con ID ${id} eliminado exitosamente`);
-      
+
       return {
         message: 'Registro eliminado exitosamente',
       };
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         throw new BadRequestException(`Registro con ID ${id} no encontrado`);
       }
 
