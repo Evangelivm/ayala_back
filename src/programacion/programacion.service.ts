@@ -52,7 +52,7 @@ export class ProgramacionService {
           };
         },
         {
-          isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
+          isolationLevel: 'Serializable',
           timeout: 30000, // 30 segundos timeout
         }
       );
