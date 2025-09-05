@@ -37,11 +37,12 @@ export class ProgramacionService {
       const programacionData = data.map((item: ProgramacionItemDto) => ({
         fecha: item.fecha instanceof Date ? item.fecha : new Date(item.fecha),
         unidad: item.unidad,
+        proveedor: item.proveedor,
         apellidos_nombres: item.apellidos_nombres,
         proyectos: item.proyectos,
         programacion: item.programacion,
         hora_partida: new Date(`1970-01-01T${item.hora_partida}`),
-        estado_programacion: item.estado_programacion,
+        estado_programacion: item.estado_programacion || null,
         comentarios: item.comentarios || null,
       }));
 

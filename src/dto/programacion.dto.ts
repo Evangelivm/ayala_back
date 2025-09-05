@@ -7,6 +7,7 @@ export const ProgramacionItemSchema = z.object({
     z.date()
   ]).transform((val) => typeof val === 'string' ? new Date(val) : val),
   unidad: z.string().min(1, 'Unidad es requerida').max(255, 'Unidad no puede exceder 255 caracteres'),
+  proveedor: z.string().min(1, 'Proveedor es requerido').max(255, 'Proveedor no puede exceder 255 caracteres'),
   apellidos_nombres: z.string().min(1, 'Apellidos y nombres son requeridos').max(255, 'Apellidos y nombres no pueden exceder 255 caracteres'),
   proyectos: z.string().min(1, 'Proyectos es requerido').max(255, 'Proyectos no puede exceder 255 caracteres'),
   programacion: z.string().min(1, 'Programación es requerida').max(255, 'Programación no puede exceder 255 caracteres'),
@@ -19,7 +20,8 @@ export const ProgramacionItemSchema = z.object({
       }
       return val;
     }),
-  estado_programacion: z.string().min(1, 'Estado de programación es requerido').max(255, 'Estado de programación no puede exceder 255 caracteres'),
+  estado_programacion: z.string().max(255, 'Estado de programación no puede exceder 255 caracteres').optional()
+    .transform((val) => val === '' ? undefined : val),
   comentarios: z.string().max(500, 'Comentarios no pueden exceder 500 caracteres').optional()
     .transform((val) => val === '' ? undefined : val),
 });
@@ -52,6 +54,7 @@ export const ProgramacionSchema = z.object({
   id: z.number(),
   fecha: z.date().nullable(),
   unidad: z.string().nullable(),
+  proveedor: z.string().nullable(),
   apellidos_nombres: z.string().nullable(),
   proyectos: z.string().nullable(),
   programacion: z.string().nullable(),

@@ -1180,6 +1180,7 @@ model programacion {
   id                  Int       @id @default(autoincrement())
   fecha               DateTime? @db.Date
   unidad              String?   @db.VarChar(255)
+  proveedor           String?   @db.VarChar(255)
   apellidos_nombres   String?   @db.VarChar(255)
   proyectos           String?   @db.VarChar(255)
   programacion        String?   @db.VarChar(255)
