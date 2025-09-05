@@ -8,6 +8,7 @@ import { MaquinariaModule } from './maquinaria/maquinaria.module';
 import { ReportesModule } from './reportes/reportes.module';
 import { EquiposModule } from './equipos/equipos.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ProgramacionModule } from './programacion/programacion.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     ReportesModule,
     EquiposModule,
     DashboardModule,
+    ProgramacionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
