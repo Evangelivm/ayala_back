@@ -825,6 +825,7 @@ model factura_general_camion {
   almacenes                           String?                               @db.VarChar(255)
   usuario                             String?                               @db.VarChar(255)
   obras                               String?                               @db.VarChar(255)
+  alfanum                             String?                               @db.VarChar(255)
   orden_compra                        orden_compra                          @relation(fields: [id_orden], references: [id_orden], map: "factura_general_camion_ibfk_1")
   proveedor                           proveedor                             @relation(fields: [id_proveedor], references: [id_proveedor], map: "factura_general_camion_ibfk_2")
   vale_combustible_camion             vale_combustible_camion[]
@@ -1187,6 +1188,7 @@ model programacion {
   hora_partida        DateTime? @db.Time(0)
   estado_programacion String?   @db.VarChar(255)
   comentarios         String?   @db.Text
+  validacion          String?   @db.VarChar(255)
 }
 
 model tipo_equipos {
@@ -1387,6 +1389,11 @@ model vale_combustible_reservacombustible {
   @@index([id_factura], map: "id_factura")
   @@index([id_tipo_abastecimiento], map: "id_tipo_abastecimiento")
   @@index([fecha], map: "idx_fecha")
+}
+
+model validaciones {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
 }
 
 enum proyecto_estado {

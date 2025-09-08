@@ -10,6 +10,18 @@ import {
 export class InformeConsumoCombustibleService {
   constructor(private prisma: PrismaService) {}
 
+  private generarAlfanum(): string {
+    const caracteres =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let resultado = '';
+    for (let i = 0; i < 10; i++) {
+      resultado += caracteres.charAt(
+        Math.floor(Math.random() * caracteres.length),
+      );
+    }
+    return resultado;
+  }
+
   async findAll(filters: InformeConsumoCombustibleFilterDto) {
     let whereClause = '';
     const params: any[] = [];
@@ -43,6 +55,7 @@ export class InformeConsumoCombustibleService {
         c.nombre,
         b.glosa,
         b.guia_remision,
+        b.alfanum,
         a.codigo_vale,
         d.placa,
         a.galones AS 'cantidad',
@@ -68,9 +81,10 @@ export class InformeConsumoCombustibleService {
     const rawData = dataResult as any[];
 
     // Agrupar por numero_factura
-    const groupedData = rawData.reduce((acc, item) => {
+    const groupedData = rawData.reduce(async (accPromise, item) => {
+      const acc = await accPromise;
       const key = item.numero_factura;
-      
+
       if (!acc[key]) {
         acc[key] = {
           fecha_emision: item.fecha_emision,
@@ -79,8 +93,21 @@ export class InformeConsumoCombustibleService {
           nombre: item.nombre,
           glosa: item.glosa,
           guia_remision: item.guia_remision,
-          detalles: []
+          alfanum: item.alfanum,
+          detalles: [],
         };
+
+        // Si no tiene alfanum, generarlo y guardarlo
+        if (!acc[key].alfanum) {
+          const nuevoAlfanum = this.generarAlfanum();
+
+          await this.prisma.factura_general_camion.update({
+            where: { numero_factura: key },
+            data: { alfanum: nuevoAlfanum },
+          });
+
+          acc[key].alfanum = nuevoAlfanum;
+        }
       }
 
       const detalle: InformeConsumoCombustibleDetalle = {
@@ -96,9 +123,12 @@ export class InformeConsumoCombustibleService {
 
       acc[key].detalles.push(detalle);
       return acc;
-    }, {});
+    }, Promise.resolve({}));
 
     // Convertir el objeto agrupado en array
-    return Object.values(groupedData) as InformeConsumoCombustibleResponse[];
+    const finalGroupedData = await groupedData;
+    return Object.values(
+      finalGroupedData,
+    ) as InformeConsumoCombustibleResponse[];
   }
 }
