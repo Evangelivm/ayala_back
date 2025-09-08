@@ -10,16 +10,10 @@ import {
 export class InformeConsumoCombustibleService {
   constructor(private prisma: PrismaService) {}
 
-  private generarAlfanum(): string {
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let resultado = '';
-    for (let i = 0; i < 10; i++) {
-      resultado += caracteres.charAt(
-        Math.floor(Math.random() * caracteres.length),
-      );
-    }
-    return resultado;
+  private generarAlfanum(idFactura: number): string {
+    const year = '2025';
+    const numeroFormateado = idFactura.toString().padStart(8, '0');
+    return `CC${year}-${numeroFormateado}`;
   }
 
   async findAll(filters: InformeConsumoCombustibleFilterDto) {
@@ -48,6 +42,7 @@ export class InformeConsumoCombustibleService {
 
     const dataQuery = `
       SELECT 
+        b.id_factura,
         b.fecha_emision,
         b.almacenes,
         b.numero_factura,
@@ -99,7 +94,7 @@ export class InformeConsumoCombustibleService {
 
         // Si no tiene alfanum, generarlo y guardarlo
         if (!acc[key].alfanum) {
-          const nuevoAlfanum = this.generarAlfanum();
+          const nuevoAlfanum = this.generarAlfanum(item.id_factura);
 
           await this.prisma.factura_general_camion.update({
             where: { numero_factura: key },
