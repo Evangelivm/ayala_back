@@ -3,27 +3,32 @@ services:
     image: postgres:17
     container_name: ayala_postgres
     restart: unless-stopped
+    ports:
+      - '5433:5432'
     environment:
       POSTGRES_DB: ayala_01
       POSTGRES_USER: nestuser
       POSTGRES_PASSWORD: XXXperu2020XXX.
     volumes:
-      - postgres_/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - shared_network
 
   pgbouncer:
-    image: edoburu/pgbouncer:1.21
+    image: pgbouncer/pgbouncer:latest
     container_name: ayala_pgbouncer
     restart: unless-stopped
     depends_on:
       - db
     ports:
-      - '5432:5432'
+      - '5432:6432'
     environment:
-      PGBOUNCER_DATABASE: 'ayala_01'
-      PGBOUNCER_USER: 'nestuser'
-      PGBOUNCER_PASSWORD: 'XXXperu2020XXX.'
+      DATABASES_HOST: db
+      DATABASES_PORT: 5432
+      DATABASES_USER: nestuser
+      DATABASES_PASSWORD: XXXperu2020XXX.
+      DATABASES_DBNAME: ayala_01
+      POOL_MODE: transaction
       PGBOUNCER_SERVER_RESET_QUERY: 'DISCARD ALL'
       PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
       PGBOUNCER_MAX_CLIENT_CONN: '200'
