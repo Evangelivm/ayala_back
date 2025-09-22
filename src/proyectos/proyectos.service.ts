@@ -14,7 +14,11 @@ export class ProyectosService {
           include: {
             sector: {
               include: {
-                frente: true,
+                frente: {
+                  include: {
+                    partida: true,
+                  },
+                },
               },
             },
           },
@@ -47,6 +51,15 @@ export class ProyectosService {
             nombre: frente.nombre,
             descripcion: frente.descripcion,
             responsable: frente.responsable,
+            partidas: frente.partida.map(partida => ({
+              id: partida.id_partida,
+              codigo: partida.codigo,
+              descripcion: partida.descripcion,
+              unidad_medida: partida.unidad_medida,
+              cantidad: Number(partida.cantidad),
+              precio_unitario: partida.precio_unitario ? Number(partida.precio_unitario) : null,
+              total: partida.total ? Number(partida.total) : null,
+            })),
           })),
         })),
       })),

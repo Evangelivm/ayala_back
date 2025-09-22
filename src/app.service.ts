@@ -9,7 +9,11 @@ export class AppService {
       descripcion: 'API para el sistema de reportes de Maquinarias Ayala con arquitectura normalizada',
       rutas: {
         personal: '/api/personal',
-        proyectos: '/api/proyectos', 
+        proyectos: '/api/proyectos',
+        etapas: '/api/etapas',
+        sectores: '/api/sectores',
+        frentes: '/api/frentes',
+        partidas: '/api/partidas',
         maquinaria: '/api/maquinaria',
         equipos: '/api/equipos',
         reportes: {
@@ -23,6 +27,8 @@ export class AppService {
         'Sistema de personal normalizado con roles contextuales',
         'Catálogo de equipos independiente de inventario físico',
         'Reportes master-detail con relaciones de foreign keys',
+        'CRUD completo para jerarquía de proyectos (etapas, sectores, frentes, partidas)',
+        'Cálculo automático de orden jerárquico',
         'Validación con Zod DTOs',
         'Arquitectura modular ES6',
         'Base de datos MySQL con Prisma ORM'

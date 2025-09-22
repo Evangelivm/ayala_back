@@ -9,6 +9,10 @@ import { ReportesModule } from './reportes/reportes.module';
 import { EquiposModule } from './equipos/equipos.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ProgramacionModule } from './programacion/programacion.module';
+import { EtapasModule } from './etapas/etapas.module';
+import { SectoresModule } from './sectores/sectores.module';
+import { FrentesModule } from './frentes/frentes.module';
+import { PartidasModule } from './partidas/partidas.module';
 
 @Module({
   imports: [
@@ -20,6 +24,10 @@ import { ProgramacionModule } from './programacion/programacion.module';
     EquiposModule,
     DashboardModule,
     ProgramacionModule,
+    EtapasModule,
+    SectoresModule,
+    FrentesModule,
+    PartidasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1189,6 +1189,20 @@ model programacion {
   estado_programacion String?   @db.VarChar(255)
   comentarios         String?   @db.Text
   validacion          String?   @db.VarChar(255)
+  identificador_unico String?   @db.VarChar(255)
+  km_del_dia          String?   @db.VarChar(255)
+  mes                 String?   @db.VarChar(255)
+  num_semana          String?   @db.VarChar(255)
+  m3                  String?   @db.VarChar(255)
+  cantidad_viaje      String?   @db.VarChar(255)
+  kilom_inicio        String?   @db.VarChar(255)
+  kilom_final         String?   @db.VarChar(255)
+  kilom_recorrido     String?   @db.VarChar(255)
+  galones             String?   @db.VarChar(255)
+  hora_inicio         String?   @db.VarChar(255)
+  hora_final          String?   @db.VarChar(255)
+  kilom_consumo       String?   @db.VarChar(255)
+  kilom_galon         String?   @db.VarChar(255)
 }
 
 model tipo_equipos {
@@ -1392,6 +1406,57 @@ model vale_combustible_reservacombustible {
 }
 
 model validaciones {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model almacenes_log {
+  id_almacen   Int     @id @default(autoincrement())
+  nombre       String? @db.VarChar(255)
+  direccion    String? @db.VarChar(255)
+  cod_sucursal String? @db.VarChar(255)
+  almacen_sec  String? @db.VarChar(255)
+  tipo         String? @db.VarChar(255)
+}
+
+model listado_items_2025 {
+  codigo        String  @id @db.VarChar(255)
+  cod_comercial String? @db.VarChar(255)
+  grupo         String? @db.VarChar(255)
+  descripcion   String? @db.VarChar(255)
+  cantidad      Int?
+  precio        Float?  @db.Float
+  stock_compra  Int?
+  u_m           String? @db.VarChar(255)
+  porc_detrac   String? @db.VarChar(255)
+}
+
+model programacion_tecnica {
+  id                Int       @id @default(autoincrement())
+  nro_doc           String?   @db.VarChar(255)
+  fecha_trabajo     DateTime? @db.Date
+  proyecto          String?   @db.VarChar(255)
+  sector            String?   @db.VarChar(255)
+  frente            String?   @db.VarChar(255)
+  partida           String?   @db.VarChar(255)
+  recurso           String?   @db.VarChar(255)
+  placa_serie       String?   @db.VarChar(255)
+  unidad            String?   @db.VarChar(255)
+  cantidad          Float?    @db.Float
+  codigo_transporte String?   @db.VarChar(255)
+  programacion      String?   @db.VarChar(255)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_movimiento_logistica_2025 {
+  cod_tipo_mov String? @db.VarChar(255)
+  descripcion  String? @db.VarChar(255)
+  ingsal       String? @db.VarChar(255)
+
+  @@ignore
+}
+
+model estado_operaciones {
   id     Int     @id @default(autoincrement())
   estado String? @db.VarChar(45)
 }
