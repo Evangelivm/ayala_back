@@ -1432,19 +1432,36 @@ model listado_items_2025 {
 }
 
 model programacion_tecnica {
-  id                Int       @id @default(autoincrement())
-  nro_doc           String?   @db.VarChar(255)
-  fecha_trabajo     DateTime? @db.Date
-  proyecto          String?   @db.VarChar(255)
-  sector            String?   @db.VarChar(255)
-  frente            String?   @db.VarChar(255)
-  partida           String?   @db.VarChar(255)
-  recurso           String?   @db.VarChar(255)
-  placa_serie       String?   @db.VarChar(255)
-  unidad            String?   @db.VarChar(255)
-  cantidad          Float?    @db.Float
-  codigo_transporte String?   @db.VarChar(255)
-  programacion      String?   @db.VarChar(255)
+  id                                   Int       @id @default(autoincrement())
+  nro_doc                              String?   @db.VarChar(255)
+  fecha_trabajo                        DateTime? @db.Date
+  proyecto                             String?   @db.VarChar(255)
+  sector                               String?   @db.VarChar(255)
+  frente                               String?   @db.VarChar(255)
+  partida                              String?   @db.VarChar(255)
+  recurso                              String?   @db.VarChar(255)
+  placa_serie                          String?   @db.VarChar(255)
+  unidad                               String?   @db.VarChar(255)
+  cantidad                             Float?    @db.Float
+  codigo_transporte                    String?   @db.VarChar(255)
+  programacion                         String?   @db.VarChar(255)
+  datos_inicio_traslado_fecha_emision  String?   @db.VarChar(255)
+  datos_inicio_traslado_entrega_transp String?   @db.VarChar(255)
+  datos_inicio_traslado_motivo         String?   @db.VarChar(255)
+  datos_inicio_traslado_peso_bruto     String?   @db.VarChar(255)
+  datos_inicio_traslado_codigo         String?   @db.VarChar(255)
+  datos_destinatario_ruc               String?   @db.VarChar(255)
+  datos_destinatario_razon_social      String?   @db.VarChar(255)
+  datos_partida_direccion              String?   @db.VarChar(255)
+  datos_partida_ubigeo                 String?   @db.VarChar(255)
+  datos_llegada_direccion              String?   @db.VarChar(255)
+  datos_llegada_ubigeo                 String?   @db.VarChar(255)
+  datos_transportista_ruc              String?   @db.VarChar(255)
+  datos_transportista_razon_social     String?   @db.VarChar(255)
+  datos_transportista_placa            String?   @db.VarChar(255)
+  archivo_guia_pdf                     String?   @db.VarChar(255)
+  archivo_guia_xml                     String?   @db.VarChar(255)
+  archivo_guia_cdr                     String?   @db.VarChar(255)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -1459,6 +1476,24 @@ model tipo_movimiento_logistica_2025 {
 model estado_operaciones {
   id     Int     @id @default(autoincrement())
   estado String? @db.VarChar(45)
+}
+
+model cabecera_guia_remision {
+  id                                   Int     @id @default(autoincrement())
+  datos_inicio_traslado_fecha_emision  String? @db.VarChar(255)
+  datos_inicio_traslado_entrega_transp String? @db.VarChar(255)
+  datos_inicio_traslado_motivo         String? @db.VarChar(255)
+  datos_inicio_traslado_peso_bruto     String? @db.VarChar(255)
+  datos_inicio_traslado_codigo         String? @db.VarChar(255)
+  datos_destinatario_ruc               String? @db.VarChar(255)
+  datos_destinatario_razon_social      String? @db.VarChar(255)
+  datos_partida_direccion              String? @db.VarChar(255)
+  datos_partida_ubigeo                 String? @db.VarChar(255)
+  datos_llegada_direccion              String? @db.VarChar(255)
+  datos_llegada_ubigeo                 String? @db.VarChar(255)
+  datos_transportista_ruc              String? @db.VarChar(255)
+  datos_transportista_razon_social     String? @db.VarChar(255)
+  datos_transportista_placa            String? @db.VarChar(255)
 }
 
 enum proyecto_estado {

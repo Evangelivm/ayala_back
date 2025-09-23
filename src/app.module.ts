@@ -13,6 +13,11 @@ import { EtapasModule } from './etapas/etapas.module';
 import { SectoresModule } from './sectores/sectores.module';
 import { FrentesModule } from './frentes/frentes.module';
 import { PartidasModule } from './partidas/partidas.module';
+import { SubproyectosModule } from './subproyectos/subproyectos.module';
+import { SubEtapasModule } from './sub-etapas/sub-etapas.module';
+import { SubsectoresModule } from './subsectores/subsectores.module';
+import { SubfrentesModule } from './subfrentes/subfrentes.module';
+import { SubpartidasModule } from './subpartidas/subpartidas.module';
 
 @Module({
   imports: [
@@ -28,6 +33,11 @@ import { PartidasModule } from './partidas/partidas.module';
     SectoresModule,
     FrentesModule,
     PartidasModule,
+    SubproyectosModule,
+    SubEtapasModule,
+    SubsectoresModule,
+    SubfrentesModule,
+    SubpartidasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
