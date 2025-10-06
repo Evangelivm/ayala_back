@@ -1,0 +1,53 @@
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.0
+    hostname: pulsar
+    container_name: pulsar
+    user: root
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    environment:
+      PULSAR_MEM: "-Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    command: >
+      /bin/bash -c "bin/apply-config-from-env.py conf/standalone.conf &&
+      exec bin/pulsar standalone"
+    volumes:
+      - pulsar_data:/pulsar/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/admin/v2/clusters || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - shared_network
+
+  pulsar-manager:
+    image: apachepulsar/pulsar-manager:v0.4.0
+    container_name: pulsar-manager
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    ports:
+      - "9527:9527"
+      - "7750:7750"
+    environment:
+      SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
+      REDIRECT_HOST: http://localhost
+      REDIRECT_PORT: 9527
+      DRIVER_CLASS_NAME: org.postgresql.Driver
+      URL: jdbc:postgresql://127.0.0.1:5432/pulsar_manager
+      USERNAME: pulsar
+      PASSWORD: pulsar
+      LOG_LEVEL: DEBUG
+    networks:
+      - shared_network
+    restart: unless-stopped
+
+volumes:
+  pulsar_data:
+    driver: local
+
+networks:
+  shared_network:
+    external: true

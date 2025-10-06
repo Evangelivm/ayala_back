@@ -1,6 +1,6 @@
 {
   "name": "ayala_back",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "API para el sistema de reportes de Maquinarias Ayala con arquitectura normalizada",
   "author": "Devy Salomon",
   "private": true,
@@ -20,10 +20,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^11.0.1",
+    "@nestjs/common": "^11.1.6",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/microservices": "^11.1.6",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/schedule": "^6.0.1",
     "@prisma/client": "^6.1.0",
+    "kafkajs": "^2.2.4",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "zod": "^3.24.1"
@@ -46,6 +50,7 @@
     "globals": "^16.0.0",
     "jest": "^29.7.0",
     "prettier": "^3.4.2",
+    "prisma": "^6.1.0",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
@@ -53,8 +58,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0",
-    "prisma": "^6.1.0"
+    "typescript-eslint": "^8.20.0"
   },
   "jest": {
     "moduleFileExtensions": [

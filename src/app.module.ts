@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -18,9 +20,16 @@ import { SubEtapasModule } from './sub-etapas/sub-etapas.module';
 import { SubsectoresModule } from './subsectores/subsectores.module';
 import { SubfrentesModule } from './subfrentes/subfrentes.module';
 import { SubpartidasModule } from './subpartidas/subpartidas.module';
+import { GreModule } from './gre/gre.module';
+import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    ScheduleModule.forRoot(),
     PrismaModule,
     PersonalModule,
     ProyectosModule,
@@ -38,6 +47,8 @@ import { SubpartidasModule } from './subpartidas/subpartidas.module';
     SubsectoresModule,
     SubfrentesModule,
     SubpartidasModule,
+    KafkaModule,
+    GreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -468,36 +468,38 @@ model vales_combustible {
 }
 
 model frente {
-  id_frente   Int       @id @default(autoincrement())
-  id_sector   Int
-  nombre      String    @db.VarChar(100)
-  descripcion String?   @db.Text
-  responsable String?   @db.VarChar(100)
-  created_at  DateTime? @default(now()) @db.Timestamp(0)
-  updated_at  DateTime? @default(now()) @db.Timestamp(0)
-  activo      Boolean?  @default(true)
-  orden       Int?      @default(1)
-  sector      sector    @relation(fields: [id_sector], references: [id_sector], onDelete: Cascade, onUpdate: Restrict, map: "frente_ibfk_1")
-  partida     partida[]
+  id_frente     Int             @id @default(autoincrement())
+  id_sector     Int
+  nombre        String          @db.VarChar(100)
+  descripcion   String?         @db.Text
+  responsable   String?         @db.VarChar(100)
+  created_at    DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(0)
+  activo        Boolean?        @default(true)
+  orden         Int?            @default(1)
+  sector        sector          @relation(fields: [id_sector], references: [id_sector], onDelete: Cascade, onUpdate: Restrict, map: "frente_ibfk_1")
+  partida       partida[]
+  guia_remision guia_remision[]
 
   @@index([id_sector], map: "id_sector")
   @@index([activo], map: "idx_frente_activo")
 }
 
 model partida {
-  id_partida      Int       @id @default(autoincrement())
+  id_partida      Int             @id @default(autoincrement())
   id_frente       Int
-  codigo          String    @db.VarChar(50)
-  descripcion     String    @db.Text
-  unidad_medida   String?   @db.VarChar(20)
-  cantidad        Decimal   @db.Decimal(10, 2)
-  precio_unitario Decimal?  @default(0.00) @db.Decimal(12, 2)
-  total           Decimal?  @db.Decimal(12, 2)
-  created_at      DateTime? @default(now()) @db.Timestamp(0)
-  updated_at      DateTime? @default(now()) @db.Timestamp(0)
-  activo          Boolean?  @default(true)
-  orden           Int?      @default(1)
-  frente          frente    @relation(fields: [id_frente], references: [id_frente], onDelete: Cascade, onUpdate: Restrict, map: "partida_ibfk_1")
+  codigo          String          @db.VarChar(50)
+  descripcion     String          @db.Text
+  unidad_medida   String?         @db.VarChar(20)
+  cantidad        Decimal         @db.Decimal(10, 2)
+  precio_unitario Decimal?        @default(0.00) @db.Decimal(12, 2)
+  total           Decimal?        @db.Decimal(12, 2)
+  created_at      DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at      DateTime?       @default(now()) @db.Timestamp(0)
+  activo          Boolean?        @default(true)
+  orden           Int?            @default(1)
+  frente          frente          @relation(fields: [id_frente], references: [id_frente], onDelete: Cascade, onUpdate: Restrict, map: "partida_ibfk_1")
+  guia_remision   guia_remision[]
 
   @@index([id_frente], map: "id_frente")
   @@index([activo], map: "idx_partida_activo")
@@ -521,20 +523,22 @@ model proyecto {
   reportes_plantilleros reportes_plantilleros[]
   subproyectos          subproyectos[]
   viajes_eliminacion    viajes_eliminacion[]
+  guia_remision         guia_remision[]
 }
 
 model sector {
-  id_sector   Int       @id @default(autoincrement())
-  nombre      String    @db.VarChar(100)
-  descripcion String?   @db.Text
-  ubicacion   String?   @db.VarChar(255)
-  created_at  DateTime? @default(now()) @db.Timestamp(0)
-  updated_at  DateTime? @default(now()) @db.Timestamp(0)
-  activo      Boolean?  @default(true)
-  id_etapa    Int
-  orden       Int?      @default(1)
-  frente      frente[]
-  etapa       etapas    @relation(fields: [id_etapa], references: [id_etapa], onDelete: Cascade, onUpdate: Restrict, map: "sector_ibfk_1")
+  id_sector     Int             @id @default(autoincrement())
+  nombre        String          @db.VarChar(100)
+  descripcion   String?         @db.Text
+  ubicacion     String?         @db.VarChar(255)
+  created_at    DateTime?       @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(0)
+  activo        Boolean?        @default(true)
+  id_etapa      Int
+  orden         Int?            @default(1)
+  frente        frente[]
+  etapa         etapas          @relation(fields: [id_etapa], references: [id_etapa], onDelete: Cascade, onUpdate: Restrict, map: "sector_ibfk_1")
+  guia_remision guia_remision[]
 
   @@index([id_etapa], map: "idx_sector_etapa")
   @@index([activo], map: "idx_sector_activo")
@@ -966,6 +970,7 @@ model etapas {
   proyecto            proyecto              @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade)
   reportes_operadores reportes_operadores[]
   sector              sector[]
+  guia_remision       guia_remision[]
 
   @@index([id_proyecto], map: "idx_etapa_proyecto")
   @@index([activo], map: "idx_etapa_activo")
@@ -1432,36 +1437,40 @@ model listado_items_2025 {
 }
 
 model programacion_tecnica {
-  id                                   Int       @id @default(autoincrement())
-  nro_doc                              String?   @db.VarChar(255)
-  fecha_trabajo                        DateTime? @db.Date
-  proyecto                             String?   @db.VarChar(255)
-  sector                               String?   @db.VarChar(255)
-  frente                               String?   @db.VarChar(255)
-  partida                              String?   @db.VarChar(255)
-  recurso                              String?   @db.VarChar(255)
-  placa_serie                          String?   @db.VarChar(255)
-  unidad                               String?   @db.VarChar(255)
-  cantidad                             Float?    @db.Float
-  codigo_transporte                    String?   @db.VarChar(255)
-  programacion                         String?   @db.VarChar(255)
-  datos_inicio_traslado_fecha_emision  String?   @db.VarChar(255)
-  datos_inicio_traslado_entrega_transp String?   @db.VarChar(255)
-  datos_inicio_traslado_motivo         String?   @db.VarChar(255)
-  datos_inicio_traslado_peso_bruto     String?   @db.VarChar(255)
-  datos_inicio_traslado_codigo         String?   @db.VarChar(255)
-  datos_destinatario_ruc               String?   @db.VarChar(255)
-  datos_destinatario_razon_social      String?   @db.VarChar(255)
-  datos_partida_direccion              String?   @db.VarChar(255)
-  datos_partida_ubigeo                 String?   @db.VarChar(255)
-  datos_llegada_direccion              String?   @db.VarChar(255)
-  datos_llegada_ubigeo                 String?   @db.VarChar(255)
-  datos_transportista_ruc              String?   @db.VarChar(255)
-  datos_transportista_razon_social     String?   @db.VarChar(255)
-  datos_transportista_placa            String?   @db.VarChar(255)
-  archivo_guia_pdf                     String?   @db.VarChar(255)
-  archivo_guia_xml                     String?   @db.VarChar(255)
-  archivo_guia_cdr                     String?   @db.VarChar(255)
+  id                                   Int                              @id @default(autoincrement())
+  serie                                String?                          @db.VarChar(255)
+  numero                               String?                          @db.VarChar(255)
+  tipo_de_comprobante                  String?                          @db.VarChar(45)
+  fecha_trabajo                        DateTime?                        @db.Date
+  proyecto                             String?                          @db.VarChar(255)
+  sector                               String?                          @db.VarChar(255)
+  frente                               String?                          @db.VarChar(255)
+  partida                              String?                          @db.VarChar(255)
+  recurso                              String?                          @db.VarChar(255)
+  placa_serie                          String?                          @db.VarChar(255)
+  unidad                               String?                          @db.VarChar(255)
+  cantidad                             Float?                           @db.Float
+  codigo_transporte                    String?                          @db.VarChar(255)
+  programacion                         String?                          @db.VarChar(255)
+  datos_inicio_traslado_fecha_emision  String?                          @db.VarChar(255)
+  datos_inicio_traslado_entrega_transp String?                          @db.VarChar(255)
+  datos_inicio_traslado_motivo         String?                          @db.VarChar(255)
+  datos_inicio_traslado_peso_bruto     String?                          @db.VarChar(255)
+  datos_inicio_traslado_codigo         String?                          @db.VarChar(255)
+  datos_destinatario_ruc               String?                          @db.VarChar(255)
+  datos_destinatario_razon_social      String?                          @db.VarChar(255)
+  datos_partida_direccion              String?                          @db.VarChar(255)
+  datos_partida_ubigeo                 String?                          @db.VarChar(255)
+  datos_llegada_direccion              String?                          @db.VarChar(255)
+  datos_llegada_ubigeo                 String?                          @db.VarChar(255)
+  datos_transportista_ruc              String?                          @db.VarChar(255)
+  datos_transportista_razon_social     String?                          @db.VarChar(255)
+  datos_transportista_placa            String?                          @db.VarChar(255)
+  archivo_guia_pdf                     String?                          @db.VarChar(255)
+  archivo_guia_xml                     String?                          @db.VarChar(255)
+  archivo_guia_cdr                     String?                          @db.VarChar(255)
+  etapas                               String?                          @db.VarChar(255)
+  estado_gre                           programacion_tecnica_estado_gre?
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -1494,6 +1503,181 @@ model cabecera_guia_remision {
   datos_transportista_ruc              String? @db.VarChar(255)
   datos_transportista_razon_social     String? @db.VarChar(255)
   datos_transportista_placa            String? @db.VarChar(255)
+}
+
+model codigo_valorizacion {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model mantenimiento {
+  id            Int     @id
+  mantenimiento String? @db.VarChar(255)
+}
+
+model ordenes_trabajo2025 {
+  id                  Int       @id
+  num_ot              String?   @db.VarChar(255)
+  Descripci_n         String?   @map("Descripción") @db.VarChar(255)
+  Fecha               DateTime? @db.Date
+  cod_entidad         String?   @db.VarChar(255)
+  razon_social        String?   @db.VarChar(255)
+  cod_centro_costo    String?   @db.VarChar(255)
+  nombre_centro_costo String?   @db.VarChar(255)
+  presupuesto_venta   String?   @db.VarChar(255)
+  presupuesto_compra  String?   @db.VarChar(255)
+  margen              String?   @db.VarChar(255)
+  venta_real          String?   @db.VarChar(255)
+  compra_real         String?   @db.VarChar(255)
+  margen_real         String?   @db.VarChar(255)
+}
+
+model recursos {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model tipo_contrato {
+  id     Int     @id @default(autoincrement())
+  estado String? @db.VarChar(45)
+}
+
+model ingresos_materiales {
+  id                  Int                               @id @default(autoincrement())
+  codigo              String                            @unique(map: "codigo") @db.VarChar(50)
+  fecha               DateTime                          @db.Date
+  placa               String                            @db.VarChar(20)
+  guia_remision       String                            @db.VarChar(50)
+  guia_transportista  String                            @db.VarChar(50)
+  tipo_material       ingresos_materiales_tipo_material
+  toneladas           Decimal                           @db.Decimal(10, 2)
+  precio_unitario     Decimal?                          @default(0.00) @db.Decimal(10, 2)
+  costo_total         Decimal?                          @db.Decimal(12, 2)
+  productor_id        Int?
+  autorizacion        ingresos_materiales_autorizacion? @default(PENDIENTE)
+  observaciones       String?                           @db.Text
+  fecha_registro      DateTime?                         @default(now()) @db.Timestamp(0)
+  fecha_actualizacion DateTime?                         @default(now()) @db.Timestamp(0)
+  productores         productores?                      @relation(fields: [productor_id], references: [id], onUpdate: Restrict, map: "ingresos_materiales_ibfk_1")
+
+  @@index([codigo], map: "idx_ingreso_codigo")
+  @@index([fecha], map: "idx_ingreso_fecha")
+  @@index([placa], map: "idx_ingreso_placa")
+  @@index([productor_id], map: "idx_ingreso_productor")
+  @@index([tipo_material], map: "idx_ingreso_tipo")
+  @@index([fecha, tipo_material], map: "idx_ingresos_fecha_tipo")
+}
+
+model ingresos_produccion {
+  id                  Int                                    @id @default(autoincrement())
+  codigo              String                                 @unique(map: "codigo") @db.VarChar(50)
+  fecha               DateTime                               @db.Date
+  placa               String                                 @db.VarChar(20)
+  toneladas_afirmado  Decimal                                @default(0.00) @db.Decimal(10, 2)
+  toneladas_propio    Decimal                                @default(0.00) @db.Decimal(10, 2)
+  producido_5050      Decimal?                               @db.Decimal(10, 2)
+  costo_produccion    Decimal?                               @default(0.00) @db.Decimal(10, 2)
+  estado_produccion   ingresos_produccion_estado_produccion? @default(PLANIFICADO)
+  observaciones       String?                                @db.Text
+  fecha_registro      DateTime?                              @default(now()) @db.Timestamp(0)
+  fecha_actualizacion DateTime?                              @default(now()) @db.Timestamp(0)
+
+  @@index([codigo], map: "idx_produccion_codigo")
+  @@index([estado_produccion], map: "idx_produccion_estado")
+  @@index([fecha], map: "idx_produccion_fecha")
+  @@index([fecha, estado_produccion], map: "idx_produccion_fecha_estado")
+  @@index([placa], map: "idx_produccion_placa")
+}
+
+model kardex_materiales_cantera {
+  id                             Int       @id @default(autoincrement())
+  tipo_de_comprobante            String?   @db.VarChar(45)
+  fecha_trabajo                  DateTime? @db.Date
+  proyecto                       String?   @db.VarChar(255)
+  frente                         String?   @db.VarChar(255)
+  placa_serie                    String?   @db.VarChar(255)
+  unidad                         String?   @db.VarChar(255)
+  cantidad                       Float?    @db.Float
+  tipo_material                  String?   @db.VarChar(255)
+  numero_guia_remision           String?   @db.VarChar(255)
+  numero_guia_transportista      String?   @db.VarChar(255)
+  toneladas_ingreso_afirmado     String?   @db.VarChar(255)
+  toneladas_ingreso_subbase      String?   @db.VarChar(255)
+  toneladas_ingreso_base         String?   @db.VarChar(255)
+  toneladas_salida_almacen       String?   @db.VarChar(255)
+  toneladas_fecha_salida_almacen String?   @db.VarChar(255)
+  fecha_ingreso_material         String?   @db.VarChar(255)
+  fecha_salida_material          String?   @db.VarChar(255)
+}
+
+model productores {
+  id                         Int                                     @id @default(autoincrement())
+  codigo                     String                                  @unique(map: "codigo") @db.VarChar(20)
+  nombre                     String                                  @db.VarChar(100)
+  ruc                        String?                                 @unique(map: "ruc") @db.VarChar(11)
+  direccion                  String?                                 @db.Text
+  telefono                   String?                                 @db.VarChar(20)
+  email                      String?                                 @db.VarChar(100)
+  contacto_responsable       String?                                 @db.VarChar(100)
+  tipo_material_especialidad productores_tipo_material_especialidad? @default(TODOS)
+  precio_por_tonelada        Decimal?                                @default(0.00) @db.Decimal(10, 2)
+  estado                     productores_estado?                     @default(ACTIVO)
+  fecha_registro             DateTime?                               @default(now()) @db.Timestamp(0)
+  fecha_actualizacion        DateTime?                               @default(now()) @db.Timestamp(0)
+  observaciones              String?                                 @db.Text
+  ingresos_materiales        ingresos_materiales[]
+
+  @@index([codigo], map: "idx_productores_codigo")
+  @@index([estado], map: "idx_productores_estado")
+  @@index([ruc], map: "idx_productores_ruc")
+  @@index([tipo_material_especialidad], map: "idx_productores_tipo_material")
+}
+
+model salidas_materiales {
+  id                  Int                              @id @default(autoincrement())
+  codigo              String                           @unique(map: "codigo") @db.VarChar(50)
+  fecha               DateTime                         @db.Date
+  placa               String                           @db.VarChar(20)
+  tipo_material       salidas_materiales_tipo_material
+  toneladas           Decimal                          @db.Decimal(10, 2)
+  precio_unitario     Decimal?                         @default(0.00) @db.Decimal(10, 2)
+  costo_total         Decimal?                         @db.Decimal(12, 2)
+  proyecto            String                           @db.VarChar(100)
+  sector              String                           @db.VarChar(100)
+  autorizacion        salidas_materiales_autorizacion? @default(PENDIENTE)
+  observaciones       String?                          @db.Text
+  fecha_registro      DateTime?                        @default(now()) @db.Timestamp(0)
+  fecha_actualizacion DateTime?                        @default(now()) @db.Timestamp(0)
+
+  @@index([autorizacion], map: "idx_salida_autorizacion")
+  @@index([codigo], map: "idx_salida_codigo")
+  @@index([fecha], map: "idx_salida_fecha")
+  @@index([proyecto], map: "idx_salida_proyecto")
+  @@index([tipo_material], map: "idx_salida_tipo")
+  @@index([fecha, tipo_material], map: "idx_salidas_fecha_tipo")
+}
+
+model salidas_produccion {
+  id                  Int                              @id @default(autoincrement())
+  codigo              String                           @unique(map: "codigo") @db.VarChar(50)
+  fecha               DateTime                         @db.Date
+  placa               String                           @db.VarChar(20)
+  tipo_material       salidas_produccion_tipo_material
+  toneladas           Decimal                          @db.Decimal(10, 2)
+  precio_unitario     Decimal?                         @default(0.00) @db.Decimal(10, 2)
+  costo_total         Decimal?                         @db.Decimal(12, 2)
+  proyecto            String                           @db.VarChar(100)
+  sector              String                           @db.VarChar(100)
+  autorizacion        salidas_produccion_autorizacion? @default(PENDIENTE)
+  observaciones       String?                          @db.Text
+  fecha_registro      DateTime?                        @default(now()) @db.Timestamp(0)
+  fecha_actualizacion DateTime?                        @default(now()) @db.Timestamp(0)
+
+  @@index([codigo], map: "idx_salida_prod_codigo")
+  @@index([fecha], map: "idx_salida_prod_fecha")
+  @@index([proyecto], map: "idx_salida_prod_proyecto")
+  @@index([tipo_material], map: "idx_salida_prod_tipo")
+  @@index([fecha, tipo_material], map: "idx_salidas_prod_fecha_tipo")
 }
 
 enum proyecto_estado {
@@ -1530,4 +1714,229 @@ enum tipo_equipo_enum {
   SERVICIO_ESPECIALIZADO
   HERRAMIENTA_MANUAL
   EQUIPO_TOPOGRAFIA
+}
+
+enum programacion_tecnica_estado_gre {
+  PENDIENTE
+  PROCESANDO
+  COMPLETADO
+  FALLADO
+}
+
+enum ingresos_produccion_estado_produccion {
+  PLANIFICADO
+  EN_PROCESO
+  TERMINADO
+  PAUSADO
+}
+
+enum productores_estado {
+  ACTIVO
+  INACTIVO
+}
+
+enum salidas_materiales_autorizacion {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+enum salidas_produccion_autorizacion {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+enum ingresos_materiales_autorizacion {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+enum salidas_materiales_tipo_material {
+  AFIRMADO
+  SUBBASE
+  BASE
+  PROPIO
+  MEJORADO
+}
+
+enum salidas_produccion_tipo_material {
+  MEJORADO
+  AFIRMADO
+  SUBBASE
+  BASE
+  PROPIO
+}
+
+enum ingresos_materiales_tipo_material {
+  AFIRMADO
+  SUBBASE
+  BASE
+  PROPIO
+  MEJORADO
+}
+
+enum productores_tipo_material_especialidad {
+  AFIRMADO
+  SUBBASE
+  BASE
+  PROPIO
+  MEJORADO
+  TODOS
+}
+
+model guia_remision {
+  id_guia                                       Int                       @id @default(autoincrement())
+  operacion                                     String                    @db.VarChar(20)
+  tipo_de_comprobante                           Int                       @db.TinyInt
+  serie                                         String                    @db.VarChar(4)
+  numero                                        Int
+  cliente_tipo_de_documento                     Int                       @db.TinyInt
+  cliente_numero_de_documento                   String                    @db.VarChar(15)
+  cliente_denominacion                          String                    @db.VarChar(100)
+  cliente_direccion                             String                    @db.VarChar(100)
+  cliente_email                                 String?                   @db.VarChar(250)
+  cliente_email_1                               String?                   @db.VarChar(250)
+  cliente_email_2                               String?                   @db.VarChar(250)
+  fecha_de_emision                              DateTime                  @db.Date
+  observaciones                                 String?                   @db.Text
+  id_proyecto                                   Int?
+  id_etapa                                      Int?
+  id_sector                                     Int?
+  id_frente                                     Int?
+  id_partida                                    Int?
+  motivo_de_traslado                            String?                   @db.VarChar(2)
+  motivo_de_traslado_otros_descripcion          String?                   @db.VarChar(70)
+  documento_relacionado_codigo                  String?                   @db.VarChar(2)
+  peso_bruto_total                              Decimal                   @db.Decimal(12, 10)
+  peso_bruto_unidad_de_medida                   String                    @db.VarChar(3)
+  numero_de_bultos                              Int?
+  tipo_de_transporte                            String?                   @db.VarChar(2)
+  fecha_de_inicio_de_traslado                   DateTime                  @db.Date
+  transportista_documento_tipo                  Int?                      @db.TinyInt
+  transportista_documento_numero                String?                   @db.VarChar(11)
+  transportista_denominacion                    String?                   @db.VarChar(100)
+  transportista_placa_numero                    String                    @db.VarChar(8)
+  tuc_vehiculo_principal                        String?                   @db.VarChar(15)
+  conductor_documento_tipo                      Int?                      @db.TinyInt
+  conductor_documento_numero                    String?                   @db.VarChar(15)
+  conductor_denominacion                        String?                   @db.VarChar(100)
+  conductor_nombre                              String?                   @db.VarChar(250)
+  conductor_apellidos                           String?                   @db.VarChar(250)
+  conductor_numero_licencia                     String?                   @db.VarChar(10)
+  destinatario_documento_tipo                   Int?                      @db.TinyInt
+  destinatario_documento_numero                 String?                   @db.VarChar(15)
+  destinatario_denominacion                     String?                   @db.VarChar(100)
+  mtc                                           String?                   @db.VarChar(20)
+  sunat_envio_indicador                         String?                   @db.VarChar(2)
+  subcontratador_documento_tipo                 Int?                      @db.TinyInt
+  subcontratador_documento_numero               String?                   @db.VarChar(11)
+  subcontratador_denominacion                   String?                   @db.VarChar(250)
+  pagador_servicio_documento_tipo_identidad     Int?                      @db.TinyInt
+  pagador_servicio_documento_numero_identidad   String?                   @db.VarChar(15)
+  pagador_servicio_denominacion                 String?                   @db.VarChar(250)
+  punto_de_partida_ubigeo                       String                    @db.VarChar(6)
+  punto_de_partida_direccion                    String                    @db.VarChar(150)
+  punto_de_partida_codigo_establecimiento_sunat String?                   @db.VarChar(4)
+  punto_de_llegada_ubigeo                       String                    @db.VarChar(6)
+  punto_de_llegada_direccion                    String                    @db.VarChar(150)
+  punto_de_llegada_codigo_establecimiento_sunat String?                   @db.VarChar(4)
+  enviar_automaticamente_al_cliente             Boolean?                  @default(false)
+  formato_de_pdf                                String?                   @db.VarChar(6)
+  enlace                                        String?                   @db.VarChar(255)
+  aceptada_por_sunat                            Boolean?
+  sunat_description                             String?                   @db.Text
+  sunat_note                                    String?                   @db.Text
+  sunat_responsecode                            String?                   @db.VarChar(20)
+  sunat_soap_error                              String?                   @db.Text
+  pdf_zip_base64                                String?                   @db.LongText
+  xml_zip_base64                                String?                   @db.LongText
+  cdr_zip_base64                                String?                   @db.LongText
+  cadena_para_codigo_qr                         String?                   @db.Text
+  enlace_del_pdf                                String?                   @db.VarChar(255)
+  enlace_del_xml                                String?                   @db.VarChar(255)
+  enlace_del_cdr                                String?                   @db.VarChar(255)
+  estado_gre                                    guia_remision_estado_gre?
+  created_at                                    DateTime?                 @default(now()) @db.Timestamp(0)
+  updated_at                                    DateTime?                 @updatedAt @db.Timestamp(0)
+
+  // Relaciones
+  proyecto                proyecto?                 @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict)
+  etapas                  etapas?                   @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict)
+  sector                  sector?                   @relation(fields: [id_sector], references: [id_sector], onDelete: Restrict, onUpdate: Restrict)
+  frente                  frente?                   @relation(fields: [id_frente], references: [id_frente], onDelete: Restrict, onUpdate: Restrict)
+  partida                 partida?                  @relation(fields: [id_partida], references: [id_partida], onDelete: Restrict, onUpdate: Restrict)
+  items                   items[]
+  documento_relacionado   documento_relacionado[]
+  vehiculos_secundarios   vehiculos_secundarios[]
+  conductores_secundarios conductores_secundarios[]
+
+  @@index([serie, numero, tipo_de_comprobante], map: "idx_guia_serie_numero")
+  @@index([fecha_de_emision], map: "idx_guia_fecha_emision")
+  @@index([cliente_numero_de_documento], map: "idx_guia_cliente_documento")
+  @@index([id_proyecto], map: "idx_guia_proyecto")
+  @@index([id_etapa], map: "idx_guia_etapa")
+  @@index([id_sector], map: "idx_guia_sector")
+  @@index([id_frente], map: "idx_guia_frente")
+  @@index([id_partida], map: "idx_guia_partida")
+}
+
+model items {
+  id_item          Int     @id @default(autoincrement())
+  id_guia          Int
+  unidad_de_medida String  @db.VarChar(5)
+  codigo           String? @db.VarChar(250)
+  descripcion      String  @db.Text
+  cantidad         Decimal @db.Decimal(12, 10)
+  codigo_dam       String? @db.VarChar(23)
+  orden            Int?
+
+  guia_remision guia_remision @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([id_guia], map: "idx_items_guia")
+}
+
+model documento_relacionado {
+  id_documento_relacionado Int    @id @default(autoincrement())
+  id_guia                  Int
+  tipo                     String @db.VarChar(2)
+  serie                    String @db.VarChar(4)
+  numero                   Int
+
+  guia_remision guia_remision @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([id_guia], map: "idx_documento_relacionado_guia")
+}
+
+model vehiculos_secundarios {
+  id_vehiculo_secundario Int     @id @default(autoincrement())
+  id_guia                Int
+  placa_numero           String  @db.VarChar(8)
+  tuc                    String? @db.VarChar(15)
+
+  guia_remision guia_remision @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([id_guia], map: "idx_vehiculos_secundarios_guia")
+}
+
+model conductores_secundarios {
+  id_conductor_secundario Int     @id @default(autoincrement())
+  id_guia                 Int
+  documento_tipo          Int?    @db.TinyInt
+  documento_numero        String? @db.VarChar(15)
+  nombre                  String? @db.VarChar(250)
+  apellidos               String? @db.VarChar(250)
+  numero_licencia         String? @db.VarChar(10)
+
+  guia_remision guia_remision @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([id_guia], map: "idx_conductores_secundarios_guia")
+}
+
+enum guia_remision_estado_gre {
+  PENDIENTE
+  PROCESANDO
+  COMPLETADO
+  FALLADO
 }
