@@ -196,4 +196,49 @@ export class ProgramacionService {
       throw new InternalServerErrorException('Error al eliminar el registro');
     }
   }
+
+  async getProgramacionTecnicaById(id: number) {
+    try {
+      const programacionTecnica =
+        await this.prisma.programacion_tecnica.findUnique({
+          where: { id },
+          select: {
+            id: true,
+            guia_numero_documento: true,
+            guia_destinatario_denominacion: true,
+            guia_destinatario_direccion: true,
+            guia_traslado_peso_bruto: true,
+            guia_traslado_vehiculo_placa: true,
+            guia_conductor_dni_numero: true,
+            guia_conductor_nombres: true,
+            guia_conductor_apellidos: true,
+            guia_conductor_num_licencia: true,
+            guia_partida_ubigeo: true,
+            guia_partida_direccion: true,
+            guia_llegada_ubigeo: true,
+            guia_llegada_direccion: true,
+          },
+        });
+
+      if (!programacionTecnica) {
+        throw new BadRequestException(
+          `Programación técnica con ID ${id} no encontrada`,
+        );
+      }
+
+      return programacionTecnica;
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      this.logger.error(
+        `Error al obtener programación técnica con ID ${id}:`,
+        error,
+      );
+      throw new InternalServerErrorException(
+        'Error al obtener la programación técnica',
+      );
+    }
+  }
 }

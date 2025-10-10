@@ -90,4 +90,11 @@ export class ProgramacionController {
 
     return await this.programacionService.deleteById(id);
   }
+
+  @Get('tecnica/:id')
+  async getProgramacionTecnica(@Param('id', ParseIntPipe) id: number) {
+    this.logger.log(`Consultando programación técnica con ID: ${id}`);
+
+    return await this.programacionService.getProgramacionTecnicaById(id);
+  }
 }

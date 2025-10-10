@@ -47,7 +47,7 @@ export class GreTestService {
       operacion: 'generar_guia',
       tipo_de_comprobante: 7,
       serie: 'TTT1',
-      numero: 22,
+      numero: 31,
 
       // Cliente (Destinatario)
       cliente_tipo_de_documento: 6, // RUC
@@ -61,13 +61,13 @@ export class GreTestService {
       fecha_de_inicio_de_traslado: fechaFormateada,
 
       // Traslado (Obligatorio GRE Remitente)
-      motivo_de_traslado: '04', // Traslado entre establecimientos
+      motivo_de_traslado: '13', // Traslado entre establecimientos
       numero_de_bultos: 1,
       tipo_de_transporte: '02', // ✅ PRIVADO
 
       // Peso
       peso_bruto_total: 1.5,
-      peso_bruto_unidad_de_medida: 'KGM',
+      peso_bruto_unidad_de_medida: 'TNE',
 
       // Transporte
       transportista_placa_numero: 'ABC444',
