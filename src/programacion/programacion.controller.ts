@@ -3,6 +3,7 @@ import {
   Post,
   Get,
   Delete,
+  Patch,
   Body,
   Param,
   Query,
@@ -96,5 +97,27 @@ export class ProgramacionController {
     this.logger.log(`Consultando programación técnica con ID: ${id}`);
 
     return await this.programacionService.getProgramacionTecnicaById(id);
+  }
+
+  @Patch('tecnica/:id')
+  async updateProgramacionTecnica(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateData: {
+      id_proyecto?: number;
+      id_etapa?: number;
+      id_sector?: number;
+      id_frente?: number;
+      id_partida?: number;
+    },
+  ) {
+    this.logger.log(
+      `Actualizando programación técnica con ID: ${id}. Datos:`,
+      updateData,
+    );
+
+    return await this.programacionService.updateProgramacionTecnica(
+      id,
+      updateData,
+    );
   }
 }

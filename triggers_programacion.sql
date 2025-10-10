@@ -15,17 +15,17 @@ BEGIN
        AND (OLD.estado_programacion IS NULL OR OLD.estado_programacion != 'OK')
        AND NEW.identificador_unico IS NOT NULL
     THEN
-        -- Verificar si no existe ya en programacion_tecnica usando codigo_transporte
+        -- Verificar si no existe ya en programacion_tecnica usando identificador_unico
         IF NOT EXISTS (
             SELECT 1 FROM programacion_tecnica
-            WHERE codigo_transporte = NEW.identificador_unico
+            WHERE identificador_unico = NEW.identificador_unico
         ) THEN
             INSERT INTO programacion_tecnica (
                 programacion,
-                fecha_trabajo,
-                proyecto,
-                placa_serie,
-                codigo_transporte
+                fecha,
+                proyectos,
+                unidad,
+                identificador_unico
             ) VALUES (
                 NEW.programacion,
                 NEW.fecha,
@@ -46,17 +46,17 @@ BEGIN
     IF NEW.estado_programacion = 'OK'
        AND NEW.identificador_unico IS NOT NULL
     THEN
-        -- Verificar si no existe ya en programacion_tecnica usando codigo_transporte
+        -- Verificar si no existe ya en programacion_tecnica usando identificador_unico
         IF NOT EXISTS (
             SELECT 1 FROM programacion_tecnica
-            WHERE codigo_transporte = NEW.identificador_unico
+            WHERE identificador_unico = NEW.identificador_unico
         ) THEN
             INSERT INTO programacion_tecnica (
                 programacion,
-                fecha_trabajo,
-                proyecto,
-                placa_serie,
-                codigo_transporte
+                fecha,
+                proyectos,
+                unidad,
+                identificador_unico
             ) VALUES (
                 NEW.programacion,
                 NEW.fecha,
@@ -78,10 +78,10 @@ BEGIN
     -- Insertar registros existentes que cumplan las condiciones
     INSERT INTO programacion_tecnica (
         programacion,
-        fecha_trabajo,
-        proyecto,
-        placa_serie,
-        codigo_transporte
+        fecha,
+        proyectos,
+        unidad,
+        identificador_unico
     )
     SELECT
         p.programacion,
@@ -95,7 +95,7 @@ BEGIN
       AND NOT EXISTS (
           SELECT 1
           FROM programacion_tecnica pt
-          WHERE pt.codigo_transporte = p.identificador_unico
+          WHERE pt.identificador_unico = p.identificador_unico
       );
 
     -- Mostrar cuántos registros se procesaron

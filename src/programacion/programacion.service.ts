@@ -241,4 +241,70 @@ export class ProgramacionService {
       );
     }
   }
+
+  async updateProgramacionTecnica(
+    id: number,
+    updateData: {
+      id_proyecto?: number;
+      id_etapa?: number;
+      id_sector?: number;
+      id_frente?: number;
+      id_partida?: number;
+    },
+  ) {
+    try {
+      // Verificar que el registro existe
+      const existingRecord = await this.prisma.programacion_tecnica.findUnique({
+        where: { id },
+      });
+
+      if (!existingRecord) {
+        throw new BadRequestException(
+          `Programación técnica con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el registro con los nuevos valores
+      const updatedRecord = await this.prisma.programacion_tecnica.update({
+        where: { id },
+        data: {
+          id_proyecto: updateData.id_proyecto ?? null,
+          id_etapa: updateData.id_etapa ?? null,
+          id_sector: updateData.id_sector ?? null,
+          id_frente: updateData.id_frente ?? null,
+          id_partida: updateData.id_partida ?? null,
+        },
+      });
+
+      this.logger.log(
+        `Programación técnica con ID ${id} actualizada exitosamente`,
+      );
+
+      return {
+        message: 'Programación técnica actualizada exitosamente',
+        data: updatedRecord,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new BadRequestException(
+          `Programación técnica con ID ${id} no encontrada`,
+        );
+      }
+
+      this.logger.error(
+        `Error al actualizar programación técnica con ID ${id}:`,
+        error,
+      );
+      throw new InternalServerErrorException(
+        'Error al actualizar la programación técnica',
+      );
+    }
+  }
 }
