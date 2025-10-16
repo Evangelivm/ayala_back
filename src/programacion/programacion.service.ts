@@ -184,10 +184,48 @@ export class ProgramacionService {
 
   async findAllProgramacionTecnica() {
     try {
-      const data = await this.prisma.programacion_tecnica.findMany({
+      // Obtener todos los registros de programación técnica
+      const programacionTecnica = await this.prisma.programacion_tecnica.findMany({
         orderBy: {
           fecha: 'desc',
         },
+      });
+
+      // Obtener los identificadores únicos
+      const identificadoresUnicos = programacionTecnica
+        .map(pt => pt.identificador_unico)
+        .filter((id): id is string => id !== null);
+
+      // Obtener las guías de remisión completadas para esos identificadores
+      const guiasRemision = await this.prisma.guia_remision.findMany({
+        where: {
+          identificador_unico: {
+            in: identificadoresUnicos,
+          },
+          estado_gre: 'COMPLETADO',
+        },
+        select: {
+          identificador_unico: true,
+          enlace_del_pdf: true,
+          enlace_del_xml: true,
+          enlace_del_cdr: true,
+        },
+      });
+
+      // Crear un mapa de guías por identificador único
+      const guiasMap = new Map(
+        guiasRemision.map(guia => [guia.identificador_unico, guia])
+      );
+
+      // Combinar los datos
+      const data = programacionTecnica.map(pt => {
+        const guia = pt.identificador_unico ? guiasMap.get(pt.identificador_unico) : null;
+        return {
+          ...pt,
+          enlace_del_pdf: guia?.enlace_del_pdf || null,
+          enlace_del_xml: guia?.enlace_del_xml || null,
+          enlace_del_cdr: guia?.enlace_del_cdr || null,
+        };
       });
 
       return data;
@@ -204,6 +242,7 @@ export class ProgramacionService {
           where: { id },
           select: {
             id: true,
+            identificador_unico: true,
             guia_numero_documento: true,
             guia_destinatario_denominacion: true,
             guia_destinatario_direccion: true,

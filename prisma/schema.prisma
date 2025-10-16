@@ -1774,6 +1774,7 @@ model guia_remision {
   estado_gre                                    guia_remision_estado_gre?
   created_at                                    DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at                                    DateTime?                 @updatedAt @db.Timestamp(0)
+  identificador_unico                           String?                   @db.VarChar(255)
   conductores_secundarios                       conductores_secundarios[]
   documento_relacionado                         documento_relacionado[]
   etapas                                        etapas?                   @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict)
