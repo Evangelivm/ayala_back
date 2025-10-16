@@ -9,7 +9,11 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.FRONTEND_URL?.split(',') || ['http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Origin',
+    ],
     maxAge: 86400,
     // credentials: true,
   });

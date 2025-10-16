@@ -60,36 +60,17 @@ export class ProgramacionController {
   }
 
   @Get()
-  async findAll(
-    @Query('page', new ParseIntPipe({ optional: true })) page: number = 1,
-    @Query('limit', new ParseIntPipe({ optional: true })) limit: number = 50,
-  ) {
-    // Validar límites
-    const validatedLimit = Math.min(Math.max(limit, 1), 100);
-    const validatedPage = Math.max(page, 1);
+  async findAll() {
+    this.logger.log('Consultando todos los registros de programación');
 
-    this.logger.log(
-      `Consultando registros: página ${validatedPage}, límite ${validatedLimit}`,
-    );
-
-    return await this.programacionService.findAll(
-      validatedPage,
-      validatedLimit,
-    );
+    return await this.programacionService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    this.logger.log(`Consultando registro con ID: ${id}`);
+  @Get('tecnica')
+  async findAllProgramacionTecnica() {
+    this.logger.log('Consultando todos los registros de programación técnica');
 
-    return await this.programacionService.findById(id);
-  }
-
-  @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    this.logger.log(`Eliminando registro con ID: ${id}`);
-
-    return await this.programacionService.deleteById(id);
+    return await this.programacionService.findAllProgramacionTecnica();
   }
 
   @Get('tecnica/:id')
@@ -119,5 +100,19 @@ export class ProgramacionController {
       id,
       updateData,
     );
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    this.logger.log(`Consultando registro con ID: ${id}`);
+
+    return await this.programacionService.findById(id);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    this.logger.log(`Eliminando registro con ID: ${id}`);
+
+    return await this.programacionService.deleteById(id);
   }
 }

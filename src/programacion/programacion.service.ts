@@ -126,30 +126,15 @@ export class ProgramacionService {
     }
   }
 
-  async findAll(page: number = 1, limit: number = 50) {
-    const skip = (page - 1) * limit;
-
+  async findAll() {
     try {
-      const [data, total] = await Promise.all([
-        this.prisma.programacion.findMany({
-          skip,
-          take: limit,
-          orderBy: {
-            fecha: 'desc',
-          },
-        }),
-        this.prisma.programacion.count(),
-      ]);
-
-      return {
-        data,
-        pagination: {
-          page,
-          limit,
-          total,
-          totalPages: Math.ceil(total / limit),
+      const data = await this.prisma.programacion.findMany({
+        orderBy: {
+          fecha: 'desc',
         },
-      };
+      });
+
+      return data;
     } catch (error) {
       this.logger.error('Error al obtener registros de programación:', error);
       throw new InternalServerErrorException('Error al obtener los registros');
@@ -194,6 +179,21 @@ export class ProgramacionService {
 
       this.logger.error(`Error al eliminar registro con ID ${id}:`, error);
       throw new InternalServerErrorException('Error al eliminar el registro');
+    }
+  }
+
+  async findAllProgramacionTecnica() {
+    try {
+      const data = await this.prisma.programacion_tecnica.findMany({
+        orderBy: {
+          fecha: 'desc',
+        },
+      });
+
+      return data;
+    } catch (error) {
+      this.logger.error('Error al obtener registros de programación técnica:', error);
+      throw new InternalServerErrorException('Error al obtener los registros');
     }
   }
 
