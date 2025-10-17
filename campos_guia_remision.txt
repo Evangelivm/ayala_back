@@ -1,0 +1,56 @@
+CAMPOS REQUERIDOS PARA GENERAR GUÍA DE REMISIÓN
+================================================
+
+Para que aparezca el botón "Generar Guía" en la interfaz de prog-tecnica,
+TODOS los siguientes campos de la tabla `programacion_tecnica` deben estar llenos
+(no null, no vacíos):
+
+INFORMACIÓN DEL DOCUMENTO
+-------------------------
+1. guia_numero_documento          - String, VarChar(255)
+
+INFORMACIÓN DEL DESTINATARIO
+----------------------------
+2. guia_destinatario_denominacion - String, VarChar(255)
+3. guia_destinatario_direccion    - String, VarChar(255)
+
+INFORMACIÓN DEL TRASLADO
+------------------------
+4. guia_traslado_motivo           - String, VarChar(255)
+5. guia_traslado_bultos           - String, VarChar(255)
+6. guia_traslado_tipo_transporte  - String, VarChar(255)
+7. guia_traslado_fecha_inicio     - DateTime, Date
+8. guia_traslado_peso_bruto       - String, VarChar(2)
+9. guia_traslado_unidad_medida    - String, VarChar(10)
+10. guia_traslado_vehiculo_placa  - String, VarChar(10)
+
+INFORMACIÓN DEL CONDUCTOR
+-------------------------
+11. guia_conductor_tipo_dni       - String, VarChar(10)
+12. guia_conductor_dni_numero     - String, VarChar(10)
+13. guia_conductor_nombres        - String, VarChar(50)
+14. guia_conductor_apellidos      - String, VarChar(50)
+15. guia_conductor_num_licencia   - String, VarChar(10)
+
+INFORMACIÓN DE PARTIDA
+----------------------
+16. guia_partida_direccion        - String, VarChar(50)
+17. guia_partida_ubigeo           - String, VarChar(10)
+
+INFORMACIÓN DE LLEGADA
+----------------------
+18. guia_llegada_direccion        - String, VarChar(50)
+19. guia_llegada_ubigeo           - String, VarChar(10)
+
+NOTA IMPORTANTE:
+===============
+- El campo `guia_tipo_documento` existe en la tabla pero NO es verificado
+  por la función `hasGuiaCompleta()` en el frontend.
+
+- La validación se realiza en: ayala_front/src/app/prog-tecnica/page.tsx
+  Función: hasGuiaCompleta() (líneas 49-71)
+
+- Cuando todos los campos están llenos:
+  * La fila se muestra con fondo verde (bg-green-100)
+  * Aparece el botón "Generar Guía"
+  * Al hacer clic, redirige a: /guia-remision?id={id}

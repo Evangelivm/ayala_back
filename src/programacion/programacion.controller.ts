@@ -66,11 +66,11 @@ export class ProgramacionController {
     return await this.programacionService.findAll();
   }
 
-  @Get('tecnica')
-  async findAllProgramacionTecnica() {
-    this.logger.log('Consultando todos los registros de programación técnica');
+  @Get('tecnica/con-guia')
+  async getIdentificadoresConGuia() {
+    this.logger.log('Consultando identificadores únicos con guía generada');
 
-    return await this.programacionService.findAllProgramacionTecnica();
+    return await this.programacionService.getIdentificadoresConGuia();
   }
 
   @Get('tecnica/:id')
@@ -78,6 +78,13 @@ export class ProgramacionController {
     this.logger.log(`Consultando programación técnica con ID: ${id}`);
 
     return await this.programacionService.getProgramacionTecnicaById(id);
+  }
+
+  @Get('tecnica')
+  async findAllProgramacionTecnica() {
+    this.logger.log('Consultando todos los registros de programación técnica');
+
+    return await this.programacionService.findAllProgramacionTecnica();
   }
 
   @Patch('tecnica/:id')

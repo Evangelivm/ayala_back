@@ -346,4 +346,33 @@ export class ProgramacionService {
       );
     }
   }
+
+  async getIdentificadoresConGuia(): Promise<string[]> {
+    try {
+      // Obtener todos los identificadores únicos de guías de remisión
+      const guias = await this.prisma.guia_remision.findMany({
+        where: {
+          identificador_unico: {
+            not: null,
+          },
+        },
+        select: {
+          identificador_unico: true,
+        },
+        distinct: ['identificador_unico'],
+      });
+
+      // Filtrar nulos y retornar solo los identificadores
+      const identificadores = guias
+        .map(guia => guia.identificador_unico)
+        .filter((id): id is string => id !== null);
+
+      this.logger.log(`Encontrados ${identificadores.length} identificadores únicos con guía generada`);
+
+      return identificadores;
+    } catch (error) {
+      this.logger.error('Error al obtener identificadores únicos con guía:', error);
+      throw new InternalServerErrorException('Error al obtener los identificadores');
+    }
+  }
 }

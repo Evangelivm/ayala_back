@@ -2,6 +2,7 @@
 DROP TRIGGER IF EXISTS tr_insertar_programacion_tecnica;
 DROP TRIGGER IF EXISTS tr_insertar_programacion_tecnica_new;
 DROP PROCEDURE IF EXISTS sp_migrar_registros_existentes;
+DROP PROCEDURE IF EXISTS sp_actualizar_campos_faltantes;
 
 DELIMITER $$
 
@@ -25,13 +26,21 @@ BEGIN
                 fecha,
                 proyectos,
                 unidad,
-                identificador_unico
+                identificador_unico,
+                proveedor,
+                apellidos_nombres,
+                estado_programacion,
+                hora_partida
             ) VALUES (
                 NEW.programacion,
                 NEW.fecha,
                 NEW.proyectos,
                 NEW.unidad,
-                NEW.identificador_unico
+                NEW.identificador_unico,
+                NEW.proveedor,
+                NEW.apellidos_nombres,
+                NEW.estado_programacion,
+                NEW.hora_partida
             );
         END IF;
     END IF;
@@ -56,13 +65,21 @@ BEGIN
                 fecha,
                 proyectos,
                 unidad,
-                identificador_unico
+                identificador_unico,
+                proveedor,
+                apellidos_nombres,
+                estado_programacion,
+                hora_partida
             ) VALUES (
                 NEW.programacion,
                 NEW.fecha,
                 NEW.proyectos,
                 NEW.unidad,
-                NEW.identificador_unico
+                NEW.identificador_unico,
+                NEW.proveedor,
+                NEW.apellidos_nombres,
+                NEW.estado_programacion,
+                NEW.hora_partida
             );
         END IF;
     END IF;
@@ -81,14 +98,22 @@ BEGIN
         fecha,
         proyectos,
         unidad,
-        identificador_unico
+        identificador_unico,
+        proveedor,
+        apellidos_nombres,
+        estado_programacion,
+        hora_partida
     )
     SELECT
         p.programacion,
         p.fecha,
         p.proyectos,
         p.unidad,
-        p.identificador_unico
+        p.identificador_unico,
+        p.proveedor,
+        p.apellidos_nombres,
+        p.estado_programacion,
+        p.hora_partida
     FROM programacion p
     WHERE p.estado_programacion = 'OK'
       AND p.identificador_unico IS NOT NULL
@@ -102,6 +127,32 @@ BEGIN
     SELECT ROW_COUNT() as registros_migrados;
 END$$
 
+-- Procedimiento para actualizar campos faltantes en programacion_tecnica
+CREATE PROCEDURE sp_actualizar_campos_faltantes()
+BEGIN
+    DECLARE registros_actualizados INT DEFAULT 0;
+
+    -- Actualizar registros existentes con los campos faltantes
+    UPDATE programacion_tecnica pt
+    INNER JOIN programacion p ON pt.id = p.id
+    SET
+        pt.proveedor = p.proveedor,
+        pt.apellidos_nombres = p.apellidos_nombres,
+        pt.hora_partida = p.hora_partida,
+        pt.estado_programacion = p.estado_programacion
+    WHERE
+        pt.proveedor IS NULL
+        OR pt.apellidos_nombres IS NULL
+        OR pt.hora_partida IS NULL
+        OR pt.estado_programacion IS NULL;
+
+    -- Obtener el número de registros actualizados
+    SET registros_actualizados = ROW_COUNT();
+
+    -- Mostrar cuántos registros se actualizaron
+    SELECT registros_actualizados as registros_actualizados;
+END$$
+
 DELIMITER ;
 
 -- Para ejecutar los triggers:
@@ -109,3 +160,6 @@ DELIMITER ;
 
 -- Para ejecutar la migración de registros existentes:
 -- CALL sp_migrar_registros_existentes();
+
+-- Para actualizar campos faltantes en programacion_tecnica:
+-- CALL sp_actualizar_campos_faltantes();
