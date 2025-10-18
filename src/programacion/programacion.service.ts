@@ -375,4 +375,79 @@ export class ProgramacionService {
       throw new InternalServerErrorException('Error al obtener los identificadores');
     }
   }
+
+  async getRecienCompletados(segundos: number = 30) {
+    try {
+      const tiempoLimite = new Date(Date.now() - segundos * 1000);
+
+      // Buscar guías completadas recientemente
+      const guiasRecientes = await this.prisma.guia_remision.findMany({
+        where: {
+          estado_gre: 'COMPLETADO',
+          updated_at: {
+            gte: tiempoLimite,
+          },
+          enlace_del_pdf: {
+            not: null,
+          },
+          enlace_del_xml: {
+            not: null,
+          },
+          enlace_del_cdr: {
+            not: null,
+          },
+          identificador_unico: {
+            not: null,
+          },
+        },
+        select: {
+          identificador_unico: true,
+          enlace_del_pdf: true,
+          enlace_del_xml: true,
+          enlace_del_cdr: true,
+        },
+      });
+
+      if (guiasRecientes.length === 0) {
+        return [];
+      }
+
+      // Obtener los identificadores únicos
+      const identificadores = guiasRecientes
+        .map(g => g.identificador_unico)
+        .filter((id): id is string => id !== null);
+
+      // Obtener los datos completos de programacion_tecnica correspondientes
+      const programacionData = await this.prisma.programacion_tecnica.findMany({
+        where: {
+          identificador_unico: {
+            in: identificadores,
+          },
+        },
+      });
+
+      // Crear un mapa de guías por identificador único
+      const guiasMap = new Map(
+        guiasRecientes.map(guia => [guia.identificador_unico, guia])
+      );
+
+      // Combinar los datos de programación técnica con los enlaces de las guías
+      const datosCompletos = programacionData.map(pt => {
+        const guia = pt.identificador_unico ? guiasMap.get(pt.identificador_unico) : null;
+        return {
+          ...pt,
+          enlace_del_pdf: guia?.enlace_del_pdf || null,
+          enlace_del_xml: guia?.enlace_del_xml || null,
+          enlace_del_cdr: guia?.enlace_del_cdr || null,
+        };
+      });
+
+      this.logger.log(`Encontrados ${datosCompletos.length} registros recién completados en los últimos ${segundos} segundos`);
+
+      return datosCompletos;
+    } catch (error) {
+      this.logger.error('Error al obtener registros recién completados:', error);
+      throw new InternalServerErrorException('Error al obtener los registros recién completados');
+    }
+  }
 }

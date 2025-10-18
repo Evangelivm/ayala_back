@@ -73,6 +73,14 @@ export class ProgramacionController {
     return await this.programacionService.getIdentificadoresConGuia();
   }
 
+  @Get('tecnica/recien-completados')
+  async getRecienCompletados(@Query('segundos') segundos?: string) {
+    const segundosNum = segundos ? parseInt(segundos, 10) : 30;
+    this.logger.log(`Consultando registros recién completados en los últimos ${segundosNum} segundos`);
+
+    return await this.programacionService.getRecienCompletados(segundosNum);
+  }
+
   @Get('tecnica/:id')
   async getProgramacionTecnica(@Param('id', ParseIntPipe) id: number) {
     this.logger.log(`Consultando programación técnica con ID: ${id}`);
