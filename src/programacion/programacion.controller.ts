@@ -104,6 +104,7 @@ export class ProgramacionController {
       id_sector?: number;
       id_frente?: number;
       id_partida?: number;
+      m3?: string;
     },
   ) {
     this.logger.log(

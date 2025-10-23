@@ -289,6 +289,12 @@ export class ProgramacionService {
       id_sector?: number;
       id_frente?: number;
       id_partida?: number;
+      id_subproyecto?: number;
+      id_subetapa?: number;
+      id_subsector?: number;
+      id_subfrente?: number;
+      id_subpartida?: number;
+      m3?: string;
     },
   ) {
     try {
@@ -312,6 +318,12 @@ export class ProgramacionService {
           id_sector: updateData.id_sector ?? null,
           id_frente: updateData.id_frente ?? null,
           id_partida: updateData.id_partida ?? null,
+          id_subproyecto: updateData.id_subproyecto ?? null,
+          id_subetapa: updateData.id_subetapa ?? null,
+          id_subsector: updateData.id_subsector ?? null,
+          id_subfrente: updateData.id_subfrente ?? null,
+          id_subpartida: updateData.id_subpartida ?? null,
+          m3: updateData.m3 ?? null,
         },
       });
 
