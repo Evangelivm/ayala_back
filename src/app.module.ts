@@ -24,6 +24,7 @@ import { GreModule } from './gre/gre.module';
 import { KafkaModule } from './kafka/kafka.module';
 import { CamionesModule } from './camiones/camiones.module';
 import { EmpresasModule } from './empresas/empresas.module';
+import { KardexPdfModule } from './kardex-pdf/kardex-pdf.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { EmpresasModule } from './empresas/empresas.module';
     GreModule,
     CamionesModule,
     EmpresasModule,
+    KardexPdfModule,
   ],
   controllers: [AppController],
   providers: [AppService],
