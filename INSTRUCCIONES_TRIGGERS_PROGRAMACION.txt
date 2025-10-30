@@ -1,0 +1,165 @@
+================================================================================
+INSTRUCCIONES PARA MANEJO DE TRIGGERS DE PROGRAMACION
+Fecha: 2025-10-30
+================================================================================
+
+CONTEXTO:
+---------
+Necesitas hacer cambios a la tabla 'programacion_tecnica' sin que los triggers
+de 'programacion' interfieran. Este documento te guía en el proceso.
+
+
+PASO 1: DESACTIVAR LOS TRIGGERS (HACER AHORA)
+==============================================
+
+Conectarte a MySQL y ejecutar:
+
+    mysql -u tu_usuario -p nombre_base_datos
+
+Luego ejecutar estos comandos:
+
+    DROP TRIGGER IF EXISTS tr_insertar_programacion_tecnica;
+    DROP TRIGGER IF EXISTS tr_insertar_programacion_tecnica_new;
+    DROP PROCEDURE IF EXISTS sp_migrar_registros_existentes;
+    DROP PROCEDURE IF EXISTS sp_actualizar_campos_faltantes;
+
+Verificar que se eliminaron:
+
+    SHOW TRIGGERS WHERE `Table` = 'programacion';
+
+Deberías ver: Empty set (0.00 sec)
+
+
+PASO 2: TRABAJAR EN programacion_tecnica
+=========================================
+
+Ahora puedes hacer TODOS los cambios que necesites en la tabla programacion_tecnica
+sin preocuparte por los triggers. Esto incluye:
+
+- Agregar nuevas columnas
+- Modificar tipos de datos
+- Eliminar columnas
+- Cambiar índices
+- Etc.
+
+IMPORTANTE: Mientras los triggers estén desactivados, los datos insertados en
+'programacion' NO se copiarán automáticamente a 'programacion_tecnica'.
+
+
+PASO 3: CUANDO TERMINES LOS CAMBIOS
+====================================
+
+Cuando hayas terminado de modificar la tabla programacion_tecnica, necesito
+que me proporciones la siguiente información:
+
+1. ¿Qué campos NUEVOS agregaste a programacion_tecnica?
+2. ¿Qué campos ELIMINASTE de programacion_tecnica?
+3. ¿Cambiaste algún tipo de dato de campos existentes?
+4. ¿Hay algún campo en 'programacion' que ahora quieras copiar a
+   'programacion_tecnica' que antes no se copiaba?
+
+Con esta información, actualizaré el archivo:
+    triggers_programacion_corregidos.sql
+
+para que refleje la nueva estructura.
+
+
+PASO 4: REACTIVAR LOS TRIGGERS
+===============================
+
+Cuando yo haya actualizado el archivo de triggers, ejecutarás:
+
+    SOURCE D:/recuperacion/ayala/ayala_back/triggers_programacion_corregidos.sql;
+
+Y verificarás:
+
+    SHOW TRIGGERS WHERE `Table` = 'programacion';
+
+Deberías ver los dos triggers:
+- tr_insertar_programacion_tecnica
+- tr_insertar_programacion_tecnica_new
+
+
+INFORMACIÓN ADICIONAL
+=====================
+
+CAMPOS ACTUALES EN programacion (para referencia):
+---------------------------------------------------
+- id                      (Int, autoincrement)
+- fecha                   (DateTime, Date)
+- unidad                  (Int)
+- proveedor               (String, VarChar 255)
+- programacion            (String, VarChar 255)
+- hora_partida            (DateTime, Time)
+- estado_programacion     (String, VarChar 255)
+- comentarios             (String, Text)
+- identificador_unico     (String, VarChar 255)
+- km_del_dia              (String, VarChar 255)
+- mes                     (String, VarChar 255)
+- num_semana              (String, VarChar 255)
+- peso                    (String, VarChar 255)
+- punto_partida_ubigeo    (String, VarChar 255)
+- punto_partida_direccion (String, VarChar 255)
+- punto_llegada_ubigeo    (String, VarChar 255)
+- punto_llegada_direccion (String, VarChar 255)
+
+MAPEO ACTUAL programacion -> programacion_tecnica:
+--------------------------------------------------
+programacion.fecha                  -> programacion_tecnica.fecha
+programacion.unidad (Int)           -> programacion_tecnica.unidad (String)
+programacion.proveedor              -> programacion_tecnica.proveedor
+programacion.programacion           -> programacion_tecnica.programacion
+programacion.hora_partida           -> programacion_tecnica.hora_partida
+programacion.estado_programacion    -> programacion_tecnica.estado_programacion
+programacion.comentarios            -> programacion_tecnica.comentarios
+programacion.identificador_unico    -> programacion_tecnica.identificador_unico
+programacion.km_del_dia             -> programacion_tecnica.km_del_dia
+programacion.mes                    -> programacion_tecnica.mes
+programacion.num_semana             -> programacion_tecnica.num_semana
+programacion.punto_partida_ubigeo   -> programacion_tecnica.guia_partida_ubigeo
+programacion.punto_partida_direccion-> programacion_tecnica.guia_partida_direccion
+programacion.punto_llegada_ubigeo   -> programacion_tecnica.guia_llegada_ubigeo
+programacion.punto_llegada_direccion-> programacion_tecnica.guia_llegada_direccion
+programacion.peso                   -> programacion_tecnica.guia_traslado_peso_bruto
+
+
+PROBLEMA QUE SE SOLUCIONÓ
+==========================
+
+Los triggers antiguos (triggers_programacion.sql) intentaban copiar campos que
+NO EXISTEN en la tabla 'programacion':
+- proyectos
+- apellidos_nombres
+
+Esto causaba el error:
+"The column `proyectos` does not exist in the current database."
+
+Los triggers corregidos (triggers_programacion_corregidos.sql) solo usan campos
+que SÍ existen en la tabla 'programacion'.
+
+
+NOTAS IMPORTANTES
+=================
+
+1. NO uses el archivo antiguo: triggers_programacion.sql
+   Usa solo: triggers_programacion_corregidos.sql (después de que lo actualice)
+
+2. Mientras los triggers estén desactivados, puedes insertar datos en
+   'programacion' sin problemas, pero NO se copiarán a 'programacion_tecnica'.
+
+3. Si necesitas copiar datos existentes de 'programacion' a 'programacion_tecnica'
+   después de reactivar los triggers, usaremos el procedimiento:
+   CALL sp_migrar_registros_existentes();
+
+4. Guarda este archivo para referencia futura.
+
+
+CONTACTO
+========
+
+Cuando termines los cambios en programacion_tecnica, avísame para actualizar
+los triggers con la nueva estructura.
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================

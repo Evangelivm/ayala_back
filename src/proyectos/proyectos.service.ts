@@ -10,6 +10,7 @@ export class ProyectosService {
     const proyectos = await this.prisma.proyecto.findMany({
       where: { estado: 'activo' },
       include: {
+        empresas_2025: true,
         etapas: {
           include: {
             sector: {
@@ -32,6 +33,13 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
+      empresas_2025: proyecto.empresas_2025 ? {
+        codigo: proyecto.empresas_2025.codigo,
+        razon_social: proyecto.empresas_2025.razon_social,
+        nro_documento: proyecto.empresas_2025.nro_documento,
+        tipo: proyecto.empresas_2025.tipo,
+        direccion: proyecto.empresas_2025.direccion,
+      } : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
@@ -72,6 +80,7 @@ export class ProyectosService {
     const proyecto = await this.prisma.proyecto.findUnique({
       where: { id_proyecto: id },
       include: {
+        empresas_2025: true,
         etapas: {
           include: {
             sector: {
@@ -97,6 +106,13 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
+      empresas_2025: proyecto.empresas_2025 ? {
+        codigo: proyecto.empresas_2025.codigo,
+        razon_social: proyecto.empresas_2025.razon_social,
+        nro_documento: proyecto.empresas_2025.nro_documento,
+        tipo: proyecto.empresas_2025.tipo,
+        direccion: proyecto.empresas_2025.direccion,
+      } : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
@@ -135,13 +151,14 @@ export class ProyectosService {
 
   async findByNombre(nombre: string) {
     const proyecto = await this.prisma.proyecto.findFirst({
-      where: { 
+      where: {
         nombre: {
           contains: nombre,
         },
         estado: 'activo',
       },
       include: {
+        empresas_2025: true,
         etapas: {
           include: {
             sector: {
@@ -161,6 +178,13 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
+      empresas_2025: proyecto.empresas_2025 ? {
+        codigo: proyecto.empresas_2025.codigo,
+        razon_social: proyecto.empresas_2025.razon_social,
+        nro_documento: proyecto.empresas_2025.nro_documento,
+        tipo: proyecto.empresas_2025.tipo,
+        direccion: proyecto.empresas_2025.direccion,
+      } : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
@@ -207,6 +231,7 @@ export class ProyectosService {
         estado: data.activo ? 'activo' : 'inactivo',
       },
       include: {
+        empresas_2025: true,
         etapas: true,
       },
     });
@@ -216,6 +241,13 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
+      empresas_2025: proyecto.empresas_2025 ? {
+        codigo: proyecto.empresas_2025.codigo,
+        razon_social: proyecto.empresas_2025.razon_social,
+        nro_documento: proyecto.empresas_2025.nro_documento,
+        tipo: proyecto.empresas_2025.tipo,
+        direccion: proyecto.empresas_2025.direccion,
+      } : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
@@ -260,6 +292,7 @@ export class ProyectosService {
         updated_at: new Date(),
       },
       include: {
+        empresas_2025: true,
         etapas: {
           include: {
             sector: {
@@ -277,6 +310,13 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
+      empresas_2025: proyecto.empresas_2025 ? {
+        codigo: proyecto.empresas_2025.codigo,
+        razon_social: proyecto.empresas_2025.razon_social,
+        nro_documento: proyecto.empresas_2025.nro_documento,
+        tipo: proyecto.empresas_2025.tipo,
+        direccion: proyecto.empresas_2025.direccion,
+      } : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],

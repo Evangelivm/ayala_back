@@ -144,11 +144,12 @@ model clientes2025 {
 }
 
 model empresas_2025 {
-  C_digo       String  @id @map("Código") @db.VarChar(255)
-  Raz_n_social String? @map("Razón social") @db.VarChar(255)
-  N__documento String? @map("N° documento") @db.VarChar(255)
-  Tipo         String? @db.VarChar(255)
-  Direcci_n    String? @map("Dirección") @db.VarChar(255)
+  codigo        String     @id @db.VarChar(255)
+  razon_social  String?    @db.VarChar(255)
+  nro_documento String?    @db.VarChar(255)
+  tipo          String?    @db.VarChar(255)
+  direccion     String?    @db.VarChar(255)
+  proyecto      proyecto[]
 }
 
 model facturas {
@@ -524,10 +525,13 @@ model proyecto {
   etapas                etapas[]
   facturas              facturas[]
   guia_remision         guia_remision[]
+  empresas_2025         empresas_2025?          @relation(fields: [cliente], references: [codigo], onDelete: Restrict, onUpdate: Restrict, map: "proyecto_ibfk_1")
   reportes_operadores   reportes_operadores[]
   reportes_plantilleros reportes_plantilleros[]
   subproyectos          subproyectos[]
   viajes_eliminacion    viajes_eliminacion[]
+
+  @@index([cliente], map: "proyecto_ibfk_1_idx")
 }
 
 model sector {
@@ -1192,31 +1196,23 @@ model obras {
 }
 
 model programacion {
-  id                  Int       @id @default(autoincrement())
-  fecha               DateTime? @db.Date
-  unidad              String?   @db.VarChar(255)
-  proveedor           String?   @db.VarChar(255)
-  apellidos_nombres   String?   @db.VarChar(255)
-  proyectos           String?   @db.VarChar(255)
-  programacion        String?   @db.VarChar(255)
-  hora_partida        DateTime? @db.Time(0)
-  estado_programacion String?   @db.VarChar(255)
-  comentarios         String?   @db.Text
-  validacion          String?   @db.VarChar(255)
-  identificador_unico String?   @db.VarChar(255)
-  km_del_dia          String?   @db.VarChar(255)
-  mes                 String?   @db.VarChar(255)
-  num_semana          String?   @db.VarChar(255)
-  m3                  String?   @db.VarChar(255)
-  cantidad_viaje      String?   @db.VarChar(255)
-  kilom_inicio        String?   @db.VarChar(255)
-  kilom_final         String?   @db.VarChar(255)
-  kilom_recorrido     String?   @db.VarChar(255)
-  galones             String?   @db.VarChar(255)
-  hora_inicio         String?   @db.VarChar(255)
-  hora_final          String?   @db.VarChar(255)
-  kilom_consumo       String?   @db.VarChar(255)
-  kilom_galon         String?   @db.VarChar(255)
+  id                      Int       @id @default(autoincrement())
+  fecha                   DateTime? @db.Date
+  unidad                  Int?
+  proveedor               String?   @db.VarChar(255)
+  programacion            String?   @db.VarChar(255)
+  hora_partida            DateTime? @db.Time(0)
+  estado_programacion     String?   @db.VarChar(255)
+  comentarios             String?   @db.Text
+  identificador_unico     String?   @db.VarChar(255)
+  km_del_dia              String?   @db.VarChar(255)
+  mes                     String?   @db.VarChar(255)
+  num_semana              String?   @db.VarChar(255)
+  peso                    Decimal?  @db.Decimal(12, 10)
+  punto_partida_ubigeo    String?   @db.VarChar(255)
+  punto_partida_direccion String?   @db.VarChar(255)
+  punto_llegada_ubigeo    String?   @db.VarChar(255)
+  punto_llegada_direccion String?   @db.VarChar(255)
 }
 
 model tipo_equipos {
@@ -1448,10 +1444,8 @@ model listado_items_2025 {
 model programacion_tecnica {
   id                             Int       @id @default(autoincrement())
   fecha                          DateTime? @db.Date
-  unidad                         String?   @db.VarChar(255)
+  unidad                         Int?
   proveedor                      String?   @db.VarChar(255)
-  apellidos_nombres              String?   @db.VarChar(255)
-  proyectos                      String?   @db.VarChar(255)
   programacion                   String?   @db.VarChar(255)
   hora_partida                   DateTime? @db.Time(0)
   estado_programacion            String?   @db.VarChar(255)
@@ -1461,11 +1455,10 @@ model programacion_tecnica {
   km_del_dia                     String?   @db.VarChar(255)
   mes                            String?   @db.VarChar(255)
   num_semana                     String?   @db.VarChar(255)
-  m3                             String?   @db.VarChar(255)
+  m3                             Decimal?  @db.Decimal(12, 10)
   cantidad_viaje                 String?   @db.VarChar(255)
-  kilom_inicio                   String?   @db.VarChar(255)
   kilom_final                    String?   @db.VarChar(255)
-  kilom_recorrido                String?   @db.VarChar(255)
+  peso_bruto_total               Decimal?  @db.Decimal(12, 10)
   galones                        String?   @db.VarChar(255)
   hora_inicio                    String?   @db.VarChar(255)
   hora_final                     String?   @db.VarChar(255)
@@ -1482,15 +1475,10 @@ model programacion_tecnica {
   guia_traslado_peso_bruto       String?   @db.VarChar(2)
   guia_traslado_unidad_medida    String?   @db.VarChar(10)
   guia_traslado_vehiculo_placa   String?   @db.VarChar(10)
-  guia_conductor_tipo_dni        String?   @db.VarChar(10)
-  guia_conductor_dni_numero      String?   @db.VarChar(10)
-  guia_conductor_nombres         String?   @db.VarChar(50)
-  guia_conductor_apellidos       String?   @db.VarChar(50)
-  guia_conductor_num_licencia    String?   @db.VarChar(10)
-  guia_partida_direccion         String?   @db.VarChar(50)
-  guia_partida_ubigeo            String?   @db.VarChar(10)
-  guia_llegada_direccion         String?   @db.VarChar(50)
-  guia_llegada_ubigeo            String?   @db.VarChar(10)
+  punto_partida_direccion        String?   @db.VarChar(255)
+  punto_partida_ubigeo           String?   @db.VarChar(255)
+  punto_llegada_direccion        String?   @db.VarChar(255)
+  punto_llegada_ubigeo           String?   @db.VarChar(255)
   id_proyecto                    Int?
   id_etapa                       Int?
   id_frente                      Int?
@@ -1903,6 +1891,204 @@ model programacion_tecnica_old {
   archivo_guia_cdr                     String?                              @db.VarChar(255)
   etapas                               String?                              @db.VarChar(255)
   estado_gre                           programacion_tecnica_old_estado_gre?
+}
+
+model canteras_2025 {
+  codigo    String  @id @db.VarChar(255)
+  cantera   String? @db.VarChar(255)
+  ruc       String? @db.VarChar(255)
+  tipo      String? @db.VarChar(255)
+  direccion String? @db.VarChar(255)
+}
+
+model informacion_adicional {
+  id                 Int                 @id @default(autoincrement())
+  id_programacion    Int
+  m3                 Decimal             @db.Decimal(10, 2)
+  guia_remision      String              @db.VarChar(100)
+  guia_transportista String              @db.VarChar(100)
+  fecha_registro     DateTime            @db.Date
+  tipo_eliminacion   String?             @db.VarChar(50)
+  tipo_interno       String?             @db.VarChar(50)
+  direccion_botadero String?             @db.Text
+  observaciones      String?             @db.Text
+  created_at         DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at         DateTime?           @default(now()) @db.Timestamp(0)
+  programacion       programaciones_2025 @relation(fields: [id_programacion], references: [id], onDelete: Cascade, map: "informacion_adicional_ibfk_1")
+
+  @@index([id_programacion], map: "idx_id_programacion")
+  @@index([fecha_registro], map: "idx_fecha_registro")
+  @@index([m3], map: "idx_m3")
+  @@index([tipo_eliminacion], map: "idx_tipo_eliminacion")
+}
+
+model kardexpromedio {
+  id                 Int                 @id @default(autoincrement())
+  id_programacion    Int
+  tipo_movimiento    String              @db.VarChar(20)
+  fecha_registro     DateTime            @db.Date
+  m3                 Decimal             @db.Decimal(10, 2)
+  guia_remision      String              @db.VarChar(100)
+  guia_transportista String              @db.VarChar(100)
+  saldo_m3           Decimal?            @db.Decimal(10, 2)
+  created_at         DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at         DateTime?           @default(now()) @db.Timestamp(0)
+  programacion       programaciones_2025 @relation(fields: [id_programacion], references: [id], onDelete: Cascade, map: "kardexpromedio_ibfk_1")
+
+  @@index([fecha_registro], map: "idx_fecha_registro")
+  @@index([id_programacion], map: "idx_kardex_programacion")
+  @@index([m3], map: "idx_m3")
+  @@index([tipo_movimiento], map: "idx_tipo_movimiento")
+}
+
+model botaderos_2025 {
+  codigo    String  @id @db.VarChar(255)
+  cantera   String? @db.VarChar(255)
+  ruc       String? @db.VarChar(255)
+  tipo      String? @db.VarChar(255)
+  direccion String? @db.VarChar(255)
+}
+
+model old_programacion {
+  id                  Int       @id @default(autoincrement())
+  fecha               DateTime? @db.Date
+  unidad              String?   @db.VarChar(255)
+  proveedor           String?   @db.VarChar(255)
+  apellidos_nombres   String?   @db.VarChar(255)
+  proyectos           String?   @db.VarChar(255)
+  programacion        String?   @db.VarChar(255)
+  hora_partida        DateTime? @db.Time(0)
+  estado_programacion String?   @db.VarChar(255)
+  comentarios         String?   @db.Text
+  validacion          String?   @db.VarChar(255)
+  identificador_unico String?   @db.VarChar(255)
+  km_del_dia          String?   @db.VarChar(255)
+  mes                 String?   @db.VarChar(255)
+  num_semana          String?   @db.VarChar(255)
+  m3                  String?   @db.VarChar(255)
+  cantidad_viaje      String?   @db.VarChar(255)
+  kilom_inicio        String?   @db.VarChar(255)
+  kilom_final         String?   @db.VarChar(255)
+  kilom_recorrido     String?   @db.VarChar(255)
+  galones             String?   @db.VarChar(255)
+  hora_inicio         String?   @db.VarChar(255)
+  hora_final          String?   @db.VarChar(255)
+  kilom_consumo       String?   @db.VarChar(255)
+  kilom_galon         String?   @db.VarChar(255)
+
+  @@index([estado_programacion, fecha], map: "idx_programacion_estado_fecha")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model programaciones_2025 {
+  id                    Int                     @id @default(autoincrement())
+  fecha                 DateTime                @db.Date
+  unidad                String                  @db.VarChar(100)
+  proveedor             String?                 @db.VarChar(200)
+  apellidos_nombres     String                  @db.VarChar(200)
+  proyectos             String                  @db.VarChar(255)
+  programacion          String                  @db.VarChar(100)
+  hora_partida          DateTime?               @db.Time(0)
+  m3                    Decimal?                @db.Decimal(10, 2)
+  estado_programacion   String?                 @default("PENDIENTE") @db.VarChar(50)
+  created_at            DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at            DateTime?               @default(now()) @db.Timestamp(0)
+  informacion_adicional informacion_adicional[]
+  kardexpromedio        kardexpromedio[]
+
+  @@index([estado_programacion], map: "idx_estado")
+  @@index([fecha], map: "idx_fecha")
+  @@index([programacion], map: "idx_programacion")
+  @@index([proyectos], map: "idx_proyectos")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model vale_codigo_sequence {
+  id            Int       @id @default(1)
+  ultimo_numero Int       @default(0)
+  anio_actual   Int
+  updated_at    DateTime? @default(now()) @db.Timestamp(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model vales_salida {
+  id                   Int       @id @default(autoincrement())
+  codigo_vale          String    @unique(map: "codigo_vale") @db.VarChar(20)
+  material_transportar String    @db.VarChar(255)
+  equipo               String    @db.VarChar(100)
+  tipo_material        String    @db.VarChar(50)
+  fecha_salida         DateTime  @db.Date
+  autorizacion         String    @db.VarChar(200)
+  m3                   Decimal   @db.Decimal(10, 2)
+  observaciones        String?   @db.Text
+  creado_por           String?   @db.VarChar(200)
+  estado               String?   @default("ACTIVO") @db.VarChar(20)
+  created_at           DateTime? @default(now()) @db.Timestamp(0)
+  updated_at           DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([codigo_vale], map: "idx_codigo_vale")
+  @@index([estado], map: "idx_estado")
+  @@index([fecha_salida], map: "idx_fecha_salida")
+  @@index([tipo_material], map: "idx_tipo_material")
+}
+
+model old_programacion_tecnica {
+  id                             Int       @id @default(autoincrement())
+  fecha                          DateTime? @db.Date
+  unidad                         String?   @db.VarChar(255)
+  proveedor                      String?   @db.VarChar(255)
+  apellidos_nombres              String?   @db.VarChar(255)
+  proyectos                      String?   @db.VarChar(255)
+  programacion                   String?   @db.VarChar(255)
+  hora_partida                   DateTime? @db.Time(0)
+  estado_programacion            String?   @db.VarChar(255)
+  comentarios                    String?   @db.Text
+  validacion                     String?   @db.VarChar(255)
+  identificador_unico            String?   @db.VarChar(255)
+  km_del_dia                     String?   @db.VarChar(255)
+  mes                            String?   @db.VarChar(255)
+  num_semana                     String?   @db.VarChar(255)
+  m3                             String?   @db.VarChar(255)
+  cantidad_viaje                 String?   @db.VarChar(255)
+  kilom_inicio                   String?   @db.VarChar(255)
+  kilom_final                    String?   @db.VarChar(255)
+  kilom_recorrido                String?   @db.VarChar(255)
+  galones                        String?   @db.VarChar(255)
+  hora_inicio                    String?   @db.VarChar(255)
+  hora_final                     String?   @db.VarChar(255)
+  kilom_consumo                  String?   @db.VarChar(255)
+  kilom_galon                    String?   @db.VarChar(255)
+  guia_tipo_documento            String?   @db.VarChar(255)
+  guia_numero_documento          String?   @db.VarChar(255)
+  guia_destinatario_denominacion String?   @db.VarChar(255)
+  guia_destinatario_direccion    String?   @db.VarChar(255)
+  guia_traslado_motivo           String?   @db.VarChar(255)
+  guia_traslado_bultos           String?   @db.VarChar(255)
+  guia_traslado_tipo_transporte  String?   @db.VarChar(255)
+  guia_traslado_fecha_inicio     DateTime? @db.Date
+  guia_traslado_peso_bruto       String?   @db.VarChar(2)
+  guia_traslado_unidad_medida    String?   @db.VarChar(10)
+  guia_traslado_vehiculo_placa   String?   @db.VarChar(10)
+  guia_conductor_tipo_dni        String?   @db.VarChar(10)
+  guia_conductor_dni_numero      String?   @db.VarChar(10)
+  guia_conductor_nombres         String?   @db.VarChar(50)
+  guia_conductor_apellidos       String?   @db.VarChar(50)
+  guia_conductor_num_licencia    String?   @db.VarChar(10)
+  guia_partida_direccion         String?   @db.VarChar(50)
+  guia_partida_ubigeo            String?   @db.VarChar(10)
+  guia_llegada_direccion         String?   @db.VarChar(50)
+  guia_llegada_ubigeo            String?   @db.VarChar(10)
+  id_proyecto                    Int?
+  id_etapa                       Int?
+  id_frente                      Int?
+  id_sector                      Int?
+  id_partida                     Int?
+  id_subproyecto                 Int?
+  id_subetapa                    Int?
+  id_subfrente                   Int?
+  id_subsector                   Int?
+  id_subpartida                  Int?
 }
 
 enum proyecto_estado {

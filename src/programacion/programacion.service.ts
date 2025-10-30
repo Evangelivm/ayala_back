@@ -11,12 +11,23 @@ import {
   type ProgramacionResponseDto,
 } from '../dto/programacion.dto';
 import { Prisma } from '../../generated/prisma';
+import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 
 @Injectable()
 export class ProgramacionService {
   private readonly logger = new Logger(ProgramacionService.name);
 
   constructor(private prisma: PrismaService) {}
+
+  // Función helper para capitalizar cada palabra
+  private capitalizeWords(text: string | null): string | null {
+    if (!text) return null;
+    return text
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
 
   async createBatch(
     createProgramacionDto: CreateProgramacionDto,
@@ -38,12 +49,16 @@ export class ProgramacionService {
         fecha: item.fecha instanceof Date ? item.fecha : new Date(item.fecha),
         unidad: item.unidad,
         proveedor: item.proveedor,
-        apellidos_nombres: item.apellidos_nombres,
-        proyectos: item.proyectos,
         programacion: item.programacion,
         hora_partida: new Date(`1970-01-01T${item.hora_partida}`),
         estado_programacion: item.estado_programacion || null,
         comentarios: item.comentarios || null,
+        identificador_unico: generarIdentificadorAleatorio(), // Generar código único de 10 caracteres
+        punto_partida_ubigeo: item.punto_partida_ubigeo,
+        punto_partida_direccion: item.punto_partida_direccion,
+        punto_llegada_ubigeo: item.punto_llegada_ubigeo,
+        punto_llegada_direccion: item.punto_llegada_direccion,
+        peso: item.peso || null,
       }));
 
       // Usar transacción con nivel de aislamiento SERIALIZABLE para máxima consistencia
@@ -54,18 +69,46 @@ export class ProgramacionService {
             `Insertando ${programacionData.length} registros en transacción`,
           );
 
-          // Inserción masiva optimizada con createMany
-          const insertResult = await tx.programacion.createMany({
+          // Inserción masiva en tabla programacion
+          const insertResultProgramacion = await tx.programacion.createMany({
             data: programacionData,
             skipDuplicates: false, // Fallar si hay duplicados para mantener integridad
           });
 
           this.logger.log(
-            `Insertados ${insertResult.count} registros exitosamente`,
+            `Insertados ${insertResultProgramacion.count} registros en tabla programacion`,
+          );
+
+          // Preparar datos para programacion_tecnica (mapear peso a m3)
+          const programacionTecnicaData = programacionData.map((item) => ({
+            fecha: item.fecha,
+            unidad: item.unidad,
+            proveedor: item.proveedor,
+            programacion: item.programacion,
+            hora_partida: item.hora_partida,
+            estado_programacion: item.estado_programacion,
+            comentarios: item.comentarios,
+            identificador_unico: item.identificador_unico,
+            m3: item.peso, // Mapear peso a m3 (ambos son Decimal)
+            punto_llegada_direccion: item.punto_llegada_direccion,
+            punto_llegada_ubigeo: item.punto_llegada_ubigeo,
+            punto_partida_direccion: item.punto_partida_direccion,
+            punto_partida_ubigeo: item.punto_partida_ubigeo,
+          }));
+
+          // Inserción masiva en tabla programacion_tecnica
+          const insertResultTecnica = await tx.programacion_tecnica.createMany({
+            data: programacionTecnicaData,
+            skipDuplicates: false,
+          });
+
+          this.logger.log(
+            `Insertados ${insertResultTecnica.count} registros en tabla programacion_tecnica`,
           );
 
           return {
-            count: insertResult.count,
+            count: insertResultProgramacion.count,
+            countTecnica: insertResultTecnica.count,
             data: programacionData,
           };
         },
@@ -77,12 +120,15 @@ export class ProgramacionService {
 
       const processingTime = Date.now() - startTime;
 
-      this.logger.log(`Inserción masiva completada en ${processingTime}ms`);
+      this.logger.log(
+        `Inserción masiva completada en ${processingTime}ms: ${result.count} en programacion, ${result.countTecnica} en programacion_tecnica`,
+      );
 
       return {
-        message: 'Registros de programación guardados exitosamente',
+        message: 'Registros de programación guardados exitosamente en ambas tablas',
         totalRecords: data.length,
         successCount: result.count,
+        successCountTecnica: result.countTecnica,
         processingTime,
       };
     } catch (error) {
@@ -184,47 +230,72 @@ export class ProgramacionService {
 
   async findAllProgramacionTecnica() {
     try {
-      // Obtener todos los registros de programación técnica
-      const programacionTecnica = await this.prisma.programacion_tecnica.findMany({
-        orderBy: {
-          fecha: 'desc',
-        },
-      });
+      // Usar consulta raw SQL para hacer JOINs con camiones, empresas_2025, proyecto y subproyectos
+      const programacionTecnica = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as unidad_placa,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          c.capacidad_tanque as camion_capacidad,
+          e.razon_social as empresa_razon_social,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci AND gr.estado_gre = 'COMPLETADO'
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        ORDER BY pt.fecha DESC
+      `;
 
-      // Obtener los identificadores únicos
-      const identificadoresUnicos = programacionTecnica
-        .map(pt => pt.identificador_unico)
-        .filter((id): id is string => id !== null);
-
-      // Obtener las guías de remisión completadas para esos identificadores
-      const guiasRemision = await this.prisma.guia_remision.findMany({
-        where: {
-          identificador_unico: {
-            in: identificadoresUnicos,
-          },
-          estado_gre: 'COMPLETADO',
-        },
-        select: {
-          identificador_unico: true,
-          enlace_del_pdf: true,
-          enlace_del_xml: true,
-          enlace_del_cdr: true,
-        },
-      });
-
-      // Crear un mapa de guías por identificador único
-      const guiasMap = new Map(
-        guiasRemision.map(guia => [guia.identificador_unico, guia])
-      );
-
-      // Combinar los datos
+      // Mapear los resultados al formato esperado por el frontend
       const data = programacionTecnica.map(pt => {
-        const guia = pt.identificador_unico ? guiasMap.get(pt.identificador_unico) : null;
+        // Capitalizar nombre y apellido por separado, luego concatenar
+        const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
+        const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
+        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
+          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+          : null;
+
+        // Determinar el nombre del proyecto y su tipo
+        let nombreProyecto: string | null = null;
+        let tipoProyecto: 'proyecto' | 'subproyecto' | null = null;
+
+        if (pt.nombre_subproyecto) {
+          nombreProyecto = pt.nombre_subproyecto;
+          tipoProyecto = 'subproyecto';
+        } else if (pt.nombre_proyecto) {
+          nombreProyecto = pt.nombre_proyecto;
+          tipoProyecto = 'proyecto';
+        }
+
         return {
-          ...pt,
-          enlace_del_pdf: guia?.enlace_del_pdf || null,
-          enlace_del_xml: guia?.enlace_del_xml || null,
-          enlace_del_cdr: guia?.enlace_del_cdr || null,
+          id: pt.id,
+          fecha: pt.fecha,
+          unidad: pt.unidad_placa || null,
+          proveedor: pt.empresa_razon_social || null,
+          apellidos_nombres: nombreCompleto,
+          proyectos: nombreProyecto,
+          tipo_proyecto: tipoProyecto,
+          programacion: pt.programacion,
+          hora_partida: pt.hora_partida,
+          estado_programacion: pt.estado_programacion,
+          comentarios: pt.comentarios,
+          validacion: pt.validacion,
+          identificador_unico: pt.identificador_unico,
+          km_del_dia: pt.km_del_dia,
+          mes: pt.mes,
+          num_semana: pt.num_semana,
+          m3: pt.m3 ? pt.m3.toString() : null,
+          cantidad_viaje: pt.cantidad_viaje,
+          enlace_del_pdf: pt.enlace_del_pdf || null,
+          enlace_del_xml: pt.enlace_del_xml || null,
+          enlace_del_cdr: pt.enlace_del_cdr || null,
         };
       });
 
@@ -237,35 +308,61 @@ export class ProgramacionService {
 
   async getProgramacionTecnicaById(id: number) {
     try {
-      const programacionTecnica =
-        await this.prisma.programacion_tecnica.findUnique({
-          where: { id },
-          select: {
-            id: true,
-            identificador_unico: true,
-            guia_numero_documento: true,
-            guia_destinatario_denominacion: true,
-            guia_destinatario_direccion: true,
-            guia_traslado_peso_bruto: true,
-            guia_traslado_vehiculo_placa: true,
-            guia_conductor_dni_numero: true,
-            guia_conductor_nombres: true,
-            guia_conductor_apellidos: true,
-            guia_conductor_num_licencia: true,
-            guia_partida_ubigeo: true,
-            guia_partida_direccion: true,
-            guia_llegada_ubigeo: true,
-            guia_llegada_direccion: true,
-          },
-        });
+      // Usar consulta raw SQL para hacer JOINs con camiones y empresas_2025
+      const result = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as camion_placa,
+          c.dni as camion_dni,
+          c.nombre_chofer as camion_nombre_chofer,
+          c.apellido_chofer as camion_apellido_chofer,
+          c.numero_licencia as camion_numero_licencia,
+          e.razon_social as empresa_razon_social,
+          e.nro_documento as empresa_nro_documento,
+          e.direccion as empresa_direccion
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        WHERE pt.id = ${id}
+        LIMIT 1
+      `;
 
-      if (!programacionTecnica) {
+      if (!result || result.length === 0) {
         throw new BadRequestException(
           `Programación técnica con ID ${id} no encontrada`,
         );
       }
 
-      return programacionTecnica;
+      const programacionTecnica = result[0];
+
+      // Construir el objeto de respuesta
+      return {
+        id: programacionTecnica.id,
+        identificador_unico: programacionTecnica.identificador_unico,
+        guia_numero_documento: programacionTecnica.guia_numero_documento,
+        guia_destinatario_denominacion: programacionTecnica.guia_destinatario_denominacion,
+        guia_destinatario_direccion: programacionTecnica.guia_destinatario_direccion,
+        guia_traslado_peso_bruto: programacionTecnica.guia_traslado_peso_bruto,
+        guia_traslado_vehiculo_placa: programacionTecnica.guia_traslado_vehiculo_placa,
+        guia_conductor_dni_numero: programacionTecnica.guia_conductor_dni_numero,
+        guia_conductor_nombres: programacionTecnica.guia_conductor_nombres,
+        guia_conductor_apellidos: programacionTecnica.guia_conductor_apellidos,
+        guia_conductor_num_licencia: programacionTecnica.guia_conductor_num_licencia,
+        punto_partida_ubigeo: programacionTecnica.punto_partida_ubigeo,
+        punto_partida_direccion: programacionTecnica.punto_partida_direccion,
+        punto_llegada_ubigeo: programacionTecnica.punto_llegada_ubigeo,
+        punto_llegada_direccion: programacionTecnica.punto_llegada_direccion,
+        // Datos de la unidad (camión)
+        camion_placa: programacionTecnica.camion_placa || null,
+        camion_dni: programacionTecnica.camion_dni || null,
+        camion_nombre_chofer: programacionTecnica.camion_nombre_chofer || null,
+        camion_apellido_chofer: programacionTecnica.camion_apellido_chofer || null,
+        camion_numero_licencia: programacionTecnica.camion_numero_licencia || null,
+        // Datos del proveedor (empresa)
+        empresa_razon_social: programacionTecnica.empresa_razon_social || null,
+        empresa_nro_documento: programacionTecnica.empresa_nro_documento || null,
+        empresa_direccion: programacionTecnica.empresa_direccion || null,
+      };
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -392,71 +489,84 @@ export class ProgramacionService {
     try {
       const tiempoLimite = new Date(Date.now() - segundos * 1000);
 
-      // Buscar guías completadas recientemente
-      const guiasRecientes = await this.prisma.guia_remision.findMany({
-        where: {
-          estado_gre: 'COMPLETADO',
-          updated_at: {
-            gte: tiempoLimite,
-          },
-          enlace_del_pdf: {
-            not: null,
-          },
-          enlace_del_xml: {
-            not: null,
-          },
-          enlace_del_cdr: {
-            not: null,
-          },
-          identificador_unico: {
-            not: null,
-          },
-        },
-        select: {
-          identificador_unico: true,
-          enlace_del_pdf: true,
-          enlace_del_xml: true,
-          enlace_del_cdr: true,
-        },
-      });
+      // Usar consulta raw SQL para obtener registros recién completados con JOINs
+      const datosCompletos = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as unidad_placa,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          c.capacidad_tanque as camion_capacidad,
+          e.razon_social as empresa_razon_social,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
+        FROM programacion_tecnica pt
+        INNER JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        WHERE gr.estado_gre = 'COMPLETADO'
+          AND gr.updated_at >= ${tiempoLimite}
+          AND gr.enlace_del_pdf IS NOT NULL
+          AND gr.enlace_del_xml IS NOT NULL
+          AND gr.enlace_del_cdr IS NOT NULL
+          AND gr.identificador_unico IS NOT NULL
+        ORDER BY gr.updated_at DESC
+      `;
 
-      if (guiasRecientes.length === 0) {
-        return [];
-      }
+      // Mapear los resultados al formato esperado por el frontend
+      const data = datosCompletos.map(pt => {
+        // Capitalizar nombre y apellido por separado, luego concatenar
+        const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
+        const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
+        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
+          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+          : null;
 
-      // Obtener los identificadores únicos
-      const identificadores = guiasRecientes
-        .map(g => g.identificador_unico)
-        .filter((id): id is string => id !== null);
+        // Determinar el nombre del proyecto y su tipo
+        let nombreProyecto: string | null = null;
+        let tipoProyecto: 'proyecto' | 'subproyecto' | null = null;
 
-      // Obtener los datos completos de programacion_tecnica correspondientes
-      const programacionData = await this.prisma.programacion_tecnica.findMany({
-        where: {
-          identificador_unico: {
-            in: identificadores,
-          },
-        },
-      });
+        if (pt.nombre_subproyecto) {
+          nombreProyecto = pt.nombre_subproyecto;
+          tipoProyecto = 'subproyecto';
+        } else if (pt.nombre_proyecto) {
+          nombreProyecto = pt.nombre_proyecto;
+          tipoProyecto = 'proyecto';
+        }
 
-      // Crear un mapa de guías por identificador único
-      const guiasMap = new Map(
-        guiasRecientes.map(guia => [guia.identificador_unico, guia])
-      );
-
-      // Combinar los datos de programación técnica con los enlaces de las guías
-      const datosCompletos = programacionData.map(pt => {
-        const guia = pt.identificador_unico ? guiasMap.get(pt.identificador_unico) : null;
         return {
-          ...pt,
-          enlace_del_pdf: guia?.enlace_del_pdf || null,
-          enlace_del_xml: guia?.enlace_del_xml || null,
-          enlace_del_cdr: guia?.enlace_del_cdr || null,
+          id: pt.id,
+          fecha: pt.fecha,
+          unidad: pt.unidad_placa || null,
+          proveedor: pt.empresa_razon_social || null,
+          apellidos_nombres: nombreCompleto,
+          proyectos: nombreProyecto,
+          tipo_proyecto: tipoProyecto,
+          programacion: pt.programacion,
+          hora_partida: pt.hora_partida,
+          estado_programacion: pt.estado_programacion,
+          comentarios: pt.comentarios,
+          validacion: pt.validacion,
+          identificador_unico: pt.identificador_unico,
+          km_del_dia: pt.km_del_dia,
+          mes: pt.mes,
+          num_semana: pt.num_semana,
+          m3: pt.m3 ? pt.m3.toString() : null,
+          cantidad_viaje: pt.cantidad_viaje,
+          enlace_del_pdf: pt.enlace_del_pdf || null,
+          enlace_del_xml: pt.enlace_del_xml || null,
+          enlace_del_cdr: pt.enlace_del_cdr || null,
         };
       });
 
-      this.logger.log(`Encontrados ${datosCompletos.length} registros recién completados en los últimos ${segundos} segundos`);
+      this.logger.log(`Encontrados ${data.length} registros recién completados en los últimos ${segundos} segundos`);
 
-      return datosCompletos;
+      return data;
     } catch (error) {
       this.logger.error('Error al obtener registros recién completados:', error);
       throw new InternalServerErrorException('Error al obtener los registros recién completados');
