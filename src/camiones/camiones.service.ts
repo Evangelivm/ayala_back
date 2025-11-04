@@ -42,11 +42,30 @@ export class CamionesService {
       ],
     });
 
+    // Obtener códigos únicos de empresas de los camiones
+    const empresaCodigos = [...new Set(camiones.map(c => c.empresa).filter(Boolean))] as string[];
+
+    // Obtener datos de empresas si hay códigos
+    const empresasMap = new Map<string, string | null>();
+    if (empresaCodigos.length > 0) {
+      const empresas = await this.prisma.empresas_2025.findMany({
+        where: {
+          codigo: { in: empresaCodigos }
+        },
+        select: {
+          codigo: true,
+          razon_social: true,
+        }
+      });
+      empresas.forEach(e => empresasMap.set(e.codigo, e.razon_social));
+    }
+
     const data = camiones.map(c => ({
       ...c,
       año: c.a_o || null,
       capacidad_tanque: c.capacidad_tanque ? Number(c.capacidad_tanque) : null,
       fecha_registro: c.fecha_registro?.toISOString() || null,
+      razon_social_empresa: c.empresa ? (empresasMap.get(c.empresa) || null) : null,
     }));
 
     return data;
@@ -59,11 +78,22 @@ export class CamionesService {
 
     if (!camion) return null;
 
+    // Obtener datos de la empresa si existe
+    let razon_social_empresa: string | null = null;
+    if (camion.empresa) {
+      const empresa = await this.prisma.empresas_2025.findUnique({
+        where: { codigo: camion.empresa },
+        select: { razon_social: true }
+      });
+      razon_social_empresa = empresa?.razon_social || null;
+    }
+
     return {
       ...camion,
       año: camion.a_o || null,
       capacidad_tanque: camion.capacidad_tanque ? Number(camion.capacidad_tanque) : null,
       fecha_registro: camion.fecha_registro?.toISOString() || null,
+      razon_social_empresa,
     };
   }
 

@@ -25,6 +25,7 @@ import { KafkaModule } from './kafka/kafka.module';
 import { CamionesModule } from './camiones/camiones.module';
 import { EmpresasModule } from './empresas/empresas.module';
 import { KardexPdfModule } from './kardex-pdf/kardex-pdf.module';
+import { ProveedoresModule } from './proveedores/proveedores.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { KardexPdfModule } from './kardex-pdf/kardex-pdf.module';
     CamionesModule,
     EmpresasModule,
     KardexPdfModule,
+    ProveedoresModule,
   ],
   controllers: [AppController],
   providers: [AppService],

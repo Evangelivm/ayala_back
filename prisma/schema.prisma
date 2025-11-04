@@ -61,6 +61,7 @@ model camiones {
   nombre_chofer                 String?             @db.VarChar(255)
   apellido_chofer               String?             @db.VarChar(255)
   numero_licencia               String?             @db.VarChar(255)
+  empresa                       String?             @db.VarChar(255)
   tipos_combustible             tipos_combustible?  @relation(fields: [id_tipo_combustible_preferido], references: [id_tipo_combustible], onDelete: Restrict, onUpdate: Restrict, map: "camiones_ibfk_1")
   vales_combustible             vales_combustible[]
 
@@ -335,12 +336,12 @@ model ordenes_compra {
 }
 
 model proveedores2025 {
-  id           Int     @id @default(autoincrement())
-  C_digo       String? @map("Código") @db.VarChar(255)
-  Raz_n_social String? @map("Razón social") @db.VarChar(255)
-  N__documento String? @map("N° documento") @db.VarChar(255)
-  Tipo         String? @db.VarChar(255)
-  Direcci_n    String? @map("Dirección") @db.VarChar(255)
+  id            Int     @id @default(autoincrement())
+  codigo        String? @db.VarChar(255)
+  razon_social  String? @db.VarChar(255)
+  nro_documento String? @db.VarChar(255)
+  tipo          String? @db.VarChar(255)
+  direccion     String? @db.VarChar(255)
 }
 
 model registro_produccion_2025 {
@@ -2089,6 +2090,46 @@ model old_programacion_tecnica {
   id_subfrente                   Int?
   id_subsector                   Int?
   id_subpartida                  Int?
+}
+
+model centroproyecto {
+  id                Int                 @id @default(autoincrement())
+  codigo            String              @db.VarChar(50)
+  proyecto          String              @db.VarChar(255)
+  centrosubproyecto centrosubproyecto[]
+}
+
+model centrosubproyecto {
+  id             Int             @id @default(autoincrement())
+  subcodigopro   String          @db.VarChar(50)
+  subprodes      String          @db.VarChar(255)
+  id_sub         Int?
+  centroproyecto centroproyecto? @relation(fields: [id_sub], references: [id], onDelete: Cascade, map: "centrosubproyecto_ibfk_1")
+
+  @@index([id_sub], map: "id_sub")
+}
+
+model fasecontrol {
+  id          Int     @id @default(autoincrement())
+  codigo      String? @db.VarChar(255)
+  descripcion String? @db.VarChar(255)
+}
+
+model rubro {
+  id          Int        @id @default(autoincrement())
+  codigo      String     @db.VarChar(50)
+  descripcion String     @db.VarChar(255)
+  subrubro    subrubro[]
+}
+
+model subrubro {
+  id             Int    @id @default(autoincrement())
+  subcodigo      String @db.VarChar(50)
+  subdescripcion String @db.VarChar(255)
+  sub_id         Int?
+  rubro          rubro? @relation(fields: [sub_id], references: [id], onDelete: Cascade, map: "subrubro_ibfk_1")
+
+  @@index([sub_id], map: "sub_id")
 }
 
 enum proyecto_estado {
