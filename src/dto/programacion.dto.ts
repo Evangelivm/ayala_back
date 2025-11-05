@@ -28,6 +28,8 @@ export const ProgramacionItemSchema = z.object({
   punto_llegada_direccion: z.string().min(1, 'Dirección de llegada es requerida').max(255),
   peso: z.string().max(255, 'Peso no puede exceder 255 caracteres').optional()
     .transform((val) => val === '' ? undefined : val),
+  id_proyecto: z.number().int().positive('ID de proyecto debe ser un número positivo').optional(),
+  id_subproyecto: z.number().int().positive('ID de subproyecto debe ser un número positivo').optional(),
 });
 
 // Schema principal para crear programación masiva

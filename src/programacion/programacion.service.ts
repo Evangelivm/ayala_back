@@ -59,6 +59,7 @@ export class ProgramacionService {
         punto_llegada_ubigeo: item.punto_llegada_ubigeo,
         punto_llegada_direccion: item.punto_llegada_direccion,
         peso: item.peso || null,
+        hora_registro: new Date(), // Registrar fecha y hora actual
       }));
 
       // Usar transacción con nivel de aislamiento SERIALIZABLE para máxima consistencia
@@ -79,21 +80,24 @@ export class ProgramacionService {
             `Insertados ${insertResultProgramacion.count} registros en tabla programacion`,
           );
 
-          // Preparar datos para programacion_tecnica (mapear peso a m3)
-          const programacionTecnicaData = programacionData.map((item) => ({
-            fecha: item.fecha,
-            unidad: item.unidad,
-            proveedor: item.proveedor,
-            programacion: item.programacion,
-            hora_partida: item.hora_partida,
-            estado_programacion: item.estado_programacion,
-            comentarios: item.comentarios,
-            identificador_unico: item.identificador_unico,
-            m3: item.peso, // Mapear peso a m3 (ambos son Decimal)
-            punto_llegada_direccion: item.punto_llegada_direccion,
-            punto_llegada_ubigeo: item.punto_llegada_ubigeo,
-            punto_partida_direccion: item.punto_partida_direccion,
-            punto_partida_ubigeo: item.punto_partida_ubigeo,
+          // Preparar datos para programacion_tecnica (mapear peso a m3 e incluir id_proyecto y id_subproyecto)
+          const programacionTecnicaData = data.map((item: ProgramacionItemDto, index: number) => ({
+            fecha: programacionData[index].fecha,
+            unidad: programacionData[index].unidad,
+            proveedor: programacionData[index].proveedor,
+            programacion: programacionData[index].programacion,
+            hora_partida: programacionData[index].hora_partida,
+            estado_programacion: programacionData[index].estado_programacion,
+            comentarios: programacionData[index].comentarios,
+            identificador_unico: programacionData[index].identificador_unico,
+            m3: programacionData[index].peso, // Mapear peso a m3 (ambos son Decimal)
+            punto_llegada_direccion: programacionData[index].punto_llegada_direccion,
+            punto_llegada_ubigeo: programacionData[index].punto_llegada_ubigeo,
+            punto_partida_direccion: programacionData[index].punto_partida_direccion,
+            punto_partida_ubigeo: programacionData[index].punto_partida_ubigeo,
+            hora_registro: programacionData[index].hora_registro, // Registrar la misma fecha y hora
+            id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
+            id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
           }));
 
           // Inserción masiva en tabla programacion_tecnica
@@ -362,6 +366,9 @@ export class ProgramacionService {
         empresa_razon_social: programacionTecnica.empresa_razon_social || null,
         empresa_nro_documento: programacionTecnica.empresa_nro_documento || null,
         empresa_direccion: programacionTecnica.empresa_direccion || null,
+        // Datos del proyecto/subproyecto
+        id_proyecto: programacionTecnica.id_proyecto || null,
+        id_subproyecto: programacionTecnica.id_subproyecto || null,
       };
     } catch (error) {
       if (error instanceof BadRequestException) {
