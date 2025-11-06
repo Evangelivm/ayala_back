@@ -111,6 +111,8 @@ export class CamionesService {
         nombre_chofer: data.nombre_chofer || null,
         apellido_chofer: data.apellido_chofer || null,
         numero_licencia: data.numero_licencia || null,
+        empresa: data.empresa || null,
+        tipo: data.tipo,
       },
     });
 
@@ -136,6 +138,7 @@ export class CamionesService {
     if (data.nombre_chofer !== undefined) updateData.nombre_chofer = data.nombre_chofer;
     if (data.apellido_chofer !== undefined) updateData.apellido_chofer = data.apellido_chofer;
     if (data.numero_licencia !== undefined) updateData.numero_licencia = data.numero_licencia;
+    if (data.empresa !== undefined) updateData.empresa = data.empresa;
 
     const camion = await this.prisma.camiones.update({
       where: { id_camion: id },

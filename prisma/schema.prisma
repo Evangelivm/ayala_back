@@ -62,6 +62,7 @@ model camiones {
   apellido_chofer               String?             @db.VarChar(255)
   numero_licencia               String?             @db.VarChar(255)
   empresa                       String?             @db.VarChar(255)
+  tipo                          camiones_tipo
   tipos_combustible             tipos_combustible?  @relation(fields: [id_tipo_combustible_preferido], references: [id_tipo_combustible], onDelete: Restrict, onUpdate: Restrict, map: "camiones_ibfk_1")
   vales_combustible             vales_combustible[]
 
@@ -2245,4 +2246,9 @@ enum programacion_tecnica_old_estado_gre {
   PROCESANDO
   COMPLETADO
   FALLADO
+}
+
+enum camiones_tipo {
+  CAMION
+  MAQUINARIA
 }

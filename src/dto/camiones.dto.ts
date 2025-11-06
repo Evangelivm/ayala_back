@@ -15,6 +15,8 @@ export const CamionSchema = z.object({
   nombre_chofer: z.string().max(255, 'El nombre del chofer no puede exceder 255 caracteres').optional().nullable(),
   apellido_chofer: z.string().max(255, 'El apellido del chofer no puede exceder 255 caracteres').optional().nullable(),
   numero_licencia: z.string().max(255, 'El número de licencia no puede exceder 255 caracteres').optional().nullable(),
+  empresa: z.string().max(255, 'El código de empresa no puede exceder 255 caracteres').optional().nullable(),
+  tipo: z.enum(['CAMION', 'MAQUINARIA'], { required_error: 'El tipo es requerido' }),
 });
 
 // Schema para creación de camiones
@@ -44,6 +46,8 @@ export const CamionResponseSchema = z.object({
   nombre_chofer: z.string().nullable(),
   apellido_chofer: z.string().nullable(),
   numero_licencia: z.string().nullable(),
+  empresa: z.string().nullable(),
+  tipo: z.enum(['CAMION', 'MAQUINARIA']),
 });
 
 // Schema para filtros de búsqueda

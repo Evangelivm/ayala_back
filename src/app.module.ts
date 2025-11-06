@@ -26,6 +26,7 @@ import { CamionesModule } from './camiones/camiones.module';
 import { EmpresasModule } from './empresas/empresas.module';
 import { KardexPdfModule } from './kardex-pdf/kardex-pdf.module';
 import { ProveedoresModule } from './proveedores/proveedores.module';
+import { AcarreoModule } from './acarreo/acarreo.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { ProveedoresModule } from './proveedores/proveedores.module';
     EmpresasModule,
     KardexPdfModule,
     ProveedoresModule,
+    AcarreoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
