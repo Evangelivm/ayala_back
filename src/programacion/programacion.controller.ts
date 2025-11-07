@@ -11,6 +11,8 @@ import {
   HttpException,
   HttpStatus,
   Logger,
+  StreamableFile,
+  Header,
 } from '@nestjs/common';
 import { ProgramacionService } from './programacion.service';
 import {
@@ -18,6 +20,7 @@ import {
   type CreateProgramacionDto,
   type ProgramacionResponseDto,
 } from '../dto/programacion.dto';
+import { PDFDocument } from 'pdf-lib';
 
 @Controller('programacion')
 export class ProgramacionController {
@@ -130,5 +133,79 @@ export class ProgramacionController {
     this.logger.log(`Eliminando registro con ID: ${id}`);
 
     return await this.programacionService.deleteById(id);
+  }
+
+  @Post('combinar-pdfs')
+  @Header('Content-Type', 'application/pdf')
+  @Header('Content-Disposition', 'attachment; filename="programacion_combinado.pdf"')
+  async combinarPdfs(
+    @Body() body: { urls: string[] },
+  ): Promise<StreamableFile> {
+    try {
+      const { urls } = body;
+
+      if (!urls || urls.length === 0) {
+        throw new HttpException(
+          'Se requiere al menos una URL de PDF',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      this.logger.log(`Combinando ${urls.length} PDFs`);
+
+      // Crear un nuevo documento PDF
+      const mergedPdf = await PDFDocument.create();
+
+      // Descargar y combinar cada PDF
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+
+        try {
+          this.logger.log(`Descargando PDF ${i + 1}/${urls.length}: ${url}`);
+
+          // Descargar el PDF usando fetch nativo de Node.js 18+
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            throw new Error(`Error al descargar PDF: ${response.statusText}`);
+          }
+
+          const pdfBytes = await response.arrayBuffer();
+
+          // Cargar el PDF
+          const pdf = await PDFDocument.load(pdfBytes);
+
+          // Copiar todas las páginas del PDF al documento combinado
+          const copiedPages = await mergedPdf.copyPages(
+            pdf,
+            pdf.getPageIndices(),
+          );
+          copiedPages.forEach((page) => {
+            mergedPdf.addPage(page);
+          });
+
+          this.logger.log(`PDF ${i + 1}/${urls.length} procesado exitosamente`);
+        } catch (error) {
+          this.logger.error(`Error procesando PDF ${i + 1}: ${error.message}`);
+          // Continuar con los demás PDFs
+        }
+      }
+
+      // Guardar el PDF combinado
+      const mergedPdfBytes = await mergedPdf.save();
+
+      this.logger.log(
+        `PDFs combinados exitosamente. Tamaño: ${mergedPdfBytes.byteLength} bytes`,
+      );
+
+      // Devolver el PDF como un archivo descargable
+      return new StreamableFile(Buffer.from(mergedPdfBytes));
+    } catch (error) {
+      this.logger.error(`Error al combinar PDFs: ${error.message}`);
+      throw new HttpException(
+        'Error al combinar los PDFs',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
