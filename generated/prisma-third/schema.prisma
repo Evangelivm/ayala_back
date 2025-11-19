@@ -290,6 +290,8 @@ model ordenes_compra {
   usuario_firma          Int?
   estado_firma           ordenes_compra_estado_firma? @default(PENDIENTE)
   ruta_pdf               String?                      @db.VarChar(500)
+  retencion              String?                      @db.VarChar(45)
+  id_camion              Int?
   detalles_orden_compra  detalles_orden_compra[]
   proveedores            proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios               usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")

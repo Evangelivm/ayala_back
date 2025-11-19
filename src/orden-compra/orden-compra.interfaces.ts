@@ -24,6 +24,8 @@ export interface Observacion {
   nivel3?: string;
   observaciones?: string;
   cuentaBancaria?: string;
+  placaCamion?: string;
+  placaMaquinaria?: string;
 }
 
 export interface DetalleItem {

@@ -320,7 +320,9 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   hora_firma: 'hora_firma',
   usuario_firma: 'usuario_firma',
   estado_firma: 'estado_firma',
-  ruta_pdf: 'ruta_pdf'
+  ruta_pdf: 'ruta_pdf',
+  retencion: 'retencion',
+  id_camion: 'id_camion'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -570,7 +572,8 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   centro_costo_nivel3: 'centro_costo_nivel3',
   condicion: 'condicion',
   moneda: 'moneda',
-  ruta_pdf: 'ruta_pdf'
+  ruta_pdf: 'ruta_pdf',
+  retencion: 'retencion'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {

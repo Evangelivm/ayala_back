@@ -19765,6 +19765,7 @@ export namespace Prisma {
     total: Decimal | null
     registrado_por: number | null
     usuario_firma: number | null
+    id_camion: number | null
   }
 
   export type Ordenes_compraSumAggregateOutputType = {
@@ -19775,6 +19776,7 @@ export namespace Prisma {
     total: Decimal | null
     registrado_por: number | null
     usuario_firma: number | null
+    id_camion: number | null
   }
 
   export type Ordenes_compraMinAggregateOutputType = {
@@ -19805,6 +19807,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -19835,6 +19839,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -19865,6 +19871,8 @@ export namespace Prisma {
     usuario_firma: number
     estado_firma: number
     ruta_pdf: number
+    retencion: number
+    id_camion: number
     _all: number
   }
 
@@ -19877,6 +19885,7 @@ export namespace Prisma {
     total?: true
     registrado_por?: true
     usuario_firma?: true
+    id_camion?: true
   }
 
   export type Ordenes_compraSumAggregateInputType = {
@@ -19887,6 +19896,7 @@ export namespace Prisma {
     total?: true
     registrado_por?: true
     usuario_firma?: true
+    id_camion?: true
   }
 
   export type Ordenes_compraMinAggregateInputType = {
@@ -19917,6 +19927,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -19947,6 +19959,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -19977,6 +19991,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
     _all?: true
   }
 
@@ -20094,6 +20110,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -20143,6 +20161,8 @@ export namespace Prisma {
     usuario_firma?: boolean
     estado_firma?: boolean
     ruta_pdf?: boolean
+    retencion?: boolean
+    id_camion?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -20180,9 +20200,11 @@ export namespace Prisma {
     usuario_firma?: boolean
     estado_firma?: boolean
     ruta_pdf?: boolean
+    retencion?: boolean
+    id_camion?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20227,6 +20249,8 @@ export namespace Prisma {
       usuario_firma: number | null
       estado_firma: $Enums.ordenes_compra_estado_firma | null
       ruta_pdf: string | null
+      retencion: string | null
+      id_camion: number | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -20627,6 +20651,8 @@ export namespace Prisma {
     readonly usuario_firma: FieldRef<"ordenes_compra", 'Int'>
     readonly estado_firma: FieldRef<"ordenes_compra", 'ordenes_compra_estado_firma'>
     readonly ruta_pdf: FieldRef<"ordenes_compra", 'String'>
+    readonly retencion: FieldRef<"ordenes_compra", 'String'>
+    readonly id_camion: FieldRef<"ordenes_compra", 'Int'>
   }
     
 
@@ -32802,7 +32828,9 @@ export namespace Prisma {
     hora_firma: 'hora_firma',
     usuario_firma: 'usuario_firma',
     estado_firma: 'estado_firma',
-    ruta_pdf: 'ruta_pdf'
+    ruta_pdf: 'ruta_pdf',
+    retencion: 'retencion',
+    id_camion: 'id_camion'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -33148,7 +33176,8 @@ export namespace Prisma {
     centro_costo_nivel3: 'centro_costo_nivel3',
     condicion: 'condicion',
     moneda: 'moneda',
-    ruta_pdf: 'ruta_pdf'
+    ruta_pdf: 'ruta_pdf',
+    retencion: 'retencion'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -34676,6 +34705,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
+    retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -34710,6 +34741,8 @@ export namespace Prisma {
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    id_camion?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -34748,6 +34781,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
+    retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -34782,6 +34817,8 @@ export namespace Prisma {
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    id_camion?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -34820,6 +34857,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableWithAggregatesFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    id_camion?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -36946,6 +36985,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -36980,6 +37021,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -37009,6 +37052,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -37043,6 +37088,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -37075,6 +37122,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -37102,6 +37151,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -37132,6 +37183,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -39577,6 +39630,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -39587,6 +39642,7 @@ export namespace Prisma {
     total?: SortOrder
     registrado_por?: SortOrder
     usuario_firma?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_compraMaxOrderByAggregateInput = {
@@ -39617,6 +39673,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -39647,6 +39705,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -39657,6 +39717,7 @@ export namespace Prisma {
     total?: SortOrder
     registrado_por?: SortOrder
     usuario_firma?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type Enumordenes_compra_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -44756,6 +44817,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -44789,6 +44852,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -44884,6 +44949,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -44917,6 +44984,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -47056,6 +47125,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -47088,6 +47159,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -47188,6 +47261,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
+    retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -47275,6 +47350,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -47308,6 +47385,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -47410,6 +47489,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -47443,6 +47524,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -48447,6 +48530,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -48479,6 +48564,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -50242,6 +50329,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -50284,6 +50373,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -50316,6 +50407,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -50347,6 +50440,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -50572,6 +50667,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -50858,6 +50955,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -50890,6 +50989,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -50921,6 +51022,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {

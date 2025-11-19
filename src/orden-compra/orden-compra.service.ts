@@ -239,6 +239,8 @@ export class OrdenCompraService {
             centro_costo_nivel2: createOrdenCompraDto.centro_costo_nivel2,
             centro_costo_nivel3: createOrdenCompraDto.centro_costo_nivel3,
             moneda: createOrdenCompraDto.moneda,
+            id_camion: createOrdenCompraDto.unidad_id,
+            retencion: createOrdenCompraDto.retencion,
           },
         });
 
@@ -337,6 +339,26 @@ export class OrdenCompraService {
       }
     }
 
+    // Obtener datos del camión si existe id_camion
+    let placaCamion = '';
+    let placaMaquinaria = '';
+
+    if (ordenCompra.id_camion) {
+      const camion = await this.prisma.camiones.findUnique({
+        where: { id_camion: ordenCompra.id_camion },
+      });
+
+      if (camion) {
+        if (camion.tipo === 'CAMION') {
+          placaCamion = camion.placa;
+          placaMaquinaria = ''; // Dejar vacío
+        } else if (camion.tipo === 'MAQUINARIA') {
+          placaCamion = ''; // Dejar vacío
+          placaMaquinaria = camion.placa;
+        }
+      }
+    }
+
     const proveedor = ordenCompra.proveedores;
     return {
       header: {
@@ -363,6 +385,8 @@ export class OrdenCompraService {
         nivel3: nivel3Descripcion,
         observaciones: ordenCompra.observaciones || '',
         cuentaBancaria: proveedor.numero_cuenta_bancaria || '',
+        placaCamion,
+        placaMaquinaria,
       },
       detalleItems: ordenCompra.detalles_orden_compra.map((detalle, index) => ({
         numero: index + 1,
@@ -377,9 +401,11 @@ export class OrdenCompraService {
         const subtotal = parseFloat(ordenCompra.subtotal?.toString() || '0');
         const igv = parseFloat(ordenCompra.igv?.toString() || '0');
         const total = parseFloat(ordenCompra.total?.toString() || '0');
-        const proveedorAgenteRetencion = true; // TODO: Obtener de la tabla proveedores si se agrega este campo
+
+        // Verificar si hay retención basándose en el campo retencion de la orden
+        const tieneRetencion = ordenCompra.retencion?.toUpperCase() === 'SI';
         const retencionPorcentaje = 3;
-        const retencionMonto = proveedorAgenteRetencion
+        const retencionMonto = tieneRetencion
           ? (total * retencionPorcentaje) / 100
           : 0;
         const netoAPagar = total - retencionMonto;
@@ -388,7 +414,7 @@ export class OrdenCompraService {
           subtotal,
           igv,
           total,
-          proveedorAgenteRetencion,
+          proveedorAgenteRetencion: tieneRetencion,
           retencionPorcentaje,
           retencionMonto,
           netoAPagar,
@@ -433,7 +459,7 @@ export class OrdenCompraService {
         // Dirección (izquierda)
         doc.fontSize(9).font('Helvetica');
         doc.text(
-          'CALLOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
+          'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
           40,
           yPos + 22,
           {
@@ -455,7 +481,7 @@ export class OrdenCompraService {
         this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, 60);
 
         doc.fontSize(8).font('Helvetica');
-        doc.text('OG:', headerBoxX + 5, headerBoxY + 5);
+        doc.text('OC:', headerBoxX + 5, headerBoxY + 5);
         doc.text(ordenData.header.og, headerBoxX + 80, headerBoxY + 5);
 
         doc.text('Fecha de emisión:', headerBoxX + 5, headerBoxY + 20);
@@ -505,8 +531,8 @@ export class OrdenCompraService {
         doc.text('MONEDA:', 40, yPos + 30);
         doc.text(ordenData.datosOrdenCompra.moneda, 100, yPos + 30);
 
-        // Mostrar tipo de cambio en amarillo al lado de moneda
-        if (ordenData.datosOrdenCompra.tipoCambio) {
+        // Mostrar tipo de cambio en amarillo solo si la moneda es DOLARES
+        if (ordenData.datosOrdenCompra.moneda.toUpperCase().includes('DOLAR') && ordenData.datosOrdenCompra.tipoCambio) {
           this.drawHighlightBox(doc, 200, yPos + 25, 75, 20, '#FFFF00');
           doc
             .fontSize(9)
@@ -536,7 +562,7 @@ export class OrdenCompraService {
           'NIVEL 2',
           'NIVEL 3',
         ];
-        const nivelColWidths = [125, 70, 30, 145, 145]; // Total: 515
+        const nivelColWidths = [115, 85, 40, 137.5, 137.5]; // Total: 515 - Nivel 1 aumentado a 125px
 
         yPos = this.drawNivelesTable(
           doc,
@@ -605,7 +631,7 @@ export class OrdenCompraService {
 
         yPos += 50;
 
-        // Retención
+        // Retención - Solo mostrar si aplica retención
         doc.fontSize(9).font('Helvetica-Bold');
         doc.text('¿Proveedor agente de retención ?', 40, yPos);
 
@@ -617,53 +643,87 @@ export class OrdenCompraService {
           { align: 'center', width: 20 },
         );
 
-        doc.fontSize(8).font('Helvetica');
-        doc.text(
-          `Retención ${ordenData.totales.retencionPorcentaje}%:`,
-          totalesX,
-          yPos,
-        );
-        doc.text(
-          ordenData.totales.retencionMonto.toFixed(2),
-          totalesX + 80,
-          yPos,
-          { align: 'right', width: 50 },
-        );
-
-        doc.text('Neto a pagar:', totalesX, yPos + 15);
-        this.drawHighlightBox(doc, totalesX + 95, yPos + 10, 40, 15, '#FFFF00');
-        doc
-          .font('Helvetica-Bold')
-          .text(
-            ordenData.totales.netoAPagar.toFixed(2),
-            totalesX + 95,
-            yPos + 15,
-            { align: 'center', width: 40 },
+        // Solo mostrar campos de retención si proveedorAgenteRetencion es true
+        if (ordenData.totales.proveedorAgenteRetencion) {
+          doc.fontSize(8).font('Helvetica');
+          doc.text(
+            `Retención ${ordenData.totales.retencionPorcentaje}%:`,
+            totalesX,
+            yPos,
+          );
+          doc.text(
+            ordenData.totales.retencionMonto.toFixed(2),
+            totalesX + 80,
+            yPos,
+            { align: 'right', width: 50 },
           );
 
-        yPos += 60;
+          doc.text('Neto a pagar:', totalesX, yPos + 15);
+          this.drawHighlightBox(doc, totalesX + 95, yPos + 10, 40, 15, '#FFFF00');
+          doc
+            .font('Helvetica-Bold')
+            .text(
+              ordenData.totales.netoAPagar.toFixed(2),
+              totalesX + 95,
+              yPos + 15,
+              { align: 'center', width: 40 },
+            );
+
+          yPos += 60;
+        } else {
+          // Si no hay retención, solo mostrar el total como neto a pagar
+          doc.fontSize(8).font('Helvetica');
+          doc.text('Neto a pagar:', totalesX, yPos);
+          this.drawHighlightBox(doc, totalesX + 95, yPos - 5, 40, 15, '#FFFF00');
+          doc
+            .font('Helvetica-Bold')
+            .text(
+              ordenData.totales.total.toFixed(2),
+              totalesX + 95,
+              yPos,
+              { align: 'center', width: 40 },
+            );
+
+          yPos += 35;
+        }
+
+        yPos += 40; // Espacio adicional antes de las firmas
 
         // ==================== FIRMAS ====================
         const firmaWidth = 150;
-        const firmaSpacing = 180;
+        const firmaLineY = yPos;
+        const pageWidth = 515; // Ancho total del contenido
+        const leftX = 40;
+        const centerX = 40 + (pageWidth - firmaWidth) / 2;
+        const rightX = 40 + pageWidth - firmaWidth;
 
-        // Genera orden
         doc.fontSize(8).font('Helvetica');
-        doc.text('----------------------------', 40, yPos);
-        doc.text('Genera orden', 40, yPos + 15);
-        doc
-          .font('Helvetica-Bold')
-          .text(ordenData.firmas.generaOrden, 40, yPos + 30);
 
-        // Jefe Administrativo
-        doc
-          .font('Helvetica')
-          .text('----------------------------', 40 + firmaSpacing, yPos);
-        doc.text('Jefe Administrativo', 40 + firmaSpacing, yPos + 15);
+        // Genera orden (izquierda)
+        doc.moveTo(leftX, firmaLineY).lineTo(leftX + firmaWidth, firmaLineY).stroke();
+        doc.text('Genera orden', leftX, firmaLineY + 10, {
+          width: firmaWidth,
+          align: 'center',
+        });
+        doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, leftX, firmaLineY + 25, {
+          width: firmaWidth,
+          align: 'center',
+        });
 
-        // Gerencia
-        doc.text('----------------------------', 40 + firmaSpacing * 2, yPos);
-        doc.text('Gerencia', 40 + firmaSpacing * 2, yPos + 15);
+        // Jefe Administrativo (centro)
+        doc.font('Helvetica');
+        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe Administrativo', centerX, firmaLineY + 10, {
+          width: firmaWidth,
+          align: 'center',
+        });
+
+        // Gerencia (derecha)
+        doc.moveTo(rightX, firmaLineY).lineTo(rightX + firmaWidth, firmaLineY).stroke();
+        doc.text('Gerencia', rightX, firmaLineY + 10, {
+          width: firmaWidth,
+          align: 'center',
+        });
 
         doc.end();
       } catch (error) {
@@ -717,29 +777,41 @@ export class OrdenCompraService {
     data: any,
   ): number {
     let currentY = startY;
-    const rowHeight = 18;
+    const baseRowHeight = 18;
 
     // Definir el color azul/gris del header (#D9E2F3 es un azul claro similar al de la imagen)
     const headerColor = '#D9E2F3';
 
+    // Pre-calcular altura de fila 2 para ajustar la celda combinada "Centro de Costos"
+    const nivel1Width = colWidths[1] + colWidths[2];
+    const fontSize = 9;
+    doc.fontSize(fontSize).font('Helvetica');
+
+    const nivel1Lines = this.calculateTextLines(doc, data.nivel1 || '', nivel1Width - 4, fontSize);
+    const nivel2Lines = this.calculateTextLines(doc, data.nivel2 || '', colWidths[3] - 4, fontSize);
+    const nivel3Lines = this.calculateTextLines(doc, data.nivel3 || '', colWidths[4] - 4, fontSize);
+
+    const maxLines = Math.max(nivel1Lines, nivel2Lines, nivel3Lines);
+    const row2Height = Math.max(baseRowHeight, maxLines * 12 + 6);
+
     // ===== FILA 1 - HEADERS =====
     // Columna A: "Centro de Costos" (combinada verticalmente con fila 2)
-    doc.rect(startX, currentY, colWidths[0], rowHeight * 2).stroke();
+    const centroCostosHeight = baseRowHeight + row2Height;
+    doc.rect(startX, currentY, colWidths[0], centroCostosHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
-    doc.text('Centro de Costos', startX + 2, currentY + 12, {
+    doc.text('Centro de Costos', startX + 2, currentY + (centroCostosHeight / 2) - 5, {
       width: colWidths[0] - 4,
       align: 'center',
     });
 
     // Columnas B+C: "Nivel 1" (combinadas horizontalmente) con fondo azul
-    const nivel1Width = colWidths[1] + colWidths[2];
     doc
       .fillColor(headerColor)
-      .rect(startX + colWidths[0], currentY, nivel1Width, rowHeight)
+      .rect(startX + colWidths[0], currentY, nivel1Width, baseRowHeight)
       .fill();
     doc
       .strokeColor('#000000')
-      .rect(startX + colWidths[0], currentY, nivel1Width, rowHeight)
+      .rect(startX + colWidths[0], currentY, nivel1Width, baseRowHeight)
       .stroke();
     doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
     doc.text('Nivel 1', startX + colWidths[0] + 2, currentY + 5, {
@@ -751,11 +823,11 @@ export class OrdenCompraService {
     const xNivel2 = startX + colWidths[0] + nivel1Width;
     doc
       .fillColor(headerColor)
-      .rect(xNivel2, currentY, colWidths[3], rowHeight)
+      .rect(xNivel2, currentY, colWidths[3], baseRowHeight)
       .fill();
     doc
       .strokeColor('#000000')
-      .rect(xNivel2, currentY, colWidths[3], rowHeight)
+      .rect(xNivel2, currentY, colWidths[3], baseRowHeight)
       .stroke();
     doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
     doc.text('Nivel 2', xNivel2 + 2, currentY + 5, {
@@ -767,11 +839,11 @@ export class OrdenCompraService {
     const xNivel3 = xNivel2 + colWidths[3];
     doc
       .fillColor(headerColor)
-      .rect(xNivel3, currentY, colWidths[4], rowHeight)
+      .rect(xNivel3, currentY, colWidths[4], baseRowHeight)
       .fill();
     doc
       .strokeColor('#000000')
-      .rect(xNivel3, currentY, colWidths[4], rowHeight)
+      .rect(xNivel3, currentY, colWidths[4], baseRowHeight)
       .stroke();
     doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
     doc.text('Nivel 3', xNivel3 + 2, currentY + 5, {
@@ -779,74 +851,77 @@ export class OrdenCompraService {
       align: 'center',
     });
 
-    currentY += rowHeight;
+    currentY += baseRowHeight;
 
     // ===== FILA 2 - Nivel1 / Nivel2 / Nivel3 =====
+    // (altura ya calculada arriba como row2Height)
+    // (xNivel2 y xNivel3 ya definidas arriba)
+
     // Columnas B+C: Nivel1 (combinadas horizontalmente)
-    doc.rect(startX + colWidths[0], currentY, nivel1Width, rowHeight).stroke();
-    doc.fontSize(9).font('Helvetica');
+    doc.rect(startX + colWidths[0], currentY, nivel1Width, row2Height).stroke();
+    doc.fontSize(fontSize).font('Helvetica');
     doc.text(data.nivel1 || '', startX + colWidths[0] + 2, currentY + 5, {
       width: nivel1Width - 4,
       align: 'center',
     });
 
     // Columna D: Nivel2
-    doc.rect(xNivel2, currentY, colWidths[3], rowHeight).stroke();
-    doc.fontSize(9).font('Helvetica');
+    doc.rect(xNivel2, currentY, colWidths[3], row2Height).stroke();
+    doc.fontSize(fontSize).font('Helvetica');
     doc.text(data.nivel2 || '', xNivel2 + 2, currentY + 5, {
       width: colWidths[3] - 4,
       align: 'center',
     });
 
     // Columna E: Nivel3
-    doc.rect(xNivel3, currentY, colWidths[4], rowHeight).stroke();
-    doc.fontSize(9).font('Helvetica');
+    doc.rect(xNivel3, currentY, colWidths[4], row2Height).stroke();
+    doc.fontSize(fontSize).font('Helvetica');
     doc.text(data.nivel3 || '', xNivel3 + 2, currentY + 5, {
       width: colWidths[4] - 4,
       align: 'center',
     });
 
-    currentY += rowHeight;
+    currentY += row2Height;
 
     // ===== FILA 3 - PLACA / NA / MAQUINA / RB-001 =====
     // Columna A: "PLACA" (negrita)
-    doc.rect(startX, currentY, colWidths[0], rowHeight).stroke();
+    doc.rect(startX, currentY, colWidths[0], baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
     doc.text('PLACA', startX + 2, currentY + 5, {
       width: colWidths[0] - 4,
       align: 'center',
     });
 
-    // Columnas B+C: "NA" (combinadas horizontalmente)
+    // Columnas B+C: Placa del camión (combinadas horizontalmente)
     const placaWidth = colWidths[1] + colWidths[2];
-    doc.rect(startX + colWidths[0], currentY, placaWidth, rowHeight).stroke();
+    doc.rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text('NA', startX + colWidths[0] + 2, currentY + 5, {
+    doc.text(data.placaCamion || '', startX + colWidths[0] + 2, currentY + 5, {
       width: placaWidth - 4,
       align: 'center',
     });
 
     // Columna D: "MAQUINA" (negrita sin fondo de color)
-    doc.rect(xNivel2, currentY, colWidths[3], rowHeight).stroke();
+    doc.rect(xNivel2, currentY, colWidths[3], baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
     doc.text('MAQUINA', xNivel2 + 2, currentY + 5, {
       width: colWidths[3] - 4,
       align: 'center',
     });
 
-    // Columna E: "RB-001"
-    doc.rect(xNivel3, currentY, colWidths[4], rowHeight).stroke();
+    // Columna E: Placa de la maquinaria
+    doc.rect(xNivel3, currentY, colWidths[4], baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text('RB-001', xNivel3 + 2, currentY + 5, {
+    doc.text(data.placaMaquinaria || '', xNivel3 + 2, currentY + 5, {
       width: colWidths[4] - 4,
       align: 'center',
     });
 
-    currentY += rowHeight;
+    currentY += baseRowHeight;
 
     // ===== FILA 4 - CTA BCP: =====
     // Columna A: "CTA BCP:"
-    doc.rect(startX, currentY, colWidths[0], rowHeight).stroke();
+    doc.rect(startX, currentY, colWidths[0], baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
     doc.text('CTA BCP:', startX + 5, currentY + 5, {
       width: colWidths[0] - 10,
@@ -856,18 +931,23 @@ export class OrdenCompraService {
     // Columnas B+C+D+E: número de cuenta bancaria del proveedor
     const ctaBcpWidth =
       colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    doc.rect(startX + colWidths[0], currentY, ctaBcpWidth, rowHeight).stroke();
+    doc.rect(startX + colWidths[0], currentY, ctaBcpWidth, baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica');
     doc.text(data.cuentaBancaria || '', startX + colWidths[0] + 2, currentY + 5, {
       width: ctaBcpWidth - 4,
       align: 'center',
     });
 
-    currentY += rowHeight;
+    currentY += baseRowHeight;
 
     // ===== FILA 5 - OBSERVACION: / Observaciones =====
+    // Calcular altura necesaria para las observaciones
+    const obsWidth = colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
+    const obsLines = this.calculateTextLines(doc, data.observaciones || '', obsWidth - 4, 9);
+    const row5Height = Math.max(baseRowHeight, obsLines * 12 + 6);
+
     // Columna A: "OBSERVACION:"
-    doc.rect(startX, currentY, colWidths[0], rowHeight).stroke();
+    doc.rect(startX, currentY, colWidths[0], row5Height).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
     doc.text('OBSERVACION:', startX + 5, currentY + 5, {
       width: colWidths[0] - 10,
@@ -875,17 +955,47 @@ export class OrdenCompraService {
     });
 
     // Columnas B+C+D+E: Observaciones de la orden (todas combinadas)
-    const obsWidth = colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    doc.rect(startX + colWidths[0], currentY, obsWidth, rowHeight).stroke();
+    doc.rect(startX + colWidths[0], currentY, obsWidth, row5Height).stroke();
     doc.fontSize(9).font('Helvetica');
     doc.text(data.observaciones || '', startX + colWidths[0] + 2, currentY + 5, {
       width: obsWidth - 4,
       align: 'center',
     });
 
-    currentY += rowHeight;
+    currentY += row5Height;
 
     return currentY;
+  }
+
+  /**
+   * Calcula cuántas líneas necesitará un texto dado un ancho específico
+   */
+  private calculateTextLines(
+    doc: PDFKit.PDFDocument,
+    text: string,
+    maxWidth: number,
+    fontSize: number,
+  ): number {
+    if (!text || text.trim() === '') return 1;
+
+    doc.fontSize(fontSize);
+    const words = text.split(' ');
+    let lines = 1;
+    let currentLine = '';
+
+    for (const word of words) {
+      const testLine = currentLine ? `${currentLine} ${word}` : word;
+      const testWidth = doc.widthOfString(testLine);
+
+      if (testWidth > maxWidth && currentLine !== '') {
+        lines++;
+        currentLine = word;
+      } else {
+        currentLine = testLine;
+      }
+    }
+
+    return lines;
   }
 
   private drawDetalleTable(

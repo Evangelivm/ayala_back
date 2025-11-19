@@ -33,6 +33,7 @@ export const CreateOrdenCompraSchema = z.object({
   centro_costo_nivel2: z.string().optional(),
   centro_costo_nivel3: z.string().optional(),
   unidad_id: z.number().int().positive().optional(),
+  retencion: z.string().optional(),
   items: z
     .array(CreateDetalleOrdenCompraSchema)
     .min(1, 'Debe incluir al menos un item'),
