@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma-second"
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma-second"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
