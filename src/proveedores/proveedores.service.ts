@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaThirdService } from '../prisma/prisma-third.service';
 
 @Injectable()
 export class ProveedoresService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prismaThird: PrismaThirdService) {}
 
   async findAll() {
-    const proveedores = await this.prisma.proveedores2025.findMany({
+    const proveedores = await this.prismaThird.proveedores.findMany({
+      where: {
+        activo: true,
+      },
       orderBy: {
-        razon_social: 'asc',
+        nombre_proveedor: 'asc',
       },
     });
 
@@ -16,14 +19,14 @@ export class ProveedoresService {
   }
 
   async findOne(id: number) {
-    return this.prisma.proveedores2025.findUnique({
-      where: { id },
+    return this.prismaThird.proveedores.findUnique({
+      where: { id_proveedor: id },
     });
   }
 
-  async findByDocumento(nro_documento: string) {
-    return this.prisma.proveedores2025.findFirst({
-      where: { nro_documento },
+  async findByDocumento(ruc: string) {
+    return this.prismaThird.proveedores.findFirst({
+      where: { ruc },
     });
   }
 }

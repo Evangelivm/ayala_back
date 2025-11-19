@@ -1,0 +1,612 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma-third"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL_THIRD")
+}
+
+model almacenes {
+  id_almacen                                                                  Int                      @id @default(autoincrement())
+  codigo_almacen                                                              String                   @unique(map: "codigo_almacen") @db.VarChar(50)
+  nombre_almacen                                                              String                   @db.VarChar(255)
+  descripcion                                                                 String?                  @db.Text
+  tipo_almacen                                                                almacenes_tipo_almacen
+  id_almacen_padre                                                            Int?
+  activo                                                                      Boolean?                 @default(true)
+  fecha_creacion                                                              DateTime?                @default(now()) @db.Timestamp(0)
+  fecha_modificacion                                                          DateTime?                @default(now()) @db.Timestamp(0)
+  almacenes                                                                   almacenes?               @relation("almacenesToalmacenes", fields: [id_almacen_padre], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "almacenes_ibfk_1")
+  other_almacenes                                                             almacenes[]              @relation("almacenesToalmacenes")
+  conteo_ciclico                                                              conteo_ciclico[]
+  movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes  movimientos_inventario[] @relation("movimientos_inventario_id_almacen_origenToalmacenes")
+  movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes movimientos_inventario[] @relation("movimientos_inventario_id_almacen_destinoToalmacenes")
+  recepciones_compra                                                          recepciones_compra[]
+  solicitudes_salida                                                          solicitudes_salida[]
+  stock_almacenes                                                             stock_almacenes[]
+  usuarios                                                                    usuarios[]
+
+  @@index([id_almacen_padre], map: "id_almacen_padre")
+}
+
+model configuracion_notificaciones {
+  id_configuracion  Int                                            @id @default(autoincrement())
+  id_usuario        Int
+  tipo_notificacion configuracion_notificaciones_tipo_notificacion
+  activo            Boolean?                                       @default(true)
+  usuarios          usuarios                                       @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "configuracion_notificaciones_ibfk_1")
+
+  @@unique([id_usuario, tipo_notificacion], map: "unique_usuario_tipo")
+}
+
+model configuracion_reportes {
+  id_configuracion     Int                                 @id @default(autoincrement())
+  nombre_reporte       String                              @db.VarChar(255)
+  descripcion          String?                             @db.Text
+  id_usuario_creador   Int
+  campos_seleccionados Json
+  filtros_aplicados    Json?
+  tipo_reporte         configuracion_reportes_tipo_reporte
+  fecha_creacion       DateTime?                           @default(now()) @db.Timestamp(0)
+  fecha_actualizacion  DateTime?                           @default(now()) @db.Timestamp(0)
+  activo               Boolean?                            @default(true)
+  usuarios             usuarios                            @relation(fields: [id_usuario_creador], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "configuracion_reportes_ibfk_1")
+  historial_reportes   historial_reportes[]
+  permisos_reportes    permisos_reportes[]
+
+  @@index([tipo_reporte], map: "idx_tipo_reporte")
+  @@index([id_usuario_creador], map: "idx_usuario")
+}
+
+model conteo_ciclico {
+  id_conteo               Int                         @id @default(autoincrement())
+  id_almacen              Int
+  responsable_id          Int
+  fecha_inicio            DateTime                    @db.Date
+  fecha_fin               DateTime?                   @db.Date
+  estado                  conteo_ciclico_estado?      @default(PENDIENTE)
+  tipo_conteo             conteo_ciclico_tipo_conteo? @default(PARCIAL)
+  observaciones           String?                     @db.Text
+  almacenes               almacenes                   @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "conteo_ciclico_ibfk_1")
+  usuarios                usuarios                    @relation(fields: [responsable_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "conteo_ciclico_ibfk_2")
+  detalles_conteo_ciclico detalles_conteo_ciclico[]
+
+  @@index([id_almacen, estado], map: "idx_almacen_estado")
+  @@index([fecha_inicio], map: "idx_fecha_inicio")
+  @@index([responsable_id], map: "responsable_id")
+}
+
+model detalles_conteo_ciclico {
+  id_detalle_conteo  Int                                     @id @default(autoincrement())
+  id_conteo          Int
+  codigo_item        String                                  @db.VarChar(255)
+  stock_sistema      Int?                                    @default(0)
+  stock_fisico       Int?                                    @default(0)
+  diferencia         Int?                                    @default(0)
+  estado_detalle     detalles_conteo_ciclico_estado_detalle? @default(PENDIENTE)
+  observaciones      String?                                 @db.Text
+  fecha_registro     DateTime?                               @default(now()) @db.Timestamp(0)
+  conteo_ciclico     conteo_ciclico                          @relation(fields: [id_conteo], references: [id_conteo], onDelete: Cascade, onUpdate: NoAction, map: "detalles_conteo_ciclico_ibfk_1")
+  listado_items_2025 listado_items_2025                      @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "detalles_conteo_ciclico_ibfk_2")
+
+  @@unique([id_conteo, codigo_item], map: "unique_conteo_item")
+  @@index([codigo_item], map: "codigo_item")
+}
+
+model detalles_orden_compra {
+  id_detalle          Int                @id @default(autoincrement())
+  id_orden_compra     Int
+  codigo_item         String             @db.VarChar(255)
+  descripcion_item    String             @db.Text
+  cantidad_solicitada Int
+  cantidad_recibida   Int?               @default(0)
+  precio_unitario     Decimal            @db.Decimal(10, 2)
+  subtotal            Decimal            @db.Decimal(10, 2)
+  ordenes_compra      ordenes_compra     @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: Cascade, onUpdate: NoAction, map: "detalles_orden_compra_ibfk_1")
+  listado_items_2025  listado_items_2025 @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "detalles_orden_compra_ibfk_2")
+
+  @@index([codigo_item], map: "codigo_item")
+  @@index([id_orden_compra], map: "idx_orden_compra")
+}
+
+model detalles_recepcion_compra {
+  id_detalle_recepcion Int                @id @default(autoincrement())
+  id_recepcion         Int
+  codigo_item          String             @db.VarChar(255)
+  cantidad_recibida    Int
+  cantidad_aceptada    Int?               @default(0)
+  cantidad_rechazada   Int?               @default(0)
+  recepciones_compra   recepciones_compra @relation(fields: [id_recepcion], references: [id_recepcion], onDelete: Cascade, onUpdate: NoAction, map: "detalles_recepcion_compra_ibfk_1")
+  listado_items_2025   listado_items_2025 @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "detalles_recepcion_compra_ibfk_2")
+
+  @@index([codigo_item], map: "codigo_item")
+  @@index([id_recepcion], map: "id_recepcion")
+}
+
+model familias_productos {
+  id_familia         Int                  @id @default(autoincrement())
+  codigo_familia     String               @unique(map: "codigo_familia") @db.VarChar(50)
+  nombre_familia     String               @db.VarChar(255)
+  descripcion        String?              @db.Text
+  activo             Boolean?             @default(true)
+  fecha_creacion     DateTime?            @default(now()) @db.Timestamp(0)
+  fecha_modificacion DateTime?            @default(now()) @db.Timestamp(0)
+  listado_items_2025 listado_items_2025[]
+}
+
+model historial_reportes {
+  id_historial           Int                               @id @default(autoincrement())
+  id_configuracion       Int?
+  id_usuario             Int
+  nombre_reporte         String                            @db.VarChar(255)
+  parametros_usados      Json?
+  fecha_generacion       DateTime?                         @default(now()) @db.Timestamp(0)
+  formato_salida         historial_reportes_formato_salida
+  configuracion_reportes configuracion_reportes?           @relation(fields: [id_configuracion], references: [id_configuracion], onDelete: NoAction, onUpdate: NoAction, map: "historial_reportes_ibfk_1")
+  usuarios               usuarios                          @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "historial_reportes_ibfk_2")
+
+  @@index([id_configuracion], map: "id_configuracion")
+  @@index([fecha_generacion], map: "idx_fecha_generacion")
+  @@index([id_usuario, fecha_generacion], map: "idx_usuario_fecha")
+}
+
+model listado_items_2025 {
+  codigo                    String                      @id @db.VarChar(255)
+  descripcion               String                      @db.Text
+  id_familia                Int?
+  grupo                     String?                     @db.VarChar(100)
+  u_m                       String?                     @default("UND") @db.VarChar(50)
+  precio_unitario           Decimal?                    @default(0.00) @db.Decimal(10, 2)
+  stock_minimo              Int?                        @default(0)
+  stock_maximo              Int?                        @default(0)
+  ubicacion                 String?                     @db.VarChar(100)
+  marca                     String?                     @db.VarChar(100)
+  modelo                    String?                     @db.VarChar(100)
+  numero_serie              String?                     @db.VarChar(100)
+  activo                    Boolean?                    @default(true)
+  fecha_creacion            DateTime?                   @default(now()) @db.Timestamp(0)
+  fecha_modificacion        DateTime?                   @default(now()) @db.Timestamp(0)
+  detalles_conteo_ciclico   detalles_conteo_ciclico[]
+  detalles_orden_compra     detalles_orden_compra[]
+  detalles_recepcion_compra detalles_recepcion_compra[]
+  familias_productos        familias_productos?         @relation(fields: [id_familia], references: [id_familia], onDelete: NoAction, onUpdate: NoAction, map: "listado_items_2025_ibfk_1")
+  movimientos_inventario    movimientos_inventario[]
+  solicitudes_salida        solicitudes_salida[]
+  stock_almacenes           stock_almacenes[]
+
+  @@index([descripcion(length: 255)], map: "idx_descripcion")
+  @@index([id_familia], map: "idx_familia")
+  @@index([grupo], map: "idx_grupo")
+}
+
+model logs_actividad {
+  id_log     Int       @id @default(autoincrement())
+  usuario_id Int?
+  accion     String    @db.VarChar(100)
+  detalle    String?   @db.Text
+  ip         String?   @db.VarChar(45)
+  fecha_hora DateTime? @default(now()) @db.Timestamp(0)
+  usuarios   usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "logs_actividad_ibfk_1")
+
+  @@index([usuario_id], map: "usuario_id")
+}
+
+model modulos {
+  id_modulo      Int            @id @default(autoincrement())
+  nombre_modulo  String         @unique(map: "nombre_modulo") @db.VarChar(50)
+  descripcion    String?        @db.VarChar(200)
+  ruta           String         @db.VarChar(100)
+  icono          String?        @db.VarChar(50)
+  orden          Int?           @default(0)
+  activo         Boolean?       @default(true)
+  fecha_creacion DateTime?      @default(now()) @db.Timestamp(0)
+  permisos_rol   permisos_rol[]
+}
+
+model movimientos_inventario {
+  id_movimiento                                                  Int                            @id @default(autoincrement())
+  id_tipo_movimiento                                             Int
+  codigo_item                                                    String                         @db.VarChar(255)
+  cantidad                                                       Int
+  id_almacen_origen                                              Int?
+  id_almacen_destino                                             Int?
+  numero_documento                                               String?                        @db.VarChar(100)
+  fecha_movimiento                                               DateTime?                      @default(now()) @db.Timestamp(0)
+  responsable                                                    String?                        @db.VarChar(255)
+  observaciones                                                  String?                        @db.Text
+  estado                                                         movimientos_inventario_estado? @default(PENDIENTE)
+  tipos_movimiento                                               tipos_movimiento               @relation(fields: [id_tipo_movimiento], references: [id_tipo_movimiento], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_1")
+  listado_items_2025                                             listado_items_2025             @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_2")
+  almacenes_movimientos_inventario_id_almacen_origenToalmacenes  almacenes?                     @relation("movimientos_inventario_id_almacen_origenToalmacenes", fields: [id_almacen_origen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_3")
+  almacenes_movimientos_inventario_id_almacen_destinoToalmacenes almacenes?                     @relation("movimientos_inventario_id_almacen_destinoToalmacenes", fields: [id_almacen_destino], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_4")
+  solicitudes_salida                                             solicitudes_salida[]
+
+  @@index([codigo_item], map: "codigo_item")
+  @@index([id_almacen_destino], map: "id_almacen_destino")
+  @@index([id_almacen_origen], map: "id_almacen_origen")
+  @@index([id_tipo_movimiento], map: "id_tipo_movimiento")
+}
+
+model notificaciones {
+  id_notificacion    Int                  @id @default(autoincrement())
+  usuario_destino_id Int
+  titulo             String               @db.VarChar(200)
+  mensaje            String               @db.Text
+  tipo               notificaciones_tipo? @default(info)
+  url                String?              @db.VarChar(255)
+  leida              Boolean?             @default(false)
+  fecha_creacion     DateTime?            @default(now()) @db.Timestamp(0)
+  fecha_leida        DateTime?            @db.Timestamp(0)
+  datos_extra        Json?
+  usuarios           usuarios             @relation(fields: [usuario_destino_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "notificaciones_ibfk_1")
+
+  @@index([fecha_creacion], map: "idx_fecha")
+  @@index([usuario_destino_id, leida], map: "idx_usuario_leida")
+}
+
+model notificaciones_enviadas {
+  id_notificacion   Int                                       @id @default(autoincrement())
+  id_usuario        Int?
+  tipo_notificacion notificaciones_enviadas_tipo_notificacion
+  destinatario      String                                    @db.VarChar(255)
+  asunto            String?                                   @db.VarChar(255)
+  mensaje           String                                    @db.Text
+  estado_envio      notificaciones_enviadas_estado_envio?     @default(PENDIENTE)
+  fecha_envio       DateTime?                                 @db.Timestamp(0)
+  fecha_registro    DateTime?                                 @default(now()) @db.Timestamp(0)
+  usuarios          usuarios?                                 @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notificaciones_enviadas_ibfk_1")
+
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model ordenes_compra {
+  id_orden_compra        Int                          @id @default(autoincrement())
+  numero_orden           String                       @unique(map: "numero_orden") @db.VarChar(50)
+  id_proveedor           Int
+  fecha_orden            DateTime                     @db.Date
+  fecha_entrega_prevista DateTime?                    @db.Date
+  subtotal               Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  igv                    Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  total                  Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  estado                 ordenes_compra_estado?       @default(PENDIENTE)
+  observaciones          String?                      @db.Text
+  fecha_registro         DateTime?                    @default(now()) @db.Timestamp(0)
+  registrado_por         Int
+  tiene_anticipo         String?                      @db.VarChar(255)
+  procede_pago           String?                      @db.VarChar(255)
+  auto_administrador     Boolean?                     @default(false)
+  auto_contabilidad      Boolean?                     @default(false)
+  has_anticipo           Boolean?                     @default(false)
+  direccion              String?                      @db.VarChar(255)
+  centro_costo_nivel1    String?                      @db.VarChar(255)
+  centro_costo_nivel2    String?                      @db.VarChar(255)
+  centro_costo_nivel3    String?                      @db.VarChar(255)
+  condicion              String?                      @db.VarChar(255)
+  moneda                 String?                      @db.VarChar(255)
+  hora_firma             DateTime?                    @db.DateTime(0)
+  usuario_firma          Int?
+  estado_firma           ordenes_compra_estado_firma? @default(PENDIENTE)
+  ruta_pdf               String?                      @db.VarChar(500)
+  detalles_orden_compra  detalles_orden_compra[]
+  proveedores            proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
+  usuarios               usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
+  recepciones_compra     recepciones_compra[]
+
+  @@index([estado], map: "idx_estado")
+  @@index([fecha_orden], map: "idx_fecha_orden")
+  @@index([id_proveedor], map: "idx_proveedor")
+  @@index([registrado_por], map: "registrado_por")
+}
+
+model permisos_reportes {
+  id_permiso             Int                    @id @default(autoincrement())
+  id_configuracion       Int
+  id_usuario             Int
+  puede_ver              Boolean?               @default(false)
+  puede_editar           Boolean?               @default(false)
+  puede_eliminar         Boolean?               @default(false)
+  fecha_asignacion       DateTime?              @default(now()) @db.Timestamp(0)
+  configuracion_reportes configuracion_reportes @relation(fields: [id_configuracion], references: [id_configuracion], onDelete: Cascade, onUpdate: NoAction, map: "permisos_reportes_ibfk_1")
+  usuarios               usuarios               @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "permisos_reportes_ibfk_2")
+
+  @@unique([id_configuracion, id_usuario], map: "unique_config_usuario")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model permisos_rol {
+  id_permiso     Int              @id @default(autoincrement())
+  rol            permisos_rol_rol
+  id_modulo      Int
+  puede_ver      Boolean?         @default(false)
+  puede_crear    Boolean?         @default(false)
+  puede_editar   Boolean?         @default(false)
+  puede_eliminar Boolean?         @default(false)
+  modulos        modulos          @relation(fields: [id_modulo], references: [id_modulo], onDelete: Cascade, onUpdate: NoAction, map: "permisos_rol_ibfk_1")
+
+  @@unique([rol, id_modulo], map: "unique_rol_modulo")
+  @@index([id_modulo], map: "id_modulo")
+}
+
+model proveedores {
+  id_proveedor           Int                    @id @default(autoincrement())
+  codigo_proveedor       String                 @unique(map: "codigo_proveedor") @db.VarChar(50)
+  nombre_proveedor       String                 @db.VarChar(255)
+  contacto               String?                @db.VarChar(255)
+  telefono               String?                @db.VarChar(50)
+  email                  String?                @db.VarChar(100)
+  direccion              String?                @db.Text
+  ruc                    String?                @db.VarChar(20)
+  activo                 Boolean?               @default(true)
+  fecha_registro         DateTime?              @default(now()) @db.Timestamp(0)
+  fecha_actualizacion    DateTime?              @default(now()) @db.Timestamp(0)
+  entidad_bancaria       String?                @db.VarChar(255)
+  numero_cuenta_bancaria String?                @db.VarChar(255)
+  retencion              proveedores_retencion?
+  ordenes_compra         ordenes_compra[]
+  ordenes_servicio       ordenes_servicio[]
+}
+
+model recepciones_compra {
+  id_recepcion              Int                         @id @default(autoincrement())
+  id_orden_compra           Int
+  numero_documento          String?                     @db.VarChar(50)
+  id_almacen                Int
+  fecha_recepcion           DateTime?                   @default(now()) @db.Timestamp(0)
+  responsable               String?                     @db.VarChar(255)
+  observaciones             String?                     @db.Text
+  estado                    recepciones_compra_estado?  @default(PENDIENTE)
+  detalles_recepcion_compra detalles_recepcion_compra[]
+  ordenes_compra            ordenes_compra              @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: NoAction, onUpdate: NoAction, map: "recepciones_compra_ibfk_1")
+  almacenes                 almacenes                   @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "recepciones_compra_ibfk_2")
+
+  @@index([id_almacen], map: "id_almacen")
+  @@index([fecha_recepcion], map: "idx_fecha_recepcion")
+  @@index([id_orden_compra], map: "idx_orden_compra")
+}
+
+model solicitudes_salida {
+  id_solicitud                                         Int                        @id @default(autoincrement())
+  codigo_item                                          String                     @db.VarChar(50)
+  id_almacen                                           Int
+  cantidad                                             Int
+  numero_documento                                     String?                    @db.VarChar(50)
+  solicitante_id                                       Int
+  solicitante_nombre                                   String                     @db.VarChar(100)
+  observaciones                                        String?                    @db.Text
+  estado                                               solicitudes_salida_estado? @default(PENDIENTE)
+  fecha_solicitud                                      DateTime?                  @default(now()) @db.Timestamp(0)
+  autorizado_por                                       Int?
+  fecha_autorizacion                                   DateTime?                  @db.Timestamp(0)
+  comentario_autorizacion                              String?                    @db.Text
+  id_movimiento_generado                               Int?
+  listado_items_2025                                   listado_items_2025         @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_1")
+  almacenes                                            almacenes                  @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_2")
+  usuarios_solicitudes_salida_solicitante_idTousuarios usuarios                   @relation("solicitudes_salida_solicitante_idTousuarios", fields: [solicitante_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_3")
+  usuarios_solicitudes_salida_autorizado_porTousuarios usuarios?                  @relation("solicitudes_salida_autorizado_porTousuarios", fields: [autorizado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_4")
+  movimientos_inventario                               movimientos_inventario?    @relation(fields: [id_movimiento_generado], references: [id_movimiento], onUpdate: NoAction, map: "solicitudes_salida_ibfk_5")
+
+  @@index([autorizado_por], map: "autorizado_por")
+  @@index([codigo_item], map: "codigo_item")
+  @@index([id_almacen], map: "id_almacen")
+  @@index([id_movimiento_generado], map: "id_movimiento_generado")
+  @@index([estado], map: "idx_estado")
+  @@index([fecha_solicitud], map: "idx_fecha_solicitud")
+  @@index([solicitante_id], map: "solicitante_id")
+}
+
+model stock_almacenes {
+  id_stock            Int                @id @default(autoincrement())
+  codigo_item         String             @db.VarChar(255)
+  id_almacen          Int
+  cantidad            Int?               @default(0)
+  fecha_actualizacion DateTime?          @default(now()) @db.Timestamp(0)
+  ubicacion           String?            @db.VarChar(255)
+  listado_items_2025  listado_items_2025 @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "stock_almacenes_ibfk_1")
+  almacenes           almacenes          @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "stock_almacenes_ibfk_2")
+
+  @@unique([codigo_item, id_almacen], map: "unique_item_almacen")
+  @@index([id_almacen], map: "id_almacen")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tipos_movimiento {
+  id_tipo_movimiento     Int                             @id @default(autoincrement())
+  codigo_tipo            String                          @unique(map: "codigo_tipo") @db.VarChar(50)
+  descripcion_tipo       String                          @db.VarChar(255)
+  tipo_operacion         tipos_movimiento_tipo_operacion
+  movimientos_inventario movimientos_inventario[]
+}
+
+model usuarios {
+  id                                                             Int                            @id @default(autoincrement())
+  usuario                                                        String                         @unique(map: "usuario") @db.VarChar(50)
+  nombre                                                         String                         @db.VarChar(100)
+  password                                                       String                         @db.VarChar(255)
+  rol                                                            usuarios_rol?                  @default(USER)
+  id_almacen                                                     Int?
+  activo                                                         Boolean?                       @default(true)
+  fecha_creacion                                                 DateTime?                      @default(now()) @db.Timestamp(0)
+  configuracion_notificaciones                                   configuracion_notificaciones[]
+  configuracion_reportes                                         configuracion_reportes[]
+  conteo_ciclico                                                 conteo_ciclico[]
+  historial_reportes                                             historial_reportes[]
+  logs_actividad                                                 logs_actividad[]
+  notificaciones                                                 notificaciones[]
+  notificaciones_enviadas                                        notificaciones_enviadas[]
+  ordenes_compra                                                 ordenes_compra[]
+  ordenes_servicio                                               ordenes_servicio[]
+  permisos_reportes                                              permisos_reportes[]
+  solicitudes_salida_solicitudes_salida_solicitante_idTousuarios solicitudes_salida[]           @relation("solicitudes_salida_solicitante_idTousuarios")
+  solicitudes_salida_solicitudes_salida_autorizado_porTousuarios solicitudes_salida[]           @relation("solicitudes_salida_autorizado_porTousuarios")
+  almacenes                                                      almacenes?                     @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_almacen")
+
+  @@index([id_almacen], map: "idx_usuario_almacen")
+}
+
+model ordenes_servicio {
+  id_orden_servicio      Int                      @id @default(autoincrement())
+  numero_orden_servicio  String                   @unique(map: "numero_orden_servicio") @db.VarChar(50)
+  id_proveedor           Int
+  id_usuario             Int
+  fecha_orden            DateTime                 @db.Date
+  fecha_entrega_prevista DateTime?                @db.Date
+  descripcion_servicio   String?                  @db.Text
+  subtotal               Decimal?                 @default(0.00) @db.Decimal(10, 2)
+  igv                    Decimal?                 @default(0.00) @db.Decimal(10, 2)
+  total                  Decimal?                 @default(0.00) @db.Decimal(10, 2)
+  estado                 ordenes_servicio_estado? @default(PENDIENTE)
+  motivo_cancelacion     String?                  @db.Text
+  fecha_registro         DateTime?                @default(now()) @db.Timestamp(0)
+  proveedores            proveedores              @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
+  usuarios               usuarios                 @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
+
+  @@index([id_proveedor], map: "id_proveedor")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_cambio {
+  id          Int       @id @default(autoincrement())
+  fecha       DateTime? @db.Date
+  tipo_cambio Decimal?  @db.Decimal(10, 3)
+}
+
+model usuarios_consulta {
+  id                 Int       @id @default(autoincrement())
+  usuario            String    @unique(map: "usuario") @db.VarChar(50)
+  nombre             String    @db.VarChar(100)
+  password           String    @db.VarChar(255)
+  activo             Boolean?  @default(true)
+  fecha_creacion     DateTime? @default(now()) @db.Timestamp(0)
+  fecha_modificacion DateTime? @default(now()) @db.Timestamp(0)
+}
+
+enum permisos_rol_rol {
+  ADMIN
+  ALMACENERO
+  USER
+}
+
+enum configuracion_notificaciones_tipo_notificacion {
+  EMAIL
+  SMS
+}
+
+enum notificaciones_enviadas_tipo_notificacion {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum tipos_movimiento_tipo_operacion {
+  ENTRADA
+  SALIDA
+  TRANSFERENCIA
+}
+
+enum almacenes_tipo_almacen {
+  PRINCIPAL
+  AUXILIAR
+  SUB_ALMACEN
+}
+
+enum notificaciones_tipo {
+  solicitud_nueva
+  solicitud_autorizada
+  solicitud_rechazada
+  transferencia
+  entrada
+  salida
+  info
+}
+
+enum usuarios_rol {
+  ADMIN
+  ALMACENERO
+  USER
+}
+
+enum conteo_ciclico_estado {
+  PENDIENTE
+  EN_PROCESO
+  COMPLETADO
+  ANULADO
+}
+
+enum configuracion_reportes_tipo_reporte {
+  STOCK
+  MOVIMIENTOS
+  PRODUCTOS
+  PROVEEDORES
+  COMPRAS
+}
+
+enum conteo_ciclico_tipo_conteo {
+  TOTAL
+  PARCIAL
+  ALERTA_BAJO_STOCK
+}
+
+enum detalles_conteo_ciclico_estado_detalle {
+  PENDIENTE
+  REVISADO
+  AJUSTADO
+}
+
+enum historial_reportes_formato_salida {
+  PDF
+  EXCEL
+  CSV
+}
+
+enum notificaciones_enviadas_estado_envio {
+  PENDIENTE
+  ENVIADO
+  FALLIDO
+}
+
+enum recepciones_compra_estado {
+  PENDIENTE
+  COMPLETADA
+}
+
+enum solicitudes_salida_estado {
+  PENDIENTE
+  AUTORIZADO
+  RECHAZADO
+}
+
+enum movimientos_inventario_estado {
+  PENDIENTE
+  APROBADO
+  ANULADO
+}
+
+enum ordenes_servicio_estado {
+  PENDIENTE
+  APROBADA
+  EN_PROCESO @map("EN PROCESO")
+  COMPLETADA
+  CANCELADA
+}
+
+enum ordenes_compra_estado {
+  PENDIENTE
+  APROBADA
+  PARCIALMENTE_RECEPCIONADA
+  COMPLETADA
+  CANCELADA
+  FIRMADA
+}
+
+enum proveedores_retencion {
+  Si
+  No
+}
+
+enum ordenes_compra_estado_firma {
+  PENDIENTE
+  FIRMADA
+}

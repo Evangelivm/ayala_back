@@ -27,6 +27,12 @@ import { EmpresasModule } from './empresas/empresas.module';
 import { KardexPdfModule } from './kardex-pdf/kardex-pdf.module';
 import { ProveedoresModule } from './proveedores/proveedores.module';
 import { AcarreoModule } from './acarreo/acarreo.module';
+import { OrdenCompraModule } from './orden-compra/orden-compra.module';
+import { ItemsModule } from './items/items.module';
+import { CentrosCostoModule } from './centros-costo/centros-costo.module';
+import { CentroproyectoModule } from './centroproyecto/centroproyecto.module';
+import { FasecontrolModule } from './fasecontrol/fasecontrol.module';
+import { RubroModule } from './rubro/rubro.module';
 
 @Module({
   imports: [
@@ -59,6 +65,12 @@ import { AcarreoModule } from './acarreo/acarreo.module';
     KardexPdfModule,
     ProveedoresModule,
     AcarreoModule,
+    OrdenCompraModule,
+    ItemsModule,
+    CentrosCostoModule,
+    CentroproyectoModule,
+    FasecontrolModule,
+    RubroModule,
   ],
   controllers: [AppController],
   providers: [AppService],

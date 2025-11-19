@@ -2135,6 +2135,96 @@ model subrubro {
   @@index([sub_id], map: "sub_id")
 }
 
+model sec20_apps {
+  app_name         String             @id @db.VarChar(128)
+  app_type         String?            @db.VarChar(255)
+  description      String?            @db.VarChar(255)
+  sec20_users_apps sec20_users_apps[]
+}
+
+model sec20_settings {
+  set_name  String  @id @db.VarChar(255)
+  set_value String? @db.VarChar(255)
+}
+
+model sec20_users {
+  login             String             @id @db.VarChar(190)
+  pswd              String             @db.VarChar(255)
+  name              String?            @db.VarChar(255)
+  email             String?            @db.VarChar(255)
+  active            String?            @db.VarChar(1)
+  activation_code   String?            @db.VarChar(32)
+  priv_admin        String?            @db.VarChar(1)
+  mfa               String?            @db.VarChar(255)
+  picture           Bytes?
+  role              String?            @db.VarChar(128)
+  phone             String?            @db.VarChar(64)
+  pswd_last_updated DateTime?          @db.Timestamp(0)
+  mfa_last_updated  DateTime?          @db.Timestamp(0)
+  sec20_users_apps  sec20_users_apps[]
+}
+
+model sec20_users_apps {
+  login       String      @db.VarChar(190)
+  app_name    String      @db.VarChar(128)
+  priv_access String?     @db.VarChar(1)
+  priv_insert String?     @db.VarChar(1)
+  priv_delete String?     @db.VarChar(1)
+  priv_update String?     @db.VarChar(1)
+  priv_export String?     @db.VarChar(1)
+  priv_print  String?     @db.VarChar(1)
+  sec20_users sec20_users @relation(fields: [login], references: [login], onDelete: Cascade, onUpdate: NoAction, map: "sec20_users_apps_ibfk_1")
+  sec20_apps  sec20_apps  @relation(fields: [app_name], references: [app_name], onDelete: Cascade, onUpdate: NoAction, map: "sec20_users_apps_ibfk_2")
+
+  @@id([login, app_name])
+  @@index([app_name], map: "sec20_users_apps_ibfk_2")
+}
+
+model secalfa2_apps {
+  app_name            String                @id @db.VarChar(128)
+  app_type            String?               @db.VarChar(255)
+  description         String?               @db.VarChar(255)
+  secalfa2_users_apps secalfa2_users_apps[]
+}
+
+model secalfa2_settings {
+  set_name  String  @id @db.VarChar(255)
+  set_value String? @db.VarChar(255)
+}
+
+model secalfa2_users {
+  login               String                @id @db.VarChar(190)
+  pswd                String                @db.VarChar(255)
+  name                String?               @db.VarChar(255)
+  email               String?               @db.VarChar(255)
+  active              String?               @db.VarChar(1)
+  activation_code     String?               @db.VarChar(32)
+  priv_admin          String?               @db.VarChar(1)
+  mfa                 String?               @db.VarChar(255)
+  picture             Bytes?
+  role                String?               @db.VarChar(128)
+  phone               String?               @db.VarChar(64)
+  pswd_last_updated   DateTime?             @db.Timestamp(0)
+  mfa_last_updated    DateTime?             @db.Timestamp(0)
+  secalfa2_users_apps secalfa2_users_apps[]
+}
+
+model secalfa2_users_apps {
+  login          String         @db.VarChar(190)
+  app_name       String         @db.VarChar(128)
+  priv_access    String?        @db.VarChar(1)
+  priv_insert    String?        @db.VarChar(1)
+  priv_delete    String?        @db.VarChar(1)
+  priv_update    String?        @db.VarChar(1)
+  priv_export    String?        @db.VarChar(1)
+  priv_print     String?        @db.VarChar(1)
+  secalfa2_users secalfa2_users @relation(fields: [login], references: [login], onDelete: Cascade, onUpdate: NoAction, map: "secalfa2_users_apps_ibfk_1")
+  secalfa2_apps  secalfa2_apps  @relation(fields: [app_name], references: [app_name], onDelete: Cascade, onUpdate: NoAction, map: "secalfa2_users_apps_ibfk_2")
+
+  @@id([login, app_name])
+  @@index([app_name], map: "secalfa2_users_apps_ibfk_2")
+}
+
 enum proyecto_estado {
   activo
   inactivo
