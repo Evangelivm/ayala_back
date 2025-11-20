@@ -691,7 +691,7 @@ export class OrdenServicioService {
 
         // ==================== FIRMAS ====================
         const firmaWidth = 150;
-        const firmaLineY = yPos;
+        let firmaLineY = yPos;
         const pageWidth = 515; // Ancho total del contenido
         const leftX = 40;
         const centerX = 40 + (pageWidth - firmaWidth) / 2;
@@ -699,6 +699,7 @@ export class OrdenServicioService {
 
         doc.fontSize(8).font('Helvetica');
 
+        // Primera fila de firmas
         // Genera orden (izquierda)
         doc.moveTo(leftX, firmaLineY).lineTo(leftX + firmaWidth, firmaLineY).stroke();
         doc.text('Genera orden', leftX, firmaLineY + 10, {
@@ -721,6 +722,16 @@ export class OrdenServicioService {
         // Gerencia (derecha)
         doc.moveTo(rightX, firmaLineY).lineTo(rightX + firmaWidth, firmaLineY).stroke();
         doc.text('Gerencia', rightX, firmaLineY + 10, {
+          width: firmaWidth,
+          align: 'center',
+        });
+
+        // Segunda fila de firmas
+        firmaLineY += 80;
+
+        // Jefe de Proyectos (centro)
+        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe de Proyectos', centerX, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });

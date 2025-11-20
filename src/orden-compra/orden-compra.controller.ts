@@ -47,6 +47,22 @@ export class OrdenCompraController {
     }
   }
 
+  @Get('tipo-cambio')
+  @HttpCode(HttpStatus.OK)
+  async obtenerTipoCambio() {
+    try {
+      const tipoCambio = await this.ordenCompraService.obtenerTipoCambioSunat();
+      return {
+        success: true,
+        tipo_cambio: tipoCambio,
+        fecha: new Date().toISOString().split('T')[0],
+      };
+    } catch (error) {
+      console.error('Error obteniendo tipo de cambio:', error);
+      throw error;
+    }
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new ZodValidationPipe(CreateOrdenCompraSchema))

@@ -293,6 +293,7 @@ model ordenes_compra {
   ruta_pdf               String?                      @db.VarChar(500)
   retencion              String?                      @db.VarChar(45)
   id_camion              Int?
+  almacen_central        String?                      @db.VarChar(45)
   detalles_orden_compra  detalles_orden_compra[]
   proveedores            proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios               usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
@@ -479,6 +480,7 @@ model ordenes_servicio {
   ruta_pdf                String?                        @db.VarChar(500)
   retencion               String?                        @db.VarChar(45)
   id_camion               Int?
+  almacen_central         String?                        @db.VarChar(45)
   detalles_orden_servicio detalles_orden_servicio[]
   proveedores             proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
