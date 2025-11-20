@@ -419,18 +419,34 @@ exports.Prisma.UsuariosScalarFieldEnum = {
 
 exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   id_orden_servicio: 'id_orden_servicio',
-  numero_orden_servicio: 'numero_orden_servicio',
+  numero_orden: 'numero_orden',
   id_proveedor: 'id_proveedor',
-  id_usuario: 'id_usuario',
   fecha_orden: 'fecha_orden',
   fecha_entrega_prevista: 'fecha_entrega_prevista',
-  descripcion_servicio: 'descripcion_servicio',
   subtotal: 'subtotal',
   igv: 'igv',
   total: 'total',
   estado: 'estado',
-  motivo_cancelacion: 'motivo_cancelacion',
-  fecha_registro: 'fecha_registro'
+  observaciones: 'observaciones',
+  fecha_registro: 'fecha_registro',
+  registrado_por: 'registrado_por',
+  tiene_anticipo: 'tiene_anticipo',
+  procede_pago: 'procede_pago',
+  auto_administrador: 'auto_administrador',
+  auto_contabilidad: 'auto_contabilidad',
+  has_anticipo: 'has_anticipo',
+  direccion: 'direccion',
+  centro_costo_nivel1: 'centro_costo_nivel1',
+  centro_costo_nivel2: 'centro_costo_nivel2',
+  centro_costo_nivel3: 'centro_costo_nivel3',
+  condicion: 'condicion',
+  moneda: 'moneda',
+  hora_firma: 'hora_firma',
+  usuario_firma: 'usuario_firma',
+  estado_firma: 'estado_firma',
+  ruta_pdf: 'ruta_pdf',
+  retencion: 'retencion',
+  id_camion: 'id_camion'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -447,6 +463,17 @@ exports.Prisma.Usuarios_consultaScalarFieldEnum = {
   activo: 'activo',
   fecha_creacion: 'fecha_creacion',
   fecha_modificacion: 'fecha_modificacion'
+};
+
+exports.Prisma.Detalles_orden_servicioScalarFieldEnum = {
+  id_detalle: 'id_detalle',
+  id_orden_servicio: 'id_orden_servicio',
+  codigo_item: 'codigo_item',
+  descripcion_item: 'descripcion_item',
+  cantidad_solicitada: 'cantidad_solicitada',
+  cantidad_recibida: 'cantidad_recibida',
+  precio_unitario: 'precio_unitario',
+  subtotal: 'subtotal'
 };
 
 exports.Prisma.SortOrder = {
@@ -619,15 +646,29 @@ exports.Prisma.usuariosOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
-  numero_orden_servicio: 'numero_orden_servicio',
-  descripcion_servicio: 'descripcion_servicio',
-  motivo_cancelacion: 'motivo_cancelacion'
+  numero_orden: 'numero_orden',
+  observaciones: 'observaciones',
+  tiene_anticipo: 'tiene_anticipo',
+  procede_pago: 'procede_pago',
+  direccion: 'direccion',
+  centro_costo_nivel1: 'centro_costo_nivel1',
+  centro_costo_nivel2: 'centro_costo_nivel2',
+  centro_costo_nivel3: 'centro_costo_nivel3',
+  condicion: 'condicion',
+  moneda: 'moneda',
+  ruta_pdf: 'ruta_pdf',
+  retencion: 'retencion'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
   usuario: 'usuario',
   nombre: 'nombre',
   password: 'password'
+};
+
+exports.Prisma.detalles_orden_servicioOrderByRelevanceFieldEnum = {
+  codigo_item: 'codigo_item',
+  descripcion_item: 'descripcion_item'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -752,9 +793,15 @@ exports.usuarios_rol = exports.$Enums.usuarios_rol = {
 exports.ordenes_servicio_estado = exports.$Enums.ordenes_servicio_estado = {
   PENDIENTE: 'PENDIENTE',
   APROBADA: 'APROBADA',
-  EN_PROCESO: 'EN_PROCESO',
+  PARCIALMENTE_RECEPCIONADA: 'PARCIALMENTE_RECEPCIONADA',
   COMPLETADA: 'COMPLETADA',
-  CANCELADA: 'CANCELADA'
+  CANCELADA: 'CANCELADA',
+  FIRMADA: 'FIRMADA'
+};
+
+exports.ordenes_servicio_estado_firma = exports.$Enums.ordenes_servicio_estado_firma = {
+  PENDIENTE: 'PENDIENTE',
+  FIRMADA: 'FIRMADA'
 };
 
 exports.Prisma.ModelName = {
@@ -784,7 +831,8 @@ exports.Prisma.ModelName = {
   usuarios: 'usuarios',
   ordenes_servicio: 'ordenes_servicio',
   tipo_cambio: 'tipo_cambio',
-  usuarios_consulta: 'usuarios_consulta'
+  usuarios_consulta: 'usuarios_consulta',
+  detalles_orden_servicio: 'detalles_orden_servicio'
 };
 
 /**

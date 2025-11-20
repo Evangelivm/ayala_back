@@ -148,6 +148,11 @@ export type tipo_cambio = $Result.DefaultSelection<Prisma.$tipo_cambioPayload>
  * 
  */
 export type usuarios_consulta = $Result.DefaultSelection<Prisma.$usuarios_consultaPayload>
+/**
+ * Model detalles_orden_servicio
+ * 
+ */
+export type detalles_orden_servicio = $Result.DefaultSelection<Prisma.$detalles_orden_servicioPayload>
 
 /**
  * Enums
@@ -302,17 +307,6 @@ export const movimientos_inventario_estado: {
 export type movimientos_inventario_estado = (typeof movimientos_inventario_estado)[keyof typeof movimientos_inventario_estado]
 
 
-export const ordenes_servicio_estado: {
-  PENDIENTE: 'PENDIENTE',
-  APROBADA: 'APROBADA',
-  EN_PROCESO: 'EN_PROCESO',
-  COMPLETADA: 'COMPLETADA',
-  CANCELADA: 'CANCELADA'
-};
-
-export type ordenes_servicio_estado = (typeof ordenes_servicio_estado)[keyof typeof ordenes_servicio_estado]
-
-
 export const ordenes_compra_estado: {
   PENDIENTE: 'PENDIENTE',
   APROBADA: 'APROBADA',
@@ -339,6 +333,26 @@ export const ordenes_compra_estado_firma: {
 };
 
 export type ordenes_compra_estado_firma = (typeof ordenes_compra_estado_firma)[keyof typeof ordenes_compra_estado_firma]
+
+
+export const ordenes_servicio_estado: {
+  PENDIENTE: 'PENDIENTE',
+  APROBADA: 'APROBADA',
+  PARCIALMENTE_RECEPCIONADA: 'PARCIALMENTE_RECEPCIONADA',
+  COMPLETADA: 'COMPLETADA',
+  CANCELADA: 'CANCELADA',
+  FIRMADA: 'FIRMADA'
+};
+
+export type ordenes_servicio_estado = (typeof ordenes_servicio_estado)[keyof typeof ordenes_servicio_estado]
+
+
+export const ordenes_servicio_estado_firma: {
+  PENDIENTE: 'PENDIENTE',
+  FIRMADA: 'FIRMADA'
+};
+
+export type ordenes_servicio_estado_firma = (typeof ordenes_servicio_estado_firma)[keyof typeof ordenes_servicio_estado_firma]
 
 }
 
@@ -406,10 +420,6 @@ export type movimientos_inventario_estado = $Enums.movimientos_inventario_estado
 
 export const movimientos_inventario_estado: typeof $Enums.movimientos_inventario_estado
 
-export type ordenes_servicio_estado = $Enums.ordenes_servicio_estado
-
-export const ordenes_servicio_estado: typeof $Enums.ordenes_servicio_estado
-
 export type ordenes_compra_estado = $Enums.ordenes_compra_estado
 
 export const ordenes_compra_estado: typeof $Enums.ordenes_compra_estado
@@ -421,6 +431,14 @@ export const proveedores_retencion: typeof $Enums.proveedores_retencion
 export type ordenes_compra_estado_firma = $Enums.ordenes_compra_estado_firma
 
 export const ordenes_compra_estado_firma: typeof $Enums.ordenes_compra_estado_firma
+
+export type ordenes_servicio_estado = $Enums.ordenes_servicio_estado
+
+export const ordenes_servicio_estado: typeof $Enums.ordenes_servicio_estado
+
+export type ordenes_servicio_estado_firma = $Enums.ordenes_servicio_estado_firma
+
+export const ordenes_servicio_estado_firma: typeof $Enums.ordenes_servicio_estado_firma
 
 /**
  * ##  Prisma Client ʲˢ
@@ -809,6 +827,16 @@ export class PrismaClient<
     * ```
     */
   get usuarios_consulta(): Prisma.usuarios_consultaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.detalles_orden_servicio`: Exposes CRUD operations for the **detalles_orden_servicio** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Detalles_orden_servicios
+    * const detalles_orden_servicios = await prisma.detalles_orden_servicio.findMany()
+    * ```
+    */
+  get detalles_orden_servicio(): Prisma.detalles_orden_servicioDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1276,7 +1304,8 @@ export namespace Prisma {
     usuarios: 'usuarios',
     ordenes_servicio: 'ordenes_servicio',
     tipo_cambio: 'tipo_cambio',
-    usuarios_consulta: 'usuarios_consulta'
+    usuarios_consulta: 'usuarios_consulta',
+    detalles_orden_servicio: 'detalles_orden_servicio'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1295,7 +1324,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3081,6 +3110,72 @@ export namespace Prisma {
           }
         }
       }
+      detalles_orden_servicio: {
+        payload: Prisma.$detalles_orden_servicioPayload<ExtArgs>
+        fields: Prisma.detalles_orden_servicioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.detalles_orden_servicioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.detalles_orden_servicioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          findFirst: {
+            args: Prisma.detalles_orden_servicioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.detalles_orden_servicioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          findMany: {
+            args: Prisma.detalles_orden_servicioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>[]
+          }
+          create: {
+            args: Prisma.detalles_orden_servicioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          createMany: {
+            args: Prisma.detalles_orden_servicioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.detalles_orden_servicioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          update: {
+            args: Prisma.detalles_orden_servicioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          deleteMany: {
+            args: Prisma.detalles_orden_servicioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.detalles_orden_servicioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.detalles_orden_servicioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalles_orden_servicioPayload>
+          }
+          aggregate: {
+            args: Prisma.Detalles_orden_servicioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDetalles_orden_servicio>
+          }
+          groupBy: {
+            args: Prisma.detalles_orden_servicioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Detalles_orden_servicioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.detalles_orden_servicioCountArgs<ExtArgs>
+            result: $Utils.Optional<Detalles_orden_servicioCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3204,6 +3299,7 @@ export namespace Prisma {
     ordenes_servicio?: ordenes_servicioOmit
     tipo_cambio?: tipo_cambioOmit
     usuarios_consulta?: usuarios_consultaOmit
+    detalles_orden_servicio?: detalles_orden_servicioOmit
   }
 
   /* Types for Logging */
@@ -3482,6 +3578,7 @@ export namespace Prisma {
   export type Listado_items_2025CountOutputType = {
     detalles_conteo_ciclico: number
     detalles_orden_compra: number
+    detalles_orden_servicio: number
     detalles_recepcion_compra: number
     movimientos_inventario: number
     solicitudes_salida: number
@@ -3491,6 +3588,7 @@ export namespace Prisma {
   export type Listado_items_2025CountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_conteo_ciclico?: boolean | Listado_items_2025CountOutputTypeCountDetalles_conteo_ciclicoArgs
     detalles_orden_compra?: boolean | Listado_items_2025CountOutputTypeCountDetalles_orden_compraArgs
+    detalles_orden_servicio?: boolean | Listado_items_2025CountOutputTypeCountDetalles_orden_servicioArgs
     detalles_recepcion_compra?: boolean | Listado_items_2025CountOutputTypeCountDetalles_recepcion_compraArgs
     movimientos_inventario?: boolean | Listado_items_2025CountOutputTypeCountMovimientos_inventarioArgs
     solicitudes_salida?: boolean | Listado_items_2025CountOutputTypeCountSolicitudes_salidaArgs
@@ -3520,6 +3618,13 @@ export namespace Prisma {
    */
   export type Listado_items_2025CountOutputTypeCountDetalles_orden_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: detalles_orden_compraWhereInput
+  }
+
+  /**
+   * Listado_items_2025CountOutputType without action
+   */
+  export type Listado_items_2025CountOutputTypeCountDetalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: detalles_orden_servicioWhereInput
   }
 
   /**
@@ -3882,6 +3987,37 @@ export namespace Prisma {
    */
   export type UsuariosCountOutputTypeCountSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: solicitudes_salidaWhereInput
+  }
+
+
+  /**
+   * Count Type Ordenes_servicioCountOutputType
+   */
+
+  export type Ordenes_servicioCountOutputType = {
+    detalles_orden_servicio: number
+  }
+
+  export type Ordenes_servicioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    detalles_orden_servicio?: boolean | Ordenes_servicioCountOutputTypeCountDetalles_orden_servicioArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Ordenes_servicioCountOutputType without action
+   */
+  export type Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ordenes_servicioCountOutputType
+     */
+    select?: Ordenes_servicioCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Ordenes_servicioCountOutputType without action
+   */
+  export type Ordenes_servicioCountOutputTypeCountDetalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: detalles_orden_servicioWhereInput
   }
 
 
@@ -13567,6 +13703,7 @@ export namespace Prisma {
     fecha_modificacion?: boolean
     detalles_conteo_ciclico?: boolean | listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>
     detalles_orden_compra?: boolean | listado_items_2025$detalles_orden_compraArgs<ExtArgs>
+    detalles_orden_servicio?: boolean | listado_items_2025$detalles_orden_servicioArgs<ExtArgs>
     detalles_recepcion_compra?: boolean | listado_items_2025$detalles_recepcion_compraArgs<ExtArgs>
     familias_productos?: boolean | listado_items_2025$familias_productosArgs<ExtArgs>
     movimientos_inventario?: boolean | listado_items_2025$movimientos_inventarioArgs<ExtArgs>
@@ -13599,6 +13736,7 @@ export namespace Prisma {
   export type listado_items_2025Include<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_conteo_ciclico?: boolean | listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>
     detalles_orden_compra?: boolean | listado_items_2025$detalles_orden_compraArgs<ExtArgs>
+    detalles_orden_servicio?: boolean | listado_items_2025$detalles_orden_servicioArgs<ExtArgs>
     detalles_recepcion_compra?: boolean | listado_items_2025$detalles_recepcion_compraArgs<ExtArgs>
     familias_productos?: boolean | listado_items_2025$familias_productosArgs<ExtArgs>
     movimientos_inventario?: boolean | listado_items_2025$movimientos_inventarioArgs<ExtArgs>
@@ -13612,6 +13750,7 @@ export namespace Prisma {
     objects: {
       detalles_conteo_ciclico: Prisma.$detalles_conteo_ciclicoPayload<ExtArgs>[]
       detalles_orden_compra: Prisma.$detalles_orden_compraPayload<ExtArgs>[]
+      detalles_orden_servicio: Prisma.$detalles_orden_servicioPayload<ExtArgs>[]
       detalles_recepcion_compra: Prisma.$detalles_recepcion_compraPayload<ExtArgs>[]
       familias_productos: Prisma.$familias_productosPayload<ExtArgs> | null
       movimientos_inventario: Prisma.$movimientos_inventarioPayload<ExtArgs>[]
@@ -13976,6 +14115,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     detalles_conteo_ciclico<T extends listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_conteo_ciclicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     detalles_orden_compra<T extends listado_items_2025$detalles_orden_compraArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_orden_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    detalles_orden_servicio<T extends listado_items_2025$detalles_orden_servicioArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_orden_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     detalles_recepcion_compra<T extends listado_items_2025$detalles_recepcion_compraArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_recepcion_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_recepcion_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     familias_productos<T extends listado_items_2025$familias_productosArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$familias_productosArgs<ExtArgs>>): Prisma__familias_productosClient<$Result.GetResult<Prisma.$familias_productosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     movimientos_inventario<T extends listado_items_2025$movimientos_inventarioArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$movimientos_inventarioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$movimientos_inventarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14413,6 +14553,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Detalles_orden_compraScalarFieldEnum | Detalles_orden_compraScalarFieldEnum[]
+  }
+
+  /**
+   * listado_items_2025.detalles_orden_servicio
+   */
+  export type listado_items_2025$detalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    where?: detalles_orden_servicioWhereInput
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
   }
 
   /**
@@ -29674,67 +29838,119 @@ export namespace Prisma {
   export type Ordenes_servicioAvgAggregateOutputType = {
     id_orden_servicio: number | null
     id_proveedor: number | null
-    id_usuario: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
+    registrado_por: number | null
+    usuario_firma: number | null
+    id_camion: number | null
   }
 
   export type Ordenes_servicioSumAggregateOutputType = {
     id_orden_servicio: number | null
     id_proveedor: number | null
-    id_usuario: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
+    registrado_por: number | null
+    usuario_firma: number | null
+    id_camion: number | null
   }
 
   export type Ordenes_servicioMinAggregateOutputType = {
     id_orden_servicio: number | null
-    numero_orden_servicio: string | null
+    numero_orden: string | null
     id_proveedor: number | null
-    id_usuario: number | null
     fecha_orden: Date | null
     fecha_entrega_prevista: Date | null
-    descripcion_servicio: string | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
     estado: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion: string | null
+    observaciones: string | null
     fecha_registro: Date | null
+    registrado_por: number | null
+    tiene_anticipo: string | null
+    procede_pago: string | null
+    auto_administrador: boolean | null
+    auto_contabilidad: boolean | null
+    has_anticipo: boolean | null
+    direccion: string | null
+    centro_costo_nivel1: string | null
+    centro_costo_nivel2: string | null
+    centro_costo_nivel3: string | null
+    condicion: string | null
+    moneda: string | null
+    hora_firma: Date | null
+    usuario_firma: number | null
+    estado_firma: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
     id_orden_servicio: number | null
-    numero_orden_servicio: string | null
+    numero_orden: string | null
     id_proveedor: number | null
-    id_usuario: number | null
     fecha_orden: Date | null
     fecha_entrega_prevista: Date | null
-    descripcion_servicio: string | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
     estado: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion: string | null
+    observaciones: string | null
     fecha_registro: Date | null
+    registrado_por: number | null
+    tiene_anticipo: string | null
+    procede_pago: string | null
+    auto_administrador: boolean | null
+    auto_contabilidad: boolean | null
+    has_anticipo: boolean | null
+    direccion: string | null
+    centro_costo_nivel1: string | null
+    centro_costo_nivel2: string | null
+    centro_costo_nivel3: string | null
+    condicion: string | null
+    moneda: string | null
+    hora_firma: Date | null
+    usuario_firma: number | null
+    estado_firma: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
     id_orden_servicio: number
-    numero_orden_servicio: number
+    numero_orden: number
     id_proveedor: number
-    id_usuario: number
     fecha_orden: number
     fecha_entrega_prevista: number
-    descripcion_servicio: number
     subtotal: number
     igv: number
     total: number
     estado: number
-    motivo_cancelacion: number
+    observaciones: number
     fecha_registro: number
+    registrado_por: number
+    tiene_anticipo: number
+    procede_pago: number
+    auto_administrador: number
+    auto_contabilidad: number
+    has_anticipo: number
+    direccion: number
+    centro_costo_nivel1: number
+    centro_costo_nivel2: number
+    centro_costo_nivel3: number
+    condicion: number
+    moneda: number
+    hora_firma: number
+    usuario_firma: number
+    estado_firma: number
+    ruta_pdf: number
+    retencion: number
+    id_camion: number
     _all: number
   }
 
@@ -29742,67 +29958,119 @@ export namespace Prisma {
   export type Ordenes_servicioAvgAggregateInputType = {
     id_orden_servicio?: true
     id_proveedor?: true
-    id_usuario?: true
     subtotal?: true
     igv?: true
     total?: true
+    registrado_por?: true
+    usuario_firma?: true
+    id_camion?: true
   }
 
   export type Ordenes_servicioSumAggregateInputType = {
     id_orden_servicio?: true
     id_proveedor?: true
-    id_usuario?: true
     subtotal?: true
     igv?: true
     total?: true
+    registrado_por?: true
+    usuario_firma?: true
+    id_camion?: true
   }
 
   export type Ordenes_servicioMinAggregateInputType = {
     id_orden_servicio?: true
-    numero_orden_servicio?: true
+    numero_orden?: true
     id_proveedor?: true
-    id_usuario?: true
     fecha_orden?: true
     fecha_entrega_prevista?: true
-    descripcion_servicio?: true
     subtotal?: true
     igv?: true
     total?: true
     estado?: true
-    motivo_cancelacion?: true
+    observaciones?: true
     fecha_registro?: true
+    registrado_por?: true
+    tiene_anticipo?: true
+    procede_pago?: true
+    auto_administrador?: true
+    auto_contabilidad?: true
+    has_anticipo?: true
+    direccion?: true
+    centro_costo_nivel1?: true
+    centro_costo_nivel2?: true
+    centro_costo_nivel3?: true
+    condicion?: true
+    moneda?: true
+    hora_firma?: true
+    usuario_firma?: true
+    estado_firma?: true
+    ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
     id_orden_servicio?: true
-    numero_orden_servicio?: true
+    numero_orden?: true
     id_proveedor?: true
-    id_usuario?: true
     fecha_orden?: true
     fecha_entrega_prevista?: true
-    descripcion_servicio?: true
     subtotal?: true
     igv?: true
     total?: true
     estado?: true
-    motivo_cancelacion?: true
+    observaciones?: true
     fecha_registro?: true
+    registrado_por?: true
+    tiene_anticipo?: true
+    procede_pago?: true
+    auto_administrador?: true
+    auto_contabilidad?: true
+    has_anticipo?: true
+    direccion?: true
+    centro_costo_nivel1?: true
+    centro_costo_nivel2?: true
+    centro_costo_nivel3?: true
+    condicion?: true
+    moneda?: true
+    hora_firma?: true
+    usuario_firma?: true
+    estado_firma?: true
+    ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
     id_orden_servicio?: true
-    numero_orden_servicio?: true
+    numero_orden?: true
     id_proveedor?: true
-    id_usuario?: true
     fecha_orden?: true
     fecha_entrega_prevista?: true
-    descripcion_servicio?: true
     subtotal?: true
     igv?: true
     total?: true
     estado?: true
-    motivo_cancelacion?: true
+    observaciones?: true
     fecha_registro?: true
+    registrado_por?: true
+    tiene_anticipo?: true
+    procede_pago?: true
+    auto_administrador?: true
+    auto_contabilidad?: true
+    has_anticipo?: true
+    direccion?: true
+    centro_costo_nivel1?: true
+    centro_costo_nivel2?: true
+    centro_costo_nivel3?: true
+    condicion?: true
+    moneda?: true
+    hora_firma?: true
+    usuario_firma?: true
+    estado_firma?: true
+    ruta_pdf?: true
+    retencion?: true
+    id_camion?: true
     _all?: true
   }
 
@@ -29894,18 +30162,34 @@ export namespace Prisma {
 
   export type Ordenes_servicioGroupByOutputType = {
     id_orden_servicio: number
-    numero_orden_servicio: string
+    numero_orden: string
     id_proveedor: number
-    id_usuario: number
     fecha_orden: Date
     fecha_entrega_prevista: Date | null
-    descripcion_servicio: string | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
     estado: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion: string | null
+    observaciones: string | null
     fecha_registro: Date | null
+    registrado_por: number
+    tiene_anticipo: string | null
+    procede_pago: string | null
+    auto_administrador: boolean | null
+    auto_contabilidad: boolean | null
+    has_anticipo: boolean | null
+    direccion: string | null
+    centro_costo_nivel1: string | null
+    centro_costo_nivel2: string | null
+    centro_costo_nivel3: string | null
+    condicion: string | null
+    moneda: string | null
+    hora_firma: Date | null
+    usuario_firma: number | null
+    estado_firma: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf: string | null
+    retencion: string | null
+    id_camion: number | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -29929,66 +30213,119 @@ export namespace Prisma {
 
   export type ordenes_servicioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_orden_servicio?: boolean
-    numero_orden_servicio?: boolean
+    numero_orden?: boolean
     id_proveedor?: boolean
-    id_usuario?: boolean
     fecha_orden?: boolean
     fecha_entrega_prevista?: boolean
-    descripcion_servicio?: boolean
     subtotal?: boolean
     igv?: boolean
     total?: boolean
     estado?: boolean
-    motivo_cancelacion?: boolean
+    observaciones?: boolean
     fecha_registro?: boolean
+    registrado_por?: boolean
+    tiene_anticipo?: boolean
+    procede_pago?: boolean
+    auto_administrador?: boolean
+    auto_contabilidad?: boolean
+    has_anticipo?: boolean
+    direccion?: boolean
+    centro_costo_nivel1?: boolean
+    centro_costo_nivel2?: boolean
+    centro_costo_nivel3?: boolean
+    condicion?: boolean
+    moneda?: boolean
+    hora_firma?: boolean
+    usuario_firma?: boolean
+    estado_firma?: boolean
+    ruta_pdf?: boolean
+    retencion?: boolean
+    id_camion?: boolean
+    detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ordenes_servicio"]>
 
 
 
   export type ordenes_servicioSelectScalar = {
     id_orden_servicio?: boolean
-    numero_orden_servicio?: boolean
+    numero_orden?: boolean
     id_proveedor?: boolean
-    id_usuario?: boolean
     fecha_orden?: boolean
     fecha_entrega_prevista?: boolean
-    descripcion_servicio?: boolean
     subtotal?: boolean
     igv?: boolean
     total?: boolean
     estado?: boolean
-    motivo_cancelacion?: boolean
+    observaciones?: boolean
     fecha_registro?: boolean
+    registrado_por?: boolean
+    tiene_anticipo?: boolean
+    procede_pago?: boolean
+    auto_administrador?: boolean
+    auto_contabilidad?: boolean
+    has_anticipo?: boolean
+    direccion?: boolean
+    centro_costo_nivel1?: boolean
+    centro_costo_nivel2?: boolean
+    centro_costo_nivel3?: boolean
+    condicion?: boolean
+    moneda?: boolean
+    hora_firma?: boolean
+    usuario_firma?: boolean
+    estado_firma?: boolean
+    ruta_pdf?: boolean
+    retencion?: boolean
+    id_camion?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden_servicio" | "id_proveedor" | "id_usuario" | "fecha_orden" | "fecha_entrega_prevista" | "descripcion_servicio" | "subtotal" | "igv" | "total" | "estado" | "motivo_cancelacion" | "fecha_registro", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
+    _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $ordenes_servicioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ordenes_servicio"
     objects: {
+      detalles_orden_servicio: Prisma.$detalles_orden_servicioPayload<ExtArgs>[]
       proveedores: Prisma.$proveedoresPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id_orden_servicio: number
-      numero_orden_servicio: string
+      numero_orden: string
       id_proveedor: number
-      id_usuario: number
       fecha_orden: Date
       fecha_entrega_prevista: Date | null
-      descripcion_servicio: string | null
       subtotal: Prisma.Decimal | null
       igv: Prisma.Decimal | null
       total: Prisma.Decimal | null
       estado: $Enums.ordenes_servicio_estado | null
-      motivo_cancelacion: string | null
+      observaciones: string | null
       fecha_registro: Date | null
+      registrado_por: number
+      tiene_anticipo: string | null
+      procede_pago: string | null
+      auto_administrador: boolean | null
+      auto_contabilidad: boolean | null
+      has_anticipo: boolean | null
+      direccion: string | null
+      centro_costo_nivel1: string | null
+      centro_costo_nivel2: string | null
+      centro_costo_nivel3: string | null
+      condicion: string | null
+      moneda: string | null
+      hora_firma: Date | null
+      usuario_firma: number | null
+      estado_firma: $Enums.ordenes_servicio_estado_firma | null
+      ruta_pdf: string | null
+      retencion: string | null
+      id_camion: number | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -30329,6 +30666,7 @@ export namespace Prisma {
    */
   export interface Prisma__ordenes_servicioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    detalles_orden_servicio<T extends ordenes_servicio$detalles_orden_servicioArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -30361,18 +30699,34 @@ export namespace Prisma {
    */
   interface ordenes_servicioFieldRefs {
     readonly id_orden_servicio: FieldRef<"ordenes_servicio", 'Int'>
-    readonly numero_orden_servicio: FieldRef<"ordenes_servicio", 'String'>
+    readonly numero_orden: FieldRef<"ordenes_servicio", 'String'>
     readonly id_proveedor: FieldRef<"ordenes_servicio", 'Int'>
-    readonly id_usuario: FieldRef<"ordenes_servicio", 'Int'>
     readonly fecha_orden: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly fecha_entrega_prevista: FieldRef<"ordenes_servicio", 'DateTime'>
-    readonly descripcion_servicio: FieldRef<"ordenes_servicio", 'String'>
     readonly subtotal: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly igv: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly total: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly estado: FieldRef<"ordenes_servicio", 'ordenes_servicio_estado'>
-    readonly motivo_cancelacion: FieldRef<"ordenes_servicio", 'String'>
+    readonly observaciones: FieldRef<"ordenes_servicio", 'String'>
     readonly fecha_registro: FieldRef<"ordenes_servicio", 'DateTime'>
+    readonly registrado_por: FieldRef<"ordenes_servicio", 'Int'>
+    readonly tiene_anticipo: FieldRef<"ordenes_servicio", 'String'>
+    readonly procede_pago: FieldRef<"ordenes_servicio", 'String'>
+    readonly auto_administrador: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly auto_contabilidad: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly has_anticipo: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly direccion: FieldRef<"ordenes_servicio", 'String'>
+    readonly centro_costo_nivel1: FieldRef<"ordenes_servicio", 'String'>
+    readonly centro_costo_nivel2: FieldRef<"ordenes_servicio", 'String'>
+    readonly centro_costo_nivel3: FieldRef<"ordenes_servicio", 'String'>
+    readonly condicion: FieldRef<"ordenes_servicio", 'String'>
+    readonly moneda: FieldRef<"ordenes_servicio", 'String'>
+    readonly hora_firma: FieldRef<"ordenes_servicio", 'DateTime'>
+    readonly usuario_firma: FieldRef<"ordenes_servicio", 'Int'>
+    readonly estado_firma: FieldRef<"ordenes_servicio", 'ordenes_servicio_estado_firma'>
+    readonly ruta_pdf: FieldRef<"ordenes_servicio", 'String'>
+    readonly retencion: FieldRef<"ordenes_servicio", 'String'>
+    readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
   }
     
 
@@ -30713,6 +31067,30 @@ export namespace Prisma {
      * Limit how many ordenes_servicios to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ordenes_servicio.detalles_orden_servicio
+   */
+  export type ordenes_servicio$detalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    where?: detalles_orden_servicioWhereInput
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
   }
 
   /**
@@ -32571,6 +32949,1026 @@ export namespace Prisma {
 
 
   /**
+   * Model detalles_orden_servicio
+   */
+
+  export type AggregateDetalles_orden_servicio = {
+    _count: Detalles_orden_servicioCountAggregateOutputType | null
+    _avg: Detalles_orden_servicioAvgAggregateOutputType | null
+    _sum: Detalles_orden_servicioSumAggregateOutputType | null
+    _min: Detalles_orden_servicioMinAggregateOutputType | null
+    _max: Detalles_orden_servicioMaxAggregateOutputType | null
+  }
+
+  export type Detalles_orden_servicioAvgAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_servicio: number | null
+    cantidad_solicitada: number | null
+    cantidad_recibida: number | null
+    precio_unitario: Decimal | null
+    subtotal: Decimal | null
+  }
+
+  export type Detalles_orden_servicioSumAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_servicio: number | null
+    cantidad_solicitada: number | null
+    cantidad_recibida: number | null
+    precio_unitario: Decimal | null
+    subtotal: Decimal | null
+  }
+
+  export type Detalles_orden_servicioMinAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_servicio: number | null
+    codigo_item: string | null
+    descripcion_item: string | null
+    cantidad_solicitada: number | null
+    cantidad_recibida: number | null
+    precio_unitario: Decimal | null
+    subtotal: Decimal | null
+  }
+
+  export type Detalles_orden_servicioMaxAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_servicio: number | null
+    codigo_item: string | null
+    descripcion_item: string | null
+    cantidad_solicitada: number | null
+    cantidad_recibida: number | null
+    precio_unitario: Decimal | null
+    subtotal: Decimal | null
+  }
+
+  export type Detalles_orden_servicioCountAggregateOutputType = {
+    id_detalle: number
+    id_orden_servicio: number
+    codigo_item: number
+    descripcion_item: number
+    cantidad_solicitada: number
+    cantidad_recibida: number
+    precio_unitario: number
+    subtotal: number
+    _all: number
+  }
+
+
+  export type Detalles_orden_servicioAvgAggregateInputType = {
+    id_detalle?: true
+    id_orden_servicio?: true
+    cantidad_solicitada?: true
+    cantidad_recibida?: true
+    precio_unitario?: true
+    subtotal?: true
+  }
+
+  export type Detalles_orden_servicioSumAggregateInputType = {
+    id_detalle?: true
+    id_orden_servicio?: true
+    cantidad_solicitada?: true
+    cantidad_recibida?: true
+    precio_unitario?: true
+    subtotal?: true
+  }
+
+  export type Detalles_orden_servicioMinAggregateInputType = {
+    id_detalle?: true
+    id_orden_servicio?: true
+    codigo_item?: true
+    descripcion_item?: true
+    cantidad_solicitada?: true
+    cantidad_recibida?: true
+    precio_unitario?: true
+    subtotal?: true
+  }
+
+  export type Detalles_orden_servicioMaxAggregateInputType = {
+    id_detalle?: true
+    id_orden_servicio?: true
+    codigo_item?: true
+    descripcion_item?: true
+    cantidad_solicitada?: true
+    cantidad_recibida?: true
+    precio_unitario?: true
+    subtotal?: true
+  }
+
+  export type Detalles_orden_servicioCountAggregateInputType = {
+    id_detalle?: true
+    id_orden_servicio?: true
+    codigo_item?: true
+    descripcion_item?: true
+    cantidad_solicitada?: true
+    cantidad_recibida?: true
+    precio_unitario?: true
+    subtotal?: true
+    _all?: true
+  }
+
+  export type Detalles_orden_servicioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which detalles_orden_servicio to aggregate.
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detalles_orden_servicios to fetch.
+     */
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detalles_orden_servicios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detalles_orden_servicios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned detalles_orden_servicios
+    **/
+    _count?: true | Detalles_orden_servicioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Detalles_orden_servicioAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Detalles_orden_servicioSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Detalles_orden_servicioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Detalles_orden_servicioMaxAggregateInputType
+  }
+
+  export type GetDetalles_orden_servicioAggregateType<T extends Detalles_orden_servicioAggregateArgs> = {
+        [P in keyof T & keyof AggregateDetalles_orden_servicio]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDetalles_orden_servicio[P]>
+      : GetScalarType<T[P], AggregateDetalles_orden_servicio[P]>
+  }
+
+
+
+
+  export type detalles_orden_servicioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: detalles_orden_servicioWhereInput
+    orderBy?: detalles_orden_servicioOrderByWithAggregationInput | detalles_orden_servicioOrderByWithAggregationInput[]
+    by: Detalles_orden_servicioScalarFieldEnum[] | Detalles_orden_servicioScalarFieldEnum
+    having?: detalles_orden_servicioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Detalles_orden_servicioCountAggregateInputType | true
+    _avg?: Detalles_orden_servicioAvgAggregateInputType
+    _sum?: Detalles_orden_servicioSumAggregateInputType
+    _min?: Detalles_orden_servicioMinAggregateInputType
+    _max?: Detalles_orden_servicioMaxAggregateInputType
+  }
+
+  export type Detalles_orden_servicioGroupByOutputType = {
+    id_detalle: number
+    id_orden_servicio: number
+    codigo_item: string
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida: number | null
+    precio_unitario: Decimal
+    subtotal: Decimal
+    _count: Detalles_orden_servicioCountAggregateOutputType | null
+    _avg: Detalles_orden_servicioAvgAggregateOutputType | null
+    _sum: Detalles_orden_servicioSumAggregateOutputType | null
+    _min: Detalles_orden_servicioMinAggregateOutputType | null
+    _max: Detalles_orden_servicioMaxAggregateOutputType | null
+  }
+
+  type GetDetalles_orden_servicioGroupByPayload<T extends detalles_orden_servicioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Detalles_orden_servicioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Detalles_orden_servicioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Detalles_orden_servicioGroupByOutputType[P]>
+            : GetScalarType<T[P], Detalles_orden_servicioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type detalles_orden_servicioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_detalle?: boolean
+    id_orden_servicio?: boolean
+    codigo_item?: boolean
+    descripcion_item?: boolean
+    cantidad_solicitada?: boolean
+    cantidad_recibida?: boolean
+    precio_unitario?: boolean
+    subtotal?: boolean
+    ordenes_compra?: boolean | ordenes_servicioDefaultArgs<ExtArgs>
+    listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["detalles_orden_servicio"]>
+
+
+
+  export type detalles_orden_servicioSelectScalar = {
+    id_detalle?: boolean
+    id_orden_servicio?: boolean
+    codigo_item?: boolean
+    descripcion_item?: boolean
+    cantidad_solicitada?: boolean
+    cantidad_recibida?: boolean
+    precio_unitario?: boolean
+    subtotal?: boolean
+  }
+
+  export type detalles_orden_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_servicio" | "codigo_item" | "descripcion_item" | "cantidad_solicitada" | "cantidad_recibida" | "precio_unitario" | "subtotal", ExtArgs["result"]["detalles_orden_servicio"]>
+  export type detalles_orden_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ordenes_compra?: boolean | ordenes_servicioDefaultArgs<ExtArgs>
+    listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
+  }
+
+  export type $detalles_orden_servicioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "detalles_orden_servicio"
+    objects: {
+      ordenes_compra: Prisma.$ordenes_servicioPayload<ExtArgs>
+      listado_items_2025: Prisma.$listado_items_2025Payload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_detalle: number
+      id_orden_servicio: number
+      codigo_item: string
+      descripcion_item: string
+      cantidad_solicitada: number
+      cantidad_recibida: number | null
+      precio_unitario: Prisma.Decimal
+      subtotal: Prisma.Decimal
+    }, ExtArgs["result"]["detalles_orden_servicio"]>
+    composites: {}
+  }
+
+  type detalles_orden_servicioGetPayload<S extends boolean | null | undefined | detalles_orden_servicioDefaultArgs> = $Result.GetResult<Prisma.$detalles_orden_servicioPayload, S>
+
+  type detalles_orden_servicioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<detalles_orden_servicioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Detalles_orden_servicioCountAggregateInputType | true
+    }
+
+  export interface detalles_orden_servicioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['detalles_orden_servicio'], meta: { name: 'detalles_orden_servicio' } }
+    /**
+     * Find zero or one Detalles_orden_servicio that matches the filter.
+     * @param {detalles_orden_servicioFindUniqueArgs} args - Arguments to find a Detalles_orden_servicio
+     * @example
+     * // Get one Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends detalles_orden_servicioFindUniqueArgs>(args: SelectSubset<T, detalles_orden_servicioFindUniqueArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Detalles_orden_servicio that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {detalles_orden_servicioFindUniqueOrThrowArgs} args - Arguments to find a Detalles_orden_servicio
+     * @example
+     * // Get one Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends detalles_orden_servicioFindUniqueOrThrowArgs>(args: SelectSubset<T, detalles_orden_servicioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Detalles_orden_servicio that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioFindFirstArgs} args - Arguments to find a Detalles_orden_servicio
+     * @example
+     * // Get one Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends detalles_orden_servicioFindFirstArgs>(args?: SelectSubset<T, detalles_orden_servicioFindFirstArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Detalles_orden_servicio that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioFindFirstOrThrowArgs} args - Arguments to find a Detalles_orden_servicio
+     * @example
+     * // Get one Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends detalles_orden_servicioFindFirstOrThrowArgs>(args?: SelectSubset<T, detalles_orden_servicioFindFirstOrThrowArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Detalles_orden_servicios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Detalles_orden_servicios
+     * const detalles_orden_servicios = await prisma.detalles_orden_servicio.findMany()
+     * 
+     * // Get first 10 Detalles_orden_servicios
+     * const detalles_orden_servicios = await prisma.detalles_orden_servicio.findMany({ take: 10 })
+     * 
+     * // Only select the `id_detalle`
+     * const detalles_orden_servicioWithId_detalleOnly = await prisma.detalles_orden_servicio.findMany({ select: { id_detalle: true } })
+     * 
+     */
+    findMany<T extends detalles_orden_servicioFindManyArgs>(args?: SelectSubset<T, detalles_orden_servicioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Detalles_orden_servicio.
+     * @param {detalles_orden_servicioCreateArgs} args - Arguments to create a Detalles_orden_servicio.
+     * @example
+     * // Create one Detalles_orden_servicio
+     * const Detalles_orden_servicio = await prisma.detalles_orden_servicio.create({
+     *   data: {
+     *     // ... data to create a Detalles_orden_servicio
+     *   }
+     * })
+     * 
+     */
+    create<T extends detalles_orden_servicioCreateArgs>(args: SelectSubset<T, detalles_orden_servicioCreateArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Detalles_orden_servicios.
+     * @param {detalles_orden_servicioCreateManyArgs} args - Arguments to create many Detalles_orden_servicios.
+     * @example
+     * // Create many Detalles_orden_servicios
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends detalles_orden_servicioCreateManyArgs>(args?: SelectSubset<T, detalles_orden_servicioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Detalles_orden_servicio.
+     * @param {detalles_orden_servicioDeleteArgs} args - Arguments to delete one Detalles_orden_servicio.
+     * @example
+     * // Delete one Detalles_orden_servicio
+     * const Detalles_orden_servicio = await prisma.detalles_orden_servicio.delete({
+     *   where: {
+     *     // ... filter to delete one Detalles_orden_servicio
+     *   }
+     * })
+     * 
+     */
+    delete<T extends detalles_orden_servicioDeleteArgs>(args: SelectSubset<T, detalles_orden_servicioDeleteArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Detalles_orden_servicio.
+     * @param {detalles_orden_servicioUpdateArgs} args - Arguments to update one Detalles_orden_servicio.
+     * @example
+     * // Update one Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends detalles_orden_servicioUpdateArgs>(args: SelectSubset<T, detalles_orden_servicioUpdateArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Detalles_orden_servicios.
+     * @param {detalles_orden_servicioDeleteManyArgs} args - Arguments to filter Detalles_orden_servicios to delete.
+     * @example
+     * // Delete a few Detalles_orden_servicios
+     * const { count } = await prisma.detalles_orden_servicio.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends detalles_orden_servicioDeleteManyArgs>(args?: SelectSubset<T, detalles_orden_servicioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Detalles_orden_servicios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Detalles_orden_servicios
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends detalles_orden_servicioUpdateManyArgs>(args: SelectSubset<T, detalles_orden_servicioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Detalles_orden_servicio.
+     * @param {detalles_orden_servicioUpsertArgs} args - Arguments to update or create a Detalles_orden_servicio.
+     * @example
+     * // Update or create a Detalles_orden_servicio
+     * const detalles_orden_servicio = await prisma.detalles_orden_servicio.upsert({
+     *   create: {
+     *     // ... data to create a Detalles_orden_servicio
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Detalles_orden_servicio we want to update
+     *   }
+     * })
+     */
+    upsert<T extends detalles_orden_servicioUpsertArgs>(args: SelectSubset<T, detalles_orden_servicioUpsertArgs<ExtArgs>>): Prisma__detalles_orden_servicioClient<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Detalles_orden_servicios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioCountArgs} args - Arguments to filter Detalles_orden_servicios to count.
+     * @example
+     * // Count the number of Detalles_orden_servicios
+     * const count = await prisma.detalles_orden_servicio.count({
+     *   where: {
+     *     // ... the filter for the Detalles_orden_servicios we want to count
+     *   }
+     * })
+    **/
+    count<T extends detalles_orden_servicioCountArgs>(
+      args?: Subset<T, detalles_orden_servicioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Detalles_orden_servicioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Detalles_orden_servicio.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Detalles_orden_servicioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Detalles_orden_servicioAggregateArgs>(args: Subset<T, Detalles_orden_servicioAggregateArgs>): Prisma.PrismaPromise<GetDetalles_orden_servicioAggregateType<T>>
+
+    /**
+     * Group by Detalles_orden_servicio.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalles_orden_servicioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends detalles_orden_servicioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: detalles_orden_servicioGroupByArgs['orderBy'] }
+        : { orderBy?: detalles_orden_servicioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, detalles_orden_servicioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDetalles_orden_servicioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the detalles_orden_servicio model
+   */
+  readonly fields: detalles_orden_servicioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for detalles_orden_servicio.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__detalles_orden_servicioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ordenes_compra<T extends ordenes_servicioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicioDefaultArgs<ExtArgs>>): Prisma__ordenes_servicioClient<$Result.GetResult<Prisma.$ordenes_servicioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    listado_items_2025<T extends listado_items_2025DefaultArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025DefaultArgs<ExtArgs>>): Prisma__listado_items_2025Client<$Result.GetResult<Prisma.$listado_items_2025Payload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the detalles_orden_servicio model
+   */
+  interface detalles_orden_servicioFieldRefs {
+    readonly id_detalle: FieldRef<"detalles_orden_servicio", 'Int'>
+    readonly id_orden_servicio: FieldRef<"detalles_orden_servicio", 'Int'>
+    readonly codigo_item: FieldRef<"detalles_orden_servicio", 'String'>
+    readonly descripcion_item: FieldRef<"detalles_orden_servicio", 'String'>
+    readonly cantidad_solicitada: FieldRef<"detalles_orden_servicio", 'Int'>
+    readonly cantidad_recibida: FieldRef<"detalles_orden_servicio", 'Int'>
+    readonly precio_unitario: FieldRef<"detalles_orden_servicio", 'Decimal'>
+    readonly subtotal: FieldRef<"detalles_orden_servicio", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * detalles_orden_servicio findUnique
+   */
+  export type detalles_orden_servicioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter, which detalles_orden_servicio to fetch.
+     */
+    where: detalles_orden_servicioWhereUniqueInput
+  }
+
+  /**
+   * detalles_orden_servicio findUniqueOrThrow
+   */
+  export type detalles_orden_servicioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter, which detalles_orden_servicio to fetch.
+     */
+    where: detalles_orden_servicioWhereUniqueInput
+  }
+
+  /**
+   * detalles_orden_servicio findFirst
+   */
+  export type detalles_orden_servicioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter, which detalles_orden_servicio to fetch.
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detalles_orden_servicios to fetch.
+     */
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for detalles_orden_servicios.
+     */
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detalles_orden_servicios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detalles_orden_servicios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of detalles_orden_servicios.
+     */
+    distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
+  }
+
+  /**
+   * detalles_orden_servicio findFirstOrThrow
+   */
+  export type detalles_orden_servicioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter, which detalles_orden_servicio to fetch.
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detalles_orden_servicios to fetch.
+     */
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for detalles_orden_servicios.
+     */
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detalles_orden_servicios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detalles_orden_servicios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of detalles_orden_servicios.
+     */
+    distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
+  }
+
+  /**
+   * detalles_orden_servicio findMany
+   */
+  export type detalles_orden_servicioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter, which detalles_orden_servicios to fetch.
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detalles_orden_servicios to fetch.
+     */
+    orderBy?: detalles_orden_servicioOrderByWithRelationInput | detalles_orden_servicioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing detalles_orden_servicios.
+     */
+    cursor?: detalles_orden_servicioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detalles_orden_servicios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detalles_orden_servicios.
+     */
+    skip?: number
+    distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
+  }
+
+  /**
+   * detalles_orden_servicio create
+   */
+  export type detalles_orden_servicioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * The data needed to create a detalles_orden_servicio.
+     */
+    data: XOR<detalles_orden_servicioCreateInput, detalles_orden_servicioUncheckedCreateInput>
+  }
+
+  /**
+   * detalles_orden_servicio createMany
+   */
+  export type detalles_orden_servicioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many detalles_orden_servicios.
+     */
+    data: detalles_orden_servicioCreateManyInput | detalles_orden_servicioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * detalles_orden_servicio update
+   */
+  export type detalles_orden_servicioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * The data needed to update a detalles_orden_servicio.
+     */
+    data: XOR<detalles_orden_servicioUpdateInput, detalles_orden_servicioUncheckedUpdateInput>
+    /**
+     * Choose, which detalles_orden_servicio to update.
+     */
+    where: detalles_orden_servicioWhereUniqueInput
+  }
+
+  /**
+   * detalles_orden_servicio updateMany
+   */
+  export type detalles_orden_servicioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update detalles_orden_servicios.
+     */
+    data: XOR<detalles_orden_servicioUpdateManyMutationInput, detalles_orden_servicioUncheckedUpdateManyInput>
+    /**
+     * Filter which detalles_orden_servicios to update
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * Limit how many detalles_orden_servicios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * detalles_orden_servicio upsert
+   */
+  export type detalles_orden_servicioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * The filter to search for the detalles_orden_servicio to update in case it exists.
+     */
+    where: detalles_orden_servicioWhereUniqueInput
+    /**
+     * In case the detalles_orden_servicio found by the `where` argument doesn't exist, create a new detalles_orden_servicio with this data.
+     */
+    create: XOR<detalles_orden_servicioCreateInput, detalles_orden_servicioUncheckedCreateInput>
+    /**
+     * In case the detalles_orden_servicio was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<detalles_orden_servicioUpdateInput, detalles_orden_servicioUncheckedUpdateInput>
+  }
+
+  /**
+   * detalles_orden_servicio delete
+   */
+  export type detalles_orden_servicioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+    /**
+     * Filter which detalles_orden_servicio to delete.
+     */
+    where: detalles_orden_servicioWhereUniqueInput
+  }
+
+  /**
+   * detalles_orden_servicio deleteMany
+   */
+  export type detalles_orden_servicioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which detalles_orden_servicios to delete
+     */
+    where?: detalles_orden_servicioWhereInput
+    /**
+     * Limit how many detalles_orden_servicios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * detalles_orden_servicio without action
+   */
+  export type detalles_orden_servicioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detalles_orden_servicio
+     */
+    select?: detalles_orden_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detalles_orden_servicio
+     */
+    omit?: detalles_orden_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: detalles_orden_servicioInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -32954,18 +34352,34 @@ export namespace Prisma {
 
   export const Ordenes_servicioScalarFieldEnum: {
     id_orden_servicio: 'id_orden_servicio',
-    numero_orden_servicio: 'numero_orden_servicio',
+    numero_orden: 'numero_orden',
     id_proveedor: 'id_proveedor',
-    id_usuario: 'id_usuario',
     fecha_orden: 'fecha_orden',
     fecha_entrega_prevista: 'fecha_entrega_prevista',
-    descripcion_servicio: 'descripcion_servicio',
     subtotal: 'subtotal',
     igv: 'igv',
     total: 'total',
     estado: 'estado',
-    motivo_cancelacion: 'motivo_cancelacion',
-    fecha_registro: 'fecha_registro'
+    observaciones: 'observaciones',
+    fecha_registro: 'fecha_registro',
+    registrado_por: 'registrado_por',
+    tiene_anticipo: 'tiene_anticipo',
+    procede_pago: 'procede_pago',
+    auto_administrador: 'auto_administrador',
+    auto_contabilidad: 'auto_contabilidad',
+    has_anticipo: 'has_anticipo',
+    direccion: 'direccion',
+    centro_costo_nivel1: 'centro_costo_nivel1',
+    centro_costo_nivel2: 'centro_costo_nivel2',
+    centro_costo_nivel3: 'centro_costo_nivel3',
+    condicion: 'condicion',
+    moneda: 'moneda',
+    hora_firma: 'hora_firma',
+    usuario_firma: 'usuario_firma',
+    estado_firma: 'estado_firma',
+    ruta_pdf: 'ruta_pdf',
+    retencion: 'retencion',
+    id_camion: 'id_camion'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -32991,6 +34405,20 @@ export namespace Prisma {
   };
 
   export type Usuarios_consultaScalarFieldEnum = (typeof Usuarios_consultaScalarFieldEnum)[keyof typeof Usuarios_consultaScalarFieldEnum]
+
+
+  export const Detalles_orden_servicioScalarFieldEnum: {
+    id_detalle: 'id_detalle',
+    id_orden_servicio: 'id_orden_servicio',
+    codigo_item: 'codigo_item',
+    descripcion_item: 'descripcion_item',
+    cantidad_solicitada: 'cantidad_solicitada',
+    cantidad_recibida: 'cantidad_recibida',
+    precio_unitario: 'precio_unitario',
+    subtotal: 'subtotal'
+  };
+
+  export type Detalles_orden_servicioScalarFieldEnum = (typeof Detalles_orden_servicioScalarFieldEnum)[keyof typeof Detalles_orden_servicioScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -33244,9 +34672,18 @@ export namespace Prisma {
 
 
   export const ordenes_servicioOrderByRelevanceFieldEnum: {
-    numero_orden_servicio: 'numero_orden_servicio',
-    descripcion_servicio: 'descripcion_servicio',
-    motivo_cancelacion: 'motivo_cancelacion'
+    numero_orden: 'numero_orden',
+    observaciones: 'observaciones',
+    tiene_anticipo: 'tiene_anticipo',
+    procede_pago: 'procede_pago',
+    direccion: 'direccion',
+    centro_costo_nivel1: 'centro_costo_nivel1',
+    centro_costo_nivel2: 'centro_costo_nivel2',
+    centro_costo_nivel3: 'centro_costo_nivel3',
+    condicion: 'condicion',
+    moneda: 'moneda',
+    ruta_pdf: 'ruta_pdf',
+    retencion: 'retencion'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -33259,6 +34696,14 @@ export namespace Prisma {
   };
 
   export type usuarios_consultaOrderByRelevanceFieldEnum = (typeof usuarios_consultaOrderByRelevanceFieldEnum)[keyof typeof usuarios_consultaOrderByRelevanceFieldEnum]
+
+
+  export const detalles_orden_servicioOrderByRelevanceFieldEnum: {
+    codigo_item: 'codigo_item',
+    descripcion_item: 'descripcion_item'
+  };
+
+  export type detalles_orden_servicioOrderByRelevanceFieldEnum = (typeof detalles_orden_servicioOrderByRelevanceFieldEnum)[keyof typeof detalles_orden_servicioOrderByRelevanceFieldEnum]
 
 
   /**
@@ -33452,6 +34897,13 @@ export namespace Prisma {
    * Reference to a field of type 'ordenes_servicio_estado'
    */
   export type Enumordenes_servicio_estadoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ordenes_servicio_estado'>
+    
+
+
+  /**
+   * Reference to a field of type 'ordenes_servicio_estado_firma'
+   */
+  export type Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ordenes_servicio_estado_firma'>
     
 
 
@@ -34172,6 +35624,7 @@ export namespace Prisma {
     fecha_modificacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
     detalles_conteo_ciclico?: Detalles_conteo_ciclicoListRelationFilter
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
+    detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     detalles_recepcion_compra?: Detalles_recepcion_compraListRelationFilter
     familias_productos?: XOR<Familias_productosNullableScalarRelationFilter, familias_productosWhereInput> | null
     movimientos_inventario?: Movimientos_inventarioListRelationFilter
@@ -34197,6 +35650,7 @@ export namespace Prisma {
     fecha_modificacion?: SortOrderInput | SortOrder
     detalles_conteo_ciclico?: detalles_conteo_ciclicoOrderByRelationAggregateInput
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
+    detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     detalles_recepcion_compra?: detalles_recepcion_compraOrderByRelationAggregateInput
     familias_productos?: familias_productosOrderByWithRelationInput
     movimientos_inventario?: movimientos_inventarioOrderByRelationAggregateInput
@@ -34226,6 +35680,7 @@ export namespace Prisma {
     fecha_modificacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
     detalles_conteo_ciclico?: Detalles_conteo_ciclicoListRelationFilter
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
+    detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     detalles_recepcion_compra?: Detalles_recepcion_compraListRelationFilter
     familias_productos?: XOR<Familias_productosNullableScalarRelationFilter, familias_productosWhereInput> | null
     movimientos_inventario?: Movimientos_inventarioListRelationFilter
@@ -35534,36 +36989,70 @@ export namespace Prisma {
     OR?: ordenes_servicioWhereInput[]
     NOT?: ordenes_servicioWhereInput | ordenes_servicioWhereInput[]
     id_orden_servicio?: IntFilter<"ordenes_servicio"> | number
-    numero_orden_servicio?: StringFilter<"ordenes_servicio"> | string
+    numero_orden?: StringFilter<"ordenes_servicio"> | string
     id_proveedor?: IntFilter<"ordenes_servicio"> | number
-    id_usuario?: IntFilter<"ordenes_servicio"> | number
     fecha_orden?: DateTimeFilter<"ordenes_servicio"> | Date | string
     fecha_entrega_prevista?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
-    descripcion_servicio?: StringNullableFilter<"ordenes_servicio"> | string | null
     subtotal?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     igv?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     total?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     estado?: Enumordenes_servicio_estadoNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    observaciones?: StringNullableFilter<"ordenes_servicio"> | string | null
     fecha_registro?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    registrado_por?: IntFilter<"ordenes_servicio"> | number
+    tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
+    procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel2?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
+    condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
+    estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
+    detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
   }
 
   export type ordenes_servicioOrderByWithRelationInput = {
     id_orden_servicio?: SortOrder
-    numero_orden_servicio?: SortOrder
+    numero_orden?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     fecha_orden?: SortOrder
     fecha_entrega_prevista?: SortOrderInput | SortOrder
-    descripcion_servicio?: SortOrderInput | SortOrder
     subtotal?: SortOrderInput | SortOrder
     igv?: SortOrderInput | SortOrder
     total?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
-    motivo_cancelacion?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
     fecha_registro?: SortOrderInput | SortOrder
+    registrado_por?: SortOrder
+    tiene_anticipo?: SortOrderInput | SortOrder
+    procede_pago?: SortOrderInput | SortOrder
+    auto_administrador?: SortOrderInput | SortOrder
+    auto_contabilidad?: SortOrderInput | SortOrder
+    has_anticipo?: SortOrderInput | SortOrder
+    direccion?: SortOrderInput | SortOrder
+    centro_costo_nivel1?: SortOrderInput | SortOrder
+    centro_costo_nivel2?: SortOrderInput | SortOrder
+    centro_costo_nivel3?: SortOrderInput | SortOrder
+    condicion?: SortOrderInput | SortOrder
+    moneda?: SortOrderInput | SortOrder
+    hora_firma?: SortOrderInput | SortOrder
+    usuario_firma?: SortOrderInput | SortOrder
+    estado_firma?: SortOrderInput | SortOrder
+    ruta_pdf?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    id_camion?: SortOrderInput | SortOrder
+    detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
     _relevance?: ordenes_servicioOrderByRelevanceInput
@@ -35571,39 +37060,72 @@ export namespace Prisma {
 
   export type ordenes_servicioWhereUniqueInput = Prisma.AtLeast<{
     id_orden_servicio?: number
-    numero_orden_servicio?: string
+    numero_orden?: string
     AND?: ordenes_servicioWhereInput | ordenes_servicioWhereInput[]
     OR?: ordenes_servicioWhereInput[]
     NOT?: ordenes_servicioWhereInput | ordenes_servicioWhereInput[]
     id_proveedor?: IntFilter<"ordenes_servicio"> | number
-    id_usuario?: IntFilter<"ordenes_servicio"> | number
     fecha_orden?: DateTimeFilter<"ordenes_servicio"> | Date | string
     fecha_entrega_prevista?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
-    descripcion_servicio?: StringNullableFilter<"ordenes_servicio"> | string | null
     subtotal?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     igv?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     total?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     estado?: Enumordenes_servicio_estadoNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    observaciones?: StringNullableFilter<"ordenes_servicio"> | string | null
     fecha_registro?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    registrado_por?: IntFilter<"ordenes_servicio"> | number
+    tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
+    procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel2?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
+    condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
+    estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
+    detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
-  }, "id_orden_servicio" | "numero_orden_servicio">
+  }, "id_orden_servicio" | "numero_orden">
 
   export type ordenes_servicioOrderByWithAggregationInput = {
     id_orden_servicio?: SortOrder
-    numero_orden_servicio?: SortOrder
+    numero_orden?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     fecha_orden?: SortOrder
     fecha_entrega_prevista?: SortOrderInput | SortOrder
-    descripcion_servicio?: SortOrderInput | SortOrder
     subtotal?: SortOrderInput | SortOrder
     igv?: SortOrderInput | SortOrder
     total?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
-    motivo_cancelacion?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
     fecha_registro?: SortOrderInput | SortOrder
+    registrado_por?: SortOrder
+    tiene_anticipo?: SortOrderInput | SortOrder
+    procede_pago?: SortOrderInput | SortOrder
+    auto_administrador?: SortOrderInput | SortOrder
+    auto_contabilidad?: SortOrderInput | SortOrder
+    has_anticipo?: SortOrderInput | SortOrder
+    direccion?: SortOrderInput | SortOrder
+    centro_costo_nivel1?: SortOrderInput | SortOrder
+    centro_costo_nivel2?: SortOrderInput | SortOrder
+    centro_costo_nivel3?: SortOrderInput | SortOrder
+    condicion?: SortOrderInput | SortOrder
+    moneda?: SortOrderInput | SortOrder
+    hora_firma?: SortOrderInput | SortOrder
+    usuario_firma?: SortOrderInput | SortOrder
+    estado_firma?: SortOrderInput | SortOrder
+    ruta_pdf?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    id_camion?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -35616,18 +37138,34 @@ export namespace Prisma {
     OR?: ordenes_servicioScalarWhereWithAggregatesInput[]
     NOT?: ordenes_servicioScalarWhereWithAggregatesInput | ordenes_servicioScalarWhereWithAggregatesInput[]
     id_orden_servicio?: IntWithAggregatesFilter<"ordenes_servicio"> | number
-    numero_orden_servicio?: StringWithAggregatesFilter<"ordenes_servicio"> | string
+    numero_orden?: StringWithAggregatesFilter<"ordenes_servicio"> | string
     id_proveedor?: IntWithAggregatesFilter<"ordenes_servicio"> | number
-    id_usuario?: IntWithAggregatesFilter<"ordenes_servicio"> | number
     fecha_orden?: DateTimeWithAggregatesFilter<"ordenes_servicio"> | Date | string
     fecha_entrega_prevista?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
-    descripcion_servicio?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     subtotal?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     igv?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     total?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     estado?: Enumordenes_servicio_estadoNullableWithAggregatesFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    observaciones?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     fecha_registro?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
+    registrado_por?: IntWithAggregatesFilter<"ordenes_servicio"> | number
+    tiene_anticipo?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    procede_pago?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    auto_administrador?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    auto_contabilidad?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    has_anticipo?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    direccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel1?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel2?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel3?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    condicion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    moneda?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    hora_firma?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
+    usuario_firma?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
+    estado_firma?: Enumordenes_servicio_estado_firmaNullableWithAggregatesFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -35737,6 +37275,82 @@ export namespace Prisma {
     activo?: BoolNullableWithAggregatesFilter<"usuarios_consulta"> | boolean | null
     fecha_creacion?: DateTimeNullableWithAggregatesFilter<"usuarios_consulta"> | Date | string | null
     fecha_modificacion?: DateTimeNullableWithAggregatesFilter<"usuarios_consulta"> | Date | string | null
+  }
+
+  export type detalles_orden_servicioWhereInput = {
+    AND?: detalles_orden_servicioWhereInput | detalles_orden_servicioWhereInput[]
+    OR?: detalles_orden_servicioWhereInput[]
+    NOT?: detalles_orden_servicioWhereInput | detalles_orden_servicioWhereInput[]
+    id_detalle?: IntFilter<"detalles_orden_servicio"> | number
+    id_orden_servicio?: IntFilter<"detalles_orden_servicio"> | number
+    codigo_item?: StringFilter<"detalles_orden_servicio"> | string
+    descripcion_item?: StringFilter<"detalles_orden_servicio"> | string
+    cantidad_solicitada?: IntFilter<"detalles_orden_servicio"> | number
+    cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
+    precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    ordenes_compra?: XOR<Ordenes_servicioScalarRelationFilter, ordenes_servicioWhereInput>
+    listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
+  }
+
+  export type detalles_orden_servicioOrderByWithRelationInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    codigo_item?: SortOrder
+    descripcion_item?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrderInput | SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+    ordenes_compra?: ordenes_servicioOrderByWithRelationInput
+    listado_items_2025?: listado_items_2025OrderByWithRelationInput
+    _relevance?: detalles_orden_servicioOrderByRelevanceInput
+  }
+
+  export type detalles_orden_servicioWhereUniqueInput = Prisma.AtLeast<{
+    id_detalle?: number
+    AND?: detalles_orden_servicioWhereInput | detalles_orden_servicioWhereInput[]
+    OR?: detalles_orden_servicioWhereInput[]
+    NOT?: detalles_orden_servicioWhereInput | detalles_orden_servicioWhereInput[]
+    id_orden_servicio?: IntFilter<"detalles_orden_servicio"> | number
+    codigo_item?: StringFilter<"detalles_orden_servicio"> | string
+    descripcion_item?: StringFilter<"detalles_orden_servicio"> | string
+    cantidad_solicitada?: IntFilter<"detalles_orden_servicio"> | number
+    cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
+    precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    ordenes_compra?: XOR<Ordenes_servicioScalarRelationFilter, ordenes_servicioWhereInput>
+    listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
+  }, "id_detalle">
+
+  export type detalles_orden_servicioOrderByWithAggregationInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    codigo_item?: SortOrder
+    descripcion_item?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrderInput | SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+    _count?: detalles_orden_servicioCountOrderByAggregateInput
+    _avg?: detalles_orden_servicioAvgOrderByAggregateInput
+    _max?: detalles_orden_servicioMaxOrderByAggregateInput
+    _min?: detalles_orden_servicioMinOrderByAggregateInput
+    _sum?: detalles_orden_servicioSumOrderByAggregateInput
+  }
+
+  export type detalles_orden_servicioScalarWhereWithAggregatesInput = {
+    AND?: detalles_orden_servicioScalarWhereWithAggregatesInput | detalles_orden_servicioScalarWhereWithAggregatesInput[]
+    OR?: detalles_orden_servicioScalarWhereWithAggregatesInput[]
+    NOT?: detalles_orden_servicioScalarWhereWithAggregatesInput | detalles_orden_servicioScalarWhereWithAggregatesInput[]
+    id_detalle?: IntWithAggregatesFilter<"detalles_orden_servicio"> | number
+    id_orden_servicio?: IntWithAggregatesFilter<"detalles_orden_servicio"> | number
+    codigo_item?: StringWithAggregatesFilter<"detalles_orden_servicio"> | string
+    descripcion_item?: StringWithAggregatesFilter<"detalles_orden_servicio"> | string
+    cantidad_solicitada?: IntWithAggregatesFilter<"detalles_orden_servicio"> | number
+    cantidad_recibida?: IntNullableWithAggregatesFilter<"detalles_orden_servicio"> | number | null
+    precio_unitario?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
   }
 
   export type almacenesCreateInput = {
@@ -36429,6 +38043,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
@@ -36454,6 +38069,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -36477,6 +38093,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
@@ -36502,6 +38119,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -37859,110 +39477,226 @@ export namespace Prisma {
   }
 
   export type ordenes_servicioCreateInput = {
-    numero_orden_servicio: string
+    numero_orden: string
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
+    numero_orden: string
     id_proveedor: number
-    id_usuario: number
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
   export type ordenes_servicioUpdateInput = {
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     id_proveedor?: IntFieldUpdateOperationsInput | number
-    id_usuario?: IntFieldUpdateOperationsInput | number
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_servicioCreateManyInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
+    numero_orden: string
     id_proveedor: number
-    id_usuario: number
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     id_proveedor?: IntFieldUpdateOperationsInput | number
-    id_usuario?: IntFieldUpdateOperationsInput | number
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -38069,6 +39803,78 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type detalles_orden_servicioCreateInput = {
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+    ordenes_compra: ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput
+    listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_servicioInput
+  }
+
+  export type detalles_orden_servicioUncheckedCreateInput = {
+    id_detalle?: number
+    id_orden_servicio: number
+    codigo_item: string
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUpdateInput = {
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ordenes_compra?: ordenes_servicioUpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
+    listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioCreateManyInput = {
+    id_detalle?: number
+    id_orden_servicio: number
+    codigo_item: string
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUpdateManyMutationInput = {
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateManyInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -39119,6 +40925,12 @@ export namespace Prisma {
     none?: detalles_orden_compraWhereInput
   }
 
+  export type Detalles_orden_servicioListRelationFilter = {
+    every?: detalles_orden_servicioWhereInput
+    some?: detalles_orden_servicioWhereInput
+    none?: detalles_orden_servicioWhereInput
+  }
+
   export type Detalles_recepcion_compraListRelationFilter = {
     every?: detalles_recepcion_compraWhereInput
     some?: detalles_recepcion_compraWhereInput
@@ -39131,6 +40943,10 @@ export namespace Prisma {
   }
 
   export type detalles_orden_compraOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type detalles_orden_servicioOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -40351,6 +42167,13 @@ export namespace Prisma {
     not?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel> | $Enums.ordenes_servicio_estado | null
   }
 
+  export type Enumordenes_servicio_estado_firmaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ordenes_servicio_estado_firma | Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ordenes_servicio_estado_firma[] | null
+    notIn?: $Enums.ordenes_servicio_estado_firma[] | null
+    not?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel> | $Enums.ordenes_servicio_estado_firma | null
+  }
+
   export type ordenes_servicioOrderByRelevanceInput = {
     fields: ordenes_servicioOrderByRelevanceFieldEnum | ordenes_servicioOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -40359,68 +42182,120 @@ export namespace Prisma {
 
   export type ordenes_servicioCountOrderByAggregateInput = {
     id_orden_servicio?: SortOrder
-    numero_orden_servicio?: SortOrder
+    numero_orden?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     fecha_orden?: SortOrder
     fecha_entrega_prevista?: SortOrder
-    descripcion_servicio?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
     estado?: SortOrder
-    motivo_cancelacion?: SortOrder
+    observaciones?: SortOrder
     fecha_registro?: SortOrder
+    registrado_por?: SortOrder
+    tiene_anticipo?: SortOrder
+    procede_pago?: SortOrder
+    auto_administrador?: SortOrder
+    auto_contabilidad?: SortOrder
+    has_anticipo?: SortOrder
+    direccion?: SortOrder
+    centro_costo_nivel1?: SortOrder
+    centro_costo_nivel2?: SortOrder
+    centro_costo_nivel3?: SortOrder
+    condicion?: SortOrder
+    moneda?: SortOrder
+    hora_firma?: SortOrder
+    usuario_firma?: SortOrder
+    estado_firma?: SortOrder
+    ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
     id_orden_servicio?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
+    registrado_por?: SortOrder
+    usuario_firma?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_servicioMaxOrderByAggregateInput = {
     id_orden_servicio?: SortOrder
-    numero_orden_servicio?: SortOrder
+    numero_orden?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     fecha_orden?: SortOrder
     fecha_entrega_prevista?: SortOrder
-    descripcion_servicio?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
     estado?: SortOrder
-    motivo_cancelacion?: SortOrder
+    observaciones?: SortOrder
     fecha_registro?: SortOrder
+    registrado_por?: SortOrder
+    tiene_anticipo?: SortOrder
+    procede_pago?: SortOrder
+    auto_administrador?: SortOrder
+    auto_contabilidad?: SortOrder
+    has_anticipo?: SortOrder
+    direccion?: SortOrder
+    centro_costo_nivel1?: SortOrder
+    centro_costo_nivel2?: SortOrder
+    centro_costo_nivel3?: SortOrder
+    condicion?: SortOrder
+    moneda?: SortOrder
+    hora_firma?: SortOrder
+    usuario_firma?: SortOrder
+    estado_firma?: SortOrder
+    ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
     id_orden_servicio?: SortOrder
-    numero_orden_servicio?: SortOrder
+    numero_orden?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     fecha_orden?: SortOrder
     fecha_entrega_prevista?: SortOrder
-    descripcion_servicio?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
     estado?: SortOrder
-    motivo_cancelacion?: SortOrder
+    observaciones?: SortOrder
     fecha_registro?: SortOrder
+    registrado_por?: SortOrder
+    tiene_anticipo?: SortOrder
+    procede_pago?: SortOrder
+    auto_administrador?: SortOrder
+    auto_contabilidad?: SortOrder
+    has_anticipo?: SortOrder
+    direccion?: SortOrder
+    centro_costo_nivel1?: SortOrder
+    centro_costo_nivel2?: SortOrder
+    centro_costo_nivel3?: SortOrder
+    condicion?: SortOrder
+    moneda?: SortOrder
+    hora_firma?: SortOrder
+    usuario_firma?: SortOrder
+    estado_firma?: SortOrder
+    ruta_pdf?: SortOrder
+    retencion?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
     id_orden_servicio?: SortOrder
     id_proveedor?: SortOrder
-    id_usuario?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
+    registrado_por?: SortOrder
+    usuario_firma?: SortOrder
+    id_camion?: SortOrder
   }
 
   export type Enumordenes_servicio_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -40431,6 +42306,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel>
     _max?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel>
+  }
+
+  export type Enumordenes_servicio_estado_firmaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ordenes_servicio_estado_firma | Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ordenes_servicio_estado_firma[] | null
+    notIn?: $Enums.ordenes_servicio_estado_firma[] | null
+    not?: NestedEnumordenes_servicio_estado_firmaNullableWithAggregatesFilter<$PrismaModel> | $Enums.ordenes_servicio_estado_firma | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
+    _max?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
   }
 
   export type tipo_cambioCountOrderByAggregateInput = {
@@ -40503,6 +42388,68 @@ export namespace Prisma {
 
   export type usuarios_consultaSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type Ordenes_servicioScalarRelationFilter = {
+    is?: ordenes_servicioWhereInput
+    isNot?: ordenes_servicioWhereInput
+  }
+
+  export type detalles_orden_servicioOrderByRelevanceInput = {
+    fields: detalles_orden_servicioOrderByRelevanceFieldEnum | detalles_orden_servicioOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type detalles_orden_servicioCountOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    codigo_item?: SortOrder
+    descripcion_item?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+  }
+
+  export type detalles_orden_servicioAvgOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+  }
+
+  export type detalles_orden_servicioMaxOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    codigo_item?: SortOrder
+    descripcion_item?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+  }
+
+  export type detalles_orden_servicioMinOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    codigo_item?: SortOrder
+    descripcion_item?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
+  }
+
+  export type detalles_orden_servicioSumOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_servicio?: SortOrder
+    cantidad_solicitada?: SortOrder
+    cantidad_recibida?: SortOrder
+    precio_unitario?: SortOrder
+    subtotal?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -41281,6 +43228,13 @@ export namespace Prisma {
     connect?: detalles_orden_compraWhereUniqueInput | detalles_orden_compraWhereUniqueInput[]
   }
 
+  export type detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input = {
+    create?: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input> | detalles_orden_servicioCreateWithoutListado_items_2025Input[] | detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input | detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input[]
+    createMany?: detalles_orden_servicioCreateManyListado_items_2025InputEnvelope
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+  }
+
   export type detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input = {
     create?: XOR<detalles_recepcion_compraCreateWithoutListado_items_2025Input, detalles_recepcion_compraUncheckedCreateWithoutListado_items_2025Input> | detalles_recepcion_compraCreateWithoutListado_items_2025Input[] | detalles_recepcion_compraUncheckedCreateWithoutListado_items_2025Input[]
     connectOrCreate?: detalles_recepcion_compraCreateOrConnectWithoutListado_items_2025Input | detalles_recepcion_compraCreateOrConnectWithoutListado_items_2025Input[]
@@ -41327,6 +43281,13 @@ export namespace Prisma {
     connectOrCreate?: detalles_orden_compraCreateOrConnectWithoutListado_items_2025Input | detalles_orden_compraCreateOrConnectWithoutListado_items_2025Input[]
     createMany?: detalles_orden_compraCreateManyListado_items_2025InputEnvelope
     connect?: detalles_orden_compraWhereUniqueInput | detalles_orden_compraWhereUniqueInput[]
+  }
+
+  export type detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input = {
+    create?: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input> | detalles_orden_servicioCreateWithoutListado_items_2025Input[] | detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input | detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input[]
+    createMany?: detalles_orden_servicioCreateManyListado_items_2025InputEnvelope
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
   }
 
   export type detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input = {
@@ -41391,6 +43352,20 @@ export namespace Prisma {
     update?: detalles_orden_compraUpdateWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_compraUpdateWithWhereUniqueWithoutListado_items_2025Input[]
     updateMany?: detalles_orden_compraUpdateManyWithWhereWithoutListado_items_2025Input | detalles_orden_compraUpdateManyWithWhereWithoutListado_items_2025Input[]
     deleteMany?: detalles_orden_compraScalarWhereInput | detalles_orden_compraScalarWhereInput[]
+  }
+
+  export type detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input> | detalles_orden_servicioCreateWithoutListado_items_2025Input[] | detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input | detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input[]
+    upsert?: detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input[]
+    createMany?: detalles_orden_servicioCreateManyListado_items_2025InputEnvelope
+    set?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    disconnect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    delete?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_servicioUpdateWithWhereUniqueWithoutListado_items_2025Input[]
+    updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutListado_items_2025Input | detalles_orden_servicioUpdateManyWithWhereWithoutListado_items_2025Input[]
+    deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
   }
 
   export type detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput = {
@@ -41485,6 +43460,20 @@ export namespace Prisma {
     update?: detalles_orden_compraUpdateWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_compraUpdateWithWhereUniqueWithoutListado_items_2025Input[]
     updateMany?: detalles_orden_compraUpdateManyWithWhereWithoutListado_items_2025Input | detalles_orden_compraUpdateManyWithWhereWithoutListado_items_2025Input[]
     deleteMany?: detalles_orden_compraScalarWhereInput | detalles_orden_compraScalarWhereInput[]
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input> | detalles_orden_servicioCreateWithoutListado_items_2025Input[] | detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input | detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input[]
+    upsert?: detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input[]
+    createMany?: detalles_orden_servicioCreateManyListado_items_2025InputEnvelope
+    set?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    disconnect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    delete?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutListado_items_2025Input | detalles_orden_servicioUpdateWithWhereUniqueWithoutListado_items_2025Input[]
+    updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutListado_items_2025Input | detalles_orden_servicioUpdateManyWithWhereWithoutListado_items_2025Input[]
+    deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
   }
 
   export type detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput = {
@@ -42753,6 +44742,13 @@ export namespace Prisma {
     deleteMany?: solicitudes_salidaScalarWhereInput | solicitudes_salidaScalarWhereInput[]
   }
 
+  export type detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_servicioCreateWithoutOrdenes_compraInput[] | detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
+    createMany?: detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+  }
+
   export type proveedoresCreateNestedOneWithoutOrdenes_servicioInput = {
     create?: XOR<proveedoresCreateWithoutOrdenes_servicioInput, proveedoresUncheckedCreateWithoutOrdenes_servicioInput>
     connectOrCreate?: proveedoresCreateOrConnectWithoutOrdenes_servicioInput
@@ -42765,8 +44761,33 @@ export namespace Prisma {
     connect?: usuariosWhereUniqueInput
   }
 
+  export type detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_servicioCreateWithoutOrdenes_compraInput[] | detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
+    createMany?: detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+  }
+
   export type NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput = {
     set?: $Enums.ordenes_servicio_estado | null
+  }
+
+  export type NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput = {
+    set?: $Enums.ordenes_servicio_estado_firma | null
+  }
+
+  export type detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_servicioCreateWithoutOrdenes_compraInput[] | detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
+    upsert?: detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput[]
+    createMany?: detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope
+    set?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    disconnect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    delete?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
+    updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput[]
+    deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
   }
 
   export type proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput = {
@@ -42783,6 +44804,48 @@ export namespace Prisma {
     upsert?: usuariosUpsertWithoutOrdenes_servicioInput
     connect?: usuariosWhereUniqueInput
     update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutOrdenes_servicioInput, usuariosUpdateWithoutOrdenes_servicioInput>, usuariosUncheckedUpdateWithoutOrdenes_servicioInput>
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput = {
+    create?: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_servicioCreateWithoutOrdenes_compraInput[] | detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
+    upsert?: detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput[]
+    createMany?: detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope
+    set?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    disconnect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    delete?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+    update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
+    updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput[]
+    deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
+  }
+
+  export type ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput = {
+    create?: XOR<ordenes_servicioCreateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput>
+    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput
+    connect?: ordenes_servicioWhereUniqueInput
+  }
+
+  export type listado_items_2025CreateNestedOneWithoutDetalles_orden_servicioInput = {
+    create?: XOR<listado_items_2025CreateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedCreateWithoutDetalles_orden_servicioInput>
+    connectOrCreate?: listado_items_2025CreateOrConnectWithoutDetalles_orden_servicioInput
+    connect?: listado_items_2025WhereUniqueInput
+  }
+
+  export type ordenes_servicioUpdateOneRequiredWithoutDetalles_orden_servicioNestedInput = {
+    create?: XOR<ordenes_servicioCreateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput>
+    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput
+    upsert?: ordenes_servicioUpsertWithoutDetalles_orden_servicioInput
+    connect?: ordenes_servicioWhereUniqueInput
+    update?: XOR<XOR<ordenes_servicioUpdateToOneWithWhereWithoutDetalles_orden_servicioInput, ordenes_servicioUpdateWithoutDetalles_orden_servicioInput>, ordenes_servicioUncheckedUpdateWithoutDetalles_orden_servicioInput>
+  }
+
+  export type listado_items_2025UpdateOneRequiredWithoutDetalles_orden_servicioNestedInput = {
+    create?: XOR<listado_items_2025CreateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedCreateWithoutDetalles_orden_servicioInput>
+    connectOrCreate?: listado_items_2025CreateOrConnectWithoutDetalles_orden_servicioInput
+    upsert?: listado_items_2025UpsertWithoutDetalles_orden_servicioInput
+    connect?: listado_items_2025WhereUniqueInput
+    update?: XOR<XOR<listado_items_2025UpdateToOneWithWhereWithoutDetalles_orden_servicioInput, listado_items_2025UpdateWithoutDetalles_orden_servicioInput>, listado_items_2025UncheckedUpdateWithoutDetalles_orden_servicioInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -43420,6 +45483,13 @@ export namespace Prisma {
     not?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel> | $Enums.ordenes_servicio_estado | null
   }
 
+  export type NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ordenes_servicio_estado_firma | Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ordenes_servicio_estado_firma[] | null
+    notIn?: $Enums.ordenes_servicio_estado_firma[] | null
+    not?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel> | $Enums.ordenes_servicio_estado_firma | null
+  }
+
   export type NestedEnumordenes_servicio_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ordenes_servicio_estado | Enumordenes_servicio_estadoFieldRefInput<$PrismaModel> | null
     in?: $Enums.ordenes_servicio_estado[] | null
@@ -43428,6 +45498,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel>
     _max?: NestedEnumordenes_servicio_estadoNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumordenes_servicio_estado_firmaNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ordenes_servicio_estado_firma | Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ordenes_servicio_estado_firma[] | null
+    notIn?: $Enums.ordenes_servicio_estado_firma[] | null
+    not?: NestedEnumordenes_servicio_estado_firmaNullableWithAggregatesFilter<$PrismaModel> | $Enums.ordenes_servicio_estado_firma | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
+    _max?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
   }
 
   export type almacenesCreateWithoutOther_almacenesInput = {
@@ -44668,6 +46748,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
@@ -44692,6 +46773,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -44762,6 +46844,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
@@ -44786,6 +46869,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -44878,6 +46962,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
@@ -44902,6 +46987,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -45016,6 +47102,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
@@ -45040,6 +47127,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -45089,6 +47177,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutListado_items_2025Input
@@ -45113,6 +47202,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
     stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -45183,6 +47273,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUpdateManyWithoutListado_items_2025NestedInput
@@ -45207,6 +47298,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
     stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -45229,6 +47321,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutListado_items_2025Input
@@ -45252,6 +47345,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -45537,6 +47631,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type detalles_orden_servicioCreateWithoutListado_items_2025Input = {
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+    ordenes_compra: ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput
+  }
+
+  export type detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input = {
+    id_detalle?: number
+    id_orden_servicio: number
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input = {
+    where: detalles_orden_servicioWhereUniqueInput
+    create: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input>
+  }
+
+  export type detalles_orden_servicioCreateManyListado_items_2025InputEnvelope = {
+    data: detalles_orden_servicioCreateManyListado_items_2025Input | detalles_orden_servicioCreateManyListado_items_2025Input[]
+    skipDuplicates?: boolean
+  }
+
   export type detalles_recepcion_compraCreateWithoutListado_items_2025Input = {
     cantidad_recibida: number
     cantidad_aceptada?: number | null
@@ -45733,6 +47856,36 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input = {
+    where: detalles_orden_servicioWhereUniqueInput
+    update: XOR<detalles_orden_servicioUpdateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedUpdateWithoutListado_items_2025Input>
+    create: XOR<detalles_orden_servicioCreateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedCreateWithoutListado_items_2025Input>
+  }
+
+  export type detalles_orden_servicioUpdateWithWhereUniqueWithoutListado_items_2025Input = {
+    where: detalles_orden_servicioWhereUniqueInput
+    data: XOR<detalles_orden_servicioUpdateWithoutListado_items_2025Input, detalles_orden_servicioUncheckedUpdateWithoutListado_items_2025Input>
+  }
+
+  export type detalles_orden_servicioUpdateManyWithWhereWithoutListado_items_2025Input = {
+    where: detalles_orden_servicioScalarWhereInput
+    data: XOR<detalles_orden_servicioUpdateManyMutationInput, detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025Input>
+  }
+
+  export type detalles_orden_servicioScalarWhereInput = {
+    AND?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
+    OR?: detalles_orden_servicioScalarWhereInput[]
+    NOT?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
+    id_detalle?: IntFilter<"detalles_orden_servicio"> | number
+    id_orden_servicio?: IntFilter<"detalles_orden_servicio"> | number
+    codigo_item?: StringFilter<"detalles_orden_servicio"> | string
+    descripcion_item?: StringFilter<"detalles_orden_servicio"> | string
+    cantidad_solicitada?: IntFilter<"detalles_orden_servicio"> | number
+    cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
+    precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
   }
 
   export type detalles_recepcion_compraUpsertWithWhereUniqueWithoutListado_items_2025Input = {
@@ -46034,6 +48187,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutListado_items_2025Input
@@ -46058,6 +48212,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
     stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -46245,6 +48400,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUpdateManyWithoutListado_items_2025NestedInput
@@ -46269,6 +48425,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
     stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -47176,32 +49333,66 @@ export namespace Prisma {
   }
 
   export type ordenes_servicioCreateWithoutProveedoresInput = {
-    numero_orden_servicio: string
+    numero_orden: string
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutProveedoresInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
-    id_usuario: number
+    numero_orden: string
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
   export type ordenes_servicioCreateOrConnectWithoutProveedoresInput = {
@@ -47286,18 +49477,34 @@ export namespace Prisma {
     OR?: ordenes_servicioScalarWhereInput[]
     NOT?: ordenes_servicioScalarWhereInput | ordenes_servicioScalarWhereInput[]
     id_orden_servicio?: IntFilter<"ordenes_servicio"> | number
-    numero_orden_servicio?: StringFilter<"ordenes_servicio"> | string
+    numero_orden?: StringFilter<"ordenes_servicio"> | string
     id_proveedor?: IntFilter<"ordenes_servicio"> | number
-    id_usuario?: IntFilter<"ordenes_servicio"> | number
     fecha_orden?: DateTimeFilter<"ordenes_servicio"> | Date | string
     fecha_entrega_prevista?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
-    descripcion_servicio?: StringNullableFilter<"ordenes_servicio"> | string | null
     subtotal?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     igv?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     total?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     estado?: Enumordenes_servicio_estadoNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    observaciones?: StringNullableFilter<"ordenes_servicio"> | string | null
     fecha_registro?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    registrado_por?: IntFilter<"ordenes_servicio"> | number
+    tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
+    procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel2?: StringNullableFilter<"ordenes_servicio"> | string | null
+    centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
+    condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
+    estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -47594,6 +49801,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
@@ -47618,6 +49826,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -47826,6 +50035,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
@@ -47850,6 +50060,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -48066,6 +50277,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
     familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
@@ -48090,6 +50302,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -48170,6 +50383,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
@@ -48194,6 +50408,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -48581,32 +50796,66 @@ export namespace Prisma {
   }
 
   export type ordenes_servicioCreateWithoutUsuariosInput = {
-    numero_orden_servicio: string
+    numero_orden: string
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutUsuariosInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
+    numero_orden: string
     id_proveedor: number
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
   export type ordenes_servicioCreateOrConnectWithoutUsuariosInput = {
@@ -49079,6 +51328,35 @@ export namespace Prisma {
     stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
   }
 
+  export type detalles_orden_servicioCreateWithoutOrdenes_compraInput = {
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+    listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_servicioInput
+  }
+
+  export type detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput = {
+    id_detalle?: number
+    codigo_item: string
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput = {
+    where: detalles_orden_servicioWhereUniqueInput
+    create: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput>
+  }
+
+  export type detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope = {
+    data: detalles_orden_servicioCreateManyOrdenes_compraInput | detalles_orden_servicioCreateManyOrdenes_compraInput[]
+    skipDuplicates?: boolean
+  }
+
   export type proveedoresCreateWithoutOrdenes_servicioInput = {
     codigo_proveedor: string
     nombre_proveedor: string
@@ -49165,6 +51443,22 @@ export namespace Prisma {
   export type usuariosCreateOrConnectWithoutOrdenes_servicioInput = {
     where: usuariosWhereUniqueInput
     create: XOR<usuariosCreateWithoutOrdenes_servicioInput, usuariosUncheckedCreateWithoutOrdenes_servicioInput>
+  }
+
+  export type detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput = {
+    where: detalles_orden_servicioWhereUniqueInput
+    update: XOR<detalles_orden_servicioUpdateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedUpdateWithoutOrdenes_compraInput>
+    create: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput>
+  }
+
+  export type detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput = {
+    where: detalles_orden_servicioWhereUniqueInput
+    data: XOR<detalles_orden_servicioUpdateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedUpdateWithoutOrdenes_compraInput>
+  }
+
+  export type detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput = {
+    where: detalles_orden_servicioScalarWhereInput
+    data: XOR<detalles_orden_servicioUpdateManyMutationInput, detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraInput>
   }
 
   export type proveedoresUpsertWithoutOrdenes_servicioInput = {
@@ -49265,6 +51559,260 @@ export namespace Prisma {
     permisos_reportes?: permisos_reportesUncheckedUpdateManyWithoutUsuariosNestedInput
     solicitudes_salida_solicitudes_salida_solicitante_idTousuarios?: solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_solicitante_idTousuariosNestedInput
     solicitudes_salida_solicitudes_salida_autorizado_porTousuarios?: solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosNestedInput
+  }
+
+  export type ordenes_servicioCreateWithoutDetalles_orden_servicioInput = {
+    numero_orden: string
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_servicio_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+    proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
+    usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
+  }
+
+  export type ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput = {
+    id_orden_servicio?: number
+    numero_orden: string
+    id_proveedor: number
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_servicio_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
+  }
+
+  export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
+    where: ordenes_servicioWhereUniqueInput
+    create: XOR<ordenes_servicioCreateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput>
+  }
+
+  export type listado_items_2025CreateWithoutDetalles_orden_servicioInput = {
+    codigo: string
+    descripcion: string
+    grupo?: string | null
+    u_m?: string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: number | null
+    stock_maximo?: number | null
+    ubicacion?: string | null
+    marca?: string | null
+    modelo?: string | null
+    numero_serie?: string | null
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
+    familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
+    movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
+    solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutListado_items_2025Input
+    stock_almacenes?: stock_almacenesCreateNestedManyWithoutListado_items_2025Input
+  }
+
+  export type listado_items_2025UncheckedCreateWithoutDetalles_orden_servicioInput = {
+    codigo: string
+    descripcion: string
+    id_familia?: number | null
+    grupo?: string | null
+    u_m?: string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: number | null
+    stock_maximo?: number | null
+    ubicacion?: string | null
+    marca?: string | null
+    modelo?: string | null
+    numero_serie?: string | null
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
+    solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
+    stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutListado_items_2025Input
+  }
+
+  export type listado_items_2025CreateOrConnectWithoutDetalles_orden_servicioInput = {
+    where: listado_items_2025WhereUniqueInput
+    create: XOR<listado_items_2025CreateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedCreateWithoutDetalles_orden_servicioInput>
+  }
+
+  export type ordenes_servicioUpsertWithoutDetalles_orden_servicioInput = {
+    update: XOR<ordenes_servicioUpdateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedUpdateWithoutDetalles_orden_servicioInput>
+    create: XOR<ordenes_servicioCreateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput>
+    where?: ordenes_servicioWhereInput
+  }
+
+  export type ordenes_servicioUpdateToOneWithWhereWithoutDetalles_orden_servicioInput = {
+    where?: ordenes_servicioWhereInput
+    data: XOR<ordenes_servicioUpdateWithoutDetalles_orden_servicioInput, ordenes_servicioUncheckedUpdateWithoutDetalles_orden_servicioInput>
+  }
+
+  export type ordenes_servicioUpdateWithoutDetalles_orden_servicioInput = {
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
+    usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
+  }
+
+  export type ordenes_servicioUncheckedUpdateWithoutDetalles_orden_servicioInput = {
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
+    update: XOR<listado_items_2025UpdateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedUpdateWithoutDetalles_orden_servicioInput>
+    create: XOR<listado_items_2025CreateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedCreateWithoutDetalles_orden_servicioInput>
+    where?: listado_items_2025WhereInput
+  }
+
+  export type listado_items_2025UpdateToOneWithWhereWithoutDetalles_orden_servicioInput = {
+    where?: listado_items_2025WhereInput
+    data: XOR<listado_items_2025UpdateWithoutDetalles_orden_servicioInput, listado_items_2025UncheckedUpdateWithoutDetalles_orden_servicioInput>
+  }
+
+  export type listado_items_2025UpdateWithoutDetalles_orden_servicioInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    grupo?: NullableStringFieldUpdateOperationsInput | string | null
+    u_m?: NullableStringFieldUpdateOperationsInput | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: NullableIntFieldUpdateOperationsInput | number | null
+    stock_maximo?: NullableIntFieldUpdateOperationsInput | number | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
+    familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
+    movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
+    solicitudes_salida?: solicitudes_salidaUpdateManyWithoutListado_items_2025NestedInput
+    stock_almacenes?: stock_almacenesUpdateManyWithoutListado_items_2025NestedInput
+  }
+
+  export type listado_items_2025UncheckedUpdateWithoutDetalles_orden_servicioInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    id_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    grupo?: NullableStringFieldUpdateOperationsInput | string | null
+    u_m?: NullableStringFieldUpdateOperationsInput | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: NullableIntFieldUpdateOperationsInput | number | null
+    stock_maximo?: NullableIntFieldUpdateOperationsInput | number | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
   }
 
   export type almacenesCreateManyAlmacenesInput = {
@@ -49818,6 +52366,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUpdateManyWithoutListado_items_2025NestedInput
@@ -49841,6 +52390,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -49878,6 +52428,16 @@ export namespace Prisma {
   export type detalles_orden_compraCreateManyListado_items_2025Input = {
     id_detalle?: number
     id_orden_compra: number
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioCreateManyListado_items_2025Input = {
+    id_detalle?: number
+    id_orden_servicio: number
     descripcion_item: string
     cantidad_solicitada: number
     cantidad_recibida?: number | null
@@ -49984,6 +52544,35 @@ export namespace Prisma {
   export type detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025Input = {
     id_detalle?: IntFieldUpdateOperationsInput | number
     id_orden_compra?: IntFieldUpdateOperationsInput | number
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUpdateWithoutListado_items_2025Input = {
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ordenes_compra?: ordenes_servicioUpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateWithoutListado_items_2025Input = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025Input = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
     descripcion_item?: StringFieldUpdateOperationsInput | string
     cantidad_solicitada?: IntFieldUpdateOperationsInput | number
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
@@ -50335,17 +52924,33 @@ export namespace Prisma {
 
   export type ordenes_servicioCreateManyProveedoresInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
-    id_usuario: number
+    numero_orden: string
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -50445,47 +53050,97 @@ export namespace Prisma {
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutProveedoresInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
-    id_usuario?: IntFieldUpdateOperationsInput | number
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateManyWithoutProveedoresInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
-    id_usuario?: IntFieldUpdateOperationsInput | number
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -50673,17 +53328,33 @@ export namespace Prisma {
 
   export type ordenes_servicioCreateManyUsuariosInput = {
     id_orden_servicio?: number
-    numero_orden_servicio: string
+    numero_orden: string
     id_proveedor: number
     fecha_orden: Date | string
     fecha_entrega_prevista?: Date | string | null
-    descripcion_servicio?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     igv?: Decimal | DecimalJsLike | number | string | null
     total?: Decimal | DecimalJsLike | number | string | null
     estado?: $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: string | null
+    observaciones?: string | null
     fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    auto_administrador?: boolean | null
+    auto_contabilidad?: boolean | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    id_camion?: number | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -51027,47 +53698,97 @@ export namespace Prisma {
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutUsuariosInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     id_proveedor?: IntFieldUpdateOperationsInput | number
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateManyWithoutUsuariosInput = {
     id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden_servicio?: StringFieldUpdateOperationsInput | string
+    numero_orden?: StringFieldUpdateOperationsInput | string
     id_proveedor?: IntFieldUpdateOperationsInput | number
     fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
     fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    descripcion_servicio?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    motivo_cancelacion?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
@@ -51188,6 +53909,45 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type detalles_orden_servicioCreateManyOrdenes_compraInput = {
+    id_detalle?: number
+    codigo_item: string
+    descripcion_item: string
+    cantidad_solicitada: number
+    cantidad_recibida?: number | null
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    subtotal: Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUpdateWithoutOrdenes_compraInput = {
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateWithoutOrdenes_compraInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
 
