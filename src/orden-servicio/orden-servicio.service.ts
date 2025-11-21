@@ -379,7 +379,7 @@ export class OrdenServicioService {
         telefono: proveedor.telefono || '',
       },
       datosOrdenServicio: {
-        direccion: ordenServicio.direccion || '',
+        direccion: proveedor.direccion || '',
         condicion: ordenServicio.condicion || '',
         moneda: ordenServicio.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
@@ -1101,5 +1101,46 @@ export class OrdenServicioService {
     });
 
     return currentY;
+  }
+
+  /**
+   * Elimina una orden de servicio y sus detalles
+   * @param id - ID de la orden de servicio a eliminar
+   */
+  async remove(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Eliminar la orden de servicio y sus detalles en una transacción
+      await this.prismaThird.$transaction(async (tx) => {
+        // Primero eliminar los detalles
+        await tx.detalles_orden_servicio.deleteMany({
+          where: { id_orden_servicio: id },
+        });
+
+        // Luego eliminar la orden
+        await tx.ordenes_servicio.delete({
+          where: { id_orden_servicio: id },
+        });
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al eliminar orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al eliminar orden de servicio: ${error.message}`,
+      );
+    }
   }
 }

@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Body,
   Param,
   Res,
@@ -105,6 +106,21 @@ export class OrdenServicioController {
         message: 'Error generando PDF',
         error: error.message,
       });
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  async remove(@Param('id') id: string) {
+    try {
+      await this.ordenServicioService.remove(+id);
+      return {
+        success: true,
+        message: 'Orden de servicio eliminada exitosamente',
+      };
+    } catch (error) {
+      console.error('Error eliminando orden de servicio:', error);
+      throw error;
     }
   }
 }

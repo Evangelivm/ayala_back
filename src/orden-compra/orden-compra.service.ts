@@ -379,7 +379,7 @@ export class OrdenCompraService {
         telefono: proveedor.telefono || '',
       },
       datosOrdenCompra: {
-        direccion: ordenCompra.direccion || '',
+        direccion: proveedor.direccion || '',
         condicion: ordenCompra.condicion || '',
         moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
@@ -1101,5 +1101,46 @@ export class OrdenCompraService {
     });
 
     return currentY;
+  }
+
+  /**
+   * Elimina una orden de compra y sus detalles
+   * @param id - ID de la orden de compra a eliminar
+   */
+  async remove(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Eliminar la orden de compra y sus detalles en una transacción
+      await this.prismaThird.$transaction(async (tx) => {
+        // Primero eliminar los detalles
+        await tx.detalles_orden_compra.deleteMany({
+          where: { id_orden_compra: id },
+        });
+
+        // Luego eliminar la orden
+        await tx.ordenes_compra.delete({
+          where: { id_orden_compra: id },
+        });
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al eliminar orden de compra:', error);
+      throw new BadRequestException(
+        `Error al eliminar orden de compra: ${error.message}`,
+      );
+    }
   }
 }

@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Body,
   Param,
   Res,
@@ -105,6 +106,21 @@ export class OrdenCompraController {
         message: 'Error generando PDF',
         error: error.message,
       });
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  async remove(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.remove(+id);
+      return {
+        success: true,
+        message: 'Orden de compra eliminada exitosamente',
+      };
+    } catch (error) {
+      console.error('Error eliminando orden de compra:', error);
+      throw error;
     }
   }
 }
