@@ -115,7 +115,11 @@ export class OrdenCompraService {
         },
       });
 
-      return ordenes;
+      // Mapear las órdenes para incluir el nombre_proveedor al mismo nivel
+      return ordenes.map((orden) => ({
+        ...orden,
+        nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+      }));
     } catch (error) {
       console.error('Error obteniendo órdenes de compra:', error);
       throw error;
@@ -241,6 +245,8 @@ export class OrdenCompraService {
             moneda: createOrdenCompraDto.moneda,
             id_camion: createOrdenCompraDto.unidad_id,
             retencion: createOrdenCompraDto.retencion,
+            almacen_central: createOrdenCompraDto.almacen_central,
+            has_anticipo: createOrdenCompraDto.has_anticipo === 1,
           },
         });
 
@@ -373,10 +379,9 @@ export class OrdenCompraService {
         telefono: proveedor.telefono || '',
       },
       datosOrdenCompra: {
-        direccion:
-          'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
-        condicion: 'CONTADO',
-        moneda: 'S/. SOLES',
+        direccion: ordenCompra.direccion || '',
+        condicion: ordenCompra.condicion || '',
+        moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
       },
       observacion: {
@@ -410,6 +415,9 @@ export class OrdenCompraService {
           : 0;
         const netoAPagar = total - retencionMonto;
 
+        // Verificar si hay anticipo basándose en el campo has_anticipo de la orden
+        const tieneAnticipo = ordenCompra.has_anticipo === true;
+
         return {
           subtotal,
           igv,
@@ -418,6 +426,7 @@ export class OrdenCompraService {
           retencionPorcentaje,
           retencionMonto,
           netoAPagar,
+          tieneAnticipo,
         };
       })(),
       firmas: {
@@ -631,17 +640,48 @@ export class OrdenCompraService {
 
         yPos += 50;
 
-        // Retención - Solo mostrar si aplica retención
-        doc.fontSize(9).font('Helvetica-Bold');
-        doc.text('¿Proveedor agente de retención ?', 40, yPos);
+        // Determinar posiciones para los cuadros de RETENCIÓN y ANTICIPO
+        const tieneRetencion = ordenData.totales.proveedorAgenteRetencion;
+        const tieneAnticipo = ordenData.totales.tieneAnticipo;
 
-        this.drawHighlightBox(doc, 220, yPos - 5, 30, 20, '#FFFF00');
-        doc.text(
-          ordenData.totales.proveedorAgenteRetencion ? 'SI' : 'NO',
-          225,
-          yPos,
-          { align: 'center', width: 20 },
-        );
+        // Si hay retención y anticipo, mostrar ambos cuadros lado a lado
+        if (tieneRetencion && tieneAnticipo) {
+          // Cuadro de RETENCIÓN (izquierda)
+          this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
+          doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('RETENCIÓN', 40, yPos + 1, {
+            width: 150,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+
+          // Cuadro de ANTICIPO (al lado de retención)
+          this.drawHighlightBox(doc, 200, yPos - 5, 150, 25, '#FF0000');
+          doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('ANTICIPO', 200, yPos + 1, {
+            width: 150,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+        } else if (tieneRetencion) {
+          // Solo retención
+          this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
+          doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('RETENCIÓN', 40, yPos + 1, {
+            width: 150,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+        } else if (tieneAnticipo) {
+          // Solo anticipo (en la posición donde iría retención)
+          this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
+          doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('ANTICIPO', 40, yPos + 1, {
+            width: 150,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+        }
 
         // Solo mostrar campos de retención si proveedorAgenteRetencion es true
         if (ordenData.totales.proveedorAgenteRetencion) {

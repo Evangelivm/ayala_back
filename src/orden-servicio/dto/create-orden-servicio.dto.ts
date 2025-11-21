@@ -32,8 +32,10 @@ export const CreateOrdenServicioSchema = z.object({
   centro_costo_nivel1: z.string().optional(),
   centro_costo_nivel2: z.string().optional(),
   centro_costo_nivel3: z.string().optional(),
-  unidad_id: z.number().int().positive().optional(),
+  unidad_id: z.number().int().positive().optional().nullable(),
   retencion: z.string().optional(),
+  almacen_central: z.string().optional(),
+  has_anticipo: z.number().int().min(0).max(1).optional(),
   items: z
     .array(CreateDetalleOrdenServicioSchema)
     .min(1, 'Debe incluir al menos un item'),

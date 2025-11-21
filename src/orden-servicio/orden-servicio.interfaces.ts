@@ -46,6 +46,7 @@ export interface Totales {
   retencionPorcentaje: number;
   retencionMonto: number;
   netoAPagar: number;
+  tieneAnticipo?: boolean;
 }
 
 export interface Firmas {
