@@ -16,6 +16,7 @@ export interface DatosOrdenCompra {
   condicion: string;
   moneda: string;
   tipoCambio?: number;
+  almacenCentral?: boolean;
 }
 
 export interface Observacion {
@@ -53,6 +54,7 @@ export interface Firmas {
   generaOrden: string;
   jefeAdministrativo: string;
   gerencia: string;
+  jefeProyectos: string;
 }
 
 export interface OrdenCompraData {

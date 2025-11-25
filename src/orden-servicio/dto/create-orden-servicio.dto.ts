@@ -36,6 +36,7 @@ export const CreateOrdenServicioSchema = z.object({
   retencion: z.string().optional(),
   almacen_central: z.string().optional(),
   has_anticipo: z.number().int().min(0).max(1).optional(),
+  tiene_anticipo: z.string().optional(),
   items: z
     .array(CreateDetalleOrdenServicioSchema)
     .min(1, 'Debe incluir al menos un item'),

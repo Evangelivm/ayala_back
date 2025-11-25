@@ -247,6 +247,7 @@ export class OrdenCompraService {
             retencion: createOrdenCompraDto.retencion,
             almacen_central: createOrdenCompraDto.almacen_central,
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
+            tiene_anticipo: createOrdenCompraDto.tiene_anticipo,
           },
         });
 
@@ -366,10 +367,15 @@ export class OrdenCompraService {
     }
 
     const proveedor = ordenCompra.proveedores;
+
+    // Formatear fecha_orden a DD/MM/YYYY
+    const fechaOrden = ordenCompra.fecha_orden;
+    const fechaEmisionFormateada = `${String(fechaOrden.getDate()).padStart(2, '0')}/${String(fechaOrden.getMonth() + 1).padStart(2, '0')}/${fechaOrden.getFullYear()}`;
+
     return {
       header: {
         og: ordenCompra.numero_orden,
-        fechaEmision: '08/11/2025',
+        fechaEmision: fechaEmisionFormateada,
         ruc: '20602739061',
       },
       datosProveedor: {
@@ -379,10 +385,11 @@ export class OrdenCompraService {
         telefono: proveedor.telefono || '',
       },
       datosOrdenCompra: {
-        direccion: proveedor.direccion || '',
-        condicion: ordenCompra.condicion || '',
+        direccion: 'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
+        condicion: 'CREDITO',
         moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
+        almacenCentral: ordenCompra.almacen_central?.toUpperCase() === 'SI',
       },
       observacion: {
         nivel1: nivel1Descripcion,
@@ -433,6 +440,7 @@ export class OrdenCompraService {
         generaOrden: 'VLADIMIR',
         jefeAdministrativo: '',
         gerencia: '',
+        jefeProyectos: '',
       },
     };
   }
@@ -557,7 +565,21 @@ export class OrdenCompraService {
             );
         }
 
-        yPos += 60;
+        yPos += 50;
+
+        // Mostrar cuadro rojo ALMACEN CENTRAL si almacen_central es 'SI'
+        if (ordenData.datosOrdenCompra.almacenCentral) {
+          this.drawHighlightBox(doc, 40, yPos, 180, 25, '#FF0000');
+          doc.fontSize(12).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('ALMACEN CENTRAL', 40, yPos + 6, {
+            width: 180,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+          yPos += 35;
+        } else {
+          yPos += 10;
+        }
 
         // ==================== OBSERVACIÓN ====================
         this.drawSectionHeader(doc, 40, yPos, 'OBSERVACIÓN', 515);
@@ -730,51 +752,76 @@ export class OrdenCompraService {
         yPos += 40; // Espacio adicional antes de las firmas
 
         // ==================== FIRMAS ====================
-        const firmaWidth = 150;
-        let firmaLineY = yPos;
+        // 4 firmas en una sola fila
         const pageWidth = 515; // Ancho total del contenido
-        const leftX = 40;
-        const centerX = 40 + (pageWidth - firmaWidth) / 2;
-        const rightX = 40 + pageWidth - firmaWidth;
+        const firmaWidth = 110; // Ancho de cada firma
+        const spacingBetween = 15; // Espacio entre firmas
+        const totalFirmasWidth = (firmaWidth * 4) + (spacingBetween * 3);
+        const startX = 40 + (pageWidth - totalFirmasWidth) / 2; // Centrar las 4 firmas
+
+        const firmaLineY = yPos;
 
         doc.fontSize(8).font('Helvetica');
 
-        // Primera fila de firmas
-        // Genera orden (izquierda)
-        doc.moveTo(leftX, firmaLineY).lineTo(leftX + firmaWidth, firmaLineY).stroke();
-        doc.text('Genera orden', leftX, firmaLineY + 10, {
+        // Firma 1: Genera orden
+        const firma1X = startX;
+        doc.moveTo(firma1X, firmaLineY).lineTo(firma1X + firmaWidth, firmaLineY).stroke();
+        doc.text('Genera orden', firma1X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
-        doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, leftX, firmaLineY + 25, {
-          width: firmaWidth,
-          align: 'center',
-        });
+        if (ordenData.firmas.generaOrden) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Jefe Administrativo (centro)
-        doc.font('Helvetica');
-        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
-        doc.text('Jefe Administrativo', centerX, firmaLineY + 10, {
+        // Firma 2: Jefe Administrativo
+        const firma2X = firma1X + firmaWidth + spacingBetween;
+        doc.moveTo(firma2X, firmaLineY).lineTo(firma2X + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe Administrativo', firma2X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.jefeAdministrativo) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeAdministrativo, firma2X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Gerencia (derecha)
-        doc.moveTo(rightX, firmaLineY).lineTo(rightX + firmaWidth, firmaLineY).stroke();
-        doc.text('Gerencia', rightX, firmaLineY + 10, {
+        // Firma 3: Gerencia
+        const firma3X = firma2X + firmaWidth + spacingBetween;
+        doc.moveTo(firma3X, firmaLineY).lineTo(firma3X + firmaWidth, firmaLineY).stroke();
+        doc.text('Gerencia', firma3X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.gerencia) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Segunda fila de firmas
-        firmaLineY += 80;
-
-        // Jefe de Proyectos (centro)
-        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
-        doc.text('Jefe de Proyectos', centerX, firmaLineY + 10, {
+        // Firma 4: Jefe de Proyectos
+        const firma4X = firma3X + firmaWidth + spacingBetween;
+        doc.moveTo(firma4X, firmaLineY).lineTo(firma4X + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe de Proyectos', firma4X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.jefeProyectos) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
         doc.end();
       } catch (error) {
@@ -1140,6 +1187,108 @@ export class OrdenCompraService {
       console.error('Error al eliminar orden de compra:', error);
       throw new BadRequestException(
         `Error al eliminar orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Aprueba una orden de compra para contabilidad
+   * @param id - ID de la orden de compra a aprobar
+   */
+  async aprobarContabilidad(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo auto_contabilidad a 1
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { auto_contabilidad: true },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al aprobar orden de compra para contabilidad:', error);
+      throw new BadRequestException(
+        `Error al aprobar orden de compra para contabilidad: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Aprueba una orden de compra para administración
+   * @param id - ID de la orden de compra a aprobar
+   */
+  async aprobarAdministrador(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { procede_pago: 'TRANSFERIR' },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al aprobar orden de compra para administración:', error);
+      throw new BadRequestException(
+        `Error al aprobar orden de compra para administración: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Marca una orden de compra como pagada
+   * @param id - ID de la orden de compra a pagar
+   */
+  async pagarOrden(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'PAGAR'
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { procede_pago: 'PAGAR' },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al pagar orden de compra:', error);
+      throw new BadRequestException(
+        `Error al pagar orden de compra: ${error.message}`,
       );
     }
   }

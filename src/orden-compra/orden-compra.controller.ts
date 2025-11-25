@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Delete,
+  Patch,
   Body,
   Param,
   Res,
@@ -120,6 +121,51 @@ export class OrdenCompraController {
       };
     } catch (error) {
       console.error('Error eliminando orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/aprobar-contabilidad')
+  @HttpCode(HttpStatus.OK)
+  async aprobarContabilidad(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.aprobarContabilidad(+id);
+      return {
+        success: true,
+        message: 'Orden de compra aprobada para contabilidad exitosamente',
+      };
+    } catch (error) {
+      console.error('Error aprobando orden de compra para contabilidad:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/aprobar-administrador')
+  @HttpCode(HttpStatus.OK)
+  async aprobarAdministrador(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.aprobarAdministrador(+id);
+      return {
+        success: true,
+        message: 'Orden de compra aprobada para administración exitosamente',
+      };
+    } catch (error) {
+      console.error('Error aprobando orden de compra para administración:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/pagar')
+  @HttpCode(HttpStatus.OK)
+  async pagarOrden(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.pagarOrden(+id);
+      return {
+        success: true,
+        message: 'Orden de compra pagada exitosamente',
+      };
+    } catch (error) {
+      console.error('Error al pagar orden de compra:', error);
       throw error;
     }
   }

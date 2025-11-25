@@ -247,6 +247,7 @@ export class OrdenServicioService {
             retencion: createOrdenServicioDto.retencion,
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
+            tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
           },
         });
 
@@ -1140,6 +1141,108 @@ export class OrdenServicioService {
       console.error('Error al eliminar orden de servicio:', error);
       throw new BadRequestException(
         `Error al eliminar orden de servicio: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Aprueba una orden de servicio para contabilidad
+   * @param id - ID de la orden de servicio a aprobar
+   */
+  async aprobarContabilidad(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo auto_contabilidad a 1
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { auto_contabilidad: true },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al aprobar orden de servicio para contabilidad:', error);
+      throw new BadRequestException(
+        `Error al aprobar orden de servicio para contabilidad: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Aprueba una orden de servicio para administración
+   * @param id - ID de la orden de servicio a aprobar
+   */
+  async aprobarAdministrador(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { procede_pago: 'TRANSFERIR' },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al aprobar orden de servicio para administración:', error);
+      throw new BadRequestException(
+        `Error al aprobar orden de servicio para administración: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Marca una orden de servicio como pagada
+   * @param id - ID de la orden de servicio a pagar
+   */
+  async pagarOrden(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'PAGAR'
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { procede_pago: 'PAGAR' },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al pagar orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al pagar orden de servicio: ${error.message}`,
       );
     }
   }
