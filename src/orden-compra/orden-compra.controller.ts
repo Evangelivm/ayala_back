@@ -155,6 +155,21 @@ export class OrdenCompraController {
     }
   }
 
+  @Patch(':id/transferir')
+  @HttpCode(HttpStatus.OK)
+  async transferirOrden(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.transferirOrden(+id);
+      return {
+        success: true,
+        message: 'Orden de compra transferida exitosamente',
+      };
+    } catch (error) {
+      console.error('Error al transferir orden de compra:', error);
+      throw error;
+    }
+  }
+
   @Patch(':id/pagar')
   @HttpCode(HttpStatus.OK)
   async pagarOrden(@Param('id') id: string) {

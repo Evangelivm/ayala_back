@@ -34,6 +34,7 @@ import { CentrosCostoModule } from './centros-costo/centros-costo.module';
 import { CentroproyectoModule } from './centroproyecto/centroproyecto.module';
 import { FasecontrolModule } from './fasecontrol/fasecontrol.module';
 import { RubroModule } from './rubro/rubro.module';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { RubroModule } from './rubro/rubro.module';
     }),
     ScheduleModule.forRoot(),
     PrismaModule,
+    WebsocketModule,
     PersonalModule,
     ProyectosModule,
     MaquinariaModule,

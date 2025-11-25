@@ -155,6 +155,21 @@ export class OrdenServicioController {
     }
   }
 
+  @Patch(':id/transferir')
+  @HttpCode(HttpStatus.OK)
+  async transferirOrden(@Param('id') id: string) {
+    try {
+      await this.ordenServicioService.transferirOrden(+id);
+      return {
+        success: true,
+        message: 'Orden de servicio transferida exitosamente',
+      };
+    } catch (error) {
+      console.error('Error al transferir orden de servicio:', error);
+      throw error;
+    }
+  }
+
   @Patch(':id/pagar')
   @HttpCode(HttpStatus.OK)
   async pagarOrden(@Param('id') id: string) {

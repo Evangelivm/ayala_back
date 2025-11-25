@@ -5,12 +5,14 @@ import { OrdenCompraData, DetalleItem } from './orden-compra.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrdenCompraDto } from './dto/create-orden-compra.dto';
+import { WebsocketGateway } from '../websocket/websocket.gateway';
 
 @Injectable()
 export class OrdenCompraService {
   constructor(
     private readonly prismaThird: PrismaThirdService,
     private readonly prisma: PrismaService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {}
 
   /**
@@ -272,6 +274,9 @@ export class OrdenCompraService {
           detalles: detallesCreados,
         };
       });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
 
       return {
         success: true,
@@ -1213,6 +1218,12 @@ export class OrdenCompraService {
         where: { id_orden_compra: id },
         data: { auto_contabilidad: true },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1222,6 +1233,40 @@ export class OrdenCompraService {
       throw new BadRequestException(
         `Error al aprobar orden de compra para contabilidad: ${error.message}`,
       );
+    }
+  }
+
+  /**
+   * Verifica si una orden de compra debe cambiar su estado a COMPLETADA
+   * Se cambia a COMPLETADA cuando:
+   * - auto_administrador = true
+   * - auto_contabilidad = true
+   * - procede_pago = 'TRANSFERIR'
+   * @param id - ID de la orden de compra a verificar
+   */
+  private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
+    try {
+      const orden = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!orden) {
+        return;
+      }
+
+      // Verificar si cumple todas las condiciones para estar COMPLETADA
+      if (
+        orden.auto_administrador === true &&
+        orden.auto_contabilidad === true &&
+        orden.procede_pago === 'TRANSFERIR'
+      ) {
+        await this.prismaThird.ordenes_compra.update({
+          where: { id_orden_compra: id },
+          data: { estado: 'COMPLETADA' },
+        });
+      }
+    } catch (error) {
+      console.error('Error al verificar y actualizar estado a COMPLETADA:', error);
     }
   }
 
@@ -1242,11 +1287,19 @@ export class OrdenCompraService {
         );
       }
 
-      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      // Actualizar el campo auto_administrador a 1 (true)
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
-        data: { procede_pago: 'TRANSFERIR' },
+        data: {
+          auto_administrador: true
+        },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1255,6 +1308,46 @@ export class OrdenCompraService {
       console.error('Error al aprobar orden de compra para administración:', error);
       throw new BadRequestException(
         `Error al aprobar orden de compra para administración: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Marca una orden de compra como transferida (Gerencia)
+   * @param id - ID de la orden de compra a transferir
+   */
+  async transferirOrden(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { procede_pago: 'TRANSFERIR' },
+      });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al transferir orden de compra:', error);
+      throw new BadRequestException(
+        `Error al transferir orden de compra: ${error.message}`,
       );
     }
   }
@@ -1281,6 +1374,9 @@ export class OrdenCompraService {
         where: { id_orden_compra: id },
         data: { procede_pago: 'PAGAR' },
       });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

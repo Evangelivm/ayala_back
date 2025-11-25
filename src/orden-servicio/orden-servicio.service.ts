@@ -5,12 +5,14 @@ import { OrdenServicioData, DetalleItem } from './orden-servicio.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
+import { WebsocketGateway } from '../websocket/websocket.gateway';
 
 @Injectable()
 export class OrdenServicioService {
   constructor(
     private readonly prismaThird: PrismaThirdService,
     private readonly prisma: PrismaService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {}
 
   /**
@@ -272,6 +274,9 @@ export class OrdenServicioService {
           detalles: detallesCreados,
         };
       });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
 
       return {
         success: true,
@@ -1146,6 +1151,40 @@ export class OrdenServicioService {
   }
 
   /**
+   * Verifica si una orden de servicio debe cambiar su estado a COMPLETADA
+   * Se cambia a COMPLETADA cuando:
+   * - auto_administrador = true
+   * - auto_contabilidad = true
+   * - procede_pago = 'TRANSFERIR'
+   * @param id - ID de la orden de servicio a verificar
+   */
+  private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
+    try {
+      const orden = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!orden) {
+        return;
+      }
+
+      // Verificar si cumple todas las condiciones para estar COMPLETADA
+      if (
+        orden.auto_administrador === true &&
+        orden.auto_contabilidad === true &&
+        orden.procede_pago === 'TRANSFERIR'
+      ) {
+        await this.prismaThird.ordenes_servicio.update({
+          where: { id_orden_servicio: id },
+          data: { estado: 'COMPLETADA' },
+        });
+      }
+    } catch (error) {
+      console.error('Error al verificar y actualizar estado a COMPLETADA:', error);
+    }
+  }
+
+  /**
    * Aprueba una orden de servicio para contabilidad
    * @param id - ID de la orden de servicio a aprobar
    */
@@ -1167,6 +1206,12 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { auto_contabilidad: true },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1196,11 +1241,19 @@ export class OrdenServicioService {
         );
       }
 
-      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      // Actualizar el campo auto_administrador a 1 (true)
       await this.prismaThird.ordenes_servicio.update({
         where: { id_orden_servicio: id },
-        data: { procede_pago: 'TRANSFERIR' },
+        data: {
+          auto_administrador: true
+        },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1209,6 +1262,46 @@ export class OrdenServicioService {
       console.error('Error al aprobar orden de servicio para administración:', error);
       throw new BadRequestException(
         `Error al aprobar orden de servicio para administración: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Marca una orden de servicio como transferida (Gerencia)
+   * @param id - ID de la orden de servicio a transferir
+   */
+  async transferirOrden(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { procede_pago: 'TRANSFERIR' },
+      });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al transferir orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al transferir orden de servicio: ${error.message}`,
       );
     }
   }
@@ -1235,6 +1328,9 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { procede_pago: 'PAGAR' },
       });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
