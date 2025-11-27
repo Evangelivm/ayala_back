@@ -287,6 +287,7 @@ model ordenes_compra {
   centro_costo_nivel3    String?                      @db.VarChar(255)
   condicion              String?                      @db.VarChar(255)
   moneda                 String?                      @db.VarChar(255)
+  tipo_cambio            Decimal?                     @default(0.00) @db.Decimal(10, 2)
   hora_firma             DateTime?                    @db.DateTime(0)
   usuario_firma          Int?
   estado_firma           ordenes_compra_estado_firma? @default(PENDIENTE)
@@ -475,6 +476,7 @@ model ordenes_servicio {
   centro_costo_nivel3     String?                        @db.VarChar(255)
   condicion               String?                        @db.VarChar(255)
   moneda                  String?                        @db.VarChar(255)
+  tipo_cambio             Decimal?                       @default(0.00) @db.Decimal(10, 2)
   hora_firma              DateTime?                      @db.DateTime(0)
   usuario_firma           Int?
   estado_firma            ordenes_servicio_estado_firma? @default(PENDIENTE)

@@ -20094,6 +20094,7 @@ export namespace Prisma {
     igv: Decimal | null
     total: Decimal | null
     registrado_por: number | null
+    tipo_cambio: Decimal | null
     usuario_firma: number | null
     id_camion: number | null
   }
@@ -20105,6 +20106,7 @@ export namespace Prisma {
     igv: Decimal | null
     total: Decimal | null
     registrado_por: number | null
+    tipo_cambio: Decimal | null
     usuario_firma: number | null
     id_camion: number | null
   }
@@ -20133,6 +20135,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
@@ -20167,6 +20170,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
@@ -20201,6 +20205,7 @@ export namespace Prisma {
     centro_costo_nivel3: number
     condicion: number
     moneda: number
+    tipo_cambio: number
     hora_firma: number
     usuario_firma: number
     estado_firma: number
@@ -20220,6 +20225,7 @@ export namespace Prisma {
     igv?: true
     total?: true
     registrado_por?: true
+    tipo_cambio?: true
     usuario_firma?: true
     id_camion?: true
   }
@@ -20231,6 +20237,7 @@ export namespace Prisma {
     igv?: true
     total?: true
     registrado_por?: true
+    tipo_cambio?: true
     usuario_firma?: true
     id_camion?: true
   }
@@ -20259,6 +20266,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -20293,6 +20301,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -20327,6 +20336,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -20448,6 +20458,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_compra_estado_firma | null
@@ -20501,6 +20512,7 @@ export namespace Prisma {
     centro_costo_nivel3?: boolean
     condicion?: boolean
     moneda?: boolean
+    tipo_cambio?: boolean
     hora_firma?: boolean
     usuario_firma?: boolean
     estado_firma?: boolean
@@ -20542,6 +20554,7 @@ export namespace Prisma {
     centro_costo_nivel3?: boolean
     condicion?: boolean
     moneda?: boolean
+    tipo_cambio?: boolean
     hora_firma?: boolean
     usuario_firma?: boolean
     estado_firma?: boolean
@@ -20552,7 +20565,7 @@ export namespace Prisma {
     url?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20593,6 +20606,7 @@ export namespace Prisma {
       centro_costo_nivel3: string | null
       condicion: string | null
       moneda: string | null
+      tipo_cambio: Prisma.Decimal | null
       hora_firma: Date | null
       usuario_firma: number | null
       estado_firma: $Enums.ordenes_compra_estado_firma | null
@@ -20997,6 +21011,7 @@ export namespace Prisma {
     readonly centro_costo_nivel3: FieldRef<"ordenes_compra", 'String'>
     readonly condicion: FieldRef<"ordenes_compra", 'String'>
     readonly moneda: FieldRef<"ordenes_compra", 'String'>
+    readonly tipo_cambio: FieldRef<"ordenes_compra", 'Decimal'>
     readonly hora_firma: FieldRef<"ordenes_compra", 'DateTime'>
     readonly usuario_firma: FieldRef<"ordenes_compra", 'Int'>
     readonly estado_firma: FieldRef<"ordenes_compra", 'ordenes_compra_estado_firma'>
@@ -30030,6 +30045,7 @@ export namespace Prisma {
     igv: Decimal | null
     total: Decimal | null
     registrado_por: number | null
+    tipo_cambio: Decimal | null
     usuario_firma: number | null
     id_camion: number | null
   }
@@ -30041,6 +30057,7 @@ export namespace Prisma {
     igv: Decimal | null
     total: Decimal | null
     registrado_por: number | null
+    tipo_cambio: Decimal | null
     usuario_firma: number | null
     id_camion: number | null
   }
@@ -30069,6 +30086,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
@@ -30103,6 +30121,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
@@ -30137,6 +30156,7 @@ export namespace Prisma {
     centro_costo_nivel3: number
     condicion: number
     moneda: number
+    tipo_cambio: number
     hora_firma: number
     usuario_firma: number
     estado_firma: number
@@ -30156,6 +30176,7 @@ export namespace Prisma {
     igv?: true
     total?: true
     registrado_por?: true
+    tipo_cambio?: true
     usuario_firma?: true
     id_camion?: true
   }
@@ -30167,6 +30188,7 @@ export namespace Prisma {
     igv?: true
     total?: true
     registrado_por?: true
+    tipo_cambio?: true
     usuario_firma?: true
     id_camion?: true
   }
@@ -30195,6 +30217,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -30229,6 +30252,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -30263,6 +30287,7 @@ export namespace Prisma {
     centro_costo_nivel3?: true
     condicion?: true
     moneda?: true
+    tipo_cambio?: true
     hora_firma?: true
     usuario_firma?: true
     estado_firma?: true
@@ -30384,6 +30409,7 @@ export namespace Prisma {
     centro_costo_nivel3: string | null
     condicion: string | null
     moneda: string | null
+    tipo_cambio: Decimal | null
     hora_firma: Date | null
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
@@ -30437,6 +30463,7 @@ export namespace Prisma {
     centro_costo_nivel3?: boolean
     condicion?: boolean
     moneda?: boolean
+    tipo_cambio?: boolean
     hora_firma?: boolean
     usuario_firma?: boolean
     estado_firma?: boolean
@@ -30477,6 +30504,7 @@ export namespace Prisma {
     centro_costo_nivel3?: boolean
     condicion?: boolean
     moneda?: boolean
+    tipo_cambio?: boolean
     hora_firma?: boolean
     usuario_firma?: boolean
     estado_firma?: boolean
@@ -30487,7 +30515,7 @@ export namespace Prisma {
     url?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30526,6 +30554,7 @@ export namespace Prisma {
       centro_costo_nivel3: string | null
       condicion: string | null
       moneda: string | null
+      tipo_cambio: Prisma.Decimal | null
       hora_firma: Date | null
       usuario_firma: number | null
       estado_firma: $Enums.ordenes_servicio_estado_firma | null
@@ -30929,6 +30958,7 @@ export namespace Prisma {
     readonly centro_costo_nivel3: FieldRef<"ordenes_servicio", 'String'>
     readonly condicion: FieldRef<"ordenes_servicio", 'String'>
     readonly moneda: FieldRef<"ordenes_servicio", 'String'>
+    readonly tipo_cambio: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly hora_firma: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly usuario_firma: FieldRef<"ordenes_servicio", 'Int'>
     readonly estado_firma: FieldRef<"ordenes_servicio", 'ordenes_servicio_estado_firma'>
@@ -36210,6 +36240,7 @@ export namespace Prisma {
     centro_costo_nivel3: 'centro_costo_nivel3',
     condicion: 'condicion',
     moneda: 'moneda',
+    tipo_cambio: 'tipo_cambio',
     hora_firma: 'hora_firma',
     usuario_firma: 'usuario_firma',
     estado_firma: 'estado_firma',
@@ -36363,6 +36394,7 @@ export namespace Prisma {
     centro_costo_nivel3: 'centro_costo_nivel3',
     condicion: 'condicion',
     moneda: 'moneda',
+    tipo_cambio: 'tipo_cambio',
     hora_firma: 'hora_firma',
     usuario_firma: 'usuario_firma',
     estado_firma: 'estado_firma',
@@ -38175,6 +38207,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_compra"> | string | null
     condicion?: StringNullableFilter<"ordenes_compra"> | string | null
     moneda?: StringNullableFilter<"ordenes_compra"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
@@ -38213,6 +38246,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrderInput | SortOrder
     condicion?: SortOrderInput | SortOrder
     moneda?: SortOrderInput | SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
     hora_firma?: SortOrderInput | SortOrder
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
@@ -38255,6 +38289,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_compra"> | string | null
     condicion?: StringNullableFilter<"ordenes_compra"> | string | null
     moneda?: StringNullableFilter<"ordenes_compra"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
@@ -38293,6 +38328,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrderInput | SortOrder
     condicion?: SortOrderInput | SortOrder
     moneda?: SortOrderInput | SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
     hora_firma?: SortOrderInput | SortOrder
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
@@ -38335,6 +38371,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     condicion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     moneda?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    tipo_cambio?: DecimalNullableWithAggregatesFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     usuario_firma?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableWithAggregatesFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
@@ -39040,6 +39077,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
     condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
     moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
@@ -39077,6 +39115,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrderInput | SortOrder
     condicion?: SortOrderInput | SortOrder
     moneda?: SortOrderInput | SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
     hora_firma?: SortOrderInput | SortOrder
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
@@ -39118,6 +39157,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
     condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
     moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
@@ -39155,6 +39195,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrderInput | SortOrder
     condicion?: SortOrderInput | SortOrder
     moneda?: SortOrderInput | SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
     hora_firma?: SortOrderInput | SortOrder
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
@@ -39197,6 +39238,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     condicion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     moneda?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    tipo_cambio?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     usuario_firma?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableWithAggregatesFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
@@ -40722,6 +40764,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -40760,6 +40803,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -40793,6 +40837,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -40831,6 +40876,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -40867,6 +40913,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -40898,6 +40945,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -40932,6 +40980,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -41634,6 +41683,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -41671,6 +41721,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -41703,6 +41754,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -41740,6 +41792,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -41775,6 +41828,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -41806,6 +41860,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -41840,6 +41895,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -43664,6 +43720,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -43681,6 +43738,7 @@ export namespace Prisma {
     igv?: SortOrder
     total?: SortOrder
     registrado_por?: SortOrder
+    tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     id_camion?: SortOrder
   }
@@ -43709,6 +43767,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -43743,6 +43802,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -43760,6 +43820,7 @@ export namespace Prisma {
     igv?: SortOrder
     total?: SortOrder
     registrado_por?: SortOrder
+    tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     id_camion?: SortOrder
   }
@@ -44432,6 +44493,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -44449,6 +44511,7 @@ export namespace Prisma {
     igv?: SortOrder
     total?: SortOrder
     registrado_por?: SortOrder
+    tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     id_camion?: SortOrder
   }
@@ -44477,6 +44540,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -44511,6 +44575,7 @@ export namespace Prisma {
     centro_costo_nivel3?: SortOrder
     condicion?: SortOrder
     moneda?: SortOrder
+    tipo_cambio?: SortOrder
     hora_firma?: SortOrder
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
@@ -44528,6 +44593,7 @@ export namespace Prisma {
     igv?: SortOrder
     total?: SortOrder
     registrado_por?: SortOrder
+    tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     id_camion?: SortOrder
   }
@@ -49186,6 +49252,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -49223,6 +49290,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -49324,6 +49392,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -49361,6 +49430,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -51575,6 +51645,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -51611,6 +51682,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -51654,6 +51726,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -51689,6 +51762,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -51753,6 +51827,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_compra"> | string | null
     condicion?: StringNullableFilter<"ordenes_compra"> | string | null
     moneda?: StringNullableFilter<"ordenes_compra"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_compra"> | number | null
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
@@ -51806,6 +51881,7 @@ export namespace Prisma {
     centro_costo_nivel3?: StringNullableFilter<"ordenes_servicio"> | string | null
     condicion?: StringNullableFilter<"ordenes_servicio"> | string | null
     moneda?: StringNullableFilter<"ordenes_servicio"> | string | null
+    tipo_cambio?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     hora_firma?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
@@ -51862,6 +51938,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -51899,6 +51976,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -52005,6 +52083,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -52042,6 +52121,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -53058,6 +53138,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -53094,6 +53175,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -53137,6 +53219,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -53172,6 +53255,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -53907,6 +53991,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -53943,6 +54028,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -54043,6 +54129,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -54079,6 +54166,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -55247,6 +55335,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -55280,6 +55369,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -55311,6 +55401,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -55347,6 +55438,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -55382,6 +55474,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -55413,6 +55506,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -55448,6 +55542,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -55482,6 +55577,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -55667,6 +55763,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
@@ -55700,6 +55797,7 @@ export namespace Prisma {
     centro_costo_nivel3?: string | null
     condicion?: string | null
     moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
     hora_firma?: Date | string | null
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
@@ -55975,6 +56073,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -56011,6 +56110,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -56046,6 +56146,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
@@ -56077,6 +56178,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -56112,6 +56214,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
@@ -56146,6 +56249,7 @@ export namespace Prisma {
     centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
     condicion?: NullableStringFieldUpdateOperationsInput | string | null
     moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null

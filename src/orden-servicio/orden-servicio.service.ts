@@ -226,6 +226,9 @@ export class OrdenServicioService {
         }
       }
 
+      // Obtener el tipo de cambio antes de crear la orden
+      const tipoCambio = await this.obtenerTipoCambioSunat();
+
       // Crear la orden de servicio con sus detalles en una transacción
       const ordenServicio = await this.prismaThird.$transaction(async (tx) => {
         // Crear la orden de servicio
@@ -250,6 +253,7 @@ export class OrdenServicioService {
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
+            tipo_cambio: tipoCambio,
           },
         });
 
@@ -313,8 +317,8 @@ export class OrdenServicioService {
       throw new Error(`Orden de servicio con ID ${id} no encontrada`);
     }
 
-    // Obtener el tipo de cambio de SUNAT
-    const tipoCambio = await this.obtenerTipoCambioSunat();
+    // Usar el tipo de cambio guardado en la orden
+    const tipoCambio = ordenServicio.tipo_cambio ? parseFloat(ordenServicio.tipo_cambio.toString()) : 0;
 
     // Obtener las descripciones de los centros de costo
     let nivel1Descripcion = ordenServicio.centro_costo_nivel1 || '';
@@ -545,6 +549,17 @@ export class OrdenServicioService {
 
         doc.text('MONEDA:', 40, yPos + 30);
         doc.text(ordenData.datosOrdenServicio.moneda, 100, yPos + 30);
+
+        // Si la moneda es DOLARES, mostrar cuadro rojo debajo
+        if (ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR')) {
+          this.drawHighlightBox(doc, 100, yPos + 40, 60, 15, '#FF0000');
+          doc.fontSize(9).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('DOLARES', 100, yPos + 43, {
+            width: 60,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+        }
 
         // Mostrar tipo de cambio en amarillo solo si la moneda es DOLARES
         if (ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR') && ordenData.datosOrdenServicio.tipoCambio) {
