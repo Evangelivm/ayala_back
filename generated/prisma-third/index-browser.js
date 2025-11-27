@@ -323,7 +323,8 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
   id_camion: 'id_camion',
-  almacen_central: 'almacen_central'
+  almacen_central: 'almacen_central',
+  url: 'url'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -448,7 +449,8 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
   id_camion: 'id_camion',
-  almacen_central: 'almacen_central'
+  almacen_central: 'almacen_central',
+  url: 'url'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -476,6 +478,17 @@ exports.Prisma.Detalles_orden_servicioScalarFieldEnum = {
   cantidad_recibida: 'cantidad_recibida',
   precio_unitario: 'precio_unitario',
   subtotal: 'subtotal'
+};
+
+exports.Prisma.Email_notificationsScalarFieldEnum = {
+  id: 'id',
+  last_check: 'last_check',
+  created_at: 'created_at'
+};
+
+exports.Prisma.DROPBOXScalarFieldEnum = {
+  id: 'id',
+  archivo: 'archivo'
 };
 
 exports.Prisma.SortOrder = {
@@ -603,7 +616,8 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   moneda: 'moneda',
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
-  almacen_central: 'almacen_central'
+  almacen_central: 'almacen_central',
+  url: 'url'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
@@ -661,7 +675,8 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   moneda: 'moneda',
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
-  almacen_central: 'almacen_central'
+  almacen_central: 'almacen_central',
+  url: 'url'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
@@ -673,6 +688,10 @@ exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
 exports.Prisma.detalles_orden_servicioOrderByRelevanceFieldEnum = {
   codigo_item: 'codigo_item',
   descripcion_item: 'descripcion_item'
+};
+
+exports.Prisma.DROPBOXOrderByRelevanceFieldEnum = {
+  archivo: 'archivo'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -836,7 +855,9 @@ exports.Prisma.ModelName = {
   ordenes_servicio: 'ordenes_servicio',
   tipo_cambio: 'tipo_cambio',
   usuarios_consulta: 'usuarios_consulta',
-  detalles_orden_servicio: 'detalles_orden_servicio'
+  detalles_orden_servicio: 'detalles_orden_servicio',
+  email_notifications: 'email_notifications',
+  DROPBOX: 'DROPBOX'
 };
 
 /**

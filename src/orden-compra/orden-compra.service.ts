@@ -1388,4 +1388,72 @@ export class OrdenCompraService {
       );
     }
   }
+
+  /**
+   * Obtiene los datos de una orden de compra (numero_orden y fecha_registro)
+   * @param id - ID de la orden de compra
+   * @returns Datos de la orden (numero_orden, fecha_registro)
+   */
+  async getOrdenData(id: number): Promise<{
+    numero_orden: string;
+    fecha_registro: Date;
+  }> {
+    try {
+      const orden = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+        select: {
+          numero_orden: true,
+          fecha_registro: true,
+        },
+      });
+
+      if (!orden) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      if (!orden.fecha_registro) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no tiene fecha de registro`,
+        );
+      }
+
+      return {
+        numero_orden: orden.numero_orden,
+        fecha_registro: orden.fecha_registro,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al obtener datos de la orden de compra:', error);
+      throw new BadRequestException(
+        `Error al obtener datos de la orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Actualiza la URL del archivo de una orden de compra
+   * @param id - ID de la orden de compra
+   * @param fileUrl - URL del archivo en Dropbox
+   */
+  async updateFileUrl(id: number, fileUrl: string): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { url: fileUrl },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      console.error('Error al actualizar URL de la orden de compra:', error);
+      throw new BadRequestException(
+        `Error al actualizar URL de la orden de compra: ${error.message}`,
+      );
+    }
+  }
 }

@@ -153,6 +153,16 @@ export type usuarios_consulta = $Result.DefaultSelection<Prisma.$usuarios_consul
  * 
  */
 export type detalles_orden_servicio = $Result.DefaultSelection<Prisma.$detalles_orden_servicioPayload>
+/**
+ * Model email_notifications
+ * 
+ */
+export type email_notifications = $Result.DefaultSelection<Prisma.$email_notificationsPayload>
+/**
+ * Model DROPBOX
+ * 
+ */
+export type DROPBOX = $Result.DefaultSelection<Prisma.$DROPBOXPayload>
 
 /**
  * Enums
@@ -837,6 +847,26 @@ export class PrismaClient<
     * ```
     */
   get detalles_orden_servicio(): Prisma.detalles_orden_servicioDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.email_notifications`: Exposes CRUD operations for the **email_notifications** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Email_notifications
+    * const email_notifications = await prisma.email_notifications.findMany()
+    * ```
+    */
+  get email_notifications(): Prisma.email_notificationsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dROPBOX`: Exposes CRUD operations for the **DROPBOX** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DROPBOXES
+    * const dROPBOXES = await prisma.dROPBOX.findMany()
+    * ```
+    */
+  get dROPBOX(): Prisma.DROPBOXDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1305,7 +1335,9 @@ export namespace Prisma {
     ordenes_servicio: 'ordenes_servicio',
     tipo_cambio: 'tipo_cambio',
     usuarios_consulta: 'usuarios_consulta',
-    detalles_orden_servicio: 'detalles_orden_servicio'
+    detalles_orden_servicio: 'detalles_orden_servicio',
+    email_notifications: 'email_notifications',
+    DROPBOX: 'DROPBOX'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1324,7 +1356,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3176,6 +3208,138 @@ export namespace Prisma {
           }
         }
       }
+      email_notifications: {
+        payload: Prisma.$email_notificationsPayload<ExtArgs>
+        fields: Prisma.email_notificationsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.email_notificationsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.email_notificationsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          findFirst: {
+            args: Prisma.email_notificationsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.email_notificationsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          findMany: {
+            args: Prisma.email_notificationsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>[]
+          }
+          create: {
+            args: Prisma.email_notificationsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          createMany: {
+            args: Prisma.email_notificationsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.email_notificationsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          update: {
+            args: Prisma.email_notificationsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          deleteMany: {
+            args: Prisma.email_notificationsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.email_notificationsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.email_notificationsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$email_notificationsPayload>
+          }
+          aggregate: {
+            args: Prisma.Email_notificationsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmail_notifications>
+          }
+          groupBy: {
+            args: Prisma.email_notificationsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Email_notificationsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.email_notificationsCountArgs<ExtArgs>
+            result: $Utils.Optional<Email_notificationsCountAggregateOutputType> | number
+          }
+        }
+      }
+      DROPBOX: {
+        payload: Prisma.$DROPBOXPayload<ExtArgs>
+        fields: Prisma.DROPBOXFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DROPBOXFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DROPBOXFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          findFirst: {
+            args: Prisma.DROPBOXFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DROPBOXFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          findMany: {
+            args: Prisma.DROPBOXFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>[]
+          }
+          create: {
+            args: Prisma.DROPBOXCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          createMany: {
+            args: Prisma.DROPBOXCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DROPBOXDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          update: {
+            args: Prisma.DROPBOXUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          deleteMany: {
+            args: Prisma.DROPBOXDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DROPBOXUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DROPBOXUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DROPBOXPayload>
+          }
+          aggregate: {
+            args: Prisma.DROPBOXAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDROPBOX>
+          }
+          groupBy: {
+            args: Prisma.DROPBOXGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DROPBOXGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DROPBOXCountArgs<ExtArgs>
+            result: $Utils.Optional<DROPBOXCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3300,6 +3464,8 @@ export namespace Prisma {
     tipo_cambio?: tipo_cambioOmit
     usuarios_consulta?: usuarios_consultaOmit
     detalles_orden_servicio?: detalles_orden_servicioOmit
+    email_notifications?: email_notificationsOmit
+    dROPBOX?: DROPBOXOmit
   }
 
   /* Types for Logging */
@@ -19974,6 +20140,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -20007,6 +20174,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -20040,6 +20208,7 @@ export namespace Prisma {
     retencion: number
     id_camion: number
     almacen_central: number
+    url: number
     _all: number
   }
 
@@ -20097,6 +20266,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -20130,6 +20300,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -20163,6 +20334,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
     _all?: true
   }
 
@@ -20283,6 +20455,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -20335,6 +20508,7 @@ export namespace Prisma {
     retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
+    url?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -20375,9 +20549,10 @@ export namespace Prisma {
     retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
+    url?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20425,6 +20600,7 @@ export namespace Prisma {
       retencion: string | null
       id_camion: number | null
       almacen_central: string | null
+      url: string | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -20828,6 +21004,7 @@ export namespace Prisma {
     readonly retencion: FieldRef<"ordenes_compra", 'String'>
     readonly id_camion: FieldRef<"ordenes_compra", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_compra", 'String'>
+    readonly url: FieldRef<"ordenes_compra", 'String'>
   }
     
 
@@ -29899,6 +30076,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -29932,6 +30110,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -29965,6 +30144,7 @@ export namespace Prisma {
     retencion: number
     id_camion: number
     almacen_central: number
+    url: number
     _all: number
   }
 
@@ -30022,6 +30202,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -30055,6 +30236,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -30088,6 +30270,7 @@ export namespace Prisma {
     retencion?: true
     id_camion?: true
     almacen_central?: true
+    url?: true
     _all?: true
   }
 
@@ -30208,6 +30391,7 @@ export namespace Prisma {
     retencion: string | null
     id_camion: number | null
     almacen_central: string | null
+    url: string | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -30260,6 +30444,7 @@ export namespace Prisma {
     retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
+    url?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -30299,9 +30484,10 @@ export namespace Prisma {
     retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
+    url?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30347,6 +30533,7 @@ export namespace Prisma {
       retencion: string | null
       id_camion: number | null
       almacen_central: string | null
+      url: string | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -30749,6 +30936,7 @@ export namespace Prisma {
     readonly retencion: FieldRef<"ordenes_servicio", 'String'>
     readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_servicio", 'String'>
+    readonly url: FieldRef<"ordenes_servicio", 'String'>
   }
     
 
@@ -33991,6 +34179,1783 @@ export namespace Prisma {
 
 
   /**
+   * Model email_notifications
+   */
+
+  export type AggregateEmail_notifications = {
+    _count: Email_notificationsCountAggregateOutputType | null
+    _avg: Email_notificationsAvgAggregateOutputType | null
+    _sum: Email_notificationsSumAggregateOutputType | null
+    _min: Email_notificationsMinAggregateOutputType | null
+    _max: Email_notificationsMaxAggregateOutputType | null
+  }
+
+  export type Email_notificationsAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Email_notificationsSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Email_notificationsMinAggregateOutputType = {
+    id: number | null
+    last_check: Date | null
+    created_at: Date | null
+  }
+
+  export type Email_notificationsMaxAggregateOutputType = {
+    id: number | null
+    last_check: Date | null
+    created_at: Date | null
+  }
+
+  export type Email_notificationsCountAggregateOutputType = {
+    id: number
+    last_check: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Email_notificationsAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type Email_notificationsSumAggregateInputType = {
+    id?: true
+  }
+
+  export type Email_notificationsMinAggregateInputType = {
+    id?: true
+    last_check?: true
+    created_at?: true
+  }
+
+  export type Email_notificationsMaxAggregateInputType = {
+    id?: true
+    last_check?: true
+    created_at?: true
+  }
+
+  export type Email_notificationsCountAggregateInputType = {
+    id?: true
+    last_check?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Email_notificationsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which email_notifications to aggregate.
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of email_notifications to fetch.
+     */
+    orderBy?: email_notificationsOrderByWithRelationInput | email_notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: email_notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` email_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` email_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned email_notifications
+    **/
+    _count?: true | Email_notificationsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Email_notificationsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Email_notificationsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Email_notificationsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Email_notificationsMaxAggregateInputType
+  }
+
+  export type GetEmail_notificationsAggregateType<T extends Email_notificationsAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmail_notifications]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmail_notifications[P]>
+      : GetScalarType<T[P], AggregateEmail_notifications[P]>
+  }
+
+
+
+
+  export type email_notificationsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: email_notificationsWhereInput
+    orderBy?: email_notificationsOrderByWithAggregationInput | email_notificationsOrderByWithAggregationInput[]
+    by: Email_notificationsScalarFieldEnum[] | Email_notificationsScalarFieldEnum
+    having?: email_notificationsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Email_notificationsCountAggregateInputType | true
+    _avg?: Email_notificationsAvgAggregateInputType
+    _sum?: Email_notificationsSumAggregateInputType
+    _min?: Email_notificationsMinAggregateInputType
+    _max?: Email_notificationsMaxAggregateInputType
+  }
+
+  export type Email_notificationsGroupByOutputType = {
+    id: number
+    last_check: Date | null
+    created_at: Date | null
+    _count: Email_notificationsCountAggregateOutputType | null
+    _avg: Email_notificationsAvgAggregateOutputType | null
+    _sum: Email_notificationsSumAggregateOutputType | null
+    _min: Email_notificationsMinAggregateOutputType | null
+    _max: Email_notificationsMaxAggregateOutputType | null
+  }
+
+  type GetEmail_notificationsGroupByPayload<T extends email_notificationsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Email_notificationsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Email_notificationsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Email_notificationsGroupByOutputType[P]>
+            : GetScalarType<T[P], Email_notificationsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type email_notificationsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    last_check?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["email_notifications"]>
+
+
+
+  export type email_notificationsSelectScalar = {
+    id?: boolean
+    last_check?: boolean
+    created_at?: boolean
+  }
+
+  export type email_notificationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "last_check" | "created_at", ExtArgs["result"]["email_notifications"]>
+
+  export type $email_notificationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "email_notifications"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      last_check: Date | null
+      created_at: Date | null
+    }, ExtArgs["result"]["email_notifications"]>
+    composites: {}
+  }
+
+  type email_notificationsGetPayload<S extends boolean | null | undefined | email_notificationsDefaultArgs> = $Result.GetResult<Prisma.$email_notificationsPayload, S>
+
+  type email_notificationsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<email_notificationsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Email_notificationsCountAggregateInputType | true
+    }
+
+  export interface email_notificationsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['email_notifications'], meta: { name: 'email_notifications' } }
+    /**
+     * Find zero or one Email_notifications that matches the filter.
+     * @param {email_notificationsFindUniqueArgs} args - Arguments to find a Email_notifications
+     * @example
+     * // Get one Email_notifications
+     * const email_notifications = await prisma.email_notifications.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends email_notificationsFindUniqueArgs>(args: SelectSubset<T, email_notificationsFindUniqueArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Email_notifications that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {email_notificationsFindUniqueOrThrowArgs} args - Arguments to find a Email_notifications
+     * @example
+     * // Get one Email_notifications
+     * const email_notifications = await prisma.email_notifications.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends email_notificationsFindUniqueOrThrowArgs>(args: SelectSubset<T, email_notificationsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Email_notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsFindFirstArgs} args - Arguments to find a Email_notifications
+     * @example
+     * // Get one Email_notifications
+     * const email_notifications = await prisma.email_notifications.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends email_notificationsFindFirstArgs>(args?: SelectSubset<T, email_notificationsFindFirstArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Email_notifications that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsFindFirstOrThrowArgs} args - Arguments to find a Email_notifications
+     * @example
+     * // Get one Email_notifications
+     * const email_notifications = await prisma.email_notifications.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends email_notificationsFindFirstOrThrowArgs>(args?: SelectSubset<T, email_notificationsFindFirstOrThrowArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Email_notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Email_notifications
+     * const email_notifications = await prisma.email_notifications.findMany()
+     * 
+     * // Get first 10 Email_notifications
+     * const email_notifications = await prisma.email_notifications.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const email_notificationsWithIdOnly = await prisma.email_notifications.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends email_notificationsFindManyArgs>(args?: SelectSubset<T, email_notificationsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Email_notifications.
+     * @param {email_notificationsCreateArgs} args - Arguments to create a Email_notifications.
+     * @example
+     * // Create one Email_notifications
+     * const Email_notifications = await prisma.email_notifications.create({
+     *   data: {
+     *     // ... data to create a Email_notifications
+     *   }
+     * })
+     * 
+     */
+    create<T extends email_notificationsCreateArgs>(args: SelectSubset<T, email_notificationsCreateArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Email_notifications.
+     * @param {email_notificationsCreateManyArgs} args - Arguments to create many Email_notifications.
+     * @example
+     * // Create many Email_notifications
+     * const email_notifications = await prisma.email_notifications.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends email_notificationsCreateManyArgs>(args?: SelectSubset<T, email_notificationsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Email_notifications.
+     * @param {email_notificationsDeleteArgs} args - Arguments to delete one Email_notifications.
+     * @example
+     * // Delete one Email_notifications
+     * const Email_notifications = await prisma.email_notifications.delete({
+     *   where: {
+     *     // ... filter to delete one Email_notifications
+     *   }
+     * })
+     * 
+     */
+    delete<T extends email_notificationsDeleteArgs>(args: SelectSubset<T, email_notificationsDeleteArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Email_notifications.
+     * @param {email_notificationsUpdateArgs} args - Arguments to update one Email_notifications.
+     * @example
+     * // Update one Email_notifications
+     * const email_notifications = await prisma.email_notifications.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends email_notificationsUpdateArgs>(args: SelectSubset<T, email_notificationsUpdateArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Email_notifications.
+     * @param {email_notificationsDeleteManyArgs} args - Arguments to filter Email_notifications to delete.
+     * @example
+     * // Delete a few Email_notifications
+     * const { count } = await prisma.email_notifications.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends email_notificationsDeleteManyArgs>(args?: SelectSubset<T, email_notificationsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Email_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Email_notifications
+     * const email_notifications = await prisma.email_notifications.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends email_notificationsUpdateManyArgs>(args: SelectSubset<T, email_notificationsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Email_notifications.
+     * @param {email_notificationsUpsertArgs} args - Arguments to update or create a Email_notifications.
+     * @example
+     * // Update or create a Email_notifications
+     * const email_notifications = await prisma.email_notifications.upsert({
+     *   create: {
+     *     // ... data to create a Email_notifications
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Email_notifications we want to update
+     *   }
+     * })
+     */
+    upsert<T extends email_notificationsUpsertArgs>(args: SelectSubset<T, email_notificationsUpsertArgs<ExtArgs>>): Prisma__email_notificationsClient<$Result.GetResult<Prisma.$email_notificationsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Email_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsCountArgs} args - Arguments to filter Email_notifications to count.
+     * @example
+     * // Count the number of Email_notifications
+     * const count = await prisma.email_notifications.count({
+     *   where: {
+     *     // ... the filter for the Email_notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends email_notificationsCountArgs>(
+      args?: Subset<T, email_notificationsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Email_notificationsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Email_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Email_notificationsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Email_notificationsAggregateArgs>(args: Subset<T, Email_notificationsAggregateArgs>): Prisma.PrismaPromise<GetEmail_notificationsAggregateType<T>>
+
+    /**
+     * Group by Email_notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {email_notificationsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends email_notificationsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: email_notificationsGroupByArgs['orderBy'] }
+        : { orderBy?: email_notificationsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, email_notificationsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmail_notificationsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the email_notifications model
+   */
+  readonly fields: email_notificationsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for email_notifications.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__email_notificationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the email_notifications model
+   */
+  interface email_notificationsFieldRefs {
+    readonly id: FieldRef<"email_notifications", 'Int'>
+    readonly last_check: FieldRef<"email_notifications", 'DateTime'>
+    readonly created_at: FieldRef<"email_notifications", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * email_notifications findUnique
+   */
+  export type email_notificationsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which email_notifications to fetch.
+     */
+    where: email_notificationsWhereUniqueInput
+  }
+
+  /**
+   * email_notifications findUniqueOrThrow
+   */
+  export type email_notificationsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which email_notifications to fetch.
+     */
+    where: email_notificationsWhereUniqueInput
+  }
+
+  /**
+   * email_notifications findFirst
+   */
+  export type email_notificationsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which email_notifications to fetch.
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of email_notifications to fetch.
+     */
+    orderBy?: email_notificationsOrderByWithRelationInput | email_notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for email_notifications.
+     */
+    cursor?: email_notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` email_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` email_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of email_notifications.
+     */
+    distinct?: Email_notificationsScalarFieldEnum | Email_notificationsScalarFieldEnum[]
+  }
+
+  /**
+   * email_notifications findFirstOrThrow
+   */
+  export type email_notificationsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which email_notifications to fetch.
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of email_notifications to fetch.
+     */
+    orderBy?: email_notificationsOrderByWithRelationInput | email_notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for email_notifications.
+     */
+    cursor?: email_notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` email_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` email_notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of email_notifications.
+     */
+    distinct?: Email_notificationsScalarFieldEnum | Email_notificationsScalarFieldEnum[]
+  }
+
+  /**
+   * email_notifications findMany
+   */
+  export type email_notificationsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which email_notifications to fetch.
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of email_notifications to fetch.
+     */
+    orderBy?: email_notificationsOrderByWithRelationInput | email_notificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing email_notifications.
+     */
+    cursor?: email_notificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` email_notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` email_notifications.
+     */
+    skip?: number
+    distinct?: Email_notificationsScalarFieldEnum | Email_notificationsScalarFieldEnum[]
+  }
+
+  /**
+   * email_notifications create
+   */
+  export type email_notificationsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a email_notifications.
+     */
+    data?: XOR<email_notificationsCreateInput, email_notificationsUncheckedCreateInput>
+  }
+
+  /**
+   * email_notifications createMany
+   */
+  export type email_notificationsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many email_notifications.
+     */
+    data: email_notificationsCreateManyInput | email_notificationsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * email_notifications update
+   */
+  export type email_notificationsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a email_notifications.
+     */
+    data: XOR<email_notificationsUpdateInput, email_notificationsUncheckedUpdateInput>
+    /**
+     * Choose, which email_notifications to update.
+     */
+    where: email_notificationsWhereUniqueInput
+  }
+
+  /**
+   * email_notifications updateMany
+   */
+  export type email_notificationsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update email_notifications.
+     */
+    data: XOR<email_notificationsUpdateManyMutationInput, email_notificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which email_notifications to update
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * Limit how many email_notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * email_notifications upsert
+   */
+  export type email_notificationsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the email_notifications to update in case it exists.
+     */
+    where: email_notificationsWhereUniqueInput
+    /**
+     * In case the email_notifications found by the `where` argument doesn't exist, create a new email_notifications with this data.
+     */
+    create: XOR<email_notificationsCreateInput, email_notificationsUncheckedCreateInput>
+    /**
+     * In case the email_notifications was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<email_notificationsUpdateInput, email_notificationsUncheckedUpdateInput>
+  }
+
+  /**
+   * email_notifications delete
+   */
+  export type email_notificationsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+    /**
+     * Filter which email_notifications to delete.
+     */
+    where: email_notificationsWhereUniqueInput
+  }
+
+  /**
+   * email_notifications deleteMany
+   */
+  export type email_notificationsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which email_notifications to delete
+     */
+    where?: email_notificationsWhereInput
+    /**
+     * Limit how many email_notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * email_notifications without action
+   */
+  export type email_notificationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the email_notifications
+     */
+    select?: email_notificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the email_notifications
+     */
+    omit?: email_notificationsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DROPBOX
+   */
+
+  export type AggregateDROPBOX = {
+    _count: DROPBOXCountAggregateOutputType | null
+    _avg: DROPBOXAvgAggregateOutputType | null
+    _sum: DROPBOXSumAggregateOutputType | null
+    _min: DROPBOXMinAggregateOutputType | null
+    _max: DROPBOXMaxAggregateOutputType | null
+  }
+
+  export type DROPBOXAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DROPBOXSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DROPBOXMinAggregateOutputType = {
+    id: number | null
+    archivo: string | null
+  }
+
+  export type DROPBOXMaxAggregateOutputType = {
+    id: number | null
+    archivo: string | null
+  }
+
+  export type DROPBOXCountAggregateOutputType = {
+    id: number
+    archivo: number
+    _all: number
+  }
+
+
+  export type DROPBOXAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type DROPBOXSumAggregateInputType = {
+    id?: true
+  }
+
+  export type DROPBOXMinAggregateInputType = {
+    id?: true
+    archivo?: true
+  }
+
+  export type DROPBOXMaxAggregateInputType = {
+    id?: true
+    archivo?: true
+  }
+
+  export type DROPBOXCountAggregateInputType = {
+    id?: true
+    archivo?: true
+    _all?: true
+  }
+
+  export type DROPBOXAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DROPBOX to aggregate.
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DROPBOXES to fetch.
+     */
+    orderBy?: DROPBOXOrderByWithRelationInput | DROPBOXOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DROPBOXWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DROPBOXES from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DROPBOXES.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DROPBOXES
+    **/
+    _count?: true | DROPBOXCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DROPBOXAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DROPBOXSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DROPBOXMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DROPBOXMaxAggregateInputType
+  }
+
+  export type GetDROPBOXAggregateType<T extends DROPBOXAggregateArgs> = {
+        [P in keyof T & keyof AggregateDROPBOX]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDROPBOX[P]>
+      : GetScalarType<T[P], AggregateDROPBOX[P]>
+  }
+
+
+
+
+  export type DROPBOXGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DROPBOXWhereInput
+    orderBy?: DROPBOXOrderByWithAggregationInput | DROPBOXOrderByWithAggregationInput[]
+    by: DROPBOXScalarFieldEnum[] | DROPBOXScalarFieldEnum
+    having?: DROPBOXScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DROPBOXCountAggregateInputType | true
+    _avg?: DROPBOXAvgAggregateInputType
+    _sum?: DROPBOXSumAggregateInputType
+    _min?: DROPBOXMinAggregateInputType
+    _max?: DROPBOXMaxAggregateInputType
+  }
+
+  export type DROPBOXGroupByOutputType = {
+    id: number
+    archivo: string | null
+    _count: DROPBOXCountAggregateOutputType | null
+    _avg: DROPBOXAvgAggregateOutputType | null
+    _sum: DROPBOXSumAggregateOutputType | null
+    _min: DROPBOXMinAggregateOutputType | null
+    _max: DROPBOXMaxAggregateOutputType | null
+  }
+
+  type GetDROPBOXGroupByPayload<T extends DROPBOXGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DROPBOXGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DROPBOXGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DROPBOXGroupByOutputType[P]>
+            : GetScalarType<T[P], DROPBOXGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DROPBOXSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    archivo?: boolean
+  }, ExtArgs["result"]["dROPBOX"]>
+
+
+
+  export type DROPBOXSelectScalar = {
+    id?: boolean
+    archivo?: boolean
+  }
+
+  export type DROPBOXOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "archivo", ExtArgs["result"]["dROPBOX"]>
+
+  export type $DROPBOXPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DROPBOX"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      archivo: string | null
+    }, ExtArgs["result"]["dROPBOX"]>
+    composites: {}
+  }
+
+  type DROPBOXGetPayload<S extends boolean | null | undefined | DROPBOXDefaultArgs> = $Result.GetResult<Prisma.$DROPBOXPayload, S>
+
+  type DROPBOXCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DROPBOXFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DROPBOXCountAggregateInputType | true
+    }
+
+  export interface DROPBOXDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DROPBOX'], meta: { name: 'DROPBOX' } }
+    /**
+     * Find zero or one DROPBOX that matches the filter.
+     * @param {DROPBOXFindUniqueArgs} args - Arguments to find a DROPBOX
+     * @example
+     * // Get one DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DROPBOXFindUniqueArgs>(args: SelectSubset<T, DROPBOXFindUniqueArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DROPBOX that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DROPBOXFindUniqueOrThrowArgs} args - Arguments to find a DROPBOX
+     * @example
+     * // Get one DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DROPBOXFindUniqueOrThrowArgs>(args: SelectSubset<T, DROPBOXFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DROPBOX that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXFindFirstArgs} args - Arguments to find a DROPBOX
+     * @example
+     * // Get one DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DROPBOXFindFirstArgs>(args?: SelectSubset<T, DROPBOXFindFirstArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DROPBOX that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXFindFirstOrThrowArgs} args - Arguments to find a DROPBOX
+     * @example
+     * // Get one DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DROPBOXFindFirstOrThrowArgs>(args?: SelectSubset<T, DROPBOXFindFirstOrThrowArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DROPBOXES that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DROPBOXES
+     * const dROPBOXES = await prisma.dROPBOX.findMany()
+     * 
+     * // Get first 10 DROPBOXES
+     * const dROPBOXES = await prisma.dROPBOX.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dROPBOXWithIdOnly = await prisma.dROPBOX.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DROPBOXFindManyArgs>(args?: SelectSubset<T, DROPBOXFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DROPBOX.
+     * @param {DROPBOXCreateArgs} args - Arguments to create a DROPBOX.
+     * @example
+     * // Create one DROPBOX
+     * const DROPBOX = await prisma.dROPBOX.create({
+     *   data: {
+     *     // ... data to create a DROPBOX
+     *   }
+     * })
+     * 
+     */
+    create<T extends DROPBOXCreateArgs>(args: SelectSubset<T, DROPBOXCreateArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DROPBOXES.
+     * @param {DROPBOXCreateManyArgs} args - Arguments to create many DROPBOXES.
+     * @example
+     * // Create many DROPBOXES
+     * const dROPBOX = await prisma.dROPBOX.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DROPBOXCreateManyArgs>(args?: SelectSubset<T, DROPBOXCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a DROPBOX.
+     * @param {DROPBOXDeleteArgs} args - Arguments to delete one DROPBOX.
+     * @example
+     * // Delete one DROPBOX
+     * const DROPBOX = await prisma.dROPBOX.delete({
+     *   where: {
+     *     // ... filter to delete one DROPBOX
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DROPBOXDeleteArgs>(args: SelectSubset<T, DROPBOXDeleteArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DROPBOX.
+     * @param {DROPBOXUpdateArgs} args - Arguments to update one DROPBOX.
+     * @example
+     * // Update one DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DROPBOXUpdateArgs>(args: SelectSubset<T, DROPBOXUpdateArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DROPBOXES.
+     * @param {DROPBOXDeleteManyArgs} args - Arguments to filter DROPBOXES to delete.
+     * @example
+     * // Delete a few DROPBOXES
+     * const { count } = await prisma.dROPBOX.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DROPBOXDeleteManyArgs>(args?: SelectSubset<T, DROPBOXDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DROPBOXES.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DROPBOXES
+     * const dROPBOX = await prisma.dROPBOX.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DROPBOXUpdateManyArgs>(args: SelectSubset<T, DROPBOXUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DROPBOX.
+     * @param {DROPBOXUpsertArgs} args - Arguments to update or create a DROPBOX.
+     * @example
+     * // Update or create a DROPBOX
+     * const dROPBOX = await prisma.dROPBOX.upsert({
+     *   create: {
+     *     // ... data to create a DROPBOX
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DROPBOX we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DROPBOXUpsertArgs>(args: SelectSubset<T, DROPBOXUpsertArgs<ExtArgs>>): Prisma__DROPBOXClient<$Result.GetResult<Prisma.$DROPBOXPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DROPBOXES.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXCountArgs} args - Arguments to filter DROPBOXES to count.
+     * @example
+     * // Count the number of DROPBOXES
+     * const count = await prisma.dROPBOX.count({
+     *   where: {
+     *     // ... the filter for the DROPBOXES we want to count
+     *   }
+     * })
+    **/
+    count<T extends DROPBOXCountArgs>(
+      args?: Subset<T, DROPBOXCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DROPBOXCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DROPBOX.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DROPBOXAggregateArgs>(args: Subset<T, DROPBOXAggregateArgs>): Prisma.PrismaPromise<GetDROPBOXAggregateType<T>>
+
+    /**
+     * Group by DROPBOX.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DROPBOXGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DROPBOXGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DROPBOXGroupByArgs['orderBy'] }
+        : { orderBy?: DROPBOXGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DROPBOXGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDROPBOXGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DROPBOX model
+   */
+  readonly fields: DROPBOXFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DROPBOX.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DROPBOXClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DROPBOX model
+   */
+  interface DROPBOXFieldRefs {
+    readonly id: FieldRef<"DROPBOX", 'Int'>
+    readonly archivo: FieldRef<"DROPBOX", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DROPBOX findUnique
+   */
+  export type DROPBOXFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter, which DROPBOX to fetch.
+     */
+    where: DROPBOXWhereUniqueInput
+  }
+
+  /**
+   * DROPBOX findUniqueOrThrow
+   */
+  export type DROPBOXFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter, which DROPBOX to fetch.
+     */
+    where: DROPBOXWhereUniqueInput
+  }
+
+  /**
+   * DROPBOX findFirst
+   */
+  export type DROPBOXFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter, which DROPBOX to fetch.
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DROPBOXES to fetch.
+     */
+    orderBy?: DROPBOXOrderByWithRelationInput | DROPBOXOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DROPBOXES.
+     */
+    cursor?: DROPBOXWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DROPBOXES from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DROPBOXES.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DROPBOXES.
+     */
+    distinct?: DROPBOXScalarFieldEnum | DROPBOXScalarFieldEnum[]
+  }
+
+  /**
+   * DROPBOX findFirstOrThrow
+   */
+  export type DROPBOXFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter, which DROPBOX to fetch.
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DROPBOXES to fetch.
+     */
+    orderBy?: DROPBOXOrderByWithRelationInput | DROPBOXOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DROPBOXES.
+     */
+    cursor?: DROPBOXWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DROPBOXES from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DROPBOXES.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DROPBOXES.
+     */
+    distinct?: DROPBOXScalarFieldEnum | DROPBOXScalarFieldEnum[]
+  }
+
+  /**
+   * DROPBOX findMany
+   */
+  export type DROPBOXFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter, which DROPBOXES to fetch.
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DROPBOXES to fetch.
+     */
+    orderBy?: DROPBOXOrderByWithRelationInput | DROPBOXOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DROPBOXES.
+     */
+    cursor?: DROPBOXWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DROPBOXES from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DROPBOXES.
+     */
+    skip?: number
+    distinct?: DROPBOXScalarFieldEnum | DROPBOXScalarFieldEnum[]
+  }
+
+  /**
+   * DROPBOX create
+   */
+  export type DROPBOXCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DROPBOX.
+     */
+    data?: XOR<DROPBOXCreateInput, DROPBOXUncheckedCreateInput>
+  }
+
+  /**
+   * DROPBOX createMany
+   */
+  export type DROPBOXCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DROPBOXES.
+     */
+    data: DROPBOXCreateManyInput | DROPBOXCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DROPBOX update
+   */
+  export type DROPBOXUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DROPBOX.
+     */
+    data: XOR<DROPBOXUpdateInput, DROPBOXUncheckedUpdateInput>
+    /**
+     * Choose, which DROPBOX to update.
+     */
+    where: DROPBOXWhereUniqueInput
+  }
+
+  /**
+   * DROPBOX updateMany
+   */
+  export type DROPBOXUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DROPBOXES.
+     */
+    data: XOR<DROPBOXUpdateManyMutationInput, DROPBOXUncheckedUpdateManyInput>
+    /**
+     * Filter which DROPBOXES to update
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * Limit how many DROPBOXES to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DROPBOX upsert
+   */
+  export type DROPBOXUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DROPBOX to update in case it exists.
+     */
+    where: DROPBOXWhereUniqueInput
+    /**
+     * In case the DROPBOX found by the `where` argument doesn't exist, create a new DROPBOX with this data.
+     */
+    create: XOR<DROPBOXCreateInput, DROPBOXUncheckedCreateInput>
+    /**
+     * In case the DROPBOX was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DROPBOXUpdateInput, DROPBOXUncheckedUpdateInput>
+  }
+
+  /**
+   * DROPBOX delete
+   */
+  export type DROPBOXDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+    /**
+     * Filter which DROPBOX to delete.
+     */
+    where: DROPBOXWhereUniqueInput
+  }
+
+  /**
+   * DROPBOX deleteMany
+   */
+  export type DROPBOXDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DROPBOXES to delete
+     */
+    where?: DROPBOXWhereInput
+    /**
+     * Limit how many DROPBOXES to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DROPBOX without action
+   */
+  export type DROPBOXDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DROPBOX
+     */
+    select?: DROPBOXSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DROPBOX
+     */
+    omit?: DROPBOXOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -34251,7 +36216,8 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
     id_camion: 'id_camion',
-    almacen_central: 'almacen_central'
+    almacen_central: 'almacen_central',
+    url: 'url'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -34403,7 +36369,8 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
     id_camion: 'id_camion',
-    almacen_central: 'almacen_central'
+    almacen_central: 'almacen_central',
+    url: 'url'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -34443,6 +36410,23 @@ export namespace Prisma {
   };
 
   export type Detalles_orden_servicioScalarFieldEnum = (typeof Detalles_orden_servicioScalarFieldEnum)[keyof typeof Detalles_orden_servicioScalarFieldEnum]
+
+
+  export const Email_notificationsScalarFieldEnum: {
+    id: 'id',
+    last_check: 'last_check',
+    created_at: 'created_at'
+  };
+
+  export type Email_notificationsScalarFieldEnum = (typeof Email_notificationsScalarFieldEnum)[keyof typeof Email_notificationsScalarFieldEnum]
+
+
+  export const DROPBOXScalarFieldEnum: {
+    id: 'id',
+    archivo: 'archivo'
+  };
+
+  export type DROPBOXScalarFieldEnum = (typeof DROPBOXScalarFieldEnum)[keyof typeof DROPBOXScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -34630,7 +36614,8 @@ export namespace Prisma {
     moneda: 'moneda',
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
-    almacen_central: 'almacen_central'
+    almacen_central: 'almacen_central',
+    url: 'url'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -34709,7 +36694,8 @@ export namespace Prisma {
     moneda: 'moneda',
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
-    almacen_central: 'almacen_central'
+    almacen_central: 'almacen_central',
+    url: 'url'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -34730,6 +36716,13 @@ export namespace Prisma {
   };
 
   export type detalles_orden_servicioOrderByRelevanceFieldEnum = (typeof detalles_orden_servicioOrderByRelevanceFieldEnum)[keyof typeof detalles_orden_servicioOrderByRelevanceFieldEnum]
+
+
+  export const DROPBOXOrderByRelevanceFieldEnum: {
+    archivo: 'archivo'
+  };
+
+  export type DROPBOXOrderByRelevanceFieldEnum = (typeof DROPBOXOrderByRelevanceFieldEnum)[keyof typeof DROPBOXOrderByRelevanceFieldEnum]
 
 
   /**
@@ -36189,6 +38182,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
+    url?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -36226,6 +38220,7 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -36267,6 +38262,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
+    url?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -36304,6 +38300,7 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -36345,6 +38342,7 @@ export namespace Prisma {
     retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    url?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -37049,6 +39047,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -37085,6 +39084,7 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -37125,6 +39125,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -37161,6 +39162,7 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -37202,6 +39204,7 @@ export namespace Prisma {
     retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -37387,6 +39390,90 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableWithAggregatesFilter<"detalles_orden_servicio"> | number | null
     precio_unitario?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type email_notificationsWhereInput = {
+    AND?: email_notificationsWhereInput | email_notificationsWhereInput[]
+    OR?: email_notificationsWhereInput[]
+    NOT?: email_notificationsWhereInput | email_notificationsWhereInput[]
+    id?: IntFilter<"email_notifications"> | number
+    last_check?: DateTimeNullableFilter<"email_notifications"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"email_notifications"> | Date | string | null
+  }
+
+  export type email_notificationsOrderByWithRelationInput = {
+    id?: SortOrder
+    last_check?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+  }
+
+  export type email_notificationsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: email_notificationsWhereInput | email_notificationsWhereInput[]
+    OR?: email_notificationsWhereInput[]
+    NOT?: email_notificationsWhereInput | email_notificationsWhereInput[]
+    last_check?: DateTimeNullableFilter<"email_notifications"> | Date | string | null
+    created_at?: DateTimeNullableFilter<"email_notifications"> | Date | string | null
+  }, "id">
+
+  export type email_notificationsOrderByWithAggregationInput = {
+    id?: SortOrder
+    last_check?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: email_notificationsCountOrderByAggregateInput
+    _avg?: email_notificationsAvgOrderByAggregateInput
+    _max?: email_notificationsMaxOrderByAggregateInput
+    _min?: email_notificationsMinOrderByAggregateInput
+    _sum?: email_notificationsSumOrderByAggregateInput
+  }
+
+  export type email_notificationsScalarWhereWithAggregatesInput = {
+    AND?: email_notificationsScalarWhereWithAggregatesInput | email_notificationsScalarWhereWithAggregatesInput[]
+    OR?: email_notificationsScalarWhereWithAggregatesInput[]
+    NOT?: email_notificationsScalarWhereWithAggregatesInput | email_notificationsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"email_notifications"> | number
+    last_check?: DateTimeNullableWithAggregatesFilter<"email_notifications"> | Date | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"email_notifications"> | Date | string | null
+  }
+
+  export type DROPBOXWhereInput = {
+    AND?: DROPBOXWhereInput | DROPBOXWhereInput[]
+    OR?: DROPBOXWhereInput[]
+    NOT?: DROPBOXWhereInput | DROPBOXWhereInput[]
+    id?: IntFilter<"DROPBOX"> | number
+    archivo?: StringNullableFilter<"DROPBOX"> | string | null
+  }
+
+  export type DROPBOXOrderByWithRelationInput = {
+    id?: SortOrder
+    archivo?: SortOrderInput | SortOrder
+    _relevance?: DROPBOXOrderByRelevanceInput
+  }
+
+  export type DROPBOXWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: DROPBOXWhereInput | DROPBOXWhereInput[]
+    OR?: DROPBOXWhereInput[]
+    NOT?: DROPBOXWhereInput | DROPBOXWhereInput[]
+    archivo?: StringNullableFilter<"DROPBOX"> | string | null
+  }, "id">
+
+  export type DROPBOXOrderByWithAggregationInput = {
+    id?: SortOrder
+    archivo?: SortOrderInput | SortOrder
+    _count?: DROPBOXCountOrderByAggregateInput
+    _avg?: DROPBOXAvgOrderByAggregateInput
+    _max?: DROPBOXMaxOrderByAggregateInput
+    _min?: DROPBOXMinOrderByAggregateInput
+    _sum?: DROPBOXSumOrderByAggregateInput
+  }
+
+  export type DROPBOXScalarWhereWithAggregatesInput = {
+    AND?: DROPBOXScalarWhereWithAggregatesInput | DROPBOXScalarWhereWithAggregatesInput[]
+    OR?: DROPBOXScalarWhereWithAggregatesInput[]
+    NOT?: DROPBOXScalarWhereWithAggregatesInput | DROPBOXScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"DROPBOX"> | number
+    archivo?: StringNullableWithAggregatesFilter<"DROPBOX"> | string | null
   }
 
   export type almacenesCreateInput = {
@@ -38642,6 +40729,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -38679,6 +40767,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -38711,6 +40800,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -38748,6 +40838,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -38783,6 +40874,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -38813,6 +40905,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -38846,6 +40939,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -39547,6 +41641,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -39583,6 +41678,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -39614,6 +41710,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -39650,6 +41747,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -39684,6 +41782,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -39714,6 +41813,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -39747,6 +41847,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -39925,6 +42026,77 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type email_notificationsCreateInput = {
+    last_check?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type email_notificationsUncheckedCreateInput = {
+    id?: number
+    last_check?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type email_notificationsUpdateInput = {
+    last_check?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type email_notificationsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    last_check?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type email_notificationsCreateManyInput = {
+    id?: number
+    last_check?: Date | string | null
+    created_at?: Date | string | null
+  }
+
+  export type email_notificationsUpdateManyMutationInput = {
+    last_check?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type email_notificationsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    last_check?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DROPBOXCreateInput = {
+    archivo?: string | null
+  }
+
+  export type DROPBOXUncheckedCreateInput = {
+    id?: number
+    archivo?: string | null
+  }
+
+  export type DROPBOXUpdateInput = {
+    archivo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DROPBOXUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    archivo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DROPBOXCreateManyInput = {
+    id?: number
+    archivo?: string | null
+  }
+
+  export type DROPBOXUpdateManyMutationInput = {
+    archivo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DROPBOXUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    archivo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -41499,6 +43671,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -41543,6 +43716,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -41576,6 +43750,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -42264,6 +44439,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -42308,6 +44484,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -42341,6 +44518,7 @@ export namespace Prisma {
     retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
+    url?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -42506,6 +44684,61 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+  }
+
+  export type email_notificationsCountOrderByAggregateInput = {
+    id?: SortOrder
+    last_check?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type email_notificationsAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type email_notificationsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    last_check?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type email_notificationsMinOrderByAggregateInput = {
+    id?: SortOrder
+    last_check?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type email_notificationsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DROPBOXOrderByRelevanceInput = {
+    fields: DROPBOXOrderByRelevanceFieldEnum | DROPBOXOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DROPBOXCountOrderByAggregateInput = {
+    id?: SortOrder
+    archivo?: SortOrder
+  }
+
+  export type DROPBOXAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DROPBOXMaxOrderByAggregateInput = {
+    id?: SortOrder
+    archivo?: SortOrder
+  }
+
+  export type DROPBOXMinOrderByAggregateInput = {
+    id?: SortOrder
+    archivo?: SortOrder
+  }
+
+  export type DROPBOXSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -46960,6 +49193,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -46996,6 +49230,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -47096,6 +49331,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -47132,6 +49368,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -49345,6 +51582,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -49380,6 +51618,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -49422,6 +51661,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -49456,6 +51696,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -49519,6 +51760,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
+    url?: StringNullableFilter<"ordenes_compra"> | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -49571,6 +51813,7 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url?: StringNullableFilter<"ordenes_servicio"> | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -49626,6 +51869,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -49662,6 +51906,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -49767,6 +52012,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -49803,6 +52049,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -50818,6 +53065,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -50853,6 +53101,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -50895,6 +53144,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -50929,6 +53179,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -51663,6 +53914,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -51698,6 +53950,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
@@ -51797,6 +54050,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -51832,6 +54086,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
@@ -52999,6 +55254,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -53031,6 +55287,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -53061,6 +55318,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -53096,6 +55354,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -53130,6 +55389,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -53160,6 +55420,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -53194,6 +55455,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -53227,6 +55489,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -53411,6 +55674,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -53443,6 +55707,7 @@ export namespace Prisma {
     retencion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
+    url?: string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -53717,6 +55982,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -53752,6 +56018,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -53786,6 +56053,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -53816,6 +56084,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -53850,6 +56119,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -53883,6 +56153,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {

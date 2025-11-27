@@ -7,8 +7,11 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "postbuild": "powershell -Command \"Copy-Item -Path 'generated' -Destination 'dist/generated' -Recurse -Force\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "prebuild": "powershell -Command \"if (Test-Path 'dist') { Remove-Item -Path 'dist' -Recurse -Force }\"",
+    "prestart:dev": "powershell -Command \"Copy-Item -Path 'generated' -Destination 'dist/generated' -Recurse -Force\"",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -17,7 +20,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "get-dropbox-token": "ts-node scripts/get-dropbox-token.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.6",
@@ -31,6 +35,7 @@
     "@prisma/client": "^6.19.0",
     "@types/pdfkit": "^0.17.3",
     "axios": "^1.7.9",
+    "dropbox": "^10.34.0",
     "kafkajs": "^2.2.4",
     "pdf-lib": "^1.17.1",
     "pdfkit": "^0.17.2",
@@ -50,6 +55,7 @@
     "@swc/core": "^1.10.7",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",

@@ -10,7 +10,7 @@ import {
   type ProgramacionItemDto,
   type ProgramacionResponseDto,
 } from '../dto/programacion.dto';
-import { Prisma } from '../../generated/prisma';
+import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 
 @Injectable()

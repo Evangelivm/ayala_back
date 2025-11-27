@@ -35,6 +35,7 @@ import { CentroproyectoModule } from './centroproyecto/centroproyecto.module';
 import { FasecontrolModule } from './fasecontrol/fasecontrol.module';
 import { RubroModule } from './rubro/rubro.module';
 import { WebsocketModule } from './websocket/websocket.module';
+import { DropboxModule } from './dropbox/dropbox.module';
 
 @Module({
   imports: [
@@ -75,6 +76,7 @@ import { WebsocketModule } from './websocket/websocket.module';
     CentroproyectoModule,
     FasecontrolModule,
     RubroModule,
+    DropboxModule,
   ],
   controllers: [AppController],
   providers: [AppService],

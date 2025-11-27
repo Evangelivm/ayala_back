@@ -10,7 +10,7 @@ import {
   type AcarreoItemDto,
   type AcarreoResponseDto,
 } from '../dto/acarreo.dto';
-import { Prisma } from '../../generated/prisma';
+import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 
 @Injectable()

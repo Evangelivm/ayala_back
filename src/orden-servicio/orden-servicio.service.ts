@@ -1342,4 +1342,72 @@ export class OrdenServicioService {
       );
     }
   }
+
+  /**
+   * Obtiene los datos de una orden de servicio (numero_orden y fecha_registro)
+   * @param id - ID de la orden de servicio
+   * @returns Datos de la orden (numero_orden, fecha_registro)
+   */
+  async getOrdenData(id: number): Promise<{
+    numero_orden: string;
+    fecha_registro: Date;
+  }> {
+    try {
+      const orden = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+        select: {
+          numero_orden: true,
+          fecha_registro: true,
+        },
+      });
+
+      if (!orden) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      if (!orden.fecha_registro) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no tiene fecha de registro`,
+        );
+      }
+
+      return {
+        numero_orden: orden.numero_orden,
+        fecha_registro: orden.fecha_registro,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al obtener datos de la orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al obtener datos de la orden de servicio: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Actualiza la URL del archivo de una orden de servicio
+   * @param id - ID de la orden de servicio
+   * @param fileUrl - URL del archivo en Dropbox
+   */
+  async updateFileUrl(id: number, fileUrl: string): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { url: fileUrl },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
+    } catch (error) {
+      console.error('Error al actualizar URL de la orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al actualizar URL de la orden de servicio: ${error.message}`,
+      );
+    }
+  }
 }
