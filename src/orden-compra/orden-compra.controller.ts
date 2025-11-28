@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Delete,
   Patch,
   Body,
@@ -75,9 +76,8 @@ export class OrdenCompraController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new ZodValidationPipe(CreateOrdenCompraSchema))
   async create(
-    @Body() createOrdenCompraDto: CreateOrdenCompraDto,
+    @Body(new ZodValidationPipe(CreateOrdenCompraSchema)) createOrdenCompraDto: CreateOrdenCompraDto,
     @Request() req: any,
   ) {
     try {
@@ -93,6 +93,29 @@ export class OrdenCompraController {
       return result;
     } catch (error) {
       console.error('Error creando orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  async update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(CreateOrdenCompraSchema)) updateOrdenCompraDto: CreateOrdenCompraDto,
+    @Request() req: any,
+  ) {
+    try {
+      const usuarioId = req.user?.id || 1;
+
+      const result = await this.ordenCompraService.update(
+        +id,
+        updateOrdenCompraDto,
+        usuarioId,
+      );
+
+      return result;
+    } catch (error) {
+      console.error('Error actualizando orden de compra:', error);
       throw error;
     }
   }

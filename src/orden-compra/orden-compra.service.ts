@@ -114,13 +114,16 @@ export class OrdenCompraService {
         },
         include: {
           proveedores: true,
+          detalles_orden_compra: true,
         },
       });
 
-      // Mapear las órdenes para incluir el nombre_proveedor al mismo nivel
+      // Mapear las órdenes para incluir el nombre_proveedor, ruc y los items al mismo nivel
       return ordenes.map((orden) => ({
         ...orden,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+        ruc_proveedor: orden.proveedores?.ruc || null,
+        items: orden.detalles_orden_compra || [],
       }));
     } catch (error) {
       console.error('Error obteniendo órdenes de compra:', error);
@@ -1168,6 +1171,148 @@ export class OrdenCompraService {
     });
 
     return currentY;
+  }
+
+  /**
+   * Actualiza una orden de compra existente
+   * @param id - ID de la orden de compra a actualizar
+   * @param updateOrdenCompraDto - Datos para actualizar la orden de compra
+   * @param usuarioId - ID del usuario que actualiza
+   */
+  async update(
+    id: number,
+    updateOrdenCompraDto: CreateOrdenCompraDto,
+    usuarioId: number,
+  ) {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Validar que el proveedor existe
+      const proveedor = await this.prismaThird.proveedores.findUnique({
+        where: { id_proveedor: updateOrdenCompraDto.id_proveedor },
+      });
+
+      if (!proveedor) {
+        throw new BadRequestException(
+          `Proveedor con ID ${updateOrdenCompraDto.id_proveedor} no encontrado`,
+        );
+      }
+
+      // Validar que el número de orden no existe en otra orden
+      const ordenConMismoNumero =
+        await this.prismaThird.ordenes_compra.findUnique({
+          where: { numero_orden: updateOrdenCompraDto.numero_orden },
+        });
+
+      if (
+        ordenConMismoNumero &&
+        ordenConMismoNumero.id_orden_compra !== id
+      ) {
+        throw new BadRequestException(
+          `Ya existe otra orden de compra con el número ${updateOrdenCompraDto.numero_orden}`,
+        );
+      }
+
+      // Validar que los items existen
+      for (const item of updateOrdenCompraDto.items) {
+        const itemDB = await this.prismaThird.listado_items_2025.findUnique({
+          where: { codigo: item.codigo_item },
+        });
+
+        if (!itemDB) {
+          throw new BadRequestException(
+            `Item con código ${item.codigo_item} no encontrado`,
+          );
+        }
+      }
+
+      // Obtener el tipo de cambio
+      const tipoCambio = await this.obtenerTipoCambioSunat();
+
+      // Actualizar la orden de compra con sus detalles en una transacción
+      const ordenCompraActualizada = await this.prismaThird.$transaction(
+        async (tx) => {
+          // Actualizar la orden de compra
+          const ordenActualizada = await tx.ordenes_compra.update({
+            where: { id_orden_compra: id },
+            data: {
+              numero_orden: updateOrdenCompraDto.numero_orden,
+              id_proveedor: updateOrdenCompraDto.id_proveedor,
+              fecha_orden: new Date(updateOrdenCompraDto.fecha_orden),
+              subtotal: updateOrdenCompraDto.subtotal,
+              igv: updateOrdenCompraDto.igv,
+              total: updateOrdenCompraDto.total,
+              estado: updateOrdenCompraDto.estado as any,
+              observaciones: updateOrdenCompraDto.observaciones,
+              fecha_registro: new Date(updateOrdenCompraDto.fecha_registro),
+              centro_costo_nivel1: updateOrdenCompraDto.centro_costo_nivel1,
+              centro_costo_nivel2: updateOrdenCompraDto.centro_costo_nivel2,
+              centro_costo_nivel3: updateOrdenCompraDto.centro_costo_nivel3,
+              moneda: updateOrdenCompraDto.moneda,
+              id_camion: updateOrdenCompraDto.unidad_id,
+              retencion: updateOrdenCompraDto.retencion,
+              almacen_central: updateOrdenCompraDto.almacen_central,
+              has_anticipo: updateOrdenCompraDto.has_anticipo === 1,
+              tiene_anticipo: updateOrdenCompraDto.tiene_anticipo,
+              tipo_cambio: tipoCambio,
+            },
+          });
+
+          // Eliminar los detalles anteriores
+          await tx.detalles_orden_compra.deleteMany({
+            where: { id_orden_compra: id },
+          });
+
+          // Crear los nuevos detalles
+          const detallesCreados = await Promise.all(
+            updateOrdenCompraDto.items.map((item) =>
+              tx.detalles_orden_compra.create({
+                data: {
+                  id_orden_compra: ordenActualizada.id_orden_compra,
+                  codigo_item: item.codigo_item,
+                  descripcion_item: item.descripcion_item,
+                  cantidad_solicitada: item.cantidad_solicitada,
+                  precio_unitario: item.precio_unitario,
+                  subtotal: item.subtotal,
+                },
+              }),
+            ),
+          );
+
+          return {
+            ...ordenActualizada,
+            detalles: detallesCreados,
+          };
+        },
+      );
+
+      // Emitir evento WebSocket de actualización
+      this.websocketGateway.emitOrdenCompraUpdate();
+
+      console.log(
+        `✅ Orden de compra ${ordenCompraActualizada.numero_orden} actualizada exitosamente`,
+      );
+
+      return ordenCompraActualizada;
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar orden de compra:', error);
+      throw new BadRequestException(
+        `Error al actualizar la orden de compra: ${error.message}`,
+      );
+    }
   }
 
   /**

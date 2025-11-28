@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Delete,
   Patch,
   Body,
@@ -75,9 +76,8 @@ export class OrdenServicioController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new ZodValidationPipe(CreateOrdenServicioSchema))
   async create(
-    @Body() createOrdenServicioDto: CreateOrdenServicioDto,
+    @Body(new ZodValidationPipe(CreateOrdenServicioSchema)) createOrdenServicioDto: CreateOrdenServicioDto,
     @Request() req: any,
   ) {
     try {
@@ -93,6 +93,29 @@ export class OrdenServicioController {
       return result;
     } catch (error) {
       console.error('Error creando orden de servicio:', error);
+      throw error;
+    }
+  }
+
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  async update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(CreateOrdenServicioSchema)) updateOrdenServicioDto: CreateOrdenServicioDto,
+    @Request() req: any,
+  ) {
+    try {
+      const usuarioId = req.user?.id || 1;
+
+      const result = await this.ordenServicioService.update(
+        +id,
+        updateOrdenServicioDto,
+        usuarioId,
+      );
+
+      return result;
+    } catch (error) {
+      console.error('Error actualizando orden de servicio:', error);
       throw error;
     }
   }

@@ -114,13 +114,16 @@ export class OrdenServicioService {
         },
         include: {
           proveedores: true,
+          detalles_orden_servicio: true,
         },
       });
 
-      // Mapear las órdenes para incluir el nombre_proveedor al mismo nivel
+      // Mapear las órdenes para incluir el nombre_proveedor, ruc y los items al mismo nivel
       return ordenes.map((orden) => ({
         ...orden,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+        ruc_proveedor: orden.proveedores?.ruc || null,
+        items: orden.detalles_orden_servicio || [],
       }));
     } catch (error) {
       console.error('Error obteniendo órdenes de servicio:', error);
@@ -1122,6 +1125,148 @@ export class OrdenServicioService {
     });
 
     return currentY;
+  }
+
+  /**
+   * Actualiza una orden de servicio existente
+   * @param id - ID de la orden de servicio a actualizar
+   * @param updateOrdenServicioDto - Datos para actualizar la orden de servicio
+   * @param usuarioId - ID del usuario que actualiza
+   */
+  async update(
+    id: number,
+    updateOrdenServicioDto: CreateOrdenServicioDto,
+    usuarioId: number,
+  ) {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Validar que el proveedor existe
+      const proveedor = await this.prismaThird.proveedores.findUnique({
+        where: { id_proveedor: updateOrdenServicioDto.id_proveedor },
+      });
+
+      if (!proveedor) {
+        throw new BadRequestException(
+          `Proveedor con ID ${updateOrdenServicioDto.id_proveedor} no encontrado`,
+        );
+      }
+
+      // Validar que el número de orden no existe en otra orden
+      const ordenConMismoNumero =
+        await this.prismaThird.ordenes_servicio.findUnique({
+          where: { numero_orden: updateOrdenServicioDto.numero_orden },
+        });
+
+      if (
+        ordenConMismoNumero &&
+        ordenConMismoNumero.id_orden_servicio !== id
+      ) {
+        throw new BadRequestException(
+          `Ya existe otra orden de servicio con el número ${updateOrdenServicioDto.numero_orden}`,
+        );
+      }
+
+      // Validar que los items existen
+      for (const item of updateOrdenServicioDto.items) {
+        const itemDB = await this.prismaThird.listado_items_2025.findUnique({
+          where: { codigo: item.codigo_item },
+        });
+
+        if (!itemDB) {
+          throw new BadRequestException(
+            `Item con código ${item.codigo_item} no encontrado`,
+          );
+        }
+      }
+
+      // Obtener el tipo de cambio
+      const tipoCambio = await this.obtenerTipoCambioSunat();
+
+      // Actualizar la orden de servicio con sus detalles en una transacción
+      const ordenServicioActualizada = await this.prismaThird.$transaction(
+        async (tx) => {
+          // Actualizar la orden de servicio
+          const ordenActualizada = await tx.ordenes_servicio.update({
+            where: { id_orden_servicio: id },
+            data: {
+              numero_orden: updateOrdenServicioDto.numero_orden,
+              id_proveedor: updateOrdenServicioDto.id_proveedor,
+              fecha_orden: new Date(updateOrdenServicioDto.fecha_orden),
+              subtotal: updateOrdenServicioDto.subtotal,
+              igv: updateOrdenServicioDto.igv,
+              total: updateOrdenServicioDto.total,
+              estado: updateOrdenServicioDto.estado as any,
+              observaciones: updateOrdenServicioDto.observaciones,
+              fecha_registro: new Date(updateOrdenServicioDto.fecha_registro),
+              centro_costo_nivel1: updateOrdenServicioDto.centro_costo_nivel1,
+              centro_costo_nivel2: updateOrdenServicioDto.centro_costo_nivel2,
+              centro_costo_nivel3: updateOrdenServicioDto.centro_costo_nivel3,
+              moneda: updateOrdenServicioDto.moneda,
+              id_camion: updateOrdenServicioDto.unidad_id,
+              retencion: updateOrdenServicioDto.retencion,
+              almacen_central: updateOrdenServicioDto.almacen_central,
+              has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
+              tiene_anticipo: updateOrdenServicioDto.tiene_anticipo,
+              tipo_cambio: tipoCambio,
+            },
+          });
+
+          // Eliminar los detalles anteriores
+          await tx.detalles_orden_servicio.deleteMany({
+            where: { id_orden_servicio: id },
+          });
+
+          // Crear los nuevos detalles
+          const detallesCreados = await Promise.all(
+            updateOrdenServicioDto.items.map((item) =>
+              tx.detalles_orden_servicio.create({
+                data: {
+                  id_orden_servicio: ordenActualizada.id_orden_servicio,
+                  codigo_item: item.codigo_item,
+                  descripcion_item: item.descripcion_item,
+                  cantidad_solicitada: item.cantidad_solicitada,
+                  precio_unitario: item.precio_unitario,
+                  subtotal: item.subtotal,
+                },
+              }),
+            ),
+          );
+
+          return {
+            ...ordenActualizada,
+            detalles: detallesCreados,
+          };
+        },
+      );
+
+      // Emitir evento WebSocket de actualización
+      this.websocketGateway.emitOrdenServicioUpdate();
+
+      console.log(
+        `✅ Orden de servicio ${ordenServicioActualizada.numero_orden} actualizada exitosamente`,
+      );
+
+      return ordenServicioActualizada;
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al actualizar la orden de servicio: ${error.message}`,
+      );
+    }
   }
 
   /**
