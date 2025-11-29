@@ -310,6 +310,7 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   procede_pago: 'procede_pago',
   auto_administrador: 'auto_administrador',
   auto_contabilidad: 'auto_contabilidad',
+  jefe_proyecto: 'jefe_proyecto',
   has_anticipo: 'has_anticipo',
   direccion: 'direccion',
   centro_costo_nivel1: 'centro_costo_nivel1',
@@ -362,7 +363,9 @@ exports.Prisma.ProveedoresScalarFieldEnum = {
   fecha_actualizacion: 'fecha_actualizacion',
   entidad_bancaria: 'entidad_bancaria',
   numero_cuenta_bancaria: 'numero_cuenta_bancaria',
-  retencion: 'retencion'
+  retencion: 'retencion',
+  es_agente_retencion: 'es_agente_retencion',
+  numero_cuenta: 'numero_cuenta'
 };
 
 exports.Prisma.Recepciones_compraScalarFieldEnum = {
@@ -436,6 +439,7 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   tiene_anticipo: 'tiene_anticipo',
   procede_pago: 'procede_pago',
   auto_administrador: 'auto_administrador',
+  jefe_proyecto: 'jefe_proyecto',
   auto_contabilidad: 'auto_contabilidad',
   has_anticipo: 'has_anticipo',
   direccion: 'direccion',
@@ -491,6 +495,19 @@ exports.Prisma.Email_notificationsScalarFieldEnum = {
 exports.Prisma.DROPBOXScalarFieldEnum = {
   id: 'id',
   archivo: 'archivo'
+};
+
+exports.Prisma.ProyectoScalarFieldEnum = {
+  id_proyecto: 'id_proyecto',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  fecha_inicio: 'fecha_inicio',
+  fecha_fin: 'fecha_fin',
+  estado: 'estado',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  cliente: 'cliente',
+  ubicacion: 'ubicacion'
 };
 
 exports.Prisma.SortOrder = {
@@ -631,7 +648,9 @@ exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
   direccion: 'direccion',
   ruc: 'ruc',
   entidad_bancaria: 'entidad_bancaria',
-  numero_cuenta_bancaria: 'numero_cuenta_bancaria'
+  numero_cuenta_bancaria: 'numero_cuenta_bancaria',
+  es_agente_retencion: 'es_agente_retencion',
+  numero_cuenta: 'numero_cuenta'
 };
 
 exports.Prisma.recepciones_compraOrderByRelevanceFieldEnum = {
@@ -694,6 +713,13 @@ exports.Prisma.detalles_orden_servicioOrderByRelevanceFieldEnum = {
 
 exports.Prisma.DROPBOXOrderByRelevanceFieldEnum = {
   archivo: 'archivo'
+};
+
+exports.Prisma.proyectoOrderByRelevanceFieldEnum = {
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  cliente: 'cliente',
+  ubicacion: 'ubicacion'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -829,6 +855,12 @@ exports.ordenes_servicio_estado_firma = exports.$Enums.ordenes_servicio_estado_f
   FIRMADA: 'FIRMADA'
 };
 
+exports.proyecto_estado = exports.$Enums.proyecto_estado = {
+  activo: 'activo',
+  inactivo: 'inactivo',
+  finalizado: 'finalizado'
+};
+
 exports.Prisma.ModelName = {
   almacenes: 'almacenes',
   configuracion_notificaciones: 'configuracion_notificaciones',
@@ -859,7 +891,8 @@ exports.Prisma.ModelName = {
   usuarios_consulta: 'usuarios_consulta',
   detalles_orden_servicio: 'detalles_orden_servicio',
   email_notifications: 'email_notifications',
-  DROPBOX: 'DROPBOX'
+  DROPBOX: 'DROPBOX',
+  proyecto: 'proyecto'
 };
 
 /**

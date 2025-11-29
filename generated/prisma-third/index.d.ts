@@ -163,6 +163,11 @@ export type email_notifications = $Result.DefaultSelection<Prisma.$email_notific
  * 
  */
 export type DROPBOX = $Result.DefaultSelection<Prisma.$DROPBOXPayload>
+/**
+ * Model proyecto
+ * 
+ */
+export type proyecto = $Result.DefaultSelection<Prisma.$proyectoPayload>
 
 /**
  * Enums
@@ -364,6 +369,15 @@ export const ordenes_servicio_estado_firma: {
 
 export type ordenes_servicio_estado_firma = (typeof ordenes_servicio_estado_firma)[keyof typeof ordenes_servicio_estado_firma]
 
+
+export const proyecto_estado: {
+  activo: 'activo',
+  inactivo: 'inactivo',
+  finalizado: 'finalizado'
+};
+
+export type proyecto_estado = (typeof proyecto_estado)[keyof typeof proyecto_estado]
+
 }
 
 export type permisos_rol_rol = $Enums.permisos_rol_rol
@@ -449,6 +463,10 @@ export const ordenes_servicio_estado: typeof $Enums.ordenes_servicio_estado
 export type ordenes_servicio_estado_firma = $Enums.ordenes_servicio_estado_firma
 
 export const ordenes_servicio_estado_firma: typeof $Enums.ordenes_servicio_estado_firma
+
+export type proyecto_estado = $Enums.proyecto_estado
+
+export const proyecto_estado: typeof $Enums.proyecto_estado
 
 /**
  * ##  Prisma Client ʲˢ
@@ -867,6 +885,16 @@ export class PrismaClient<
     * ```
     */
   get dROPBOX(): Prisma.DROPBOXDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.proyecto`: Exposes CRUD operations for the **proyecto** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Proyectos
+    * const proyectos = await prisma.proyecto.findMany()
+    * ```
+    */
+  get proyecto(): Prisma.proyectoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1337,7 +1365,8 @@ export namespace Prisma {
     usuarios_consulta: 'usuarios_consulta',
     detalles_orden_servicio: 'detalles_orden_servicio',
     email_notifications: 'email_notifications',
-    DROPBOX: 'DROPBOX'
+    DROPBOX: 'DROPBOX',
+    proyecto: 'proyecto'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1356,7 +1385,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3340,6 +3369,72 @@ export namespace Prisma {
           }
         }
       }
+      proyecto: {
+        payload: Prisma.$proyectoPayload<ExtArgs>
+        fields: Prisma.proyectoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.proyectoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.proyectoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          findFirst: {
+            args: Prisma.proyectoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.proyectoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          findMany: {
+            args: Prisma.proyectoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>[]
+          }
+          create: {
+            args: Prisma.proyectoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          createMany: {
+            args: Prisma.proyectoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.proyectoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          update: {
+            args: Prisma.proyectoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          deleteMany: {
+            args: Prisma.proyectoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.proyectoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.proyectoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$proyectoPayload>
+          }
+          aggregate: {
+            args: Prisma.ProyectoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProyecto>
+          }
+          groupBy: {
+            args: Prisma.proyectoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProyectoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.proyectoCountArgs<ExtArgs>
+            result: $Utils.Optional<ProyectoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3466,6 +3561,7 @@ export namespace Prisma {
     detalles_orden_servicio?: detalles_orden_servicioOmit
     email_notifications?: email_notificationsOmit
     dROPBOX?: DROPBOXOmit
+    proyecto?: proyectoOmit
   }
 
   /* Types for Logging */
@@ -9555,7 +9651,7 @@ export namespace Prisma {
   export type Detalles_orden_compraAvgAggregateOutputType = {
     id_detalle: number | null
     id_orden_compra: number | null
-    cantidad_solicitada: number | null
+    cantidad_solicitada: Decimal | null
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
@@ -9564,7 +9660,7 @@ export namespace Prisma {
   export type Detalles_orden_compraSumAggregateOutputType = {
     id_detalle: number | null
     id_orden_compra: number | null
-    cantidad_solicitada: number | null
+    cantidad_solicitada: Decimal | null
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
@@ -9575,7 +9671,7 @@ export namespace Prisma {
     id_orden_compra: number | null
     codigo_item: string | null
     descripcion_item: string | null
-    cantidad_solicitada: number | null
+    cantidad_solicitada: Decimal | null
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
@@ -9586,7 +9682,7 @@ export namespace Prisma {
     id_orden_compra: number | null
     codigo_item: string | null
     descripcion_item: string | null
-    cantidad_solicitada: number | null
+    cantidad_solicitada: Decimal | null
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
@@ -9748,7 +9844,7 @@ export namespace Prisma {
     id_orden_compra: number
     codigo_item: string
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal
     cantidad_recibida: number | null
     precio_unitario: Decimal
     subtotal: Decimal
@@ -9816,7 +9912,7 @@ export namespace Prisma {
       id_orden_compra: number
       codigo_item: string
       descripcion_item: string
-      cantidad_solicitada: number
+      cantidad_solicitada: Prisma.Decimal
       cantidad_recibida: number | null
       precio_unitario: Prisma.Decimal
       subtotal: Prisma.Decimal
@@ -10195,7 +10291,7 @@ export namespace Prisma {
     readonly id_orden_compra: FieldRef<"detalles_orden_compra", 'Int'>
     readonly codigo_item: FieldRef<"detalles_orden_compra", 'String'>
     readonly descripcion_item: FieldRef<"detalles_orden_compra", 'String'>
-    readonly cantidad_solicitada: FieldRef<"detalles_orden_compra", 'Int'>
+    readonly cantidad_solicitada: FieldRef<"detalles_orden_compra", 'Decimal'>
     readonly cantidad_recibida: FieldRef<"detalles_orden_compra", 'Int'>
     readonly precio_unitario: FieldRef<"detalles_orden_compra", 'Decimal'>
     readonly subtotal: FieldRef<"detalles_orden_compra", 'Decimal'>
@@ -20128,6 +20224,7 @@ export namespace Prisma {
     procede_pago: string | null
     auto_administrador: boolean | null
     auto_contabilidad: boolean | null
+    jefe_proyecto: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -20163,6 +20260,7 @@ export namespace Prisma {
     procede_pago: string | null
     auto_administrador: boolean | null
     auto_contabilidad: boolean | null
+    jefe_proyecto: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -20198,6 +20296,7 @@ export namespace Prisma {
     procede_pago: number
     auto_administrador: number
     auto_contabilidad: number
+    jefe_proyecto: number
     has_anticipo: number
     direccion: number
     centro_costo_nivel1: number
@@ -20259,6 +20358,7 @@ export namespace Prisma {
     procede_pago?: true
     auto_administrador?: true
     auto_contabilidad?: true
+    jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -20294,6 +20394,7 @@ export namespace Prisma {
     procede_pago?: true
     auto_administrador?: true
     auto_contabilidad?: true
+    jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -20329,6 +20430,7 @@ export namespace Prisma {
     procede_pago?: true
     auto_administrador?: true
     auto_contabilidad?: true
+    jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -20451,6 +20553,7 @@ export namespace Prisma {
     procede_pago: string | null
     auto_administrador: boolean | null
     auto_contabilidad: boolean | null
+    jefe_proyecto: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -20505,6 +20608,7 @@ export namespace Prisma {
     procede_pago?: boolean
     auto_administrador?: boolean
     auto_contabilidad?: boolean
+    jefe_proyecto?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -20547,6 +20651,7 @@ export namespace Prisma {
     procede_pago?: boolean
     auto_administrador?: boolean
     auto_contabilidad?: boolean
+    jefe_proyecto?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -20565,7 +20670,7 @@ export namespace Prisma {
     url?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20599,6 +20704,7 @@ export namespace Prisma {
       procede_pago: string | null
       auto_administrador: boolean | null
       auto_contabilidad: boolean | null
+      jefe_proyecto: boolean | null
       has_anticipo: boolean | null
       direccion: string | null
       centro_costo_nivel1: string | null
@@ -21004,6 +21110,7 @@ export namespace Prisma {
     readonly procede_pago: FieldRef<"ordenes_compra", 'String'>
     readonly auto_administrador: FieldRef<"ordenes_compra", 'Boolean'>
     readonly auto_contabilidad: FieldRef<"ordenes_compra", 'Boolean'>
+    readonly jefe_proyecto: FieldRef<"ordenes_compra", 'Boolean'>
     readonly has_anticipo: FieldRef<"ordenes_compra", 'Boolean'>
     readonly direccion: FieldRef<"ordenes_compra", 'String'>
     readonly centro_costo_nivel1: FieldRef<"ordenes_compra", 'String'>
@@ -23450,6 +23557,8 @@ export namespace Prisma {
     entidad_bancaria: string | null
     numero_cuenta_bancaria: string | null
     retencion: $Enums.proveedores_retencion | null
+    es_agente_retencion: string | null
+    numero_cuenta: string | null
   }
 
   export type ProveedoresMaxAggregateOutputType = {
@@ -23467,6 +23576,8 @@ export namespace Prisma {
     entidad_bancaria: string | null
     numero_cuenta_bancaria: string | null
     retencion: $Enums.proveedores_retencion | null
+    es_agente_retencion: string | null
+    numero_cuenta: string | null
   }
 
   export type ProveedoresCountAggregateOutputType = {
@@ -23484,6 +23595,8 @@ export namespace Prisma {
     entidad_bancaria: number
     numero_cuenta_bancaria: number
     retencion: number
+    es_agente_retencion: number
+    numero_cuenta: number
     _all: number
   }
 
@@ -23511,6 +23624,8 @@ export namespace Prisma {
     entidad_bancaria?: true
     numero_cuenta_bancaria?: true
     retencion?: true
+    es_agente_retencion?: true
+    numero_cuenta?: true
   }
 
   export type ProveedoresMaxAggregateInputType = {
@@ -23528,6 +23643,8 @@ export namespace Prisma {
     entidad_bancaria?: true
     numero_cuenta_bancaria?: true
     retencion?: true
+    es_agente_retencion?: true
+    numero_cuenta?: true
   }
 
   export type ProveedoresCountAggregateInputType = {
@@ -23545,6 +23662,8 @@ export namespace Prisma {
     entidad_bancaria?: true
     numero_cuenta_bancaria?: true
     retencion?: true
+    es_agente_retencion?: true
+    numero_cuenta?: true
     _all?: true
   }
 
@@ -23649,6 +23768,8 @@ export namespace Prisma {
     entidad_bancaria: string | null
     numero_cuenta_bancaria: string | null
     retencion: $Enums.proveedores_retencion | null
+    es_agente_retencion: string | null
+    numero_cuenta: string | null
     _count: ProveedoresCountAggregateOutputType | null
     _avg: ProveedoresAvgAggregateOutputType | null
     _sum: ProveedoresSumAggregateOutputType | null
@@ -23685,6 +23806,8 @@ export namespace Prisma {
     entidad_bancaria?: boolean
     numero_cuenta_bancaria?: boolean
     retencion?: boolean
+    es_agente_retencion?: boolean
+    numero_cuenta?: boolean
     ordenes_compra?: boolean | proveedores$ordenes_compraArgs<ExtArgs>
     ordenes_servicio?: boolean | proveedores$ordenes_servicioArgs<ExtArgs>
     _count?: boolean | ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
@@ -23707,9 +23830,11 @@ export namespace Prisma {
     entidad_bancaria?: boolean
     numero_cuenta_bancaria?: boolean
     retencion?: boolean
+    es_agente_retencion?: boolean
+    numero_cuenta?: boolean
   }
 
-  export type proveedoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_proveedor" | "codigo_proveedor" | "nombre_proveedor" | "contacto" | "telefono" | "email" | "direccion" | "ruc" | "activo" | "fecha_registro" | "fecha_actualizacion" | "entidad_bancaria" | "numero_cuenta_bancaria" | "retencion", ExtArgs["result"]["proveedores"]>
+  export type proveedoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_proveedor" | "codigo_proveedor" | "nombre_proveedor" | "contacto" | "telefono" | "email" | "direccion" | "ruc" | "activo" | "fecha_registro" | "fecha_actualizacion" | "entidad_bancaria" | "numero_cuenta_bancaria" | "retencion" | "es_agente_retencion" | "numero_cuenta", ExtArgs["result"]["proveedores"]>
   export type proveedoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordenes_compra?: boolean | proveedores$ordenes_compraArgs<ExtArgs>
     ordenes_servicio?: boolean | proveedores$ordenes_servicioArgs<ExtArgs>
@@ -23737,6 +23862,8 @@ export namespace Prisma {
       entidad_bancaria: string | null
       numero_cuenta_bancaria: string | null
       retencion: $Enums.proveedores_retencion | null
+      es_agente_retencion: string | null
+      numero_cuenta: string | null
     }, ExtArgs["result"]["proveedores"]>
     composites: {}
   }
@@ -24122,6 +24249,8 @@ export namespace Prisma {
     readonly entidad_bancaria: FieldRef<"proveedores", 'String'>
     readonly numero_cuenta_bancaria: FieldRef<"proveedores", 'String'>
     readonly retencion: FieldRef<"proveedores", 'proveedores_retencion'>
+    readonly es_agente_retencion: FieldRef<"proveedores", 'String'>
+    readonly numero_cuenta: FieldRef<"proveedores", 'String'>
   }
     
 
@@ -30078,6 +30207,7 @@ export namespace Prisma {
     tiene_anticipo: string | null
     procede_pago: string | null
     auto_administrador: boolean | null
+    jefe_proyecto: boolean | null
     auto_contabilidad: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
@@ -30113,6 +30243,7 @@ export namespace Prisma {
     tiene_anticipo: string | null
     procede_pago: string | null
     auto_administrador: boolean | null
+    jefe_proyecto: boolean | null
     auto_contabilidad: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
@@ -30148,6 +30279,7 @@ export namespace Prisma {
     tiene_anticipo: number
     procede_pago: number
     auto_administrador: number
+    jefe_proyecto: number
     auto_contabilidad: number
     has_anticipo: number
     direccion: number
@@ -30209,6 +30341,7 @@ export namespace Prisma {
     tiene_anticipo?: true
     procede_pago?: true
     auto_administrador?: true
+    jefe_proyecto?: true
     auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
@@ -30244,6 +30377,7 @@ export namespace Prisma {
     tiene_anticipo?: true
     procede_pago?: true
     auto_administrador?: true
+    jefe_proyecto?: true
     auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
@@ -30279,6 +30413,7 @@ export namespace Prisma {
     tiene_anticipo?: true
     procede_pago?: true
     auto_administrador?: true
+    jefe_proyecto?: true
     auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
@@ -30401,6 +30536,7 @@ export namespace Prisma {
     tiene_anticipo: string | null
     procede_pago: string | null
     auto_administrador: boolean | null
+    jefe_proyecto: boolean | null
     auto_contabilidad: boolean | null
     has_anticipo: boolean | null
     direccion: string | null
@@ -30455,6 +30591,7 @@ export namespace Prisma {
     tiene_anticipo?: boolean
     procede_pago?: boolean
     auto_administrador?: boolean
+    jefe_proyecto?: boolean
     auto_contabilidad?: boolean
     has_anticipo?: boolean
     direccion?: boolean
@@ -30496,6 +30633,7 @@ export namespace Prisma {
     tiene_anticipo?: boolean
     procede_pago?: boolean
     auto_administrador?: boolean
+    jefe_proyecto?: boolean
     auto_contabilidad?: boolean
     has_anticipo?: boolean
     direccion?: boolean
@@ -30515,7 +30653,7 @@ export namespace Prisma {
     url?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30546,6 +30684,7 @@ export namespace Prisma {
       tiene_anticipo: string | null
       procede_pago: string | null
       auto_administrador: boolean | null
+      jefe_proyecto: boolean | null
       auto_contabilidad: boolean | null
       has_anticipo: boolean | null
       direccion: string | null
@@ -30950,6 +31089,7 @@ export namespace Prisma {
     readonly tiene_anticipo: FieldRef<"ordenes_servicio", 'String'>
     readonly procede_pago: FieldRef<"ordenes_servicio", 'String'>
     readonly auto_administrador: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly jefe_proyecto: FieldRef<"ordenes_servicio", 'Boolean'>
     readonly auto_contabilidad: FieldRef<"ordenes_servicio", 'Boolean'>
     readonly has_anticipo: FieldRef<"ordenes_servicio", 'Boolean'>
     readonly direccion: FieldRef<"ordenes_servicio", 'String'>
@@ -35986,6 +36126,977 @@ export namespace Prisma {
 
 
   /**
+   * Model proyecto
+   */
+
+  export type AggregateProyecto = {
+    _count: ProyectoCountAggregateOutputType | null
+    _avg: ProyectoAvgAggregateOutputType | null
+    _sum: ProyectoSumAggregateOutputType | null
+    _min: ProyectoMinAggregateOutputType | null
+    _max: ProyectoMaxAggregateOutputType | null
+  }
+
+  export type ProyectoAvgAggregateOutputType = {
+    id_proyecto: number | null
+  }
+
+  export type ProyectoSumAggregateOutputType = {
+    id_proyecto: number | null
+  }
+
+  export type ProyectoMinAggregateOutputType = {
+    id_proyecto: number | null
+    nombre: string | null
+    descripcion: string | null
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    estado: $Enums.proyecto_estado | null
+    created_at: Date | null
+    updated_at: Date | null
+    cliente: string | null
+    ubicacion: string | null
+  }
+
+  export type ProyectoMaxAggregateOutputType = {
+    id_proyecto: number | null
+    nombre: string | null
+    descripcion: string | null
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    estado: $Enums.proyecto_estado | null
+    created_at: Date | null
+    updated_at: Date | null
+    cliente: string | null
+    ubicacion: string | null
+  }
+
+  export type ProyectoCountAggregateOutputType = {
+    id_proyecto: number
+    nombre: number
+    descripcion: number
+    fecha_inicio: number
+    fecha_fin: number
+    estado: number
+    created_at: number
+    updated_at: number
+    cliente: number
+    ubicacion: number
+    _all: number
+  }
+
+
+  export type ProyectoAvgAggregateInputType = {
+    id_proyecto?: true
+  }
+
+  export type ProyectoSumAggregateInputType = {
+    id_proyecto?: true
+  }
+
+  export type ProyectoMinAggregateInputType = {
+    id_proyecto?: true
+    nombre?: true
+    descripcion?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    estado?: true
+    created_at?: true
+    updated_at?: true
+    cliente?: true
+    ubicacion?: true
+  }
+
+  export type ProyectoMaxAggregateInputType = {
+    id_proyecto?: true
+    nombre?: true
+    descripcion?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    estado?: true
+    created_at?: true
+    updated_at?: true
+    cliente?: true
+    ubicacion?: true
+  }
+
+  export type ProyectoCountAggregateInputType = {
+    id_proyecto?: true
+    nombre?: true
+    descripcion?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    estado?: true
+    created_at?: true
+    updated_at?: true
+    cliente?: true
+    ubicacion?: true
+    _all?: true
+  }
+
+  export type ProyectoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which proyecto to aggregate.
+     */
+    where?: proyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of proyectos to fetch.
+     */
+    orderBy?: proyectoOrderByWithRelationInput | proyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: proyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` proyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` proyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned proyectos
+    **/
+    _count?: true | ProyectoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProyectoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProyectoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProyectoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProyectoMaxAggregateInputType
+  }
+
+  export type GetProyectoAggregateType<T extends ProyectoAggregateArgs> = {
+        [P in keyof T & keyof AggregateProyecto]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProyecto[P]>
+      : GetScalarType<T[P], AggregateProyecto[P]>
+  }
+
+
+
+
+  export type proyectoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: proyectoWhereInput
+    orderBy?: proyectoOrderByWithAggregationInput | proyectoOrderByWithAggregationInput[]
+    by: ProyectoScalarFieldEnum[] | ProyectoScalarFieldEnum
+    having?: proyectoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProyectoCountAggregateInputType | true
+    _avg?: ProyectoAvgAggregateInputType
+    _sum?: ProyectoSumAggregateInputType
+    _min?: ProyectoMinAggregateInputType
+    _max?: ProyectoMaxAggregateInputType
+  }
+
+  export type ProyectoGroupByOutputType = {
+    id_proyecto: number
+    nombre: string
+    descripcion: string | null
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    estado: $Enums.proyecto_estado | null
+    created_at: Date | null
+    updated_at: Date | null
+    cliente: string | null
+    ubicacion: string | null
+    _count: ProyectoCountAggregateOutputType | null
+    _avg: ProyectoAvgAggregateOutputType | null
+    _sum: ProyectoSumAggregateOutputType | null
+    _min: ProyectoMinAggregateOutputType | null
+    _max: ProyectoMaxAggregateOutputType | null
+  }
+
+  type GetProyectoGroupByPayload<T extends proyectoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProyectoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProyectoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProyectoGroupByOutputType[P]>
+            : GetScalarType<T[P], ProyectoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type proyectoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_proyecto?: boolean
+    nombre?: boolean
+    descripcion?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    estado?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    cliente?: boolean
+    ubicacion?: boolean
+  }, ExtArgs["result"]["proyecto"]>
+
+
+
+  export type proyectoSelectScalar = {
+    id_proyecto?: boolean
+    nombre?: boolean
+    descripcion?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    estado?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    cliente?: boolean
+    ubicacion?: boolean
+  }
+
+  export type proyectoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_proyecto" | "nombre" | "descripcion" | "fecha_inicio" | "fecha_fin" | "estado" | "created_at" | "updated_at" | "cliente" | "ubicacion", ExtArgs["result"]["proyecto"]>
+
+  export type $proyectoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "proyecto"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id_proyecto: number
+      nombre: string
+      descripcion: string | null
+      fecha_inicio: Date | null
+      fecha_fin: Date | null
+      estado: $Enums.proyecto_estado | null
+      created_at: Date | null
+      updated_at: Date | null
+      cliente: string | null
+      ubicacion: string | null
+    }, ExtArgs["result"]["proyecto"]>
+    composites: {}
+  }
+
+  type proyectoGetPayload<S extends boolean | null | undefined | proyectoDefaultArgs> = $Result.GetResult<Prisma.$proyectoPayload, S>
+
+  type proyectoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<proyectoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProyectoCountAggregateInputType | true
+    }
+
+  export interface proyectoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['proyecto'], meta: { name: 'proyecto' } }
+    /**
+     * Find zero or one Proyecto that matches the filter.
+     * @param {proyectoFindUniqueArgs} args - Arguments to find a Proyecto
+     * @example
+     * // Get one Proyecto
+     * const proyecto = await prisma.proyecto.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends proyectoFindUniqueArgs>(args: SelectSubset<T, proyectoFindUniqueArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Proyecto that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {proyectoFindUniqueOrThrowArgs} args - Arguments to find a Proyecto
+     * @example
+     * // Get one Proyecto
+     * const proyecto = await prisma.proyecto.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends proyectoFindUniqueOrThrowArgs>(args: SelectSubset<T, proyectoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Proyecto that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoFindFirstArgs} args - Arguments to find a Proyecto
+     * @example
+     * // Get one Proyecto
+     * const proyecto = await prisma.proyecto.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends proyectoFindFirstArgs>(args?: SelectSubset<T, proyectoFindFirstArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Proyecto that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoFindFirstOrThrowArgs} args - Arguments to find a Proyecto
+     * @example
+     * // Get one Proyecto
+     * const proyecto = await prisma.proyecto.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends proyectoFindFirstOrThrowArgs>(args?: SelectSubset<T, proyectoFindFirstOrThrowArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Proyectos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Proyectos
+     * const proyectos = await prisma.proyecto.findMany()
+     * 
+     * // Get first 10 Proyectos
+     * const proyectos = await prisma.proyecto.findMany({ take: 10 })
+     * 
+     * // Only select the `id_proyecto`
+     * const proyectoWithId_proyectoOnly = await prisma.proyecto.findMany({ select: { id_proyecto: true } })
+     * 
+     */
+    findMany<T extends proyectoFindManyArgs>(args?: SelectSubset<T, proyectoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Proyecto.
+     * @param {proyectoCreateArgs} args - Arguments to create a Proyecto.
+     * @example
+     * // Create one Proyecto
+     * const Proyecto = await prisma.proyecto.create({
+     *   data: {
+     *     // ... data to create a Proyecto
+     *   }
+     * })
+     * 
+     */
+    create<T extends proyectoCreateArgs>(args: SelectSubset<T, proyectoCreateArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Proyectos.
+     * @param {proyectoCreateManyArgs} args - Arguments to create many Proyectos.
+     * @example
+     * // Create many Proyectos
+     * const proyecto = await prisma.proyecto.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends proyectoCreateManyArgs>(args?: SelectSubset<T, proyectoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Proyecto.
+     * @param {proyectoDeleteArgs} args - Arguments to delete one Proyecto.
+     * @example
+     * // Delete one Proyecto
+     * const Proyecto = await prisma.proyecto.delete({
+     *   where: {
+     *     // ... filter to delete one Proyecto
+     *   }
+     * })
+     * 
+     */
+    delete<T extends proyectoDeleteArgs>(args: SelectSubset<T, proyectoDeleteArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Proyecto.
+     * @param {proyectoUpdateArgs} args - Arguments to update one Proyecto.
+     * @example
+     * // Update one Proyecto
+     * const proyecto = await prisma.proyecto.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends proyectoUpdateArgs>(args: SelectSubset<T, proyectoUpdateArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Proyectos.
+     * @param {proyectoDeleteManyArgs} args - Arguments to filter Proyectos to delete.
+     * @example
+     * // Delete a few Proyectos
+     * const { count } = await prisma.proyecto.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends proyectoDeleteManyArgs>(args?: SelectSubset<T, proyectoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Proyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Proyectos
+     * const proyecto = await prisma.proyecto.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends proyectoUpdateManyArgs>(args: SelectSubset<T, proyectoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Proyecto.
+     * @param {proyectoUpsertArgs} args - Arguments to update or create a Proyecto.
+     * @example
+     * // Update or create a Proyecto
+     * const proyecto = await prisma.proyecto.upsert({
+     *   create: {
+     *     // ... data to create a Proyecto
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Proyecto we want to update
+     *   }
+     * })
+     */
+    upsert<T extends proyectoUpsertArgs>(args: SelectSubset<T, proyectoUpsertArgs<ExtArgs>>): Prisma__proyectoClient<$Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Proyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoCountArgs} args - Arguments to filter Proyectos to count.
+     * @example
+     * // Count the number of Proyectos
+     * const count = await prisma.proyecto.count({
+     *   where: {
+     *     // ... the filter for the Proyectos we want to count
+     *   }
+     * })
+    **/
+    count<T extends proyectoCountArgs>(
+      args?: Subset<T, proyectoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProyectoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Proyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProyectoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProyectoAggregateArgs>(args: Subset<T, ProyectoAggregateArgs>): Prisma.PrismaPromise<GetProyectoAggregateType<T>>
+
+    /**
+     * Group by Proyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {proyectoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends proyectoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: proyectoGroupByArgs['orderBy'] }
+        : { orderBy?: proyectoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, proyectoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProyectoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the proyecto model
+   */
+  readonly fields: proyectoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for proyecto.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__proyectoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the proyecto model
+   */
+  interface proyectoFieldRefs {
+    readonly id_proyecto: FieldRef<"proyecto", 'Int'>
+    readonly nombre: FieldRef<"proyecto", 'String'>
+    readonly descripcion: FieldRef<"proyecto", 'String'>
+    readonly fecha_inicio: FieldRef<"proyecto", 'DateTime'>
+    readonly fecha_fin: FieldRef<"proyecto", 'DateTime'>
+    readonly estado: FieldRef<"proyecto", 'proyecto_estado'>
+    readonly created_at: FieldRef<"proyecto", 'DateTime'>
+    readonly updated_at: FieldRef<"proyecto", 'DateTime'>
+    readonly cliente: FieldRef<"proyecto", 'String'>
+    readonly ubicacion: FieldRef<"proyecto", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * proyecto findUnique
+   */
+  export type proyectoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter, which proyecto to fetch.
+     */
+    where: proyectoWhereUniqueInput
+  }
+
+  /**
+   * proyecto findUniqueOrThrow
+   */
+  export type proyectoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter, which proyecto to fetch.
+     */
+    where: proyectoWhereUniqueInput
+  }
+
+  /**
+   * proyecto findFirst
+   */
+  export type proyectoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter, which proyecto to fetch.
+     */
+    where?: proyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of proyectos to fetch.
+     */
+    orderBy?: proyectoOrderByWithRelationInput | proyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for proyectos.
+     */
+    cursor?: proyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` proyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` proyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of proyectos.
+     */
+    distinct?: ProyectoScalarFieldEnum | ProyectoScalarFieldEnum[]
+  }
+
+  /**
+   * proyecto findFirstOrThrow
+   */
+  export type proyectoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter, which proyecto to fetch.
+     */
+    where?: proyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of proyectos to fetch.
+     */
+    orderBy?: proyectoOrderByWithRelationInput | proyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for proyectos.
+     */
+    cursor?: proyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` proyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` proyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of proyectos.
+     */
+    distinct?: ProyectoScalarFieldEnum | ProyectoScalarFieldEnum[]
+  }
+
+  /**
+   * proyecto findMany
+   */
+  export type proyectoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter, which proyectos to fetch.
+     */
+    where?: proyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of proyectos to fetch.
+     */
+    orderBy?: proyectoOrderByWithRelationInput | proyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing proyectos.
+     */
+    cursor?: proyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` proyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` proyectos.
+     */
+    skip?: number
+    distinct?: ProyectoScalarFieldEnum | ProyectoScalarFieldEnum[]
+  }
+
+  /**
+   * proyecto create
+   */
+  export type proyectoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a proyecto.
+     */
+    data: XOR<proyectoCreateInput, proyectoUncheckedCreateInput>
+  }
+
+  /**
+   * proyecto createMany
+   */
+  export type proyectoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many proyectos.
+     */
+    data: proyectoCreateManyInput | proyectoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * proyecto update
+   */
+  export type proyectoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a proyecto.
+     */
+    data: XOR<proyectoUpdateInput, proyectoUncheckedUpdateInput>
+    /**
+     * Choose, which proyecto to update.
+     */
+    where: proyectoWhereUniqueInput
+  }
+
+  /**
+   * proyecto updateMany
+   */
+  export type proyectoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update proyectos.
+     */
+    data: XOR<proyectoUpdateManyMutationInput, proyectoUncheckedUpdateManyInput>
+    /**
+     * Filter which proyectos to update
+     */
+    where?: proyectoWhereInput
+    /**
+     * Limit how many proyectos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * proyecto upsert
+   */
+  export type proyectoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the proyecto to update in case it exists.
+     */
+    where: proyectoWhereUniqueInput
+    /**
+     * In case the proyecto found by the `where` argument doesn't exist, create a new proyecto with this data.
+     */
+    create: XOR<proyectoCreateInput, proyectoUncheckedCreateInput>
+    /**
+     * In case the proyecto was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<proyectoUpdateInput, proyectoUncheckedUpdateInput>
+  }
+
+  /**
+   * proyecto delete
+   */
+  export type proyectoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+    /**
+     * Filter which proyecto to delete.
+     */
+    where: proyectoWhereUniqueInput
+  }
+
+  /**
+   * proyecto deleteMany
+   */
+  export type proyectoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which proyectos to delete
+     */
+    where?: proyectoWhereInput
+    /**
+     * Limit how many proyectos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * proyecto without action
+   */
+  export type proyectoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the proyecto
+     */
+    select?: proyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the proyecto
+     */
+    omit?: proyectoOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -36233,6 +37344,7 @@ export namespace Prisma {
     procede_pago: 'procede_pago',
     auto_administrador: 'auto_administrador',
     auto_contabilidad: 'auto_contabilidad',
+    jefe_proyecto: 'jefe_proyecto',
     has_anticipo: 'has_anticipo',
     direccion: 'direccion',
     centro_costo_nivel1: 'centro_costo_nivel1',
@@ -36294,7 +37406,9 @@ export namespace Prisma {
     fecha_actualizacion: 'fecha_actualizacion',
     entidad_bancaria: 'entidad_bancaria',
     numero_cuenta_bancaria: 'numero_cuenta_bancaria',
-    retencion: 'retencion'
+    retencion: 'retencion',
+    es_agente_retencion: 'es_agente_retencion',
+    numero_cuenta: 'numero_cuenta'
   };
 
   export type ProveedoresScalarFieldEnum = (typeof ProveedoresScalarFieldEnum)[keyof typeof ProveedoresScalarFieldEnum]
@@ -36386,6 +37500,7 @@ export namespace Prisma {
     tiene_anticipo: 'tiene_anticipo',
     procede_pago: 'procede_pago',
     auto_administrador: 'auto_administrador',
+    jefe_proyecto: 'jefe_proyecto',
     auto_contabilidad: 'auto_contabilidad',
     has_anticipo: 'has_anticipo',
     direccion: 'direccion',
@@ -36459,6 +37574,22 @@ export namespace Prisma {
   };
 
   export type DROPBOXScalarFieldEnum = (typeof DROPBOXScalarFieldEnum)[keyof typeof DROPBOXScalarFieldEnum]
+
+
+  export const ProyectoScalarFieldEnum: {
+    id_proyecto: 'id_proyecto',
+    nombre: 'nombre',
+    descripcion: 'descripcion',
+    fecha_inicio: 'fecha_inicio',
+    fecha_fin: 'fecha_fin',
+    estado: 'estado',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    cliente: 'cliente',
+    ubicacion: 'ubicacion'
+  };
+
+  export type ProyectoScalarFieldEnum = (typeof ProyectoScalarFieldEnum)[keyof typeof ProyectoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -36662,7 +37793,9 @@ export namespace Prisma {
     direccion: 'direccion',
     ruc: 'ruc',
     entidad_bancaria: 'entidad_bancaria',
-    numero_cuenta_bancaria: 'numero_cuenta_bancaria'
+    numero_cuenta_bancaria: 'numero_cuenta_bancaria',
+    es_agente_retencion: 'es_agente_retencion',
+    numero_cuenta: 'numero_cuenta'
   };
 
   export type proveedoresOrderByRelevanceFieldEnum = (typeof proveedoresOrderByRelevanceFieldEnum)[keyof typeof proveedoresOrderByRelevanceFieldEnum]
@@ -36755,6 +37888,16 @@ export namespace Prisma {
   };
 
   export type DROPBOXOrderByRelevanceFieldEnum = (typeof DROPBOXOrderByRelevanceFieldEnum)[keyof typeof DROPBOXOrderByRelevanceFieldEnum]
+
+
+  export const proyectoOrderByRelevanceFieldEnum: {
+    nombre: 'nombre',
+    descripcion: 'descripcion',
+    cliente: 'cliente',
+    ubicacion: 'ubicacion'
+  };
+
+  export type proyectoOrderByRelevanceFieldEnum = (typeof proyectoOrderByRelevanceFieldEnum)[keyof typeof proyectoOrderByRelevanceFieldEnum]
 
 
   /**
@@ -36955,6 +38098,13 @@ export namespace Prisma {
    * Reference to a field of type 'ordenes_servicio_estado_firma'
    */
   export type Enumordenes_servicio_estado_firmaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ordenes_servicio_estado_firma'>
+    
+
+
+  /**
+   * Reference to a field of type 'proyecto_estado'
+   */
+  export type Enumproyecto_estadoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'proyecto_estado'>
     
 
 
@@ -37381,7 +38531,7 @@ export namespace Prisma {
     id_orden_compra?: IntFilter<"detalles_orden_compra"> | number
     codigo_item?: StringFilter<"detalles_orden_compra"> | string
     descripcion_item?: StringFilter<"detalles_orden_compra"> | string
-    cantidad_solicitada?: IntFilter<"detalles_orden_compra"> | number
+    cantidad_solicitada?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
@@ -37411,7 +38561,7 @@ export namespace Prisma {
     id_orden_compra?: IntFilter<"detalles_orden_compra"> | number
     codigo_item?: StringFilter<"detalles_orden_compra"> | string
     descripcion_item?: StringFilter<"detalles_orden_compra"> | string
-    cantidad_solicitada?: IntFilter<"detalles_orden_compra"> | number
+    cantidad_solicitada?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
@@ -37443,7 +38593,7 @@ export namespace Prisma {
     id_orden_compra?: IntWithAggregatesFilter<"detalles_orden_compra"> | number
     codigo_item?: StringWithAggregatesFilter<"detalles_orden_compra"> | string
     descripcion_item?: StringWithAggregatesFilter<"detalles_orden_compra"> | string
-    cantidad_solicitada?: IntWithAggregatesFilter<"detalles_orden_compra"> | number
+    cantidad_solicitada?: DecimalWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: IntNullableWithAggregatesFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
@@ -38200,6 +39350,7 @@ export namespace Prisma {
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -38239,6 +39390,7 @@ export namespace Prisma {
     procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    jefe_proyecto?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -38282,6 +39434,7 @@ export namespace Prisma {
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -38321,6 +39474,7 @@ export namespace Prisma {
     procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    jefe_proyecto?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -38364,6 +39518,7 @@ export namespace Prisma {
     procede_pago?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     auto_administrador?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
     auto_contabilidad?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
+    jefe_proyecto?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
     has_anticipo?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
@@ -38539,6 +39694,8 @@ export namespace Prisma {
     entidad_bancaria?: StringNullableFilter<"proveedores"> | string | null
     numero_cuenta_bancaria?: StringNullableFilter<"proveedores"> | string | null
     retencion?: Enumproveedores_retencionNullableFilter<"proveedores"> | $Enums.proveedores_retencion | null
+    es_agente_retencion?: StringNullableFilter<"proveedores"> | string | null
+    numero_cuenta?: StringNullableFilter<"proveedores"> | string | null
     ordenes_compra?: Ordenes_compraListRelationFilter
     ordenes_servicio?: Ordenes_servicioListRelationFilter
   }
@@ -38558,6 +39715,8 @@ export namespace Prisma {
     entidad_bancaria?: SortOrderInput | SortOrder
     numero_cuenta_bancaria?: SortOrderInput | SortOrder
     retencion?: SortOrderInput | SortOrder
+    es_agente_retencion?: SortOrderInput | SortOrder
+    numero_cuenta?: SortOrderInput | SortOrder
     ordenes_compra?: ordenes_compraOrderByRelationAggregateInput
     ordenes_servicio?: ordenes_servicioOrderByRelationAggregateInput
     _relevance?: proveedoresOrderByRelevanceInput
@@ -38581,6 +39740,8 @@ export namespace Prisma {
     entidad_bancaria?: StringNullableFilter<"proveedores"> | string | null
     numero_cuenta_bancaria?: StringNullableFilter<"proveedores"> | string | null
     retencion?: Enumproveedores_retencionNullableFilter<"proveedores"> | $Enums.proveedores_retencion | null
+    es_agente_retencion?: StringNullableFilter<"proveedores"> | string | null
+    numero_cuenta?: StringNullableFilter<"proveedores"> | string | null
     ordenes_compra?: Ordenes_compraListRelationFilter
     ordenes_servicio?: Ordenes_servicioListRelationFilter
   }, "id_proveedor" | "codigo_proveedor">
@@ -38600,6 +39761,8 @@ export namespace Prisma {
     entidad_bancaria?: SortOrderInput | SortOrder
     numero_cuenta_bancaria?: SortOrderInput | SortOrder
     retencion?: SortOrderInput | SortOrder
+    es_agente_retencion?: SortOrderInput | SortOrder
+    numero_cuenta?: SortOrderInput | SortOrder
     _count?: proveedoresCountOrderByAggregateInput
     _avg?: proveedoresAvgOrderByAggregateInput
     _max?: proveedoresMaxOrderByAggregateInput
@@ -38625,6 +39788,8 @@ export namespace Prisma {
     entidad_bancaria?: StringNullableWithAggregatesFilter<"proveedores"> | string | null
     numero_cuenta_bancaria?: StringNullableWithAggregatesFilter<"proveedores"> | string | null
     retencion?: Enumproveedores_retencionNullableWithAggregatesFilter<"proveedores"> | $Enums.proveedores_retencion | null
+    es_agente_retencion?: StringNullableWithAggregatesFilter<"proveedores"> | string | null
+    numero_cuenta?: StringNullableWithAggregatesFilter<"proveedores"> | string | null
   }
 
   export type recepciones_compraWhereInput = {
@@ -39069,6 +40234,7 @@ export namespace Prisma {
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -39107,6 +40273,7 @@ export namespace Prisma {
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    jefe_proyecto?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
@@ -39149,6 +40316,7 @@ export namespace Prisma {
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -39187,6 +40355,7 @@ export namespace Prisma {
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    jefe_proyecto?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
@@ -39230,6 +40399,7 @@ export namespace Prisma {
     tiene_anticipo?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     auto_administrador?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    jefe_proyecto?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
     auto_contabilidad?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
     has_anticipo?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
@@ -39516,6 +40686,86 @@ export namespace Prisma {
     NOT?: DROPBOXScalarWhereWithAggregatesInput | DROPBOXScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"DROPBOX"> | number
     archivo?: StringNullableWithAggregatesFilter<"DROPBOX"> | string | null
+  }
+
+  export type proyectoWhereInput = {
+    AND?: proyectoWhereInput | proyectoWhereInput[]
+    OR?: proyectoWhereInput[]
+    NOT?: proyectoWhereInput | proyectoWhereInput[]
+    id_proyecto?: IntFilter<"proyecto"> | number
+    nombre?: StringFilter<"proyecto"> | string
+    descripcion?: StringNullableFilter<"proyecto"> | string | null
+    fecha_inicio?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    fecha_fin?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    estado?: Enumproyecto_estadoNullableFilter<"proyecto"> | $Enums.proyecto_estado | null
+    created_at?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    cliente?: StringNullableFilter<"proyecto"> | string | null
+    ubicacion?: StringNullableFilter<"proyecto"> | string | null
+  }
+
+  export type proyectoOrderByWithRelationInput = {
+    id_proyecto?: SortOrder
+    nombre?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    fecha_inicio?: SortOrderInput | SortOrder
+    fecha_fin?: SortOrderInput | SortOrder
+    estado?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    cliente?: SortOrderInput | SortOrder
+    ubicacion?: SortOrderInput | SortOrder
+    _relevance?: proyectoOrderByRelevanceInput
+  }
+
+  export type proyectoWhereUniqueInput = Prisma.AtLeast<{
+    id_proyecto?: number
+    AND?: proyectoWhereInput | proyectoWhereInput[]
+    OR?: proyectoWhereInput[]
+    NOT?: proyectoWhereInput | proyectoWhereInput[]
+    nombre?: StringFilter<"proyecto"> | string
+    descripcion?: StringNullableFilter<"proyecto"> | string | null
+    fecha_inicio?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    fecha_fin?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    estado?: Enumproyecto_estadoNullableFilter<"proyecto"> | $Enums.proyecto_estado | null
+    created_at?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"proyecto"> | Date | string | null
+    cliente?: StringNullableFilter<"proyecto"> | string | null
+    ubicacion?: StringNullableFilter<"proyecto"> | string | null
+  }, "id_proyecto">
+
+  export type proyectoOrderByWithAggregationInput = {
+    id_proyecto?: SortOrder
+    nombre?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    fecha_inicio?: SortOrderInput | SortOrder
+    fecha_fin?: SortOrderInput | SortOrder
+    estado?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    cliente?: SortOrderInput | SortOrder
+    ubicacion?: SortOrderInput | SortOrder
+    _count?: proyectoCountOrderByAggregateInput
+    _avg?: proyectoAvgOrderByAggregateInput
+    _max?: proyectoMaxOrderByAggregateInput
+    _min?: proyectoMinOrderByAggregateInput
+    _sum?: proyectoSumOrderByAggregateInput
+  }
+
+  export type proyectoScalarWhereWithAggregatesInput = {
+    AND?: proyectoScalarWhereWithAggregatesInput | proyectoScalarWhereWithAggregatesInput[]
+    OR?: proyectoScalarWhereWithAggregatesInput[]
+    NOT?: proyectoScalarWhereWithAggregatesInput | proyectoScalarWhereWithAggregatesInput[]
+    id_proyecto?: IntWithAggregatesFilter<"proyecto"> | number
+    nombre?: StringWithAggregatesFilter<"proyecto"> | string
+    descripcion?: StringNullableWithAggregatesFilter<"proyecto"> | string | null
+    fecha_inicio?: DateTimeNullableWithAggregatesFilter<"proyecto"> | Date | string | null
+    fecha_fin?: DateTimeNullableWithAggregatesFilter<"proyecto"> | Date | string | null
+    estado?: Enumproyecto_estadoNullableWithAggregatesFilter<"proyecto"> | $Enums.proyecto_estado | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"proyecto"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"proyecto"> | Date | string | null
+    cliente?: StringNullableWithAggregatesFilter<"proyecto"> | string | null
+    ubicacion?: StringNullableWithAggregatesFilter<"proyecto"> | string | null
   }
 
   export type almacenesCreateInput = {
@@ -39927,7 +41177,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraCreateInput = {
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -39940,7 +41190,7 @@ export namespace Prisma {
     id_orden_compra: number
     codigo_item: string
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -39948,7 +41198,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraUpdateInput = {
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -39961,7 +41211,7 @@ export namespace Prisma {
     id_orden_compra?: IntFieldUpdateOperationsInput | number
     codigo_item?: StringFieldUpdateOperationsInput | string
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -39972,7 +41222,7 @@ export namespace Prisma {
     id_orden_compra: number
     codigo_item: string
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -39980,7 +41230,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraUpdateManyMutationInput = {
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -39991,7 +41241,7 @@ export namespace Prisma {
     id_orden_compra?: IntFieldUpdateOperationsInput | number
     codigo_item?: StringFieldUpdateOperationsInput | string
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -40757,6 +42007,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -40796,6 +42047,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -40830,6 +42082,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40869,6 +42122,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40906,6 +42160,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -40938,6 +42193,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40973,6 +42229,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41136,6 +42393,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_compra?: ordenes_compraCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutProveedoresInput
   }
@@ -41155,6 +42414,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutProveedoresInput
   }
@@ -41173,6 +42434,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_compra?: ordenes_compraUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUpdateManyWithoutProveedoresNestedInput
   }
@@ -41192,6 +42455,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutProveedoresNestedInput
   }
@@ -41211,6 +42476,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
   }
 
   export type proveedoresUpdateManyMutationInput = {
@@ -41227,6 +42494,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type proveedoresUncheckedUpdateManyInput = {
@@ -41244,6 +42513,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recepciones_compraCreateInput = {
@@ -41675,6 +42946,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -41713,6 +42985,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -41746,6 +43019,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41784,6 +43058,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41820,6 +43095,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -41852,6 +43128,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41887,6 +43164,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42153,6 +43431,94 @@ export namespace Prisma {
   export type DROPBOXUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     archivo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type proyectoCreateInput = {
+    nombre: string
+    descripcion?: string | null
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    estado?: $Enums.proyecto_estado | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    cliente?: string | null
+    ubicacion?: string | null
+  }
+
+  export type proyectoUncheckedCreateInput = {
+    id_proyecto?: number
+    nombre: string
+    descripcion?: string | null
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    estado?: $Enums.proyecto_estado | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    cliente?: string | null
+    ubicacion?: string | null
+  }
+
+  export type proyectoUpdateInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: NullableEnumproyecto_estadoFieldUpdateOperationsInput | $Enums.proyecto_estado | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type proyectoUncheckedUpdateInput = {
+    id_proyecto?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: NullableEnumproyecto_estadoFieldUpdateOperationsInput | $Enums.proyecto_estado | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type proyectoCreateManyInput = {
+    id_proyecto?: number
+    nombre: string
+    descripcion?: string | null
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    estado?: $Enums.proyecto_estado | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    cliente?: string | null
+    ubicacion?: string | null
+  }
+
+  export type proyectoUpdateManyMutationInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: NullableEnumproyecto_estadoFieldUpdateOperationsInput | $Enums.proyecto_estado | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type proyectoUncheckedUpdateManyInput = {
+    id_proyecto?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: NullableEnumproyecto_estadoFieldUpdateOperationsInput | $Enums.proyecto_estado | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cliente?: NullableStringFieldUpdateOperationsInput | string | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -43713,6 +45079,7 @@ export namespace Prisma {
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -43760,6 +45127,7 @@ export namespace Prisma {
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -43795,6 +45163,7 @@ export namespace Prisma {
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -44012,6 +45381,8 @@ export namespace Prisma {
     entidad_bancaria?: SortOrder
     numero_cuenta_bancaria?: SortOrder
     retencion?: SortOrder
+    es_agente_retencion?: SortOrder
+    numero_cuenta?: SortOrder
   }
 
   export type proveedoresAvgOrderByAggregateInput = {
@@ -44033,6 +45404,8 @@ export namespace Prisma {
     entidad_bancaria?: SortOrder
     numero_cuenta_bancaria?: SortOrder
     retencion?: SortOrder
+    es_agente_retencion?: SortOrder
+    numero_cuenta?: SortOrder
   }
 
   export type proveedoresMinOrderByAggregateInput = {
@@ -44050,6 +45423,8 @@ export namespace Prisma {
     entidad_bancaria?: SortOrder
     numero_cuenta_bancaria?: SortOrder
     retencion?: SortOrder
+    es_agente_retencion?: SortOrder
+    numero_cuenta?: SortOrder
   }
 
   export type proveedoresSumOrderByAggregateInput = {
@@ -44485,6 +45860,7 @@ export namespace Prisma {
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
@@ -44532,6 +45908,7 @@ export namespace Prisma {
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
@@ -44567,6 +45944,7 @@ export namespace Prisma {
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
@@ -44805,6 +46183,76 @@ export namespace Prisma {
 
   export type DROPBOXSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type Enumproyecto_estadoNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.proyecto_estado | Enumproyecto_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.proyecto_estado[] | null
+    notIn?: $Enums.proyecto_estado[] | null
+    not?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel> | $Enums.proyecto_estado | null
+  }
+
+  export type proyectoOrderByRelevanceInput = {
+    fields: proyectoOrderByRelevanceFieldEnum | proyectoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type proyectoCountOrderByAggregateInput = {
+    id_proyecto?: SortOrder
+    nombre?: SortOrder
+    descripcion?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    estado?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    cliente?: SortOrder
+    ubicacion?: SortOrder
+  }
+
+  export type proyectoAvgOrderByAggregateInput = {
+    id_proyecto?: SortOrder
+  }
+
+  export type proyectoMaxOrderByAggregateInput = {
+    id_proyecto?: SortOrder
+    nombre?: SortOrder
+    descripcion?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    estado?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    cliente?: SortOrder
+    ubicacion?: SortOrder
+  }
+
+  export type proyectoMinOrderByAggregateInput = {
+    id_proyecto?: SortOrder
+    nombre?: SortOrder
+    descripcion?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    estado?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    cliente?: SortOrder
+    ubicacion?: SortOrder
+  }
+
+  export type proyectoSumOrderByAggregateInput = {
+    id_proyecto?: SortOrder
+  }
+
+  export type Enumproyecto_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.proyecto_estado | Enumproyecto_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.proyecto_estado[] | null
+    notIn?: $Enums.proyecto_estado[] | null
+    not?: NestedEnumproyecto_estadoNullableWithAggregatesFilter<$PrismaModel> | $Enums.proyecto_estado | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
+    _max?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -47203,6 +48651,10 @@ export namespace Prisma {
     update?: XOR<XOR<listado_items_2025UpdateToOneWithWhereWithoutDetalles_orden_servicioInput, listado_items_2025UpdateWithoutDetalles_orden_servicioInput>, listado_items_2025UncheckedUpdateWithoutDetalles_orden_servicioInput>
   }
 
+  export type NullableEnumproyecto_estadoFieldUpdateOperationsInput = {
+    set?: $Enums.proyecto_estado | null
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -47863,6 +49315,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
     _max?: NestedEnumordenes_servicio_estado_firmaNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumproyecto_estadoNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.proyecto_estado | Enumproyecto_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.proyecto_estado[] | null
+    notIn?: $Enums.proyecto_estado[] | null
+    not?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel> | $Enums.proyecto_estado | null
+  }
+
+  export type NestedEnumproyecto_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.proyecto_estado | Enumproyecto_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.proyecto_estado[] | null
+    notIn?: $Enums.proyecto_estado[] | null
+    not?: NestedEnumproyecto_estadoNullableWithAggregatesFilter<$PrismaModel> | $Enums.proyecto_estado | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
+    _max?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
   }
 
   export type almacenesCreateWithoutOther_almacenesInput = {
@@ -49245,6 +50714,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -49283,6 +50753,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -49385,6 +50856,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49423,6 +50895,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49971,7 +51444,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraCreateWithoutListado_items_2025Input = {
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -49982,7 +51455,7 @@ export namespace Prisma {
     id_detalle?: number
     id_orden_compra: number
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -50219,7 +51692,7 @@ export namespace Prisma {
     id_orden_compra?: IntFilter<"detalles_orden_compra"> | number
     codigo_item?: StringFilter<"detalles_orden_compra"> | string
     descripcion_item?: StringFilter<"detalles_orden_compra"> | string
-    cantidad_solicitada?: IntFilter<"detalles_orden_compra"> | number
+    cantidad_solicitada?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
@@ -51116,7 +52589,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraCreateWithoutOrdenes_compraInput = {
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -51127,7 +52600,7 @@ export namespace Prisma {
     id_detalle?: number
     codigo_item: string
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -51157,6 +52630,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutProveedoresInput
   }
 
@@ -51175,6 +52650,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutProveedoresInput
   }
 
@@ -51303,6 +52780,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_servicio?: ordenes_servicioUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -51321,6 +52800,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -51638,6 +53119,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -51675,6 +53157,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -51718,6 +53201,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -51754,6 +53238,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -51820,6 +53305,7 @@ export namespace Prisma {
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -51873,6 +53359,7 @@ export namespace Prisma {
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -51931,6 +53418,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -51969,6 +53457,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -52076,6 +53565,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52114,6 +53604,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53131,6 +54622,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -53168,6 +54660,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -53211,6 +54704,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -53247,6 +54741,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -53780,6 +55275,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_compra?: ordenes_compraCreateNestedManyWithoutProveedoresInput
   }
 
@@ -53798,6 +55295,8 @@ export namespace Prisma {
     entidad_bancaria?: string | null
     numero_cuenta_bancaria?: string | null
     retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
     ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput
   }
 
@@ -53895,6 +55394,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_compra?: ordenes_compraUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -53913,6 +55414,8 @@ export namespace Prisma {
     entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
     ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -53983,6 +55486,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -54020,6 +55524,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -54121,6 +55626,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54158,6 +55664,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54850,7 +56357,7 @@ export namespace Prisma {
     id_detalle?: number
     id_orden_compra: number
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -54945,7 +56452,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraUpdateWithoutListado_items_2025Input = {
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -54956,7 +56463,7 @@ export namespace Prisma {
     id_detalle?: IntFieldUpdateOperationsInput | number
     id_orden_compra?: IntFieldUpdateOperationsInput | number
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -54966,7 +56473,7 @@ export namespace Prisma {
     id_detalle?: IntFieldUpdateOperationsInput | number
     id_orden_compra?: IntFieldUpdateOperationsInput | number
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -55236,7 +56743,7 @@ export namespace Prisma {
     id_detalle?: number
     codigo_item: string
     descripcion_item: string
-    cantidad_solicitada: number
+    cantidad_solicitada: Decimal | DecimalJsLike | number | string
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
@@ -55254,7 +56761,7 @@ export namespace Prisma {
 
   export type detalles_orden_compraUpdateWithoutOrdenes_compraInput = {
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -55265,7 +56772,7 @@ export namespace Prisma {
     id_detalle?: IntFieldUpdateOperationsInput | number
     codigo_item?: StringFieldUpdateOperationsInput | string
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -55275,7 +56782,7 @@ export namespace Prisma {
     id_detalle?: IntFieldUpdateOperationsInput | number
     codigo_item?: StringFieldUpdateOperationsInput | string
     descripcion_item?: StringFieldUpdateOperationsInput | string
-    cantidad_solicitada?: IntFieldUpdateOperationsInput | number
+    cantidad_solicitada?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -55328,6 +56835,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -55361,6 +56869,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -55394,6 +56903,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55431,6 +56941,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55467,6 +56978,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55498,6 +57010,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55534,6 +57047,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55569,6 +57083,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55756,6 +57271,7 @@ export namespace Prisma {
     procede_pago?: string | null
     auto_administrador?: boolean | null
     auto_contabilidad?: boolean | null
+    jefe_proyecto?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -55789,6 +57305,7 @@ export namespace Prisma {
     tiene_anticipo?: string | null
     procede_pago?: string | null
     auto_administrador?: boolean | null
+    jefe_proyecto?: boolean | null
     auto_contabilidad?: boolean | null
     has_anticipo?: boolean | null
     direccion?: string | null
@@ -56066,6 +57583,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56103,6 +57621,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56139,6 +57658,7 @@ export namespace Prisma {
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56170,6 +57690,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56206,6 +57727,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56241,6 +57763,7 @@ export namespace Prisma {
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null

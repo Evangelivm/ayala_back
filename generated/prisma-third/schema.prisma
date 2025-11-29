@@ -101,7 +101,7 @@ model detalles_orden_compra {
   id_orden_compra     Int
   codigo_item         String             @db.VarChar(255)
   descripcion_item    String             @db.Text
-  cantidad_solicitada Int
+  cantidad_solicitada Decimal            @db.Decimal(10, 3)
   cantidad_recibida   Int?               @default(0)
   precio_unitario     Decimal            @db.Decimal(10, 2)
   subtotal            Decimal            @db.Decimal(10, 2)
@@ -280,6 +280,7 @@ model ordenes_compra {
   procede_pago           String?                      @db.VarChar(255)
   auto_administrador     Boolean?                     @default(false)
   auto_contabilidad      Boolean?                     @default(false)
+  jefe_proyecto          Boolean?                     @default(false)
   has_anticipo           Boolean?                     @default(false)
   direccion              String?                      @db.VarChar(255)
   centro_costo_nivel1    String?                      @db.VarChar(255)
@@ -287,7 +288,7 @@ model ordenes_compra {
   centro_costo_nivel3    String?                      @db.VarChar(255)
   condicion              String?                      @db.VarChar(255)
   moneda                 String?                      @db.VarChar(255)
-  tipo_cambio            Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  tipo_cambio            Decimal?                     @default(0.000) @db.Decimal(10, 3)
   hora_firma             DateTime?                    @db.DateTime(0)
   usuario_firma          Int?
   estado_firma           ordenes_compra_estado_firma? @default(PENDIENTE)
@@ -351,6 +352,8 @@ model proveedores {
   entidad_bancaria       String?                @db.VarChar(255)
   numero_cuenta_bancaria String?                @db.VarChar(255)
   retencion              proveedores_retencion?
+  es_agente_retencion    String?                @db.VarChar(255)
+  numero_cuenta          String?                @db.VarChar(50)
   ordenes_compra         ordenes_compra[]
   ordenes_servicio       ordenes_servicio[]
 }
@@ -468,6 +471,7 @@ model ordenes_servicio {
   tiene_anticipo          String?                        @db.VarChar(255)
   procede_pago            String?                        @db.VarChar(255)
   auto_administrador      Boolean?                       @default(false)
+  jefe_proyecto           Boolean?                       @default(false)
   auto_contabilidad       Boolean?                       @default(false)
   has_anticipo            Boolean?                       @default(false)
   direccion               String?                        @db.VarChar(255)
@@ -476,7 +480,7 @@ model ordenes_servicio {
   centro_costo_nivel3     String?                        @db.VarChar(255)
   condicion               String?                        @db.VarChar(255)
   moneda                  String?                        @db.VarChar(255)
-  tipo_cambio             Decimal?                       @default(0.00) @db.Decimal(10, 2)
+  tipo_cambio             Decimal?                       @default(0.000) @db.Decimal(10, 3)
   hora_firma              DateTime?                      @db.DateTime(0)
   usuario_firma           Int?
   estado_firma            ordenes_servicio_estado_firma? @default(PENDIENTE)
@@ -537,6 +541,21 @@ model email_notifications {
 model DROPBOX {
   id      Int     @id @default(autoincrement())
   archivo String? @db.VarChar(255)
+}
+
+model proyecto {
+  id_proyecto  Int              @id @default(autoincrement())
+  nombre       String           @db.VarChar(100)
+  descripcion  String?          @db.Text
+  fecha_inicio DateTime?        @db.Date
+  fecha_fin    DateTime?        @db.Date
+  estado       proyecto_estado? @default(activo)
+  created_at   DateTime?        @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?        @default(now()) @db.Timestamp(0)
+  cliente      String?          @db.VarChar(200)
+  ubicacion    String?          @db.VarChar(255)
+
+  @@index([cliente], map: "proyecto_ibfk_1_idx")
 }
 
 enum permisos_rol_rol {
@@ -671,4 +690,10 @@ enum ordenes_servicio_estado {
 enum ordenes_servicio_estado_firma {
   PENDIENTE
   FIRMADA
+}
+
+enum proyecto_estado {
+  activo
+  inactivo
+  finalizado
 }

@@ -186,6 +186,21 @@ export class OrdenCompraController {
     }
   }
 
+  @Patch(':id/aprobar-jefe-proyecto')
+  @HttpCode(HttpStatus.OK)
+  async aprobarJefeProyecto(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.aprobarJefeProyecto(+id);
+      return {
+        success: true,
+        message: 'Orden de compra aprobada por jefe de proyecto exitosamente',
+      };
+    } catch (error) {
+      console.error('Error aprobando orden de compra para jefe de proyecto:', error);
+      throw error;
+    }
+  }
+
   @Patch(':id/transferir')
   @HttpCode(HttpStatus.OK)
   async transferirOrden(@Param('id') id: string) {

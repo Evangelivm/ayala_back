@@ -417,7 +417,7 @@ export class OrdenCompraService {
         descripcion: detalle.descripcion_item,
         codigo: detalle.codigo_item,
         unidadMedida: detalle.listado_items_2025.u_m || 'UND',
-        cantidad: detalle.cantidad_solicitada,
+        cantidad: parseFloat(detalle.cantidad_solicitada.toString()),
         valorUnitario: parseFloat(detalle.precio_unitario.toString()),
         subTotal: parseFloat(detalle.subtotal.toString()),
       })),
@@ -1468,6 +1468,48 @@ export class OrdenCompraService {
       console.error('Error al aprobar orden de compra para administración:', error);
       throw new BadRequestException(
         `Error al aprobar orden de compra para administración: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Marca una orden de compra como aprobada por jefe de proyecto
+   * @param id - ID de la orden de compra a aprobar
+   */
+  async aprobarJefeProyecto(id: number): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el campo jefe_proyecto a 1 (true)
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: {
+          jefe_proyecto: true
+        },
+      });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al aprobar orden de compra para jefe de proyecto:', error);
+      throw new BadRequestException(
+        `Error al aprobar orden de compra para jefe de proyecto: ${error.message}`,
       );
     }
   }
