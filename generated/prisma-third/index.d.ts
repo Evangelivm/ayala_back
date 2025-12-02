@@ -20192,6 +20192,7 @@ export namespace Prisma {
     registrado_por: number | null
     tipo_cambio: Decimal | null
     usuario_firma: number | null
+    valor_retencion: Decimal | null
     id_camion: number | null
   }
 
@@ -20204,6 +20205,7 @@ export namespace Prisma {
     registrado_por: number | null
     tipo_cambio: Decimal | null
     usuario_firma: number | null
+    valor_retencion: Decimal | null
     id_camion: number | null
   }
 
@@ -20238,6 +20240,7 @@ export namespace Prisma {
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
     retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -20274,6 +20277,7 @@ export namespace Prisma {
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
     retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -20310,6 +20314,7 @@ export namespace Prisma {
     estado_firma: number
     ruta_pdf: number
     retencion: number
+    valor_retencion: number
     id_camion: number
     almacen_central: number
     url: number
@@ -20326,6 +20331,7 @@ export namespace Prisma {
     registrado_por?: true
     tipo_cambio?: true
     usuario_firma?: true
+    valor_retencion?: true
     id_camion?: true
   }
 
@@ -20338,6 +20344,7 @@ export namespace Prisma {
     registrado_por?: true
     tipo_cambio?: true
     usuario_firma?: true
+    valor_retencion?: true
     id_camion?: true
   }
 
@@ -20372,6 +20379,7 @@ export namespace Prisma {
     estado_firma?: true
     ruta_pdf?: true
     retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -20408,6 +20416,7 @@ export namespace Prisma {
     estado_firma?: true
     ruta_pdf?: true
     retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -20444,6 +20453,7 @@ export namespace Prisma {
     estado_firma?: true
     ruta_pdf?: true
     retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -20567,6 +20577,7 @@ export namespace Prisma {
     estado_firma: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf: string | null
     retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -20622,6 +20633,7 @@ export namespace Prisma {
     estado_firma?: boolean
     ruta_pdf?: boolean
     retencion?: boolean
+    valor_retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -20665,12 +20677,13 @@ export namespace Prisma {
     estado_firma?: boolean
     ruta_pdf?: boolean
     retencion?: boolean
+    valor_retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20718,6 +20731,7 @@ export namespace Prisma {
       estado_firma: $Enums.ordenes_compra_estado_firma | null
       ruta_pdf: string | null
       retencion: string | null
+      valor_retencion: Prisma.Decimal | null
       id_camion: number | null
       almacen_central: string | null
       url: string | null
@@ -21124,6 +21138,7 @@ export namespace Prisma {
     readonly estado_firma: FieldRef<"ordenes_compra", 'ordenes_compra_estado_firma'>
     readonly ruta_pdf: FieldRef<"ordenes_compra", 'String'>
     readonly retencion: FieldRef<"ordenes_compra", 'String'>
+    readonly valor_retencion: FieldRef<"ordenes_compra", 'Decimal'>
     readonly id_camion: FieldRef<"ordenes_compra", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_compra", 'String'>
     readonly url: FieldRef<"ordenes_compra", 'String'>
@@ -30176,6 +30191,7 @@ export namespace Prisma {
     registrado_por: number | null
     tipo_cambio: Decimal | null
     usuario_firma: number | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
   }
 
@@ -30188,6 +30204,7 @@ export namespace Prisma {
     registrado_por: number | null
     tipo_cambio: Decimal | null
     usuario_firma: number | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
   }
 
@@ -30221,7 +30238,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf: string | null
-    retencion: string | null
+    detraccion: string | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30257,7 +30275,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf: string | null
-    retencion: string | null
+    detraccion: string | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30293,7 +30312,8 @@ export namespace Prisma {
     usuario_firma: number
     estado_firma: number
     ruta_pdf: number
-    retencion: number
+    detraccion: number
+    valor_detraccion: number
     id_camion: number
     almacen_central: number
     url: number
@@ -30310,6 +30330,7 @@ export namespace Prisma {
     registrado_por?: true
     tipo_cambio?: true
     usuario_firma?: true
+    valor_detraccion?: true
     id_camion?: true
   }
 
@@ -30322,6 +30343,7 @@ export namespace Prisma {
     registrado_por?: true
     tipo_cambio?: true
     usuario_firma?: true
+    valor_detraccion?: true
     id_camion?: true
   }
 
@@ -30355,7 +30377,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
-    retencion?: true
+    detraccion?: true
+    valor_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30391,7 +30414,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
-    retencion?: true
+    detraccion?: true
+    valor_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30427,7 +30451,8 @@ export namespace Prisma {
     usuario_firma?: true
     estado_firma?: true
     ruta_pdf?: true
-    retencion?: true
+    detraccion?: true
+    valor_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30550,7 +30575,8 @@ export namespace Prisma {
     usuario_firma: number | null
     estado_firma: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf: string | null
-    retencion: string | null
+    detraccion: string | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30605,7 +30631,8 @@ export namespace Prisma {
     usuario_firma?: boolean
     estado_firma?: boolean
     ruta_pdf?: boolean
-    retencion?: boolean
+    detraccion?: boolean
+    valor_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -30647,13 +30674,14 @@ export namespace Prisma {
     usuario_firma?: boolean
     estado_firma?: boolean
     ruta_pdf?: boolean
-    retencion?: boolean
+    detraccion?: boolean
+    valor_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "valor_detraccion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30698,7 +30726,8 @@ export namespace Prisma {
       usuario_firma: number | null
       estado_firma: $Enums.ordenes_servicio_estado_firma | null
       ruta_pdf: string | null
-      retencion: string | null
+      detraccion: string | null
+      valor_detraccion: Prisma.Decimal | null
       id_camion: number | null
       almacen_central: string | null
       url: string | null
@@ -31103,7 +31132,8 @@ export namespace Prisma {
     readonly usuario_firma: FieldRef<"ordenes_servicio", 'Int'>
     readonly estado_firma: FieldRef<"ordenes_servicio", 'ordenes_servicio_estado_firma'>
     readonly ruta_pdf: FieldRef<"ordenes_servicio", 'String'>
-    readonly retencion: FieldRef<"ordenes_servicio", 'String'>
+    readonly detraccion: FieldRef<"ordenes_servicio", 'String'>
+    readonly valor_detraccion: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_servicio", 'String'>
     readonly url: FieldRef<"ordenes_servicio", 'String'>
@@ -37358,6 +37388,7 @@ export namespace Prisma {
     estado_firma: 'estado_firma',
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
+    valor_retencion: 'valor_retencion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
     url: 'url'
@@ -37514,7 +37545,8 @@ export namespace Prisma {
     usuario_firma: 'usuario_firma',
     estado_firma: 'estado_firma',
     ruta_pdf: 'ruta_pdf',
-    retencion: 'retencion',
+    detraccion: 'detraccion',
+    valor_detraccion: 'valor_detraccion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
     url: 'url'
@@ -37858,7 +37890,7 @@ export namespace Prisma {
     condicion: 'condicion',
     moneda: 'moneda',
     ruta_pdf: 'ruta_pdf',
-    retencion: 'retencion',
+    detraccion: 'detraccion',
     almacen_central: 'almacen_central',
     url: 'url'
   };
@@ -39364,6 +39396,7 @@ export namespace Prisma {
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -39404,6 +39437,7 @@ export namespace Prisma {
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
     retencion?: SortOrderInput | SortOrder
+    valor_retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -39448,6 +39482,7 @@ export namespace Prisma {
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -39488,6 +39523,7 @@ export namespace Prisma {
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
     retencion?: SortOrderInput | SortOrder
+    valor_retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -39532,6 +39568,7 @@ export namespace Prisma {
     estado_firma?: Enumordenes_compra_estado_firmaNullableWithAggregatesFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    valor_retencion?: DecimalNullableWithAggregatesFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
@@ -40248,7 +40285,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
-    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -40287,7 +40325,8 @@ export namespace Prisma {
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
-    retencion?: SortOrderInput | SortOrder
+    detraccion?: SortOrderInput | SortOrder
+    valor_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -40330,7 +40369,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
-    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -40369,7 +40409,8 @@ export namespace Prisma {
     usuario_firma?: SortOrderInput | SortOrder
     estado_firma?: SortOrderInput | SortOrder
     ruta_pdf?: SortOrderInput | SortOrder
-    retencion?: SortOrderInput | SortOrder
+    detraccion?: SortOrderInput | SortOrder
+    valor_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -40413,7 +40454,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableWithAggregatesFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
-    retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    valor_detraccion?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
@@ -42021,6 +42063,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -42061,6 +42104,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -42096,6 +42140,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42136,6 +42181,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42174,6 +42220,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -42207,6 +42254,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42243,6 +42291,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42960,7 +43009,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -42999,7 +43049,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -43033,7 +43084,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43072,7 +43124,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43109,7 +43162,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -43142,7 +43196,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43178,7 +43233,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45093,6 +45149,7 @@ export namespace Prisma {
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
     retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45107,6 +45164,7 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -45141,6 +45199,7 @@ export namespace Prisma {
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
     retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45177,6 +45236,7 @@ export namespace Prisma {
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
     retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45191,6 +45251,7 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -45874,7 +45935,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
-    retencion?: SortOrder
+    detraccion?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45889,6 +45951,7 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -45922,7 +45985,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
-    retencion?: SortOrder
+    detraccion?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45958,7 +46022,8 @@ export namespace Prisma {
     usuario_firma?: SortOrder
     estado_firma?: SortOrder
     ruta_pdf?: SortOrder
-    retencion?: SortOrder
+    detraccion?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -45973,6 +46038,7 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -50728,6 +50794,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -50767,6 +50834,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -50870,6 +50938,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50909,6 +50978,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53133,6 +53203,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53171,6 +53242,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53215,7 +53287,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53252,7 +53325,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53319,6 +53393,7 @@ export namespace Prisma {
     estado_firma?: Enumordenes_compra_estado_firmaNullableFilter<"ordenes_compra"> | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_compra"> | string | null
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -53373,7 +53448,8 @@ export namespace Prisma {
     usuario_firma?: IntNullableFilter<"ordenes_servicio"> | number | null
     estado_firma?: Enumordenes_servicio_estado_firmaNullableFilter<"ordenes_servicio"> | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: StringNullableFilter<"ordenes_servicio"> | string | null
-    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -53432,6 +53508,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53471,6 +53548,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53579,6 +53657,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53618,6 +53697,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54636,6 +54716,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -54674,6 +54755,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -54718,7 +54800,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -54755,7 +54838,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55500,7 +55584,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55538,7 +55623,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55640,7 +55726,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55678,7 +55765,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56849,6 +56937,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -56883,7 +56972,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -56917,6 +57007,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56955,6 +57046,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56992,6 +57084,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57024,7 +57117,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57061,7 +57155,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57097,7 +57192,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57285,6 +57381,7 @@ export namespace Prisma {
     estado_firma?: $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: string | null
     retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -57319,7 +57416,8 @@ export namespace Prisma {
     usuario_firma?: number | null
     estado_firma?: $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: string | null
-    retencion?: string | null
+    detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -57597,6 +57695,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57635,6 +57734,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57672,6 +57772,7 @@ export namespace Prisma {
     estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57704,7 +57805,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57741,7 +57843,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57777,7 +57880,8 @@ export namespace Prisma {
     usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
     estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
     ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null

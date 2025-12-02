@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import PDFDocument = require('pdfkit');
 import type PDFKit from 'pdfkit';
+import * as path from 'path';
 import { OrdenServicioData, DetalleItem } from './orden-servicio.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -252,7 +253,8 @@ export class OrdenServicioService {
             centro_costo_nivel3: createOrdenServicioDto.centro_costo_nivel3,
             moneda: createOrdenServicioDto.moneda,
             id_camion: createOrdenServicioDto.unidad_id,
-            retencion: createOrdenServicioDto.retencion,
+            detraccion: createOrdenServicioDto.detraccion,
+            valor_detraccion: createOrdenServicioDto.valor_detraccion,
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
@@ -420,13 +422,13 @@ export class OrdenServicioService {
         const igv = parseFloat(ordenServicio.igv?.toString() || '0');
         const total = parseFloat(ordenServicio.total?.toString() || '0');
 
-        // Verificar si hay retención basándose en el campo retencion de la orden
-        const tieneRetencion = ordenServicio.retencion?.toUpperCase() === 'SI';
-        const retencionPorcentaje = 3;
-        const retencionMonto = tieneRetencion
-          ? (total * retencionPorcentaje) / 100
+        // Verificar si hay detracción basándose en el campo detraccion de la orden
+        const tieneDetraccion = ordenServicio.detraccion?.toUpperCase() === 'SI';
+        const detraccionPorcentaje = 3;
+        const detraccionMonto = tieneDetraccion
+          ? (total * detraccionPorcentaje) / 100
           : 0;
-        const netoAPagar = total - retencionMonto;
+        const netoAPagar = total - detraccionMonto;
 
         // Verificar si hay anticipo basándose en el campo has_anticipo de la orden
         const tieneAnticipo = ordenServicio.has_anticipo === true;
@@ -435,9 +437,9 @@ export class OrdenServicioService {
           subtotal,
           igv,
           total,
-          proveedorAgenteRetencion: tieneRetencion,
-          retencionPorcentaje,
-          retencionMonto,
+          proveedorAgenteRetencion: tieneDetraccion,
+          detraccionPorcentaje,
+          detraccionMonto,
           netoAPagar,
           tieneAnticipo,
         };
@@ -467,7 +469,17 @@ export class OrdenServicioService {
         // ==================== HEADER ====================
         let yPos = 40;
 
-        // Logo y título (izquierda)
+        // Logo (izquierda)
+        const logoPath = path.join(__dirname, '..', 'assets', 'logoayala2.jpg');
+        doc.image(logoPath, 40, yPos, {
+          width: 80,
+          height: 50,
+        });
+
+        // Ajustar posición Y para el texto debajo del logo
+        yPos += 55;
+
+        // Título (izquierda)
         doc
           .fontSize(14)
           .font('Helvetica-Bold')
@@ -707,16 +719,16 @@ export class OrdenServicioService {
           doc.fillColor('#000000');
         }
 
-        // Solo mostrar campos de retención si proveedorAgenteRetencion es true
+        // Solo mostrar campos de detracción si proveedorAgenteRetencion es true
         if (ordenData.totales.proveedorAgenteRetencion) {
           doc.fontSize(8).font('Helvetica');
           doc.text(
-            `Retención ${ordenData.totales.retencionPorcentaje}%:`,
+            `Detracción ${ordenData.totales.detraccionPorcentaje}%:`,
             totalesX,
             yPos,
           );
           doc.text(
-            ordenData.totales.retencionMonto.toFixed(2),
+            ordenData.totales.detraccionMonto.toFixed(2),
             totalesX + 80,
             yPos,
             { align: 'right', width: 50 },
@@ -1213,7 +1225,8 @@ export class OrdenServicioService {
               centro_costo_nivel3: updateOrdenServicioDto.centro_costo_nivel3,
               moneda: updateOrdenServicioDto.moneda,
               id_camion: updateOrdenServicioDto.unidad_id,
-              retencion: updateOrdenServicioDto.retencion,
+              detraccion: updateOrdenServicioDto.detraccion,
+              valor_detraccion: updateOrdenServicioDto.valor_detraccion,
               almacen_central: updateOrdenServicioDto.almacen_central,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenServicioDto.tiene_anticipo,

@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import PDFDocument = require('pdfkit');
 import type PDFKit from 'pdfkit';
+import * as path from 'path';
 import { OrdenCompraData, DetalleItem } from './orden-compra.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -474,25 +475,27 @@ export class OrdenCompraService {
         // ==================== HEADER ====================
         let yPos = 40;
 
-        // Logo y título (izquierda)
+        // Logo (izquierda)
+        const logoPath = path.join(__dirname, '..', 'assets', 'ayala_logo.jpeg');
+        doc.image(logoPath, 40, yPos, {
+          width: 100,
+          height: 60,
+        });
+
+        // Título (izquierda) - alineado verticalmente con el logo
         doc
-          .fontSize(14)
+          .fontSize(16)
           .font('Helvetica-Bold')
-          .text('MAQUINARIAS AYALA', 40, yPos);
+          .text('MAQUINARIAS AYALA', 150, yPos + 10);
 
-        doc
-          .fontSize(10)
-          .font('Helvetica')
-          .text('', 40, yPos + 18);
-
-        // Dirección (izquierda)
-        doc.fontSize(9).font('Helvetica');
+        // Dirección (izquierda) - debajo del título
+        doc.fontSize(8).font('Helvetica');
         doc.text(
           'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
-          40,
-          yPos + 22,
+          150,
+          yPos + 30,
           {
-            width: 350,
+            width: 240,
           },
         );
 
@@ -500,11 +503,11 @@ export class OrdenCompraService {
         doc
           .fontSize(12)
           .font('Helvetica-Bold')
-          .text('ORDEN DE COMPRA', 400, yPos, { align: 'center', width: 155 });
+          .text('ORDEN DE COMPRA', 400, yPos + 5, { align: 'center', width: 155 });
 
         // Tabla de header derecha
         const headerBoxX = 400;
-        const headerBoxY = yPos + 20;
+        const headerBoxY = yPos + 25;
         const headerBoxWidth = 155;
 
         this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, 60);
@@ -523,7 +526,7 @@ export class OrdenCompraService {
         doc.text('RUC:', headerBoxX + 5, headerBoxY + 35);
         doc.text(ordenData.header.ruc, headerBoxX + 80, headerBoxY + 35);
 
-        yPos = headerBoxY + 65;
+        yPos = headerBoxY + 70;
 
         // ==================== DATOS DEL PROVEEDOR ====================
         this.drawSectionHeader(doc, 40, yPos, 'DATOS DEL PROVEEDOR', 515);
@@ -883,7 +886,7 @@ export class OrdenCompraService {
     title: string,
     width: number,
   ) {
-    doc.fillColor('#4472C4').rect(x, y, width, 15).fill();
+    doc.fillColor('#8B4513').rect(x, y, width, 15).fill();
     doc.fillColor('#FFFFFF').fontSize(9).font('Helvetica-Bold');
     doc.text(title, x + 5, y + 3, { width: width - 10 });
     doc.fillColor('#000000');

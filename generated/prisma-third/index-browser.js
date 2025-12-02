@@ -324,6 +324,7 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   estado_firma: 'estado_firma',
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
+  valor_retencion: 'valor_retencion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
   url: 'url'
@@ -453,7 +454,8 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   usuario_firma: 'usuario_firma',
   estado_firma: 'estado_firma',
   ruta_pdf: 'ruta_pdf',
-  retencion: 'retencion',
+  detraccion: 'detraccion',
+  valor_detraccion: 'valor_detraccion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
   url: 'url'
@@ -695,7 +697,7 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   condicion: 'condicion',
   moneda: 'moneda',
   ruta_pdf: 'ruta_pdf',
-  retencion: 'retencion',
+  detraccion: 'detraccion',
   almacen_central: 'almacen_central',
   url: 'url'
 };
