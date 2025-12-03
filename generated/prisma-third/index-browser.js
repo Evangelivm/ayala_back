@@ -327,7 +327,9 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   valor_retencion: 'valor_retencion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
-  url: 'url'
+  url: 'url',
+  url_cotizacion: 'url_cotizacion',
+  url_factura: 'url_factura'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -458,7 +460,9 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   valor_detraccion: 'valor_detraccion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
-  url: 'url'
+  url: 'url',
+  url_cotizacion: 'url_cotizacion',
+  url_factura: 'url_factura'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -638,7 +642,9 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
   almacen_central: 'almacen_central',
-  url: 'url'
+  url: 'url',
+  url_cotizacion: 'url_cotizacion',
+  url_factura: 'url_factura'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
@@ -699,7 +705,9 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   detraccion: 'detraccion',
   almacen_central: 'almacen_central',
-  url: 'url'
+  url: 'url',
+  url_cotizacion: 'url_cotizacion',
+  url_factura: 'url_factura'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {

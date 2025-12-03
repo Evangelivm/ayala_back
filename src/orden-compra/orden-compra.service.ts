@@ -1216,13 +1216,22 @@ export class OrdenCompraService {
           where: { numero_orden: updateOrdenCompraDto.numero_orden },
         });
 
-      if (
-        ordenConMismoNumero &&
-        ordenConMismoNumero.id_orden_compra !== id
-      ) {
-        throw new BadRequestException(
-          `Ya existe otra orden de compra con el número ${updateOrdenCompraDto.numero_orden}`,
-        );
+      if (ordenConMismoNumero) {
+        // Convertir ambos IDs a número para comparación segura
+        const idOrdenExistente = Number(ordenConMismoNumero.id_orden_compra);
+        const idOrdenActual = Number(id);
+
+        console.log(`🔍 Validación de duplicados:`);
+        console.log(`   - Orden existente ID: ${idOrdenExistente}`);
+        console.log(`   - Orden actual ID: ${idOrdenActual}`);
+        console.log(`   - Número orden: ${updateOrdenCompraDto.numero_orden}`);
+        console.log(`   - Son la misma orden: ${idOrdenExistente === idOrdenActual}`);
+
+        if (idOrdenExistente !== idOrdenActual) {
+          throw new BadRequestException(
+            `Ya existe otra orden de compra con el número ${updateOrdenCompraDto.numero_orden}`,
+          );
+        }
       }
 
       // Validar que los items existen
@@ -1658,6 +1667,50 @@ export class OrdenCompraService {
       console.error('Error al actualizar URL de la orden de compra:', error);
       throw new BadRequestException(
         `Error al actualizar URL de la orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Actualiza la URL de cotización de una orden de compra
+   * @param id - ID de la orden de compra
+   * @param cotizacionUrl - URL de la cotización en Dropbox
+   */
+  async updateCotizacionUrl(id: number, cotizacionUrl: string): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { url_cotizacion: cotizacionUrl },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      console.error('Error al actualizar URL de cotización de la orden de compra:', error);
+      throw new BadRequestException(
+        `Error al actualizar URL de cotización de la orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Actualiza la URL de factura de una orden de compra
+   * @param id - ID de la orden de compra
+   * @param facturaUrl - URL de la factura en Dropbox
+   */
+  async updateFacturaUrl(id: number, facturaUrl: string): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { url_factura: facturaUrl },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      console.error('Error al actualizar URL de factura de la orden de compra:', error);
+      throw new BadRequestException(
+        `Error al actualizar URL de factura de la orden de compra: ${error.message}`,
       );
     }
   }

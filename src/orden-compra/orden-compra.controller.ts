@@ -339,4 +339,222 @@ export class OrdenCompraController {
       throw error;
     }
   }
+
+  @Post(':id/upload-cotizacion')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadCotizacion(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    let uploadedFilePath: string | null = null;
+
+    try {
+      console.log(`📤 Iniciando subida de cotización para orden de compra ID: ${id}`);
+
+      // Validar que se haya subido un archivo
+      if (!file) {
+        throw new BadRequestException('No se ha proporcionado ningún archivo');
+      }
+
+      // Validar tipo de archivo (PDF)
+      const allowedMimeTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+      ];
+
+      if (!allowedMimeTypes.includes(file.mimetype)) {
+        throw new BadRequestException(
+          'Tipo de archivo no permitido. Solo se aceptan PDF, Word, Excel e imágenes',
+        );
+      }
+
+      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+
+      // Validar tamaño máximo (30 MB) ANTES de cualquier procesamiento
+      const maxSize = 30 * 1024 * 1024; // 30 MB en bytes
+      const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+
+      if (file.size > maxSize) {
+        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        throw new BadRequestException(
+          `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
+          `Por favor, comprime el archivo antes de subirlo.`,
+        );
+      }
+
+      console.log(`✅ Tamaño del archivo validado: ${fileSizeMB} MB / 30 MB`);
+
+      // Obtener datos de la orden de compra
+      console.log(`🔍 Obteniendo datos de la orden de compra ID: ${id}`);
+      const ordenData = await this.ordenCompraService.getOrdenData(+id);
+      console.log(`✅ Orden encontrada: ${ordenData.numero_orden}`);
+
+      // Subir archivo a Dropbox usando el número de orden y fecha de registro con sufijo "-cotizacion"
+      console.log(`☁️ Subiendo cotización a Dropbox...`);
+      const result = await this.dropboxService.uploadOrdenFile(
+        file.buffer,
+        `${ordenData.numero_orden}-cotizacion`,
+        ordenData.fecha_registro,
+        'ordenes-compra',
+        file.originalname,
+      );
+
+      uploadedFilePath = result.filePath;
+      console.log(`✅ Cotización subida exitosamente a: ${result.filePath}`);
+
+      // Guardar la URL de la cotización en la base de datos
+      console.log(`💾 Guardando URL de cotización en base de datos...`);
+      try {
+        await this.ordenCompraService.updateCotizacionUrl(+id, result.fileUrl);
+        console.log(`✅ URL de cotización guardada exitosamente en la base de datos`);
+      } catch (dbError) {
+        console.error('❌ Error al guardar URL de cotización en base de datos:', dbError);
+
+        // ROLLBACK: Eliminar el archivo de Dropbox si falla guardar en BD
+        console.log(`🔄 Iniciando rollback: eliminando cotización de Dropbox...`);
+        try {
+          await this.dropboxService.deleteFile(uploadedFilePath);
+          console.log(`✅ Rollback completado: cotización eliminada de Dropbox`);
+        } catch (rollbackError) {
+          console.error('❌ Error durante rollback al eliminar cotización:', rollbackError);
+          throw new BadRequestException(
+            'Error crítico: La cotización se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
+            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+            'Ruta del archivo: ' + uploadedFilePath
+          );
+        }
+
+        throw new BadRequestException(
+          'La cotización se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
+          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+        );
+      }
+
+      console.log(`🎉 Cotización procesada exitosamente`);
+
+      return {
+        ...result,
+        message: `Cotización subida exitosamente como: ${result.fileName || 'archivo'}`,
+      };
+    } catch (error) {
+      console.error('❌ Error al subir cotización para orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Post(':id/upload-factura')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFactura(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    let uploadedFilePath: string | null = null;
+
+    try {
+      console.log(`📤 Iniciando subida de factura para orden de compra ID: ${id}`);
+
+      // Validar que se haya subido un archivo
+      if (!file) {
+        throw new BadRequestException('No se ha proporcionado ningún archivo');
+      }
+
+      // Validar tipo de archivo (PDF)
+      const allowedMimeTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+      ];
+
+      if (!allowedMimeTypes.includes(file.mimetype)) {
+        throw new BadRequestException(
+          'Tipo de archivo no permitido. Solo se aceptan PDF, Word, Excel e imágenes',
+        );
+      }
+
+      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+
+      // Validar tamaño máximo (30 MB) ANTES de cualquier procesamiento
+      const maxSize = 30 * 1024 * 1024; // 30 MB en bytes
+      const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+
+      if (file.size > maxSize) {
+        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        throw new BadRequestException(
+          `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
+          `Por favor, comprime el archivo antes de subirlo.`,
+        );
+      }
+
+      console.log(`✅ Tamaño del archivo validado: ${fileSizeMB} MB / 30 MB`);
+
+      // Obtener datos de la orden de compra
+      console.log(`🔍 Obteniendo datos de la orden de compra ID: ${id}`);
+      const ordenData = await this.ordenCompraService.getOrdenData(+id);
+      console.log(`✅ Orden encontrada: ${ordenData.numero_orden}`);
+
+      // Subir archivo a Dropbox usando el número de orden y fecha de registro con sufijo "-factura"
+      console.log(`☁️ Subiendo factura a Dropbox...`);
+      const result = await this.dropboxService.uploadOrdenFile(
+        file.buffer,
+        `${ordenData.numero_orden}-factura`,
+        ordenData.fecha_registro,
+        'ordenes-compra',
+        file.originalname,
+      );
+
+      uploadedFilePath = result.filePath;
+      console.log(`✅ Factura subida exitosamente a: ${result.filePath}`);
+
+      // Guardar la URL de la factura en la base de datos
+      console.log(`💾 Guardando URL de factura en base de datos...`);
+      try {
+        await this.ordenCompraService.updateFacturaUrl(+id, result.fileUrl);
+        console.log(`✅ URL de factura guardada exitosamente en la base de datos`);
+      } catch (dbError) {
+        console.error('❌ Error al guardar URL de factura en base de datos:', dbError);
+
+        // ROLLBACK: Eliminar el archivo de Dropbox si falla guardar en BD
+        console.log(`🔄 Iniciando rollback: eliminando factura de Dropbox...`);
+        try {
+          await this.dropboxService.deleteFile(uploadedFilePath);
+          console.log(`✅ Rollback completado: factura eliminada de Dropbox`);
+        } catch (rollbackError) {
+          console.error('❌ Error durante rollback al eliminar factura:', rollbackError);
+          throw new BadRequestException(
+            'Error crítico: La factura se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
+            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+            'Ruta del archivo: ' + uploadedFilePath
+          );
+        }
+
+        throw new BadRequestException(
+          'La factura se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
+          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+        );
+      }
+
+      console.log(`🎉 Factura procesada exitosamente`);
+
+      return {
+        ...result,
+        message: `Factura subida exitosamente como: ${result.fileName || 'archivo'}`,
+      };
+    } catch (error) {
+      console.error('❌ Error al subir factura para orden de compra:', error);
+      throw error;
+    }
+  }
 }

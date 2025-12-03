@@ -20244,6 +20244,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -20281,6 +20283,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -20318,6 +20322,8 @@ export namespace Prisma {
     id_camion: number
     almacen_central: number
     url: number
+    url_cotizacion: number
+    url_factura: number
     _all: number
   }
 
@@ -20383,6 +20389,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -20420,6 +20428,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -20457,6 +20467,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
     _all?: true
   }
 
@@ -20581,6 +20593,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -20637,6 +20651,8 @@ export namespace Prisma {
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
+    url_cotizacion?: boolean
+    url_factura?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -20681,9 +20697,11 @@ export namespace Prisma {
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
+    url_cotizacion?: boolean
+    url_factura?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -20735,6 +20753,8 @@ export namespace Prisma {
       id_camion: number | null
       almacen_central: string | null
       url: string | null
+      url_cotizacion: string | null
+      url_factura: string | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -21142,6 +21162,8 @@ export namespace Prisma {
     readonly id_camion: FieldRef<"ordenes_compra", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_compra", 'String'>
     readonly url: FieldRef<"ordenes_compra", 'String'>
+    readonly url_cotizacion: FieldRef<"ordenes_compra", 'String'>
+    readonly url_factura: FieldRef<"ordenes_compra", 'String'>
   }
     
 
@@ -30243,6 +30265,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -30280,6 +30304,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -30317,6 +30343,8 @@ export namespace Prisma {
     id_camion: number
     almacen_central: number
     url: number
+    url_cotizacion: number
+    url_factura: number
     _all: number
   }
 
@@ -30382,6 +30410,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -30419,6 +30449,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -30456,6 +30488,8 @@ export namespace Prisma {
     id_camion?: true
     almacen_central?: true
     url?: true
+    url_cotizacion?: true
+    url_factura?: true
     _all?: true
   }
 
@@ -30580,6 +30614,8 @@ export namespace Prisma {
     id_camion: number | null
     almacen_central: string | null
     url: string | null
+    url_cotizacion: string | null
+    url_factura: string | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -30636,6 +30672,8 @@ export namespace Prisma {
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
+    url_cotizacion?: boolean
+    url_factura?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -30679,9 +30717,11 @@ export namespace Prisma {
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
+    url_cotizacion?: boolean
+    url_factura?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "valor_detraccion" | "id_camion" | "almacen_central" | "url", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "valor_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30731,6 +30771,8 @@ export namespace Prisma {
       id_camion: number | null
       almacen_central: string | null
       url: string | null
+      url_cotizacion: string | null
+      url_factura: string | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -31137,6 +31179,8 @@ export namespace Prisma {
     readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_servicio", 'String'>
     readonly url: FieldRef<"ordenes_servicio", 'String'>
+    readonly url_cotizacion: FieldRef<"ordenes_servicio", 'String'>
+    readonly url_factura: FieldRef<"ordenes_servicio", 'String'>
   }
     
 
@@ -37391,7 +37435,9 @@ export namespace Prisma {
     valor_retencion: 'valor_retencion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
-    url: 'url'
+    url: 'url',
+    url_cotizacion: 'url_cotizacion',
+    url_factura: 'url_factura'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -37549,7 +37595,9 @@ export namespace Prisma {
     valor_detraccion: 'valor_detraccion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
-    url: 'url'
+    url: 'url',
+    url_cotizacion: 'url_cotizacion',
+    url_factura: 'url_factura'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -37810,7 +37858,9 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
     almacen_central: 'almacen_central',
-    url: 'url'
+    url: 'url',
+    url_cotizacion: 'url_cotizacion',
+    url_factura: 'url_factura'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -37892,7 +37942,9 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     detraccion: 'detraccion',
     almacen_central: 'almacen_central',
-    url: 'url'
+    url: 'url',
+    url_cotizacion: 'url_cotizacion',
+    url_factura: 'url_factura'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -39400,6 +39452,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -39441,6 +39495,8 @@ export namespace Prisma {
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    url_cotizacion?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -39486,6 +39542,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -39527,6 +39585,8 @@ export namespace Prisma {
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    url_cotizacion?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -39572,6 +39632,8 @@ export namespace Prisma {
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    url_factura?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -40290,6 +40352,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -40330,6 +40394,8 @@ export namespace Prisma {
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    url_cotizacion?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -40374,6 +40440,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -40414,6 +40482,8 @@ export namespace Prisma {
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    url_cotizacion?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -40459,6 +40529,8 @@ export namespace Prisma {
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    url_factura?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -42067,6 +42139,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -42108,6 +42182,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -42144,6 +42220,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -42185,6 +42263,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -42224,6 +42304,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -42258,6 +42340,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -42295,6 +42379,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -43014,6 +43100,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -43054,6 +43142,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -43089,6 +43179,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -43129,6 +43221,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -43167,6 +43261,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -43201,6 +43297,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -43238,6 +43336,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -45153,6 +45253,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -45203,6 +45305,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -45240,6 +45344,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -45940,6 +46046,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -45990,6 +46098,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -46027,6 +46137,8 @@ export namespace Prisma {
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
+    url_cotizacion?: SortOrder
+    url_factura?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -50798,6 +50910,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -50838,6 +50952,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -50942,6 +51058,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -50982,6 +51100,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -53207,6 +53327,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -53246,6 +53368,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -53292,6 +53416,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -53330,6 +53456,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -53397,6 +53525,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -53453,6 +53583,8 @@ export namespace Prisma {
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -53512,6 +53644,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -53552,6 +53686,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -53661,6 +53797,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -53701,6 +53839,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -54720,6 +54860,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -54759,6 +54901,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -54805,6 +54949,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -54843,6 +54989,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -55589,6 +55737,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -55628,6 +55778,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
@@ -55731,6 +55883,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -55770,6 +55924,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
@@ -56941,6 +57097,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -56977,6 +57135,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -57011,6 +57171,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -57050,6 +57212,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -57088,6 +57252,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -57122,6 +57288,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -57160,6 +57328,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -57197,6 +57367,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -57385,6 +57557,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -57421,6 +57595,8 @@ export namespace Prisma {
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -57699,6 +57875,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -57738,6 +57916,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -57776,6 +57956,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -57810,6 +57992,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -57848,6 +58032,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -57885,6 +58071,8 @@ export namespace Prisma {
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
