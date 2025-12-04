@@ -53,6 +53,7 @@ export interface Firmas {
   generaOrden: string;
   jefeAdministrativo: string;
   gerencia: string;
+  jefeProyectos: string;
 }
 
 export interface OrdenServicioData {

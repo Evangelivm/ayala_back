@@ -448,6 +448,7 @@ export class OrdenServicioService {
         generaOrden: 'VLADIMIR',
         jefeAdministrativo: '',
         gerencia: '',
+        jefeProyectos: '',
       },
     };
   }
@@ -470,34 +471,26 @@ export class OrdenServicioService {
         let yPos = 40;
 
         // Logo (izquierda)
-        const logoPath = path.join(__dirname, '..', 'assets', 'logoayala2.jpg');
+        const logoPath = path.join(__dirname, '..', 'assets', 'ayala_logo.jpeg');
         doc.image(logoPath, 40, yPos, {
-          width: 80,
-          height: 50,
+          width: 100,
+          height: 60,
         });
 
-        // Ajustar posición Y para el texto debajo del logo
-        yPos += 55;
-
-        // Título (izquierda)
+        // Título (izquierda) - alineado verticalmente con el logo
         doc
-          .fontSize(14)
+          .fontSize(16)
           .font('Helvetica-Bold')
-          .text('MAQUINARIAS AYALA', 40, yPos);
+          .text('MAQUINARIAS AYALA', 150, yPos + 10);
 
-        doc
-          .fontSize(10)
-          .font('Helvetica')
-          .text('', 40, yPos + 18);
-
-        // Dirección (izquierda)
-        doc.fontSize(9).font('Helvetica');
+        // Dirección (izquierda) - debajo del título
+        doc.fontSize(8).font('Helvetica');
         doc.text(
           'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
-          40,
-          yPos + 22,
+          150,
+          yPos + 30,
           {
-            width: 350,
+            width: 240,
           },
         );
 
@@ -505,11 +498,11 @@ export class OrdenServicioService {
         doc
           .fontSize(12)
           .font('Helvetica-Bold')
-          .text('ORDEN DE SERVICIO', 400, yPos, { align: 'center', width: 155 });
+          .text('ORDEN DE SERVICIO', 400, yPos + 5, { align: 'center', width: 155 });
 
         // Tabla de header derecha
         const headerBoxX = 400;
-        const headerBoxY = yPos + 20;
+        const headerBoxY = yPos + 25;
         const headerBoxWidth = 155;
 
         this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, 60);
@@ -528,7 +521,7 @@ export class OrdenServicioService {
         doc.text('RUC:', headerBoxX + 5, headerBoxY + 35);
         doc.text(ordenData.header.ruc, headerBoxX + 80, headerBoxY + 35);
 
-        yPos = headerBoxY + 65;
+        yPos = headerBoxY + 70;
 
         // ==================== DATOS DEL PROVEEDOR ====================
         this.drawSectionHeader(doc, 40, yPos, 'DATOS DEL PROVEEDOR', 515);
@@ -676,22 +669,22 @@ export class OrdenServicioService {
 
         yPos += 50;
 
-        // Determinar posiciones para los cuadros de RETENCIÓN y ANTICIPO
-        const tieneRetencion = ordenData.totales.proveedorAgenteRetencion;
+        // Determinar posiciones para los cuadros de DETRACCIÓN y ANTICIPO
+        const tieneDetraccion = ordenData.totales.proveedorAgenteRetencion;
         const tieneAnticipo = ordenData.totales.tieneAnticipo;
 
-        // Si hay retención y anticipo, mostrar ambos cuadros lado a lado
-        if (tieneRetencion && tieneAnticipo) {
-          // Cuadro de RETENCIÓN (izquierda)
+        // Si hay detracción y anticipo, mostrar ambos cuadros lado a lado
+        if (tieneDetraccion && tieneAnticipo) {
+          // Cuadro de DETRACCIÓN (izquierda)
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
-          doc.text('RETENCIÓN', 40, yPos + 1, {
+          doc.text('DETRACCIÓN', 40, yPos + 1, {
             width: 150,
             align: 'center',
           });
           doc.fillColor('#000000');
 
-          // Cuadro de ANTICIPO (al lado de retención)
+          // Cuadro de ANTICIPO (al lado de detracción)
           this.drawHighlightBox(doc, 200, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
           doc.text('ANTICIPO', 200, yPos + 1, {
@@ -699,17 +692,17 @@ export class OrdenServicioService {
             align: 'center',
           });
           doc.fillColor('#000000');
-        } else if (tieneRetencion) {
-          // Solo retención
+        } else if (tieneDetraccion) {
+          // Solo detracción
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
-          doc.text('RETENCIÓN', 40, yPos + 1, {
+          doc.text('DETRACCIÓN', 40, yPos + 1, {
             width: 150,
             align: 'center',
           });
           doc.fillColor('#000000');
         } else if (tieneAnticipo) {
-          // Solo anticipo (en la posición donde iría retención)
+          // Solo anticipo (en la posición donde iría detracción)
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
           doc.text('ANTICIPO', 40, yPos + 1, {
@@ -766,50 +759,119 @@ export class OrdenServicioService {
         yPos += 40; // Espacio adicional antes de las firmas
 
         // ==================== FIRMAS ====================
-        const firmaWidth = 150;
-        let firmaLineY = yPos;
+        // 4 firmas en una sola fila
         const pageWidth = 515; // Ancho total del contenido
-        const leftX = 40;
-        const centerX = 40 + (pageWidth - firmaWidth) / 2;
-        const rightX = 40 + pageWidth - firmaWidth;
+        const firmaWidth = 110; // Ancho de cada firma
+        const spacingBetween = 15; // Espacio entre firmas
+        const totalFirmasWidth = (firmaWidth * 4) + (spacingBetween * 3);
+        const startX = 40 + (pageWidth - totalFirmasWidth) / 2; // Centrar las 4 firmas
+
+        const firmaLineY = yPos;
 
         doc.fontSize(8).font('Helvetica');
 
-        // Primera fila de firmas
-        // Genera orden (izquierda)
-        doc.moveTo(leftX, firmaLineY).lineTo(leftX + firmaWidth, firmaLineY).stroke();
-        doc.text('Genera orden', leftX, firmaLineY + 10, {
+        // Firma 1: Genera orden
+        const firma1X = startX;
+        doc.moveTo(firma1X, firmaLineY).lineTo(firma1X + firmaWidth, firmaLineY).stroke();
+        doc.text('Genera orden', firma1X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
-        doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, leftX, firmaLineY + 25, {
+        if (ordenData.firmas.generaOrden) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
+
+        // Firma 2: Jefe Administrativo
+        const firma2X = firma1X + firmaWidth + spacingBetween;
+        doc.moveTo(firma2X, firmaLineY).lineTo(firma2X + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe Administrativo', firma2X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.jefeAdministrativo) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeAdministrativo, firma2X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Jefe Administrativo (centro)
-        doc.font('Helvetica');
-        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
-        doc.text('Jefe Administrativo', centerX, firmaLineY + 10, {
+        // Firma 3: Gerencia
+        const firma3X = firma2X + firmaWidth + spacingBetween;
+        doc.moveTo(firma3X, firmaLineY).lineTo(firma3X + firmaWidth, firmaLineY).stroke();
+        doc.text('Gerencia', firma3X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.gerencia) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Gerencia (derecha)
-        doc.moveTo(rightX, firmaLineY).lineTo(rightX + firmaWidth, firmaLineY).stroke();
-        doc.text('Gerencia', rightX, firmaLineY + 10, {
+        // Firma 4: Jefe de Proyectos
+        const firma4X = firma3X + firmaWidth + spacingBetween;
+        doc.moveTo(firma4X, firmaLineY).lineTo(firma4X + firmaWidth, firmaLineY).stroke();
+        doc.text('Jefe de Proyectos', firma4X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
+        if (ordenData.firmas.jefeProyectos) {
+          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
+            width: firmaWidth,
+            align: 'center',
+          });
+          doc.font('Helvetica');
+        }
 
-        // Segunda fila de firmas
-        firmaLineY += 80;
+        // Espacio antes de las consideraciones
+        yPos = firmaLineY + 45;
 
-        // Jefe de Proyectos (centro)
-        doc.moveTo(centerX, firmaLineY).lineTo(centerX + firmaWidth, firmaLineY).stroke();
-        doc.text('Jefe de Proyectos', centerX, firmaLineY + 10, {
-          width: firmaWidth,
-          align: 'center',
+        // ==================== CONSIDERACIONES GENERALES ====================
+        // Header de consideraciones
+        this.drawSectionHeader(doc, 40, yPos, 'CONSIDERACIONES GENERALES:', 515);
+        yPos += 18;
+
+        // Consideraciones
+        const consideraciones = [
+          '1.-Es responsabilidad del PROVEEDOR anticipar ante un posible cambio de las características solicitadas.',
+          '2.-El cliente realizara la entrega técnica cuando se recoja el equipo (inducción en el manejo y operación del equipo).',
+          '3.-Al momento de llegar el equipo, adjuntar 2 copias de ORDEN DE SERVICIO SELLADO Y FIRMADO.',
+          '4.-El correo autorizado de MAQUINARIAS AYALA SAC, para la recepción de facturas electrónicas es digitador1@maquinariasayala.com.pe o en la plataforma.',
+          '5.-Es obligatorio escribir en la Factura el numero de Orden de la compra y el numero de Guía de Remisión.',
+          '6.-Los proveedores que han sido designados como emisores electrónicos, que emiten sus comprobantes atreves del portal SUNAT o desde el sistema del.',
+          '7.-Todos los equipos se considera operador, rigger.',
+          '8.-Plan de Trabajo en coordinación con el ing. Residente de la obra.',
+          '9.-Los operarios para el montaje y desmontaje de andamio multidireccional; deben contar con Certificación, así como también el andamio a usar.',
+          '10.-Es obligatorio que el personal cuente con EPP básico y EPP complementario según trabajo de alto riesgo (Trabajos de altura, Trabajos en Caliente, y otros) y/o',
+          '11.-Los operarios de equipos de poder o eléctricos deberán contar con Certificación.',
+          '12.-Se considera PDR en todo el proyecto.',
+        ];
+
+        // Dibujar tabla de consideraciones (muy pequeño)
+        doc.fontSize(4.5).font('Helvetica');
+
+        consideraciones.forEach((consideracion) => {
+          // Calcular altura necesaria para esta consideración (muy compacta)
+          const textHeight = this.calculateConsideracionHeight(doc, consideracion, 515 - 8);
+
+          // Dibujar celda
+          doc.rect(40, yPos, 515, textHeight).stroke();
+
+          // Escribir texto
+          doc.text(consideracion, 43, yPos + 1, {
+            width: 509,
+            align: 'left',
+            lineGap: -2,
+          });
+
+          yPos += textHeight;
         });
 
         doc.end();
@@ -849,7 +911,7 @@ export class OrdenServicioService {
     title: string,
     width: number,
   ) {
-    doc.fillColor('#4472C4').rect(x, y, width, 15).fill();
+    doc.fillColor('#8B4513').rect(x, y, width, 15).fill();
     doc.fillColor('#FFFFFF').fontSize(9).font('Helvetica-Bold');
     doc.text(title, x + 5, y + 3, { width: width - 10 });
     doc.fillColor('#000000');
@@ -866,8 +928,8 @@ export class OrdenServicioService {
     let currentY = startY;
     const baseRowHeight = 18;
 
-    // Definir el color azul/gris del header (#D9E2F3 es un azul claro similar al de la imagen)
-    const headerColor = '#D9E2F3';
+    // Definir el color marrón claro del header
+    const headerColor = '#DEB887';
 
     // Pre-calcular altura de fila 2 para ajustar la celda combinada "Centro de Costos"
     const nivel1Width = colWidths[1] + colWidths[2];
@@ -1083,6 +1145,18 @@ export class OrdenServicioService {
     }
 
     return lines;
+  }
+
+  /**
+   * Calcula la altura necesaria para una consideración
+   */
+  private calculateConsideracionHeight(
+    doc: PDFKit.PDFDocument,
+    text: string,
+    maxWidth: number,
+  ): number {
+    const lines = this.calculateTextLines(doc, text, maxWidth, 4.5);
+    return Math.max(8, lines * 6 + 2);
   }
 
   private drawDetalleTable(
