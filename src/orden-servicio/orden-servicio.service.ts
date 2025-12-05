@@ -1409,9 +1409,11 @@ export class OrdenServicioService {
   /**
    * Verifica si una orden de servicio debe cambiar su estado a COMPLETADA
    * Se cambia a COMPLETADA cuando:
-   * - auto_administrador = true
-   * - auto_contabilidad = true
-   * - procede_pago = 'TRANSFERIR'
+   * - Tiene URL de factura (url_factura)
+   * - Tiene URL de cotización (url_cotizacion)
+   * - Tiene URL de operación (url)
+   * - Hay 2 de 3 aprobaciones (auto_administrador, jefe_proyecto, auto_contabilidad)
+   * - El anticipo está en "SI" (tiene_anticipo = "SI")
    * @param id - ID de la orden de servicio a verificar
    */
   private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
@@ -1424,11 +1426,20 @@ export class OrdenServicioService {
         return;
       }
 
+      // Contar aprobaciones
+      const aprobaciones = [
+        orden.auto_administrador === true,
+        orden.jefe_proyecto === true,
+        orden.auto_contabilidad === true,
+      ].filter(Boolean).length;
+
       // Verificar si cumple todas las condiciones para estar COMPLETADA
       if (
-        orden.auto_administrador === true &&
-        orden.auto_contabilidad === true &&
-        orden.procede_pago === 'TRANSFERIR'
+        orden.url_factura && // Tiene URL de factura
+        orden.url_cotizacion && // Tiene URL de cotización
+        orden.url && // Tiene URL de operación
+        aprobaciones >= 2 && // Al menos 2 de 3 aprobaciones
+        orden.tiene_anticipo === 'SI' // Anticipo en SI
       ) {
         await this.prismaThird.ordenes_servicio.update({
           where: { id_orden_servicio: id },
@@ -1699,6 +1710,9 @@ export class OrdenServicioService {
         data: { url: fileUrl },
       });
 
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -1721,6 +1735,9 @@ export class OrdenServicioService {
         data: { url_cotizacion: cotizacionUrl },
       });
 
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -1742,6 +1759,9 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { url_factura: facturaUrl },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();

@@ -254,6 +254,7 @@ export class OrdenCompraService {
             moneda: createOrdenCompraDto.moneda,
             id_camion: createOrdenCompraDto.unidad_id,
             retencion: createOrdenCompraDto.retencion,
+            valor_retencion: createOrdenCompraDto.valor_retencion,
             almacen_central: createOrdenCompraDto.almacen_central,
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
             tiene_anticipo: createOrdenCompraDto.tiene_anticipo,
@@ -1272,6 +1273,7 @@ export class OrdenCompraService {
               moneda: updateOrdenCompraDto.moneda,
               id_camion: updateOrdenCompraDto.unidad_id,
               retencion: updateOrdenCompraDto.retencion,
+              valor_retencion: updateOrdenCompraDto.valor_retencion,
               almacen_central: updateOrdenCompraDto.almacen_central,
               has_anticipo: updateOrdenCompraDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenCompraDto.tiene_anticipo,
@@ -1411,9 +1413,11 @@ export class OrdenCompraService {
   /**
    * Verifica si una orden de compra debe cambiar su estado a COMPLETADA
    * Se cambia a COMPLETADA cuando:
-   * - auto_administrador = true
-   * - auto_contabilidad = true
-   * - procede_pago = 'TRANSFERIR'
+   * - Tiene URL de factura (url_factura)
+   * - Tiene URL de cotización (url_cotizacion)
+   * - Tiene URL de operación (url)
+   * - Hay 2 de 3 aprobaciones (auto_administrador, jefe_proyecto, auto_contabilidad)
+   * - El anticipo está en "SI" (tiene_anticipo = "SI")
    * @param id - ID de la orden de compra a verificar
    */
   private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
@@ -1426,11 +1430,20 @@ export class OrdenCompraService {
         return;
       }
 
+      // Contar aprobaciones
+      const aprobaciones = [
+        orden.auto_administrador === true,
+        orden.jefe_proyecto === true,
+        orden.auto_contabilidad === true,
+      ].filter(Boolean).length;
+
       // Verificar si cumple todas las condiciones para estar COMPLETADA
       if (
-        orden.auto_administrador === true &&
-        orden.auto_contabilidad === true &&
-        orden.procede_pago === 'TRANSFERIR'
+        orden.url_factura && // Tiene URL de factura
+        orden.url_cotizacion && // Tiene URL de cotización
+        orden.url && // Tiene URL de operación
+        aprobaciones >= 2 && // Al menos 2 de 3 aprobaciones
+        orden.tiene_anticipo === 'SI' // Anticipo en SI
       ) {
         await this.prismaThird.ordenes_compra.update({
           where: { id_orden_compra: id },
@@ -1661,6 +1674,9 @@ export class OrdenCompraService {
         data: { url: fileUrl },
       });
 
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
@@ -1683,6 +1699,9 @@ export class OrdenCompraService {
         data: { url_cotizacion: cotizacionUrl },
       });
 
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
@@ -1704,6 +1723,9 @@ export class OrdenCompraService {
         where: { id_orden_compra: id },
         data: { url_factura: facturaUrl },
       });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
