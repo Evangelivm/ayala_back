@@ -254,6 +254,7 @@ export class OrdenCompraService {
             moneda: createOrdenCompraDto.moneda,
             id_camion: createOrdenCompraDto.unidad_id,
             retencion: createOrdenCompraDto.retencion,
+            porcentaje_valor_retencion: createOrdenCompraDto.porcentaje_valor_retencion,
             valor_retencion: createOrdenCompraDto.valor_retencion,
             almacen_central: createOrdenCompraDto.almacen_central,
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
@@ -430,7 +431,9 @@ export class OrdenCompraService {
 
         // Verificar si hay retención basándose en el campo retencion de la orden
         const tieneRetencion = ordenCompra.retencion?.toUpperCase() === 'SI';
-        const retencionPorcentaje = 3;
+        const retencionPorcentaje = ordenCompra.porcentaje_valor_retencion
+          ? parseFloat(ordenCompra.porcentaje_valor_retencion)
+          : 3; // Valor por defecto si no está definido
         const retencionMonto = tieneRetencion
           ? (total * retencionPorcentaje) / 100
           : 0;
@@ -1273,6 +1276,7 @@ export class OrdenCompraService {
               moneda: updateOrdenCompraDto.moneda,
               id_camion: updateOrdenCompraDto.unidad_id,
               retencion: updateOrdenCompraDto.retencion,
+              porcentaje_valor_retencion: updateOrdenCompraDto.porcentaje_valor_retencion,
               valor_retencion: updateOrdenCompraDto.valor_retencion,
               almacen_central: updateOrdenCompraDto.almacen_central,
               has_anticipo: updateOrdenCompraDto.has_anticipo === 1,

@@ -264,46 +264,47 @@ model notificaciones_enviadas {
 }
 
 model ordenes_compra {
-  id_orden_compra        Int                          @id @default(autoincrement())
-  numero_orden           String                       @unique(map: "numero_orden") @db.VarChar(50)
-  id_proveedor           Int
-  fecha_orden            DateTime                     @db.Date
-  fecha_entrega_prevista DateTime?                    @db.Date
-  subtotal               Decimal?                     @default(0.00) @db.Decimal(10, 2)
-  igv                    Decimal?                     @default(0.00) @db.Decimal(10, 2)
-  total                  Decimal?                     @default(0.00) @db.Decimal(10, 2)
-  estado                 ordenes_compra_estado?       @default(PENDIENTE)
-  observaciones          String?                      @db.Text
-  fecha_registro         DateTime?                    @default(now()) @db.Timestamp(0)
-  registrado_por         Int
-  tiene_anticipo         String?                      @db.VarChar(255)
-  procede_pago           String?                      @db.VarChar(255)
-  auto_administrador     Boolean?                     @default(false)
-  auto_contabilidad      Boolean?                     @default(false)
-  jefe_proyecto          Boolean?                     @default(false)
-  has_anticipo           Boolean?                     @default(false)
-  direccion              String?                      @db.VarChar(255)
-  centro_costo_nivel1    String?                      @db.VarChar(255)
-  centro_costo_nivel2    String?                      @db.VarChar(255)
-  centro_costo_nivel3    String?                      @db.VarChar(255)
-  condicion              String?                      @db.VarChar(255)
-  moneda                 String?                      @db.VarChar(255)
-  tipo_cambio            Decimal?                     @default(0.000) @db.Decimal(10, 3)
-  hora_firma             DateTime?                    @db.DateTime(0)
-  usuario_firma          Int?
-  estado_firma           ordenes_compra_estado_firma? @default(PENDIENTE)
-  ruta_pdf               String?                      @db.VarChar(500)
-  retencion              String?                      @db.VarChar(45)
-  valor_retencion        Decimal?                     @default(0.000) @db.Decimal(10, 3)
-  id_camion              Int?
-  almacen_central        String?                      @db.VarChar(45)
-  url                    String?                      @db.VarChar(255)
-  url_cotizacion         String?                      @db.VarChar(255)
-  url_factura            String?                      @db.VarChar(255)
-  detalles_orden_compra  detalles_orden_compra[]
-  proveedores            proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
-  usuarios               usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
-  recepciones_compra     recepciones_compra[]
+  id_orden_compra            Int                          @id @default(autoincrement())
+  numero_orden               String                       @unique(map: "numero_orden") @db.VarChar(50)
+  id_proveedor               Int
+  fecha_orden                DateTime                     @db.Date
+  fecha_entrega_prevista     DateTime?                    @db.Date
+  subtotal                   Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  igv                        Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  total                      Decimal?                     @default(0.00) @db.Decimal(10, 2)
+  estado                     ordenes_compra_estado?       @default(PENDIENTE)
+  observaciones              String?                      @db.Text
+  fecha_registro             DateTime?                    @default(now()) @db.Timestamp(0)
+  registrado_por             Int
+  tiene_anticipo             String?                      @db.VarChar(255)
+  procede_pago               String?                      @db.VarChar(255)
+  auto_administrador         Boolean?                     @default(false)
+  auto_contabilidad          Boolean?                     @default(false)
+  jefe_proyecto              Boolean?                     @default(false)
+  has_anticipo               Boolean?                     @default(false)
+  direccion                  String?                      @db.VarChar(255)
+  centro_costo_nivel1        String?                      @db.VarChar(255)
+  centro_costo_nivel2        String?                      @db.VarChar(255)
+  centro_costo_nivel3        String?                      @db.VarChar(255)
+  condicion                  String?                      @db.VarChar(255)
+  moneda                     String?                      @db.VarChar(255)
+  tipo_cambio                Decimal?                     @default(0.000) @db.Decimal(10, 3)
+  hora_firma                 DateTime?                    @db.DateTime(0)
+  usuario_firma              Int?
+  estado_firma               ordenes_compra_estado_firma? @default(PENDIENTE)
+  ruta_pdf                   String?                      @db.VarChar(500)
+  retencion                  String?                      @db.VarChar(45)
+  porcentaje_valor_retencion String?                      @db.VarChar(255)
+  valor_retencion            Decimal?                     @default(0.000) @db.Decimal(10, 3)
+  id_camion                  Int?
+  almacen_central            String?                      @db.VarChar(45)
+  url                        String?                      @db.VarChar(255)
+  url_cotizacion             String?                      @db.VarChar(255)
+  url_factura                String?                      @db.VarChar(255)
+  detalles_orden_compra      detalles_orden_compra[]
+  proveedores                proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
+  usuarios                   usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
+  recepciones_compra         recepciones_compra[]
 
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")
@@ -459,45 +460,46 @@ model usuarios {
 }
 
 model ordenes_servicio {
-  id_orden_servicio       Int                            @id @default(autoincrement())
-  numero_orden            String                         @unique(map: "numero_orden") @db.VarChar(50)
-  id_proveedor            Int
-  fecha_orden             DateTime                       @db.Date
-  fecha_entrega_prevista  DateTime?                      @db.Date
-  subtotal                Decimal?                       @default(0.00) @db.Decimal(10, 2)
-  igv                     Decimal?                       @default(0.00) @db.Decimal(10, 2)
-  total                   Decimal?                       @default(0.00) @db.Decimal(10, 2)
-  estado                  ordenes_servicio_estado?       @default(PENDIENTE)
-  observaciones           String?                        @db.Text
-  fecha_registro          DateTime?                      @default(now()) @db.Timestamp(0)
-  registrado_por          Int
-  tiene_anticipo          String?                        @db.VarChar(255)
-  procede_pago            String?                        @db.VarChar(255)
-  auto_administrador      Boolean?                       @default(false)
-  jefe_proyecto           Boolean?                       @default(false)
-  auto_contabilidad       Boolean?                       @default(false)
-  has_anticipo            Boolean?                       @default(false)
-  direccion               String?                        @db.VarChar(255)
-  centro_costo_nivel1     String?                        @db.VarChar(255)
-  centro_costo_nivel2     String?                        @db.VarChar(255)
-  centro_costo_nivel3     String?                        @db.VarChar(255)
-  condicion               String?                        @db.VarChar(255)
-  moneda                  String?                        @db.VarChar(255)
-  tipo_cambio             Decimal?                       @default(0.000) @db.Decimal(10, 3)
-  hora_firma              DateTime?                      @db.DateTime(0)
-  usuario_firma           Int?
-  estado_firma            ordenes_servicio_estado_firma? @default(PENDIENTE)
-  ruta_pdf                String?                        @db.VarChar(500)
-  detraccion              String?                        @db.VarChar(45)
-  valor_detraccion        Decimal?                       @default(0.000) @db.Decimal(10, 3)
-  id_camion               Int?
-  almacen_central         String?                        @db.VarChar(45)
-  url                     String?                        @db.VarChar(255)
-  url_cotizacion          String?                        @db.VarChar(255)
-  url_factura             String?                        @db.VarChar(255)
-  detalles_orden_servicio detalles_orden_servicio[]
-  proveedores             proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
-  usuarios                usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
+  id_orden_servicio           Int                            @id @default(autoincrement())
+  numero_orden                String                         @unique(map: "numero_orden") @db.VarChar(50)
+  id_proveedor                Int
+  fecha_orden                 DateTime                       @db.Date
+  fecha_entrega_prevista      DateTime?                      @db.Date
+  subtotal                    Decimal?                       @default(0.00) @db.Decimal(10, 2)
+  igv                         Decimal?                       @default(0.00) @db.Decimal(10, 2)
+  total                       Decimal?                       @default(0.00) @db.Decimal(10, 2)
+  estado                      ordenes_servicio_estado?       @default(PENDIENTE)
+  observaciones               String?                        @db.Text
+  fecha_registro              DateTime?                      @default(now()) @db.Timestamp(0)
+  registrado_por              Int
+  tiene_anticipo              String?                        @db.VarChar(255)
+  procede_pago                String?                        @db.VarChar(255)
+  auto_administrador          Boolean?                       @default(false)
+  jefe_proyecto               Boolean?                       @default(false)
+  auto_contabilidad           Boolean?                       @default(false)
+  has_anticipo                Boolean?                       @default(false)
+  direccion                   String?                        @db.VarChar(255)
+  centro_costo_nivel1         String?                        @db.VarChar(255)
+  centro_costo_nivel2         String?                        @db.VarChar(255)
+  centro_costo_nivel3         String?                        @db.VarChar(255)
+  condicion                   String?                        @db.VarChar(255)
+  moneda                      String?                        @db.VarChar(255)
+  tipo_cambio                 Decimal?                       @default(0.000) @db.Decimal(10, 3)
+  hora_firma                  DateTime?                      @db.DateTime(0)
+  usuario_firma               Int?
+  estado_firma                ordenes_servicio_estado_firma? @default(PENDIENTE)
+  ruta_pdf                    String?                        @db.VarChar(500)
+  detraccion                  String?                        @db.VarChar(45)
+  porcentaje_valor_detraccion String?                        @db.VarChar(255)
+  valor_detraccion            Decimal?                       @default(0.000) @db.Decimal(10, 3)
+  id_camion                   Int?
+  almacen_central             String?                        @db.VarChar(45)
+  url                         String?                        @db.VarChar(255)
+  url_cotizacion              String?                        @db.VarChar(255)
+  url_factura                 String?                        @db.VarChar(255)
+  detalles_orden_servicio     detalles_orden_servicio[]
+  proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
+  usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
 
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")

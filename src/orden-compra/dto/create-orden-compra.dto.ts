@@ -37,6 +37,7 @@ export const CreateOrdenCompraSchema = z
     centro_costo_nivel3: z.string().optional(),
     unidad_id: z.union([z.number().int().positive(), z.null()]).optional(),
     retencion: z.string().optional(),
+    porcentaje_valor_retencion: z.string().optional(),
     valor_retencion: z.number().nonnegative('El valor de retención no puede ser negativo').optional(),
     almacen_central: z.string().optional(),
     has_anticipo: z.number().int().min(0).max(1).optional(),

@@ -254,6 +254,7 @@ export class OrdenServicioService {
             moneda: createOrdenServicioDto.moneda,
             id_camion: createOrdenServicioDto.unidad_id,
             detraccion: createOrdenServicioDto.detraccion,
+            porcentaje_valor_detraccion: createOrdenServicioDto.porcentaje_valor_detraccion,
             valor_detraccion: createOrdenServicioDto.valor_detraccion,
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
@@ -424,7 +425,9 @@ export class OrdenServicioService {
 
         // Verificar si hay detracción basándose en el campo detraccion de la orden
         const tieneDetraccion = ordenServicio.detraccion?.toUpperCase() === 'SI';
-        const detraccionPorcentaje = 3;
+        const detraccionPorcentaje = ordenServicio.porcentaje_valor_detraccion
+          ? parseFloat(ordenServicio.porcentaje_valor_detraccion)
+          : 3; // Valor por defecto si no está definido
         const detraccionMonto = tieneDetraccion
           ? (total * detraccionPorcentaje) / 100
           : 0;
@@ -1309,6 +1312,7 @@ export class OrdenServicioService {
               moneda: updateOrdenServicioDto.moneda,
               id_camion: updateOrdenServicioDto.unidad_id,
               detraccion: updateOrdenServicioDto.detraccion,
+              porcentaje_valor_detraccion: updateOrdenServicioDto.porcentaje_valor_detraccion,
               valor_detraccion: updateOrdenServicioDto.valor_detraccion,
               almacen_central: updateOrdenServicioDto.almacen_central,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
