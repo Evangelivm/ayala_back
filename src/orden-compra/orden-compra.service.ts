@@ -1283,6 +1283,9 @@ export class OrdenCompraService {
               tiene_anticipo: updateOrdenCompraDto.tiene_anticipo,
               tipo_cambio: tipoCambio,
             },
+            include: {
+              proveedores: true,
+            },
           });
 
           // Eliminar los detalles anteriores
@@ -1306,9 +1309,12 @@ export class OrdenCompraService {
             ),
           );
 
+          // Retornar en el mismo formato que findAll
           return {
             ...ordenActualizada,
-            detalles: detallesCreados,
+            nombre_proveedor: ordenActualizada.proveedores?.nombre_proveedor || null,
+            ruc_proveedor: ordenActualizada.proveedores?.ruc || null,
+            items: detallesCreados,
           };
         },
       );
