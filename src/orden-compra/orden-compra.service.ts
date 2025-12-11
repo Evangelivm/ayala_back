@@ -288,6 +288,10 @@ export class OrdenCompraService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
 
+      // Obtener el siguiente número de orden disponible y emitirlo a todos los clientes
+      const siguienteNumero = await this.obtenerSiguienteNumeroOrden();
+      this.websocketGateway.emitSiguienteNumeroOrdenCompra(siguienteNumero);
+
       return {
         success: true,
         message: 'Orden de compra creada exitosamente',

@@ -35,4 +35,14 @@ export class WebsocketGateway
   emitOrdenServicioUpdate() {
     this.server.emit('ordenServicioUpdated');
   }
+
+  // Emitir el siguiente número de orden de compra disponible
+  emitSiguienteNumeroOrdenCompra(data: { serie: string; nroDoc: string; numero_orden_completo: string }) {
+    this.server.emit('siguienteNumeroOrdenCompra', data);
+  }
+
+  // Emitir el siguiente número de orden de servicio disponible
+  emitSiguienteNumeroOrdenServicio(data: { serie: string; nroDoc: string; numero_orden_completo: string }) {
+    this.server.emit('siguienteNumeroOrdenServicio', data);
+  }
 }

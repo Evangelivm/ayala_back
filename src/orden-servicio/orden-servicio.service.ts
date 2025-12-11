@@ -288,6 +288,10 @@ export class OrdenServicioService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
 
+      // Obtener el siguiente número de orden disponible y emitirlo a todos los clientes
+      const siguienteNumero = await this.obtenerSiguienteNumeroOrden();
+      this.websocketGateway.emitSiguienteNumeroOrdenServicio(siguienteNumero);
+
       return {
         success: true,
         message: 'Orden de servicio creada exitosamente',
