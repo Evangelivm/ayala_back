@@ -12,6 +12,13 @@ import {
 } from '../dto/programacion.dto';
 import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+// Configurar plugins de dayjs
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Injectable()
 export class ProgramacionService {
@@ -278,6 +285,22 @@ export class ProgramacionService {
           tipoProyecto = 'proyecto';
         }
 
+        // Combinar fecha + hora_partida en un datetime completo interpretando la hora como hora de Perú
+        let horaPartidaISO: string | null = null;
+        if (pt.fecha && pt.hora_partida) {
+          try {
+            // Parsear fecha y hora por separado
+            const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
+            const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
+
+            // Combinar en formato ISO, interpretando la hora como hora de Perú (America/Lima)
+            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
+          } catch (error) {
+            this.logger.warn(`Error al combinar fecha y hora para registro ${pt.id}:`, error);
+            horaPartidaISO = pt.hora_partida;
+          }
+        }
+
         return {
           id: pt.id,
           fecha: pt.fecha,
@@ -287,7 +310,7 @@ export class ProgramacionService {
           proyectos: nombreProyecto,
           tipo_proyecto: tipoProyecto,
           programacion: pt.programacion,
-          hora_partida: pt.hora_partida,
+          hora_partida: horaPartidaISO,
           estado_programacion: pt.estado_programacion,
           comentarios: pt.comentarios,
           validacion: pt.validacion,
@@ -546,6 +569,22 @@ export class ProgramacionService {
           tipoProyecto = 'proyecto';
         }
 
+        // Combinar fecha + hora_partida en un datetime completo interpretando la hora como hora de Perú
+        let horaPartidaISO: string | null = null;
+        if (pt.fecha && pt.hora_partida) {
+          try {
+            // Parsear fecha y hora por separado
+            const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
+            const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
+
+            // Combinar en formato ISO, interpretando la hora como hora de Perú (America/Lima)
+            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
+          } catch (error) {
+            this.logger.warn(`Error al combinar fecha y hora para registro ${pt.id}:`, error);
+            horaPartidaISO = pt.hora_partida;
+          }
+        }
+
         return {
           id: pt.id,
           fecha: pt.fecha,
@@ -555,7 +594,7 @@ export class ProgramacionService {
           proyectos: nombreProyecto,
           tipo_proyecto: tipoProyecto,
           programacion: pt.programacion,
-          hora_partida: pt.hora_partida,
+          hora_partida: horaPartidaISO,
           estado_programacion: pt.estado_programacion,
           comentarios: pt.comentarios,
           validacion: pt.validacion,

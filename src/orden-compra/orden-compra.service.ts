@@ -2,11 +2,18 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import PDFDocument = require('pdfkit');
 import type PDFKit from 'pdfkit';
 import * as path from 'path';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
 import { OrdenCompraData, DetalleItem } from './orden-compra.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrdenCompraDto } from './dto/create-orden-compra.dto';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
+
+// Configurar plugins de dayjs
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Injectable()
 export class OrdenCompraService {
@@ -17,14 +24,10 @@ export class OrdenCompraService {
   ) {}
 
   /**
-   * Obtiene la fecha actual en formato YYYY-MM-DD
+   * Obtiene la fecha actual en formato YYYY-MM-DD en zona horaria de Lima
    */
   private obtenerFechaActual(): string {
-    const hoy = new Date();
-    const year = hoy.getFullYear();
-    const month = String(hoy.getMonth() + 1).padStart(2, '0');
-    const day = String(hoy.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return dayjs().tz('America/Lima').format('YYYY-MM-DD');
   }
 
   /**
@@ -390,9 +393,10 @@ export class OrdenCompraService {
 
     const proveedor = ordenCompra.proveedores;
 
-    // Formatear fecha_orden a DD/MM/YYYY
-    const fechaOrden = ordenCompra.fecha_orden;
-    const fechaEmisionFormateada = `${String(fechaOrden.getDate()).padStart(2, '0')}/${String(fechaOrden.getMonth() + 1).padStart(2, '0')}/${fechaOrden.getFullYear()}`;
+    // Formatear fecha_orden a DD/MM/YYYY en zona horaria de Lima
+    const fechaEmisionFormateada = dayjs(ordenCompra.fecha_orden)
+      .tz('America/Lima')
+      .format('DD/MM/YYYY');
 
     return {
       header: {
