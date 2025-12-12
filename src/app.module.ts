@@ -21,6 +21,7 @@ import { SubsectoresModule } from './subsectores/subsectores.module';
 import { SubfrentesModule } from './subfrentes/subfrentes.module';
 import { SubpartidasModule } from './subpartidas/subpartidas.module';
 import { GreModule } from './gre/gre.module';
+import { FacturaModule } from './factura/factura.module';
 import { KafkaModule } from './kafka/kafka.module';
 import { CamionesModule } from './camiones/camiones.module';
 import { EmpresasModule } from './empresas/empresas.module';
@@ -36,6 +37,8 @@ import { FasecontrolModule } from './fasecontrol/fasecontrol.module';
 import { RubroModule } from './rubro/rubro.module';
 import { WebsocketModule } from './websocket/websocket.module';
 import { DropboxModule } from './dropbox/dropbox.module';
+import { TipoDetraccionModule } from './tipo-detraccion/tipo-detraccion.module';
+import { LoggerModule } from './utils/logger.module';
 
 @Module({
   imports: [
@@ -44,6 +47,7 @@ import { DropboxModule } from './dropbox/dropbox.module';
       envFilePath: '.env',
     }),
     ScheduleModule.forRoot(),
+    LoggerModule,
     PrismaModule,
     WebsocketModule,
     PersonalModule,
@@ -64,6 +68,7 @@ import { DropboxModule } from './dropbox/dropbox.module';
     SubpartidasModule,
     KafkaModule,
     GreModule,
+    FacturaModule,
     CamionesModule,
     EmpresasModule,
     KardexPdfModule,
@@ -77,6 +82,7 @@ import { DropboxModule } from './dropbox/dropbox.module';
     FasecontrolModule,
     RubroModule,
     DropboxModule,
+    TipoDetraccionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

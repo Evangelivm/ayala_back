@@ -193,7 +193,10 @@ export class OrdenServicioService {
    * @param usuarioId - ID del usuario que registra la orden
    * @returns Promise con la orden de servicio creada
    */
-  async create(createOrdenServicioDto: CreateOrdenServicioDto, usuarioId: number) {
+  async create(
+    createOrdenServicioDto: CreateOrdenServicioDto,
+    usuarioId: number,
+  ) {
     try {
       // Validar que el proveedor existe
       const proveedor = await this.prismaThird.proveedores.findUnique({
@@ -207,9 +210,11 @@ export class OrdenServicioService {
       }
 
       // Validar que el número de orden no existe
-      const ordenExistente = await this.prismaThird.ordenes_servicio.findUnique({
-        where: { numero_orden: createOrdenServicioDto.numero_orden },
-      });
+      const ordenExistente = await this.prismaThird.ordenes_servicio.findUnique(
+        {
+          where: { numero_orden: createOrdenServicioDto.numero_orden },
+        },
+      );
 
       if (ordenExistente) {
         throw new BadRequestException(
@@ -254,7 +259,9 @@ export class OrdenServicioService {
             moneda: createOrdenServicioDto.moneda,
             id_camion: createOrdenServicioDto.unidad_id,
             detraccion: createOrdenServicioDto.detraccion,
-            porcentaje_valor_detraccion: createOrdenServicioDto.porcentaje_valor_detraccion,
+            tipo_detraccion: createOrdenServicioDto.tipo_detraccion,
+            porcentaje_valor_detraccion:
+              createOrdenServicioDto.porcentaje_valor_detraccion,
             valor_detraccion: createOrdenServicioDto.valor_detraccion,
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
@@ -328,7 +335,9 @@ export class OrdenServicioService {
     }
 
     // Usar el tipo de cambio guardado en la orden
-    const tipoCambio = ordenServicio.tipo_cambio ? parseFloat(ordenServicio.tipo_cambio.toString()) : 0;
+    const tipoCambio = ordenServicio.tipo_cambio
+      ? parseFloat(ordenServicio.tipo_cambio.toString())
+      : 0;
 
     // Obtener las descripciones de los centros de costo
     let nivel1Descripcion = ordenServicio.centro_costo_nivel1 || '';
@@ -386,11 +395,27 @@ export class OrdenServicioService {
     }
 
     const proveedor = ordenServicio.proveedores;
+
+    // Formatear fecha_orden a DD/MM/YYYY
+    const fechaOrden = ordenServicio.fecha_orden;
+    const fechaEmisionFormateada = `${String(fechaOrden.getDate()).padStart(2, '0')}/${String(fechaOrden.getMonth() + 1).padStart(2, '0')}/${fechaOrden.getFullYear()}`;
+
+    // Obtener el tipo de detracción si existe
+    let tipoDetraccionTexto = '';
+    if (ordenServicio.tipo_detraccion) {
+      const tipoDetraccion = await this.prismaThird.tipo_detraccion.findUnique({
+        where: { id_tipo_detraccion: ordenServicio.tipo_detraccion },
+      });
+      if (tipoDetraccion) {
+        tipoDetraccionTexto = `${tipoDetraccion.id_tipo_detraccion}-${tipoDetraccion.tipo_detraccion}`;
+      }
+    }
+
     return {
       header: {
         og: ordenServicio.numero_orden,
-        fechaEmision: '08/11/2025',
-        ruc: '20602739061',
+        fechaEmision: fechaEmisionFormateada,
+        ruc: '20603739061',
       },
       datosProveedor: {
         empresa: proveedor.nombre_proveedor,
@@ -413,22 +438,25 @@ export class OrdenServicioService {
         placaCamion,
         placaMaquinaria,
       },
-      detalleItems: ordenServicio.detalles_orden_servicio.map((detalle, index) => ({
-        numero: index + 1,
-        descripcion: detalle.descripcion_item,
-        codigo: detalle.codigo_item,
-        unidadMedida: detalle.listado_items_2025.u_m || 'UND',
-        cantidad: parseFloat(detalle.cantidad_solicitada.toString()),
-        valorUnitario: parseFloat(detalle.precio_unitario.toString()),
-        subTotal: parseFloat(detalle.subtotal.toString()),
-      })),
+      detalleItems: ordenServicio.detalles_orden_servicio.map(
+        (detalle, index) => ({
+          numero: index + 1,
+          descripcion: detalle.descripcion_item,
+          codigo: detalle.codigo_item,
+          unidadMedida: detalle.listado_items_2025.u_m || 'UND',
+          cantidad: parseFloat(detalle.cantidad_solicitada.toString()),
+          valorUnitario: parseFloat(detalle.precio_unitario.toString()),
+          subTotal: parseFloat(detalle.subtotal.toString()),
+        }),
+      ),
       totales: (() => {
         const subtotal = parseFloat(ordenServicio.subtotal?.toString() || '0');
         const igv = parseFloat(ordenServicio.igv?.toString() || '0');
         const total = parseFloat(ordenServicio.total?.toString() || '0');
 
         // Verificar si hay detracción basándose en el campo detraccion de la orden
-        const tieneDetraccion = ordenServicio.detraccion?.toUpperCase() === 'SI';
+        const tieneDetraccion =
+          ordenServicio.detraccion?.toUpperCase() === 'SI';
         const detraccionPorcentaje = ordenServicio.porcentaje_valor_detraccion
           ? parseFloat(ordenServicio.porcentaje_valor_detraccion)
           : 3; // Valor por defecto si no está definido
@@ -449,6 +477,7 @@ export class OrdenServicioService {
           detraccionMonto,
           netoAPagar,
           tieneAnticipo,
+          tipoDetraccionTexto,
         };
       })(),
       firmas: {
@@ -478,7 +507,12 @@ export class OrdenServicioService {
         let yPos = 40;
 
         // Logo (izquierda)
-        const logoPath = path.join(__dirname, '..', 'assets', 'ayala_logo.jpeg');
+        const logoPath = path.join(
+          __dirname,
+          '..',
+          'assets',
+          'ayala_logo.jpeg',
+        );
         doc.image(logoPath, 40, yPos, {
           width: 100,
           height: 60,
@@ -488,7 +522,7 @@ export class OrdenServicioService {
         doc
           .fontSize(16)
           .font('Helvetica-Bold')
-          .text('MAQUINARIAS AYALA', 150, yPos + 10);
+          .text('MAQUINARIAS AYALA S.A.C.', 150, yPos + 10);
 
         // Dirección (izquierda) - debajo del título
         doc.fontSize(8).font('Helvetica');
@@ -505,7 +539,10 @@ export class OrdenServicioService {
         doc
           .fontSize(12)
           .font('Helvetica-Bold')
-          .text('ORDEN DE SERVICIO', 400, yPos + 5, { align: 'center', width: 155 });
+          .text('ORDEN DE SERVICIO', 400, yPos + 5, {
+            align: 'center',
+            width: 155,
+          });
 
         // Tabla de header derecha
         const headerBoxX = 400;
@@ -566,7 +603,9 @@ export class OrdenServicioService {
         doc.text(ordenData.datosOrdenServicio.moneda, 100, yPos + 30);
 
         // Si la moneda es DOLARES, mostrar cuadro rojo debajo
-        if (ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR')) {
+        if (
+          ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR')
+        ) {
           this.drawHighlightBox(doc, 100, yPos + 40, 60, 15, '#FF0000');
           doc.fontSize(9).font('Helvetica-Bold').fillColor('#FFFFFF');
           doc.text('DOLARES', 100, yPos + 43, {
@@ -577,7 +616,10 @@ export class OrdenServicioService {
         }
 
         // Mostrar tipo de cambio en amarillo solo si la moneda es DOLARES
-        if (ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR') && ordenData.datosOrdenServicio.tipoCambio) {
+        if (
+          ordenData.datosOrdenServicio.moneda.toUpperCase().includes('DOLAR') &&
+          ordenData.datosOrdenServicio.tipoCambio
+        ) {
           this.drawHighlightBox(doc, 200, yPos + 25, 75, 20, '#FFFF00');
           doc
             .fontSize(9)
@@ -680,6 +722,15 @@ export class OrdenServicioService {
         const tieneDetraccion = ordenData.totales.proveedorAgenteRetencion;
         const tieneAnticipo = ordenData.totales.tieneAnticipo;
 
+        // Mostrar tipo de detracción si existe (a la izquierda del cuadro)
+        if (tieneDetraccion && ordenData.totales.tipoDetraccionTexto) {
+          doc.fontSize(8).font('Helvetica').fillColor('#000000');
+          doc.text(ordenData.totales.tipoDetraccionTexto, 40, yPos - 20, {
+            width: 300,
+            align: 'left',
+          });
+        }
+
         // Si hay detracción y anticipo, mostrar ambos cuadros lado a lado
         if (tieneDetraccion && tieneAnticipo) {
           // Cuadro de DETRACCIÓN (izquierda)
@@ -735,7 +786,14 @@ export class OrdenServicioService {
           );
 
           doc.text('Neto a pagar:', totalesX, yPos + 15);
-          this.drawHighlightBox(doc, totalesX + 95, yPos + 10, 40, 15, '#FFFF00');
+          this.drawHighlightBox(
+            doc,
+            totalesX + 95,
+            yPos + 10,
+            40,
+            15,
+            '#FFFF00',
+          );
           doc
             .font('Helvetica-Bold')
             .text(
@@ -750,15 +808,20 @@ export class OrdenServicioService {
           // Si no hay retención, solo mostrar el total como neto a pagar
           doc.fontSize(8).font('Helvetica');
           doc.text('Neto a pagar:', totalesX, yPos);
-          this.drawHighlightBox(doc, totalesX + 95, yPos - 5, 40, 15, '#FFFF00');
+          this.drawHighlightBox(
+            doc,
+            totalesX + 95,
+            yPos - 5,
+            40,
+            15,
+            '#FFFF00',
+          );
           doc
             .font('Helvetica-Bold')
-            .text(
-              ordenData.totales.total.toFixed(2),
-              totalesX + 95,
-              yPos,
-              { align: 'center', width: 40 },
-            );
+            .text(ordenData.totales.total.toFixed(2), totalesX + 95, yPos, {
+              align: 'center',
+              width: 40,
+            });
 
           yPos += 35;
         }
@@ -770,7 +833,7 @@ export class OrdenServicioService {
         const pageWidth = 515; // Ancho total del contenido
         const firmaWidth = 110; // Ancho de cada firma
         const spacingBetween = 15; // Espacio entre firmas
-        const totalFirmasWidth = (firmaWidth * 4) + (spacingBetween * 3);
+        const totalFirmasWidth = firmaWidth * 4 + spacingBetween * 3;
         const startX = 40 + (pageWidth - totalFirmasWidth) / 2; // Centrar las 4 firmas
 
         const firmaLineY = yPos;
@@ -779,61 +842,86 @@ export class OrdenServicioService {
 
         // Firma 1: Genera orden
         const firma1X = startX;
-        doc.moveTo(firma1X, firmaLineY).lineTo(firma1X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma1X, firmaLineY)
+          .lineTo(firma1X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Genera orden', firma1X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.generaOrden) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
         // Firma 2: Jefe Administrativo
         const firma2X = firma1X + firmaWidth + spacingBetween;
-        doc.moveTo(firma2X, firmaLineY).lineTo(firma2X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma2X, firmaLineY)
+          .lineTo(firma2X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Jefe Administrativo', firma2X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.jefeAdministrativo) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeAdministrativo, firma2X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(
+              ordenData.firmas.jefeAdministrativo,
+              firma2X,
+              firmaLineY + 25,
+              {
+                width: firmaWidth,
+                align: 'center',
+              },
+            );
           doc.font('Helvetica');
         }
 
         // Firma 3: Gerencia
         const firma3X = firma2X + firmaWidth + spacingBetween;
-        doc.moveTo(firma3X, firmaLineY).lineTo(firma3X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma3X, firmaLineY)
+          .lineTo(firma3X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Gerencia', firma3X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.gerencia) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
         // Firma 4: Jefe de Proyectos
         const firma4X = firma3X + firmaWidth + spacingBetween;
-        doc.moveTo(firma4X, firmaLineY).lineTo(firma4X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma4X, firmaLineY)
+          .lineTo(firma4X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Jefe de Proyectos', firma4X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.jefeProyectos) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
@@ -842,7 +930,13 @@ export class OrdenServicioService {
 
         // ==================== CONSIDERACIONES GENERALES ====================
         // Header de consideraciones
-        this.drawSectionHeader(doc, 40, yPos, 'CONSIDERACIONES GENERALES:', 515);
+        this.drawSectionHeader(
+          doc,
+          40,
+          yPos,
+          'CONSIDERACIONES GENERALES:',
+          515,
+        );
         yPos += 18;
 
         // Consideraciones
@@ -866,7 +960,11 @@ export class OrdenServicioService {
 
         consideraciones.forEach((consideracion) => {
           // Calcular altura necesaria para esta consideración (muy compacta)
-          const textHeight = this.calculateConsideracionHeight(doc, consideracion, 515 - 8);
+          const textHeight = this.calculateConsideracionHeight(
+            doc,
+            consideracion,
+            515 - 8,
+          );
 
           // Dibujar celda
           doc.rect(40, yPos, 515, textHeight).stroke();
@@ -943,9 +1041,24 @@ export class OrdenServicioService {
     const fontSize = 9;
     doc.fontSize(fontSize).font('Helvetica');
 
-    const nivel1Lines = this.calculateTextLines(doc, data.nivel1 || '', nivel1Width - 4, fontSize);
-    const nivel2Lines = this.calculateTextLines(doc, data.nivel2 || '', colWidths[3] - 4, fontSize);
-    const nivel3Lines = this.calculateTextLines(doc, data.nivel3 || '', colWidths[4] - 4, fontSize);
+    const nivel1Lines = this.calculateTextLines(
+      doc,
+      data.nivel1 || '',
+      nivel1Width - 4,
+      fontSize,
+    );
+    const nivel2Lines = this.calculateTextLines(
+      doc,
+      data.nivel2 || '',
+      colWidths[3] - 4,
+      fontSize,
+    );
+    const nivel3Lines = this.calculateTextLines(
+      doc,
+      data.nivel3 || '',
+      colWidths[4] - 4,
+      fontSize,
+    );
 
     const maxLines = Math.max(nivel1Lines, nivel2Lines, nivel3Lines);
     const row2Height = Math.max(baseRowHeight, maxLines * 12 + 6);
@@ -955,10 +1068,15 @@ export class OrdenServicioService {
     const centroCostosHeight = baseRowHeight + row2Height;
     doc.rect(startX, currentY, colWidths[0], centroCostosHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
-    doc.text('Centro de Costos', startX + 2, currentY + (centroCostosHeight / 2) - 5, {
-      width: colWidths[0] - 4,
-      align: 'center',
-    });
+    doc.text(
+      'Centro de Costos',
+      startX + 2,
+      currentY + centroCostosHeight / 2 - 5,
+      {
+        width: colWidths[0] - 4,
+        align: 'center',
+      },
+    );
 
     // Columnas B+C: "Nivel 1" (combinadas horizontalmente) con fondo azul
     doc
@@ -1050,7 +1168,9 @@ export class OrdenServicioService {
 
     // Columnas B+C: Placa del camión (combinadas horizontalmente)
     const placaWidth = colWidths[1] + colWidths[2];
-    doc.rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight).stroke();
+    doc
+      .rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight)
+      .stroke();
     doc.fontSize(9).font('Helvetica');
     doc.text(data.placaCamion || '', startX + colWidths[0] + 2, currentY + 5, {
       width: placaWidth - 4,
@@ -1087,19 +1207,31 @@ export class OrdenServicioService {
     // Columnas B+C+D+E: número de cuenta bancaria del proveedor
     const ctaBcpWidth =
       colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    doc.rect(startX + colWidths[0], currentY, ctaBcpWidth, baseRowHeight).stroke();
+    doc
+      .rect(startX + colWidths[0], currentY, ctaBcpWidth, baseRowHeight)
+      .stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text(data.cuentaBancaria || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: ctaBcpWidth - 4,
-      align: 'center',
-    });
+    doc.text(
+      data.cuentaBancaria || '',
+      startX + colWidths[0] + 2,
+      currentY + 5,
+      {
+        width: ctaBcpWidth - 4,
+        align: 'center',
+      },
+    );
 
     currentY += baseRowHeight;
 
     // ===== FILA 5 - OBSERVACION: / Observaciones =====
     // Calcular altura necesaria para las observaciones
     const obsWidth = colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    const obsLines = this.calculateTextLines(doc, data.observaciones || '', obsWidth - 4, 9);
+    const obsLines = this.calculateTextLines(
+      doc,
+      data.observaciones || '',
+      obsWidth - 4,
+      9,
+    );
     const row5Height = Math.max(baseRowHeight, obsLines * 12 + 6);
 
     // Columna A: "OBSERVACION:"
@@ -1113,10 +1245,15 @@ export class OrdenServicioService {
     // Columnas B+C+D+E: Observaciones de la orden (todas combinadas)
     doc.rect(startX + colWidths[0], currentY, obsWidth, row5Height).stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text(data.observaciones || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: obsWidth - 4,
-      align: 'center',
-    });
+    doc.text(
+      data.observaciones || '',
+      startX + colWidths[0] + 2,
+      currentY + 5,
+      {
+        width: obsWidth - 4,
+        align: 'center',
+      },
+    );
 
     currentY += row5Height;
 
@@ -1268,8 +1405,12 @@ export class OrdenServicioService {
         console.log(`🔍 Validación de duplicados (Servicio):`);
         console.log(`   - Orden existente ID: ${idOrdenExistente}`);
         console.log(`   - Orden actual ID: ${idOrdenActual}`);
-        console.log(`   - Número orden: ${updateOrdenServicioDto.numero_orden}`);
-        console.log(`   - Son la misma orden: ${idOrdenExistente === idOrdenActual}`);
+        console.log(
+          `   - Número orden: ${updateOrdenServicioDto.numero_orden}`,
+        );
+        console.log(
+          `   - Son la misma orden: ${idOrdenExistente === idOrdenActual}`,
+        );
 
         if (idOrdenExistente !== idOrdenActual) {
           throw new BadRequestException(
@@ -1316,7 +1457,9 @@ export class OrdenServicioService {
               moneda: updateOrdenServicioDto.moneda,
               id_camion: updateOrdenServicioDto.unidad_id,
               detraccion: updateOrdenServicioDto.detraccion,
-              porcentaje_valor_detraccion: updateOrdenServicioDto.porcentaje_valor_detraccion,
+              tipo_detraccion: updateOrdenServicioDto.tipo_detraccion,
+              porcentaje_valor_detraccion:
+                updateOrdenServicioDto.porcentaje_valor_detraccion,
               valor_detraccion: updateOrdenServicioDto.valor_detraccion,
               almacen_central: updateOrdenServicioDto.almacen_central,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
@@ -1352,7 +1495,8 @@ export class OrdenServicioService {
           // Retornar en el mismo formato que findAll
           return {
             ...ordenActualizada,
-            nombre_proveedor: ordenActualizada.proveedores?.nombre_proveedor || null,
+            nombre_proveedor:
+              ordenActualizada.proveedores?.nombre_proveedor || null,
             ruc_proveedor: ordenActualizada.proveedores?.ruc || null,
             items: detallesCreados,
           };
@@ -1430,7 +1574,9 @@ export class OrdenServicioService {
    * - El anticipo está en "SI" (tiene_anticipo = "SI")
    * @param id - ID de la orden de servicio a verificar
    */
-  private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
+  private async verificarYActualizarEstadoCompletada(
+    id: number,
+  ): Promise<void> {
     try {
       const orden = await this.prismaThird.ordenes_servicio.findUnique({
         where: { id_orden_servicio: id },
@@ -1461,7 +1607,10 @@ export class OrdenServicioService {
         });
       }
     } catch (error) {
-      console.error('Error al verificar y actualizar estado a COMPLETADA:', error);
+      console.error(
+        'Error al verificar y actualizar estado a COMPLETADA:',
+        error,
+      );
     }
   }
 
@@ -1498,7 +1647,10 @@ export class OrdenServicioService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de servicio para contabilidad:', error);
+      console.error(
+        'Error al aprobar orden de servicio para contabilidad:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de servicio para contabilidad: ${error.message}`,
       );
@@ -1526,7 +1678,7 @@ export class OrdenServicioService {
       await this.prismaThird.ordenes_servicio.update({
         where: { id_orden_servicio: id },
         data: {
-          auto_administrador: true
+          auto_administrador: true,
         },
       });
 
@@ -1540,7 +1692,10 @@ export class OrdenServicioService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de servicio para administración:', error);
+      console.error(
+        'Error al aprobar orden de servicio para administración:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de servicio para administración: ${error.message}`,
       );
@@ -1568,7 +1723,7 @@ export class OrdenServicioService {
       await this.prismaThird.ordenes_servicio.update({
         where: { id_orden_servicio: id },
         data: {
-          jefe_proyecto: true
+          jefe_proyecto: true,
         },
       });
 
@@ -1582,7 +1737,10 @@ export class OrdenServicioService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de servicio para jefe de proyecto:', error);
+      console.error(
+        'Error al aprobar orden de servicio para jefe de proyecto:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de servicio para jefe de proyecto: ${error.message}`,
       );
@@ -1755,7 +1913,10 @@ export class OrdenServicioService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
-      console.error('Error al actualizar URL de cotización de la orden de servicio:', error);
+      console.error(
+        'Error al actualizar URL de cotización de la orden de servicio:',
+        error,
+      );
       throw new BadRequestException(
         `Error al actualizar URL de cotización de la orden de servicio: ${error.message}`,
       );
@@ -1780,7 +1941,10 @@ export class OrdenServicioService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
-      console.error('Error al actualizar URL de factura de la orden de servicio:', error);
+      console.error(
+        'Error al actualizar URL de factura de la orden de servicio:',
+        error,
+      );
       throw new BadRequestException(
         `Error al actualizar URL de factura de la orden de servicio: ${error.message}`,
       );

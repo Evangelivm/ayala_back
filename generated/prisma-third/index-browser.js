@@ -265,7 +265,8 @@ exports.Prisma.Movimientos_inventarioScalarFieldEnum = {
   fecha_movimiento: 'fecha_movimiento',
   responsable: 'responsable',
   observaciones: 'observaciones',
-  estado: 'estado'
+  estado: 'estado',
+  id_usuario_registro: 'id_usuario_registro'
 };
 
 exports.Prisma.NotificacionesScalarFieldEnum = {
@@ -460,6 +461,7 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   detraccion: 'detraccion',
   porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
   valor_detraccion: 'valor_detraccion',
+  tipo_detraccion: 'tipo_detraccion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
   url: 'url',
@@ -516,6 +518,144 @@ exports.Prisma.ProyectoScalarFieldEnum = {
   updated_at: 'updated_at',
   cliente: 'cliente',
   ubicacion: 'ubicacion'
+};
+
+exports.Prisma.FacturaScalarFieldEnum = {
+  id_factura: 'id_factura',
+  estado_factura: 'estado_factura',
+  operacion: 'operacion',
+  tipo_de_comprobante: 'tipo_de_comprobante',
+  serie: 'serie',
+  numero: 'numero',
+  sunat_transaction: 'sunat_transaction',
+  id_proveedor: 'id_proveedor',
+  cliente_tipo_documento: 'cliente_tipo_documento',
+  cliente_numero_documento: 'cliente_numero_documento',
+  cliente_denominacion: 'cliente_denominacion',
+  cliente_direccion: 'cliente_direccion',
+  cliente_email: 'cliente_email',
+  cliente_email_1: 'cliente_email_1',
+  cliente_email_2: 'cliente_email_2',
+  fecha_emision: 'fecha_emision',
+  fecha_vencimiento: 'fecha_vencimiento',
+  fecha_servicio: 'fecha_servicio',
+  moneda: 'moneda',
+  tipo_cambio: 'tipo_cambio',
+  porcentaje_igv: 'porcentaje_igv',
+  descuento_global: 'descuento_global',
+  total_descuento: 'total_descuento',
+  total_anticipo: 'total_anticipo',
+  total_gravada: 'total_gravada',
+  total_inafecta: 'total_inafecta',
+  total_exonerada: 'total_exonerada',
+  total_igv: 'total_igv',
+  total_gratuita: 'total_gratuita',
+  total_otros_cargos: 'total_otros_cargos',
+  total_isc: 'total_isc',
+  total: 'total',
+  aplicar_detraccion: 'aplicar_detraccion',
+  detraccion_tipo: 'detraccion_tipo',
+  detraccion_porcentaje: 'detraccion_porcentaje',
+  detraccion_total: 'detraccion_total',
+  medio_pago_detraccion: 'medio_pago_detraccion',
+  ubigeo_origen: 'ubigeo_origen',
+  direccion_origen: 'direccion_origen',
+  ubigeo_destino: 'ubigeo_destino',
+  direccion_destino: 'direccion_destino',
+  detalle_viaje: 'detalle_viaje',
+  percepcion_tipo: 'percepcion_tipo',
+  percepcion_base_imponible: 'percepcion_base_imponible',
+  total_percepcion: 'total_percepcion',
+  total_incluido_percepcion: 'total_incluido_percepcion',
+  retencion_tipo: 'retencion_tipo',
+  retencion_base_imponible: 'retencion_base_imponible',
+  total_retencion: 'total_retencion',
+  fondo_garantia: 'fondo_garantia',
+  fondo_garantia_valor: 'fondo_garantia_valor',
+  orden_compra: 'orden_compra',
+  orden_compra_valor: 'orden_compra_valor',
+  placa_vehiculo: 'placa_vehiculo',
+  orden_compra_servicio: 'orden_compra_servicio',
+  centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
+  centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
+  centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
+  unidad: 'unidad',
+  unidad_id: 'unidad_id',
+  observaciones: 'observaciones',
+  enviar_automaticamente_sunat: 'enviar_automaticamente_sunat',
+  enviar_automaticamente_cliente: 'enviar_automaticamente_cliente',
+  formato_pdf: 'formato_pdf',
+  enlace: 'enlace',
+  enlace_del_pdf: 'enlace_del_pdf',
+  enlace_del_xml: 'enlace_del_xml',
+  enlace_del_cdr: 'enlace_del_cdr',
+  cadena_para_codigo_qr: 'cadena_para_codigo_qr',
+  codigo_hash: 'codigo_hash',
+  aceptada_por_sunat: 'aceptada_por_sunat',
+  sunat_description: 'sunat_description',
+  sunat_note: 'sunat_note',
+  sunat_responsecode: 'sunat_responsecode',
+  sunat_soap_error: 'sunat_soap_error',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Factura_guiaScalarFieldEnum = {
+  id_factura_guia: 'id_factura_guia',
+  id_factura: 'id_factura',
+  guia_tipo: 'guia_tipo',
+  guia_serie_numero: 'guia_serie_numero',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Factura_itemScalarFieldEnum = {
+  id_factura_item: 'id_factura_item',
+  id_factura: 'id_factura',
+  codigo_item: 'codigo_item',
+  codigo_producto_sunat: 'codigo_producto_sunat',
+  descripcion_item: 'descripcion_item',
+  unidad_medida: 'unidad_medida',
+  cantidad: 'cantidad',
+  valor_unitario: 'valor_unitario',
+  precio_unitario: 'precio_unitario',
+  descuento: 'descuento',
+  subtotal: 'subtotal',
+  tipo_de_igv: 'tipo_de_igv',
+  igv: 'igv',
+  tipo_de_isc: 'tipo_de_isc',
+  isc: 'isc',
+  total: 'total',
+  anticipo_regularizacion: 'anticipo_regularizacion',
+  anticipo_documento_serie: 'anticipo_documento_serie',
+  anticipo_documento_numero: 'anticipo_documento_numero',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Factura_venta_creditoScalarFieldEnum = {
+  id_venta_credito: 'id_venta_credito',
+  id_factura: 'id_factura',
+  cuota: 'cuota',
+  fecha_pago: 'fecha_pago',
+  importe: 'importe',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Movimientos_adicionalesScalarFieldEnum = {
+  id_movimiento_adicional: 'id_movimiento_adicional',
+  id_movimiento: 'id_movimiento',
+  numero_factura: 'numero_factura',
+  numero_guia_remision: 'numero_guia_remision',
+  costo_unitario: 'costo_unitario',
+  costo_total: 'costo_total',
+  fecha_ingreso: 'fecha_ingreso',
+  fecha_registro: 'fecha_registro'
+};
+
+exports.Prisma.Tipo_detraccionScalarFieldEnum = {
+  id_tipo_detraccion: 'id_tipo_detraccion',
+  tipo_detraccion: 'tipo_detraccion',
+  porcentaje_detraccion: 'porcentaje_detraccion'
 };
 
 exports.Prisma.SortOrder = {
@@ -708,6 +848,7 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   detraccion: 'detraccion',
   porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+  tipo_detraccion: 'tipo_detraccion',
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
@@ -734,6 +875,65 @@ exports.Prisma.proyectoOrderByRelevanceFieldEnum = {
   descripcion: 'descripcion',
   cliente: 'cliente',
   ubicacion: 'ubicacion'
+};
+
+exports.Prisma.facturaOrderByRelevanceFieldEnum = {
+  estado_factura: 'estado_factura',
+  operacion: 'operacion',
+  serie: 'serie',
+  cliente_numero_documento: 'cliente_numero_documento',
+  cliente_denominacion: 'cliente_denominacion',
+  cliente_direccion: 'cliente_direccion',
+  cliente_email: 'cliente_email',
+  cliente_email_1: 'cliente_email_1',
+  cliente_email_2: 'cliente_email_2',
+  ubigeo_origen: 'ubigeo_origen',
+  direccion_origen: 'direccion_origen',
+  ubigeo_destino: 'ubigeo_destino',
+  direccion_destino: 'direccion_destino',
+  detalle_viaje: 'detalle_viaje',
+  fondo_garantia_valor: 'fondo_garantia_valor',
+  orden_compra_valor: 'orden_compra_valor',
+  placa_vehiculo: 'placa_vehiculo',
+  orden_compra_servicio: 'orden_compra_servicio',
+  centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
+  centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
+  centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
+  unidad: 'unidad',
+  observaciones: 'observaciones',
+  formato_pdf: 'formato_pdf',
+  enlace: 'enlace',
+  enlace_del_pdf: 'enlace_del_pdf',
+  enlace_del_xml: 'enlace_del_xml',
+  enlace_del_cdr: 'enlace_del_cdr',
+  cadena_para_codigo_qr: 'cadena_para_codigo_qr',
+  codigo_hash: 'codigo_hash',
+  sunat_description: 'sunat_description',
+  sunat_note: 'sunat_note',
+  sunat_responsecode: 'sunat_responsecode',
+  sunat_soap_error: 'sunat_soap_error'
+};
+
+exports.Prisma.factura_guiaOrderByRelevanceFieldEnum = {
+  guia_serie_numero: 'guia_serie_numero'
+};
+
+exports.Prisma.factura_itemOrderByRelevanceFieldEnum = {
+  codigo_item: 'codigo_item',
+  codigo_producto_sunat: 'codigo_producto_sunat',
+  descripcion_item: 'descripcion_item',
+  unidad_medida: 'unidad_medida',
+  anticipo_documento_serie: 'anticipo_documento_serie'
+};
+
+exports.Prisma.movimientos_adicionalesOrderByRelevanceFieldEnum = {
+  numero_factura: 'numero_factura',
+  numero_guia_remision: 'numero_guia_remision'
+};
+
+exports.Prisma.tipo_detraccionOrderByRelevanceFieldEnum = {
+  id_tipo_detraccion: 'id_tipo_detraccion',
+  tipo_detraccion: 'tipo_detraccion'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -906,7 +1106,13 @@ exports.Prisma.ModelName = {
   detalles_orden_servicio: 'detalles_orden_servicio',
   email_notifications: 'email_notifications',
   DROPBOX: 'DROPBOX',
-  proyecto: 'proyecto'
+  proyecto: 'proyecto',
+  factura: 'factura',
+  factura_guia: 'factura_guia',
+  factura_item: 'factura_item',
+  factura_venta_credito: 'factura_venta_credito',
+  movimientos_adicionales: 'movimientos_adicionales',
+  tipo_detraccion: 'tipo_detraccion'
 };
 
 /**

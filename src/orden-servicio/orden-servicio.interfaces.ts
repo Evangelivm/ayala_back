@@ -47,6 +47,7 @@ export interface Totales {
   detraccionMonto: number;
   netoAPagar: number;
   tieneAnticipo?: boolean;
+  tipoDetraccionTexto?: string; // Ejemplo: "001-Azúcar y melaza de caña"
 }
 
 export interface Firmas {

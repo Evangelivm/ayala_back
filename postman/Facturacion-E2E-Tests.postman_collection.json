@@ -1,0 +1,696 @@
+{
+  "info": {
+    "name": "Sistema Facturación Electrónica - E2E Tests",
+    "description": "Colección completa de tests E2E para el sistema de facturación electrónica con NUBEFACT",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sistema Status (Dashboard)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "status"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sistema Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Test - Crear Comprobantes",
+      "item": [
+        {
+          "name": "Crear Factura de Prueba (Tipo 1)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Factura creada exitosamente\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id_factura');",
+                  "    pm.environment.set(\"test_factura_id\", jsonData.id_factura);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/factura",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "factura"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Boleta de Prueba (Tipo 2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Boleta creada exitosamente\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id_factura');",
+                  "    pm.environment.set(\"test_boleta_id\", jsonData.id_factura);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/boleta",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "boleta"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Nota de Crédito (Tipo 3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Nota de crédito creada exitosamente\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id_factura');",
+                  "    pm.environment.set(\"test_nc_id\", jsonData.id_factura);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_factura_origen\": {{test_factura_id}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/nota-credito",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "nota-credito"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Nota de Débito (Tipo 4)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Nota de débito creada exitosamente\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id_factura');",
+                  "    pm.environment.set(\"test_nd_id\", jsonData.id_factura);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_factura_origen\": {{test_factura_id}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/nota-debito",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "nota-debito"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Factura de Ejemplo (Sample)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/sample",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "sample"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Test - Flujo Completo",
+      "item": [
+        {
+          "name": "Probar Flujo Completo de Factura",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Flujo iniciado correctamente\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('paso1_factura_existe');",
+                  "    pm.expect(jsonData.paso1_factura_existe).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/flow/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "flow", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar Estructura de Factura",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Estructura válida\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('valid');",
+                  "    pm.expect(jsonData.valid).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo_de_comprobante\": 1,\n  \"serie\": \"F001\",\n  \"numero\": 1,\n  \"id_proveedor\": 1,\n  \"cliente_tipo_documento\": 6,\n  \"cliente_numero_documento\": \"20123456789\",\n  \"cliente_denominacion\": \"EMPRESA DE PRUEBA SAC\",\n  \"fecha_emision\": \"2025-12-11\",\n  \"moneda\": 1,\n  \"total\": 118.0,\n  \"items\": [\n    {\n      \"descripcion_item\": \"PRODUCTO DE PRUEBA\",\n      \"unidad_medida\": \"NIU\",\n      \"cantidad\": 1.0,\n      \"valor_unitario\": 100.0,\n      \"precio_unitario\": 118.0,\n      \"subtotal\": 100.0,\n      \"tipo_de_igv\": 10,\n      \"igv\": 18.0,\n      \"total\": 118.0\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/validate",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "validate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Detector",
+      "item": [
+        {
+          "name": "Estadísticas del Detector",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/detector/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "detector", "stats"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forzar Detección de Factura",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/detector/force/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "detector", "force", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Polling",
+      "item": [
+        {
+          "name": "Estadísticas de Polling",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", "stats"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Info de Polling por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forzar Verificación de Polling",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/force-check/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", "force-check", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detener Polling",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/stop/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", "stop", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Limpiar Tareas Huérfanas",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/cleanup",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", "cleanup"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Control y Mantenimiento",
+      "item": [
+        {
+          "name": "Reintentar Facturas Fallidas",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/retry-failed",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "retry-failed"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resetear Factura para Reintento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/reset/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "reset", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7. Debug",
+      "item": [
+        {
+          "name": "Debug Completo de Factura",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/debug/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "debug", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{test_factura_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "8. Flujo E2E Completo",
+      "item": [
+        {
+          "name": "PASO 1: Crear Factura",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Factura creada\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"e2e_factura_id\", jsonData.id_factura);",
+                  "    console.log(\"ID de factura E2E:\", jsonData.id_factura);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/factura",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "factura"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PASO 2: Verificar Estado Inicial",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Factura en estado NULL o PENDIENTE\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.estado_inicial).to.be.oneOf([null, 'PENDIENTE']);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/test/flow/{{e2e_factura_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "test", "flow", "{{e2e_factura_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PASO 3: Esperar 5 segundos",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Esperar 5 segundos para que el detector y consumer procesen",
+                  "setTimeout(function(){}, 5000);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "status"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PASO 4: Verificar Estado de Polling",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Polling activo o factura procesada\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    // Verificar que el polling está activo o la factura ya se completó",
+                  "    pm.expect(jsonData).to.have.property('isActive');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/polling/{{e2e_factura_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "polling", "{{e2e_factura_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PASO 5: Debug Final",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/factura/debug/{{e2e_factura_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["factura", "debug", "{{e2e_factura_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "test_factura_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "test_boleta_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "test_nc_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "test_nd_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "e2e_factura_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

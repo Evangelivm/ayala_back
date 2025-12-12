@@ -37,6 +37,7 @@ export const CreateOrdenServicioSchema = z
     centro_costo_nivel3: z.string().optional(),
     unidad_id: z.union([z.number().int().positive(), z.null()]).optional(),
     detraccion: z.string().optional(),
+    tipo_detraccion: z.string().optional(),
     porcentaje_valor_detraccion: z.string().optional(),
     valor_detraccion: z.number().nonnegative('El valor de detracción no puede ser negativo').optional(),
     almacen_central: z.string().optional(),

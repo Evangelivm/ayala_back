@@ -2,6 +2,12 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { GreProducerService } from './gre-producer.service';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Injectable()
 export class GreDetectorService {
@@ -332,10 +338,11 @@ export class GreDetectorService {
     // Solo necesitamos construir el payload para la API NUBEFACT
 
     const formatDate = (date: Date | string) => {
-      const d = new Date(date);
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const year = d.getFullYear();
+      // Convertir la fecha del backend a timezone de Perú (America/Lima)
+      const peruDate = dayjs(date).tz('America/Lima');
+      const day = String(peruDate.date()).padStart(2, '0');
+      const month = String(peruDate.month() + 1).padStart(2, '0');
+      const year = peruDate.year();
       return `${day}-${month}-${year}`;
     };
 

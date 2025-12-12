@@ -168,6 +168,36 @@ export type DROPBOX = $Result.DefaultSelection<Prisma.$DROPBOXPayload>
  * 
  */
 export type proyecto = $Result.DefaultSelection<Prisma.$proyectoPayload>
+/**
+ * Model factura
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type factura = $Result.DefaultSelection<Prisma.$facturaPayload>
+/**
+ * Model factura_guia
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type factura_guia = $Result.DefaultSelection<Prisma.$factura_guiaPayload>
+/**
+ * Model factura_item
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type factura_item = $Result.DefaultSelection<Prisma.$factura_itemPayload>
+/**
+ * Model factura_venta_credito
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type factura_venta_credito = $Result.DefaultSelection<Prisma.$factura_venta_creditoPayload>
+/**
+ * Model movimientos_adicionales
+ * 
+ */
+export type movimientos_adicionales = $Result.DefaultSelection<Prisma.$movimientos_adicionalesPayload>
+/**
+ * Model tipo_detraccion
+ * 
+ */
+export type tipo_detraccion = $Result.DefaultSelection<Prisma.$tipo_detraccionPayload>
 
 /**
  * Enums
@@ -895,6 +925,66 @@ export class PrismaClient<
     * ```
     */
   get proyecto(): Prisma.proyectoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.factura`: Exposes CRUD operations for the **factura** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Facturas
+    * const facturas = await prisma.factura.findMany()
+    * ```
+    */
+  get factura(): Prisma.facturaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.factura_guia`: Exposes CRUD operations for the **factura_guia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Factura_guias
+    * const factura_guias = await prisma.factura_guia.findMany()
+    * ```
+    */
+  get factura_guia(): Prisma.factura_guiaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.factura_item`: Exposes CRUD operations for the **factura_item** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Factura_items
+    * const factura_items = await prisma.factura_item.findMany()
+    * ```
+    */
+  get factura_item(): Prisma.factura_itemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.factura_venta_credito`: Exposes CRUD operations for the **factura_venta_credito** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Factura_venta_creditos
+    * const factura_venta_creditos = await prisma.factura_venta_credito.findMany()
+    * ```
+    */
+  get factura_venta_credito(): Prisma.factura_venta_creditoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.movimientos_adicionales`: Exposes CRUD operations for the **movimientos_adicionales** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Movimientos_adicionales
+    * const movimientos_adicionales = await prisma.movimientos_adicionales.findMany()
+    * ```
+    */
+  get movimientos_adicionales(): Prisma.movimientos_adicionalesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tipo_detraccion`: Exposes CRUD operations for the **tipo_detraccion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tipo_detraccions
+    * const tipo_detraccions = await prisma.tipo_detraccion.findMany()
+    * ```
+    */
+  get tipo_detraccion(): Prisma.tipo_detraccionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1366,7 +1456,13 @@ export namespace Prisma {
     detalles_orden_servicio: 'detalles_orden_servicio',
     email_notifications: 'email_notifications',
     DROPBOX: 'DROPBOX',
-    proyecto: 'proyecto'
+    proyecto: 'proyecto',
+    factura: 'factura',
+    factura_guia: 'factura_guia',
+    factura_item: 'factura_item',
+    factura_venta_credito: 'factura_venta_credito',
+    movimientos_adicionales: 'movimientos_adicionales',
+    tipo_detraccion: 'tipo_detraccion'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1385,7 +1481,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3435,6 +3531,402 @@ export namespace Prisma {
           }
         }
       }
+      factura: {
+        payload: Prisma.$facturaPayload<ExtArgs>
+        fields: Prisma.facturaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.facturaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.facturaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          findFirst: {
+            args: Prisma.facturaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.facturaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          findMany: {
+            args: Prisma.facturaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>[]
+          }
+          create: {
+            args: Prisma.facturaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          createMany: {
+            args: Prisma.facturaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.facturaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          update: {
+            args: Prisma.facturaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          deleteMany: {
+            args: Prisma.facturaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.facturaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.facturaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturaPayload>
+          }
+          aggregate: {
+            args: Prisma.FacturaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFactura>
+          }
+          groupBy: {
+            args: Prisma.facturaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FacturaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.facturaCountArgs<ExtArgs>
+            result: $Utils.Optional<FacturaCountAggregateOutputType> | number
+          }
+        }
+      }
+      factura_guia: {
+        payload: Prisma.$factura_guiaPayload<ExtArgs>
+        fields: Prisma.factura_guiaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.factura_guiaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.factura_guiaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          findFirst: {
+            args: Prisma.factura_guiaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.factura_guiaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          findMany: {
+            args: Prisma.factura_guiaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>[]
+          }
+          create: {
+            args: Prisma.factura_guiaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          createMany: {
+            args: Prisma.factura_guiaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.factura_guiaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          update: {
+            args: Prisma.factura_guiaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          deleteMany: {
+            args: Prisma.factura_guiaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.factura_guiaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.factura_guiaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_guiaPayload>
+          }
+          aggregate: {
+            args: Prisma.Factura_guiaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFactura_guia>
+          }
+          groupBy: {
+            args: Prisma.factura_guiaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Factura_guiaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.factura_guiaCountArgs<ExtArgs>
+            result: $Utils.Optional<Factura_guiaCountAggregateOutputType> | number
+          }
+        }
+      }
+      factura_item: {
+        payload: Prisma.$factura_itemPayload<ExtArgs>
+        fields: Prisma.factura_itemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.factura_itemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.factura_itemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          findFirst: {
+            args: Prisma.factura_itemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.factura_itemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          findMany: {
+            args: Prisma.factura_itemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>[]
+          }
+          create: {
+            args: Prisma.factura_itemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          createMany: {
+            args: Prisma.factura_itemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.factura_itemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          update: {
+            args: Prisma.factura_itemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          deleteMany: {
+            args: Prisma.factura_itemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.factura_itemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.factura_itemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_itemPayload>
+          }
+          aggregate: {
+            args: Prisma.Factura_itemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFactura_item>
+          }
+          groupBy: {
+            args: Prisma.factura_itemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Factura_itemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.factura_itemCountArgs<ExtArgs>
+            result: $Utils.Optional<Factura_itemCountAggregateOutputType> | number
+          }
+        }
+      }
+      factura_venta_credito: {
+        payload: Prisma.$factura_venta_creditoPayload<ExtArgs>
+        fields: Prisma.factura_venta_creditoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.factura_venta_creditoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.factura_venta_creditoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          findFirst: {
+            args: Prisma.factura_venta_creditoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.factura_venta_creditoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          findMany: {
+            args: Prisma.factura_venta_creditoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>[]
+          }
+          create: {
+            args: Prisma.factura_venta_creditoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          createMany: {
+            args: Prisma.factura_venta_creditoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.factura_venta_creditoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          update: {
+            args: Prisma.factura_venta_creditoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          deleteMany: {
+            args: Prisma.factura_venta_creditoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.factura_venta_creditoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.factura_venta_creditoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_venta_creditoPayload>
+          }
+          aggregate: {
+            args: Prisma.Factura_venta_creditoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFactura_venta_credito>
+          }
+          groupBy: {
+            args: Prisma.factura_venta_creditoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Factura_venta_creditoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.factura_venta_creditoCountArgs<ExtArgs>
+            result: $Utils.Optional<Factura_venta_creditoCountAggregateOutputType> | number
+          }
+        }
+      }
+      movimientos_adicionales: {
+        payload: Prisma.$movimientos_adicionalesPayload<ExtArgs>
+        fields: Prisma.movimientos_adicionalesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.movimientos_adicionalesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.movimientos_adicionalesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          findFirst: {
+            args: Prisma.movimientos_adicionalesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.movimientos_adicionalesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          findMany: {
+            args: Prisma.movimientos_adicionalesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>[]
+          }
+          create: {
+            args: Prisma.movimientos_adicionalesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          createMany: {
+            args: Prisma.movimientos_adicionalesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.movimientos_adicionalesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          update: {
+            args: Prisma.movimientos_adicionalesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          deleteMany: {
+            args: Prisma.movimientos_adicionalesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.movimientos_adicionalesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.movimientos_adicionalesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$movimientos_adicionalesPayload>
+          }
+          aggregate: {
+            args: Prisma.Movimientos_adicionalesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMovimientos_adicionales>
+          }
+          groupBy: {
+            args: Prisma.movimientos_adicionalesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Movimientos_adicionalesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.movimientos_adicionalesCountArgs<ExtArgs>
+            result: $Utils.Optional<Movimientos_adicionalesCountAggregateOutputType> | number
+          }
+        }
+      }
+      tipo_detraccion: {
+        payload: Prisma.$tipo_detraccionPayload<ExtArgs>
+        fields: Prisma.tipo_detraccionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tipo_detraccionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tipo_detraccionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          findFirst: {
+            args: Prisma.tipo_detraccionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tipo_detraccionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          findMany: {
+            args: Prisma.tipo_detraccionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>[]
+          }
+          create: {
+            args: Prisma.tipo_detraccionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          createMany: {
+            args: Prisma.tipo_detraccionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tipo_detraccionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          update: {
+            args: Prisma.tipo_detraccionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          deleteMany: {
+            args: Prisma.tipo_detraccionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tipo_detraccionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tipo_detraccionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tipo_detraccionPayload>
+          }
+          aggregate: {
+            args: Prisma.Tipo_detraccionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTipo_detraccion>
+          }
+          groupBy: {
+            args: Prisma.tipo_detraccionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Tipo_detraccionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tipo_detraccionCountArgs<ExtArgs>
+            result: $Utils.Optional<Tipo_detraccionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3562,6 +4054,12 @@ export namespace Prisma {
     email_notifications?: email_notificationsOmit
     dROPBOX?: DROPBOXOmit
     proyecto?: proyectoOmit
+    factura?: facturaOmit
+    factura_guia?: factura_guiaOmit
+    factura_item?: factura_itemOmit
+    factura_venta_credito?: factura_venta_creditoOmit
+    movimientos_adicionales?: movimientos_adicionalesOmit
+    tipo_detraccion?: tipo_detraccionOmit
   }
 
   /* Types for Logging */
@@ -3954,10 +4452,12 @@ export namespace Prisma {
    */
 
   export type Movimientos_inventarioCountOutputType = {
+    movimientos_adicionales: number
     solicitudes_salida: number
   }
 
   export type Movimientos_inventarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movimientos_adicionales?: boolean | Movimientos_inventarioCountOutputTypeCountMovimientos_adicionalesArgs
     solicitudes_salida?: boolean | Movimientos_inventarioCountOutputTypeCountSolicitudes_salidaArgs
   }
 
@@ -3970,6 +4470,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the Movimientos_inventarioCountOutputType
      */
     select?: Movimientos_inventarioCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Movimientos_inventarioCountOutputType without action
+   */
+  export type Movimientos_inventarioCountOutputTypeCountMovimientos_adicionalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: movimientos_adicionalesWhereInput
   }
 
   /**
@@ -4025,11 +4532,13 @@ export namespace Prisma {
    */
 
   export type ProveedoresCountOutputType = {
+    factura: number
     ordenes_compra: number
     ordenes_servicio: number
   }
 
   export type ProveedoresCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura?: boolean | ProveedoresCountOutputTypeCountFacturaArgs
     ordenes_compra?: boolean | ProveedoresCountOutputTypeCountOrdenes_compraArgs
     ordenes_servicio?: boolean | ProveedoresCountOutputTypeCountOrdenes_servicioArgs
   }
@@ -4043,6 +4552,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the ProveedoresCountOutputType
      */
     select?: ProveedoresCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProveedoresCountOutputType without action
+   */
+  export type ProveedoresCountOutputTypeCountFacturaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: facturaWhereInput
   }
 
   /**
@@ -4280,6 +4796,55 @@ export namespace Prisma {
    */
   export type Ordenes_servicioCountOutputTypeCountDetalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: detalles_orden_servicioWhereInput
+  }
+
+
+  /**
+   * Count Type FacturaCountOutputType
+   */
+
+  export type FacturaCountOutputType = {
+    factura_guia: number
+    factura_item: number
+    factura_venta_credito: number
+  }
+
+  export type FacturaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura_guia?: boolean | FacturaCountOutputTypeCountFactura_guiaArgs
+    factura_item?: boolean | FacturaCountOutputTypeCountFactura_itemArgs
+    factura_venta_credito?: boolean | FacturaCountOutputTypeCountFactura_venta_creditoArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FacturaCountOutputType without action
+   */
+  export type FacturaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FacturaCountOutputType
+     */
+    select?: FacturaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FacturaCountOutputType without action
+   */
+  export type FacturaCountOutputTypeCountFactura_guiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_guiaWhereInput
+  }
+
+  /**
+   * FacturaCountOutputType without action
+   */
+  export type FacturaCountOutputTypeCountFactura_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_itemWhereInput
+  }
+
+  /**
+   * FacturaCountOutputType without action
+   */
+  export type FacturaCountOutputTypeCountFactura_venta_creditoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_venta_creditoWhereInput
   }
 
 
@@ -17016,6 +17581,7 @@ export namespace Prisma {
     cantidad: number | null
     id_almacen_origen: number | null
     id_almacen_destino: number | null
+    id_usuario_registro: number | null
   }
 
   export type Movimientos_inventarioSumAggregateOutputType = {
@@ -17024,6 +17590,7 @@ export namespace Prisma {
     cantidad: number | null
     id_almacen_origen: number | null
     id_almacen_destino: number | null
+    id_usuario_registro: number | null
   }
 
   export type Movimientos_inventarioMinAggregateOutputType = {
@@ -17038,6 +17605,7 @@ export namespace Prisma {
     responsable: string | null
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro: number | null
   }
 
   export type Movimientos_inventarioMaxAggregateOutputType = {
@@ -17052,6 +17620,7 @@ export namespace Prisma {
     responsable: string | null
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro: number | null
   }
 
   export type Movimientos_inventarioCountAggregateOutputType = {
@@ -17066,6 +17635,7 @@ export namespace Prisma {
     responsable: number
     observaciones: number
     estado: number
+    id_usuario_registro: number
     _all: number
   }
 
@@ -17076,6 +17646,7 @@ export namespace Prisma {
     cantidad?: true
     id_almacen_origen?: true
     id_almacen_destino?: true
+    id_usuario_registro?: true
   }
 
   export type Movimientos_inventarioSumAggregateInputType = {
@@ -17084,6 +17655,7 @@ export namespace Prisma {
     cantidad?: true
     id_almacen_origen?: true
     id_almacen_destino?: true
+    id_usuario_registro?: true
   }
 
   export type Movimientos_inventarioMinAggregateInputType = {
@@ -17098,6 +17670,7 @@ export namespace Prisma {
     responsable?: true
     observaciones?: true
     estado?: true
+    id_usuario_registro?: true
   }
 
   export type Movimientos_inventarioMaxAggregateInputType = {
@@ -17112,6 +17685,7 @@ export namespace Prisma {
     responsable?: true
     observaciones?: true
     estado?: true
+    id_usuario_registro?: true
   }
 
   export type Movimientos_inventarioCountAggregateInputType = {
@@ -17126,6 +17700,7 @@ export namespace Prisma {
     responsable?: true
     observaciones?: true
     estado?: true
+    id_usuario_registro?: true
     _all?: true
   }
 
@@ -17227,6 +17802,7 @@ export namespace Prisma {
     responsable: string | null
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro: number | null
     _count: Movimientos_inventarioCountAggregateOutputType | null
     _avg: Movimientos_inventarioAvgAggregateOutputType | null
     _sum: Movimientos_inventarioSumAggregateOutputType | null
@@ -17260,6 +17836,8 @@ export namespace Prisma {
     responsable?: boolean
     observaciones?: boolean
     estado?: boolean
+    id_usuario_registro?: boolean
+    movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: boolean | movimientos_inventario$almacenes_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>
@@ -17282,10 +17860,12 @@ export namespace Prisma {
     responsable?: boolean
     observaciones?: boolean
     estado?: boolean
+    id_usuario_registro?: boolean
   }
 
-  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado", ExtArgs["result"]["movimientos_inventario"]>
+  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado" | "id_usuario_registro", ExtArgs["result"]["movimientos_inventario"]>
   export type movimientos_inventarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: boolean | movimientos_inventario$almacenes_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>
@@ -17297,6 +17877,7 @@ export namespace Prisma {
   export type $movimientos_inventarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "movimientos_inventario"
     objects: {
+      movimientos_adicionales: Prisma.$movimientos_adicionalesPayload<ExtArgs>[]
       tipos_movimiento: Prisma.$tipos_movimientoPayload<ExtArgs>
       listado_items_2025: Prisma.$listado_items_2025Payload<ExtArgs>
       almacenes_movimientos_inventario_id_almacen_origenToalmacenes: Prisma.$almacenesPayload<ExtArgs> | null
@@ -17315,6 +17896,7 @@ export namespace Prisma {
       responsable: string | null
       observaciones: string | null
       estado: $Enums.movimientos_inventario_estado | null
+      id_usuario_registro: number | null
     }, ExtArgs["result"]["movimientos_inventario"]>
     composites: {}
   }
@@ -17655,6 +18237,7 @@ export namespace Prisma {
    */
   export interface Prisma__movimientos_inventarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    movimientos_adicionales<T extends movimientos_inventario$movimientos_adicionalesArgs<ExtArgs> = {}>(args?: Subset<T, movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tipos_movimiento<T extends tipos_movimientoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tipos_movimientoDefaultArgs<ExtArgs>>): Prisma__tipos_movimientoClient<$Result.GetResult<Prisma.$tipos_movimientoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     listado_items_2025<T extends listado_items_2025DefaultArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025DefaultArgs<ExtArgs>>): Prisma__listado_items_2025Client<$Result.GetResult<Prisma.$listado_items_2025Payload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes<T extends movimientos_inventario$almacenes_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs> = {}>(args?: Subset<T, movimientos_inventario$almacenes_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>>): Prisma__almacenesClient<$Result.GetResult<Prisma.$almacenesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -17700,6 +18283,7 @@ export namespace Prisma {
     readonly responsable: FieldRef<"movimientos_inventario", 'String'>
     readonly observaciones: FieldRef<"movimientos_inventario", 'String'>
     readonly estado: FieldRef<"movimientos_inventario", 'movimientos_inventario_estado'>
+    readonly id_usuario_registro: FieldRef<"movimientos_inventario", 'Int'>
   }
     
 
@@ -18040,6 +18624,30 @@ export namespace Prisma {
      * Limit how many movimientos_inventarios to delete.
      */
     limit?: number
+  }
+
+  /**
+   * movimientos_inventario.movimientos_adicionales
+   */
+  export type movimientos_inventario$movimientos_adicionalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    where?: movimientos_adicionalesWhereInput
+    orderBy?: movimientos_adicionalesOrderByWithRelationInput | movimientos_adicionalesOrderByWithRelationInput[]
+    cursor?: movimientos_adicionalesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Movimientos_adicionalesScalarFieldEnum | Movimientos_adicionalesScalarFieldEnum[]
   }
 
   /**
@@ -23856,6 +24464,7 @@ export namespace Prisma {
     retencion?: boolean
     es_agente_retencion?: boolean
     numero_cuenta?: boolean
+    factura?: boolean | proveedores$facturaArgs<ExtArgs>
     ordenes_compra?: boolean | proveedores$ordenes_compraArgs<ExtArgs>
     ordenes_servicio?: boolean | proveedores$ordenes_servicioArgs<ExtArgs>
     _count?: boolean | ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
@@ -23884,6 +24493,7 @@ export namespace Prisma {
 
   export type proveedoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_proveedor" | "codigo_proveedor" | "nombre_proveedor" | "contacto" | "telefono" | "email" | "direccion" | "ruc" | "activo" | "fecha_registro" | "fecha_actualizacion" | "entidad_bancaria" | "numero_cuenta_bancaria" | "retencion" | "es_agente_retencion" | "numero_cuenta", ExtArgs["result"]["proveedores"]>
   export type proveedoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura?: boolean | proveedores$facturaArgs<ExtArgs>
     ordenes_compra?: boolean | proveedores$ordenes_compraArgs<ExtArgs>
     ordenes_servicio?: boolean | proveedores$ordenes_servicioArgs<ExtArgs>
     _count?: boolean | ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
@@ -23892,6 +24502,7 @@ export namespace Prisma {
   export type $proveedoresPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "proveedores"
     objects: {
+      factura: Prisma.$facturaPayload<ExtArgs>[]
       ordenes_compra: Prisma.$ordenes_compraPayload<ExtArgs>[]
       ordenes_servicio: Prisma.$ordenes_servicioPayload<ExtArgs>[]
     }
@@ -24252,6 +24863,7 @@ export namespace Prisma {
    */
   export interface Prisma__proveedoresClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    factura<T extends proveedores$facturaArgs<ExtArgs> = {}>(args?: Subset<T, proveedores$facturaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordenes_compra<T extends proveedores$ordenes_compraArgs<ExtArgs> = {}>(args?: Subset<T, proveedores$ordenes_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordenes_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordenes_servicio<T extends proveedores$ordenes_servicioArgs<ExtArgs> = {}>(args?: Subset<T, proveedores$ordenes_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordenes_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -24639,6 +25251,30 @@ export namespace Prisma {
      * Limit how many proveedores to delete.
      */
     limit?: number
+  }
+
+  /**
+   * proveedores.factura
+   */
+  export type proveedores$facturaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    where?: facturaWhereInput
+    orderBy?: facturaOrderByWithRelationInput | facturaOrderByWithRelationInput[]
+    cursor?: facturaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FacturaScalarFieldEnum | FacturaScalarFieldEnum[]
   }
 
   /**
@@ -30274,6 +30910,7 @@ export namespace Prisma {
     detraccion: string | null
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30314,6 +30951,7 @@ export namespace Prisma {
     detraccion: string | null
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30354,6 +30992,7 @@ export namespace Prisma {
     detraccion: number
     porcentaje_valor_detraccion: number
     valor_detraccion: number
+    tipo_detraccion: number
     id_camion: number
     almacen_central: number
     url: number
@@ -30422,6 +31061,7 @@ export namespace Prisma {
     detraccion?: true
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30462,6 +31102,7 @@ export namespace Prisma {
     detraccion?: true
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30502,6 +31143,7 @@ export namespace Prisma {
     detraccion?: true
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -30629,6 +31271,7 @@ export namespace Prisma {
     detraccion: string | null
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30688,6 +31331,7 @@ export namespace Prisma {
     detraccion?: boolean
     porcentaje_valor_detraccion?: boolean
     valor_detraccion?: boolean
+    tipo_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -30734,6 +31378,7 @@ export namespace Prisma {
     detraccion?: boolean
     porcentaje_valor_detraccion?: boolean
     valor_detraccion?: boolean
+    tipo_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -30741,7 +31386,7 @@ export namespace Prisma {
     url_factura?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -30789,6 +31434,7 @@ export namespace Prisma {
       detraccion: string | null
       porcentaje_valor_detraccion: string | null
       valor_detraccion: Prisma.Decimal | null
+      tipo_detraccion: string | null
       id_camion: number | null
       almacen_central: string | null
       url: string | null
@@ -31198,6 +31844,7 @@ export namespace Prisma {
     readonly detraccion: FieldRef<"ordenes_servicio", 'String'>
     readonly porcentaje_valor_detraccion: FieldRef<"ordenes_servicio", 'String'>
     readonly valor_detraccion: FieldRef<"ordenes_servicio", 'Decimal'>
+    readonly tipo_detraccion: FieldRef<"ordenes_servicio", 'String'>
     readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_servicio", 'String'>
     readonly url: FieldRef<"ordenes_servicio", 'String'>
@@ -37193,6 +37840,7017 @@ export namespace Prisma {
 
 
   /**
+   * Model factura
+   */
+
+  export type AggregateFactura = {
+    _count: FacturaCountAggregateOutputType | null
+    _avg: FacturaAvgAggregateOutputType | null
+    _sum: FacturaSumAggregateOutputType | null
+    _min: FacturaMinAggregateOutputType | null
+    _max: FacturaMaxAggregateOutputType | null
+  }
+
+  export type FacturaAvgAggregateOutputType = {
+    id_factura: number | null
+    tipo_de_comprobante: number | null
+    numero: number | null
+    sunat_transaction: number | null
+    id_proveedor: number | null
+    cliente_tipo_documento: number | null
+    moneda: number | null
+    tipo_cambio: Decimal | null
+    porcentaje_igv: Decimal | null
+    descuento_global: Decimal | null
+    total_descuento: Decimal | null
+    total_anticipo: Decimal | null
+    total_gravada: Decimal | null
+    total_inafecta: Decimal | null
+    total_exonerada: Decimal | null
+    total_igv: Decimal | null
+    total_gratuita: Decimal | null
+    total_otros_cargos: Decimal | null
+    total_isc: Decimal | null
+    total: Decimal | null
+    detraccion_tipo: number | null
+    detraccion_porcentaje: Decimal | null
+    detraccion_total: Decimal | null
+    medio_pago_detraccion: number | null
+    percepcion_tipo: number | null
+    percepcion_base_imponible: Decimal | null
+    total_percepcion: Decimal | null
+    total_incluido_percepcion: Decimal | null
+    retencion_tipo: number | null
+    retencion_base_imponible: Decimal | null
+    total_retencion: Decimal | null
+    unidad_id: number | null
+  }
+
+  export type FacturaSumAggregateOutputType = {
+    id_factura: number | null
+    tipo_de_comprobante: number | null
+    numero: number | null
+    sunat_transaction: number | null
+    id_proveedor: number | null
+    cliente_tipo_documento: number | null
+    moneda: number | null
+    tipo_cambio: Decimal | null
+    porcentaje_igv: Decimal | null
+    descuento_global: Decimal | null
+    total_descuento: Decimal | null
+    total_anticipo: Decimal | null
+    total_gravada: Decimal | null
+    total_inafecta: Decimal | null
+    total_exonerada: Decimal | null
+    total_igv: Decimal | null
+    total_gratuita: Decimal | null
+    total_otros_cargos: Decimal | null
+    total_isc: Decimal | null
+    total: Decimal | null
+    detraccion_tipo: number | null
+    detraccion_porcentaje: Decimal | null
+    detraccion_total: Decimal | null
+    medio_pago_detraccion: number | null
+    percepcion_tipo: number | null
+    percepcion_base_imponible: Decimal | null
+    total_percepcion: Decimal | null
+    total_incluido_percepcion: Decimal | null
+    retencion_tipo: number | null
+    retencion_base_imponible: Decimal | null
+    total_retencion: Decimal | null
+    unidad_id: number | null
+  }
+
+  export type FacturaMinAggregateOutputType = {
+    id_factura: number | null
+    estado_factura: string | null
+    operacion: string | null
+    tipo_de_comprobante: number | null
+    serie: string | null
+    numero: number | null
+    sunat_transaction: number | null
+    id_proveedor: number | null
+    cliente_tipo_documento: number | null
+    cliente_numero_documento: string | null
+    cliente_denominacion: string | null
+    cliente_direccion: string | null
+    cliente_email: string | null
+    cliente_email_1: string | null
+    cliente_email_2: string | null
+    fecha_emision: Date | null
+    fecha_vencimiento: Date | null
+    fecha_servicio: Date | null
+    moneda: number | null
+    tipo_cambio: Decimal | null
+    porcentaje_igv: Decimal | null
+    descuento_global: Decimal | null
+    total_descuento: Decimal | null
+    total_anticipo: Decimal | null
+    total_gravada: Decimal | null
+    total_inafecta: Decimal | null
+    total_exonerada: Decimal | null
+    total_igv: Decimal | null
+    total_gratuita: Decimal | null
+    total_otros_cargos: Decimal | null
+    total_isc: Decimal | null
+    total: Decimal | null
+    aplicar_detraccion: boolean | null
+    detraccion_tipo: number | null
+    detraccion_porcentaje: Decimal | null
+    detraccion_total: Decimal | null
+    medio_pago_detraccion: number | null
+    ubigeo_origen: string | null
+    direccion_origen: string | null
+    ubigeo_destino: string | null
+    direccion_destino: string | null
+    detalle_viaje: string | null
+    percepcion_tipo: number | null
+    percepcion_base_imponible: Decimal | null
+    total_percepcion: Decimal | null
+    total_incluido_percepcion: Decimal | null
+    retencion_tipo: number | null
+    retencion_base_imponible: Decimal | null
+    total_retencion: Decimal | null
+    fondo_garantia: boolean | null
+    fondo_garantia_valor: string | null
+    orden_compra: boolean | null
+    orden_compra_valor: string | null
+    placa_vehiculo: string | null
+    orden_compra_servicio: string | null
+    centro_costo_nivel1_codigo: string | null
+    centro_costo_nivel2_codigo: string | null
+    centro_costo_nivel3_codigo: string | null
+    unidad: string | null
+    unidad_id: number | null
+    observaciones: string | null
+    enviar_automaticamente_sunat: boolean | null
+    enviar_automaticamente_cliente: boolean | null
+    formato_pdf: string | null
+    enlace: string | null
+    enlace_del_pdf: string | null
+    enlace_del_xml: string | null
+    enlace_del_cdr: string | null
+    cadena_para_codigo_qr: string | null
+    codigo_hash: string | null
+    aceptada_por_sunat: boolean | null
+    sunat_description: string | null
+    sunat_note: string | null
+    sunat_responsecode: string | null
+    sunat_soap_error: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type FacturaMaxAggregateOutputType = {
+    id_factura: number | null
+    estado_factura: string | null
+    operacion: string | null
+    tipo_de_comprobante: number | null
+    serie: string | null
+    numero: number | null
+    sunat_transaction: number | null
+    id_proveedor: number | null
+    cliente_tipo_documento: number | null
+    cliente_numero_documento: string | null
+    cliente_denominacion: string | null
+    cliente_direccion: string | null
+    cliente_email: string | null
+    cliente_email_1: string | null
+    cliente_email_2: string | null
+    fecha_emision: Date | null
+    fecha_vencimiento: Date | null
+    fecha_servicio: Date | null
+    moneda: number | null
+    tipo_cambio: Decimal | null
+    porcentaje_igv: Decimal | null
+    descuento_global: Decimal | null
+    total_descuento: Decimal | null
+    total_anticipo: Decimal | null
+    total_gravada: Decimal | null
+    total_inafecta: Decimal | null
+    total_exonerada: Decimal | null
+    total_igv: Decimal | null
+    total_gratuita: Decimal | null
+    total_otros_cargos: Decimal | null
+    total_isc: Decimal | null
+    total: Decimal | null
+    aplicar_detraccion: boolean | null
+    detraccion_tipo: number | null
+    detraccion_porcentaje: Decimal | null
+    detraccion_total: Decimal | null
+    medio_pago_detraccion: number | null
+    ubigeo_origen: string | null
+    direccion_origen: string | null
+    ubigeo_destino: string | null
+    direccion_destino: string | null
+    detalle_viaje: string | null
+    percepcion_tipo: number | null
+    percepcion_base_imponible: Decimal | null
+    total_percepcion: Decimal | null
+    total_incluido_percepcion: Decimal | null
+    retencion_tipo: number | null
+    retencion_base_imponible: Decimal | null
+    total_retencion: Decimal | null
+    fondo_garantia: boolean | null
+    fondo_garantia_valor: string | null
+    orden_compra: boolean | null
+    orden_compra_valor: string | null
+    placa_vehiculo: string | null
+    orden_compra_servicio: string | null
+    centro_costo_nivel1_codigo: string | null
+    centro_costo_nivel2_codigo: string | null
+    centro_costo_nivel3_codigo: string | null
+    unidad: string | null
+    unidad_id: number | null
+    observaciones: string | null
+    enviar_automaticamente_sunat: boolean | null
+    enviar_automaticamente_cliente: boolean | null
+    formato_pdf: string | null
+    enlace: string | null
+    enlace_del_pdf: string | null
+    enlace_del_xml: string | null
+    enlace_del_cdr: string | null
+    cadena_para_codigo_qr: string | null
+    codigo_hash: string | null
+    aceptada_por_sunat: boolean | null
+    sunat_description: string | null
+    sunat_note: string | null
+    sunat_responsecode: string | null
+    sunat_soap_error: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type FacturaCountAggregateOutputType = {
+    id_factura: number
+    estado_factura: number
+    operacion: number
+    tipo_de_comprobante: number
+    serie: number
+    numero: number
+    sunat_transaction: number
+    id_proveedor: number
+    cliente_tipo_documento: number
+    cliente_numero_documento: number
+    cliente_denominacion: number
+    cliente_direccion: number
+    cliente_email: number
+    cliente_email_1: number
+    cliente_email_2: number
+    fecha_emision: number
+    fecha_vencimiento: number
+    fecha_servicio: number
+    moneda: number
+    tipo_cambio: number
+    porcentaje_igv: number
+    descuento_global: number
+    total_descuento: number
+    total_anticipo: number
+    total_gravada: number
+    total_inafecta: number
+    total_exonerada: number
+    total_igv: number
+    total_gratuita: number
+    total_otros_cargos: number
+    total_isc: number
+    total: number
+    aplicar_detraccion: number
+    detraccion_tipo: number
+    detraccion_porcentaje: number
+    detraccion_total: number
+    medio_pago_detraccion: number
+    ubigeo_origen: number
+    direccion_origen: number
+    ubigeo_destino: number
+    direccion_destino: number
+    detalle_viaje: number
+    percepcion_tipo: number
+    percepcion_base_imponible: number
+    total_percepcion: number
+    total_incluido_percepcion: number
+    retencion_tipo: number
+    retencion_base_imponible: number
+    total_retencion: number
+    fondo_garantia: number
+    fondo_garantia_valor: number
+    orden_compra: number
+    orden_compra_valor: number
+    placa_vehiculo: number
+    orden_compra_servicio: number
+    centro_costo_nivel1_codigo: number
+    centro_costo_nivel2_codigo: number
+    centro_costo_nivel3_codigo: number
+    unidad: number
+    unidad_id: number
+    observaciones: number
+    enviar_automaticamente_sunat: number
+    enviar_automaticamente_cliente: number
+    formato_pdf: number
+    enlace: number
+    enlace_del_pdf: number
+    enlace_del_xml: number
+    enlace_del_cdr: number
+    cadena_para_codigo_qr: number
+    codigo_hash: number
+    aceptada_por_sunat: number
+    sunat_description: number
+    sunat_note: number
+    sunat_responsecode: number
+    sunat_soap_error: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type FacturaAvgAggregateInputType = {
+    id_factura?: true
+    tipo_de_comprobante?: true
+    numero?: true
+    sunat_transaction?: true
+    id_proveedor?: true
+    cliente_tipo_documento?: true
+    moneda?: true
+    tipo_cambio?: true
+    porcentaje_igv?: true
+    descuento_global?: true
+    total_descuento?: true
+    total_anticipo?: true
+    total_gravada?: true
+    total_inafecta?: true
+    total_exonerada?: true
+    total_igv?: true
+    total_gratuita?: true
+    total_otros_cargos?: true
+    total_isc?: true
+    total?: true
+    detraccion_tipo?: true
+    detraccion_porcentaje?: true
+    detraccion_total?: true
+    medio_pago_detraccion?: true
+    percepcion_tipo?: true
+    percepcion_base_imponible?: true
+    total_percepcion?: true
+    total_incluido_percepcion?: true
+    retencion_tipo?: true
+    retencion_base_imponible?: true
+    total_retencion?: true
+    unidad_id?: true
+  }
+
+  export type FacturaSumAggregateInputType = {
+    id_factura?: true
+    tipo_de_comprobante?: true
+    numero?: true
+    sunat_transaction?: true
+    id_proveedor?: true
+    cliente_tipo_documento?: true
+    moneda?: true
+    tipo_cambio?: true
+    porcentaje_igv?: true
+    descuento_global?: true
+    total_descuento?: true
+    total_anticipo?: true
+    total_gravada?: true
+    total_inafecta?: true
+    total_exonerada?: true
+    total_igv?: true
+    total_gratuita?: true
+    total_otros_cargos?: true
+    total_isc?: true
+    total?: true
+    detraccion_tipo?: true
+    detraccion_porcentaje?: true
+    detraccion_total?: true
+    medio_pago_detraccion?: true
+    percepcion_tipo?: true
+    percepcion_base_imponible?: true
+    total_percepcion?: true
+    total_incluido_percepcion?: true
+    retencion_tipo?: true
+    retencion_base_imponible?: true
+    total_retencion?: true
+    unidad_id?: true
+  }
+
+  export type FacturaMinAggregateInputType = {
+    id_factura?: true
+    estado_factura?: true
+    operacion?: true
+    tipo_de_comprobante?: true
+    serie?: true
+    numero?: true
+    sunat_transaction?: true
+    id_proveedor?: true
+    cliente_tipo_documento?: true
+    cliente_numero_documento?: true
+    cliente_denominacion?: true
+    cliente_direccion?: true
+    cliente_email?: true
+    cliente_email_1?: true
+    cliente_email_2?: true
+    fecha_emision?: true
+    fecha_vencimiento?: true
+    fecha_servicio?: true
+    moneda?: true
+    tipo_cambio?: true
+    porcentaje_igv?: true
+    descuento_global?: true
+    total_descuento?: true
+    total_anticipo?: true
+    total_gravada?: true
+    total_inafecta?: true
+    total_exonerada?: true
+    total_igv?: true
+    total_gratuita?: true
+    total_otros_cargos?: true
+    total_isc?: true
+    total?: true
+    aplicar_detraccion?: true
+    detraccion_tipo?: true
+    detraccion_porcentaje?: true
+    detraccion_total?: true
+    medio_pago_detraccion?: true
+    ubigeo_origen?: true
+    direccion_origen?: true
+    ubigeo_destino?: true
+    direccion_destino?: true
+    detalle_viaje?: true
+    percepcion_tipo?: true
+    percepcion_base_imponible?: true
+    total_percepcion?: true
+    total_incluido_percepcion?: true
+    retencion_tipo?: true
+    retencion_base_imponible?: true
+    total_retencion?: true
+    fondo_garantia?: true
+    fondo_garantia_valor?: true
+    orden_compra?: true
+    orden_compra_valor?: true
+    placa_vehiculo?: true
+    orden_compra_servicio?: true
+    centro_costo_nivel1_codigo?: true
+    centro_costo_nivel2_codigo?: true
+    centro_costo_nivel3_codigo?: true
+    unidad?: true
+    unidad_id?: true
+    observaciones?: true
+    enviar_automaticamente_sunat?: true
+    enviar_automaticamente_cliente?: true
+    formato_pdf?: true
+    enlace?: true
+    enlace_del_pdf?: true
+    enlace_del_xml?: true
+    enlace_del_cdr?: true
+    cadena_para_codigo_qr?: true
+    codigo_hash?: true
+    aceptada_por_sunat?: true
+    sunat_description?: true
+    sunat_note?: true
+    sunat_responsecode?: true
+    sunat_soap_error?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type FacturaMaxAggregateInputType = {
+    id_factura?: true
+    estado_factura?: true
+    operacion?: true
+    tipo_de_comprobante?: true
+    serie?: true
+    numero?: true
+    sunat_transaction?: true
+    id_proveedor?: true
+    cliente_tipo_documento?: true
+    cliente_numero_documento?: true
+    cliente_denominacion?: true
+    cliente_direccion?: true
+    cliente_email?: true
+    cliente_email_1?: true
+    cliente_email_2?: true
+    fecha_emision?: true
+    fecha_vencimiento?: true
+    fecha_servicio?: true
+    moneda?: true
+    tipo_cambio?: true
+    porcentaje_igv?: true
+    descuento_global?: true
+    total_descuento?: true
+    total_anticipo?: true
+    total_gravada?: true
+    total_inafecta?: true
+    total_exonerada?: true
+    total_igv?: true
+    total_gratuita?: true
+    total_otros_cargos?: true
+    total_isc?: true
+    total?: true
+    aplicar_detraccion?: true
+    detraccion_tipo?: true
+    detraccion_porcentaje?: true
+    detraccion_total?: true
+    medio_pago_detraccion?: true
+    ubigeo_origen?: true
+    direccion_origen?: true
+    ubigeo_destino?: true
+    direccion_destino?: true
+    detalle_viaje?: true
+    percepcion_tipo?: true
+    percepcion_base_imponible?: true
+    total_percepcion?: true
+    total_incluido_percepcion?: true
+    retencion_tipo?: true
+    retencion_base_imponible?: true
+    total_retencion?: true
+    fondo_garantia?: true
+    fondo_garantia_valor?: true
+    orden_compra?: true
+    orden_compra_valor?: true
+    placa_vehiculo?: true
+    orden_compra_servicio?: true
+    centro_costo_nivel1_codigo?: true
+    centro_costo_nivel2_codigo?: true
+    centro_costo_nivel3_codigo?: true
+    unidad?: true
+    unidad_id?: true
+    observaciones?: true
+    enviar_automaticamente_sunat?: true
+    enviar_automaticamente_cliente?: true
+    formato_pdf?: true
+    enlace?: true
+    enlace_del_pdf?: true
+    enlace_del_xml?: true
+    enlace_del_cdr?: true
+    cadena_para_codigo_qr?: true
+    codigo_hash?: true
+    aceptada_por_sunat?: true
+    sunat_description?: true
+    sunat_note?: true
+    sunat_responsecode?: true
+    sunat_soap_error?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type FacturaCountAggregateInputType = {
+    id_factura?: true
+    estado_factura?: true
+    operacion?: true
+    tipo_de_comprobante?: true
+    serie?: true
+    numero?: true
+    sunat_transaction?: true
+    id_proveedor?: true
+    cliente_tipo_documento?: true
+    cliente_numero_documento?: true
+    cliente_denominacion?: true
+    cliente_direccion?: true
+    cliente_email?: true
+    cliente_email_1?: true
+    cliente_email_2?: true
+    fecha_emision?: true
+    fecha_vencimiento?: true
+    fecha_servicio?: true
+    moneda?: true
+    tipo_cambio?: true
+    porcentaje_igv?: true
+    descuento_global?: true
+    total_descuento?: true
+    total_anticipo?: true
+    total_gravada?: true
+    total_inafecta?: true
+    total_exonerada?: true
+    total_igv?: true
+    total_gratuita?: true
+    total_otros_cargos?: true
+    total_isc?: true
+    total?: true
+    aplicar_detraccion?: true
+    detraccion_tipo?: true
+    detraccion_porcentaje?: true
+    detraccion_total?: true
+    medio_pago_detraccion?: true
+    ubigeo_origen?: true
+    direccion_origen?: true
+    ubigeo_destino?: true
+    direccion_destino?: true
+    detalle_viaje?: true
+    percepcion_tipo?: true
+    percepcion_base_imponible?: true
+    total_percepcion?: true
+    total_incluido_percepcion?: true
+    retencion_tipo?: true
+    retencion_base_imponible?: true
+    total_retencion?: true
+    fondo_garantia?: true
+    fondo_garantia_valor?: true
+    orden_compra?: true
+    orden_compra_valor?: true
+    placa_vehiculo?: true
+    orden_compra_servicio?: true
+    centro_costo_nivel1_codigo?: true
+    centro_costo_nivel2_codigo?: true
+    centro_costo_nivel3_codigo?: true
+    unidad?: true
+    unidad_id?: true
+    observaciones?: true
+    enviar_automaticamente_sunat?: true
+    enviar_automaticamente_cliente?: true
+    formato_pdf?: true
+    enlace?: true
+    enlace_del_pdf?: true
+    enlace_del_xml?: true
+    enlace_del_cdr?: true
+    cadena_para_codigo_qr?: true
+    codigo_hash?: true
+    aceptada_por_sunat?: true
+    sunat_description?: true
+    sunat_note?: true
+    sunat_responsecode?: true
+    sunat_soap_error?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type FacturaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura to aggregate.
+     */
+    where?: facturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of facturas to fetch.
+     */
+    orderBy?: facturaOrderByWithRelationInput | facturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: facturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned facturas
+    **/
+    _count?: true | FacturaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FacturaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FacturaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FacturaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FacturaMaxAggregateInputType
+  }
+
+  export type GetFacturaAggregateType<T extends FacturaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFactura]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFactura[P]>
+      : GetScalarType<T[P], AggregateFactura[P]>
+  }
+
+
+
+
+  export type facturaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: facturaWhereInput
+    orderBy?: facturaOrderByWithAggregationInput | facturaOrderByWithAggregationInput[]
+    by: FacturaScalarFieldEnum[] | FacturaScalarFieldEnum
+    having?: facturaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FacturaCountAggregateInputType | true
+    _avg?: FacturaAvgAggregateInputType
+    _sum?: FacturaSumAggregateInputType
+    _min?: FacturaMinAggregateInputType
+    _max?: FacturaMaxAggregateInputType
+  }
+
+  export type FacturaGroupByOutputType = {
+    id_factura: number
+    estado_factura: string | null
+    operacion: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction: number
+    id_proveedor: number
+    cliente_tipo_documento: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion: string | null
+    cliente_email: string | null
+    cliente_email_1: string | null
+    cliente_email_2: string | null
+    fecha_emision: Date
+    fecha_vencimiento: Date | null
+    fecha_servicio: Date | null
+    moneda: number
+    tipo_cambio: Decimal | null
+    porcentaje_igv: Decimal
+    descuento_global: Decimal | null
+    total_descuento: Decimal | null
+    total_anticipo: Decimal | null
+    total_gravada: Decimal | null
+    total_inafecta: Decimal | null
+    total_exonerada: Decimal | null
+    total_igv: Decimal | null
+    total_gratuita: Decimal | null
+    total_otros_cargos: Decimal | null
+    total_isc: Decimal | null
+    total: Decimal
+    aplicar_detraccion: boolean
+    detraccion_tipo: number | null
+    detraccion_porcentaje: Decimal | null
+    detraccion_total: Decimal | null
+    medio_pago_detraccion: number | null
+    ubigeo_origen: string | null
+    direccion_origen: string | null
+    ubigeo_destino: string | null
+    direccion_destino: string | null
+    detalle_viaje: string | null
+    percepcion_tipo: number | null
+    percepcion_base_imponible: Decimal | null
+    total_percepcion: Decimal | null
+    total_incluido_percepcion: Decimal | null
+    retencion_tipo: number | null
+    retencion_base_imponible: Decimal | null
+    total_retencion: Decimal | null
+    fondo_garantia: boolean
+    fondo_garantia_valor: string | null
+    orden_compra: boolean
+    orden_compra_valor: string | null
+    placa_vehiculo: string | null
+    orden_compra_servicio: string | null
+    centro_costo_nivel1_codigo: string | null
+    centro_costo_nivel2_codigo: string | null
+    centro_costo_nivel3_codigo: string | null
+    unidad: string | null
+    unidad_id: number | null
+    observaciones: string | null
+    enviar_automaticamente_sunat: boolean
+    enviar_automaticamente_cliente: boolean
+    formato_pdf: string | null
+    enlace: string | null
+    enlace_del_pdf: string | null
+    enlace_del_xml: string | null
+    enlace_del_cdr: string | null
+    cadena_para_codigo_qr: string | null
+    codigo_hash: string | null
+    aceptada_por_sunat: boolean | null
+    sunat_description: string | null
+    sunat_note: string | null
+    sunat_responsecode: string | null
+    sunat_soap_error: string | null
+    created_at: Date
+    updated_at: Date
+    _count: FacturaCountAggregateOutputType | null
+    _avg: FacturaAvgAggregateOutputType | null
+    _sum: FacturaSumAggregateOutputType | null
+    _min: FacturaMinAggregateOutputType | null
+    _max: FacturaMaxAggregateOutputType | null
+  }
+
+  type GetFacturaGroupByPayload<T extends facturaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FacturaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FacturaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FacturaGroupByOutputType[P]>
+            : GetScalarType<T[P], FacturaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type facturaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_factura?: boolean
+    estado_factura?: boolean
+    operacion?: boolean
+    tipo_de_comprobante?: boolean
+    serie?: boolean
+    numero?: boolean
+    sunat_transaction?: boolean
+    id_proveedor?: boolean
+    cliente_tipo_documento?: boolean
+    cliente_numero_documento?: boolean
+    cliente_denominacion?: boolean
+    cliente_direccion?: boolean
+    cliente_email?: boolean
+    cliente_email_1?: boolean
+    cliente_email_2?: boolean
+    fecha_emision?: boolean
+    fecha_vencimiento?: boolean
+    fecha_servicio?: boolean
+    moneda?: boolean
+    tipo_cambio?: boolean
+    porcentaje_igv?: boolean
+    descuento_global?: boolean
+    total_descuento?: boolean
+    total_anticipo?: boolean
+    total_gravada?: boolean
+    total_inafecta?: boolean
+    total_exonerada?: boolean
+    total_igv?: boolean
+    total_gratuita?: boolean
+    total_otros_cargos?: boolean
+    total_isc?: boolean
+    total?: boolean
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: boolean
+    detraccion_porcentaje?: boolean
+    detraccion_total?: boolean
+    medio_pago_detraccion?: boolean
+    ubigeo_origen?: boolean
+    direccion_origen?: boolean
+    ubigeo_destino?: boolean
+    direccion_destino?: boolean
+    detalle_viaje?: boolean
+    percepcion_tipo?: boolean
+    percepcion_base_imponible?: boolean
+    total_percepcion?: boolean
+    total_incluido_percepcion?: boolean
+    retencion_tipo?: boolean
+    retencion_base_imponible?: boolean
+    total_retencion?: boolean
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: boolean
+    orden_compra?: boolean
+    orden_compra_valor?: boolean
+    placa_vehiculo?: boolean
+    orden_compra_servicio?: boolean
+    centro_costo_nivel1_codigo?: boolean
+    centro_costo_nivel2_codigo?: boolean
+    centro_costo_nivel3_codigo?: boolean
+    unidad?: boolean
+    unidad_id?: boolean
+    observaciones?: boolean
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: boolean
+    enlace?: boolean
+    enlace_del_pdf?: boolean
+    enlace_del_xml?: boolean
+    enlace_del_cdr?: boolean
+    cadena_para_codigo_qr?: boolean
+    codigo_hash?: boolean
+    aceptada_por_sunat?: boolean
+    sunat_description?: boolean
+    sunat_note?: boolean
+    sunat_responsecode?: boolean
+    sunat_soap_error?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
+    factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
+    factura_item?: boolean | factura$factura_itemArgs<ExtArgs>
+    factura_venta_credito?: boolean | factura$factura_venta_creditoArgs<ExtArgs>
+    _count?: boolean | FacturaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["factura"]>
+
+
+
+  export type facturaSelectScalar = {
+    id_factura?: boolean
+    estado_factura?: boolean
+    operacion?: boolean
+    tipo_de_comprobante?: boolean
+    serie?: boolean
+    numero?: boolean
+    sunat_transaction?: boolean
+    id_proveedor?: boolean
+    cliente_tipo_documento?: boolean
+    cliente_numero_documento?: boolean
+    cliente_denominacion?: boolean
+    cliente_direccion?: boolean
+    cliente_email?: boolean
+    cliente_email_1?: boolean
+    cliente_email_2?: boolean
+    fecha_emision?: boolean
+    fecha_vencimiento?: boolean
+    fecha_servicio?: boolean
+    moneda?: boolean
+    tipo_cambio?: boolean
+    porcentaje_igv?: boolean
+    descuento_global?: boolean
+    total_descuento?: boolean
+    total_anticipo?: boolean
+    total_gravada?: boolean
+    total_inafecta?: boolean
+    total_exonerada?: boolean
+    total_igv?: boolean
+    total_gratuita?: boolean
+    total_otros_cargos?: boolean
+    total_isc?: boolean
+    total?: boolean
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: boolean
+    detraccion_porcentaje?: boolean
+    detraccion_total?: boolean
+    medio_pago_detraccion?: boolean
+    ubigeo_origen?: boolean
+    direccion_origen?: boolean
+    ubigeo_destino?: boolean
+    direccion_destino?: boolean
+    detalle_viaje?: boolean
+    percepcion_tipo?: boolean
+    percepcion_base_imponible?: boolean
+    total_percepcion?: boolean
+    total_incluido_percepcion?: boolean
+    retencion_tipo?: boolean
+    retencion_base_imponible?: boolean
+    total_retencion?: boolean
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: boolean
+    orden_compra?: boolean
+    orden_compra_valor?: boolean
+    placa_vehiculo?: boolean
+    orden_compra_servicio?: boolean
+    centro_costo_nivel1_codigo?: boolean
+    centro_costo_nivel2_codigo?: boolean
+    centro_costo_nivel3_codigo?: boolean
+    unidad?: boolean
+    unidad_id?: boolean
+    observaciones?: boolean
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: boolean
+    enlace?: boolean
+    enlace_del_pdf?: boolean
+    enlace_del_xml?: boolean
+    enlace_del_cdr?: boolean
+    cadena_para_codigo_qr?: boolean
+    codigo_hash?: boolean
+    aceptada_por_sunat?: boolean
+    sunat_description?: boolean
+    sunat_note?: boolean
+    sunat_responsecode?: boolean
+    sunat_soap_error?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at", ExtArgs["result"]["factura"]>
+  export type facturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
+    factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
+    factura_item?: boolean | factura$factura_itemArgs<ExtArgs>
+    factura_venta_credito?: boolean | factura$factura_venta_creditoArgs<ExtArgs>
+    _count?: boolean | FacturaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $facturaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "factura"
+    objects: {
+      proveedores: Prisma.$proveedoresPayload<ExtArgs>
+      factura_guia: Prisma.$factura_guiaPayload<ExtArgs>[]
+      factura_item: Prisma.$factura_itemPayload<ExtArgs>[]
+      factura_venta_credito: Prisma.$factura_venta_creditoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_factura: number
+      estado_factura: string | null
+      operacion: string
+      tipo_de_comprobante: number
+      serie: string
+      numero: number
+      sunat_transaction: number
+      id_proveedor: number
+      cliente_tipo_documento: number
+      cliente_numero_documento: string
+      cliente_denominacion: string
+      cliente_direccion: string | null
+      cliente_email: string | null
+      cliente_email_1: string | null
+      cliente_email_2: string | null
+      fecha_emision: Date
+      fecha_vencimiento: Date | null
+      fecha_servicio: Date | null
+      moneda: number
+      tipo_cambio: Prisma.Decimal | null
+      porcentaje_igv: Prisma.Decimal
+      descuento_global: Prisma.Decimal | null
+      total_descuento: Prisma.Decimal | null
+      total_anticipo: Prisma.Decimal | null
+      total_gravada: Prisma.Decimal | null
+      total_inafecta: Prisma.Decimal | null
+      total_exonerada: Prisma.Decimal | null
+      total_igv: Prisma.Decimal | null
+      total_gratuita: Prisma.Decimal | null
+      total_otros_cargos: Prisma.Decimal | null
+      total_isc: Prisma.Decimal | null
+      total: Prisma.Decimal
+      aplicar_detraccion: boolean
+      detraccion_tipo: number | null
+      detraccion_porcentaje: Prisma.Decimal | null
+      detraccion_total: Prisma.Decimal | null
+      medio_pago_detraccion: number | null
+      ubigeo_origen: string | null
+      direccion_origen: string | null
+      ubigeo_destino: string | null
+      direccion_destino: string | null
+      detalle_viaje: string | null
+      percepcion_tipo: number | null
+      percepcion_base_imponible: Prisma.Decimal | null
+      total_percepcion: Prisma.Decimal | null
+      total_incluido_percepcion: Prisma.Decimal | null
+      retencion_tipo: number | null
+      retencion_base_imponible: Prisma.Decimal | null
+      total_retencion: Prisma.Decimal | null
+      fondo_garantia: boolean
+      fondo_garantia_valor: string | null
+      orden_compra: boolean
+      orden_compra_valor: string | null
+      placa_vehiculo: string | null
+      orden_compra_servicio: string | null
+      centro_costo_nivel1_codigo: string | null
+      centro_costo_nivel2_codigo: string | null
+      centro_costo_nivel3_codigo: string | null
+      unidad: string | null
+      unidad_id: number | null
+      observaciones: string | null
+      enviar_automaticamente_sunat: boolean
+      enviar_automaticamente_cliente: boolean
+      formato_pdf: string | null
+      enlace: string | null
+      enlace_del_pdf: string | null
+      enlace_del_xml: string | null
+      enlace_del_cdr: string | null
+      cadena_para_codigo_qr: string | null
+      codigo_hash: string | null
+      aceptada_por_sunat: boolean | null
+      sunat_description: string | null
+      sunat_note: string | null
+      sunat_responsecode: string | null
+      sunat_soap_error: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["factura"]>
+    composites: {}
+  }
+
+  type facturaGetPayload<S extends boolean | null | undefined | facturaDefaultArgs> = $Result.GetResult<Prisma.$facturaPayload, S>
+
+  type facturaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<facturaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FacturaCountAggregateInputType | true
+    }
+
+  export interface facturaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['factura'], meta: { name: 'factura' } }
+    /**
+     * Find zero or one Factura that matches the filter.
+     * @param {facturaFindUniqueArgs} args - Arguments to find a Factura
+     * @example
+     * // Get one Factura
+     * const factura = await prisma.factura.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends facturaFindUniqueArgs>(args: SelectSubset<T, facturaFindUniqueArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Factura that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {facturaFindUniqueOrThrowArgs} args - Arguments to find a Factura
+     * @example
+     * // Get one Factura
+     * const factura = await prisma.factura.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends facturaFindUniqueOrThrowArgs>(args: SelectSubset<T, facturaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaFindFirstArgs} args - Arguments to find a Factura
+     * @example
+     * // Get one Factura
+     * const factura = await prisma.factura.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends facturaFindFirstArgs>(args?: SelectSubset<T, facturaFindFirstArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaFindFirstOrThrowArgs} args - Arguments to find a Factura
+     * @example
+     * // Get one Factura
+     * const factura = await prisma.factura.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends facturaFindFirstOrThrowArgs>(args?: SelectSubset<T, facturaFindFirstOrThrowArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Facturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Facturas
+     * const facturas = await prisma.factura.findMany()
+     * 
+     * // Get first 10 Facturas
+     * const facturas = await prisma.factura.findMany({ take: 10 })
+     * 
+     * // Only select the `id_factura`
+     * const facturaWithId_facturaOnly = await prisma.factura.findMany({ select: { id_factura: true } })
+     * 
+     */
+    findMany<T extends facturaFindManyArgs>(args?: SelectSubset<T, facturaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Factura.
+     * @param {facturaCreateArgs} args - Arguments to create a Factura.
+     * @example
+     * // Create one Factura
+     * const Factura = await prisma.factura.create({
+     *   data: {
+     *     // ... data to create a Factura
+     *   }
+     * })
+     * 
+     */
+    create<T extends facturaCreateArgs>(args: SelectSubset<T, facturaCreateArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Facturas.
+     * @param {facturaCreateManyArgs} args - Arguments to create many Facturas.
+     * @example
+     * // Create many Facturas
+     * const factura = await prisma.factura.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends facturaCreateManyArgs>(args?: SelectSubset<T, facturaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Factura.
+     * @param {facturaDeleteArgs} args - Arguments to delete one Factura.
+     * @example
+     * // Delete one Factura
+     * const Factura = await prisma.factura.delete({
+     *   where: {
+     *     // ... filter to delete one Factura
+     *   }
+     * })
+     * 
+     */
+    delete<T extends facturaDeleteArgs>(args: SelectSubset<T, facturaDeleteArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Factura.
+     * @param {facturaUpdateArgs} args - Arguments to update one Factura.
+     * @example
+     * // Update one Factura
+     * const factura = await prisma.factura.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends facturaUpdateArgs>(args: SelectSubset<T, facturaUpdateArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Facturas.
+     * @param {facturaDeleteManyArgs} args - Arguments to filter Facturas to delete.
+     * @example
+     * // Delete a few Facturas
+     * const { count } = await prisma.factura.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends facturaDeleteManyArgs>(args?: SelectSubset<T, facturaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Facturas
+     * const factura = await prisma.factura.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends facturaUpdateManyArgs>(args: SelectSubset<T, facturaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Factura.
+     * @param {facturaUpsertArgs} args - Arguments to update or create a Factura.
+     * @example
+     * // Update or create a Factura
+     * const factura = await prisma.factura.upsert({
+     *   create: {
+     *     // ... data to create a Factura
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Factura we want to update
+     *   }
+     * })
+     */
+    upsert<T extends facturaUpsertArgs>(args: SelectSubset<T, facturaUpsertArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaCountArgs} args - Arguments to filter Facturas to count.
+     * @example
+     * // Count the number of Facturas
+     * const count = await prisma.factura.count({
+     *   where: {
+     *     // ... the filter for the Facturas we want to count
+     *   }
+     * })
+    **/
+    count<T extends facturaCountArgs>(
+      args?: Subset<T, facturaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FacturaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Factura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FacturaAggregateArgs>(args: Subset<T, FacturaAggregateArgs>): Prisma.PrismaPromise<GetFacturaAggregateType<T>>
+
+    /**
+     * Group by Factura.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {facturaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends facturaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: facturaGroupByArgs['orderBy'] }
+        : { orderBy?: facturaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, facturaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFacturaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the factura model
+   */
+  readonly fields: facturaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for factura.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__facturaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    factura_guia<T extends factura$factura_guiaArgs<ExtArgs> = {}>(args?: Subset<T, factura$factura_guiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    factura_item<T extends factura$factura_itemArgs<ExtArgs> = {}>(args?: Subset<T, factura$factura_itemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    factura_venta_credito<T extends factura$factura_venta_creditoArgs<ExtArgs> = {}>(args?: Subset<T, factura$factura_venta_creditoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the factura model
+   */
+  interface facturaFieldRefs {
+    readonly id_factura: FieldRef<"factura", 'Int'>
+    readonly estado_factura: FieldRef<"factura", 'String'>
+    readonly operacion: FieldRef<"factura", 'String'>
+    readonly tipo_de_comprobante: FieldRef<"factura", 'Int'>
+    readonly serie: FieldRef<"factura", 'String'>
+    readonly numero: FieldRef<"factura", 'Int'>
+    readonly sunat_transaction: FieldRef<"factura", 'Int'>
+    readonly id_proveedor: FieldRef<"factura", 'Int'>
+    readonly cliente_tipo_documento: FieldRef<"factura", 'Int'>
+    readonly cliente_numero_documento: FieldRef<"factura", 'String'>
+    readonly cliente_denominacion: FieldRef<"factura", 'String'>
+    readonly cliente_direccion: FieldRef<"factura", 'String'>
+    readonly cliente_email: FieldRef<"factura", 'String'>
+    readonly cliente_email_1: FieldRef<"factura", 'String'>
+    readonly cliente_email_2: FieldRef<"factura", 'String'>
+    readonly fecha_emision: FieldRef<"factura", 'DateTime'>
+    readonly fecha_vencimiento: FieldRef<"factura", 'DateTime'>
+    readonly fecha_servicio: FieldRef<"factura", 'DateTime'>
+    readonly moneda: FieldRef<"factura", 'Int'>
+    readonly tipo_cambio: FieldRef<"factura", 'Decimal'>
+    readonly porcentaje_igv: FieldRef<"factura", 'Decimal'>
+    readonly descuento_global: FieldRef<"factura", 'Decimal'>
+    readonly total_descuento: FieldRef<"factura", 'Decimal'>
+    readonly total_anticipo: FieldRef<"factura", 'Decimal'>
+    readonly total_gravada: FieldRef<"factura", 'Decimal'>
+    readonly total_inafecta: FieldRef<"factura", 'Decimal'>
+    readonly total_exonerada: FieldRef<"factura", 'Decimal'>
+    readonly total_igv: FieldRef<"factura", 'Decimal'>
+    readonly total_gratuita: FieldRef<"factura", 'Decimal'>
+    readonly total_otros_cargos: FieldRef<"factura", 'Decimal'>
+    readonly total_isc: FieldRef<"factura", 'Decimal'>
+    readonly total: FieldRef<"factura", 'Decimal'>
+    readonly aplicar_detraccion: FieldRef<"factura", 'Boolean'>
+    readonly detraccion_tipo: FieldRef<"factura", 'Int'>
+    readonly detraccion_porcentaje: FieldRef<"factura", 'Decimal'>
+    readonly detraccion_total: FieldRef<"factura", 'Decimal'>
+    readonly medio_pago_detraccion: FieldRef<"factura", 'Int'>
+    readonly ubigeo_origen: FieldRef<"factura", 'String'>
+    readonly direccion_origen: FieldRef<"factura", 'String'>
+    readonly ubigeo_destino: FieldRef<"factura", 'String'>
+    readonly direccion_destino: FieldRef<"factura", 'String'>
+    readonly detalle_viaje: FieldRef<"factura", 'String'>
+    readonly percepcion_tipo: FieldRef<"factura", 'Int'>
+    readonly percepcion_base_imponible: FieldRef<"factura", 'Decimal'>
+    readonly total_percepcion: FieldRef<"factura", 'Decimal'>
+    readonly total_incluido_percepcion: FieldRef<"factura", 'Decimal'>
+    readonly retencion_tipo: FieldRef<"factura", 'Int'>
+    readonly retencion_base_imponible: FieldRef<"factura", 'Decimal'>
+    readonly total_retencion: FieldRef<"factura", 'Decimal'>
+    readonly fondo_garantia: FieldRef<"factura", 'Boolean'>
+    readonly fondo_garantia_valor: FieldRef<"factura", 'String'>
+    readonly orden_compra: FieldRef<"factura", 'Boolean'>
+    readonly orden_compra_valor: FieldRef<"factura", 'String'>
+    readonly placa_vehiculo: FieldRef<"factura", 'String'>
+    readonly orden_compra_servicio: FieldRef<"factura", 'String'>
+    readonly centro_costo_nivel1_codigo: FieldRef<"factura", 'String'>
+    readonly centro_costo_nivel2_codigo: FieldRef<"factura", 'String'>
+    readonly centro_costo_nivel3_codigo: FieldRef<"factura", 'String'>
+    readonly unidad: FieldRef<"factura", 'String'>
+    readonly unidad_id: FieldRef<"factura", 'Int'>
+    readonly observaciones: FieldRef<"factura", 'String'>
+    readonly enviar_automaticamente_sunat: FieldRef<"factura", 'Boolean'>
+    readonly enviar_automaticamente_cliente: FieldRef<"factura", 'Boolean'>
+    readonly formato_pdf: FieldRef<"factura", 'String'>
+    readonly enlace: FieldRef<"factura", 'String'>
+    readonly enlace_del_pdf: FieldRef<"factura", 'String'>
+    readonly enlace_del_xml: FieldRef<"factura", 'String'>
+    readonly enlace_del_cdr: FieldRef<"factura", 'String'>
+    readonly cadena_para_codigo_qr: FieldRef<"factura", 'String'>
+    readonly codigo_hash: FieldRef<"factura", 'String'>
+    readonly aceptada_por_sunat: FieldRef<"factura", 'Boolean'>
+    readonly sunat_description: FieldRef<"factura", 'String'>
+    readonly sunat_note: FieldRef<"factura", 'String'>
+    readonly sunat_responsecode: FieldRef<"factura", 'String'>
+    readonly sunat_soap_error: FieldRef<"factura", 'String'>
+    readonly created_at: FieldRef<"factura", 'DateTime'>
+    readonly updated_at: FieldRef<"factura", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * factura findUnique
+   */
+  export type facturaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura to fetch.
+     */
+    where: facturaWhereUniqueInput
+  }
+
+  /**
+   * factura findUniqueOrThrow
+   */
+  export type facturaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura to fetch.
+     */
+    where: facturaWhereUniqueInput
+  }
+
+  /**
+   * factura findFirst
+   */
+  export type facturaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura to fetch.
+     */
+    where?: facturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of facturas to fetch.
+     */
+    orderBy?: facturaOrderByWithRelationInput | facturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for facturas.
+     */
+    cursor?: facturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of facturas.
+     */
+    distinct?: FacturaScalarFieldEnum | FacturaScalarFieldEnum[]
+  }
+
+  /**
+   * factura findFirstOrThrow
+   */
+  export type facturaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura to fetch.
+     */
+    where?: facturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of facturas to fetch.
+     */
+    orderBy?: facturaOrderByWithRelationInput | facturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for facturas.
+     */
+    cursor?: facturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of facturas.
+     */
+    distinct?: FacturaScalarFieldEnum | FacturaScalarFieldEnum[]
+  }
+
+  /**
+   * factura findMany
+   */
+  export type facturaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter, which facturas to fetch.
+     */
+    where?: facturaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of facturas to fetch.
+     */
+    orderBy?: facturaOrderByWithRelationInput | facturaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing facturas.
+     */
+    cursor?: facturaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` facturas.
+     */
+    skip?: number
+    distinct?: FacturaScalarFieldEnum | FacturaScalarFieldEnum[]
+  }
+
+  /**
+   * factura create
+   */
+  export type facturaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a factura.
+     */
+    data: XOR<facturaCreateInput, facturaUncheckedCreateInput>
+  }
+
+  /**
+   * factura createMany
+   */
+  export type facturaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many facturas.
+     */
+    data: facturaCreateManyInput | facturaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * factura update
+   */
+  export type facturaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a factura.
+     */
+    data: XOR<facturaUpdateInput, facturaUncheckedUpdateInput>
+    /**
+     * Choose, which factura to update.
+     */
+    where: facturaWhereUniqueInput
+  }
+
+  /**
+   * factura updateMany
+   */
+  export type facturaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update facturas.
+     */
+    data: XOR<facturaUpdateManyMutationInput, facturaUncheckedUpdateManyInput>
+    /**
+     * Filter which facturas to update
+     */
+    where?: facturaWhereInput
+    /**
+     * Limit how many facturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura upsert
+   */
+  export type facturaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the factura to update in case it exists.
+     */
+    where: facturaWhereUniqueInput
+    /**
+     * In case the factura found by the `where` argument doesn't exist, create a new factura with this data.
+     */
+    create: XOR<facturaCreateInput, facturaUncheckedCreateInput>
+    /**
+     * In case the factura was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<facturaUpdateInput, facturaUncheckedUpdateInput>
+  }
+
+  /**
+   * factura delete
+   */
+  export type facturaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+    /**
+     * Filter which factura to delete.
+     */
+    where: facturaWhereUniqueInput
+  }
+
+  /**
+   * factura deleteMany
+   */
+  export type facturaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which facturas to delete
+     */
+    where?: facturaWhereInput
+    /**
+     * Limit how many facturas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura.factura_guia
+   */
+  export type factura$factura_guiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    where?: factura_guiaWhereInput
+    orderBy?: factura_guiaOrderByWithRelationInput | factura_guiaOrderByWithRelationInput[]
+    cursor?: factura_guiaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Factura_guiaScalarFieldEnum | Factura_guiaScalarFieldEnum[]
+  }
+
+  /**
+   * factura.factura_item
+   */
+  export type factura$factura_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    where?: factura_itemWhereInput
+    orderBy?: factura_itemOrderByWithRelationInput | factura_itemOrderByWithRelationInput[]
+    cursor?: factura_itemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Factura_itemScalarFieldEnum | Factura_itemScalarFieldEnum[]
+  }
+
+  /**
+   * factura.factura_venta_credito
+   */
+  export type factura$factura_venta_creditoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    where?: factura_venta_creditoWhereInput
+    orderBy?: factura_venta_creditoOrderByWithRelationInput | factura_venta_creditoOrderByWithRelationInput[]
+    cursor?: factura_venta_creditoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Factura_venta_creditoScalarFieldEnum | Factura_venta_creditoScalarFieldEnum[]
+  }
+
+  /**
+   * factura without action
+   */
+  export type facturaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura
+     */
+    select?: facturaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura
+     */
+    omit?: facturaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: facturaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model factura_guia
+   */
+
+  export type AggregateFactura_guia = {
+    _count: Factura_guiaCountAggregateOutputType | null
+    _avg: Factura_guiaAvgAggregateOutputType | null
+    _sum: Factura_guiaSumAggregateOutputType | null
+    _min: Factura_guiaMinAggregateOutputType | null
+    _max: Factura_guiaMaxAggregateOutputType | null
+  }
+
+  export type Factura_guiaAvgAggregateOutputType = {
+    id_factura_guia: number | null
+    id_factura: number | null
+    guia_tipo: number | null
+  }
+
+  export type Factura_guiaSumAggregateOutputType = {
+    id_factura_guia: number | null
+    id_factura: number | null
+    guia_tipo: number | null
+  }
+
+  export type Factura_guiaMinAggregateOutputType = {
+    id_factura_guia: number | null
+    id_factura: number | null
+    guia_tipo: number | null
+    guia_serie_numero: string | null
+    created_at: Date | null
+  }
+
+  export type Factura_guiaMaxAggregateOutputType = {
+    id_factura_guia: number | null
+    id_factura: number | null
+    guia_tipo: number | null
+    guia_serie_numero: string | null
+    created_at: Date | null
+  }
+
+  export type Factura_guiaCountAggregateOutputType = {
+    id_factura_guia: number
+    id_factura: number
+    guia_tipo: number
+    guia_serie_numero: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Factura_guiaAvgAggregateInputType = {
+    id_factura_guia?: true
+    id_factura?: true
+    guia_tipo?: true
+  }
+
+  export type Factura_guiaSumAggregateInputType = {
+    id_factura_guia?: true
+    id_factura?: true
+    guia_tipo?: true
+  }
+
+  export type Factura_guiaMinAggregateInputType = {
+    id_factura_guia?: true
+    id_factura?: true
+    guia_tipo?: true
+    guia_serie_numero?: true
+    created_at?: true
+  }
+
+  export type Factura_guiaMaxAggregateInputType = {
+    id_factura_guia?: true
+    id_factura?: true
+    guia_tipo?: true
+    guia_serie_numero?: true
+    created_at?: true
+  }
+
+  export type Factura_guiaCountAggregateInputType = {
+    id_factura_guia?: true
+    id_factura?: true
+    guia_tipo?: true
+    guia_serie_numero?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Factura_guiaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_guia to aggregate.
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_guias to fetch.
+     */
+    orderBy?: factura_guiaOrderByWithRelationInput | factura_guiaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: factura_guiaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_guias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_guias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned factura_guias
+    **/
+    _count?: true | Factura_guiaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Factura_guiaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Factura_guiaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Factura_guiaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Factura_guiaMaxAggregateInputType
+  }
+
+  export type GetFactura_guiaAggregateType<T extends Factura_guiaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFactura_guia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFactura_guia[P]>
+      : GetScalarType<T[P], AggregateFactura_guia[P]>
+  }
+
+
+
+
+  export type factura_guiaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_guiaWhereInput
+    orderBy?: factura_guiaOrderByWithAggregationInput | factura_guiaOrderByWithAggregationInput[]
+    by: Factura_guiaScalarFieldEnum[] | Factura_guiaScalarFieldEnum
+    having?: factura_guiaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Factura_guiaCountAggregateInputType | true
+    _avg?: Factura_guiaAvgAggregateInputType
+    _sum?: Factura_guiaSumAggregateInputType
+    _min?: Factura_guiaMinAggregateInputType
+    _max?: Factura_guiaMaxAggregateInputType
+  }
+
+  export type Factura_guiaGroupByOutputType = {
+    id_factura_guia: number
+    id_factura: number
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at: Date
+    _count: Factura_guiaCountAggregateOutputType | null
+    _avg: Factura_guiaAvgAggregateOutputType | null
+    _sum: Factura_guiaSumAggregateOutputType | null
+    _min: Factura_guiaMinAggregateOutputType | null
+    _max: Factura_guiaMaxAggregateOutputType | null
+  }
+
+  type GetFactura_guiaGroupByPayload<T extends factura_guiaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Factura_guiaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Factura_guiaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Factura_guiaGroupByOutputType[P]>
+            : GetScalarType<T[P], Factura_guiaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type factura_guiaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_factura_guia?: boolean
+    id_factura?: boolean
+    guia_tipo?: boolean
+    guia_serie_numero?: boolean
+    created_at?: boolean
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["factura_guia"]>
+
+
+
+  export type factura_guiaSelectScalar = {
+    id_factura_guia?: boolean
+    id_factura?: boolean
+    guia_tipo?: boolean
+    guia_serie_numero?: boolean
+    created_at?: boolean
+  }
+
+  export type factura_guiaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura_guia" | "id_factura" | "guia_tipo" | "guia_serie_numero" | "created_at", ExtArgs["result"]["factura_guia"]>
+  export type factura_guiaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }
+
+  export type $factura_guiaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "factura_guia"
+    objects: {
+      factura: Prisma.$facturaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_factura_guia: number
+      id_factura: number
+      guia_tipo: number
+      guia_serie_numero: string
+      created_at: Date
+    }, ExtArgs["result"]["factura_guia"]>
+    composites: {}
+  }
+
+  type factura_guiaGetPayload<S extends boolean | null | undefined | factura_guiaDefaultArgs> = $Result.GetResult<Prisma.$factura_guiaPayload, S>
+
+  type factura_guiaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<factura_guiaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Factura_guiaCountAggregateInputType | true
+    }
+
+  export interface factura_guiaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['factura_guia'], meta: { name: 'factura_guia' } }
+    /**
+     * Find zero or one Factura_guia that matches the filter.
+     * @param {factura_guiaFindUniqueArgs} args - Arguments to find a Factura_guia
+     * @example
+     * // Get one Factura_guia
+     * const factura_guia = await prisma.factura_guia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends factura_guiaFindUniqueArgs>(args: SelectSubset<T, factura_guiaFindUniqueArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Factura_guia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {factura_guiaFindUniqueOrThrowArgs} args - Arguments to find a Factura_guia
+     * @example
+     * // Get one Factura_guia
+     * const factura_guia = await prisma.factura_guia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends factura_guiaFindUniqueOrThrowArgs>(args: SelectSubset<T, factura_guiaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_guia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaFindFirstArgs} args - Arguments to find a Factura_guia
+     * @example
+     * // Get one Factura_guia
+     * const factura_guia = await prisma.factura_guia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends factura_guiaFindFirstArgs>(args?: SelectSubset<T, factura_guiaFindFirstArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_guia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaFindFirstOrThrowArgs} args - Arguments to find a Factura_guia
+     * @example
+     * // Get one Factura_guia
+     * const factura_guia = await prisma.factura_guia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends factura_guiaFindFirstOrThrowArgs>(args?: SelectSubset<T, factura_guiaFindFirstOrThrowArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Factura_guias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Factura_guias
+     * const factura_guias = await prisma.factura_guia.findMany()
+     * 
+     * // Get first 10 Factura_guias
+     * const factura_guias = await prisma.factura_guia.findMany({ take: 10 })
+     * 
+     * // Only select the `id_factura_guia`
+     * const factura_guiaWithId_factura_guiaOnly = await prisma.factura_guia.findMany({ select: { id_factura_guia: true } })
+     * 
+     */
+    findMany<T extends factura_guiaFindManyArgs>(args?: SelectSubset<T, factura_guiaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Factura_guia.
+     * @param {factura_guiaCreateArgs} args - Arguments to create a Factura_guia.
+     * @example
+     * // Create one Factura_guia
+     * const Factura_guia = await prisma.factura_guia.create({
+     *   data: {
+     *     // ... data to create a Factura_guia
+     *   }
+     * })
+     * 
+     */
+    create<T extends factura_guiaCreateArgs>(args: SelectSubset<T, factura_guiaCreateArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Factura_guias.
+     * @param {factura_guiaCreateManyArgs} args - Arguments to create many Factura_guias.
+     * @example
+     * // Create many Factura_guias
+     * const factura_guia = await prisma.factura_guia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends factura_guiaCreateManyArgs>(args?: SelectSubset<T, factura_guiaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Factura_guia.
+     * @param {factura_guiaDeleteArgs} args - Arguments to delete one Factura_guia.
+     * @example
+     * // Delete one Factura_guia
+     * const Factura_guia = await prisma.factura_guia.delete({
+     *   where: {
+     *     // ... filter to delete one Factura_guia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends factura_guiaDeleteArgs>(args: SelectSubset<T, factura_guiaDeleteArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Factura_guia.
+     * @param {factura_guiaUpdateArgs} args - Arguments to update one Factura_guia.
+     * @example
+     * // Update one Factura_guia
+     * const factura_guia = await prisma.factura_guia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends factura_guiaUpdateArgs>(args: SelectSubset<T, factura_guiaUpdateArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Factura_guias.
+     * @param {factura_guiaDeleteManyArgs} args - Arguments to filter Factura_guias to delete.
+     * @example
+     * // Delete a few Factura_guias
+     * const { count } = await prisma.factura_guia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends factura_guiaDeleteManyArgs>(args?: SelectSubset<T, factura_guiaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factura_guias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Factura_guias
+     * const factura_guia = await prisma.factura_guia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends factura_guiaUpdateManyArgs>(args: SelectSubset<T, factura_guiaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Factura_guia.
+     * @param {factura_guiaUpsertArgs} args - Arguments to update or create a Factura_guia.
+     * @example
+     * // Update or create a Factura_guia
+     * const factura_guia = await prisma.factura_guia.upsert({
+     *   create: {
+     *     // ... data to create a Factura_guia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Factura_guia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends factura_guiaUpsertArgs>(args: SelectSubset<T, factura_guiaUpsertArgs<ExtArgs>>): Prisma__factura_guiaClient<$Result.GetResult<Prisma.$factura_guiaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Factura_guias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaCountArgs} args - Arguments to filter Factura_guias to count.
+     * @example
+     * // Count the number of Factura_guias
+     * const count = await prisma.factura_guia.count({
+     *   where: {
+     *     // ... the filter for the Factura_guias we want to count
+     *   }
+     * })
+    **/
+    count<T extends factura_guiaCountArgs>(
+      args?: Subset<T, factura_guiaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Factura_guiaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Factura_guia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Factura_guiaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Factura_guiaAggregateArgs>(args: Subset<T, Factura_guiaAggregateArgs>): Prisma.PrismaPromise<GetFactura_guiaAggregateType<T>>
+
+    /**
+     * Group by Factura_guia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_guiaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends factura_guiaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: factura_guiaGroupByArgs['orderBy'] }
+        : { orderBy?: factura_guiaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, factura_guiaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFactura_guiaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the factura_guia model
+   */
+  readonly fields: factura_guiaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for factura_guia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__factura_guiaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    factura<T extends facturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, facturaDefaultArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the factura_guia model
+   */
+  interface factura_guiaFieldRefs {
+    readonly id_factura_guia: FieldRef<"factura_guia", 'Int'>
+    readonly id_factura: FieldRef<"factura_guia", 'Int'>
+    readonly guia_tipo: FieldRef<"factura_guia", 'Int'>
+    readonly guia_serie_numero: FieldRef<"factura_guia", 'String'>
+    readonly created_at: FieldRef<"factura_guia", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * factura_guia findUnique
+   */
+  export type factura_guiaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_guia to fetch.
+     */
+    where: factura_guiaWhereUniqueInput
+  }
+
+  /**
+   * factura_guia findUniqueOrThrow
+   */
+  export type factura_guiaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_guia to fetch.
+     */
+    where: factura_guiaWhereUniqueInput
+  }
+
+  /**
+   * factura_guia findFirst
+   */
+  export type factura_guiaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_guia to fetch.
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_guias to fetch.
+     */
+    orderBy?: factura_guiaOrderByWithRelationInput | factura_guiaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_guias.
+     */
+    cursor?: factura_guiaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_guias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_guias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_guias.
+     */
+    distinct?: Factura_guiaScalarFieldEnum | Factura_guiaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_guia findFirstOrThrow
+   */
+  export type factura_guiaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_guia to fetch.
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_guias to fetch.
+     */
+    orderBy?: factura_guiaOrderByWithRelationInput | factura_guiaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_guias.
+     */
+    cursor?: factura_guiaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_guias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_guias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_guias.
+     */
+    distinct?: Factura_guiaScalarFieldEnum | Factura_guiaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_guia findMany
+   */
+  export type factura_guiaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_guias to fetch.
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_guias to fetch.
+     */
+    orderBy?: factura_guiaOrderByWithRelationInput | factura_guiaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing factura_guias.
+     */
+    cursor?: factura_guiaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_guias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_guias.
+     */
+    skip?: number
+    distinct?: Factura_guiaScalarFieldEnum | Factura_guiaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_guia create
+   */
+  export type factura_guiaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a factura_guia.
+     */
+    data: XOR<factura_guiaCreateInput, factura_guiaUncheckedCreateInput>
+  }
+
+  /**
+   * factura_guia createMany
+   */
+  export type factura_guiaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many factura_guias.
+     */
+    data: factura_guiaCreateManyInput | factura_guiaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * factura_guia update
+   */
+  export type factura_guiaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a factura_guia.
+     */
+    data: XOR<factura_guiaUpdateInput, factura_guiaUncheckedUpdateInput>
+    /**
+     * Choose, which factura_guia to update.
+     */
+    where: factura_guiaWhereUniqueInput
+  }
+
+  /**
+   * factura_guia updateMany
+   */
+  export type factura_guiaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update factura_guias.
+     */
+    data: XOR<factura_guiaUpdateManyMutationInput, factura_guiaUncheckedUpdateManyInput>
+    /**
+     * Filter which factura_guias to update
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * Limit how many factura_guias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_guia upsert
+   */
+  export type factura_guiaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the factura_guia to update in case it exists.
+     */
+    where: factura_guiaWhereUniqueInput
+    /**
+     * In case the factura_guia found by the `where` argument doesn't exist, create a new factura_guia with this data.
+     */
+    create: XOR<factura_guiaCreateInput, factura_guiaUncheckedCreateInput>
+    /**
+     * In case the factura_guia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<factura_guiaUpdateInput, factura_guiaUncheckedUpdateInput>
+  }
+
+  /**
+   * factura_guia delete
+   */
+  export type factura_guiaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+    /**
+     * Filter which factura_guia to delete.
+     */
+    where: factura_guiaWhereUniqueInput
+  }
+
+  /**
+   * factura_guia deleteMany
+   */
+  export type factura_guiaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_guias to delete
+     */
+    where?: factura_guiaWhereInput
+    /**
+     * Limit how many factura_guias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_guia without action
+   */
+  export type factura_guiaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_guia
+     */
+    select?: factura_guiaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_guia
+     */
+    omit?: factura_guiaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_guiaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model factura_item
+   */
+
+  export type AggregateFactura_item = {
+    _count: Factura_itemCountAggregateOutputType | null
+    _avg: Factura_itemAvgAggregateOutputType | null
+    _sum: Factura_itemSumAggregateOutputType | null
+    _min: Factura_itemMinAggregateOutputType | null
+    _max: Factura_itemMaxAggregateOutputType | null
+  }
+
+  export type Factura_itemAvgAggregateOutputType = {
+    id_factura_item: number | null
+    id_factura: number | null
+    cantidad: Decimal | null
+    valor_unitario: Decimal | null
+    precio_unitario: Decimal | null
+    descuento: Decimal | null
+    subtotal: Decimal | null
+    tipo_de_igv: number | null
+    igv: Decimal | null
+    tipo_de_isc: number | null
+    isc: Decimal | null
+    total: Decimal | null
+    anticipo_documento_numero: number | null
+  }
+
+  export type Factura_itemSumAggregateOutputType = {
+    id_factura_item: number | null
+    id_factura: number | null
+    cantidad: Decimal | null
+    valor_unitario: Decimal | null
+    precio_unitario: Decimal | null
+    descuento: Decimal | null
+    subtotal: Decimal | null
+    tipo_de_igv: number | null
+    igv: Decimal | null
+    tipo_de_isc: number | null
+    isc: Decimal | null
+    total: Decimal | null
+    anticipo_documento_numero: number | null
+  }
+
+  export type Factura_itemMinAggregateOutputType = {
+    id_factura_item: number | null
+    id_factura: number | null
+    codigo_item: string | null
+    codigo_producto_sunat: string | null
+    descripcion_item: string | null
+    unidad_medida: string | null
+    cantidad: Decimal | null
+    valor_unitario: Decimal | null
+    precio_unitario: Decimal | null
+    descuento: Decimal | null
+    subtotal: Decimal | null
+    tipo_de_igv: number | null
+    igv: Decimal | null
+    tipo_de_isc: number | null
+    isc: Decimal | null
+    total: Decimal | null
+    anticipo_regularizacion: boolean | null
+    anticipo_documento_serie: string | null
+    anticipo_documento_numero: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Factura_itemMaxAggregateOutputType = {
+    id_factura_item: number | null
+    id_factura: number | null
+    codigo_item: string | null
+    codigo_producto_sunat: string | null
+    descripcion_item: string | null
+    unidad_medida: string | null
+    cantidad: Decimal | null
+    valor_unitario: Decimal | null
+    precio_unitario: Decimal | null
+    descuento: Decimal | null
+    subtotal: Decimal | null
+    tipo_de_igv: number | null
+    igv: Decimal | null
+    tipo_de_isc: number | null
+    isc: Decimal | null
+    total: Decimal | null
+    anticipo_regularizacion: boolean | null
+    anticipo_documento_serie: string | null
+    anticipo_documento_numero: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Factura_itemCountAggregateOutputType = {
+    id_factura_item: number
+    id_factura: number
+    codigo_item: number
+    codigo_producto_sunat: number
+    descripcion_item: number
+    unidad_medida: number
+    cantidad: number
+    valor_unitario: number
+    precio_unitario: number
+    descuento: number
+    subtotal: number
+    tipo_de_igv: number
+    igv: number
+    tipo_de_isc: number
+    isc: number
+    total: number
+    anticipo_regularizacion: number
+    anticipo_documento_serie: number
+    anticipo_documento_numero: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Factura_itemAvgAggregateInputType = {
+    id_factura_item?: true
+    id_factura?: true
+    cantidad?: true
+    valor_unitario?: true
+    precio_unitario?: true
+    descuento?: true
+    subtotal?: true
+    tipo_de_igv?: true
+    igv?: true
+    tipo_de_isc?: true
+    isc?: true
+    total?: true
+    anticipo_documento_numero?: true
+  }
+
+  export type Factura_itemSumAggregateInputType = {
+    id_factura_item?: true
+    id_factura?: true
+    cantidad?: true
+    valor_unitario?: true
+    precio_unitario?: true
+    descuento?: true
+    subtotal?: true
+    tipo_de_igv?: true
+    igv?: true
+    tipo_de_isc?: true
+    isc?: true
+    total?: true
+    anticipo_documento_numero?: true
+  }
+
+  export type Factura_itemMinAggregateInputType = {
+    id_factura_item?: true
+    id_factura?: true
+    codigo_item?: true
+    codigo_producto_sunat?: true
+    descripcion_item?: true
+    unidad_medida?: true
+    cantidad?: true
+    valor_unitario?: true
+    precio_unitario?: true
+    descuento?: true
+    subtotal?: true
+    tipo_de_igv?: true
+    igv?: true
+    tipo_de_isc?: true
+    isc?: true
+    total?: true
+    anticipo_regularizacion?: true
+    anticipo_documento_serie?: true
+    anticipo_documento_numero?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Factura_itemMaxAggregateInputType = {
+    id_factura_item?: true
+    id_factura?: true
+    codigo_item?: true
+    codigo_producto_sunat?: true
+    descripcion_item?: true
+    unidad_medida?: true
+    cantidad?: true
+    valor_unitario?: true
+    precio_unitario?: true
+    descuento?: true
+    subtotal?: true
+    tipo_de_igv?: true
+    igv?: true
+    tipo_de_isc?: true
+    isc?: true
+    total?: true
+    anticipo_regularizacion?: true
+    anticipo_documento_serie?: true
+    anticipo_documento_numero?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Factura_itemCountAggregateInputType = {
+    id_factura_item?: true
+    id_factura?: true
+    codigo_item?: true
+    codigo_producto_sunat?: true
+    descripcion_item?: true
+    unidad_medida?: true
+    cantidad?: true
+    valor_unitario?: true
+    precio_unitario?: true
+    descuento?: true
+    subtotal?: true
+    tipo_de_igv?: true
+    igv?: true
+    tipo_de_isc?: true
+    isc?: true
+    total?: true
+    anticipo_regularizacion?: true
+    anticipo_documento_serie?: true
+    anticipo_documento_numero?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Factura_itemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_item to aggregate.
+     */
+    where?: factura_itemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_items to fetch.
+     */
+    orderBy?: factura_itemOrderByWithRelationInput | factura_itemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: factura_itemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned factura_items
+    **/
+    _count?: true | Factura_itemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Factura_itemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Factura_itemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Factura_itemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Factura_itemMaxAggregateInputType
+  }
+
+  export type GetFactura_itemAggregateType<T extends Factura_itemAggregateArgs> = {
+        [P in keyof T & keyof AggregateFactura_item]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFactura_item[P]>
+      : GetScalarType<T[P], AggregateFactura_item[P]>
+  }
+
+
+
+
+  export type factura_itemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_itemWhereInput
+    orderBy?: factura_itemOrderByWithAggregationInput | factura_itemOrderByWithAggregationInput[]
+    by: Factura_itemScalarFieldEnum[] | Factura_itemScalarFieldEnum
+    having?: factura_itemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Factura_itemCountAggregateInputType | true
+    _avg?: Factura_itemAvgAggregateInputType
+    _sum?: Factura_itemSumAggregateInputType
+    _min?: Factura_itemMinAggregateInputType
+    _max?: Factura_itemMaxAggregateInputType
+  }
+
+  export type Factura_itemGroupByOutputType = {
+    id_factura_item: number
+    id_factura: number
+    codigo_item: string | null
+    codigo_producto_sunat: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal
+    valor_unitario: Decimal
+    precio_unitario: Decimal
+    descuento: Decimal | null
+    subtotal: Decimal
+    tipo_de_igv: number
+    igv: Decimal
+    tipo_de_isc: number | null
+    isc: Decimal | null
+    total: Decimal
+    anticipo_regularizacion: boolean
+    anticipo_documento_serie: string | null
+    anticipo_documento_numero: number | null
+    created_at: Date
+    updated_at: Date
+    _count: Factura_itemCountAggregateOutputType | null
+    _avg: Factura_itemAvgAggregateOutputType | null
+    _sum: Factura_itemSumAggregateOutputType | null
+    _min: Factura_itemMinAggregateOutputType | null
+    _max: Factura_itemMaxAggregateOutputType | null
+  }
+
+  type GetFactura_itemGroupByPayload<T extends factura_itemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Factura_itemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Factura_itemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Factura_itemGroupByOutputType[P]>
+            : GetScalarType<T[P], Factura_itemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type factura_itemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_factura_item?: boolean
+    id_factura?: boolean
+    codigo_item?: boolean
+    codigo_producto_sunat?: boolean
+    descripcion_item?: boolean
+    unidad_medida?: boolean
+    cantidad?: boolean
+    valor_unitario?: boolean
+    precio_unitario?: boolean
+    descuento?: boolean
+    subtotal?: boolean
+    tipo_de_igv?: boolean
+    igv?: boolean
+    tipo_de_isc?: boolean
+    isc?: boolean
+    total?: boolean
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: boolean
+    anticipo_documento_numero?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["factura_item"]>
+
+
+
+  export type factura_itemSelectScalar = {
+    id_factura_item?: boolean
+    id_factura?: boolean
+    codigo_item?: boolean
+    codigo_producto_sunat?: boolean
+    descripcion_item?: boolean
+    unidad_medida?: boolean
+    cantidad?: boolean
+    valor_unitario?: boolean
+    precio_unitario?: boolean
+    descuento?: boolean
+    subtotal?: boolean
+    tipo_de_igv?: boolean
+    igv?: boolean
+    tipo_de_isc?: boolean
+    isc?: boolean
+    total?: boolean
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: boolean
+    anticipo_documento_numero?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type factura_itemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura_item" | "id_factura" | "codigo_item" | "codigo_producto_sunat" | "descripcion_item" | "unidad_medida" | "cantidad" | "valor_unitario" | "precio_unitario" | "descuento" | "subtotal" | "tipo_de_igv" | "igv" | "tipo_de_isc" | "isc" | "total" | "anticipo_regularizacion" | "anticipo_documento_serie" | "anticipo_documento_numero" | "created_at" | "updated_at", ExtArgs["result"]["factura_item"]>
+  export type factura_itemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }
+
+  export type $factura_itemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "factura_item"
+    objects: {
+      factura: Prisma.$facturaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_factura_item: number
+      id_factura: number
+      codigo_item: string | null
+      codigo_producto_sunat: string | null
+      descripcion_item: string
+      unidad_medida: string
+      cantidad: Prisma.Decimal
+      valor_unitario: Prisma.Decimal
+      precio_unitario: Prisma.Decimal
+      descuento: Prisma.Decimal | null
+      subtotal: Prisma.Decimal
+      tipo_de_igv: number
+      igv: Prisma.Decimal
+      tipo_de_isc: number | null
+      isc: Prisma.Decimal | null
+      total: Prisma.Decimal
+      anticipo_regularizacion: boolean
+      anticipo_documento_serie: string | null
+      anticipo_documento_numero: number | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["factura_item"]>
+    composites: {}
+  }
+
+  type factura_itemGetPayload<S extends boolean | null | undefined | factura_itemDefaultArgs> = $Result.GetResult<Prisma.$factura_itemPayload, S>
+
+  type factura_itemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<factura_itemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Factura_itemCountAggregateInputType | true
+    }
+
+  export interface factura_itemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['factura_item'], meta: { name: 'factura_item' } }
+    /**
+     * Find zero or one Factura_item that matches the filter.
+     * @param {factura_itemFindUniqueArgs} args - Arguments to find a Factura_item
+     * @example
+     * // Get one Factura_item
+     * const factura_item = await prisma.factura_item.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends factura_itemFindUniqueArgs>(args: SelectSubset<T, factura_itemFindUniqueArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Factura_item that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {factura_itemFindUniqueOrThrowArgs} args - Arguments to find a Factura_item
+     * @example
+     * // Get one Factura_item
+     * const factura_item = await prisma.factura_item.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends factura_itemFindUniqueOrThrowArgs>(args: SelectSubset<T, factura_itemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_item that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemFindFirstArgs} args - Arguments to find a Factura_item
+     * @example
+     * // Get one Factura_item
+     * const factura_item = await prisma.factura_item.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends factura_itemFindFirstArgs>(args?: SelectSubset<T, factura_itemFindFirstArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_item that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemFindFirstOrThrowArgs} args - Arguments to find a Factura_item
+     * @example
+     * // Get one Factura_item
+     * const factura_item = await prisma.factura_item.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends factura_itemFindFirstOrThrowArgs>(args?: SelectSubset<T, factura_itemFindFirstOrThrowArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Factura_items that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Factura_items
+     * const factura_items = await prisma.factura_item.findMany()
+     * 
+     * // Get first 10 Factura_items
+     * const factura_items = await prisma.factura_item.findMany({ take: 10 })
+     * 
+     * // Only select the `id_factura_item`
+     * const factura_itemWithId_factura_itemOnly = await prisma.factura_item.findMany({ select: { id_factura_item: true } })
+     * 
+     */
+    findMany<T extends factura_itemFindManyArgs>(args?: SelectSubset<T, factura_itemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Factura_item.
+     * @param {factura_itemCreateArgs} args - Arguments to create a Factura_item.
+     * @example
+     * // Create one Factura_item
+     * const Factura_item = await prisma.factura_item.create({
+     *   data: {
+     *     // ... data to create a Factura_item
+     *   }
+     * })
+     * 
+     */
+    create<T extends factura_itemCreateArgs>(args: SelectSubset<T, factura_itemCreateArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Factura_items.
+     * @param {factura_itemCreateManyArgs} args - Arguments to create many Factura_items.
+     * @example
+     * // Create many Factura_items
+     * const factura_item = await prisma.factura_item.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends factura_itemCreateManyArgs>(args?: SelectSubset<T, factura_itemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Factura_item.
+     * @param {factura_itemDeleteArgs} args - Arguments to delete one Factura_item.
+     * @example
+     * // Delete one Factura_item
+     * const Factura_item = await prisma.factura_item.delete({
+     *   where: {
+     *     // ... filter to delete one Factura_item
+     *   }
+     * })
+     * 
+     */
+    delete<T extends factura_itemDeleteArgs>(args: SelectSubset<T, factura_itemDeleteArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Factura_item.
+     * @param {factura_itemUpdateArgs} args - Arguments to update one Factura_item.
+     * @example
+     * // Update one Factura_item
+     * const factura_item = await prisma.factura_item.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends factura_itemUpdateArgs>(args: SelectSubset<T, factura_itemUpdateArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Factura_items.
+     * @param {factura_itemDeleteManyArgs} args - Arguments to filter Factura_items to delete.
+     * @example
+     * // Delete a few Factura_items
+     * const { count } = await prisma.factura_item.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends factura_itemDeleteManyArgs>(args?: SelectSubset<T, factura_itemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factura_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Factura_items
+     * const factura_item = await prisma.factura_item.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends factura_itemUpdateManyArgs>(args: SelectSubset<T, factura_itemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Factura_item.
+     * @param {factura_itemUpsertArgs} args - Arguments to update or create a Factura_item.
+     * @example
+     * // Update or create a Factura_item
+     * const factura_item = await prisma.factura_item.upsert({
+     *   create: {
+     *     // ... data to create a Factura_item
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Factura_item we want to update
+     *   }
+     * })
+     */
+    upsert<T extends factura_itemUpsertArgs>(args: SelectSubset<T, factura_itemUpsertArgs<ExtArgs>>): Prisma__factura_itemClient<$Result.GetResult<Prisma.$factura_itemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Factura_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemCountArgs} args - Arguments to filter Factura_items to count.
+     * @example
+     * // Count the number of Factura_items
+     * const count = await prisma.factura_item.count({
+     *   where: {
+     *     // ... the filter for the Factura_items we want to count
+     *   }
+     * })
+    **/
+    count<T extends factura_itemCountArgs>(
+      args?: Subset<T, factura_itemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Factura_itemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Factura_item.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Factura_itemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Factura_itemAggregateArgs>(args: Subset<T, Factura_itemAggregateArgs>): Prisma.PrismaPromise<GetFactura_itemAggregateType<T>>
+
+    /**
+     * Group by Factura_item.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_itemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends factura_itemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: factura_itemGroupByArgs['orderBy'] }
+        : { orderBy?: factura_itemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, factura_itemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFactura_itemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the factura_item model
+   */
+  readonly fields: factura_itemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for factura_item.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__factura_itemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    factura<T extends facturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, facturaDefaultArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the factura_item model
+   */
+  interface factura_itemFieldRefs {
+    readonly id_factura_item: FieldRef<"factura_item", 'Int'>
+    readonly id_factura: FieldRef<"factura_item", 'Int'>
+    readonly codigo_item: FieldRef<"factura_item", 'String'>
+    readonly codigo_producto_sunat: FieldRef<"factura_item", 'String'>
+    readonly descripcion_item: FieldRef<"factura_item", 'String'>
+    readonly unidad_medida: FieldRef<"factura_item", 'String'>
+    readonly cantidad: FieldRef<"factura_item", 'Decimal'>
+    readonly valor_unitario: FieldRef<"factura_item", 'Decimal'>
+    readonly precio_unitario: FieldRef<"factura_item", 'Decimal'>
+    readonly descuento: FieldRef<"factura_item", 'Decimal'>
+    readonly subtotal: FieldRef<"factura_item", 'Decimal'>
+    readonly tipo_de_igv: FieldRef<"factura_item", 'Int'>
+    readonly igv: FieldRef<"factura_item", 'Decimal'>
+    readonly tipo_de_isc: FieldRef<"factura_item", 'Int'>
+    readonly isc: FieldRef<"factura_item", 'Decimal'>
+    readonly total: FieldRef<"factura_item", 'Decimal'>
+    readonly anticipo_regularizacion: FieldRef<"factura_item", 'Boolean'>
+    readonly anticipo_documento_serie: FieldRef<"factura_item", 'String'>
+    readonly anticipo_documento_numero: FieldRef<"factura_item", 'Int'>
+    readonly created_at: FieldRef<"factura_item", 'DateTime'>
+    readonly updated_at: FieldRef<"factura_item", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * factura_item findUnique
+   */
+  export type factura_itemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_item to fetch.
+     */
+    where: factura_itemWhereUniqueInput
+  }
+
+  /**
+   * factura_item findUniqueOrThrow
+   */
+  export type factura_itemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_item to fetch.
+     */
+    where: factura_itemWhereUniqueInput
+  }
+
+  /**
+   * factura_item findFirst
+   */
+  export type factura_itemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_item to fetch.
+     */
+    where?: factura_itemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_items to fetch.
+     */
+    orderBy?: factura_itemOrderByWithRelationInput | factura_itemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_items.
+     */
+    cursor?: factura_itemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_items.
+     */
+    distinct?: Factura_itemScalarFieldEnum | Factura_itemScalarFieldEnum[]
+  }
+
+  /**
+   * factura_item findFirstOrThrow
+   */
+  export type factura_itemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_item to fetch.
+     */
+    where?: factura_itemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_items to fetch.
+     */
+    orderBy?: factura_itemOrderByWithRelationInput | factura_itemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_items.
+     */
+    cursor?: factura_itemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_items.
+     */
+    distinct?: Factura_itemScalarFieldEnum | Factura_itemScalarFieldEnum[]
+  }
+
+  /**
+   * factura_item findMany
+   */
+  export type factura_itemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_items to fetch.
+     */
+    where?: factura_itemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_items to fetch.
+     */
+    orderBy?: factura_itemOrderByWithRelationInput | factura_itemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing factura_items.
+     */
+    cursor?: factura_itemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_items.
+     */
+    skip?: number
+    distinct?: Factura_itemScalarFieldEnum | Factura_itemScalarFieldEnum[]
+  }
+
+  /**
+   * factura_item create
+   */
+  export type factura_itemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a factura_item.
+     */
+    data: XOR<factura_itemCreateInput, factura_itemUncheckedCreateInput>
+  }
+
+  /**
+   * factura_item createMany
+   */
+  export type factura_itemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many factura_items.
+     */
+    data: factura_itemCreateManyInput | factura_itemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * factura_item update
+   */
+  export type factura_itemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a factura_item.
+     */
+    data: XOR<factura_itemUpdateInput, factura_itemUncheckedUpdateInput>
+    /**
+     * Choose, which factura_item to update.
+     */
+    where: factura_itemWhereUniqueInput
+  }
+
+  /**
+   * factura_item updateMany
+   */
+  export type factura_itemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update factura_items.
+     */
+    data: XOR<factura_itemUpdateManyMutationInput, factura_itemUncheckedUpdateManyInput>
+    /**
+     * Filter which factura_items to update
+     */
+    where?: factura_itemWhereInput
+    /**
+     * Limit how many factura_items to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_item upsert
+   */
+  export type factura_itemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the factura_item to update in case it exists.
+     */
+    where: factura_itemWhereUniqueInput
+    /**
+     * In case the factura_item found by the `where` argument doesn't exist, create a new factura_item with this data.
+     */
+    create: XOR<factura_itemCreateInput, factura_itemUncheckedCreateInput>
+    /**
+     * In case the factura_item was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<factura_itemUpdateInput, factura_itemUncheckedUpdateInput>
+  }
+
+  /**
+   * factura_item delete
+   */
+  export type factura_itemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+    /**
+     * Filter which factura_item to delete.
+     */
+    where: factura_itemWhereUniqueInput
+  }
+
+  /**
+   * factura_item deleteMany
+   */
+  export type factura_itemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_items to delete
+     */
+    where?: factura_itemWhereInput
+    /**
+     * Limit how many factura_items to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_item without action
+   */
+  export type factura_itemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_item
+     */
+    select?: factura_itemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_item
+     */
+    omit?: factura_itemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_itemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model factura_venta_credito
+   */
+
+  export type AggregateFactura_venta_credito = {
+    _count: Factura_venta_creditoCountAggregateOutputType | null
+    _avg: Factura_venta_creditoAvgAggregateOutputType | null
+    _sum: Factura_venta_creditoSumAggregateOutputType | null
+    _min: Factura_venta_creditoMinAggregateOutputType | null
+    _max: Factura_venta_creditoMaxAggregateOutputType | null
+  }
+
+  export type Factura_venta_creditoAvgAggregateOutputType = {
+    id_venta_credito: number | null
+    id_factura: number | null
+    cuota: number | null
+    importe: Decimal | null
+  }
+
+  export type Factura_venta_creditoSumAggregateOutputType = {
+    id_venta_credito: number | null
+    id_factura: number | null
+    cuota: number | null
+    importe: Decimal | null
+  }
+
+  export type Factura_venta_creditoMinAggregateOutputType = {
+    id_venta_credito: number | null
+    id_factura: number | null
+    cuota: number | null
+    fecha_pago: Date | null
+    importe: Decimal | null
+    created_at: Date | null
+  }
+
+  export type Factura_venta_creditoMaxAggregateOutputType = {
+    id_venta_credito: number | null
+    id_factura: number | null
+    cuota: number | null
+    fecha_pago: Date | null
+    importe: Decimal | null
+    created_at: Date | null
+  }
+
+  export type Factura_venta_creditoCountAggregateOutputType = {
+    id_venta_credito: number
+    id_factura: number
+    cuota: number
+    fecha_pago: number
+    importe: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Factura_venta_creditoAvgAggregateInputType = {
+    id_venta_credito?: true
+    id_factura?: true
+    cuota?: true
+    importe?: true
+  }
+
+  export type Factura_venta_creditoSumAggregateInputType = {
+    id_venta_credito?: true
+    id_factura?: true
+    cuota?: true
+    importe?: true
+  }
+
+  export type Factura_venta_creditoMinAggregateInputType = {
+    id_venta_credito?: true
+    id_factura?: true
+    cuota?: true
+    fecha_pago?: true
+    importe?: true
+    created_at?: true
+  }
+
+  export type Factura_venta_creditoMaxAggregateInputType = {
+    id_venta_credito?: true
+    id_factura?: true
+    cuota?: true
+    fecha_pago?: true
+    importe?: true
+    created_at?: true
+  }
+
+  export type Factura_venta_creditoCountAggregateInputType = {
+    id_venta_credito?: true
+    id_factura?: true
+    cuota?: true
+    fecha_pago?: true
+    importe?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Factura_venta_creditoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_venta_credito to aggregate.
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_venta_creditos to fetch.
+     */
+    orderBy?: factura_venta_creditoOrderByWithRelationInput | factura_venta_creditoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: factura_venta_creditoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_venta_creditos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_venta_creditos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned factura_venta_creditos
+    **/
+    _count?: true | Factura_venta_creditoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Factura_venta_creditoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Factura_venta_creditoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Factura_venta_creditoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Factura_venta_creditoMaxAggregateInputType
+  }
+
+  export type GetFactura_venta_creditoAggregateType<T extends Factura_venta_creditoAggregateArgs> = {
+        [P in keyof T & keyof AggregateFactura_venta_credito]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFactura_venta_credito[P]>
+      : GetScalarType<T[P], AggregateFactura_venta_credito[P]>
+  }
+
+
+
+
+  export type factura_venta_creditoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_venta_creditoWhereInput
+    orderBy?: factura_venta_creditoOrderByWithAggregationInput | factura_venta_creditoOrderByWithAggregationInput[]
+    by: Factura_venta_creditoScalarFieldEnum[] | Factura_venta_creditoScalarFieldEnum
+    having?: factura_venta_creditoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Factura_venta_creditoCountAggregateInputType | true
+    _avg?: Factura_venta_creditoAvgAggregateInputType
+    _sum?: Factura_venta_creditoSumAggregateInputType
+    _min?: Factura_venta_creditoMinAggregateInputType
+    _max?: Factura_venta_creditoMaxAggregateInputType
+  }
+
+  export type Factura_venta_creditoGroupByOutputType = {
+    id_venta_credito: number
+    id_factura: number
+    cuota: number
+    fecha_pago: Date
+    importe: Decimal
+    created_at: Date
+    _count: Factura_venta_creditoCountAggregateOutputType | null
+    _avg: Factura_venta_creditoAvgAggregateOutputType | null
+    _sum: Factura_venta_creditoSumAggregateOutputType | null
+    _min: Factura_venta_creditoMinAggregateOutputType | null
+    _max: Factura_venta_creditoMaxAggregateOutputType | null
+  }
+
+  type GetFactura_venta_creditoGroupByPayload<T extends factura_venta_creditoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Factura_venta_creditoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Factura_venta_creditoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Factura_venta_creditoGroupByOutputType[P]>
+            : GetScalarType<T[P], Factura_venta_creditoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type factura_venta_creditoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_venta_credito?: boolean
+    id_factura?: boolean
+    cuota?: boolean
+    fecha_pago?: boolean
+    importe?: boolean
+    created_at?: boolean
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["factura_venta_credito"]>
+
+
+
+  export type factura_venta_creditoSelectScalar = {
+    id_venta_credito?: boolean
+    id_factura?: boolean
+    cuota?: boolean
+    fecha_pago?: boolean
+    importe?: boolean
+    created_at?: boolean
+  }
+
+  export type factura_venta_creditoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_venta_credito" | "id_factura" | "cuota" | "fecha_pago" | "importe" | "created_at", ExtArgs["result"]["factura_venta_credito"]>
+  export type factura_venta_creditoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factura?: boolean | facturaDefaultArgs<ExtArgs>
+  }
+
+  export type $factura_venta_creditoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "factura_venta_credito"
+    objects: {
+      factura: Prisma.$facturaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_venta_credito: number
+      id_factura: number
+      cuota: number
+      fecha_pago: Date
+      importe: Prisma.Decimal
+      created_at: Date
+    }, ExtArgs["result"]["factura_venta_credito"]>
+    composites: {}
+  }
+
+  type factura_venta_creditoGetPayload<S extends boolean | null | undefined | factura_venta_creditoDefaultArgs> = $Result.GetResult<Prisma.$factura_venta_creditoPayload, S>
+
+  type factura_venta_creditoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<factura_venta_creditoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Factura_venta_creditoCountAggregateInputType | true
+    }
+
+  export interface factura_venta_creditoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['factura_venta_credito'], meta: { name: 'factura_venta_credito' } }
+    /**
+     * Find zero or one Factura_venta_credito that matches the filter.
+     * @param {factura_venta_creditoFindUniqueArgs} args - Arguments to find a Factura_venta_credito
+     * @example
+     * // Get one Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends factura_venta_creditoFindUniqueArgs>(args: SelectSubset<T, factura_venta_creditoFindUniqueArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Factura_venta_credito that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {factura_venta_creditoFindUniqueOrThrowArgs} args - Arguments to find a Factura_venta_credito
+     * @example
+     * // Get one Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends factura_venta_creditoFindUniqueOrThrowArgs>(args: SelectSubset<T, factura_venta_creditoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_venta_credito that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoFindFirstArgs} args - Arguments to find a Factura_venta_credito
+     * @example
+     * // Get one Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends factura_venta_creditoFindFirstArgs>(args?: SelectSubset<T, factura_venta_creditoFindFirstArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_venta_credito that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoFindFirstOrThrowArgs} args - Arguments to find a Factura_venta_credito
+     * @example
+     * // Get one Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends factura_venta_creditoFindFirstOrThrowArgs>(args?: SelectSubset<T, factura_venta_creditoFindFirstOrThrowArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Factura_venta_creditos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Factura_venta_creditos
+     * const factura_venta_creditos = await prisma.factura_venta_credito.findMany()
+     * 
+     * // Get first 10 Factura_venta_creditos
+     * const factura_venta_creditos = await prisma.factura_venta_credito.findMany({ take: 10 })
+     * 
+     * // Only select the `id_venta_credito`
+     * const factura_venta_creditoWithId_venta_creditoOnly = await prisma.factura_venta_credito.findMany({ select: { id_venta_credito: true } })
+     * 
+     */
+    findMany<T extends factura_venta_creditoFindManyArgs>(args?: SelectSubset<T, factura_venta_creditoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Factura_venta_credito.
+     * @param {factura_venta_creditoCreateArgs} args - Arguments to create a Factura_venta_credito.
+     * @example
+     * // Create one Factura_venta_credito
+     * const Factura_venta_credito = await prisma.factura_venta_credito.create({
+     *   data: {
+     *     // ... data to create a Factura_venta_credito
+     *   }
+     * })
+     * 
+     */
+    create<T extends factura_venta_creditoCreateArgs>(args: SelectSubset<T, factura_venta_creditoCreateArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Factura_venta_creditos.
+     * @param {factura_venta_creditoCreateManyArgs} args - Arguments to create many Factura_venta_creditos.
+     * @example
+     * // Create many Factura_venta_creditos
+     * const factura_venta_credito = await prisma.factura_venta_credito.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends factura_venta_creditoCreateManyArgs>(args?: SelectSubset<T, factura_venta_creditoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Factura_venta_credito.
+     * @param {factura_venta_creditoDeleteArgs} args - Arguments to delete one Factura_venta_credito.
+     * @example
+     * // Delete one Factura_venta_credito
+     * const Factura_venta_credito = await prisma.factura_venta_credito.delete({
+     *   where: {
+     *     // ... filter to delete one Factura_venta_credito
+     *   }
+     * })
+     * 
+     */
+    delete<T extends factura_venta_creditoDeleteArgs>(args: SelectSubset<T, factura_venta_creditoDeleteArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Factura_venta_credito.
+     * @param {factura_venta_creditoUpdateArgs} args - Arguments to update one Factura_venta_credito.
+     * @example
+     * // Update one Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends factura_venta_creditoUpdateArgs>(args: SelectSubset<T, factura_venta_creditoUpdateArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Factura_venta_creditos.
+     * @param {factura_venta_creditoDeleteManyArgs} args - Arguments to filter Factura_venta_creditos to delete.
+     * @example
+     * // Delete a few Factura_venta_creditos
+     * const { count } = await prisma.factura_venta_credito.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends factura_venta_creditoDeleteManyArgs>(args?: SelectSubset<T, factura_venta_creditoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factura_venta_creditos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Factura_venta_creditos
+     * const factura_venta_credito = await prisma.factura_venta_credito.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends factura_venta_creditoUpdateManyArgs>(args: SelectSubset<T, factura_venta_creditoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Factura_venta_credito.
+     * @param {factura_venta_creditoUpsertArgs} args - Arguments to update or create a Factura_venta_credito.
+     * @example
+     * // Update or create a Factura_venta_credito
+     * const factura_venta_credito = await prisma.factura_venta_credito.upsert({
+     *   create: {
+     *     // ... data to create a Factura_venta_credito
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Factura_venta_credito we want to update
+     *   }
+     * })
+     */
+    upsert<T extends factura_venta_creditoUpsertArgs>(args: SelectSubset<T, factura_venta_creditoUpsertArgs<ExtArgs>>): Prisma__factura_venta_creditoClient<$Result.GetResult<Prisma.$factura_venta_creditoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Factura_venta_creditos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoCountArgs} args - Arguments to filter Factura_venta_creditos to count.
+     * @example
+     * // Count the number of Factura_venta_creditos
+     * const count = await prisma.factura_venta_credito.count({
+     *   where: {
+     *     // ... the filter for the Factura_venta_creditos we want to count
+     *   }
+     * })
+    **/
+    count<T extends factura_venta_creditoCountArgs>(
+      args?: Subset<T, factura_venta_creditoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Factura_venta_creditoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Factura_venta_credito.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Factura_venta_creditoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Factura_venta_creditoAggregateArgs>(args: Subset<T, Factura_venta_creditoAggregateArgs>): Prisma.PrismaPromise<GetFactura_venta_creditoAggregateType<T>>
+
+    /**
+     * Group by Factura_venta_credito.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_venta_creditoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends factura_venta_creditoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: factura_venta_creditoGroupByArgs['orderBy'] }
+        : { orderBy?: factura_venta_creditoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, factura_venta_creditoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFactura_venta_creditoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the factura_venta_credito model
+   */
+  readonly fields: factura_venta_creditoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for factura_venta_credito.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__factura_venta_creditoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    factura<T extends facturaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, facturaDefaultArgs<ExtArgs>>): Prisma__facturaClient<$Result.GetResult<Prisma.$facturaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the factura_venta_credito model
+   */
+  interface factura_venta_creditoFieldRefs {
+    readonly id_venta_credito: FieldRef<"factura_venta_credito", 'Int'>
+    readonly id_factura: FieldRef<"factura_venta_credito", 'Int'>
+    readonly cuota: FieldRef<"factura_venta_credito", 'Int'>
+    readonly fecha_pago: FieldRef<"factura_venta_credito", 'DateTime'>
+    readonly importe: FieldRef<"factura_venta_credito", 'Decimal'>
+    readonly created_at: FieldRef<"factura_venta_credito", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * factura_venta_credito findUnique
+   */
+  export type factura_venta_creditoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_venta_credito to fetch.
+     */
+    where: factura_venta_creditoWhereUniqueInput
+  }
+
+  /**
+   * factura_venta_credito findUniqueOrThrow
+   */
+  export type factura_venta_creditoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_venta_credito to fetch.
+     */
+    where: factura_venta_creditoWhereUniqueInput
+  }
+
+  /**
+   * factura_venta_credito findFirst
+   */
+  export type factura_venta_creditoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_venta_credito to fetch.
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_venta_creditos to fetch.
+     */
+    orderBy?: factura_venta_creditoOrderByWithRelationInput | factura_venta_creditoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_venta_creditos.
+     */
+    cursor?: factura_venta_creditoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_venta_creditos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_venta_creditos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_venta_creditos.
+     */
+    distinct?: Factura_venta_creditoScalarFieldEnum | Factura_venta_creditoScalarFieldEnum[]
+  }
+
+  /**
+   * factura_venta_credito findFirstOrThrow
+   */
+  export type factura_venta_creditoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_venta_credito to fetch.
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_venta_creditos to fetch.
+     */
+    orderBy?: factura_venta_creditoOrderByWithRelationInput | factura_venta_creditoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_venta_creditos.
+     */
+    cursor?: factura_venta_creditoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_venta_creditos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_venta_creditos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_venta_creditos.
+     */
+    distinct?: Factura_venta_creditoScalarFieldEnum | Factura_venta_creditoScalarFieldEnum[]
+  }
+
+  /**
+   * factura_venta_credito findMany
+   */
+  export type factura_venta_creditoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter, which factura_venta_creditos to fetch.
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_venta_creditos to fetch.
+     */
+    orderBy?: factura_venta_creditoOrderByWithRelationInput | factura_venta_creditoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing factura_venta_creditos.
+     */
+    cursor?: factura_venta_creditoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_venta_creditos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_venta_creditos.
+     */
+    skip?: number
+    distinct?: Factura_venta_creditoScalarFieldEnum | Factura_venta_creditoScalarFieldEnum[]
+  }
+
+  /**
+   * factura_venta_credito create
+   */
+  export type factura_venta_creditoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a factura_venta_credito.
+     */
+    data: XOR<factura_venta_creditoCreateInput, factura_venta_creditoUncheckedCreateInput>
+  }
+
+  /**
+   * factura_venta_credito createMany
+   */
+  export type factura_venta_creditoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many factura_venta_creditos.
+     */
+    data: factura_venta_creditoCreateManyInput | factura_venta_creditoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * factura_venta_credito update
+   */
+  export type factura_venta_creditoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a factura_venta_credito.
+     */
+    data: XOR<factura_venta_creditoUpdateInput, factura_venta_creditoUncheckedUpdateInput>
+    /**
+     * Choose, which factura_venta_credito to update.
+     */
+    where: factura_venta_creditoWhereUniqueInput
+  }
+
+  /**
+   * factura_venta_credito updateMany
+   */
+  export type factura_venta_creditoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update factura_venta_creditos.
+     */
+    data: XOR<factura_venta_creditoUpdateManyMutationInput, factura_venta_creditoUncheckedUpdateManyInput>
+    /**
+     * Filter which factura_venta_creditos to update
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * Limit how many factura_venta_creditos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_venta_credito upsert
+   */
+  export type factura_venta_creditoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the factura_venta_credito to update in case it exists.
+     */
+    where: factura_venta_creditoWhereUniqueInput
+    /**
+     * In case the factura_venta_credito found by the `where` argument doesn't exist, create a new factura_venta_credito with this data.
+     */
+    create: XOR<factura_venta_creditoCreateInput, factura_venta_creditoUncheckedCreateInput>
+    /**
+     * In case the factura_venta_credito was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<factura_venta_creditoUpdateInput, factura_venta_creditoUncheckedUpdateInput>
+  }
+
+  /**
+   * factura_venta_credito delete
+   */
+  export type factura_venta_creditoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+    /**
+     * Filter which factura_venta_credito to delete.
+     */
+    where: factura_venta_creditoWhereUniqueInput
+  }
+
+  /**
+   * factura_venta_credito deleteMany
+   */
+  export type factura_venta_creditoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_venta_creditos to delete
+     */
+    where?: factura_venta_creditoWhereInput
+    /**
+     * Limit how many factura_venta_creditos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_venta_credito without action
+   */
+  export type factura_venta_creditoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_venta_credito
+     */
+    select?: factura_venta_creditoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_venta_credito
+     */
+    omit?: factura_venta_creditoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factura_venta_creditoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model movimientos_adicionales
+   */
+
+  export type AggregateMovimientos_adicionales = {
+    _count: Movimientos_adicionalesCountAggregateOutputType | null
+    _avg: Movimientos_adicionalesAvgAggregateOutputType | null
+    _sum: Movimientos_adicionalesSumAggregateOutputType | null
+    _min: Movimientos_adicionalesMinAggregateOutputType | null
+    _max: Movimientos_adicionalesMaxAggregateOutputType | null
+  }
+
+  export type Movimientos_adicionalesAvgAggregateOutputType = {
+    id_movimiento_adicional: number | null
+    id_movimiento: number | null
+    costo_unitario: Decimal | null
+    costo_total: Decimal | null
+  }
+
+  export type Movimientos_adicionalesSumAggregateOutputType = {
+    id_movimiento_adicional: number | null
+    id_movimiento: number | null
+    costo_unitario: Decimal | null
+    costo_total: Decimal | null
+  }
+
+  export type Movimientos_adicionalesMinAggregateOutputType = {
+    id_movimiento_adicional: number | null
+    id_movimiento: number | null
+    numero_factura: string | null
+    numero_guia_remision: string | null
+    costo_unitario: Decimal | null
+    costo_total: Decimal | null
+    fecha_ingreso: Date | null
+    fecha_registro: Date | null
+  }
+
+  export type Movimientos_adicionalesMaxAggregateOutputType = {
+    id_movimiento_adicional: number | null
+    id_movimiento: number | null
+    numero_factura: string | null
+    numero_guia_remision: string | null
+    costo_unitario: Decimal | null
+    costo_total: Decimal | null
+    fecha_ingreso: Date | null
+    fecha_registro: Date | null
+  }
+
+  export type Movimientos_adicionalesCountAggregateOutputType = {
+    id_movimiento_adicional: number
+    id_movimiento: number
+    numero_factura: number
+    numero_guia_remision: number
+    costo_unitario: number
+    costo_total: number
+    fecha_ingreso: number
+    fecha_registro: number
+    _all: number
+  }
+
+
+  export type Movimientos_adicionalesAvgAggregateInputType = {
+    id_movimiento_adicional?: true
+    id_movimiento?: true
+    costo_unitario?: true
+    costo_total?: true
+  }
+
+  export type Movimientos_adicionalesSumAggregateInputType = {
+    id_movimiento_adicional?: true
+    id_movimiento?: true
+    costo_unitario?: true
+    costo_total?: true
+  }
+
+  export type Movimientos_adicionalesMinAggregateInputType = {
+    id_movimiento_adicional?: true
+    id_movimiento?: true
+    numero_factura?: true
+    numero_guia_remision?: true
+    costo_unitario?: true
+    costo_total?: true
+    fecha_ingreso?: true
+    fecha_registro?: true
+  }
+
+  export type Movimientos_adicionalesMaxAggregateInputType = {
+    id_movimiento_adicional?: true
+    id_movimiento?: true
+    numero_factura?: true
+    numero_guia_remision?: true
+    costo_unitario?: true
+    costo_total?: true
+    fecha_ingreso?: true
+    fecha_registro?: true
+  }
+
+  export type Movimientos_adicionalesCountAggregateInputType = {
+    id_movimiento_adicional?: true
+    id_movimiento?: true
+    numero_factura?: true
+    numero_guia_remision?: true
+    costo_unitario?: true
+    costo_total?: true
+    fecha_ingreso?: true
+    fecha_registro?: true
+    _all?: true
+  }
+
+  export type Movimientos_adicionalesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which movimientos_adicionales to aggregate.
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of movimientos_adicionales to fetch.
+     */
+    orderBy?: movimientos_adicionalesOrderByWithRelationInput | movimientos_adicionalesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: movimientos_adicionalesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` movimientos_adicionales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` movimientos_adicionales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned movimientos_adicionales
+    **/
+    _count?: true | Movimientos_adicionalesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Movimientos_adicionalesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Movimientos_adicionalesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Movimientos_adicionalesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Movimientos_adicionalesMaxAggregateInputType
+  }
+
+  export type GetMovimientos_adicionalesAggregateType<T extends Movimientos_adicionalesAggregateArgs> = {
+        [P in keyof T & keyof AggregateMovimientos_adicionales]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMovimientos_adicionales[P]>
+      : GetScalarType<T[P], AggregateMovimientos_adicionales[P]>
+  }
+
+
+
+
+  export type movimientos_adicionalesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: movimientos_adicionalesWhereInput
+    orderBy?: movimientos_adicionalesOrderByWithAggregationInput | movimientos_adicionalesOrderByWithAggregationInput[]
+    by: Movimientos_adicionalesScalarFieldEnum[] | Movimientos_adicionalesScalarFieldEnum
+    having?: movimientos_adicionalesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Movimientos_adicionalesCountAggregateInputType | true
+    _avg?: Movimientos_adicionalesAvgAggregateInputType
+    _sum?: Movimientos_adicionalesSumAggregateInputType
+    _min?: Movimientos_adicionalesMinAggregateInputType
+    _max?: Movimientos_adicionalesMaxAggregateInputType
+  }
+
+  export type Movimientos_adicionalesGroupByOutputType = {
+    id_movimiento_adicional: number
+    id_movimiento: number
+    numero_factura: string | null
+    numero_guia_remision: string | null
+    costo_unitario: Decimal | null
+    costo_total: Decimal | null
+    fecha_ingreso: Date | null
+    fecha_registro: Date | null
+    _count: Movimientos_adicionalesCountAggregateOutputType | null
+    _avg: Movimientos_adicionalesAvgAggregateOutputType | null
+    _sum: Movimientos_adicionalesSumAggregateOutputType | null
+    _min: Movimientos_adicionalesMinAggregateOutputType | null
+    _max: Movimientos_adicionalesMaxAggregateOutputType | null
+  }
+
+  type GetMovimientos_adicionalesGroupByPayload<T extends movimientos_adicionalesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Movimientos_adicionalesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Movimientos_adicionalesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Movimientos_adicionalesGroupByOutputType[P]>
+            : GetScalarType<T[P], Movimientos_adicionalesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type movimientos_adicionalesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_movimiento_adicional?: boolean
+    id_movimiento?: boolean
+    numero_factura?: boolean
+    numero_guia_remision?: boolean
+    costo_unitario?: boolean
+    costo_total?: boolean
+    fecha_ingreso?: boolean
+    fecha_registro?: boolean
+    movimientos_inventario?: boolean | movimientos_inventarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["movimientos_adicionales"]>
+
+
+
+  export type movimientos_adicionalesSelectScalar = {
+    id_movimiento_adicional?: boolean
+    id_movimiento?: boolean
+    numero_factura?: boolean
+    numero_guia_remision?: boolean
+    costo_unitario?: boolean
+    costo_total?: boolean
+    fecha_ingreso?: boolean
+    fecha_registro?: boolean
+  }
+
+  export type movimientos_adicionalesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento_adicional" | "id_movimiento" | "numero_factura" | "numero_guia_remision" | "costo_unitario" | "costo_total" | "fecha_ingreso" | "fecha_registro", ExtArgs["result"]["movimientos_adicionales"]>
+  export type movimientos_adicionalesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movimientos_inventario?: boolean | movimientos_inventarioDefaultArgs<ExtArgs>
+  }
+
+  export type $movimientos_adicionalesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "movimientos_adicionales"
+    objects: {
+      movimientos_inventario: Prisma.$movimientos_inventarioPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_movimiento_adicional: number
+      id_movimiento: number
+      numero_factura: string | null
+      numero_guia_remision: string | null
+      costo_unitario: Prisma.Decimal | null
+      costo_total: Prisma.Decimal | null
+      fecha_ingreso: Date | null
+      fecha_registro: Date | null
+    }, ExtArgs["result"]["movimientos_adicionales"]>
+    composites: {}
+  }
+
+  type movimientos_adicionalesGetPayload<S extends boolean | null | undefined | movimientos_adicionalesDefaultArgs> = $Result.GetResult<Prisma.$movimientos_adicionalesPayload, S>
+
+  type movimientos_adicionalesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<movimientos_adicionalesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Movimientos_adicionalesCountAggregateInputType | true
+    }
+
+  export interface movimientos_adicionalesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['movimientos_adicionales'], meta: { name: 'movimientos_adicionales' } }
+    /**
+     * Find zero or one Movimientos_adicionales that matches the filter.
+     * @param {movimientos_adicionalesFindUniqueArgs} args - Arguments to find a Movimientos_adicionales
+     * @example
+     * // Get one Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends movimientos_adicionalesFindUniqueArgs>(args: SelectSubset<T, movimientos_adicionalesFindUniqueArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Movimientos_adicionales that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {movimientos_adicionalesFindUniqueOrThrowArgs} args - Arguments to find a Movimientos_adicionales
+     * @example
+     * // Get one Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends movimientos_adicionalesFindUniqueOrThrowArgs>(args: SelectSubset<T, movimientos_adicionalesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movimientos_adicionales that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesFindFirstArgs} args - Arguments to find a Movimientos_adicionales
+     * @example
+     * // Get one Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends movimientos_adicionalesFindFirstArgs>(args?: SelectSubset<T, movimientos_adicionalesFindFirstArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Movimientos_adicionales that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesFindFirstOrThrowArgs} args - Arguments to find a Movimientos_adicionales
+     * @example
+     * // Get one Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends movimientos_adicionalesFindFirstOrThrowArgs>(args?: SelectSubset<T, movimientos_adicionalesFindFirstOrThrowArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Movimientos_adicionales that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findMany()
+     * 
+     * // Get first 10 Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.findMany({ take: 10 })
+     * 
+     * // Only select the `id_movimiento_adicional`
+     * const movimientos_adicionalesWithId_movimiento_adicionalOnly = await prisma.movimientos_adicionales.findMany({ select: { id_movimiento_adicional: true } })
+     * 
+     */
+    findMany<T extends movimientos_adicionalesFindManyArgs>(args?: SelectSubset<T, movimientos_adicionalesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Movimientos_adicionales.
+     * @param {movimientos_adicionalesCreateArgs} args - Arguments to create a Movimientos_adicionales.
+     * @example
+     * // Create one Movimientos_adicionales
+     * const Movimientos_adicionales = await prisma.movimientos_adicionales.create({
+     *   data: {
+     *     // ... data to create a Movimientos_adicionales
+     *   }
+     * })
+     * 
+     */
+    create<T extends movimientos_adicionalesCreateArgs>(args: SelectSubset<T, movimientos_adicionalesCreateArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Movimientos_adicionales.
+     * @param {movimientos_adicionalesCreateManyArgs} args - Arguments to create many Movimientos_adicionales.
+     * @example
+     * // Create many Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends movimientos_adicionalesCreateManyArgs>(args?: SelectSubset<T, movimientos_adicionalesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Movimientos_adicionales.
+     * @param {movimientos_adicionalesDeleteArgs} args - Arguments to delete one Movimientos_adicionales.
+     * @example
+     * // Delete one Movimientos_adicionales
+     * const Movimientos_adicionales = await prisma.movimientos_adicionales.delete({
+     *   where: {
+     *     // ... filter to delete one Movimientos_adicionales
+     *   }
+     * })
+     * 
+     */
+    delete<T extends movimientos_adicionalesDeleteArgs>(args: SelectSubset<T, movimientos_adicionalesDeleteArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Movimientos_adicionales.
+     * @param {movimientos_adicionalesUpdateArgs} args - Arguments to update one Movimientos_adicionales.
+     * @example
+     * // Update one Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends movimientos_adicionalesUpdateArgs>(args: SelectSubset<T, movimientos_adicionalesUpdateArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Movimientos_adicionales.
+     * @param {movimientos_adicionalesDeleteManyArgs} args - Arguments to filter Movimientos_adicionales to delete.
+     * @example
+     * // Delete a few Movimientos_adicionales
+     * const { count } = await prisma.movimientos_adicionales.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends movimientos_adicionalesDeleteManyArgs>(args?: SelectSubset<T, movimientos_adicionalesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Movimientos_adicionales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends movimientos_adicionalesUpdateManyArgs>(args: SelectSubset<T, movimientos_adicionalesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Movimientos_adicionales.
+     * @param {movimientos_adicionalesUpsertArgs} args - Arguments to update or create a Movimientos_adicionales.
+     * @example
+     * // Update or create a Movimientos_adicionales
+     * const movimientos_adicionales = await prisma.movimientos_adicionales.upsert({
+     *   create: {
+     *     // ... data to create a Movimientos_adicionales
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Movimientos_adicionales we want to update
+     *   }
+     * })
+     */
+    upsert<T extends movimientos_adicionalesUpsertArgs>(args: SelectSubset<T, movimientos_adicionalesUpsertArgs<ExtArgs>>): Prisma__movimientos_adicionalesClient<$Result.GetResult<Prisma.$movimientos_adicionalesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Movimientos_adicionales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesCountArgs} args - Arguments to filter Movimientos_adicionales to count.
+     * @example
+     * // Count the number of Movimientos_adicionales
+     * const count = await prisma.movimientos_adicionales.count({
+     *   where: {
+     *     // ... the filter for the Movimientos_adicionales we want to count
+     *   }
+     * })
+    **/
+    count<T extends movimientos_adicionalesCountArgs>(
+      args?: Subset<T, movimientos_adicionalesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Movimientos_adicionalesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Movimientos_adicionales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Movimientos_adicionalesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Movimientos_adicionalesAggregateArgs>(args: Subset<T, Movimientos_adicionalesAggregateArgs>): Prisma.PrismaPromise<GetMovimientos_adicionalesAggregateType<T>>
+
+    /**
+     * Group by Movimientos_adicionales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {movimientos_adicionalesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends movimientos_adicionalesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: movimientos_adicionalesGroupByArgs['orderBy'] }
+        : { orderBy?: movimientos_adicionalesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, movimientos_adicionalesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMovimientos_adicionalesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the movimientos_adicionales model
+   */
+  readonly fields: movimientos_adicionalesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for movimientos_adicionales.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__movimientos_adicionalesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    movimientos_inventario<T extends movimientos_inventarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, movimientos_inventarioDefaultArgs<ExtArgs>>): Prisma__movimientos_inventarioClient<$Result.GetResult<Prisma.$movimientos_inventarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the movimientos_adicionales model
+   */
+  interface movimientos_adicionalesFieldRefs {
+    readonly id_movimiento_adicional: FieldRef<"movimientos_adicionales", 'Int'>
+    readonly id_movimiento: FieldRef<"movimientos_adicionales", 'Int'>
+    readonly numero_factura: FieldRef<"movimientos_adicionales", 'String'>
+    readonly numero_guia_remision: FieldRef<"movimientos_adicionales", 'String'>
+    readonly costo_unitario: FieldRef<"movimientos_adicionales", 'Decimal'>
+    readonly costo_total: FieldRef<"movimientos_adicionales", 'Decimal'>
+    readonly fecha_ingreso: FieldRef<"movimientos_adicionales", 'DateTime'>
+    readonly fecha_registro: FieldRef<"movimientos_adicionales", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * movimientos_adicionales findUnique
+   */
+  export type movimientos_adicionalesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter, which movimientos_adicionales to fetch.
+     */
+    where: movimientos_adicionalesWhereUniqueInput
+  }
+
+  /**
+   * movimientos_adicionales findUniqueOrThrow
+   */
+  export type movimientos_adicionalesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter, which movimientos_adicionales to fetch.
+     */
+    where: movimientos_adicionalesWhereUniqueInput
+  }
+
+  /**
+   * movimientos_adicionales findFirst
+   */
+  export type movimientos_adicionalesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter, which movimientos_adicionales to fetch.
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of movimientos_adicionales to fetch.
+     */
+    orderBy?: movimientos_adicionalesOrderByWithRelationInput | movimientos_adicionalesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for movimientos_adicionales.
+     */
+    cursor?: movimientos_adicionalesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` movimientos_adicionales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` movimientos_adicionales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of movimientos_adicionales.
+     */
+    distinct?: Movimientos_adicionalesScalarFieldEnum | Movimientos_adicionalesScalarFieldEnum[]
+  }
+
+  /**
+   * movimientos_adicionales findFirstOrThrow
+   */
+  export type movimientos_adicionalesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter, which movimientos_adicionales to fetch.
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of movimientos_adicionales to fetch.
+     */
+    orderBy?: movimientos_adicionalesOrderByWithRelationInput | movimientos_adicionalesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for movimientos_adicionales.
+     */
+    cursor?: movimientos_adicionalesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` movimientos_adicionales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` movimientos_adicionales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of movimientos_adicionales.
+     */
+    distinct?: Movimientos_adicionalesScalarFieldEnum | Movimientos_adicionalesScalarFieldEnum[]
+  }
+
+  /**
+   * movimientos_adicionales findMany
+   */
+  export type movimientos_adicionalesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter, which movimientos_adicionales to fetch.
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of movimientos_adicionales to fetch.
+     */
+    orderBy?: movimientos_adicionalesOrderByWithRelationInput | movimientos_adicionalesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing movimientos_adicionales.
+     */
+    cursor?: movimientos_adicionalesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` movimientos_adicionales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` movimientos_adicionales.
+     */
+    skip?: number
+    distinct?: Movimientos_adicionalesScalarFieldEnum | Movimientos_adicionalesScalarFieldEnum[]
+  }
+
+  /**
+   * movimientos_adicionales create
+   */
+  export type movimientos_adicionalesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a movimientos_adicionales.
+     */
+    data: XOR<movimientos_adicionalesCreateInput, movimientos_adicionalesUncheckedCreateInput>
+  }
+
+  /**
+   * movimientos_adicionales createMany
+   */
+  export type movimientos_adicionalesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many movimientos_adicionales.
+     */
+    data: movimientos_adicionalesCreateManyInput | movimientos_adicionalesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * movimientos_adicionales update
+   */
+  export type movimientos_adicionalesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a movimientos_adicionales.
+     */
+    data: XOR<movimientos_adicionalesUpdateInput, movimientos_adicionalesUncheckedUpdateInput>
+    /**
+     * Choose, which movimientos_adicionales to update.
+     */
+    where: movimientos_adicionalesWhereUniqueInput
+  }
+
+  /**
+   * movimientos_adicionales updateMany
+   */
+  export type movimientos_adicionalesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update movimientos_adicionales.
+     */
+    data: XOR<movimientos_adicionalesUpdateManyMutationInput, movimientos_adicionalesUncheckedUpdateManyInput>
+    /**
+     * Filter which movimientos_adicionales to update
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * Limit how many movimientos_adicionales to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * movimientos_adicionales upsert
+   */
+  export type movimientos_adicionalesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the movimientos_adicionales to update in case it exists.
+     */
+    where: movimientos_adicionalesWhereUniqueInput
+    /**
+     * In case the movimientos_adicionales found by the `where` argument doesn't exist, create a new movimientos_adicionales with this data.
+     */
+    create: XOR<movimientos_adicionalesCreateInput, movimientos_adicionalesUncheckedCreateInput>
+    /**
+     * In case the movimientos_adicionales was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<movimientos_adicionalesUpdateInput, movimientos_adicionalesUncheckedUpdateInput>
+  }
+
+  /**
+   * movimientos_adicionales delete
+   */
+  export type movimientos_adicionalesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+    /**
+     * Filter which movimientos_adicionales to delete.
+     */
+    where: movimientos_adicionalesWhereUniqueInput
+  }
+
+  /**
+   * movimientos_adicionales deleteMany
+   */
+  export type movimientos_adicionalesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which movimientos_adicionales to delete
+     */
+    where?: movimientos_adicionalesWhereInput
+    /**
+     * Limit how many movimientos_adicionales to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * movimientos_adicionales without action
+   */
+  export type movimientos_adicionalesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the movimientos_adicionales
+     */
+    select?: movimientos_adicionalesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the movimientos_adicionales
+     */
+    omit?: movimientos_adicionalesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: movimientos_adicionalesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tipo_detraccion
+   */
+
+  export type AggregateTipo_detraccion = {
+    _count: Tipo_detraccionCountAggregateOutputType | null
+    _avg: Tipo_detraccionAvgAggregateOutputType | null
+    _sum: Tipo_detraccionSumAggregateOutputType | null
+    _min: Tipo_detraccionMinAggregateOutputType | null
+    _max: Tipo_detraccionMaxAggregateOutputType | null
+  }
+
+  export type Tipo_detraccionAvgAggregateOutputType = {
+    porcentaje_detraccion: Decimal | null
+  }
+
+  export type Tipo_detraccionSumAggregateOutputType = {
+    porcentaje_detraccion: Decimal | null
+  }
+
+  export type Tipo_detraccionMinAggregateOutputType = {
+    id_tipo_detraccion: string | null
+    tipo_detraccion: string | null
+    porcentaje_detraccion: Decimal | null
+  }
+
+  export type Tipo_detraccionMaxAggregateOutputType = {
+    id_tipo_detraccion: string | null
+    tipo_detraccion: string | null
+    porcentaje_detraccion: Decimal | null
+  }
+
+  export type Tipo_detraccionCountAggregateOutputType = {
+    id_tipo_detraccion: number
+    tipo_detraccion: number
+    porcentaje_detraccion: number
+    _all: number
+  }
+
+
+  export type Tipo_detraccionAvgAggregateInputType = {
+    porcentaje_detraccion?: true
+  }
+
+  export type Tipo_detraccionSumAggregateInputType = {
+    porcentaje_detraccion?: true
+  }
+
+  export type Tipo_detraccionMinAggregateInputType = {
+    id_tipo_detraccion?: true
+    tipo_detraccion?: true
+    porcentaje_detraccion?: true
+  }
+
+  export type Tipo_detraccionMaxAggregateInputType = {
+    id_tipo_detraccion?: true
+    tipo_detraccion?: true
+    porcentaje_detraccion?: true
+  }
+
+  export type Tipo_detraccionCountAggregateInputType = {
+    id_tipo_detraccion?: true
+    tipo_detraccion?: true
+    porcentaje_detraccion?: true
+    _all?: true
+  }
+
+  export type Tipo_detraccionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tipo_detraccion to aggregate.
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tipo_detraccions to fetch.
+     */
+    orderBy?: tipo_detraccionOrderByWithRelationInput | tipo_detraccionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tipo_detraccionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tipo_detraccions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tipo_detraccions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tipo_detraccions
+    **/
+    _count?: true | Tipo_detraccionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Tipo_detraccionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Tipo_detraccionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Tipo_detraccionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Tipo_detraccionMaxAggregateInputType
+  }
+
+  export type GetTipo_detraccionAggregateType<T extends Tipo_detraccionAggregateArgs> = {
+        [P in keyof T & keyof AggregateTipo_detraccion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTipo_detraccion[P]>
+      : GetScalarType<T[P], AggregateTipo_detraccion[P]>
+  }
+
+
+
+
+  export type tipo_detraccionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tipo_detraccionWhereInput
+    orderBy?: tipo_detraccionOrderByWithAggregationInput | tipo_detraccionOrderByWithAggregationInput[]
+    by: Tipo_detraccionScalarFieldEnum[] | Tipo_detraccionScalarFieldEnum
+    having?: tipo_detraccionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Tipo_detraccionCountAggregateInputType | true
+    _avg?: Tipo_detraccionAvgAggregateInputType
+    _sum?: Tipo_detraccionSumAggregateInputType
+    _min?: Tipo_detraccionMinAggregateInputType
+    _max?: Tipo_detraccionMaxAggregateInputType
+  }
+
+  export type Tipo_detraccionGroupByOutputType = {
+    id_tipo_detraccion: string
+    tipo_detraccion: string | null
+    porcentaje_detraccion: Decimal | null
+    _count: Tipo_detraccionCountAggregateOutputType | null
+    _avg: Tipo_detraccionAvgAggregateOutputType | null
+    _sum: Tipo_detraccionSumAggregateOutputType | null
+    _min: Tipo_detraccionMinAggregateOutputType | null
+    _max: Tipo_detraccionMaxAggregateOutputType | null
+  }
+
+  type GetTipo_detraccionGroupByPayload<T extends tipo_detraccionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Tipo_detraccionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Tipo_detraccionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Tipo_detraccionGroupByOutputType[P]>
+            : GetScalarType<T[P], Tipo_detraccionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tipo_detraccionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_tipo_detraccion?: boolean
+    tipo_detraccion?: boolean
+    porcentaje_detraccion?: boolean
+  }, ExtArgs["result"]["tipo_detraccion"]>
+
+
+
+  export type tipo_detraccionSelectScalar = {
+    id_tipo_detraccion?: boolean
+    tipo_detraccion?: boolean
+    porcentaje_detraccion?: boolean
+  }
+
+  export type tipo_detraccionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tipo_detraccion" | "tipo_detraccion" | "porcentaje_detraccion", ExtArgs["result"]["tipo_detraccion"]>
+
+  export type $tipo_detraccionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tipo_detraccion"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id_tipo_detraccion: string
+      tipo_detraccion: string | null
+      porcentaje_detraccion: Prisma.Decimal | null
+    }, ExtArgs["result"]["tipo_detraccion"]>
+    composites: {}
+  }
+
+  type tipo_detraccionGetPayload<S extends boolean | null | undefined | tipo_detraccionDefaultArgs> = $Result.GetResult<Prisma.$tipo_detraccionPayload, S>
+
+  type tipo_detraccionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tipo_detraccionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Tipo_detraccionCountAggregateInputType | true
+    }
+
+  export interface tipo_detraccionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tipo_detraccion'], meta: { name: 'tipo_detraccion' } }
+    /**
+     * Find zero or one Tipo_detraccion that matches the filter.
+     * @param {tipo_detraccionFindUniqueArgs} args - Arguments to find a Tipo_detraccion
+     * @example
+     * // Get one Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tipo_detraccionFindUniqueArgs>(args: SelectSubset<T, tipo_detraccionFindUniqueArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tipo_detraccion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tipo_detraccionFindUniqueOrThrowArgs} args - Arguments to find a Tipo_detraccion
+     * @example
+     * // Get one Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tipo_detraccionFindUniqueOrThrowArgs>(args: SelectSubset<T, tipo_detraccionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tipo_detraccion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionFindFirstArgs} args - Arguments to find a Tipo_detraccion
+     * @example
+     * // Get one Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tipo_detraccionFindFirstArgs>(args?: SelectSubset<T, tipo_detraccionFindFirstArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tipo_detraccion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionFindFirstOrThrowArgs} args - Arguments to find a Tipo_detraccion
+     * @example
+     * // Get one Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tipo_detraccionFindFirstOrThrowArgs>(args?: SelectSubset<T, tipo_detraccionFindFirstOrThrowArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tipo_detraccions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tipo_detraccions
+     * const tipo_detraccions = await prisma.tipo_detraccion.findMany()
+     * 
+     * // Get first 10 Tipo_detraccions
+     * const tipo_detraccions = await prisma.tipo_detraccion.findMany({ take: 10 })
+     * 
+     * // Only select the `id_tipo_detraccion`
+     * const tipo_detraccionWithId_tipo_detraccionOnly = await prisma.tipo_detraccion.findMany({ select: { id_tipo_detraccion: true } })
+     * 
+     */
+    findMany<T extends tipo_detraccionFindManyArgs>(args?: SelectSubset<T, tipo_detraccionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tipo_detraccion.
+     * @param {tipo_detraccionCreateArgs} args - Arguments to create a Tipo_detraccion.
+     * @example
+     * // Create one Tipo_detraccion
+     * const Tipo_detraccion = await prisma.tipo_detraccion.create({
+     *   data: {
+     *     // ... data to create a Tipo_detraccion
+     *   }
+     * })
+     * 
+     */
+    create<T extends tipo_detraccionCreateArgs>(args: SelectSubset<T, tipo_detraccionCreateArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tipo_detraccions.
+     * @param {tipo_detraccionCreateManyArgs} args - Arguments to create many Tipo_detraccions.
+     * @example
+     * // Create many Tipo_detraccions
+     * const tipo_detraccion = await prisma.tipo_detraccion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tipo_detraccionCreateManyArgs>(args?: SelectSubset<T, tipo_detraccionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Tipo_detraccion.
+     * @param {tipo_detraccionDeleteArgs} args - Arguments to delete one Tipo_detraccion.
+     * @example
+     * // Delete one Tipo_detraccion
+     * const Tipo_detraccion = await prisma.tipo_detraccion.delete({
+     *   where: {
+     *     // ... filter to delete one Tipo_detraccion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tipo_detraccionDeleteArgs>(args: SelectSubset<T, tipo_detraccionDeleteArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tipo_detraccion.
+     * @param {tipo_detraccionUpdateArgs} args - Arguments to update one Tipo_detraccion.
+     * @example
+     * // Update one Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tipo_detraccionUpdateArgs>(args: SelectSubset<T, tipo_detraccionUpdateArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tipo_detraccions.
+     * @param {tipo_detraccionDeleteManyArgs} args - Arguments to filter Tipo_detraccions to delete.
+     * @example
+     * // Delete a few Tipo_detraccions
+     * const { count } = await prisma.tipo_detraccion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tipo_detraccionDeleteManyArgs>(args?: SelectSubset<T, tipo_detraccionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tipo_detraccions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tipo_detraccions
+     * const tipo_detraccion = await prisma.tipo_detraccion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tipo_detraccionUpdateManyArgs>(args: SelectSubset<T, tipo_detraccionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Tipo_detraccion.
+     * @param {tipo_detraccionUpsertArgs} args - Arguments to update or create a Tipo_detraccion.
+     * @example
+     * // Update or create a Tipo_detraccion
+     * const tipo_detraccion = await prisma.tipo_detraccion.upsert({
+     *   create: {
+     *     // ... data to create a Tipo_detraccion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tipo_detraccion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tipo_detraccionUpsertArgs>(args: SelectSubset<T, tipo_detraccionUpsertArgs<ExtArgs>>): Prisma__tipo_detraccionClient<$Result.GetResult<Prisma.$tipo_detraccionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tipo_detraccions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionCountArgs} args - Arguments to filter Tipo_detraccions to count.
+     * @example
+     * // Count the number of Tipo_detraccions
+     * const count = await prisma.tipo_detraccion.count({
+     *   where: {
+     *     // ... the filter for the Tipo_detraccions we want to count
+     *   }
+     * })
+    **/
+    count<T extends tipo_detraccionCountArgs>(
+      args?: Subset<T, tipo_detraccionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Tipo_detraccionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tipo_detraccion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Tipo_detraccionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Tipo_detraccionAggregateArgs>(args: Subset<T, Tipo_detraccionAggregateArgs>): Prisma.PrismaPromise<GetTipo_detraccionAggregateType<T>>
+
+    /**
+     * Group by Tipo_detraccion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tipo_detraccionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tipo_detraccionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tipo_detraccionGroupByArgs['orderBy'] }
+        : { orderBy?: tipo_detraccionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tipo_detraccionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTipo_detraccionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tipo_detraccion model
+   */
+  readonly fields: tipo_detraccionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tipo_detraccion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tipo_detraccionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tipo_detraccion model
+   */
+  interface tipo_detraccionFieldRefs {
+    readonly id_tipo_detraccion: FieldRef<"tipo_detraccion", 'String'>
+    readonly tipo_detraccion: FieldRef<"tipo_detraccion", 'String'>
+    readonly porcentaje_detraccion: FieldRef<"tipo_detraccion", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tipo_detraccion findUnique
+   */
+  export type tipo_detraccionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter, which tipo_detraccion to fetch.
+     */
+    where: tipo_detraccionWhereUniqueInput
+  }
+
+  /**
+   * tipo_detraccion findUniqueOrThrow
+   */
+  export type tipo_detraccionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter, which tipo_detraccion to fetch.
+     */
+    where: tipo_detraccionWhereUniqueInput
+  }
+
+  /**
+   * tipo_detraccion findFirst
+   */
+  export type tipo_detraccionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter, which tipo_detraccion to fetch.
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tipo_detraccions to fetch.
+     */
+    orderBy?: tipo_detraccionOrderByWithRelationInput | tipo_detraccionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tipo_detraccions.
+     */
+    cursor?: tipo_detraccionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tipo_detraccions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tipo_detraccions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tipo_detraccions.
+     */
+    distinct?: Tipo_detraccionScalarFieldEnum | Tipo_detraccionScalarFieldEnum[]
+  }
+
+  /**
+   * tipo_detraccion findFirstOrThrow
+   */
+  export type tipo_detraccionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter, which tipo_detraccion to fetch.
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tipo_detraccions to fetch.
+     */
+    orderBy?: tipo_detraccionOrderByWithRelationInput | tipo_detraccionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tipo_detraccions.
+     */
+    cursor?: tipo_detraccionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tipo_detraccions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tipo_detraccions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tipo_detraccions.
+     */
+    distinct?: Tipo_detraccionScalarFieldEnum | Tipo_detraccionScalarFieldEnum[]
+  }
+
+  /**
+   * tipo_detraccion findMany
+   */
+  export type tipo_detraccionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter, which tipo_detraccions to fetch.
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tipo_detraccions to fetch.
+     */
+    orderBy?: tipo_detraccionOrderByWithRelationInput | tipo_detraccionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tipo_detraccions.
+     */
+    cursor?: tipo_detraccionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tipo_detraccions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tipo_detraccions.
+     */
+    skip?: number
+    distinct?: Tipo_detraccionScalarFieldEnum | Tipo_detraccionScalarFieldEnum[]
+  }
+
+  /**
+   * tipo_detraccion create
+   */
+  export type tipo_detraccionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tipo_detraccion.
+     */
+    data: XOR<tipo_detraccionCreateInput, tipo_detraccionUncheckedCreateInput>
+  }
+
+  /**
+   * tipo_detraccion createMany
+   */
+  export type tipo_detraccionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tipo_detraccions.
+     */
+    data: tipo_detraccionCreateManyInput | tipo_detraccionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tipo_detraccion update
+   */
+  export type tipo_detraccionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tipo_detraccion.
+     */
+    data: XOR<tipo_detraccionUpdateInput, tipo_detraccionUncheckedUpdateInput>
+    /**
+     * Choose, which tipo_detraccion to update.
+     */
+    where: tipo_detraccionWhereUniqueInput
+  }
+
+  /**
+   * tipo_detraccion updateMany
+   */
+  export type tipo_detraccionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tipo_detraccions.
+     */
+    data: XOR<tipo_detraccionUpdateManyMutationInput, tipo_detraccionUncheckedUpdateManyInput>
+    /**
+     * Filter which tipo_detraccions to update
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * Limit how many tipo_detraccions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tipo_detraccion upsert
+   */
+  export type tipo_detraccionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tipo_detraccion to update in case it exists.
+     */
+    where: tipo_detraccionWhereUniqueInput
+    /**
+     * In case the tipo_detraccion found by the `where` argument doesn't exist, create a new tipo_detraccion with this data.
+     */
+    create: XOR<tipo_detraccionCreateInput, tipo_detraccionUncheckedCreateInput>
+    /**
+     * In case the tipo_detraccion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tipo_detraccionUpdateInput, tipo_detraccionUncheckedUpdateInput>
+  }
+
+  /**
+   * tipo_detraccion delete
+   */
+  export type tipo_detraccionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+    /**
+     * Filter which tipo_detraccion to delete.
+     */
+    where: tipo_detraccionWhereUniqueInput
+  }
+
+  /**
+   * tipo_detraccion deleteMany
+   */
+  export type tipo_detraccionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tipo_detraccions to delete
+     */
+    where?: tipo_detraccionWhereInput
+    /**
+     * Limit how many tipo_detraccions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tipo_detraccion without action
+   */
+  export type tipo_detraccionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tipo_detraccion
+     */
+    select?: tipo_detraccionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tipo_detraccion
+     */
+    omit?: tipo_detraccionOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37386,7 +45044,8 @@ export namespace Prisma {
     fecha_movimiento: 'fecha_movimiento',
     responsable: 'responsable',
     observaciones: 'observaciones',
-    estado: 'estado'
+    estado: 'estado',
+    id_usuario_registro: 'id_usuario_registro'
   };
 
   export type Movimientos_inventarioScalarFieldEnum = (typeof Movimientos_inventarioScalarFieldEnum)[keyof typeof Movimientos_inventarioScalarFieldEnum]
@@ -37617,6 +45276,7 @@ export namespace Prisma {
     detraccion: 'detraccion',
     porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
     valor_detraccion: 'valor_detraccion',
+    tipo_detraccion: 'tipo_detraccion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
     url: 'url',
@@ -37694,6 +45354,162 @@ export namespace Prisma {
   };
 
   export type ProyectoScalarFieldEnum = (typeof ProyectoScalarFieldEnum)[keyof typeof ProyectoScalarFieldEnum]
+
+
+  export const FacturaScalarFieldEnum: {
+    id_factura: 'id_factura',
+    estado_factura: 'estado_factura',
+    operacion: 'operacion',
+    tipo_de_comprobante: 'tipo_de_comprobante',
+    serie: 'serie',
+    numero: 'numero',
+    sunat_transaction: 'sunat_transaction',
+    id_proveedor: 'id_proveedor',
+    cliente_tipo_documento: 'cliente_tipo_documento',
+    cliente_numero_documento: 'cliente_numero_documento',
+    cliente_denominacion: 'cliente_denominacion',
+    cliente_direccion: 'cliente_direccion',
+    cliente_email: 'cliente_email',
+    cliente_email_1: 'cliente_email_1',
+    cliente_email_2: 'cliente_email_2',
+    fecha_emision: 'fecha_emision',
+    fecha_vencimiento: 'fecha_vencimiento',
+    fecha_servicio: 'fecha_servicio',
+    moneda: 'moneda',
+    tipo_cambio: 'tipo_cambio',
+    porcentaje_igv: 'porcentaje_igv',
+    descuento_global: 'descuento_global',
+    total_descuento: 'total_descuento',
+    total_anticipo: 'total_anticipo',
+    total_gravada: 'total_gravada',
+    total_inafecta: 'total_inafecta',
+    total_exonerada: 'total_exonerada',
+    total_igv: 'total_igv',
+    total_gratuita: 'total_gratuita',
+    total_otros_cargos: 'total_otros_cargos',
+    total_isc: 'total_isc',
+    total: 'total',
+    aplicar_detraccion: 'aplicar_detraccion',
+    detraccion_tipo: 'detraccion_tipo',
+    detraccion_porcentaje: 'detraccion_porcentaje',
+    detraccion_total: 'detraccion_total',
+    medio_pago_detraccion: 'medio_pago_detraccion',
+    ubigeo_origen: 'ubigeo_origen',
+    direccion_origen: 'direccion_origen',
+    ubigeo_destino: 'ubigeo_destino',
+    direccion_destino: 'direccion_destino',
+    detalle_viaje: 'detalle_viaje',
+    percepcion_tipo: 'percepcion_tipo',
+    percepcion_base_imponible: 'percepcion_base_imponible',
+    total_percepcion: 'total_percepcion',
+    total_incluido_percepcion: 'total_incluido_percepcion',
+    retencion_tipo: 'retencion_tipo',
+    retencion_base_imponible: 'retencion_base_imponible',
+    total_retencion: 'total_retencion',
+    fondo_garantia: 'fondo_garantia',
+    fondo_garantia_valor: 'fondo_garantia_valor',
+    orden_compra: 'orden_compra',
+    orden_compra_valor: 'orden_compra_valor',
+    placa_vehiculo: 'placa_vehiculo',
+    orden_compra_servicio: 'orden_compra_servicio',
+    centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
+    centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
+    centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
+    unidad: 'unidad',
+    unidad_id: 'unidad_id',
+    observaciones: 'observaciones',
+    enviar_automaticamente_sunat: 'enviar_automaticamente_sunat',
+    enviar_automaticamente_cliente: 'enviar_automaticamente_cliente',
+    formato_pdf: 'formato_pdf',
+    enlace: 'enlace',
+    enlace_del_pdf: 'enlace_del_pdf',
+    enlace_del_xml: 'enlace_del_xml',
+    enlace_del_cdr: 'enlace_del_cdr',
+    cadena_para_codigo_qr: 'cadena_para_codigo_qr',
+    codigo_hash: 'codigo_hash',
+    aceptada_por_sunat: 'aceptada_por_sunat',
+    sunat_description: 'sunat_description',
+    sunat_note: 'sunat_note',
+    sunat_responsecode: 'sunat_responsecode',
+    sunat_soap_error: 'sunat_soap_error',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type FacturaScalarFieldEnum = (typeof FacturaScalarFieldEnum)[keyof typeof FacturaScalarFieldEnum]
+
+
+  export const Factura_guiaScalarFieldEnum: {
+    id_factura_guia: 'id_factura_guia',
+    id_factura: 'id_factura',
+    guia_tipo: 'guia_tipo',
+    guia_serie_numero: 'guia_serie_numero',
+    created_at: 'created_at'
+  };
+
+  export type Factura_guiaScalarFieldEnum = (typeof Factura_guiaScalarFieldEnum)[keyof typeof Factura_guiaScalarFieldEnum]
+
+
+  export const Factura_itemScalarFieldEnum: {
+    id_factura_item: 'id_factura_item',
+    id_factura: 'id_factura',
+    codigo_item: 'codigo_item',
+    codigo_producto_sunat: 'codigo_producto_sunat',
+    descripcion_item: 'descripcion_item',
+    unidad_medida: 'unidad_medida',
+    cantidad: 'cantidad',
+    valor_unitario: 'valor_unitario',
+    precio_unitario: 'precio_unitario',
+    descuento: 'descuento',
+    subtotal: 'subtotal',
+    tipo_de_igv: 'tipo_de_igv',
+    igv: 'igv',
+    tipo_de_isc: 'tipo_de_isc',
+    isc: 'isc',
+    total: 'total',
+    anticipo_regularizacion: 'anticipo_regularizacion',
+    anticipo_documento_serie: 'anticipo_documento_serie',
+    anticipo_documento_numero: 'anticipo_documento_numero',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Factura_itemScalarFieldEnum = (typeof Factura_itemScalarFieldEnum)[keyof typeof Factura_itemScalarFieldEnum]
+
+
+  export const Factura_venta_creditoScalarFieldEnum: {
+    id_venta_credito: 'id_venta_credito',
+    id_factura: 'id_factura',
+    cuota: 'cuota',
+    fecha_pago: 'fecha_pago',
+    importe: 'importe',
+    created_at: 'created_at'
+  };
+
+  export type Factura_venta_creditoScalarFieldEnum = (typeof Factura_venta_creditoScalarFieldEnum)[keyof typeof Factura_venta_creditoScalarFieldEnum]
+
+
+  export const Movimientos_adicionalesScalarFieldEnum: {
+    id_movimiento_adicional: 'id_movimiento_adicional',
+    id_movimiento: 'id_movimiento',
+    numero_factura: 'numero_factura',
+    numero_guia_remision: 'numero_guia_remision',
+    costo_unitario: 'costo_unitario',
+    costo_total: 'costo_total',
+    fecha_ingreso: 'fecha_ingreso',
+    fecha_registro: 'fecha_registro'
+  };
+
+  export type Movimientos_adicionalesScalarFieldEnum = (typeof Movimientos_adicionalesScalarFieldEnum)[keyof typeof Movimientos_adicionalesScalarFieldEnum]
+
+
+  export const Tipo_detraccionScalarFieldEnum: {
+    id_tipo_detraccion: 'id_tipo_detraccion',
+    tipo_detraccion: 'tipo_detraccion',
+    porcentaje_detraccion: 'porcentaje_detraccion'
+  };
+
+  export type Tipo_detraccionScalarFieldEnum = (typeof Tipo_detraccionScalarFieldEnum)[keyof typeof Tipo_detraccionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -37967,6 +45783,7 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     detraccion: 'detraccion',
     porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+    tipo_detraccion: 'tipo_detraccion',
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
@@ -38008,6 +45825,80 @@ export namespace Prisma {
   };
 
   export type proyectoOrderByRelevanceFieldEnum = (typeof proyectoOrderByRelevanceFieldEnum)[keyof typeof proyectoOrderByRelevanceFieldEnum]
+
+
+  export const facturaOrderByRelevanceFieldEnum: {
+    estado_factura: 'estado_factura',
+    operacion: 'operacion',
+    serie: 'serie',
+    cliente_numero_documento: 'cliente_numero_documento',
+    cliente_denominacion: 'cliente_denominacion',
+    cliente_direccion: 'cliente_direccion',
+    cliente_email: 'cliente_email',
+    cliente_email_1: 'cliente_email_1',
+    cliente_email_2: 'cliente_email_2',
+    ubigeo_origen: 'ubigeo_origen',
+    direccion_origen: 'direccion_origen',
+    ubigeo_destino: 'ubigeo_destino',
+    direccion_destino: 'direccion_destino',
+    detalle_viaje: 'detalle_viaje',
+    fondo_garantia_valor: 'fondo_garantia_valor',
+    orden_compra_valor: 'orden_compra_valor',
+    placa_vehiculo: 'placa_vehiculo',
+    orden_compra_servicio: 'orden_compra_servicio',
+    centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
+    centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
+    centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
+    unidad: 'unidad',
+    observaciones: 'observaciones',
+    formato_pdf: 'formato_pdf',
+    enlace: 'enlace',
+    enlace_del_pdf: 'enlace_del_pdf',
+    enlace_del_xml: 'enlace_del_xml',
+    enlace_del_cdr: 'enlace_del_cdr',
+    cadena_para_codigo_qr: 'cadena_para_codigo_qr',
+    codigo_hash: 'codigo_hash',
+    sunat_description: 'sunat_description',
+    sunat_note: 'sunat_note',
+    sunat_responsecode: 'sunat_responsecode',
+    sunat_soap_error: 'sunat_soap_error'
+  };
+
+  export type facturaOrderByRelevanceFieldEnum = (typeof facturaOrderByRelevanceFieldEnum)[keyof typeof facturaOrderByRelevanceFieldEnum]
+
+
+  export const factura_guiaOrderByRelevanceFieldEnum: {
+    guia_serie_numero: 'guia_serie_numero'
+  };
+
+  export type factura_guiaOrderByRelevanceFieldEnum = (typeof factura_guiaOrderByRelevanceFieldEnum)[keyof typeof factura_guiaOrderByRelevanceFieldEnum]
+
+
+  export const factura_itemOrderByRelevanceFieldEnum: {
+    codigo_item: 'codigo_item',
+    codigo_producto_sunat: 'codigo_producto_sunat',
+    descripcion_item: 'descripcion_item',
+    unidad_medida: 'unidad_medida',
+    anticipo_documento_serie: 'anticipo_documento_serie'
+  };
+
+  export type factura_itemOrderByRelevanceFieldEnum = (typeof factura_itemOrderByRelevanceFieldEnum)[keyof typeof factura_itemOrderByRelevanceFieldEnum]
+
+
+  export const movimientos_adicionalesOrderByRelevanceFieldEnum: {
+    numero_factura: 'numero_factura',
+    numero_guia_remision: 'numero_guia_remision'
+  };
+
+  export type movimientos_adicionalesOrderByRelevanceFieldEnum = (typeof movimientos_adicionalesOrderByRelevanceFieldEnum)[keyof typeof movimientos_adicionalesOrderByRelevanceFieldEnum]
+
+
+  export const tipo_detraccionOrderByRelevanceFieldEnum: {
+    id_tipo_detraccion: 'id_tipo_detraccion',
+    tipo_detraccion: 'tipo_detraccion'
+  };
+
+  export type tipo_detraccionOrderByRelevanceFieldEnum = (typeof tipo_detraccionOrderByRelevanceFieldEnum)[keyof typeof tipo_detraccionOrderByRelevanceFieldEnum]
 
 
   /**
@@ -39194,6 +47085,8 @@ export namespace Prisma {
     responsable?: StringNullableFilter<"movimientos_inventario"> | string | null
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
+    movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: XOR<AlmacenesNullableScalarRelationFilter, almacenesWhereInput> | null
@@ -39213,6 +47106,8 @@ export namespace Prisma {
     responsable?: SortOrderInput | SortOrder
     observaciones?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
+    id_usuario_registro?: SortOrderInput | SortOrder
+    movimientos_adicionales?: movimientos_adicionalesOrderByRelationAggregateInput
     tipos_movimiento?: tipos_movimientoOrderByWithRelationInput
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesOrderByWithRelationInput
@@ -39236,6 +47131,8 @@ export namespace Prisma {
     responsable?: StringNullableFilter<"movimientos_inventario"> | string | null
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
+    movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: XOR<AlmacenesNullableScalarRelationFilter, almacenesWhereInput> | null
@@ -39255,6 +47152,7 @@ export namespace Prisma {
     responsable?: SortOrderInput | SortOrder
     observaciones?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
+    id_usuario_registro?: SortOrderInput | SortOrder
     _count?: movimientos_inventarioCountOrderByAggregateInput
     _avg?: movimientos_inventarioAvgOrderByAggregateInput
     _max?: movimientos_inventarioMaxOrderByAggregateInput
@@ -39277,6 +47175,7 @@ export namespace Prisma {
     responsable?: StringNullableWithAggregatesFilter<"movimientos_inventario"> | string | null
     observaciones?: StringNullableWithAggregatesFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableWithAggregatesFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: IntNullableWithAggregatesFilter<"movimientos_inventario"> | number | null
   }
 
   export type notificacionesWhereInput = {
@@ -39826,6 +47725,7 @@ export namespace Prisma {
     retencion?: Enumproveedores_retencionNullableFilter<"proveedores"> | $Enums.proveedores_retencion | null
     es_agente_retencion?: StringNullableFilter<"proveedores"> | string | null
     numero_cuenta?: StringNullableFilter<"proveedores"> | string | null
+    factura?: FacturaListRelationFilter
     ordenes_compra?: Ordenes_compraListRelationFilter
     ordenes_servicio?: Ordenes_servicioListRelationFilter
   }
@@ -39847,6 +47747,7 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     es_agente_retencion?: SortOrderInput | SortOrder
     numero_cuenta?: SortOrderInput | SortOrder
+    factura?: facturaOrderByRelationAggregateInput
     ordenes_compra?: ordenes_compraOrderByRelationAggregateInput
     ordenes_servicio?: ordenes_servicioOrderByRelationAggregateInput
     _relevance?: proveedoresOrderByRelevanceInput
@@ -39872,6 +47773,7 @@ export namespace Prisma {
     retencion?: Enumproveedores_retencionNullableFilter<"proveedores"> | $Enums.proveedores_retencion | null
     es_agente_retencion?: StringNullableFilter<"proveedores"> | string | null
     numero_cuenta?: StringNullableFilter<"proveedores"> | string | null
+    factura?: FacturaListRelationFilter
     ordenes_compra?: Ordenes_compraListRelationFilter
     ordenes_servicio?: Ordenes_servicioListRelationFilter
   }, "id_proveedor" | "codigo_proveedor">
@@ -40381,6 +48283,7 @@ export namespace Prisma {
     detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -40424,6 +48327,7 @@ export namespace Prisma {
     detraccion?: SortOrderInput | SortOrder
     porcentaje_valor_detraccion?: SortOrderInput | SortOrder
     valor_detraccion?: SortOrderInput | SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -40471,6 +48375,7 @@ export namespace Prisma {
     detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -40514,6 +48419,7 @@ export namespace Prisma {
     detraccion?: SortOrderInput | SortOrder
     porcentaje_valor_detraccion?: SortOrderInput | SortOrder
     valor_detraccion?: SortOrderInput | SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -40562,6 +48468,7 @@ export namespace Prisma {
     detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     porcentaje_valor_detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
@@ -40916,6 +48823,810 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"proyecto"> | Date | string | null
     cliente?: StringNullableWithAggregatesFilter<"proyecto"> | string | null
     ubicacion?: StringNullableWithAggregatesFilter<"proyecto"> | string | null
+  }
+
+  export type facturaWhereInput = {
+    AND?: facturaWhereInput | facturaWhereInput[]
+    OR?: facturaWhereInput[]
+    NOT?: facturaWhereInput | facturaWhereInput[]
+    id_factura?: IntFilter<"factura"> | number
+    estado_factura?: StringNullableFilter<"factura"> | string | null
+    operacion?: StringFilter<"factura"> | string
+    tipo_de_comprobante?: IntFilter<"factura"> | number
+    serie?: StringFilter<"factura"> | string
+    numero?: IntFilter<"factura"> | number
+    sunat_transaction?: IntFilter<"factura"> | number
+    id_proveedor?: IntFilter<"factura"> | number
+    cliente_tipo_documento?: IntFilter<"factura"> | number
+    cliente_numero_documento?: StringFilter<"factura"> | string
+    cliente_denominacion?: StringFilter<"factura"> | string
+    cliente_direccion?: StringNullableFilter<"factura"> | string | null
+    cliente_email?: StringNullableFilter<"factura"> | string | null
+    cliente_email_1?: StringNullableFilter<"factura"> | string | null
+    cliente_email_2?: StringNullableFilter<"factura"> | string | null
+    fecha_emision?: DateTimeFilter<"factura"> | Date | string
+    fecha_vencimiento?: DateTimeNullableFilter<"factura"> | Date | string | null
+    fecha_servicio?: DateTimeNullableFilter<"factura"> | Date | string | null
+    moneda?: IntFilter<"factura"> | number
+    tipo_cambio?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    descuento_global?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_igv?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_isc?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFilter<"factura"> | boolean
+    detraccion_tipo?: IntNullableFilter<"factura"> | number | null
+    detraccion_porcentaje?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: IntNullableFilter<"factura"> | number | null
+    ubigeo_origen?: StringNullableFilter<"factura"> | string | null
+    direccion_origen?: StringNullableFilter<"factura"> | string | null
+    ubigeo_destino?: StringNullableFilter<"factura"> | string | null
+    direccion_destino?: StringNullableFilter<"factura"> | string | null
+    detalle_viaje?: StringNullableFilter<"factura"> | string | null
+    percepcion_tipo?: IntNullableFilter<"factura"> | number | null
+    percepcion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: IntNullableFilter<"factura"> | number | null
+    retencion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFilter<"factura"> | boolean
+    fondo_garantia_valor?: StringNullableFilter<"factura"> | string | null
+    orden_compra?: BoolFilter<"factura"> | boolean
+    orden_compra_valor?: StringNullableFilter<"factura"> | string | null
+    placa_vehiculo?: StringNullableFilter<"factura"> | string | null
+    orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
+    unidad?: StringNullableFilter<"factura"> | string | null
+    unidad_id?: IntNullableFilter<"factura"> | number | null
+    observaciones?: StringNullableFilter<"factura"> | string | null
+    enviar_automaticamente_sunat?: BoolFilter<"factura"> | boolean
+    enviar_automaticamente_cliente?: BoolFilter<"factura"> | boolean
+    formato_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace?: StringNullableFilter<"factura"> | string | null
+    enlace_del_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace_del_xml?: StringNullableFilter<"factura"> | string | null
+    enlace_del_cdr?: StringNullableFilter<"factura"> | string | null
+    cadena_para_codigo_qr?: StringNullableFilter<"factura"> | string | null
+    codigo_hash?: StringNullableFilter<"factura"> | string | null
+    aceptada_por_sunat?: BoolNullableFilter<"factura"> | boolean | null
+    sunat_description?: StringNullableFilter<"factura"> | string | null
+    sunat_note?: StringNullableFilter<"factura"> | string | null
+    sunat_responsecode?: StringNullableFilter<"factura"> | string | null
+    sunat_soap_error?: StringNullableFilter<"factura"> | string | null
+    created_at?: DateTimeFilter<"factura"> | Date | string
+    updated_at?: DateTimeFilter<"factura"> | Date | string
+    proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
+    factura_guia?: Factura_guiaListRelationFilter
+    factura_item?: Factura_itemListRelationFilter
+    factura_venta_credito?: Factura_venta_creditoListRelationFilter
+  }
+
+  export type facturaOrderByWithRelationInput = {
+    id_factura?: SortOrder
+    estado_factura?: SortOrderInput | SortOrder
+    operacion?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    serie?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    cliente_numero_documento?: SortOrder
+    cliente_denominacion?: SortOrder
+    cliente_direccion?: SortOrderInput | SortOrder
+    cliente_email?: SortOrderInput | SortOrder
+    cliente_email_1?: SortOrderInput | SortOrder
+    cliente_email_2?: SortOrderInput | SortOrder
+    fecha_emision?: SortOrder
+    fecha_vencimiento?: SortOrderInput | SortOrder
+    fecha_servicio?: SortOrderInput | SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrderInput | SortOrder
+    total_descuento?: SortOrderInput | SortOrder
+    total_anticipo?: SortOrderInput | SortOrder
+    total_gravada?: SortOrderInput | SortOrder
+    total_inafecta?: SortOrderInput | SortOrder
+    total_exonerada?: SortOrderInput | SortOrder
+    total_igv?: SortOrderInput | SortOrder
+    total_gratuita?: SortOrderInput | SortOrder
+    total_otros_cargos?: SortOrderInput | SortOrder
+    total_isc?: SortOrderInput | SortOrder
+    total?: SortOrder
+    aplicar_detraccion?: SortOrder
+    detraccion_tipo?: SortOrderInput | SortOrder
+    detraccion_porcentaje?: SortOrderInput | SortOrder
+    detraccion_total?: SortOrderInput | SortOrder
+    medio_pago_detraccion?: SortOrderInput | SortOrder
+    ubigeo_origen?: SortOrderInput | SortOrder
+    direccion_origen?: SortOrderInput | SortOrder
+    ubigeo_destino?: SortOrderInput | SortOrder
+    direccion_destino?: SortOrderInput | SortOrder
+    detalle_viaje?: SortOrderInput | SortOrder
+    percepcion_tipo?: SortOrderInput | SortOrder
+    percepcion_base_imponible?: SortOrderInput | SortOrder
+    total_percepcion?: SortOrderInput | SortOrder
+    total_incluido_percepcion?: SortOrderInput | SortOrder
+    retencion_tipo?: SortOrderInput | SortOrder
+    retencion_base_imponible?: SortOrderInput | SortOrder
+    total_retencion?: SortOrderInput | SortOrder
+    fondo_garantia?: SortOrder
+    fondo_garantia_valor?: SortOrderInput | SortOrder
+    orden_compra?: SortOrder
+    orden_compra_valor?: SortOrderInput | SortOrder
+    placa_vehiculo?: SortOrderInput | SortOrder
+    orden_compra_servicio?: SortOrderInput | SortOrder
+    centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
+    centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
+    centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
+    unidad?: SortOrderInput | SortOrder
+    unidad_id?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    enviar_automaticamente_sunat?: SortOrder
+    enviar_automaticamente_cliente?: SortOrder
+    formato_pdf?: SortOrderInput | SortOrder
+    enlace?: SortOrderInput | SortOrder
+    enlace_del_pdf?: SortOrderInput | SortOrder
+    enlace_del_xml?: SortOrderInput | SortOrder
+    enlace_del_cdr?: SortOrderInput | SortOrder
+    cadena_para_codigo_qr?: SortOrderInput | SortOrder
+    codigo_hash?: SortOrderInput | SortOrder
+    aceptada_por_sunat?: SortOrderInput | SortOrder
+    sunat_description?: SortOrderInput | SortOrder
+    sunat_note?: SortOrderInput | SortOrder
+    sunat_responsecode?: SortOrderInput | SortOrder
+    sunat_soap_error?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    proveedores?: proveedoresOrderByWithRelationInput
+    factura_guia?: factura_guiaOrderByRelationAggregateInput
+    factura_item?: factura_itemOrderByRelationAggregateInput
+    factura_venta_credito?: factura_venta_creditoOrderByRelationAggregateInput
+    _relevance?: facturaOrderByRelevanceInput
+  }
+
+  export type facturaWhereUniqueInput = Prisma.AtLeast<{
+    id_factura?: number
+    serie_numero?: facturaSerieNumeroCompoundUniqueInput
+    AND?: facturaWhereInput | facturaWhereInput[]
+    OR?: facturaWhereInput[]
+    NOT?: facturaWhereInput | facturaWhereInput[]
+    estado_factura?: StringNullableFilter<"factura"> | string | null
+    operacion?: StringFilter<"factura"> | string
+    tipo_de_comprobante?: IntFilter<"factura"> | number
+    serie?: StringFilter<"factura"> | string
+    numero?: IntFilter<"factura"> | number
+    sunat_transaction?: IntFilter<"factura"> | number
+    id_proveedor?: IntFilter<"factura"> | number
+    cliente_tipo_documento?: IntFilter<"factura"> | number
+    cliente_numero_documento?: StringFilter<"factura"> | string
+    cliente_denominacion?: StringFilter<"factura"> | string
+    cliente_direccion?: StringNullableFilter<"factura"> | string | null
+    cliente_email?: StringNullableFilter<"factura"> | string | null
+    cliente_email_1?: StringNullableFilter<"factura"> | string | null
+    cliente_email_2?: StringNullableFilter<"factura"> | string | null
+    fecha_emision?: DateTimeFilter<"factura"> | Date | string
+    fecha_vencimiento?: DateTimeNullableFilter<"factura"> | Date | string | null
+    fecha_servicio?: DateTimeNullableFilter<"factura"> | Date | string | null
+    moneda?: IntFilter<"factura"> | number
+    tipo_cambio?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    descuento_global?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_igv?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_isc?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFilter<"factura"> | boolean
+    detraccion_tipo?: IntNullableFilter<"factura"> | number | null
+    detraccion_porcentaje?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: IntNullableFilter<"factura"> | number | null
+    ubigeo_origen?: StringNullableFilter<"factura"> | string | null
+    direccion_origen?: StringNullableFilter<"factura"> | string | null
+    ubigeo_destino?: StringNullableFilter<"factura"> | string | null
+    direccion_destino?: StringNullableFilter<"factura"> | string | null
+    detalle_viaje?: StringNullableFilter<"factura"> | string | null
+    percepcion_tipo?: IntNullableFilter<"factura"> | number | null
+    percepcion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: IntNullableFilter<"factura"> | number | null
+    retencion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFilter<"factura"> | boolean
+    fondo_garantia_valor?: StringNullableFilter<"factura"> | string | null
+    orden_compra?: BoolFilter<"factura"> | boolean
+    orden_compra_valor?: StringNullableFilter<"factura"> | string | null
+    placa_vehiculo?: StringNullableFilter<"factura"> | string | null
+    orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
+    unidad?: StringNullableFilter<"factura"> | string | null
+    unidad_id?: IntNullableFilter<"factura"> | number | null
+    observaciones?: StringNullableFilter<"factura"> | string | null
+    enviar_automaticamente_sunat?: BoolFilter<"factura"> | boolean
+    enviar_automaticamente_cliente?: BoolFilter<"factura"> | boolean
+    formato_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace?: StringNullableFilter<"factura"> | string | null
+    enlace_del_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace_del_xml?: StringNullableFilter<"factura"> | string | null
+    enlace_del_cdr?: StringNullableFilter<"factura"> | string | null
+    cadena_para_codigo_qr?: StringNullableFilter<"factura"> | string | null
+    codigo_hash?: StringNullableFilter<"factura"> | string | null
+    aceptada_por_sunat?: BoolNullableFilter<"factura"> | boolean | null
+    sunat_description?: StringNullableFilter<"factura"> | string | null
+    sunat_note?: StringNullableFilter<"factura"> | string | null
+    sunat_responsecode?: StringNullableFilter<"factura"> | string | null
+    sunat_soap_error?: StringNullableFilter<"factura"> | string | null
+    created_at?: DateTimeFilter<"factura"> | Date | string
+    updated_at?: DateTimeFilter<"factura"> | Date | string
+    proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
+    factura_guia?: Factura_guiaListRelationFilter
+    factura_item?: Factura_itemListRelationFilter
+    factura_venta_credito?: Factura_venta_creditoListRelationFilter
+  }, "id_factura" | "serie_numero">
+
+  export type facturaOrderByWithAggregationInput = {
+    id_factura?: SortOrder
+    estado_factura?: SortOrderInput | SortOrder
+    operacion?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    serie?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    cliente_numero_documento?: SortOrder
+    cliente_denominacion?: SortOrder
+    cliente_direccion?: SortOrderInput | SortOrder
+    cliente_email?: SortOrderInput | SortOrder
+    cliente_email_1?: SortOrderInput | SortOrder
+    cliente_email_2?: SortOrderInput | SortOrder
+    fecha_emision?: SortOrder
+    fecha_vencimiento?: SortOrderInput | SortOrder
+    fecha_servicio?: SortOrderInput | SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrderInput | SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrderInput | SortOrder
+    total_descuento?: SortOrderInput | SortOrder
+    total_anticipo?: SortOrderInput | SortOrder
+    total_gravada?: SortOrderInput | SortOrder
+    total_inafecta?: SortOrderInput | SortOrder
+    total_exonerada?: SortOrderInput | SortOrder
+    total_igv?: SortOrderInput | SortOrder
+    total_gratuita?: SortOrderInput | SortOrder
+    total_otros_cargos?: SortOrderInput | SortOrder
+    total_isc?: SortOrderInput | SortOrder
+    total?: SortOrder
+    aplicar_detraccion?: SortOrder
+    detraccion_tipo?: SortOrderInput | SortOrder
+    detraccion_porcentaje?: SortOrderInput | SortOrder
+    detraccion_total?: SortOrderInput | SortOrder
+    medio_pago_detraccion?: SortOrderInput | SortOrder
+    ubigeo_origen?: SortOrderInput | SortOrder
+    direccion_origen?: SortOrderInput | SortOrder
+    ubigeo_destino?: SortOrderInput | SortOrder
+    direccion_destino?: SortOrderInput | SortOrder
+    detalle_viaje?: SortOrderInput | SortOrder
+    percepcion_tipo?: SortOrderInput | SortOrder
+    percepcion_base_imponible?: SortOrderInput | SortOrder
+    total_percepcion?: SortOrderInput | SortOrder
+    total_incluido_percepcion?: SortOrderInput | SortOrder
+    retencion_tipo?: SortOrderInput | SortOrder
+    retencion_base_imponible?: SortOrderInput | SortOrder
+    total_retencion?: SortOrderInput | SortOrder
+    fondo_garantia?: SortOrder
+    fondo_garantia_valor?: SortOrderInput | SortOrder
+    orden_compra?: SortOrder
+    orden_compra_valor?: SortOrderInput | SortOrder
+    placa_vehiculo?: SortOrderInput | SortOrder
+    orden_compra_servicio?: SortOrderInput | SortOrder
+    centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
+    centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
+    centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
+    unidad?: SortOrderInput | SortOrder
+    unidad_id?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    enviar_automaticamente_sunat?: SortOrder
+    enviar_automaticamente_cliente?: SortOrder
+    formato_pdf?: SortOrderInput | SortOrder
+    enlace?: SortOrderInput | SortOrder
+    enlace_del_pdf?: SortOrderInput | SortOrder
+    enlace_del_xml?: SortOrderInput | SortOrder
+    enlace_del_cdr?: SortOrderInput | SortOrder
+    cadena_para_codigo_qr?: SortOrderInput | SortOrder
+    codigo_hash?: SortOrderInput | SortOrder
+    aceptada_por_sunat?: SortOrderInput | SortOrder
+    sunat_description?: SortOrderInput | SortOrder
+    sunat_note?: SortOrderInput | SortOrder
+    sunat_responsecode?: SortOrderInput | SortOrder
+    sunat_soap_error?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: facturaCountOrderByAggregateInput
+    _avg?: facturaAvgOrderByAggregateInput
+    _max?: facturaMaxOrderByAggregateInput
+    _min?: facturaMinOrderByAggregateInput
+    _sum?: facturaSumOrderByAggregateInput
+  }
+
+  export type facturaScalarWhereWithAggregatesInput = {
+    AND?: facturaScalarWhereWithAggregatesInput | facturaScalarWhereWithAggregatesInput[]
+    OR?: facturaScalarWhereWithAggregatesInput[]
+    NOT?: facturaScalarWhereWithAggregatesInput | facturaScalarWhereWithAggregatesInput[]
+    id_factura?: IntWithAggregatesFilter<"factura"> | number
+    estado_factura?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    operacion?: StringWithAggregatesFilter<"factura"> | string
+    tipo_de_comprobante?: IntWithAggregatesFilter<"factura"> | number
+    serie?: StringWithAggregatesFilter<"factura"> | string
+    numero?: IntWithAggregatesFilter<"factura"> | number
+    sunat_transaction?: IntWithAggregatesFilter<"factura"> | number
+    id_proveedor?: IntWithAggregatesFilter<"factura"> | number
+    cliente_tipo_documento?: IntWithAggregatesFilter<"factura"> | number
+    cliente_numero_documento?: StringWithAggregatesFilter<"factura"> | string
+    cliente_denominacion?: StringWithAggregatesFilter<"factura"> | string
+    cliente_direccion?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    cliente_email?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    cliente_email_1?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    cliente_email_2?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    fecha_emision?: DateTimeWithAggregatesFilter<"factura"> | Date | string
+    fecha_vencimiento?: DateTimeNullableWithAggregatesFilter<"factura"> | Date | string | null
+    fecha_servicio?: DateTimeNullableWithAggregatesFilter<"factura"> | Date | string | null
+    moneda?: IntWithAggregatesFilter<"factura"> | number
+    tipo_cambio?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    descuento_global?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_igv?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_isc?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolWithAggregatesFilter<"factura"> | boolean
+    detraccion_tipo?: IntNullableWithAggregatesFilter<"factura"> | number | null
+    detraccion_porcentaje?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: IntNullableWithAggregatesFilter<"factura"> | number | null
+    ubigeo_origen?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    direccion_origen?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    ubigeo_destino?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    direccion_destino?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    detalle_viaje?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    percepcion_tipo?: IntNullableWithAggregatesFilter<"factura"> | number | null
+    percepcion_base_imponible?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: IntNullableWithAggregatesFilter<"factura"> | number | null
+    retencion_base_imponible?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: DecimalNullableWithAggregatesFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolWithAggregatesFilter<"factura"> | boolean
+    fondo_garantia_valor?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    orden_compra?: BoolWithAggregatesFilter<"factura"> | boolean
+    orden_compra_valor?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    placa_vehiculo?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    orden_compra_servicio?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    centro_costo_nivel1_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    centro_costo_nivel2_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    centro_costo_nivel3_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    unidad?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    unidad_id?: IntNullableWithAggregatesFilter<"factura"> | number | null
+    observaciones?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    enviar_automaticamente_sunat?: BoolWithAggregatesFilter<"factura"> | boolean
+    enviar_automaticamente_cliente?: BoolWithAggregatesFilter<"factura"> | boolean
+    formato_pdf?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    enlace?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    enlace_del_pdf?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    enlace_del_xml?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    enlace_del_cdr?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    cadena_para_codigo_qr?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    codigo_hash?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    aceptada_por_sunat?: BoolNullableWithAggregatesFilter<"factura"> | boolean | null
+    sunat_description?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    sunat_note?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    sunat_responsecode?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    sunat_soap_error?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"factura"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"factura"> | Date | string
+  }
+
+  export type factura_guiaWhereInput = {
+    AND?: factura_guiaWhereInput | factura_guiaWhereInput[]
+    OR?: factura_guiaWhereInput[]
+    NOT?: factura_guiaWhereInput | factura_guiaWhereInput[]
+    id_factura_guia?: IntFilter<"factura_guia"> | number
+    id_factura?: IntFilter<"factura_guia"> | number
+    guia_tipo?: IntFilter<"factura_guia"> | number
+    guia_serie_numero?: StringFilter<"factura_guia"> | string
+    created_at?: DateTimeFilter<"factura_guia"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }
+
+  export type factura_guiaOrderByWithRelationInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+    guia_serie_numero?: SortOrder
+    created_at?: SortOrder
+    factura?: facturaOrderByWithRelationInput
+    _relevance?: factura_guiaOrderByRelevanceInput
+  }
+
+  export type factura_guiaWhereUniqueInput = Prisma.AtLeast<{
+    id_factura_guia?: number
+    AND?: factura_guiaWhereInput | factura_guiaWhereInput[]
+    OR?: factura_guiaWhereInput[]
+    NOT?: factura_guiaWhereInput | factura_guiaWhereInput[]
+    id_factura?: IntFilter<"factura_guia"> | number
+    guia_tipo?: IntFilter<"factura_guia"> | number
+    guia_serie_numero?: StringFilter<"factura_guia"> | string
+    created_at?: DateTimeFilter<"factura_guia"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }, "id_factura_guia">
+
+  export type factura_guiaOrderByWithAggregationInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+    guia_serie_numero?: SortOrder
+    created_at?: SortOrder
+    _count?: factura_guiaCountOrderByAggregateInput
+    _avg?: factura_guiaAvgOrderByAggregateInput
+    _max?: factura_guiaMaxOrderByAggregateInput
+    _min?: factura_guiaMinOrderByAggregateInput
+    _sum?: factura_guiaSumOrderByAggregateInput
+  }
+
+  export type factura_guiaScalarWhereWithAggregatesInput = {
+    AND?: factura_guiaScalarWhereWithAggregatesInput | factura_guiaScalarWhereWithAggregatesInput[]
+    OR?: factura_guiaScalarWhereWithAggregatesInput[]
+    NOT?: factura_guiaScalarWhereWithAggregatesInput | factura_guiaScalarWhereWithAggregatesInput[]
+    id_factura_guia?: IntWithAggregatesFilter<"factura_guia"> | number
+    id_factura?: IntWithAggregatesFilter<"factura_guia"> | number
+    guia_tipo?: IntWithAggregatesFilter<"factura_guia"> | number
+    guia_serie_numero?: StringWithAggregatesFilter<"factura_guia"> | string
+    created_at?: DateTimeWithAggregatesFilter<"factura_guia"> | Date | string
+  }
+
+  export type factura_itemWhereInput = {
+    AND?: factura_itemWhereInput | factura_itemWhereInput[]
+    OR?: factura_itemWhereInput[]
+    NOT?: factura_itemWhereInput | factura_itemWhereInput[]
+    id_factura_item?: IntFilter<"factura_item"> | number
+    id_factura?: IntFilter<"factura_item"> | number
+    codigo_item?: StringNullableFilter<"factura_item"> | string | null
+    codigo_producto_sunat?: StringNullableFilter<"factura_item"> | string | null
+    descripcion_item?: StringFilter<"factura_item"> | string
+    unidad_medida?: StringFilter<"factura_item"> | string
+    cantidad?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    descuento?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFilter<"factura_item"> | number
+    igv?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: IntNullableFilter<"factura_item"> | number | null
+    isc?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFilter<"factura_item"> | boolean
+    anticipo_documento_serie?: StringNullableFilter<"factura_item"> | string | null
+    anticipo_documento_numero?: IntNullableFilter<"factura_item"> | number | null
+    created_at?: DateTimeFilter<"factura_item"> | Date | string
+    updated_at?: DateTimeFilter<"factura_item"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }
+
+  export type factura_itemOrderByWithRelationInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    codigo_item?: SortOrderInput | SortOrder
+    codigo_producto_sunat?: SortOrderInput | SortOrder
+    descripcion_item?: SortOrder
+    unidad_medida?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrderInput | SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrderInput | SortOrder
+    isc?: SortOrderInput | SortOrder
+    total?: SortOrder
+    anticipo_regularizacion?: SortOrder
+    anticipo_documento_serie?: SortOrderInput | SortOrder
+    anticipo_documento_numero?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    factura?: facturaOrderByWithRelationInput
+    _relevance?: factura_itemOrderByRelevanceInput
+  }
+
+  export type factura_itemWhereUniqueInput = Prisma.AtLeast<{
+    id_factura_item?: number
+    AND?: factura_itemWhereInput | factura_itemWhereInput[]
+    OR?: factura_itemWhereInput[]
+    NOT?: factura_itemWhereInput | factura_itemWhereInput[]
+    id_factura?: IntFilter<"factura_item"> | number
+    codigo_item?: StringNullableFilter<"factura_item"> | string | null
+    codigo_producto_sunat?: StringNullableFilter<"factura_item"> | string | null
+    descripcion_item?: StringFilter<"factura_item"> | string
+    unidad_medida?: StringFilter<"factura_item"> | string
+    cantidad?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    descuento?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFilter<"factura_item"> | number
+    igv?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: IntNullableFilter<"factura_item"> | number | null
+    isc?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFilter<"factura_item"> | boolean
+    anticipo_documento_serie?: StringNullableFilter<"factura_item"> | string | null
+    anticipo_documento_numero?: IntNullableFilter<"factura_item"> | number | null
+    created_at?: DateTimeFilter<"factura_item"> | Date | string
+    updated_at?: DateTimeFilter<"factura_item"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }, "id_factura_item">
+
+  export type factura_itemOrderByWithAggregationInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    codigo_item?: SortOrderInput | SortOrder
+    codigo_producto_sunat?: SortOrderInput | SortOrder
+    descripcion_item?: SortOrder
+    unidad_medida?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrderInput | SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrderInput | SortOrder
+    isc?: SortOrderInput | SortOrder
+    total?: SortOrder
+    anticipo_regularizacion?: SortOrder
+    anticipo_documento_serie?: SortOrderInput | SortOrder
+    anticipo_documento_numero?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: factura_itemCountOrderByAggregateInput
+    _avg?: factura_itemAvgOrderByAggregateInput
+    _max?: factura_itemMaxOrderByAggregateInput
+    _min?: factura_itemMinOrderByAggregateInput
+    _sum?: factura_itemSumOrderByAggregateInput
+  }
+
+  export type factura_itemScalarWhereWithAggregatesInput = {
+    AND?: factura_itemScalarWhereWithAggregatesInput | factura_itemScalarWhereWithAggregatesInput[]
+    OR?: factura_itemScalarWhereWithAggregatesInput[]
+    NOT?: factura_itemScalarWhereWithAggregatesInput | factura_itemScalarWhereWithAggregatesInput[]
+    id_factura_item?: IntWithAggregatesFilter<"factura_item"> | number
+    id_factura?: IntWithAggregatesFilter<"factura_item"> | number
+    codigo_item?: StringNullableWithAggregatesFilter<"factura_item"> | string | null
+    codigo_producto_sunat?: StringNullableWithAggregatesFilter<"factura_item"> | string | null
+    descripcion_item?: StringWithAggregatesFilter<"factura_item"> | string
+    unidad_medida?: StringWithAggregatesFilter<"factura_item"> | string
+    cantidad?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    descuento?: DecimalNullableWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntWithAggregatesFilter<"factura_item"> | number
+    igv?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: IntNullableWithAggregatesFilter<"factura_item"> | number | null
+    isc?: DecimalNullableWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalWithAggregatesFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolWithAggregatesFilter<"factura_item"> | boolean
+    anticipo_documento_serie?: StringNullableWithAggregatesFilter<"factura_item"> | string | null
+    anticipo_documento_numero?: IntNullableWithAggregatesFilter<"factura_item"> | number | null
+    created_at?: DateTimeWithAggregatesFilter<"factura_item"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"factura_item"> | Date | string
+  }
+
+  export type factura_venta_creditoWhereInput = {
+    AND?: factura_venta_creditoWhereInput | factura_venta_creditoWhereInput[]
+    OR?: factura_venta_creditoWhereInput[]
+    NOT?: factura_venta_creditoWhereInput | factura_venta_creditoWhereInput[]
+    id_venta_credito?: IntFilter<"factura_venta_credito"> | number
+    id_factura?: IntFilter<"factura_venta_credito"> | number
+    cuota?: IntFilter<"factura_venta_credito"> | number
+    fecha_pago?: DateTimeFilter<"factura_venta_credito"> | Date | string
+    importe?: DecimalFilter<"factura_venta_credito"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"factura_venta_credito"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }
+
+  export type factura_venta_creditoOrderByWithRelationInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    fecha_pago?: SortOrder
+    importe?: SortOrder
+    created_at?: SortOrder
+    factura?: facturaOrderByWithRelationInput
+  }
+
+  export type factura_venta_creditoWhereUniqueInput = Prisma.AtLeast<{
+    id_venta_credito?: number
+    AND?: factura_venta_creditoWhereInput | factura_venta_creditoWhereInput[]
+    OR?: factura_venta_creditoWhereInput[]
+    NOT?: factura_venta_creditoWhereInput | factura_venta_creditoWhereInput[]
+    id_factura?: IntFilter<"factura_venta_credito"> | number
+    cuota?: IntFilter<"factura_venta_credito"> | number
+    fecha_pago?: DateTimeFilter<"factura_venta_credito"> | Date | string
+    importe?: DecimalFilter<"factura_venta_credito"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"factura_venta_credito"> | Date | string
+    factura?: XOR<FacturaScalarRelationFilter, facturaWhereInput>
+  }, "id_venta_credito">
+
+  export type factura_venta_creditoOrderByWithAggregationInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    fecha_pago?: SortOrder
+    importe?: SortOrder
+    created_at?: SortOrder
+    _count?: factura_venta_creditoCountOrderByAggregateInput
+    _avg?: factura_venta_creditoAvgOrderByAggregateInput
+    _max?: factura_venta_creditoMaxOrderByAggregateInput
+    _min?: factura_venta_creditoMinOrderByAggregateInput
+    _sum?: factura_venta_creditoSumOrderByAggregateInput
+  }
+
+  export type factura_venta_creditoScalarWhereWithAggregatesInput = {
+    AND?: factura_venta_creditoScalarWhereWithAggregatesInput | factura_venta_creditoScalarWhereWithAggregatesInput[]
+    OR?: factura_venta_creditoScalarWhereWithAggregatesInput[]
+    NOT?: factura_venta_creditoScalarWhereWithAggregatesInput | factura_venta_creditoScalarWhereWithAggregatesInput[]
+    id_venta_credito?: IntWithAggregatesFilter<"factura_venta_credito"> | number
+    id_factura?: IntWithAggregatesFilter<"factura_venta_credito"> | number
+    cuota?: IntWithAggregatesFilter<"factura_venta_credito"> | number
+    fecha_pago?: DateTimeWithAggregatesFilter<"factura_venta_credito"> | Date | string
+    importe?: DecimalWithAggregatesFilter<"factura_venta_credito"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"factura_venta_credito"> | Date | string
+  }
+
+  export type movimientos_adicionalesWhereInput = {
+    AND?: movimientos_adicionalesWhereInput | movimientos_adicionalesWhereInput[]
+    OR?: movimientos_adicionalesWhereInput[]
+    NOT?: movimientos_adicionalesWhereInput | movimientos_adicionalesWhereInput[]
+    id_movimiento_adicional?: IntFilter<"movimientos_adicionales"> | number
+    id_movimiento?: IntFilter<"movimientos_adicionales"> | number
+    numero_factura?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    numero_guia_remision?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    costo_unitario?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    costo_total?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
+    movimientos_inventario?: XOR<Movimientos_inventarioScalarRelationFilter, movimientos_inventarioWhereInput>
+  }
+
+  export type movimientos_adicionalesOrderByWithRelationInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    numero_factura?: SortOrderInput | SortOrder
+    numero_guia_remision?: SortOrderInput | SortOrder
+    costo_unitario?: SortOrderInput | SortOrder
+    costo_total?: SortOrderInput | SortOrder
+    fecha_ingreso?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    movimientos_inventario?: movimientos_inventarioOrderByWithRelationInput
+    _relevance?: movimientos_adicionalesOrderByRelevanceInput
+  }
+
+  export type movimientos_adicionalesWhereUniqueInput = Prisma.AtLeast<{
+    id_movimiento_adicional?: number
+    AND?: movimientos_adicionalesWhereInput | movimientos_adicionalesWhereInput[]
+    OR?: movimientos_adicionalesWhereInput[]
+    NOT?: movimientos_adicionalesWhereInput | movimientos_adicionalesWhereInput[]
+    id_movimiento?: IntFilter<"movimientos_adicionales"> | number
+    numero_factura?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    numero_guia_remision?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    costo_unitario?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    costo_total?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
+    movimientos_inventario?: XOR<Movimientos_inventarioScalarRelationFilter, movimientos_inventarioWhereInput>
+  }, "id_movimiento_adicional">
+
+  export type movimientos_adicionalesOrderByWithAggregationInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    numero_factura?: SortOrderInput | SortOrder
+    numero_guia_remision?: SortOrderInput | SortOrder
+    costo_unitario?: SortOrderInput | SortOrder
+    costo_total?: SortOrderInput | SortOrder
+    fecha_ingreso?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    _count?: movimientos_adicionalesCountOrderByAggregateInput
+    _avg?: movimientos_adicionalesAvgOrderByAggregateInput
+    _max?: movimientos_adicionalesMaxOrderByAggregateInput
+    _min?: movimientos_adicionalesMinOrderByAggregateInput
+    _sum?: movimientos_adicionalesSumOrderByAggregateInput
+  }
+
+  export type movimientos_adicionalesScalarWhereWithAggregatesInput = {
+    AND?: movimientos_adicionalesScalarWhereWithAggregatesInput | movimientos_adicionalesScalarWhereWithAggregatesInput[]
+    OR?: movimientos_adicionalesScalarWhereWithAggregatesInput[]
+    NOT?: movimientos_adicionalesScalarWhereWithAggregatesInput | movimientos_adicionalesScalarWhereWithAggregatesInput[]
+    id_movimiento_adicional?: IntWithAggregatesFilter<"movimientos_adicionales"> | number
+    id_movimiento?: IntWithAggregatesFilter<"movimientos_adicionales"> | number
+    numero_factura?: StringNullableWithAggregatesFilter<"movimientos_adicionales"> | string | null
+    numero_guia_remision?: StringNullableWithAggregatesFilter<"movimientos_adicionales"> | string | null
+    costo_unitario?: DecimalNullableWithAggregatesFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    costo_total?: DecimalNullableWithAggregatesFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: DateTimeNullableWithAggregatesFilter<"movimientos_adicionales"> | Date | string | null
+    fecha_registro?: DateTimeNullableWithAggregatesFilter<"movimientos_adicionales"> | Date | string | null
+  }
+
+  export type tipo_detraccionWhereInput = {
+    AND?: tipo_detraccionWhereInput | tipo_detraccionWhereInput[]
+    OR?: tipo_detraccionWhereInput[]
+    NOT?: tipo_detraccionWhereInput | tipo_detraccionWhereInput[]
+    id_tipo_detraccion?: StringFilter<"tipo_detraccion"> | string
+    tipo_detraccion?: StringNullableFilter<"tipo_detraccion"> | string | null
+    porcentaje_detraccion?: DecimalNullableFilter<"tipo_detraccion"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionOrderByWithRelationInput = {
+    id_tipo_detraccion?: SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
+    porcentaje_detraccion?: SortOrderInput | SortOrder
+    _relevance?: tipo_detraccionOrderByRelevanceInput
+  }
+
+  export type tipo_detraccionWhereUniqueInput = Prisma.AtLeast<{
+    id_tipo_detraccion?: string
+    AND?: tipo_detraccionWhereInput | tipo_detraccionWhereInput[]
+    OR?: tipo_detraccionWhereInput[]
+    NOT?: tipo_detraccionWhereInput | tipo_detraccionWhereInput[]
+    tipo_detraccion?: StringNullableFilter<"tipo_detraccion"> | string | null
+    porcentaje_detraccion?: DecimalNullableFilter<"tipo_detraccion"> | Decimal | DecimalJsLike | number | string | null
+  }, "id_tipo_detraccion">
+
+  export type tipo_detraccionOrderByWithAggregationInput = {
+    id_tipo_detraccion?: SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
+    porcentaje_detraccion?: SortOrderInput | SortOrder
+    _count?: tipo_detraccionCountOrderByAggregateInput
+    _avg?: tipo_detraccionAvgOrderByAggregateInput
+    _max?: tipo_detraccionMaxOrderByAggregateInput
+    _min?: tipo_detraccionMinOrderByAggregateInput
+    _sum?: tipo_detraccionSumOrderByAggregateInput
+  }
+
+  export type tipo_detraccionScalarWhereWithAggregatesInput = {
+    AND?: tipo_detraccionScalarWhereWithAggregatesInput | tipo_detraccionScalarWhereWithAggregatesInput[]
+    OR?: tipo_detraccionScalarWhereWithAggregatesInput[]
+    NOT?: tipo_detraccionScalarWhereWithAggregatesInput | tipo_detraccionScalarWhereWithAggregatesInput[]
+    id_tipo_detraccion?: StringWithAggregatesFilter<"tipo_detraccion"> | string
+    tipo_detraccion?: StringNullableWithAggregatesFilter<"tipo_detraccion"> | string | null
+    porcentaje_detraccion?: DecimalNullableWithAggregatesFilter<"tipo_detraccion"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type almacenesCreateInput = {
@@ -41888,6 +50599,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -41907,6 +50620,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -41917,6 +50632,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -41936,6 +50653,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -41951,6 +50670,7 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
   }
 
   export type movimientos_inventarioUpdateManyMutationInput = {
@@ -41960,6 +50680,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type movimientos_inventarioUncheckedUpdateManyInput = {
@@ -41974,6 +50695,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type notificacionesCreateInput = {
@@ -42573,6 +51295,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaCreateNestedManyWithoutProveedoresInput
     ordenes_compra?: ordenes_compraCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutProveedoresInput
   }
@@ -42594,6 +51317,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaUncheckedCreateNestedManyWithoutProveedoresInput
     ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutProveedoresInput
   }
@@ -42614,6 +51338,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUpdateManyWithoutProveedoresNestedInput
     ordenes_compra?: ordenes_compraUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUpdateManyWithoutProveedoresNestedInput
   }
@@ -42635,6 +51360,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUncheckedUpdateManyWithoutProveedoresNestedInput
     ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutProveedoresNestedInput
   }
@@ -43141,6 +51867,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -43184,6 +51911,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -43222,6 +51950,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43265,6 +51994,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43306,6 +52036,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -43343,6 +52074,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43383,6 +52115,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43725,6 +52458,964 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cliente?: NullableStringFieldUpdateOperationsInput | string | null
     ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type facturaCreateInput = {
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    proveedores: proveedoresCreateNestedOneWithoutFacturaInput
+    factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUncheckedCreateInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    id_proveedor: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUpdateInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
+    factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaCreateManyInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    id_proveedor: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type facturaUpdateManyMutationInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type facturaUncheckedUpdateManyInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_guiaCreateInput = {
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+    factura: facturaCreateNestedOneWithoutFactura_guiaInput
+  }
+
+  export type factura_guiaUncheckedCreateInput = {
+    id_factura_guia?: number
+    id_factura: number
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+  }
+
+  export type factura_guiaUpdateInput = {
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura?: facturaUpdateOneRequiredWithoutFactura_guiaNestedInput
+  }
+
+  export type factura_guiaUncheckedUpdateInput = {
+    id_factura_guia?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_guiaCreateManyInput = {
+    id_factura_guia?: number
+    id_factura: number
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+  }
+
+  export type factura_guiaUpdateManyMutationInput = {
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_guiaUncheckedUpdateManyInput = {
+    id_factura_guia?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemCreateInput = {
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura: facturaCreateNestedOneWithoutFactura_itemInput
+  }
+
+  export type factura_itemUncheckedCreateInput = {
+    id_factura_item?: number
+    id_factura: number
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_itemUpdateInput = {
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura?: facturaUpdateOneRequiredWithoutFactura_itemNestedInput
+  }
+
+  export type factura_itemUncheckedUpdateInput = {
+    id_factura_item?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemCreateManyInput = {
+    id_factura_item?: number
+    id_factura: number
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_itemUpdateManyMutationInput = {
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemUncheckedUpdateManyInput = {
+    id_factura_item?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoCreateInput = {
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    factura: facturaCreateNestedOneWithoutFactura_venta_creditoInput
+  }
+
+  export type factura_venta_creditoUncheckedCreateInput = {
+    id_venta_credito?: number
+    id_factura: number
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type factura_venta_creditoUpdateInput = {
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura?: facturaUpdateOneRequiredWithoutFactura_venta_creditoNestedInput
+  }
+
+  export type factura_venta_creditoUncheckedUpdateInput = {
+    id_venta_credito?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoCreateManyInput = {
+    id_venta_credito?: number
+    id_factura: number
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type factura_venta_creditoUpdateManyMutationInput = {
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoUncheckedUpdateManyInput = {
+    id_venta_credito?: IntFieldUpdateOperationsInput | number
+    id_factura?: IntFieldUpdateOperationsInput | number
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type movimientos_adicionalesCreateInput = {
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+    movimientos_inventario: movimientos_inventarioCreateNestedOneWithoutMovimientos_adicionalesInput
+  }
+
+  export type movimientos_adicionalesUncheckedCreateInput = {
+    id_movimiento_adicional?: number
+    id_movimiento: number
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type movimientos_adicionalesUpdateInput = {
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    movimientos_inventario?: movimientos_inventarioUpdateOneRequiredWithoutMovimientos_adicionalesNestedInput
+  }
+
+  export type movimientos_adicionalesUncheckedUpdateInput = {
+    id_movimiento_adicional?: IntFieldUpdateOperationsInput | number
+    id_movimiento?: IntFieldUpdateOperationsInput | number
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type movimientos_adicionalesCreateManyInput = {
+    id_movimiento_adicional?: number
+    id_movimiento: number
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type movimientos_adicionalesUpdateManyMutationInput = {
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type movimientos_adicionalesUncheckedUpdateManyInput = {
+    id_movimiento_adicional?: IntFieldUpdateOperationsInput | number
+    id_movimiento?: IntFieldUpdateOperationsInput | number
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type tipo_detraccionCreateInput = {
+    id_tipo_detraccion: string
+    tipo_detraccion?: string | null
+    porcentaje_detraccion?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionUncheckedCreateInput = {
+    id_tipo_detraccion: string
+    tipo_detraccion?: string | null
+    porcentaje_detraccion?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionUpdateInput = {
+    id_tipo_detraccion?: StringFieldUpdateOperationsInput | string
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionUncheckedUpdateInput = {
+    id_tipo_detraccion?: StringFieldUpdateOperationsInput | string
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionCreateManyInput = {
+    id_tipo_detraccion: string
+    tipo_detraccion?: string | null
+    porcentaje_detraccion?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionUpdateManyMutationInput = {
+    id_tipo_detraccion?: StringFieldUpdateOperationsInput | string
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type tipo_detraccionUncheckedUpdateManyInput = {
+    id_tipo_detraccion?: StringFieldUpdateOperationsInput | string
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -45008,9 +54699,19 @@ export namespace Prisma {
     not?: NestedEnummovimientos_inventario_estadoNullableFilter<$PrismaModel> | $Enums.movimientos_inventario_estado | null
   }
 
+  export type Movimientos_adicionalesListRelationFilter = {
+    every?: movimientos_adicionalesWhereInput
+    some?: movimientos_adicionalesWhereInput
+    none?: movimientos_adicionalesWhereInput
+  }
+
   export type Tipos_movimientoScalarRelationFilter = {
     is?: tipos_movimientoWhereInput
     isNot?: tipos_movimientoWhereInput
+  }
+
+  export type movimientos_adicionalesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type movimientos_inventarioOrderByRelevanceInput = {
@@ -45031,6 +54732,7 @@ export namespace Prisma {
     responsable?: SortOrder
     observaciones?: SortOrder
     estado?: SortOrder
+    id_usuario_registro?: SortOrder
   }
 
   export type movimientos_inventarioAvgOrderByAggregateInput = {
@@ -45039,6 +54741,7 @@ export namespace Prisma {
     cantidad?: SortOrder
     id_almacen_origen?: SortOrder
     id_almacen_destino?: SortOrder
+    id_usuario_registro?: SortOrder
   }
 
   export type movimientos_inventarioMaxOrderByAggregateInput = {
@@ -45053,6 +54756,7 @@ export namespace Prisma {
     responsable?: SortOrder
     observaciones?: SortOrder
     estado?: SortOrder
+    id_usuario_registro?: SortOrder
   }
 
   export type movimientos_inventarioMinOrderByAggregateInput = {
@@ -45067,6 +54771,7 @@ export namespace Prisma {
     responsable?: SortOrder
     observaciones?: SortOrder
     estado?: SortOrder
+    id_usuario_registro?: SortOrder
   }
 
   export type movimientos_inventarioSumOrderByAggregateInput = {
@@ -45075,6 +54780,7 @@ export namespace Prisma {
     cantidad?: SortOrder
     id_almacen_origen?: SortOrder
     id_almacen_destino?: SortOrder
+    id_usuario_registro?: SortOrder
   }
 
   export type Enummovimientos_inventario_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -45560,6 +55266,12 @@ export namespace Prisma {
     not?: NestedEnumproveedores_retencionNullableFilter<$PrismaModel> | $Enums.proveedores_retencion | null
   }
 
+  export type FacturaListRelationFilter = {
+    every?: facturaWhereInput
+    some?: facturaWhereInput
+    none?: facturaWhereInput
+  }
+
   export type Ordenes_compraListRelationFilter = {
     every?: ordenes_compraWhereInput
     some?: ordenes_compraWhereInput
@@ -45570,6 +55282,10 @@ export namespace Prisma {
     every?: ordenes_servicioWhereInput
     some?: ordenes_servicioWhereInput
     none?: ordenes_servicioWhereInput
+  }
+
+  export type facturaOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ordenes_compraOrderByRelationAggregateInput = {
@@ -46097,6 +55813,7 @@ export namespace Prisma {
     detraccion?: SortOrder
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -46150,6 +55867,7 @@ export namespace Prisma {
     detraccion?: SortOrder
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -46190,6 +55908,7 @@ export namespace Prisma {
     detraccion?: SortOrder
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -46487,6 +56206,658 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
     _max?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type Factura_guiaListRelationFilter = {
+    every?: factura_guiaWhereInput
+    some?: factura_guiaWhereInput
+    none?: factura_guiaWhereInput
+  }
+
+  export type Factura_itemListRelationFilter = {
+    every?: factura_itemWhereInput
+    some?: factura_itemWhereInput
+    none?: factura_itemWhereInput
+  }
+
+  export type Factura_venta_creditoListRelationFilter = {
+    every?: factura_venta_creditoWhereInput
+    some?: factura_venta_creditoWhereInput
+    none?: factura_venta_creditoWhereInput
+  }
+
+  export type factura_guiaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type factura_itemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type factura_venta_creditoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type facturaOrderByRelevanceInput = {
+    fields: facturaOrderByRelevanceFieldEnum | facturaOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type facturaSerieNumeroCompoundUniqueInput = {
+    serie: string
+    numero: number
+  }
+
+  export type facturaCountOrderByAggregateInput = {
+    id_factura?: SortOrder
+    estado_factura?: SortOrder
+    operacion?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    serie?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    cliente_numero_documento?: SortOrder
+    cliente_denominacion?: SortOrder
+    cliente_direccion?: SortOrder
+    cliente_email?: SortOrder
+    cliente_email_1?: SortOrder
+    cliente_email_2?: SortOrder
+    fecha_emision?: SortOrder
+    fecha_vencimiento?: SortOrder
+    fecha_servicio?: SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrder
+    total_descuento?: SortOrder
+    total_anticipo?: SortOrder
+    total_gravada?: SortOrder
+    total_inafecta?: SortOrder
+    total_exonerada?: SortOrder
+    total_igv?: SortOrder
+    total_gratuita?: SortOrder
+    total_otros_cargos?: SortOrder
+    total_isc?: SortOrder
+    total?: SortOrder
+    aplicar_detraccion?: SortOrder
+    detraccion_tipo?: SortOrder
+    detraccion_porcentaje?: SortOrder
+    detraccion_total?: SortOrder
+    medio_pago_detraccion?: SortOrder
+    ubigeo_origen?: SortOrder
+    direccion_origen?: SortOrder
+    ubigeo_destino?: SortOrder
+    direccion_destino?: SortOrder
+    detalle_viaje?: SortOrder
+    percepcion_tipo?: SortOrder
+    percepcion_base_imponible?: SortOrder
+    total_percepcion?: SortOrder
+    total_incluido_percepcion?: SortOrder
+    retencion_tipo?: SortOrder
+    retencion_base_imponible?: SortOrder
+    total_retencion?: SortOrder
+    fondo_garantia?: SortOrder
+    fondo_garantia_valor?: SortOrder
+    orden_compra?: SortOrder
+    orden_compra_valor?: SortOrder
+    placa_vehiculo?: SortOrder
+    orden_compra_servicio?: SortOrder
+    centro_costo_nivel1_codigo?: SortOrder
+    centro_costo_nivel2_codigo?: SortOrder
+    centro_costo_nivel3_codigo?: SortOrder
+    unidad?: SortOrder
+    unidad_id?: SortOrder
+    observaciones?: SortOrder
+    enviar_automaticamente_sunat?: SortOrder
+    enviar_automaticamente_cliente?: SortOrder
+    formato_pdf?: SortOrder
+    enlace?: SortOrder
+    enlace_del_pdf?: SortOrder
+    enlace_del_xml?: SortOrder
+    enlace_del_cdr?: SortOrder
+    cadena_para_codigo_qr?: SortOrder
+    codigo_hash?: SortOrder
+    aceptada_por_sunat?: SortOrder
+    sunat_description?: SortOrder
+    sunat_note?: SortOrder
+    sunat_responsecode?: SortOrder
+    sunat_soap_error?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type facturaAvgOrderByAggregateInput = {
+    id_factura?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrder
+    total_descuento?: SortOrder
+    total_anticipo?: SortOrder
+    total_gravada?: SortOrder
+    total_inafecta?: SortOrder
+    total_exonerada?: SortOrder
+    total_igv?: SortOrder
+    total_gratuita?: SortOrder
+    total_otros_cargos?: SortOrder
+    total_isc?: SortOrder
+    total?: SortOrder
+    detraccion_tipo?: SortOrder
+    detraccion_porcentaje?: SortOrder
+    detraccion_total?: SortOrder
+    medio_pago_detraccion?: SortOrder
+    percepcion_tipo?: SortOrder
+    percepcion_base_imponible?: SortOrder
+    total_percepcion?: SortOrder
+    total_incluido_percepcion?: SortOrder
+    retencion_tipo?: SortOrder
+    retencion_base_imponible?: SortOrder
+    total_retencion?: SortOrder
+    unidad_id?: SortOrder
+  }
+
+  export type facturaMaxOrderByAggregateInput = {
+    id_factura?: SortOrder
+    estado_factura?: SortOrder
+    operacion?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    serie?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    cliente_numero_documento?: SortOrder
+    cliente_denominacion?: SortOrder
+    cliente_direccion?: SortOrder
+    cliente_email?: SortOrder
+    cliente_email_1?: SortOrder
+    cliente_email_2?: SortOrder
+    fecha_emision?: SortOrder
+    fecha_vencimiento?: SortOrder
+    fecha_servicio?: SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrder
+    total_descuento?: SortOrder
+    total_anticipo?: SortOrder
+    total_gravada?: SortOrder
+    total_inafecta?: SortOrder
+    total_exonerada?: SortOrder
+    total_igv?: SortOrder
+    total_gratuita?: SortOrder
+    total_otros_cargos?: SortOrder
+    total_isc?: SortOrder
+    total?: SortOrder
+    aplicar_detraccion?: SortOrder
+    detraccion_tipo?: SortOrder
+    detraccion_porcentaje?: SortOrder
+    detraccion_total?: SortOrder
+    medio_pago_detraccion?: SortOrder
+    ubigeo_origen?: SortOrder
+    direccion_origen?: SortOrder
+    ubigeo_destino?: SortOrder
+    direccion_destino?: SortOrder
+    detalle_viaje?: SortOrder
+    percepcion_tipo?: SortOrder
+    percepcion_base_imponible?: SortOrder
+    total_percepcion?: SortOrder
+    total_incluido_percepcion?: SortOrder
+    retencion_tipo?: SortOrder
+    retencion_base_imponible?: SortOrder
+    total_retencion?: SortOrder
+    fondo_garantia?: SortOrder
+    fondo_garantia_valor?: SortOrder
+    orden_compra?: SortOrder
+    orden_compra_valor?: SortOrder
+    placa_vehiculo?: SortOrder
+    orden_compra_servicio?: SortOrder
+    centro_costo_nivel1_codigo?: SortOrder
+    centro_costo_nivel2_codigo?: SortOrder
+    centro_costo_nivel3_codigo?: SortOrder
+    unidad?: SortOrder
+    unidad_id?: SortOrder
+    observaciones?: SortOrder
+    enviar_automaticamente_sunat?: SortOrder
+    enviar_automaticamente_cliente?: SortOrder
+    formato_pdf?: SortOrder
+    enlace?: SortOrder
+    enlace_del_pdf?: SortOrder
+    enlace_del_xml?: SortOrder
+    enlace_del_cdr?: SortOrder
+    cadena_para_codigo_qr?: SortOrder
+    codigo_hash?: SortOrder
+    aceptada_por_sunat?: SortOrder
+    sunat_description?: SortOrder
+    sunat_note?: SortOrder
+    sunat_responsecode?: SortOrder
+    sunat_soap_error?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type facturaMinOrderByAggregateInput = {
+    id_factura?: SortOrder
+    estado_factura?: SortOrder
+    operacion?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    serie?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    cliente_numero_documento?: SortOrder
+    cliente_denominacion?: SortOrder
+    cliente_direccion?: SortOrder
+    cliente_email?: SortOrder
+    cliente_email_1?: SortOrder
+    cliente_email_2?: SortOrder
+    fecha_emision?: SortOrder
+    fecha_vencimiento?: SortOrder
+    fecha_servicio?: SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrder
+    total_descuento?: SortOrder
+    total_anticipo?: SortOrder
+    total_gravada?: SortOrder
+    total_inafecta?: SortOrder
+    total_exonerada?: SortOrder
+    total_igv?: SortOrder
+    total_gratuita?: SortOrder
+    total_otros_cargos?: SortOrder
+    total_isc?: SortOrder
+    total?: SortOrder
+    aplicar_detraccion?: SortOrder
+    detraccion_tipo?: SortOrder
+    detraccion_porcentaje?: SortOrder
+    detraccion_total?: SortOrder
+    medio_pago_detraccion?: SortOrder
+    ubigeo_origen?: SortOrder
+    direccion_origen?: SortOrder
+    ubigeo_destino?: SortOrder
+    direccion_destino?: SortOrder
+    detalle_viaje?: SortOrder
+    percepcion_tipo?: SortOrder
+    percepcion_base_imponible?: SortOrder
+    total_percepcion?: SortOrder
+    total_incluido_percepcion?: SortOrder
+    retencion_tipo?: SortOrder
+    retencion_base_imponible?: SortOrder
+    total_retencion?: SortOrder
+    fondo_garantia?: SortOrder
+    fondo_garantia_valor?: SortOrder
+    orden_compra?: SortOrder
+    orden_compra_valor?: SortOrder
+    placa_vehiculo?: SortOrder
+    orden_compra_servicio?: SortOrder
+    centro_costo_nivel1_codigo?: SortOrder
+    centro_costo_nivel2_codigo?: SortOrder
+    centro_costo_nivel3_codigo?: SortOrder
+    unidad?: SortOrder
+    unidad_id?: SortOrder
+    observaciones?: SortOrder
+    enviar_automaticamente_sunat?: SortOrder
+    enviar_automaticamente_cliente?: SortOrder
+    formato_pdf?: SortOrder
+    enlace?: SortOrder
+    enlace_del_pdf?: SortOrder
+    enlace_del_xml?: SortOrder
+    enlace_del_cdr?: SortOrder
+    cadena_para_codigo_qr?: SortOrder
+    codigo_hash?: SortOrder
+    aceptada_por_sunat?: SortOrder
+    sunat_description?: SortOrder
+    sunat_note?: SortOrder
+    sunat_responsecode?: SortOrder
+    sunat_soap_error?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type facturaSumOrderByAggregateInput = {
+    id_factura?: SortOrder
+    tipo_de_comprobante?: SortOrder
+    numero?: SortOrder
+    sunat_transaction?: SortOrder
+    id_proveedor?: SortOrder
+    cliente_tipo_documento?: SortOrder
+    moneda?: SortOrder
+    tipo_cambio?: SortOrder
+    porcentaje_igv?: SortOrder
+    descuento_global?: SortOrder
+    total_descuento?: SortOrder
+    total_anticipo?: SortOrder
+    total_gravada?: SortOrder
+    total_inafecta?: SortOrder
+    total_exonerada?: SortOrder
+    total_igv?: SortOrder
+    total_gratuita?: SortOrder
+    total_otros_cargos?: SortOrder
+    total_isc?: SortOrder
+    total?: SortOrder
+    detraccion_tipo?: SortOrder
+    detraccion_porcentaje?: SortOrder
+    detraccion_total?: SortOrder
+    medio_pago_detraccion?: SortOrder
+    percepcion_tipo?: SortOrder
+    percepcion_base_imponible?: SortOrder
+    total_percepcion?: SortOrder
+    total_incluido_percepcion?: SortOrder
+    retencion_tipo?: SortOrder
+    retencion_base_imponible?: SortOrder
+    total_retencion?: SortOrder
+    unidad_id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type FacturaScalarRelationFilter = {
+    is?: facturaWhereInput
+    isNot?: facturaWhereInput
+  }
+
+  export type factura_guiaOrderByRelevanceInput = {
+    fields: factura_guiaOrderByRelevanceFieldEnum | factura_guiaOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type factura_guiaCountOrderByAggregateInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+    guia_serie_numero?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_guiaAvgOrderByAggregateInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+  }
+
+  export type factura_guiaMaxOrderByAggregateInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+    guia_serie_numero?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_guiaMinOrderByAggregateInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+    guia_serie_numero?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_guiaSumOrderByAggregateInput = {
+    id_factura_guia?: SortOrder
+    id_factura?: SortOrder
+    guia_tipo?: SortOrder
+  }
+
+  export type factura_itemOrderByRelevanceInput = {
+    fields: factura_itemOrderByRelevanceFieldEnum | factura_itemOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type factura_itemCountOrderByAggregateInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    codigo_item?: SortOrder
+    codigo_producto_sunat?: SortOrder
+    descripcion_item?: SortOrder
+    unidad_medida?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrder
+    isc?: SortOrder
+    total?: SortOrder
+    anticipo_regularizacion?: SortOrder
+    anticipo_documento_serie?: SortOrder
+    anticipo_documento_numero?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_itemAvgOrderByAggregateInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrder
+    isc?: SortOrder
+    total?: SortOrder
+    anticipo_documento_numero?: SortOrder
+  }
+
+  export type factura_itemMaxOrderByAggregateInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    codigo_item?: SortOrder
+    codigo_producto_sunat?: SortOrder
+    descripcion_item?: SortOrder
+    unidad_medida?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrder
+    isc?: SortOrder
+    total?: SortOrder
+    anticipo_regularizacion?: SortOrder
+    anticipo_documento_serie?: SortOrder
+    anticipo_documento_numero?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_itemMinOrderByAggregateInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    codigo_item?: SortOrder
+    codigo_producto_sunat?: SortOrder
+    descripcion_item?: SortOrder
+    unidad_medida?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrder
+    isc?: SortOrder
+    total?: SortOrder
+    anticipo_regularizacion?: SortOrder
+    anticipo_documento_serie?: SortOrder
+    anticipo_documento_numero?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_itemSumOrderByAggregateInput = {
+    id_factura_item?: SortOrder
+    id_factura?: SortOrder
+    cantidad?: SortOrder
+    valor_unitario?: SortOrder
+    precio_unitario?: SortOrder
+    descuento?: SortOrder
+    subtotal?: SortOrder
+    tipo_de_igv?: SortOrder
+    igv?: SortOrder
+    tipo_de_isc?: SortOrder
+    isc?: SortOrder
+    total?: SortOrder
+    anticipo_documento_numero?: SortOrder
+  }
+
+  export type factura_venta_creditoCountOrderByAggregateInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    fecha_pago?: SortOrder
+    importe?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_venta_creditoAvgOrderByAggregateInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    importe?: SortOrder
+  }
+
+  export type factura_venta_creditoMaxOrderByAggregateInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    fecha_pago?: SortOrder
+    importe?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_venta_creditoMinOrderByAggregateInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    fecha_pago?: SortOrder
+    importe?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type factura_venta_creditoSumOrderByAggregateInput = {
+    id_venta_credito?: SortOrder
+    id_factura?: SortOrder
+    cuota?: SortOrder
+    importe?: SortOrder
+  }
+
+  export type Movimientos_inventarioScalarRelationFilter = {
+    is?: movimientos_inventarioWhereInput
+    isNot?: movimientos_inventarioWhereInput
+  }
+
+  export type movimientos_adicionalesOrderByRelevanceInput = {
+    fields: movimientos_adicionalesOrderByRelevanceFieldEnum | movimientos_adicionalesOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type movimientos_adicionalesCountOrderByAggregateInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    numero_factura?: SortOrder
+    numero_guia_remision?: SortOrder
+    costo_unitario?: SortOrder
+    costo_total?: SortOrder
+    fecha_ingreso?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type movimientos_adicionalesAvgOrderByAggregateInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    costo_unitario?: SortOrder
+    costo_total?: SortOrder
+  }
+
+  export type movimientos_adicionalesMaxOrderByAggregateInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    numero_factura?: SortOrder
+    numero_guia_remision?: SortOrder
+    costo_unitario?: SortOrder
+    costo_total?: SortOrder
+    fecha_ingreso?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type movimientos_adicionalesMinOrderByAggregateInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    numero_factura?: SortOrder
+    numero_guia_remision?: SortOrder
+    costo_unitario?: SortOrder
+    costo_total?: SortOrder
+    fecha_ingreso?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type movimientos_adicionalesSumOrderByAggregateInput = {
+    id_movimiento_adicional?: SortOrder
+    id_movimiento?: SortOrder
+    costo_unitario?: SortOrder
+    costo_total?: SortOrder
+  }
+
+  export type tipo_detraccionOrderByRelevanceInput = {
+    fields: tipo_detraccionOrderByRelevanceFieldEnum | tipo_detraccionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tipo_detraccionCountOrderByAggregateInput = {
+    id_tipo_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
+    porcentaje_detraccion?: SortOrder
+  }
+
+  export type tipo_detraccionAvgOrderByAggregateInput = {
+    porcentaje_detraccion?: SortOrder
+  }
+
+  export type tipo_detraccionMaxOrderByAggregateInput = {
+    id_tipo_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
+    porcentaje_detraccion?: SortOrder
+  }
+
+  export type tipo_detraccionMinOrderByAggregateInput = {
+    id_tipo_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
+    porcentaje_detraccion?: SortOrder
+  }
+
+  export type tipo_detraccionSumOrderByAggregateInput = {
+    porcentaje_detraccion?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -47627,6 +57998,13 @@ export namespace Prisma {
     deleteMany?: permisos_rolScalarWhereInput | permisos_rolScalarWhereInput[]
   }
 
+  export type movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput = {
+    create?: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput> | movimientos_adicionalesCreateWithoutMovimientos_inventarioInput[] | movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput[]
+    connectOrCreate?: movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput | movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput[]
+    createMany?: movimientos_adicionalesCreateManyMovimientos_inventarioInputEnvelope
+    connect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+  }
+
   export type tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput = {
     create?: XOR<tipos_movimientoCreateWithoutMovimientos_inventarioInput, tipos_movimientoUncheckedCreateWithoutMovimientos_inventarioInput>
     connectOrCreate?: tipos_movimientoCreateOrConnectWithoutMovimientos_inventarioInput
@@ -47658,6 +58036,13 @@ export namespace Prisma {
     connect?: solicitudes_salidaWhereUniqueInput | solicitudes_salidaWhereUniqueInput[]
   }
 
+  export type movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput = {
+    create?: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput> | movimientos_adicionalesCreateWithoutMovimientos_inventarioInput[] | movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput[]
+    connectOrCreate?: movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput | movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput[]
+    createMany?: movimientos_adicionalesCreateManyMovimientos_inventarioInputEnvelope
+    connect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+  }
+
   export type solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput = {
     create?: XOR<solicitudes_salidaCreateWithoutMovimientos_inventarioInput, solicitudes_salidaUncheckedCreateWithoutMovimientos_inventarioInput> | solicitudes_salidaCreateWithoutMovimientos_inventarioInput[] | solicitudes_salidaUncheckedCreateWithoutMovimientos_inventarioInput[]
     connectOrCreate?: solicitudes_salidaCreateOrConnectWithoutMovimientos_inventarioInput | solicitudes_salidaCreateOrConnectWithoutMovimientos_inventarioInput[]
@@ -47667,6 +58052,20 @@ export namespace Prisma {
 
   export type NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput = {
     set?: $Enums.movimientos_inventario_estado | null
+  }
+
+  export type movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput = {
+    create?: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput> | movimientos_adicionalesCreateWithoutMovimientos_inventarioInput[] | movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput[]
+    connectOrCreate?: movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput | movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput[]
+    upsert?: movimientos_adicionalesUpsertWithWhereUniqueWithoutMovimientos_inventarioInput | movimientos_adicionalesUpsertWithWhereUniqueWithoutMovimientos_inventarioInput[]
+    createMany?: movimientos_adicionalesCreateManyMovimientos_inventarioInputEnvelope
+    set?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    disconnect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    delete?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    connect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    update?: movimientos_adicionalesUpdateWithWhereUniqueWithoutMovimientos_inventarioInput | movimientos_adicionalesUpdateWithWhereUniqueWithoutMovimientos_inventarioInput[]
+    updateMany?: movimientos_adicionalesUpdateManyWithWhereWithoutMovimientos_inventarioInput | movimientos_adicionalesUpdateManyWithWhereWithoutMovimientos_inventarioInput[]
+    deleteMany?: movimientos_adicionalesScalarWhereInput | movimientos_adicionalesScalarWhereInput[]
   }
 
   export type tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput = {
@@ -47717,6 +58116,20 @@ export namespace Prisma {
     update?: solicitudes_salidaUpdateWithWhereUniqueWithoutMovimientos_inventarioInput | solicitudes_salidaUpdateWithWhereUniqueWithoutMovimientos_inventarioInput[]
     updateMany?: solicitudes_salidaUpdateManyWithWhereWithoutMovimientos_inventarioInput | solicitudes_salidaUpdateManyWithWhereWithoutMovimientos_inventarioInput[]
     deleteMany?: solicitudes_salidaScalarWhereInput | solicitudes_salidaScalarWhereInput[]
+  }
+
+  export type movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput = {
+    create?: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput> | movimientos_adicionalesCreateWithoutMovimientos_inventarioInput[] | movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput[]
+    connectOrCreate?: movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput | movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput[]
+    upsert?: movimientos_adicionalesUpsertWithWhereUniqueWithoutMovimientos_inventarioInput | movimientos_adicionalesUpsertWithWhereUniqueWithoutMovimientos_inventarioInput[]
+    createMany?: movimientos_adicionalesCreateManyMovimientos_inventarioInputEnvelope
+    set?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    disconnect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    delete?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    connect?: movimientos_adicionalesWhereUniqueInput | movimientos_adicionalesWhereUniqueInput[]
+    update?: movimientos_adicionalesUpdateWithWhereUniqueWithoutMovimientos_inventarioInput | movimientos_adicionalesUpdateWithWhereUniqueWithoutMovimientos_inventarioInput[]
+    updateMany?: movimientos_adicionalesUpdateManyWithWhereWithoutMovimientos_inventarioInput | movimientos_adicionalesUpdateManyWithWhereWithoutMovimientos_inventarioInput[]
+    deleteMany?: movimientos_adicionalesScalarWhereInput | movimientos_adicionalesScalarWhereInput[]
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput = {
@@ -47941,6 +58354,13 @@ export namespace Prisma {
     update?: XOR<XOR<modulosUpdateToOneWithWhereWithoutPermisos_rolInput, modulosUpdateWithoutPermisos_rolInput>, modulosUncheckedUpdateWithoutPermisos_rolInput>
   }
 
+  export type facturaCreateNestedManyWithoutProveedoresInput = {
+    create?: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput> | facturaCreateWithoutProveedoresInput[] | facturaUncheckedCreateWithoutProveedoresInput[]
+    connectOrCreate?: facturaCreateOrConnectWithoutProveedoresInput | facturaCreateOrConnectWithoutProveedoresInput[]
+    createMany?: facturaCreateManyProveedoresInputEnvelope
+    connect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+  }
+
   export type ordenes_compraCreateNestedManyWithoutProveedoresInput = {
     create?: XOR<ordenes_compraCreateWithoutProveedoresInput, ordenes_compraUncheckedCreateWithoutProveedoresInput> | ordenes_compraCreateWithoutProveedoresInput[] | ordenes_compraUncheckedCreateWithoutProveedoresInput[]
     connectOrCreate?: ordenes_compraCreateOrConnectWithoutProveedoresInput | ordenes_compraCreateOrConnectWithoutProveedoresInput[]
@@ -47953,6 +58373,13 @@ export namespace Prisma {
     connectOrCreate?: ordenes_servicioCreateOrConnectWithoutProveedoresInput | ordenes_servicioCreateOrConnectWithoutProveedoresInput[]
     createMany?: ordenes_servicioCreateManyProveedoresInputEnvelope
     connect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
+  }
+
+  export type facturaUncheckedCreateNestedManyWithoutProveedoresInput = {
+    create?: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput> | facturaCreateWithoutProveedoresInput[] | facturaUncheckedCreateWithoutProveedoresInput[]
+    connectOrCreate?: facturaCreateOrConnectWithoutProveedoresInput | facturaCreateOrConnectWithoutProveedoresInput[]
+    createMany?: facturaCreateManyProveedoresInputEnvelope
+    connect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
   }
 
   export type ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput = {
@@ -47971,6 +58398,20 @@ export namespace Prisma {
 
   export type NullableEnumproveedores_retencionFieldUpdateOperationsInput = {
     set?: $Enums.proveedores_retencion | null
+  }
+
+  export type facturaUpdateManyWithoutProveedoresNestedInput = {
+    create?: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput> | facturaCreateWithoutProveedoresInput[] | facturaUncheckedCreateWithoutProveedoresInput[]
+    connectOrCreate?: facturaCreateOrConnectWithoutProveedoresInput | facturaCreateOrConnectWithoutProveedoresInput[]
+    upsert?: facturaUpsertWithWhereUniqueWithoutProveedoresInput | facturaUpsertWithWhereUniqueWithoutProveedoresInput[]
+    createMany?: facturaCreateManyProveedoresInputEnvelope
+    set?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    disconnect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    delete?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    connect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    update?: facturaUpdateWithWhereUniqueWithoutProveedoresInput | facturaUpdateWithWhereUniqueWithoutProveedoresInput[]
+    updateMany?: facturaUpdateManyWithWhereWithoutProveedoresInput | facturaUpdateManyWithWhereWithoutProveedoresInput[]
+    deleteMany?: facturaScalarWhereInput | facturaScalarWhereInput[]
   }
 
   export type ordenes_compraUpdateManyWithoutProveedoresNestedInput = {
@@ -47999,6 +58440,20 @@ export namespace Prisma {
     update?: ordenes_servicioUpdateWithWhereUniqueWithoutProveedoresInput | ordenes_servicioUpdateWithWhereUniqueWithoutProveedoresInput[]
     updateMany?: ordenes_servicioUpdateManyWithWhereWithoutProveedoresInput | ordenes_servicioUpdateManyWithWhereWithoutProveedoresInput[]
     deleteMany?: ordenes_servicioScalarWhereInput | ordenes_servicioScalarWhereInput[]
+  }
+
+  export type facturaUncheckedUpdateManyWithoutProveedoresNestedInput = {
+    create?: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput> | facturaCreateWithoutProveedoresInput[] | facturaUncheckedCreateWithoutProveedoresInput[]
+    connectOrCreate?: facturaCreateOrConnectWithoutProveedoresInput | facturaCreateOrConnectWithoutProveedoresInput[]
+    upsert?: facturaUpsertWithWhereUniqueWithoutProveedoresInput | facturaUpsertWithWhereUniqueWithoutProveedoresInput[]
+    createMany?: facturaCreateManyProveedoresInputEnvelope
+    set?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    disconnect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    delete?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    connect?: facturaWhereUniqueInput | facturaWhereUniqueInput[]
+    update?: facturaUpdateWithWhereUniqueWithoutProveedoresInput | facturaUpdateWithWhereUniqueWithoutProveedoresInput[]
+    updateMany?: facturaUpdateManyWithWhereWithoutProveedoresInput | facturaUpdateManyWithWhereWithoutProveedoresInput[]
+    deleteMany?: facturaScalarWhereInput | facturaScalarWhereInput[]
   }
 
   export type ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput = {
@@ -48889,6 +59344,206 @@ export namespace Prisma {
     set?: $Enums.proyecto_estado | null
   }
 
+  export type proveedoresCreateNestedOneWithoutFacturaInput = {
+    create?: XOR<proveedoresCreateWithoutFacturaInput, proveedoresUncheckedCreateWithoutFacturaInput>
+    connectOrCreate?: proveedoresCreateOrConnectWithoutFacturaInput
+    connect?: proveedoresWhereUniqueInput
+  }
+
+  export type factura_guiaCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput> | factura_guiaCreateWithoutFacturaInput[] | factura_guiaUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_guiaCreateOrConnectWithoutFacturaInput | factura_guiaCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_guiaCreateManyFacturaInputEnvelope
+    connect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+  }
+
+  export type factura_itemCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput> | factura_itemCreateWithoutFacturaInput[] | factura_itemUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_itemCreateOrConnectWithoutFacturaInput | factura_itemCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_itemCreateManyFacturaInputEnvelope
+    connect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+  }
+
+  export type factura_venta_creditoCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput> | factura_venta_creditoCreateWithoutFacturaInput[] | factura_venta_creditoUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_venta_creditoCreateOrConnectWithoutFacturaInput | factura_venta_creditoCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_venta_creditoCreateManyFacturaInputEnvelope
+    connect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+  }
+
+  export type factura_guiaUncheckedCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput> | factura_guiaCreateWithoutFacturaInput[] | factura_guiaUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_guiaCreateOrConnectWithoutFacturaInput | factura_guiaCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_guiaCreateManyFacturaInputEnvelope
+    connect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+  }
+
+  export type factura_itemUncheckedCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput> | factura_itemCreateWithoutFacturaInput[] | factura_itemUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_itemCreateOrConnectWithoutFacturaInput | factura_itemCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_itemCreateManyFacturaInputEnvelope
+    connect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+  }
+
+  export type factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput> | factura_venta_creditoCreateWithoutFacturaInput[] | factura_venta_creditoUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_venta_creditoCreateOrConnectWithoutFacturaInput | factura_venta_creditoCreateOrConnectWithoutFacturaInput[]
+    createMany?: factura_venta_creditoCreateManyFacturaInputEnvelope
+    connect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type proveedoresUpdateOneRequiredWithoutFacturaNestedInput = {
+    create?: XOR<proveedoresCreateWithoutFacturaInput, proveedoresUncheckedCreateWithoutFacturaInput>
+    connectOrCreate?: proveedoresCreateOrConnectWithoutFacturaInput
+    upsert?: proveedoresUpsertWithoutFacturaInput
+    connect?: proveedoresWhereUniqueInput
+    update?: XOR<XOR<proveedoresUpdateToOneWithWhereWithoutFacturaInput, proveedoresUpdateWithoutFacturaInput>, proveedoresUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type factura_guiaUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput> | factura_guiaCreateWithoutFacturaInput[] | factura_guiaUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_guiaCreateOrConnectWithoutFacturaInput | factura_guiaCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_guiaUpsertWithWhereUniqueWithoutFacturaInput | factura_guiaUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_guiaCreateManyFacturaInputEnvelope
+    set?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    disconnect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    delete?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    connect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    update?: factura_guiaUpdateWithWhereUniqueWithoutFacturaInput | factura_guiaUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_guiaUpdateManyWithWhereWithoutFacturaInput | factura_guiaUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_guiaScalarWhereInput | factura_guiaScalarWhereInput[]
+  }
+
+  export type factura_itemUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput> | factura_itemCreateWithoutFacturaInput[] | factura_itemUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_itemCreateOrConnectWithoutFacturaInput | factura_itemCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_itemUpsertWithWhereUniqueWithoutFacturaInput | factura_itemUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_itemCreateManyFacturaInputEnvelope
+    set?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    disconnect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    delete?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    connect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    update?: factura_itemUpdateWithWhereUniqueWithoutFacturaInput | factura_itemUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_itemUpdateManyWithWhereWithoutFacturaInput | factura_itemUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_itemScalarWhereInput | factura_itemScalarWhereInput[]
+  }
+
+  export type factura_venta_creditoUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput> | factura_venta_creditoCreateWithoutFacturaInput[] | factura_venta_creditoUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_venta_creditoCreateOrConnectWithoutFacturaInput | factura_venta_creditoCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_venta_creditoUpsertWithWhereUniqueWithoutFacturaInput | factura_venta_creditoUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_venta_creditoCreateManyFacturaInputEnvelope
+    set?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    disconnect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    delete?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    connect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    update?: factura_venta_creditoUpdateWithWhereUniqueWithoutFacturaInput | factura_venta_creditoUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_venta_creditoUpdateManyWithWhereWithoutFacturaInput | factura_venta_creditoUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_venta_creditoScalarWhereInput | factura_venta_creditoScalarWhereInput[]
+  }
+
+  export type factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput> | factura_guiaCreateWithoutFacturaInput[] | factura_guiaUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_guiaCreateOrConnectWithoutFacturaInput | factura_guiaCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_guiaUpsertWithWhereUniqueWithoutFacturaInput | factura_guiaUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_guiaCreateManyFacturaInputEnvelope
+    set?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    disconnect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    delete?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    connect?: factura_guiaWhereUniqueInput | factura_guiaWhereUniqueInput[]
+    update?: factura_guiaUpdateWithWhereUniqueWithoutFacturaInput | factura_guiaUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_guiaUpdateManyWithWhereWithoutFacturaInput | factura_guiaUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_guiaScalarWhereInput | factura_guiaScalarWhereInput[]
+  }
+
+  export type factura_itemUncheckedUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput> | factura_itemCreateWithoutFacturaInput[] | factura_itemUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_itemCreateOrConnectWithoutFacturaInput | factura_itemCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_itemUpsertWithWhereUniqueWithoutFacturaInput | factura_itemUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_itemCreateManyFacturaInputEnvelope
+    set?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    disconnect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    delete?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    connect?: factura_itemWhereUniqueInput | factura_itemWhereUniqueInput[]
+    update?: factura_itemUpdateWithWhereUniqueWithoutFacturaInput | factura_itemUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_itemUpdateManyWithWhereWithoutFacturaInput | factura_itemUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_itemScalarWhereInput | factura_itemScalarWhereInput[]
+  }
+
+  export type factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput> | factura_venta_creditoCreateWithoutFacturaInput[] | factura_venta_creditoUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: factura_venta_creditoCreateOrConnectWithoutFacturaInput | factura_venta_creditoCreateOrConnectWithoutFacturaInput[]
+    upsert?: factura_venta_creditoUpsertWithWhereUniqueWithoutFacturaInput | factura_venta_creditoUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: factura_venta_creditoCreateManyFacturaInputEnvelope
+    set?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    disconnect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    delete?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    connect?: factura_venta_creditoWhereUniqueInput | factura_venta_creditoWhereUniqueInput[]
+    update?: factura_venta_creditoUpdateWithWhereUniqueWithoutFacturaInput | factura_venta_creditoUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: factura_venta_creditoUpdateManyWithWhereWithoutFacturaInput | factura_venta_creditoUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: factura_venta_creditoScalarWhereInput | factura_venta_creditoScalarWhereInput[]
+  }
+
+  export type facturaCreateNestedOneWithoutFactura_guiaInput = {
+    create?: XOR<facturaCreateWithoutFactura_guiaInput, facturaUncheckedCreateWithoutFactura_guiaInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_guiaInput
+    connect?: facturaWhereUniqueInput
+  }
+
+  export type facturaUpdateOneRequiredWithoutFactura_guiaNestedInput = {
+    create?: XOR<facturaCreateWithoutFactura_guiaInput, facturaUncheckedCreateWithoutFactura_guiaInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_guiaInput
+    upsert?: facturaUpsertWithoutFactura_guiaInput
+    connect?: facturaWhereUniqueInput
+    update?: XOR<XOR<facturaUpdateToOneWithWhereWithoutFactura_guiaInput, facturaUpdateWithoutFactura_guiaInput>, facturaUncheckedUpdateWithoutFactura_guiaInput>
+  }
+
+  export type facturaCreateNestedOneWithoutFactura_itemInput = {
+    create?: XOR<facturaCreateWithoutFactura_itemInput, facturaUncheckedCreateWithoutFactura_itemInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_itemInput
+    connect?: facturaWhereUniqueInput
+  }
+
+  export type facturaUpdateOneRequiredWithoutFactura_itemNestedInput = {
+    create?: XOR<facturaCreateWithoutFactura_itemInput, facturaUncheckedCreateWithoutFactura_itemInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_itemInput
+    upsert?: facturaUpsertWithoutFactura_itemInput
+    connect?: facturaWhereUniqueInput
+    update?: XOR<XOR<facturaUpdateToOneWithWhereWithoutFactura_itemInput, facturaUpdateWithoutFactura_itemInput>, facturaUncheckedUpdateWithoutFactura_itemInput>
+  }
+
+  export type facturaCreateNestedOneWithoutFactura_venta_creditoInput = {
+    create?: XOR<facturaCreateWithoutFactura_venta_creditoInput, facturaUncheckedCreateWithoutFactura_venta_creditoInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_venta_creditoInput
+    connect?: facturaWhereUniqueInput
+  }
+
+  export type facturaUpdateOneRequiredWithoutFactura_venta_creditoNestedInput = {
+    create?: XOR<facturaCreateWithoutFactura_venta_creditoInput, facturaUncheckedCreateWithoutFactura_venta_creditoInput>
+    connectOrCreate?: facturaCreateOrConnectWithoutFactura_venta_creditoInput
+    upsert?: facturaUpsertWithoutFactura_venta_creditoInput
+    connect?: facturaWhereUniqueInput
+    update?: XOR<XOR<facturaUpdateToOneWithWhereWithoutFactura_venta_creditoInput, facturaUpdateWithoutFactura_venta_creditoInput>, facturaUncheckedUpdateWithoutFactura_venta_creditoInput>
+  }
+
+  export type movimientos_inventarioCreateNestedOneWithoutMovimientos_adicionalesInput = {
+    create?: XOR<movimientos_inventarioCreateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedCreateWithoutMovimientos_adicionalesInput>
+    connectOrCreate?: movimientos_inventarioCreateOrConnectWithoutMovimientos_adicionalesInput
+    connect?: movimientos_inventarioWhereUniqueInput
+  }
+
+  export type movimientos_inventarioUpdateOneRequiredWithoutMovimientos_adicionalesNestedInput = {
+    create?: XOR<movimientos_inventarioCreateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedCreateWithoutMovimientos_adicionalesInput>
+    connectOrCreate?: movimientos_inventarioCreateOrConnectWithoutMovimientos_adicionalesInput
+    upsert?: movimientos_inventarioUpsertWithoutMovimientos_adicionalesInput
+    connect?: movimientos_inventarioWhereUniqueInput
+    update?: XOR<XOR<movimientos_inventarioUpdateToOneWithWhereWithoutMovimientos_adicionalesInput, movimientos_inventarioUpdateWithoutMovimientos_adicionalesInput>, movimientos_inventarioUncheckedUpdateWithoutMovimientos_adicionalesInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -49568,6 +60223,19 @@ export namespace Prisma {
     _max?: NestedEnumproyecto_estadoNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type almacenesCreateWithoutOther_almacenesInput = {
     codigo_almacen: string
     nombre_almacen: string
@@ -49695,6 +60363,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -49712,6 +60382,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -49732,6 +60404,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -49749,6 +60423,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -50052,6 +60728,7 @@ export namespace Prisma {
     responsable?: StringNullableFilter<"movimientos_inventario"> | string | null
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
   }
 
   export type movimientos_inventarioUpsertWithWhereUniqueWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -51806,6 +62483,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -51823,6 +62502,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -52242,6 +62923,35 @@ export namespace Prisma {
     puede_eliminar?: BoolNullableFilter<"permisos_rol"> | boolean | null
   }
 
+  export type movimientos_adicionalesCreateWithoutMovimientos_inventarioInput = {
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput = {
+    id_movimiento_adicional?: number
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type movimientos_adicionalesCreateOrConnectWithoutMovimientos_inventarioInput = {
+    where: movimientos_adicionalesWhereUniqueInput
+    create: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput>
+  }
+
+  export type movimientos_adicionalesCreateManyMovimientos_inventarioInputEnvelope = {
+    data: movimientos_adicionalesCreateManyMovimientos_inventarioInput | movimientos_adicionalesCreateManyMovimientos_inventarioInput[]
+    skipDuplicates?: boolean
+  }
+
   export type tipos_movimientoCreateWithoutMovimientos_inventarioInput = {
     codigo_tipo: string
     descripcion_tipo: string
@@ -52436,6 +63146,36 @@ export namespace Prisma {
   export type solicitudes_salidaCreateManyMovimientos_inventarioInputEnvelope = {
     data: solicitudes_salidaCreateManyMovimientos_inventarioInput | solicitudes_salidaCreateManyMovimientos_inventarioInput[]
     skipDuplicates?: boolean
+  }
+
+  export type movimientos_adicionalesUpsertWithWhereUniqueWithoutMovimientos_inventarioInput = {
+    where: movimientos_adicionalesWhereUniqueInput
+    update: XOR<movimientos_adicionalesUpdateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedUpdateWithoutMovimientos_inventarioInput>
+    create: XOR<movimientos_adicionalesCreateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedCreateWithoutMovimientos_inventarioInput>
+  }
+
+  export type movimientos_adicionalesUpdateWithWhereUniqueWithoutMovimientos_inventarioInput = {
+    where: movimientos_adicionalesWhereUniqueInput
+    data: XOR<movimientos_adicionalesUpdateWithoutMovimientos_inventarioInput, movimientos_adicionalesUncheckedUpdateWithoutMovimientos_inventarioInput>
+  }
+
+  export type movimientos_adicionalesUpdateManyWithWhereWithoutMovimientos_inventarioInput = {
+    where: movimientos_adicionalesScalarWhereInput
+    data: XOR<movimientos_adicionalesUpdateManyMutationInput, movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioInput>
+  }
+
+  export type movimientos_adicionalesScalarWhereInput = {
+    AND?: movimientos_adicionalesScalarWhereInput | movimientos_adicionalesScalarWhereInput[]
+    OR?: movimientos_adicionalesScalarWhereInput[]
+    NOT?: movimientos_adicionalesScalarWhereInput | movimientos_adicionalesScalarWhereInput[]
+    id_movimiento_adicional?: IntFilter<"movimientos_adicionales"> | number
+    id_movimiento?: IntFilter<"movimientos_adicionales"> | number
+    numero_factura?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    numero_guia_remision?: StringNullableFilter<"movimientos_adicionales"> | string | null
+    costo_unitario?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    costo_total?: DecimalNullableFilter<"movimientos_adicionales"> | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"movimientos_adicionales"> | Date | string | null
   }
 
   export type tipos_movimientoUpsertWithoutMovimientos_inventarioInput = {
@@ -52882,6 +63622,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutProveedoresInput
   }
 
@@ -52902,6 +63643,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaUncheckedCreateNestedManyWithoutProveedoresInput
     ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutProveedoresInput
   }
 
@@ -53032,6 +63774,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -53052,6 +63795,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUncheckedUpdateManyWithoutProveedoresNestedInput
     ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -53355,6 +64099,179 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type facturaCreateWithoutProveedoresInput = {
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUncheckedCreateWithoutProveedoresInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaCreateOrConnectWithoutProveedoresInput = {
+    where: facturaWhereUniqueInput
+    create: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput>
+  }
+
+  export type facturaCreateManyProveedoresInputEnvelope = {
+    data: facturaCreateManyProveedoresInput | facturaCreateManyProveedoresInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ordenes_compraCreateWithoutProveedoresInput = {
     numero_orden: string
     fecha_orden: Date | string
@@ -53476,6 +64393,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53517,6 +64435,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -53533,6 +64452,105 @@ export namespace Prisma {
   export type ordenes_servicioCreateManyProveedoresInputEnvelope = {
     data: ordenes_servicioCreateManyProveedoresInput | ordenes_servicioCreateManyProveedoresInput[]
     skipDuplicates?: boolean
+  }
+
+  export type facturaUpsertWithWhereUniqueWithoutProveedoresInput = {
+    where: facturaWhereUniqueInput
+    update: XOR<facturaUpdateWithoutProveedoresInput, facturaUncheckedUpdateWithoutProveedoresInput>
+    create: XOR<facturaCreateWithoutProveedoresInput, facturaUncheckedCreateWithoutProveedoresInput>
+  }
+
+  export type facturaUpdateWithWhereUniqueWithoutProveedoresInput = {
+    where: facturaWhereUniqueInput
+    data: XOR<facturaUpdateWithoutProveedoresInput, facturaUncheckedUpdateWithoutProveedoresInput>
+  }
+
+  export type facturaUpdateManyWithWhereWithoutProveedoresInput = {
+    where: facturaScalarWhereInput
+    data: XOR<facturaUpdateManyMutationInput, facturaUncheckedUpdateManyWithoutProveedoresInput>
+  }
+
+  export type facturaScalarWhereInput = {
+    AND?: facturaScalarWhereInput | facturaScalarWhereInput[]
+    OR?: facturaScalarWhereInput[]
+    NOT?: facturaScalarWhereInput | facturaScalarWhereInput[]
+    id_factura?: IntFilter<"factura"> | number
+    estado_factura?: StringNullableFilter<"factura"> | string | null
+    operacion?: StringFilter<"factura"> | string
+    tipo_de_comprobante?: IntFilter<"factura"> | number
+    serie?: StringFilter<"factura"> | string
+    numero?: IntFilter<"factura"> | number
+    sunat_transaction?: IntFilter<"factura"> | number
+    id_proveedor?: IntFilter<"factura"> | number
+    cliente_tipo_documento?: IntFilter<"factura"> | number
+    cliente_numero_documento?: StringFilter<"factura"> | string
+    cliente_denominacion?: StringFilter<"factura"> | string
+    cliente_direccion?: StringNullableFilter<"factura"> | string | null
+    cliente_email?: StringNullableFilter<"factura"> | string | null
+    cliente_email_1?: StringNullableFilter<"factura"> | string | null
+    cliente_email_2?: StringNullableFilter<"factura"> | string | null
+    fecha_emision?: DateTimeFilter<"factura"> | Date | string
+    fecha_vencimiento?: DateTimeNullableFilter<"factura"> | Date | string | null
+    fecha_servicio?: DateTimeNullableFilter<"factura"> | Date | string | null
+    moneda?: IntFilter<"factura"> | number
+    tipo_cambio?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    descuento_global?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_igv?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_isc?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura"> | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFilter<"factura"> | boolean
+    detraccion_tipo?: IntNullableFilter<"factura"> | number | null
+    detraccion_porcentaje?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: IntNullableFilter<"factura"> | number | null
+    ubigeo_origen?: StringNullableFilter<"factura"> | string | null
+    direccion_origen?: StringNullableFilter<"factura"> | string | null
+    ubigeo_destino?: StringNullableFilter<"factura"> | string | null
+    direccion_destino?: StringNullableFilter<"factura"> | string | null
+    detalle_viaje?: StringNullableFilter<"factura"> | string | null
+    percepcion_tipo?: IntNullableFilter<"factura"> | number | null
+    percepcion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: IntNullableFilter<"factura"> | number | null
+    retencion_base_imponible?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: DecimalNullableFilter<"factura"> | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFilter<"factura"> | boolean
+    fondo_garantia_valor?: StringNullableFilter<"factura"> | string | null
+    orden_compra?: BoolFilter<"factura"> | boolean
+    orden_compra_valor?: StringNullableFilter<"factura"> | string | null
+    placa_vehiculo?: StringNullableFilter<"factura"> | string | null
+    orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
+    centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
+    unidad?: StringNullableFilter<"factura"> | string | null
+    unidad_id?: IntNullableFilter<"factura"> | number | null
+    observaciones?: StringNullableFilter<"factura"> | string | null
+    enviar_automaticamente_sunat?: BoolFilter<"factura"> | boolean
+    enviar_automaticamente_cliente?: BoolFilter<"factura"> | boolean
+    formato_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace?: StringNullableFilter<"factura"> | string | null
+    enlace_del_pdf?: StringNullableFilter<"factura"> | string | null
+    enlace_del_xml?: StringNullableFilter<"factura"> | string | null
+    enlace_del_cdr?: StringNullableFilter<"factura"> | string | null
+    cadena_para_codigo_qr?: StringNullableFilter<"factura"> | string | null
+    codigo_hash?: StringNullableFilter<"factura"> | string | null
+    aceptada_por_sunat?: BoolNullableFilter<"factura"> | boolean | null
+    sunat_description?: StringNullableFilter<"factura"> | string | null
+    sunat_note?: StringNullableFilter<"factura"> | string | null
+    sunat_responsecode?: StringNullableFilter<"factura"> | string | null
+    sunat_soap_error?: StringNullableFilter<"factura"> | string | null
+    created_at?: DateTimeFilter<"factura"> | Date | string
+    updated_at?: DateTimeFilter<"factura"> | Date | string
   }
 
   export type ordenes_compraUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -53646,6 +64664,7 @@ export namespace Prisma {
     detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -54160,6 +65179,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -54178,6 +65199,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
   export type movimientos_inventarioCreateOrConnectWithoutSolicitudes_salidaInput = {
@@ -54418,6 +65441,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -54436,6 +65461,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
   export type listado_items_2025CreateWithoutStock_almacenesInput = {
@@ -54647,6 +65674,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -54664,6 +65693,8 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -55019,6 +66050,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55060,6 +66092,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55583,6 +66616,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaCreateNestedManyWithoutProveedoresInput
     ordenes_compra?: ordenes_compraCreateNestedManyWithoutProveedoresInput
   }
 
@@ -55603,6 +66637,7 @@ export namespace Prisma {
     retencion?: $Enums.proveedores_retencion | null
     es_agente_retencion?: string | null
     numero_cuenta?: string | null
+    factura?: facturaUncheckedCreateNestedManyWithoutProveedoresInput
     ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput
   }
 
@@ -55702,6 +66737,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUpdateManyWithoutProveedoresNestedInput
     ordenes_compra?: ordenes_compraUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -55722,6 +66758,7 @@ export namespace Prisma {
     retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
     es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    factura?: facturaUncheckedUpdateManyWithoutProveedoresNestedInput
     ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput
   }
 
@@ -55809,6 +66846,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55851,6 +66889,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -55957,6 +66996,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55999,6 +67039,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56065,6 +67106,1409 @@ export namespace Prisma {
     stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
   }
 
+  export type proveedoresCreateWithoutFacturaInput = {
+    codigo_proveedor: string
+    nombre_proveedor: string
+    contacto?: string | null
+    telefono?: string | null
+    email?: string | null
+    direccion?: string | null
+    ruc?: string | null
+    activo?: boolean | null
+    fecha_registro?: Date | string | null
+    fecha_actualizacion?: Date | string | null
+    entidad_bancaria?: string | null
+    numero_cuenta_bancaria?: string | null
+    retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
+    ordenes_compra?: ordenes_compraCreateNestedManyWithoutProveedoresInput
+    ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutProveedoresInput
+  }
+
+  export type proveedoresUncheckedCreateWithoutFacturaInput = {
+    id_proveedor?: number
+    codigo_proveedor: string
+    nombre_proveedor: string
+    contacto?: string | null
+    telefono?: string | null
+    email?: string | null
+    direccion?: string | null
+    ruc?: string | null
+    activo?: boolean | null
+    fecha_registro?: Date | string | null
+    fecha_actualizacion?: Date | string | null
+    entidad_bancaria?: string | null
+    numero_cuenta_bancaria?: string | null
+    retencion?: $Enums.proveedores_retencion | null
+    es_agente_retencion?: string | null
+    numero_cuenta?: string | null
+    ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutProveedoresInput
+    ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutProveedoresInput
+  }
+
+  export type proveedoresCreateOrConnectWithoutFacturaInput = {
+    where: proveedoresWhereUniqueInput
+    create: XOR<proveedoresCreateWithoutFacturaInput, proveedoresUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_guiaCreateWithoutFacturaInput = {
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+  }
+
+  export type factura_guiaUncheckedCreateWithoutFacturaInput = {
+    id_factura_guia?: number
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+  }
+
+  export type factura_guiaCreateOrConnectWithoutFacturaInput = {
+    where: factura_guiaWhereUniqueInput
+    create: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_guiaCreateManyFacturaInputEnvelope = {
+    data: factura_guiaCreateManyFacturaInput | factura_guiaCreateManyFacturaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type factura_itemCreateWithoutFacturaInput = {
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_itemUncheckedCreateWithoutFacturaInput = {
+    id_factura_item?: number
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_itemCreateOrConnectWithoutFacturaInput = {
+    where: factura_itemWhereUniqueInput
+    create: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_itemCreateManyFacturaInputEnvelope = {
+    data: factura_itemCreateManyFacturaInput | factura_itemCreateManyFacturaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type factura_venta_creditoCreateWithoutFacturaInput = {
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type factura_venta_creditoUncheckedCreateWithoutFacturaInput = {
+    id_venta_credito?: number
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type factura_venta_creditoCreateOrConnectWithoutFacturaInput = {
+    where: factura_venta_creditoWhereUniqueInput
+    create: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_venta_creditoCreateManyFacturaInputEnvelope = {
+    data: factura_venta_creditoCreateManyFacturaInput | factura_venta_creditoCreateManyFacturaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type proveedoresUpsertWithoutFacturaInput = {
+    update: XOR<proveedoresUpdateWithoutFacturaInput, proveedoresUncheckedUpdateWithoutFacturaInput>
+    create: XOR<proveedoresCreateWithoutFacturaInput, proveedoresUncheckedCreateWithoutFacturaInput>
+    where?: proveedoresWhereInput
+  }
+
+  export type proveedoresUpdateToOneWithWhereWithoutFacturaInput = {
+    where?: proveedoresWhereInput
+    data: XOR<proveedoresUpdateWithoutFacturaInput, proveedoresUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type proveedoresUpdateWithoutFacturaInput = {
+    codigo_proveedor?: StringFieldUpdateOperationsInput | string
+    nombre_proveedor?: StringFieldUpdateOperationsInput | string
+    contacto?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_actualizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    ordenes_compra?: ordenes_compraUpdateManyWithoutProveedoresNestedInput
+    ordenes_servicio?: ordenes_servicioUpdateManyWithoutProveedoresNestedInput
+  }
+
+  export type proveedoresUncheckedUpdateWithoutFacturaInput = {
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    codigo_proveedor?: StringFieldUpdateOperationsInput | string
+    nombre_proveedor?: StringFieldUpdateOperationsInput | string
+    contacto?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_actualizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    entidad_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta_bancaria?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableEnumproveedores_retencionFieldUpdateOperationsInput | $Enums.proveedores_retencion | null
+    es_agente_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_cuenta?: NullableStringFieldUpdateOperationsInput | string | null
+    ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutProveedoresNestedInput
+    ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutProveedoresNestedInput
+  }
+
+  export type factura_guiaUpsertWithWhereUniqueWithoutFacturaInput = {
+    where: factura_guiaWhereUniqueInput
+    update: XOR<factura_guiaUpdateWithoutFacturaInput, factura_guiaUncheckedUpdateWithoutFacturaInput>
+    create: XOR<factura_guiaCreateWithoutFacturaInput, factura_guiaUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_guiaUpdateWithWhereUniqueWithoutFacturaInput = {
+    where: factura_guiaWhereUniqueInput
+    data: XOR<factura_guiaUpdateWithoutFacturaInput, factura_guiaUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type factura_guiaUpdateManyWithWhereWithoutFacturaInput = {
+    where: factura_guiaScalarWhereInput
+    data: XOR<factura_guiaUpdateManyMutationInput, factura_guiaUncheckedUpdateManyWithoutFacturaInput>
+  }
+
+  export type factura_guiaScalarWhereInput = {
+    AND?: factura_guiaScalarWhereInput | factura_guiaScalarWhereInput[]
+    OR?: factura_guiaScalarWhereInput[]
+    NOT?: factura_guiaScalarWhereInput | factura_guiaScalarWhereInput[]
+    id_factura_guia?: IntFilter<"factura_guia"> | number
+    id_factura?: IntFilter<"factura_guia"> | number
+    guia_tipo?: IntFilter<"factura_guia"> | number
+    guia_serie_numero?: StringFilter<"factura_guia"> | string
+    created_at?: DateTimeFilter<"factura_guia"> | Date | string
+  }
+
+  export type factura_itemUpsertWithWhereUniqueWithoutFacturaInput = {
+    where: factura_itemWhereUniqueInput
+    update: XOR<factura_itemUpdateWithoutFacturaInput, factura_itemUncheckedUpdateWithoutFacturaInput>
+    create: XOR<factura_itemCreateWithoutFacturaInput, factura_itemUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_itemUpdateWithWhereUniqueWithoutFacturaInput = {
+    where: factura_itemWhereUniqueInput
+    data: XOR<factura_itemUpdateWithoutFacturaInput, factura_itemUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type factura_itemUpdateManyWithWhereWithoutFacturaInput = {
+    where: factura_itemScalarWhereInput
+    data: XOR<factura_itemUpdateManyMutationInput, factura_itemUncheckedUpdateManyWithoutFacturaInput>
+  }
+
+  export type factura_itemScalarWhereInput = {
+    AND?: factura_itemScalarWhereInput | factura_itemScalarWhereInput[]
+    OR?: factura_itemScalarWhereInput[]
+    NOT?: factura_itemScalarWhereInput | factura_itemScalarWhereInput[]
+    id_factura_item?: IntFilter<"factura_item"> | number
+    id_factura?: IntFilter<"factura_item"> | number
+    codigo_item?: StringNullableFilter<"factura_item"> | string | null
+    codigo_producto_sunat?: StringNullableFilter<"factura_item"> | string | null
+    descripcion_item?: StringFilter<"factura_item"> | string
+    unidad_medida?: StringFilter<"factura_item"> | string
+    cantidad?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    descuento?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFilter<"factura_item"> | number
+    igv?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: IntNullableFilter<"factura_item"> | number | null
+    isc?: DecimalNullableFilter<"factura_item"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFilter<"factura_item"> | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFilter<"factura_item"> | boolean
+    anticipo_documento_serie?: StringNullableFilter<"factura_item"> | string | null
+    anticipo_documento_numero?: IntNullableFilter<"factura_item"> | number | null
+    created_at?: DateTimeFilter<"factura_item"> | Date | string
+    updated_at?: DateTimeFilter<"factura_item"> | Date | string
+  }
+
+  export type factura_venta_creditoUpsertWithWhereUniqueWithoutFacturaInput = {
+    where: factura_venta_creditoWhereUniqueInput
+    update: XOR<factura_venta_creditoUpdateWithoutFacturaInput, factura_venta_creditoUncheckedUpdateWithoutFacturaInput>
+    create: XOR<factura_venta_creditoCreateWithoutFacturaInput, factura_venta_creditoUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type factura_venta_creditoUpdateWithWhereUniqueWithoutFacturaInput = {
+    where: factura_venta_creditoWhereUniqueInput
+    data: XOR<factura_venta_creditoUpdateWithoutFacturaInput, factura_venta_creditoUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type factura_venta_creditoUpdateManyWithWhereWithoutFacturaInput = {
+    where: factura_venta_creditoScalarWhereInput
+    data: XOR<factura_venta_creditoUpdateManyMutationInput, factura_venta_creditoUncheckedUpdateManyWithoutFacturaInput>
+  }
+
+  export type factura_venta_creditoScalarWhereInput = {
+    AND?: factura_venta_creditoScalarWhereInput | factura_venta_creditoScalarWhereInput[]
+    OR?: factura_venta_creditoScalarWhereInput[]
+    NOT?: factura_venta_creditoScalarWhereInput | factura_venta_creditoScalarWhereInput[]
+    id_venta_credito?: IntFilter<"factura_venta_credito"> | number
+    id_factura?: IntFilter<"factura_venta_credito"> | number
+    cuota?: IntFilter<"factura_venta_credito"> | number
+    fecha_pago?: DateTimeFilter<"factura_venta_credito"> | Date | string
+    importe?: DecimalFilter<"factura_venta_credito"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"factura_venta_credito"> | Date | string
+  }
+
+  export type facturaCreateWithoutFactura_guiaInput = {
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    proveedores: proveedoresCreateNestedOneWithoutFacturaInput
+    factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUncheckedCreateWithoutFactura_guiaInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    id_proveedor: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaCreateOrConnectWithoutFactura_guiaInput = {
+    where: facturaWhereUniqueInput
+    create: XOR<facturaCreateWithoutFactura_guiaInput, facturaUncheckedCreateWithoutFactura_guiaInput>
+  }
+
+  export type facturaUpsertWithoutFactura_guiaInput = {
+    update: XOR<facturaUpdateWithoutFactura_guiaInput, facturaUncheckedUpdateWithoutFactura_guiaInput>
+    create: XOR<facturaCreateWithoutFactura_guiaInput, facturaUncheckedCreateWithoutFactura_guiaInput>
+    where?: facturaWhereInput
+  }
+
+  export type facturaUpdateToOneWithWhereWithoutFactura_guiaInput = {
+    where?: facturaWhereInput
+    data: XOR<facturaUpdateWithoutFactura_guiaInput, facturaUncheckedUpdateWithoutFactura_guiaInput>
+  }
+
+  export type facturaUpdateWithoutFactura_guiaInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
+    factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateWithoutFactura_guiaInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaCreateWithoutFactura_itemInput = {
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    proveedores: proveedoresCreateNestedOneWithoutFacturaInput
+    factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUncheckedCreateWithoutFactura_itemInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    id_proveedor: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
+    factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaCreateOrConnectWithoutFactura_itemInput = {
+    where: facturaWhereUniqueInput
+    create: XOR<facturaCreateWithoutFactura_itemInput, facturaUncheckedCreateWithoutFactura_itemInput>
+  }
+
+  export type facturaUpsertWithoutFactura_itemInput = {
+    update: XOR<facturaUpdateWithoutFactura_itemInput, facturaUncheckedUpdateWithoutFactura_itemInput>
+    create: XOR<facturaCreateWithoutFactura_itemInput, facturaUncheckedCreateWithoutFactura_itemInput>
+    where?: facturaWhereInput
+  }
+
+  export type facturaUpdateToOneWithWhereWithoutFactura_itemInput = {
+    where?: facturaWhereInput
+    data: XOR<facturaUpdateWithoutFactura_itemInput, facturaUncheckedUpdateWithoutFactura_itemInput>
+  }
+
+  export type facturaUpdateWithoutFactura_itemInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
+    factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateWithoutFactura_itemInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaCreateWithoutFactura_venta_creditoInput = {
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    proveedores: proveedoresCreateNestedOneWithoutFacturaInput
+    factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaUncheckedCreateWithoutFactura_venta_creditoInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    id_proveedor: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
+    factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type facturaCreateOrConnectWithoutFactura_venta_creditoInput = {
+    where: facturaWhereUniqueInput
+    create: XOR<facturaCreateWithoutFactura_venta_creditoInput, facturaUncheckedCreateWithoutFactura_venta_creditoInput>
+  }
+
+  export type facturaUpsertWithoutFactura_venta_creditoInput = {
+    update: XOR<facturaUpdateWithoutFactura_venta_creditoInput, facturaUncheckedUpdateWithoutFactura_venta_creditoInput>
+    create: XOR<facturaCreateWithoutFactura_venta_creditoInput, facturaUncheckedCreateWithoutFactura_venta_creditoInput>
+    where?: facturaWhereInput
+  }
+
+  export type facturaUpdateToOneWithWhereWithoutFactura_venta_creditoInput = {
+    where?: facturaWhereInput
+    data: XOR<facturaUpdateWithoutFactura_venta_creditoInput, facturaUncheckedUpdateWithoutFactura_venta_creditoInput>
+  }
+
+  export type facturaUpdateWithoutFactura_venta_creditoInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
+    factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateWithoutFactura_venta_creditoInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type movimientos_inventarioCreateWithoutMovimientos_adicionalesInput = {
+    cantidad: number
+    numero_documento?: string | null
+    fecha_movimiento?: Date | string | null
+    responsable?: string | null
+    observaciones?: string | null
+    estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
+    listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
+    almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
+    almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesInput
+    solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutMovimientos_inventarioInput
+  }
+
+  export type movimientos_inventarioUncheckedCreateWithoutMovimientos_adicionalesInput = {
+    id_movimiento?: number
+    id_tipo_movimiento: number
+    codigo_item: string
+    cantidad: number
+    id_almacen_origen?: number | null
+    id_almacen_destino?: number | null
+    numero_documento?: string | null
+    fecha_movimiento?: Date | string | null
+    responsable?: string | null
+    observaciones?: string | null
+    estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
+    solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
+  }
+
+  export type movimientos_inventarioCreateOrConnectWithoutMovimientos_adicionalesInput = {
+    where: movimientos_inventarioWhereUniqueInput
+    create: XOR<movimientos_inventarioCreateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedCreateWithoutMovimientos_adicionalesInput>
+  }
+
+  export type movimientos_inventarioUpsertWithoutMovimientos_adicionalesInput = {
+    update: XOR<movimientos_inventarioUpdateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedUpdateWithoutMovimientos_adicionalesInput>
+    create: XOR<movimientos_inventarioCreateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedCreateWithoutMovimientos_adicionalesInput>
+    where?: movimientos_inventarioWhereInput
+  }
+
+  export type movimientos_inventarioUpdateToOneWithWhereWithoutMovimientos_adicionalesInput = {
+    where?: movimientos_inventarioWhereInput
+    data: XOR<movimientos_inventarioUpdateWithoutMovimientos_adicionalesInput, movimientos_inventarioUncheckedUpdateWithoutMovimientos_adicionalesInput>
+  }
+
+  export type movimientos_inventarioUpdateWithoutMovimientos_adicionalesInput = {
+    cantidad?: IntFieldUpdateOperationsInput | number
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    responsable?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
+    listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
+    almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
+    almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
+    solicitudes_salida?: solicitudes_salidaUpdateManyWithoutMovimientos_inventarioNestedInput
+  }
+
+  export type movimientos_inventarioUncheckedUpdateWithoutMovimientos_adicionalesInput = {
+    id_movimiento?: IntFieldUpdateOperationsInput | number
+    id_tipo_movimiento?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    cantidad?: IntFieldUpdateOperationsInput | number
+    id_almacen_origen?: NullableIntFieldUpdateOperationsInput | number | null
+    id_almacen_destino?: NullableIntFieldUpdateOperationsInput | number | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    responsable?: NullableStringFieldUpdateOperationsInput | string | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
+  }
+
   export type almacenesCreateManyAlmacenesInput = {
     id_almacen?: number
     codigo_almacen: string
@@ -56097,6 +68541,7 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
   }
 
   export type movimientos_inventarioCreateManyAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -56110,6 +68555,7 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
   }
 
   export type recepciones_compraCreateManyAlmacenesInput = {
@@ -56242,6 +68688,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -56259,6 +68707,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -56273,6 +68723,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type movimientos_inventarioUpdateWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -56282,6 +68733,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -56299,6 +68752,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -56313,6 +68768,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type recepciones_compraUpdateWithoutAlmacenesInput = {
@@ -56714,6 +69170,7 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
   }
 
   export type solicitudes_salidaCreateManyListado_items_2025Input = {
@@ -56860,6 +69317,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -56877,6 +69336,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -56891,6 +69352,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type solicitudes_salidaUpdateWithoutListado_items_2025Input = {
@@ -56998,6 +69460,16 @@ export namespace Prisma {
     puede_eliminar?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
+  export type movimientos_adicionalesCreateManyMovimientos_inventarioInput = {
+    id_movimiento_adicional?: number
+    numero_factura?: string | null
+    numero_guia_remision?: string | null
+    costo_unitario?: Decimal | DecimalJsLike | number | string | null
+    costo_total?: Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: Date | string | null
+    fecha_registro?: Date | string | null
+  }
+
   export type solicitudes_salidaCreateManyMovimientos_inventarioInput = {
     id_solicitud?: number
     codigo_item: string
@@ -57012,6 +69484,35 @@ export namespace Prisma {
     autorizado_por?: number | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+  }
+
+  export type movimientos_adicionalesUpdateWithoutMovimientos_inventarioInput = {
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type movimientos_adicionalesUncheckedUpdateWithoutMovimientos_inventarioInput = {
+    id_movimiento_adicional?: IntFieldUpdateOperationsInput | number
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioInput = {
+    id_movimiento_adicional?: IntFieldUpdateOperationsInput | number
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_guia_remision?: NullableStringFieldUpdateOperationsInput | string | null
+    costo_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    costo_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fecha_ingreso?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type solicitudes_salidaUpdateWithoutMovimientos_inventarioInput = {
@@ -57141,6 +69642,85 @@ export namespace Prisma {
     estado?: NullableEnumrecepciones_compra_estadoFieldUpdateOperationsInput | $Enums.recepciones_compra_estado | null
   }
 
+  export type facturaCreateManyProveedoresInput = {
+    id_factura?: number
+    estado_factura?: string | null
+    operacion?: string
+    tipo_de_comprobante: number
+    serie: string
+    numero: number
+    sunat_transaction?: number
+    cliente_tipo_documento?: number
+    cliente_numero_documento: string
+    cliente_denominacion: string
+    cliente_direccion?: string | null
+    cliente_email?: string | null
+    cliente_email_1?: string | null
+    cliente_email_2?: string | null
+    fecha_emision: Date | string
+    fecha_vencimiento?: Date | string | null
+    fecha_servicio?: Date | string | null
+    moneda?: number
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: Decimal | DecimalJsLike | number | string
+    descuento_global?: Decimal | DecimalJsLike | number | string | null
+    total_descuento?: Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: Decimal | DecimalJsLike | number | string | null
+    total_gravada?: Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: Decimal | DecimalJsLike | number | string | null
+    total_igv?: Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: Decimal | DecimalJsLike | number | string | null
+    total_isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: boolean
+    detraccion_tipo?: number | null
+    detraccion_porcentaje?: Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: number | null
+    ubigeo_origen?: string | null
+    direccion_origen?: string | null
+    ubigeo_destino?: string | null
+    direccion_destino?: string | null
+    detalle_viaje?: string | null
+    percepcion_tipo?: number | null
+    percepcion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: number | null
+    retencion_base_imponible?: Decimal | DecimalJsLike | number | string | null
+    total_retencion?: Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: boolean
+    fondo_garantia_valor?: string | null
+    orden_compra?: boolean
+    orden_compra_valor?: string | null
+    placa_vehiculo?: string | null
+    orden_compra_servicio?: string | null
+    centro_costo_nivel1_codigo?: string | null
+    centro_costo_nivel2_codigo?: string | null
+    centro_costo_nivel3_codigo?: string | null
+    unidad?: string | null
+    unidad_id?: number | null
+    observaciones?: string | null
+    enviar_automaticamente_sunat?: boolean
+    enviar_automaticamente_cliente?: boolean
+    formato_pdf?: string | null
+    enlace?: string | null
+    enlace_del_pdf?: string | null
+    enlace_del_xml?: string | null
+    enlace_del_cdr?: string | null
+    cadena_para_codigo_qr?: string | null
+    codigo_hash?: string | null
+    aceptada_por_sunat?: boolean | null
+    sunat_description?: string | null
+    sunat_note?: string | null
+    sunat_responsecode?: string | null
+    sunat_soap_error?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type ordenes_compraCreateManyProveedoresInput = {
     id_orden_compra?: number
     numero_orden: string
@@ -57212,11 +69792,254 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+  }
+
+  export type facturaUpdateWithoutProveedoresInput = {
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateWithoutProveedoresInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
+    factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type facturaUncheckedUpdateManyWithoutProveedoresInput = {
+    id_factura?: IntFieldUpdateOperationsInput | number
+    estado_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    operacion?: StringFieldUpdateOperationsInput | string
+    tipo_de_comprobante?: IntFieldUpdateOperationsInput | number
+    serie?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    sunat_transaction?: IntFieldUpdateOperationsInput | number
+    cliente_tipo_documento?: IntFieldUpdateOperationsInput | number
+    cliente_numero_documento?: StringFieldUpdateOperationsInput | string
+    cliente_denominacion?: StringFieldUpdateOperationsInput | string
+    cliente_direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_email_2?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_servicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moneda?: IntFieldUpdateOperationsInput | number
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    porcentaje_igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento_global?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_anticipo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gravada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_inafecta?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_exonerada?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_gratuita?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_otros_cargos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    aplicar_detraccion?: BoolFieldUpdateOperationsInput | boolean
+    detraccion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    detraccion_porcentaje?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion_total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    medio_pago_detraccion?: NullableIntFieldUpdateOperationsInput | number | null
+    ubigeo_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_origen?: NullableStringFieldUpdateOperationsInput | string | null
+    ubigeo_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion_destino?: NullableStringFieldUpdateOperationsInput | string | null
+    detalle_viaje?: NullableStringFieldUpdateOperationsInput | string | null
+    percepcion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    percepcion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_incluido_percepcion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    retencion_tipo?: NullableIntFieldUpdateOperationsInput | number | null
+    retencion_base_imponible?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fondo_garantia?: BoolFieldUpdateOperationsInput | boolean
+    fondo_garantia_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra?: BoolFieldUpdateOperationsInput | boolean
+    orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
+    placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad?: NullableStringFieldUpdateOperationsInput | string | null
+    unidad_id?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    enviar_automaticamente_sunat?: BoolFieldUpdateOperationsInput | boolean
+    enviar_automaticamente_cliente?: BoolFieldUpdateOperationsInput | boolean
+    formato_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_xml?: NullableStringFieldUpdateOperationsInput | string | null
+    enlace_del_cdr?: NullableStringFieldUpdateOperationsInput | string | null
+    cadena_para_codigo_qr?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    aceptada_por_sunat?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sunat_description?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_note?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_responsecode?: NullableStringFieldUpdateOperationsInput | string | null
+    sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -57369,6 +70192,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57410,6 +70234,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57450,6 +70275,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57499,6 +70325,7 @@ export namespace Prisma {
     responsable?: string | null
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: number | null
   }
 
   export type movimientos_inventarioUpdateWithoutTipos_movimientoInput = {
@@ -57508,6 +70335,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     almacenes_movimientos_inventario_id_almacen_destinoToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -57525,6 +70354,8 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -57539,6 +70370,7 @@ export namespace Prisma {
     responsable?: NullableStringFieldUpdateOperationsInput | string | null
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
+    id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type configuracion_notificacionesCreateManyUsuariosInput = {
@@ -57680,6 +70512,7 @@ export namespace Prisma {
     detraccion?: string | null
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -58081,6 +70914,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58122,6 +70956,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58162,6 +70997,7 @@ export namespace Prisma {
     detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58326,6 +71162,155 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type factura_guiaCreateManyFacturaInput = {
+    id_factura_guia?: number
+    guia_tipo: number
+    guia_serie_numero: string
+    created_at?: Date | string
+  }
+
+  export type factura_itemCreateManyFacturaInput = {
+    id_factura_item?: number
+    codigo_item?: string | null
+    codigo_producto_sunat?: string | null
+    descripcion_item: string
+    unidad_medida: string
+    cantidad: Decimal | DecimalJsLike | number | string
+    valor_unitario: Decimal | DecimalJsLike | number | string
+    precio_unitario: Decimal | DecimalJsLike | number | string
+    descuento?: Decimal | DecimalJsLike | number | string | null
+    subtotal: Decimal | DecimalJsLike | number | string
+    tipo_de_igv: number
+    igv: Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: number | null
+    isc?: Decimal | DecimalJsLike | number | string | null
+    total: Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: boolean
+    anticipo_documento_serie?: string | null
+    anticipo_documento_numero?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_venta_creditoCreateManyFacturaInput = {
+    id_venta_credito?: number
+    cuota: number
+    fecha_pago: Date | string
+    importe: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type factura_guiaUpdateWithoutFacturaInput = {
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_guiaUncheckedUpdateWithoutFacturaInput = {
+    id_factura_guia?: IntFieldUpdateOperationsInput | number
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_guiaUncheckedUpdateManyWithoutFacturaInput = {
+    id_factura_guia?: IntFieldUpdateOperationsInput | number
+    guia_tipo?: IntFieldUpdateOperationsInput | number
+    guia_serie_numero?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemUpdateWithoutFacturaInput = {
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemUncheckedUpdateWithoutFacturaInput = {
+    id_factura_item?: IntFieldUpdateOperationsInput | number
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_itemUncheckedUpdateManyWithoutFacturaInput = {
+    id_factura_item?: IntFieldUpdateOperationsInput | number
+    codigo_item?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_producto_sunat?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion_item?: StringFieldUpdateOperationsInput | string
+    unidad_medida?: StringFieldUpdateOperationsInput | string
+    cantidad?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valor_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    descuento?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_igv?: IntFieldUpdateOperationsInput | number
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tipo_de_isc?: NullableIntFieldUpdateOperationsInput | number | null
+    isc?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    anticipo_regularizacion?: BoolFieldUpdateOperationsInput | boolean
+    anticipo_documento_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    anticipo_documento_numero?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoUpdateWithoutFacturaInput = {
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoUncheckedUpdateWithoutFacturaInput = {
+    id_venta_credito?: IntFieldUpdateOperationsInput | number
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_venta_creditoUncheckedUpdateManyWithoutFacturaInput = {
+    id_venta_credito?: IntFieldUpdateOperationsInput | number
+    cuota?: IntFieldUpdateOperationsInput | number
+    fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
+    importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

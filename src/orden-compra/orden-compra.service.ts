@@ -254,7 +254,8 @@ export class OrdenCompraService {
             moneda: createOrdenCompraDto.moneda,
             id_camion: createOrdenCompraDto.unidad_id,
             retencion: createOrdenCompraDto.retencion,
-            porcentaje_valor_retencion: createOrdenCompraDto.porcentaje_valor_retencion,
+            porcentaje_valor_retencion:
+              createOrdenCompraDto.porcentaje_valor_retencion,
             valor_retencion: createOrdenCompraDto.valor_retencion,
             almacen_central: createOrdenCompraDto.almacen_central,
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
@@ -328,7 +329,9 @@ export class OrdenCompraService {
     }
 
     // Usar el tipo de cambio guardado en la orden
-    const tipoCambio = ordenCompra.tipo_cambio ? parseFloat(ordenCompra.tipo_cambio.toString()) : 0;
+    const tipoCambio = ordenCompra.tipo_cambio
+      ? parseFloat(ordenCompra.tipo_cambio.toString())
+      : 0;
 
     // Obtener las descripciones de los centros de costo
     let nivel1Descripcion = ordenCompra.centro_costo_nivel1 || '';
@@ -395,7 +398,7 @@ export class OrdenCompraService {
       header: {
         og: ordenCompra.numero_orden,
         fechaEmision: fechaEmisionFormateada,
-        ruc: '20602739061',
+        ruc: '20603739061',
       },
       datosProveedor: {
         empresa: proveedor.nombre_proveedor,
@@ -404,7 +407,8 @@ export class OrdenCompraService {
         telefono: proveedor.telefono || '',
       },
       datosOrdenCompra: {
-        direccion: 'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
+        direccion:
+          'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
         condicion: 'CREDITO',
         moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
@@ -484,7 +488,12 @@ export class OrdenCompraService {
         let yPos = 40;
 
         // Logo (izquierda)
-        const logoPath = path.join(__dirname, '..', 'assets', 'ayala_logo.jpeg');
+        const logoPath = path.join(
+          __dirname,
+          '..',
+          'assets',
+          'ayala_logo.jpeg',
+        );
         doc.image(logoPath, 40, yPos, {
           width: 100,
           height: 60,
@@ -494,7 +503,7 @@ export class OrdenCompraService {
         doc
           .fontSize(16)
           .font('Helvetica-Bold')
-          .text('MAQUINARIAS AYALA', 150, yPos + 10);
+          .text('MAQUINARIAS AYALA S.A.C.', 150, yPos + 10);
 
         // Dirección (izquierda) - debajo del título
         doc.fontSize(8).font('Helvetica');
@@ -511,7 +520,10 @@ export class OrdenCompraService {
         doc
           .fontSize(12)
           .font('Helvetica-Bold')
-          .text('ORDEN DE COMPRA', 400, yPos + 5, { align: 'center', width: 155 });
+          .text('ORDEN DE COMPRA', 400, yPos + 5, {
+            align: 'center',
+            width: 155,
+          });
 
         // Tabla de header derecha
         const headerBoxX = 400;
@@ -583,7 +595,10 @@ export class OrdenCompraService {
         }
 
         // Mostrar tipo de cambio en amarillo solo si la moneda es DOLARES
-        if (ordenData.datosOrdenCompra.moneda.toUpperCase().includes('DOLAR') && ordenData.datosOrdenCompra.tipoCambio) {
+        if (
+          ordenData.datosOrdenCompra.moneda.toUpperCase().includes('DOLAR') &&
+          ordenData.datosOrdenCompra.tipoCambio
+        ) {
           this.drawHighlightBox(doc, 200, yPos + 25, 75, 20, '#FFFF00');
           doc
             .fontSize(9)
@@ -755,7 +770,14 @@ export class OrdenCompraService {
           );
 
           doc.text('Neto a pagar:', totalesX, yPos + 15);
-          this.drawHighlightBox(doc, totalesX + 95, yPos + 10, 40, 15, '#FFFF00');
+          this.drawHighlightBox(
+            doc,
+            totalesX + 95,
+            yPos + 10,
+            40,
+            15,
+            '#FFFF00',
+          );
           doc
             .font('Helvetica-Bold')
             .text(
@@ -770,15 +792,20 @@ export class OrdenCompraService {
           // Si no hay retención, solo mostrar el total como neto a pagar
           doc.fontSize(8).font('Helvetica');
           doc.text('Neto a pagar:', totalesX, yPos);
-          this.drawHighlightBox(doc, totalesX + 95, yPos - 5, 40, 15, '#FFFF00');
+          this.drawHighlightBox(
+            doc,
+            totalesX + 95,
+            yPos - 5,
+            40,
+            15,
+            '#FFFF00',
+          );
           doc
             .font('Helvetica-Bold')
-            .text(
-              ordenData.totales.total.toFixed(2),
-              totalesX + 95,
-              yPos,
-              { align: 'center', width: 40 },
-            );
+            .text(ordenData.totales.total.toFixed(2), totalesX + 95, yPos, {
+              align: 'center',
+              width: 40,
+            });
 
           yPos += 35;
         }
@@ -790,7 +817,7 @@ export class OrdenCompraService {
         const pageWidth = 515; // Ancho total del contenido
         const firmaWidth = 110; // Ancho de cada firma
         const spacingBetween = 15; // Espacio entre firmas
-        const totalFirmasWidth = (firmaWidth * 4) + (spacingBetween * 3);
+        const totalFirmasWidth = firmaWidth * 4 + spacingBetween * 3;
         const startX = 40 + (pageWidth - totalFirmasWidth) / 2; // Centrar las 4 firmas
 
         const firmaLineY = yPos;
@@ -799,61 +826,86 @@ export class OrdenCompraService {
 
         // Firma 1: Genera orden
         const firma1X = startX;
-        doc.moveTo(firma1X, firmaLineY).lineTo(firma1X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma1X, firmaLineY)
+          .lineTo(firma1X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Genera orden', firma1X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.generaOrden) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
         // Firma 2: Jefe Administrativo
         const firma2X = firma1X + firmaWidth + spacingBetween;
-        doc.moveTo(firma2X, firmaLineY).lineTo(firma2X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma2X, firmaLineY)
+          .lineTo(firma2X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Jefe Administrativo', firma2X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.jefeAdministrativo) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeAdministrativo, firma2X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(
+              ordenData.firmas.jefeAdministrativo,
+              firma2X,
+              firmaLineY + 25,
+              {
+                width: firmaWidth,
+                align: 'center',
+              },
+            );
           doc.font('Helvetica');
         }
 
         // Firma 3: Gerencia
         const firma3X = firma2X + firmaWidth + spacingBetween;
-        doc.moveTo(firma3X, firmaLineY).lineTo(firma3X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma3X, firmaLineY)
+          .lineTo(firma3X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Gerencia', firma3X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.gerencia) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
         // Firma 4: Jefe de Proyectos
         const firma4X = firma3X + firmaWidth + spacingBetween;
-        doc.moveTo(firma4X, firmaLineY).lineTo(firma4X + firmaWidth, firmaLineY).stroke();
+        doc
+          .moveTo(firma4X, firmaLineY)
+          .lineTo(firma4X + firmaWidth, firmaLineY)
+          .stroke();
         doc.text('Jefe de Proyectos', firma4X, firmaLineY + 10, {
           width: firmaWidth,
           align: 'center',
         });
         if (ordenData.firmas.jefeProyectos) {
-          doc.font('Helvetica-Bold').text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
-            width: firmaWidth,
-            align: 'center',
-          });
+          doc
+            .font('Helvetica-Bold')
+            .text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
+              width: firmaWidth,
+              align: 'center',
+            });
           doc.font('Helvetica');
         }
 
@@ -919,9 +971,24 @@ export class OrdenCompraService {
     const fontSize = 9;
     doc.fontSize(fontSize).font('Helvetica');
 
-    const nivel1Lines = this.calculateTextLines(doc, data.nivel1 || '', nivel1Width - 4, fontSize);
-    const nivel2Lines = this.calculateTextLines(doc, data.nivel2 || '', colWidths[3] - 4, fontSize);
-    const nivel3Lines = this.calculateTextLines(doc, data.nivel3 || '', colWidths[4] - 4, fontSize);
+    const nivel1Lines = this.calculateTextLines(
+      doc,
+      data.nivel1 || '',
+      nivel1Width - 4,
+      fontSize,
+    );
+    const nivel2Lines = this.calculateTextLines(
+      doc,
+      data.nivel2 || '',
+      colWidths[3] - 4,
+      fontSize,
+    );
+    const nivel3Lines = this.calculateTextLines(
+      doc,
+      data.nivel3 || '',
+      colWidths[4] - 4,
+      fontSize,
+    );
 
     const maxLines = Math.max(nivel1Lines, nivel2Lines, nivel3Lines);
     const row2Height = Math.max(baseRowHeight, maxLines * 12 + 6);
@@ -931,10 +998,15 @@ export class OrdenCompraService {
     const centroCostosHeight = baseRowHeight + row2Height;
     doc.rect(startX, currentY, colWidths[0], centroCostosHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
-    doc.text('Centro de Costos', startX + 2, currentY + (centroCostosHeight / 2) - 5, {
-      width: colWidths[0] - 4,
-      align: 'center',
-    });
+    doc.text(
+      'Centro de Costos',
+      startX + 2,
+      currentY + centroCostosHeight / 2 - 5,
+      {
+        width: colWidths[0] - 4,
+        align: 'center',
+      },
+    );
 
     // Columnas B+C: "Nivel 1" (combinadas horizontalmente) con fondo azul
     doc
@@ -1026,7 +1098,9 @@ export class OrdenCompraService {
 
     // Columnas B+C: Placa del camión (combinadas horizontalmente)
     const placaWidth = colWidths[1] + colWidths[2];
-    doc.rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight).stroke();
+    doc
+      .rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight)
+      .stroke();
     doc.fontSize(9).font('Helvetica');
     doc.text(data.placaCamion || '', startX + colWidths[0] + 2, currentY + 5, {
       width: placaWidth - 4,
@@ -1063,19 +1137,31 @@ export class OrdenCompraService {
     // Columnas B+C+D+E: número de cuenta bancaria del proveedor
     const ctaBcpWidth =
       colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    doc.rect(startX + colWidths[0], currentY, ctaBcpWidth, baseRowHeight).stroke();
+    doc
+      .rect(startX + colWidths[0], currentY, ctaBcpWidth, baseRowHeight)
+      .stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text(data.cuentaBancaria || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: ctaBcpWidth - 4,
-      align: 'center',
-    });
+    doc.text(
+      data.cuentaBancaria || '',
+      startX + colWidths[0] + 2,
+      currentY + 5,
+      {
+        width: ctaBcpWidth - 4,
+        align: 'center',
+      },
+    );
 
     currentY += baseRowHeight;
 
     // ===== FILA 5 - OBSERVACION: / Observaciones =====
     // Calcular altura necesaria para las observaciones
     const obsWidth = colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4];
-    const obsLines = this.calculateTextLines(doc, data.observaciones || '', obsWidth - 4, 9);
+    const obsLines = this.calculateTextLines(
+      doc,
+      data.observaciones || '',
+      obsWidth - 4,
+      9,
+    );
     const row5Height = Math.max(baseRowHeight, obsLines * 12 + 6);
 
     // Columna A: "OBSERVACION:"
@@ -1089,10 +1175,15 @@ export class OrdenCompraService {
     // Columnas B+C+D+E: Observaciones de la orden (todas combinadas)
     doc.rect(startX + colWidths[0], currentY, obsWidth, row5Height).stroke();
     doc.fontSize(9).font('Helvetica');
-    doc.text(data.observaciones || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: obsWidth - 4,
-      align: 'center',
-    });
+    doc.text(
+      data.observaciones || '',
+      startX + colWidths[0] + 2,
+      currentY + 5,
+      {
+        width: obsWidth - 4,
+        align: 'center',
+      },
+    );
 
     currentY += row5Height;
 
@@ -1233,7 +1324,9 @@ export class OrdenCompraService {
         console.log(`   - Orden existente ID: ${idOrdenExistente}`);
         console.log(`   - Orden actual ID: ${idOrdenActual}`);
         console.log(`   - Número orden: ${updateOrdenCompraDto.numero_orden}`);
-        console.log(`   - Son la misma orden: ${idOrdenExistente === idOrdenActual}`);
+        console.log(
+          `   - Son la misma orden: ${idOrdenExistente === idOrdenActual}`,
+        );
 
         if (idOrdenExistente !== idOrdenActual) {
           throw new BadRequestException(
@@ -1280,7 +1373,8 @@ export class OrdenCompraService {
               moneda: updateOrdenCompraDto.moneda,
               id_camion: updateOrdenCompraDto.unidad_id,
               retencion: updateOrdenCompraDto.retencion,
-              porcentaje_valor_retencion: updateOrdenCompraDto.porcentaje_valor_retencion,
+              porcentaje_valor_retencion:
+                updateOrdenCompraDto.porcentaje_valor_retencion,
               valor_retencion: updateOrdenCompraDto.valor_retencion,
               almacen_central: updateOrdenCompraDto.almacen_central,
               has_anticipo: updateOrdenCompraDto.has_anticipo === 1,
@@ -1316,7 +1410,8 @@ export class OrdenCompraService {
           // Retornar en el mismo formato que findAll
           return {
             ...ordenActualizada,
-            nombre_proveedor: ordenActualizada.proveedores?.nombre_proveedor || null,
+            nombre_proveedor:
+              ordenActualizada.proveedores?.nombre_proveedor || null,
             ruc_proveedor: ordenActualizada.proveedores?.ruc || null,
             items: detallesCreados,
           };
@@ -1417,7 +1512,10 @@ export class OrdenCompraService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de compra para contabilidad:', error);
+      console.error(
+        'Error al aprobar orden de compra para contabilidad:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de compra para contabilidad: ${error.message}`,
       );
@@ -1434,7 +1532,9 @@ export class OrdenCompraService {
    * - El anticipo está en "SI" (tiene_anticipo = "SI")
    * @param id - ID de la orden de compra a verificar
    */
-  private async verificarYActualizarEstadoCompletada(id: number): Promise<void> {
+  private async verificarYActualizarEstadoCompletada(
+    id: number,
+  ): Promise<void> {
     try {
       const orden = await this.prismaThird.ordenes_compra.findUnique({
         where: { id_orden_compra: id },
@@ -1465,7 +1565,10 @@ export class OrdenCompraService {
         });
       }
     } catch (error) {
-      console.error('Error al verificar y actualizar estado a COMPLETADA:', error);
+      console.error(
+        'Error al verificar y actualizar estado a COMPLETADA:',
+        error,
+      );
     }
   }
 
@@ -1490,7 +1593,7 @@ export class OrdenCompraService {
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
         data: {
-          auto_administrador: true
+          auto_administrador: true,
         },
       });
 
@@ -1504,7 +1607,10 @@ export class OrdenCompraService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de compra para administración:', error);
+      console.error(
+        'Error al aprobar orden de compra para administración:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de compra para administración: ${error.message}`,
       );
@@ -1532,7 +1638,7 @@ export class OrdenCompraService {
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
         data: {
-          jefe_proyecto: true
+          jefe_proyecto: true,
         },
       });
 
@@ -1546,7 +1652,10 @@ export class OrdenCompraService {
         throw error;
       }
 
-      console.error('Error al aprobar orden de compra para jefe de proyecto:', error);
+      console.error(
+        'Error al aprobar orden de compra para jefe de proyecto:',
+        error,
+      );
       throw new BadRequestException(
         `Error al aprobar orden de compra para jefe de proyecto: ${error.message}`,
       );
@@ -1719,7 +1828,10 @@ export class OrdenCompraService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
-      console.error('Error al actualizar URL de cotización de la orden de compra:', error);
+      console.error(
+        'Error al actualizar URL de cotización de la orden de compra:',
+        error,
+      );
       throw new BadRequestException(
         `Error al actualizar URL de cotización de la orden de compra: ${error.message}`,
       );
@@ -1744,7 +1856,10 @@ export class OrdenCompraService {
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenCompraUpdate();
     } catch (error) {
-      console.error('Error al actualizar URL de factura de la orden de compra:', error);
+      console.error(
+        'Error al actualizar URL de factura de la orden de compra:',
+        error,
+      );
       throw new BadRequestException(
         `Error al actualizar URL de factura de la orden de compra: ${error.message}`,
       );
