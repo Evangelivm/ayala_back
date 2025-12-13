@@ -1,11 +1,22 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { WebsocketGateway } from '../websocket/websocket.gateway';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+// Extender dayjs con plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Controller('guias-remision')
 export class GreCrudController {
   private readonly logger = new Logger(GreCrudController.name);
 
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly websocketGateway: WebsocketGateway,
+  ) {}
 
   /**
    * Obtener el último número de guía registrado
@@ -174,11 +185,20 @@ export class GreCrudController {
       // Extraer items y documentos relacionados
       const { items, documento_relacionado, vehiculos_secundarios, conductores_secundarios, ...greData } = data;
 
-      // Formatear fechas
+      // Convertir fechas a Date objects en timezone de Perú para evitar desfase de días
+      // dayjs.tz() crea la fecha específicamente en timezone de Perú (America/Lima)
+      console.log('📅 [CRUD] Fecha recibida del frontend:', greData.fecha_de_emision, greData.fecha_de_inicio_de_traslado);
+
+      const fechaEmisionPeru = dayjs.tz(greData.fecha_de_emision, 'America/Lima').toDate();
+      const fechaInicioPeru = dayjs.tz(greData.fecha_de_inicio_de_traslado, 'America/Lima').toDate();
+
+      console.log('📅 [CRUD] Fecha emision en Perú:', fechaEmisionPeru.toISOString());
+      console.log('📅 [CRUD] Fecha inicio en Perú:', fechaInicioPeru.toISOString());
+
       const formattedData = {
         ...greData,
-        fecha_de_emision: new Date(greData.fecha_de_emision),
-        fecha_de_inicio_de_traslado: new Date(greData.fecha_de_inicio_de_traslado),
+        fecha_de_emision: fechaEmisionPeru,
+        fecha_de_inicio_de_traslado: fechaInicioPeru,
         estado_gre: null, // Estado inicial NULL para que el detector lo procese
       };
 
@@ -228,6 +248,13 @@ export class GreCrudController {
 
       this.logger.log(`Guía creada exitosamente: ID ${guia.id_guia}`);
 
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitGuiaRemisionUpdate();
+
+      // Obtener el siguiente número de guía disponible y emitirlo a todos los clientes
+      const siguienteNumero = await this.getLastNumber();
+      this.websocketGateway.emitSiguienteNumeroGuiaRemision({ numero: siguienteNumero.numero + 1 });
+
       return {
         success: true,
         message: 'Guía de remisión creada exitosamente',
@@ -267,12 +294,16 @@ export class GreCrudController {
 
       const { items, documento_relacionado, ...updateData } = data;
 
-      // Formatear fechas si vienen en la actualización
+      // Convertir fechas a Date objects en timezone de Perú
       if (updateData.fecha_de_emision) {
-        updateData.fecha_de_emision = new Date(updateData.fecha_de_emision);
+        console.log('📅 [CRUD UPDATE] Fecha emision recibida:', updateData.fecha_de_emision);
+        updateData.fecha_de_emision = dayjs.tz(updateData.fecha_de_emision, 'America/Lima').toDate();
+        console.log('📅 [CRUD UPDATE] Fecha emision convertida:', updateData.fecha_de_emision.toISOString());
       }
       if (updateData.fecha_de_inicio_de_traslado) {
-        updateData.fecha_de_inicio_de_traslado = new Date(updateData.fecha_de_inicio_de_traslado);
+        console.log('📅 [CRUD UPDATE] Fecha inicio traslado recibida:', updateData.fecha_de_inicio_de_traslado);
+        updateData.fecha_de_inicio_de_traslado = dayjs.tz(updateData.fecha_de_inicio_de_traslado, 'America/Lima').toDate();
+        console.log('📅 [CRUD UPDATE] Fecha inicio convertida:', updateData.fecha_de_inicio_de_traslado.toISOString());
       }
 
       const updatedGuia = await this.prismaService.guia_remision.update({

@@ -337,13 +337,29 @@ export class GreDetectorService {
     // Los datos ya están en el formato correcto en guia_remision
     // Solo necesitamos construir el payload para la API NUBEFACT
 
+    console.log('📅 [DETECTOR] Record leído de BD:');
+    console.log('   - fecha_de_emision (raw):', record.fecha_de_emision);
+    console.log('   - fecha_de_inicio_de_traslado (raw):', record.fecha_de_inicio_de_traslado);
+    console.log('   - typeof fecha_de_emision:', typeof record.fecha_de_emision);
+
     const formatDate = (date: Date | string) => {
-      // Convertir la fecha del backend a timezone de Perú (America/Lima)
-      const peruDate = dayjs(date).tz('America/Lima');
-      const day = String(peruDate.date()).padStart(2, '0');
-      const month = String(peruDate.month() + 1).padStart(2, '0');
-      const year = peruDate.year();
-      return `${day}-${month}-${year}`;
+      // Forzar interpretación UTC para evitar cambios de día por timezone
+      // Si MySQL devuelve con offset de Perú, esto lo normaliza
+      let dateUTC: dayjs.Dayjs;
+
+      if (typeof date === 'string') {
+        dateUTC = dayjs.utc(date);
+      } else {
+        // Forzar interpretación como UTC, agregando offset para compensar
+        // Si viene 2025-12-12T19:00:00.000Z, sumar 5 horas para volver a 2025-12-13
+        dateUTC = dayjs(date).utc().add(5, 'hour');
+      }
+
+      const formatted = dateUTC.format('DD-MM-YYYY');
+
+      console.log(`📅 [DETECTOR] formatDate - Input: ${date} → UTC+5: ${dateUTC.format('YYYY-MM-DD')} → Formatted: ${formatted}`);
+
+      return formatted;
     };
 
     const payload: any = {
@@ -533,6 +549,11 @@ export class GreDetectorService {
         numero_licencia: conductor.numero_licencia,
       }));
     }
+
+    // Log final del payload antes de enviar a Kafka
+    console.log('📤 [DETECTOR] Payload FINAL para Kafka/Nubefact:');
+    console.log('   - fecha_de_emision:', payload.fecha_de_emision);
+    console.log('   - fecha_de_inicio_de_traslado:', payload.fecha_de_inicio_de_traslado);
 
     return payload;
   }

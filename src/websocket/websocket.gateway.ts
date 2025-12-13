@@ -45,4 +45,19 @@ export class WebsocketGateway
   emitSiguienteNumeroOrdenServicio(data: { serie: string; nroDoc: string; numero_orden_completo: string }) {
     this.server.emit('siguienteNumeroOrdenServicio', data);
   }
+
+  // Emitir evento cuando se actualice una guía de remisión
+  emitGuiaRemisionUpdate() {
+    this.server.emit('guiaRemisionUpdated');
+  }
+
+  // Emitir el siguiente número de guía de remisión disponible
+  emitSiguienteNumeroGuiaRemision(data: { numero: number }) {
+    this.server.emit('siguienteNumeroGuiaRemision', data);
+  }
+
+  // Emitir cuando una programación técnica se completa (GRE procesada)
+  emitProgTecnicaCompletada(data: { id: number; identificador_unico: string }) {
+    this.server.emit('progTecnicaCompletada', data);
+  }
 }

@@ -4,6 +4,7 @@ import { KafkaService } from '../../kafka/kafka.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import { GreProducerService } from './gre-producer.service';
 import { GrePollingService } from './gre-polling.service';
+import { WebsocketGateway } from '../../websocket/websocket.gateway';
 import axios from 'axios';
 
 @Controller() // ✅ Necesario para @MessagePattern
@@ -16,6 +17,7 @@ export class GreConsumerService {
     private readonly prismaService: PrismaService,
     private readonly greProducer: GreProducerService,
     private readonly grePolling: GrePollingService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {
     this.logger.log('GreConsumerService initialized');
   }
@@ -135,7 +137,7 @@ export class GreConsumerService {
 
         if (pdf_url && xml_url && cdr_url) {
           // Todos los enlaces están disponibles, actualizar BD
-          await this.prismaService.guia_remision.update({
+          const guiaCompletada = await this.prismaService.guia_remision.update({
             where: { id_guia: parseInt(recordId) },
             data: {
               estado_gre: 'COMPLETADO',
@@ -149,6 +151,15 @@ export class GreConsumerService {
           await this.grePolling.stopPolling(recordId);
 
           this.logger.log(`Registro ${recordId} completado con todos los enlaces`);
+
+          // 📡 Emitir evento WebSocket para notificar al frontend
+          if (guiaCompletada.identificador_unico) {
+            this.websocketGateway.emitProgTecnicaCompletada({
+              id: guiaCompletada.id_guia,
+              identificador_unico: guiaCompletada.identificador_unico
+            });
+            this.logger.log(`📡 WebSocket emitido para prog-tecnica: ${guiaCompletada.identificador_unico}`);
+          }
         } else {
           this.logger.debug(`Registro ${recordId} aún sin todos los enlaces, continuando polling`);
         }
