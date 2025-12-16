@@ -26,6 +26,49 @@ export class FacturaDetectorService {
   ) {}
 
   /**
+   * Mapea unidades de medida comunes a códigos SUNAT válidos
+   */
+  private mapearUnidadMedidaSunat(unidad: string): string {
+    const mapeo: Record<string, string> = {
+      'UNIDAD': 'NIU',
+      'UNIDADES': 'NIU',
+      'UND': 'NIU',
+      'SERVICIO': 'ZZ',
+      'SERVICIOS': 'ZZ',
+      'SRV': 'ZZ',
+      'METRO': 'MTR',
+      'METROS': 'MTR',
+      'M': 'MTR',
+      'KILOGRAMO': 'KGM',
+      'KILOGRAMOS': 'KGM',
+      'KG': 'KGM',
+      'LITRO': 'LTR',
+      'LITROS': 'LTR',
+      'L': 'LTR',
+      'METRO CUBICO': 'MTQ',
+      'M3': 'MTQ',
+      'TONELADA': 'TNE',
+      'TONELADAS': 'TNE',
+      'TON': 'TNE',
+      'CAJA': 'BX',
+      'CAJAS': 'BX',
+      'BOLSA': 'BG',
+      'BOLSAS': 'BG',
+      'PAQUETE': 'PK',
+      'PAQUETES': 'PK',
+    };
+
+    const unidadUpper = unidad.toUpperCase().trim();
+    const unidadMapeada = mapeo[unidadUpper] || unidad;
+
+    if (unidadMapeada !== unidad) {
+      this.logger.debug(`Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`);
+    }
+
+    return unidadMapeada;
+  }
+
+  /**
    * Cron job que se ejecuta cada 30 segundos para detectar facturas
    * con estado NULL que estén completas y listas para enviar a NUBEFACT
    */
@@ -410,7 +453,7 @@ export class FacturaDetectorService {
 
       // Items
       items: record.factura_item.map((item: any) => ({
-        unidad_de_medida: item.unidad_medida,
+        unidad_de_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
         codigo: item.codigo_item || undefined,
         codigo_producto_sunat: item.codigo_producto_sunat || undefined,
         descripcion: item.descripcion_item,
@@ -454,17 +497,22 @@ export class FacturaDetectorService {
 
   /**
    * Formatea una fecha al formato DD-MM-YYYY requerido por NUBEFACT
-   * Convierte la fecha del backend a timezone de Perú (America/Lima)
+   * Extrae día, mes y año en UTC para evitar conversiones de timezone
    * @param date - Fecha a formatear
    * @returns String en formato DD-MM-YYYY
    */
   private formatDateForNubefact(date: Date | string): string {
-    // Convertir la fecha del backend a timezone de Perú (America/Lima)
-    const peruDate = dayjs(date).tz('America/Lima');
-    const day = String(peruDate.date()).padStart(2, '0');
-    const month = String(peruDate.month() + 1).padStart(2, '0');
-    const year = peruDate.year();
-    return `${day}-${month}-${year}`;
+    // Usar dayjs.utc() para interpretar la fecha en UTC sin conversiones
+    // Esto asegura que 2025-12-16T00:00:00.000Z se formatee como 16-12-2025
+    const dateObj = dayjs.utc(date);
+    const day = String(dateObj.date()).padStart(2, '0');
+    const month = String(dateObj.month() + 1).padStart(2, '0');
+    const year = dateObj.year();
+    const formatted = `${day}-${month}-${year}`;
+
+    this.logger.debug(`Fecha formateada para Nubefact: ${date} -> ${formatted}`);
+
+    return formatted;
   }
 
   /**

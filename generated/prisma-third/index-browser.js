@@ -266,7 +266,9 @@ exports.Prisma.Movimientos_inventarioScalarFieldEnum = {
   responsable: 'responsable',
   observaciones: 'observaciones',
   estado: 'estado',
-  id_usuario_registro: 'id_usuario_registro'
+  id_usuario_registro: 'id_usuario_registro',
+  subtotal: 'subtotal',
+  precio_unitario: 'precio_unitario'
 };
 
 exports.Prisma.NotificacionesScalarFieldEnum = {
@@ -327,6 +329,10 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   retencion: 'retencion',
   porcentaje_valor_retencion: 'porcentaje_valor_retencion',
   valor_retencion: 'valor_retencion',
+  detraccion: 'detraccion',
+  porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+  valor_detraccion: 'valor_detraccion',
+  tipo_detraccion: 'tipo_detraccion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
   url: 'url',
@@ -462,6 +468,9 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
   valor_detraccion: 'valor_detraccion',
   tipo_detraccion: 'tipo_detraccion',
+  retencion: 'retencion',
+  porcentaje_valor_retencion: 'porcentaje_valor_retencion',
+  valor_retencion: 'valor_retencion',
   id_camion: 'id_camion',
   almacen_central: 'almacen_central',
   url: 'url',
@@ -784,6 +793,9 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   ruta_pdf: 'ruta_pdf',
   retencion: 'retencion',
   porcentaje_valor_retencion: 'porcentaje_valor_retencion',
+  detraccion: 'detraccion',
+  porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+  tipo_detraccion: 'tipo_detraccion',
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
@@ -849,6 +861,8 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   detraccion: 'detraccion',
   porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
   tipo_detraccion: 'tipo_detraccion',
+  retencion: 'retencion',
+  porcentaje_valor_retencion: 'porcentaje_valor_retencion',
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',

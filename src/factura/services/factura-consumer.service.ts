@@ -4,6 +4,7 @@ import { KafkaService } from '../../kafka/kafka.service';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { FacturaProducerService } from './factura-producer.service';
 import { FacturaPollingService } from './factura-polling.service';
+import { WebsocketGateway } from '../../websocket/websocket.gateway';
 import axios from 'axios';
 
 @Controller() // ✅ Necesario para @MessagePattern
@@ -16,6 +17,7 @@ export class FacturaConsumerService {
     private readonly prisma: PrismaThirdService,
     private readonly facturaProducer: FacturaProducerService,
     private readonly facturaPolling: FacturaPollingService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {
     this.logger.log('FacturaConsumerService initialized');
   }
@@ -73,15 +75,61 @@ export class FacturaConsumerService {
           `API generar comprobante exitosa para registro ${recordId}`,
         );
 
-        // Mover a topic processing para iniciar polling
-        await this.facturaProducer.sendToProcessing(recordId, messageId);
+        const responseData = nubefactResponse.data;
 
-        // Iniciar polling persistente
-        await this.facturaPolling.startPolling(
-          recordId,
-          messageId,
-          nubefactResponse.data,
-        );
+        // Verificar si la respuesta YA contiene todos los enlaces
+        if (responseData.enlace_del_pdf && responseData.enlace_del_xml) {
+          this.logger.log(
+            `✅ Respuesta de Nubefact contiene enlaces completos, guardando inmediatamente`,
+          );
+
+          // Guardar inmediatamente en la BD
+          await this.prisma.factura.update({
+            where: { id_factura: parseInt(recordId) },
+            data: {
+              estado_factura: 'COMPLETADO',
+              enlace: responseData.enlace || null,
+              enlace_del_pdf: responseData.enlace_del_pdf,
+              enlace_del_xml: responseData.enlace_del_xml,
+              enlace_del_cdr: responseData.enlace_del_cdr || null,
+              aceptada_por_sunat: responseData.aceptada_por_sunat || null,
+              sunat_description: responseData.sunat_description || null,
+              sunat_note: responseData.sunat_note || null,
+              sunat_responsecode: responseData.sunat_responsecode || null,
+              sunat_soap_error: responseData.sunat_soap_error || null,
+            },
+          });
+
+          this.logger.log(`Factura ${recordId} completada inmediatamente`);
+
+          // Emitir evento WebSocket para notificar al frontend (no bloqueante)
+          try {
+            this.websocketGateway.emitFacturaUpdate({
+              id_factura: parseInt(recordId),
+              estado: 'COMPLETADO',
+              enlace_pdf: responseData.enlace_del_pdf,
+              enlace_xml: responseData.enlace_del_xml,
+              enlace_cdr: responseData.enlace_del_cdr,
+            });
+          } catch (wsError) {
+            this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
+          }
+        } else {
+          // Si no tiene enlaces, iniciar polling
+          this.logger.log(
+            `⏳ Respuesta sin enlaces completos, iniciando polling`,
+          );
+
+          // Mover a topic processing para iniciar polling
+          await this.facturaProducer.sendToProcessing(recordId, messageId);
+
+          // Iniciar polling persistente
+          await this.facturaPolling.startPolling(
+            recordId,
+            messageId,
+            responseData,
+          );
+        }
       } else {
         this.logger.error(
           `Error en API generar comprobante para registro ${recordId}:`,
@@ -96,6 +144,16 @@ export class FacturaConsumerService {
             sunat_soap_error: JSON.stringify(nubefactResponse.error),
           },
         });
+
+        // Emitir evento WebSocket para notificar al frontend (no bloqueante)
+        try {
+          this.websocketGateway.emitFacturaUpdate({
+            id_factura: parseInt(recordId),
+            estado: 'FALLADO',
+          });
+        } catch (wsError) {
+          this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
+        }
 
         // Enviar a topic failed
         await this.facturaProducer.sendToFailed(
@@ -275,6 +333,12 @@ export class FacturaConsumerService {
       };
     } catch (error) {
       this.logger.error('Error en llamada a NUBEFACT:', error);
+
+      // Log de las fechas enviadas cuando hay error
+      this.logger.error('📅 Fechas enviadas a Nubefact que causaron el error:');
+      this.logger.error(`  - fecha_de_emision: ${nubefactData.fecha_de_emision}`);
+      this.logger.error(`  - fecha_de_vencimiento: ${nubefactData.fecha_de_vencimiento}`);
+      this.logger.error(`  - fecha_de_servicio: ${nubefactData.fecha_de_servicio}`);
 
       return {
         success: false,

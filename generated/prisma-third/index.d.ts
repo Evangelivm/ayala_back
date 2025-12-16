@@ -17582,6 +17582,8 @@ export namespace Prisma {
     id_almacen_origen: number | null
     id_almacen_destino: number | null
     id_usuario_registro: number | null
+    subtotal: Decimal | null
+    precio_unitario: Decimal | null
   }
 
   export type Movimientos_inventarioSumAggregateOutputType = {
@@ -17591,6 +17593,8 @@ export namespace Prisma {
     id_almacen_origen: number | null
     id_almacen_destino: number | null
     id_usuario_registro: number | null
+    subtotal: Decimal | null
+    precio_unitario: Decimal | null
   }
 
   export type Movimientos_inventarioMinAggregateOutputType = {
@@ -17606,6 +17610,8 @@ export namespace Prisma {
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
     id_usuario_registro: number | null
+    subtotal: Decimal | null
+    precio_unitario: Decimal | null
   }
 
   export type Movimientos_inventarioMaxAggregateOutputType = {
@@ -17621,6 +17627,8 @@ export namespace Prisma {
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
     id_usuario_registro: number | null
+    subtotal: Decimal | null
+    precio_unitario: Decimal | null
   }
 
   export type Movimientos_inventarioCountAggregateOutputType = {
@@ -17636,6 +17644,8 @@ export namespace Prisma {
     observaciones: number
     estado: number
     id_usuario_registro: number
+    subtotal: number
+    precio_unitario: number
     _all: number
   }
 
@@ -17647,6 +17657,8 @@ export namespace Prisma {
     id_almacen_origen?: true
     id_almacen_destino?: true
     id_usuario_registro?: true
+    subtotal?: true
+    precio_unitario?: true
   }
 
   export type Movimientos_inventarioSumAggregateInputType = {
@@ -17656,6 +17668,8 @@ export namespace Prisma {
     id_almacen_origen?: true
     id_almacen_destino?: true
     id_usuario_registro?: true
+    subtotal?: true
+    precio_unitario?: true
   }
 
   export type Movimientos_inventarioMinAggregateInputType = {
@@ -17671,6 +17685,8 @@ export namespace Prisma {
     observaciones?: true
     estado?: true
     id_usuario_registro?: true
+    subtotal?: true
+    precio_unitario?: true
   }
 
   export type Movimientos_inventarioMaxAggregateInputType = {
@@ -17686,6 +17702,8 @@ export namespace Prisma {
     observaciones?: true
     estado?: true
     id_usuario_registro?: true
+    subtotal?: true
+    precio_unitario?: true
   }
 
   export type Movimientos_inventarioCountAggregateInputType = {
@@ -17701,6 +17719,8 @@ export namespace Prisma {
     observaciones?: true
     estado?: true
     id_usuario_registro?: true
+    subtotal?: true
+    precio_unitario?: true
     _all?: true
   }
 
@@ -17803,6 +17823,8 @@ export namespace Prisma {
     observaciones: string | null
     estado: $Enums.movimientos_inventario_estado | null
     id_usuario_registro: number | null
+    subtotal: Decimal | null
+    precio_unitario: Decimal | null
     _count: Movimientos_inventarioCountAggregateOutputType | null
     _avg: Movimientos_inventarioAvgAggregateOutputType | null
     _sum: Movimientos_inventarioSumAggregateOutputType | null
@@ -17837,6 +17859,8 @@ export namespace Prisma {
     observaciones?: boolean
     estado?: boolean
     id_usuario_registro?: boolean
+    subtotal?: boolean
+    precio_unitario?: boolean
     movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
@@ -17861,9 +17885,11 @@ export namespace Prisma {
     observaciones?: boolean
     estado?: boolean
     id_usuario_registro?: boolean
+    subtotal?: boolean
+    precio_unitario?: boolean
   }
 
-  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado" | "id_usuario_registro", ExtArgs["result"]["movimientos_inventario"]>
+  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado" | "id_usuario_registro" | "subtotal" | "precio_unitario", ExtArgs["result"]["movimientos_inventario"]>
   export type movimientos_inventarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
@@ -17897,6 +17923,8 @@ export namespace Prisma {
       observaciones: string | null
       estado: $Enums.movimientos_inventario_estado | null
       id_usuario_registro: number | null
+      subtotal: Prisma.Decimal | null
+      precio_unitario: Prisma.Decimal | null
     }, ExtArgs["result"]["movimientos_inventario"]>
     composites: {}
   }
@@ -18284,6 +18312,8 @@ export namespace Prisma {
     readonly observaciones: FieldRef<"movimientos_inventario", 'String'>
     readonly estado: FieldRef<"movimientos_inventario", 'movimientos_inventario_estado'>
     readonly id_usuario_registro: FieldRef<"movimientos_inventario", 'Int'>
+    readonly subtotal: FieldRef<"movimientos_inventario", 'Decimal'>
+    readonly precio_unitario: FieldRef<"movimientos_inventario", 'Decimal'>
   }
     
 
@@ -20801,6 +20831,7 @@ export namespace Prisma {
     tipo_cambio: Decimal | null
     usuario_firma: number | null
     valor_retencion: Decimal | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
   }
 
@@ -20814,6 +20845,7 @@ export namespace Prisma {
     tipo_cambio: Decimal | null
     usuario_firma: number | null
     valor_retencion: Decimal | null
+    valor_detraccion: Decimal | null
     id_camion: number | null
   }
 
@@ -20850,6 +20882,10 @@ export namespace Prisma {
     retencion: string | null
     porcentaje_valor_retencion: string | null
     valor_retencion: Decimal | null
+    detraccion: string | null
+    porcentaje_valor_detraccion: string | null
+    valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -20890,6 +20926,10 @@ export namespace Prisma {
     retencion: string | null
     porcentaje_valor_retencion: string | null
     valor_retencion: Decimal | null
+    detraccion: string | null
+    porcentaje_valor_detraccion: string | null
+    valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -20930,6 +20970,10 @@ export namespace Prisma {
     retencion: number
     porcentaje_valor_retencion: number
     valor_retencion: number
+    detraccion: number
+    porcentaje_valor_detraccion: number
+    valor_detraccion: number
+    tipo_detraccion: number
     id_camion: number
     almacen_central: number
     url: number
@@ -20949,6 +20993,7 @@ export namespace Prisma {
     tipo_cambio?: true
     usuario_firma?: true
     valor_retencion?: true
+    valor_detraccion?: true
     id_camion?: true
   }
 
@@ -20962,6 +21007,7 @@ export namespace Prisma {
     tipo_cambio?: true
     usuario_firma?: true
     valor_retencion?: true
+    valor_detraccion?: true
     id_camion?: true
   }
 
@@ -20998,6 +21044,10 @@ export namespace Prisma {
     retencion?: true
     porcentaje_valor_retencion?: true
     valor_retencion?: true
+    detraccion?: true
+    porcentaje_valor_detraccion?: true
+    valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -21038,6 +21088,10 @@ export namespace Prisma {
     retencion?: true
     porcentaje_valor_retencion?: true
     valor_retencion?: true
+    detraccion?: true
+    porcentaje_valor_detraccion?: true
+    valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -21078,6 +21132,10 @@ export namespace Prisma {
     retencion?: true
     porcentaje_valor_retencion?: true
     valor_retencion?: true
+    detraccion?: true
+    porcentaje_valor_detraccion?: true
+    valor_detraccion?: true
+    tipo_detraccion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -21205,6 +21263,10 @@ export namespace Prisma {
     retencion: string | null
     porcentaje_valor_retencion: string | null
     valor_retencion: Decimal | null
+    detraccion: string | null
+    porcentaje_valor_detraccion: string | null
+    valor_detraccion: Decimal | null
+    tipo_detraccion: string | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -21264,6 +21326,10 @@ export namespace Prisma {
     retencion?: boolean
     porcentaje_valor_retencion?: boolean
     valor_retencion?: boolean
+    detraccion?: boolean
+    porcentaje_valor_detraccion?: boolean
+    valor_detraccion?: boolean
+    tipo_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -21311,6 +21377,10 @@ export namespace Prisma {
     retencion?: boolean
     porcentaje_valor_retencion?: boolean
     valor_retencion?: boolean
+    detraccion?: boolean
+    porcentaje_valor_detraccion?: boolean
+    valor_detraccion?: boolean
+    tipo_detraccion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -21318,7 +21388,7 @@ export namespace Prisma {
     url_factura?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -21368,6 +21438,10 @@ export namespace Prisma {
       retencion: string | null
       porcentaje_valor_retencion: string | null
       valor_retencion: Prisma.Decimal | null
+      detraccion: string | null
+      porcentaje_valor_detraccion: string | null
+      valor_detraccion: Prisma.Decimal | null
+      tipo_detraccion: string | null
       id_camion: number | null
       almacen_central: string | null
       url: string | null
@@ -21778,6 +21852,10 @@ export namespace Prisma {
     readonly retencion: FieldRef<"ordenes_compra", 'String'>
     readonly porcentaje_valor_retencion: FieldRef<"ordenes_compra", 'String'>
     readonly valor_retencion: FieldRef<"ordenes_compra", 'Decimal'>
+    readonly detraccion: FieldRef<"ordenes_compra", 'String'>
+    readonly porcentaje_valor_detraccion: FieldRef<"ordenes_compra", 'String'>
+    readonly valor_detraccion: FieldRef<"ordenes_compra", 'Decimal'>
+    readonly tipo_detraccion: FieldRef<"ordenes_compra", 'String'>
     readonly id_camion: FieldRef<"ordenes_compra", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_compra", 'String'>
     readonly url: FieldRef<"ordenes_compra", 'String'>
@@ -30861,6 +30939,7 @@ export namespace Prisma {
     tipo_cambio: Decimal | null
     usuario_firma: number | null
     valor_detraccion: Decimal | null
+    valor_retencion: Decimal | null
     id_camion: number | null
   }
 
@@ -30874,6 +30953,7 @@ export namespace Prisma {
     tipo_cambio: Decimal | null
     usuario_firma: number | null
     valor_detraccion: Decimal | null
+    valor_retencion: Decimal | null
     id_camion: number | null
   }
 
@@ -30911,6 +30991,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
     tipo_detraccion: string | null
+    retencion: string | null
+    porcentaje_valor_retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30952,6 +31035,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
     tipo_detraccion: string | null
+    retencion: string | null
+    porcentaje_valor_retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -30993,6 +31079,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion: number
     valor_detraccion: number
     tipo_detraccion: number
+    retencion: number
+    porcentaje_valor_retencion: number
+    valor_retencion: number
     id_camion: number
     almacen_central: number
     url: number
@@ -31012,6 +31101,7 @@ export namespace Prisma {
     tipo_cambio?: true
     usuario_firma?: true
     valor_detraccion?: true
+    valor_retencion?: true
     id_camion?: true
   }
 
@@ -31025,6 +31115,7 @@ export namespace Prisma {
     tipo_cambio?: true
     usuario_firma?: true
     valor_detraccion?: true
+    valor_retencion?: true
     id_camion?: true
   }
 
@@ -31062,6 +31153,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
     tipo_detraccion?: true
+    retencion?: true
+    porcentaje_valor_retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -31103,6 +31197,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
     tipo_detraccion?: true
+    retencion?: true
+    porcentaje_valor_retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -31144,6 +31241,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: true
     valor_detraccion?: true
     tipo_detraccion?: true
+    retencion?: true
+    porcentaje_valor_retencion?: true
+    valor_retencion?: true
     id_camion?: true
     almacen_central?: true
     url?: true
@@ -31272,6 +31372,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion: string | null
     valor_detraccion: Decimal | null
     tipo_detraccion: string | null
+    retencion: string | null
+    porcentaje_valor_retencion: string | null
+    valor_retencion: Decimal | null
     id_camion: number | null
     almacen_central: string | null
     url: string | null
@@ -31332,6 +31435,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: boolean
     valor_detraccion?: boolean
     tipo_detraccion?: boolean
+    retencion?: boolean
+    porcentaje_valor_retencion?: boolean
+    valor_retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -31379,6 +31485,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: boolean
     valor_detraccion?: boolean
     tipo_detraccion?: boolean
+    retencion?: boolean
+    porcentaje_valor_retencion?: boolean
+    valor_retencion?: boolean
     id_camion?: boolean
     almacen_central?: boolean
     url?: boolean
@@ -31386,7 +31495,7 @@ export namespace Prisma {
     url_factura?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -31435,6 +31544,9 @@ export namespace Prisma {
       porcentaje_valor_detraccion: string | null
       valor_detraccion: Prisma.Decimal | null
       tipo_detraccion: string | null
+      retencion: string | null
+      porcentaje_valor_retencion: string | null
+      valor_retencion: Prisma.Decimal | null
       id_camion: number | null
       almacen_central: string | null
       url: string | null
@@ -31845,6 +31957,9 @@ export namespace Prisma {
     readonly porcentaje_valor_detraccion: FieldRef<"ordenes_servicio", 'String'>
     readonly valor_detraccion: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly tipo_detraccion: FieldRef<"ordenes_servicio", 'String'>
+    readonly retencion: FieldRef<"ordenes_servicio", 'String'>
+    readonly porcentaje_valor_retencion: FieldRef<"ordenes_servicio", 'String'>
+    readonly valor_retencion: FieldRef<"ordenes_servicio", 'Decimal'>
     readonly id_camion: FieldRef<"ordenes_servicio", 'Int'>
     readonly almacen_central: FieldRef<"ordenes_servicio", 'String'>
     readonly url: FieldRef<"ordenes_servicio", 'String'>
@@ -45045,7 +45160,9 @@ export namespace Prisma {
     responsable: 'responsable',
     observaciones: 'observaciones',
     estado: 'estado',
-    id_usuario_registro: 'id_usuario_registro'
+    id_usuario_registro: 'id_usuario_registro',
+    subtotal: 'subtotal',
+    precio_unitario: 'precio_unitario'
   };
 
   export type Movimientos_inventarioScalarFieldEnum = (typeof Movimientos_inventarioScalarFieldEnum)[keyof typeof Movimientos_inventarioScalarFieldEnum]
@@ -45115,6 +45232,10 @@ export namespace Prisma {
     retencion: 'retencion',
     porcentaje_valor_retencion: 'porcentaje_valor_retencion',
     valor_retencion: 'valor_retencion',
+    detraccion: 'detraccion',
+    porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+    valor_detraccion: 'valor_detraccion',
+    tipo_detraccion: 'tipo_detraccion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
     url: 'url',
@@ -45277,6 +45398,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
     valor_detraccion: 'valor_detraccion',
     tipo_detraccion: 'tipo_detraccion',
+    retencion: 'retencion',
+    porcentaje_valor_retencion: 'porcentaje_valor_retencion',
+    valor_retencion: 'valor_retencion',
     id_camion: 'id_camion',
     almacen_central: 'almacen_central',
     url: 'url',
@@ -45698,6 +45822,9 @@ export namespace Prisma {
     ruta_pdf: 'ruta_pdf',
     retencion: 'retencion',
     porcentaje_valor_retencion: 'porcentaje_valor_retencion',
+    detraccion: 'detraccion',
+    porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
+    tipo_detraccion: 'tipo_detraccion',
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
@@ -45784,6 +45911,8 @@ export namespace Prisma {
     detraccion: 'detraccion',
     porcentaje_valor_detraccion: 'porcentaje_valor_detraccion',
     tipo_detraccion: 'tipo_detraccion',
+    retencion: 'retencion',
+    porcentaje_valor_retencion: 'porcentaje_valor_retencion',
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
@@ -47086,6 +47215,8 @@ export namespace Prisma {
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
+    subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
@@ -47107,6 +47238,8 @@ export namespace Prisma {
     observaciones?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
     id_usuario_registro?: SortOrderInput | SortOrder
+    subtotal?: SortOrderInput | SortOrder
+    precio_unitario?: SortOrderInput | SortOrder
     movimientos_adicionales?: movimientos_adicionalesOrderByRelationAggregateInput
     tipos_movimiento?: tipos_movimientoOrderByWithRelationInput
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
@@ -47132,6 +47265,8 @@ export namespace Prisma {
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
+    subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
@@ -47153,6 +47288,8 @@ export namespace Prisma {
     observaciones?: SortOrderInput | SortOrder
     estado?: SortOrderInput | SortOrder
     id_usuario_registro?: SortOrderInput | SortOrder
+    subtotal?: SortOrderInput | SortOrder
+    precio_unitario?: SortOrderInput | SortOrder
     _count?: movimientos_inventarioCountOrderByAggregateInput
     _avg?: movimientos_inventarioAvgOrderByAggregateInput
     _max?: movimientos_inventarioMaxOrderByAggregateInput
@@ -47176,6 +47313,8 @@ export namespace Prisma {
     observaciones?: StringNullableWithAggregatesFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableWithAggregatesFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: IntNullableWithAggregatesFilter<"movimientos_inventario"> | number | null
+    subtotal?: DecimalNullableWithAggregatesFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: DecimalNullableWithAggregatesFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type notificacionesWhereInput = {
@@ -47375,6 +47514,10 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     porcentaje_valor_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -47419,6 +47562,10 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     porcentaje_valor_retencion?: SortOrderInput | SortOrder
     valor_retencion?: SortOrderInput | SortOrder
+    detraccion?: SortOrderInput | SortOrder
+    porcentaje_valor_detraccion?: SortOrderInput | SortOrder
+    valor_detraccion?: SortOrderInput | SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -47467,6 +47614,10 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     porcentaje_valor_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -47511,6 +47662,10 @@ export namespace Prisma {
     retencion?: SortOrderInput | SortOrder
     porcentaje_valor_retencion?: SortOrderInput | SortOrder
     valor_retencion?: SortOrderInput | SortOrder
+    detraccion?: SortOrderInput | SortOrder
+    porcentaje_valor_detraccion?: SortOrderInput | SortOrder
+    valor_detraccion?: SortOrderInput | SortOrder
+    tipo_detraccion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -47559,6 +47714,10 @@ export namespace Prisma {
     retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     porcentaje_valor_retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     valor_retencion?: DecimalNullableWithAggregatesFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    detraccion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    porcentaje_valor_detraccion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    valor_detraccion?: DecimalNullableWithAggregatesFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
@@ -48284,6 +48443,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    porcentaje_valor_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -48328,6 +48490,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: SortOrderInput | SortOrder
     valor_detraccion?: SortOrderInput | SortOrder
     tipo_detraccion?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    porcentaje_valor_retencion?: SortOrderInput | SortOrder
+    valor_retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -48376,6 +48541,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    porcentaje_valor_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -48420,6 +48588,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: SortOrderInput | SortOrder
     valor_detraccion?: SortOrderInput | SortOrder
     tipo_detraccion?: SortOrderInput | SortOrder
+    retencion?: SortOrderInput | SortOrder
+    porcentaje_valor_retencion?: SortOrderInput | SortOrder
+    valor_retencion?: SortOrderInput | SortOrder
     id_camion?: SortOrderInput | SortOrder
     almacen_central?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -48469,6 +48640,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    porcentaje_valor_retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    valor_retencion?: DecimalNullableWithAggregatesFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
@@ -50600,6 +50774,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -50621,6 +50797,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -50633,6 +50811,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -50654,6 +50834,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -50671,6 +50853,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioUpdateManyMutationInput = {
@@ -50681,6 +50865,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioUncheckedUpdateManyInput = {
@@ -50696,6 +50882,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type notificacionesCreateInput = {
@@ -50895,6 +51083,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -50939,6 +51131,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -50978,6 +51174,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51022,6 +51222,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51064,6 +51268,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -51101,6 +51309,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51141,6 +51353,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51868,6 +52084,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -51912,6 +52131,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -51951,6 +52173,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51995,6 +52220,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52037,6 +52265,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -52075,6 +52306,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52116,6 +52350,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54733,6 +54970,8 @@ export namespace Prisma {
     observaciones?: SortOrder
     estado?: SortOrder
     id_usuario_registro?: SortOrder
+    subtotal?: SortOrder
+    precio_unitario?: SortOrder
   }
 
   export type movimientos_inventarioAvgOrderByAggregateInput = {
@@ -54742,6 +54981,8 @@ export namespace Prisma {
     id_almacen_origen?: SortOrder
     id_almacen_destino?: SortOrder
     id_usuario_registro?: SortOrder
+    subtotal?: SortOrder
+    precio_unitario?: SortOrder
   }
 
   export type movimientos_inventarioMaxOrderByAggregateInput = {
@@ -54757,6 +54998,8 @@ export namespace Prisma {
     observaciones?: SortOrder
     estado?: SortOrder
     id_usuario_registro?: SortOrder
+    subtotal?: SortOrder
+    precio_unitario?: SortOrder
   }
 
   export type movimientos_inventarioMinOrderByAggregateInput = {
@@ -54772,6 +55015,8 @@ export namespace Prisma {
     observaciones?: SortOrder
     estado?: SortOrder
     id_usuario_registro?: SortOrder
+    subtotal?: SortOrder
+    precio_unitario?: SortOrder
   }
 
   export type movimientos_inventarioSumOrderByAggregateInput = {
@@ -54781,6 +55026,8 @@ export namespace Prisma {
     id_almacen_origen?: SortOrder
     id_almacen_destino?: SortOrder
     id_usuario_registro?: SortOrder
+    subtotal?: SortOrder
+    precio_unitario?: SortOrder
   }
 
   export type Enummovimientos_inventario_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -55007,6 +55254,10 @@ export namespace Prisma {
     retencion?: SortOrder
     porcentaje_valor_retencion?: SortOrder
     valor_retencion?: SortOrder
+    detraccion?: SortOrder
+    porcentaje_valor_detraccion?: SortOrder
+    valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55024,6 +55275,7 @@ export namespace Prisma {
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     valor_retencion?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -55060,6 +55312,10 @@ export namespace Prisma {
     retencion?: SortOrder
     porcentaje_valor_retencion?: SortOrder
     valor_retencion?: SortOrder
+    detraccion?: SortOrder
+    porcentaje_valor_detraccion?: SortOrder
+    valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55100,6 +55356,10 @@ export namespace Prisma {
     retencion?: SortOrder
     porcentaje_valor_retencion?: SortOrder
     valor_retencion?: SortOrder
+    detraccion?: SortOrder
+    porcentaje_valor_detraccion?: SortOrder
+    valor_detraccion?: SortOrder
+    tipo_detraccion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55117,6 +55377,7 @@ export namespace Prisma {
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     valor_retencion?: SortOrder
+    valor_detraccion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -55814,6 +56075,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
     tipo_detraccion?: SortOrder
+    retencion?: SortOrder
+    porcentaje_valor_retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55831,6 +56095,7 @@ export namespace Prisma {
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     valor_detraccion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -55868,6 +56133,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
     tipo_detraccion?: SortOrder
+    retencion?: SortOrder
+    porcentaje_valor_retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55909,6 +56177,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: SortOrder
     valor_detraccion?: SortOrder
     tipo_detraccion?: SortOrder
+    retencion?: SortOrder
+    porcentaje_valor_retencion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
     almacen_central?: SortOrder
     url?: SortOrder
@@ -55926,6 +56197,7 @@ export namespace Prisma {
     tipo_cambio?: SortOrder
     usuario_firma?: SortOrder
     valor_detraccion?: SortOrder
+    valor_retencion?: SortOrder
     id_camion?: SortOrder
   }
 
@@ -60364,6 +60636,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -60383,6 +60657,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -60405,6 +60681,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -60424,6 +60702,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -60729,6 +61009,8 @@ export namespace Prisma {
     observaciones?: StringNullableFilter<"movimientos_inventario"> | string | null
     estado?: Enummovimientos_inventario_estadoNullableFilter<"movimientos_inventario"> | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
+    subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioUpsertWithWhereUniqueWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -61641,6 +61923,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -61684,6 +61970,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -61791,6 +62081,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61834,6 +62128,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62484,6 +62782,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -62503,6 +62803,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -64302,6 +64604,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64344,6 +64650,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64394,6 +64704,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64436,6 +64749,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64605,6 +64921,10 @@ export namespace Prisma {
     retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     porcentaje_valor_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     valor_retencion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
+    valor_detraccion?: DecimalNullableFilter<"ordenes_compra"> | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: StringNullableFilter<"ordenes_compra"> | string | null
     id_camion?: IntNullableFilter<"ordenes_compra"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_compra"> | string | null
     url?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -64665,6 +64985,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     valor_detraccion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    porcentaje_valor_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    valor_retencion?: DecimalNullableFilter<"ordenes_servicio"> | Decimal | DecimalJsLike | number | string | null
     id_camion?: IntNullableFilter<"ordenes_servicio"> | number | null
     almacen_central?: StringNullableFilter<"ordenes_servicio"> | string | null
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -64727,6 +65050,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64770,6 +65097,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -64882,6 +65213,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64925,6 +65260,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65180,6 +65519,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -65200,6 +65541,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -65442,6 +65785,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -65462,6 +65807,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -65675,6 +66022,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -65694,6 +66043,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -65959,6 +66310,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66001,6 +66356,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66051,6 +66410,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66093,6 +66455,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66847,6 +67212,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66890,6 +67258,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -66997,6 +67368,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67040,6 +67414,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68439,6 +68816,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -68459,6 +68838,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -68486,6 +68867,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -68506,6 +68889,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -68542,6 +68927,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioCreateManyAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -68556,6 +68943,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type recepciones_compraCreateManyAlmacenesInput = {
@@ -68689,6 +69078,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -68708,6 +69099,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -68724,6 +69117,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioUpdateWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -68734,6 +69129,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -68753,6 +69150,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -68769,6 +69168,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type recepciones_compraUpdateWithoutAlmacenesInput = {
@@ -69171,6 +69572,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type solicitudes_salidaCreateManyListado_items_2025Input = {
@@ -69318,6 +69721,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -69337,6 +69742,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -69353,6 +69760,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type solicitudes_salidaUpdateWithoutListado_items_2025Input = {
@@ -69753,6 +70162,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -69793,6 +70206,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -70072,6 +70488,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70114,6 +70534,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70155,6 +70579,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70193,6 +70621,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70235,6 +70666,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70276,6 +70710,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70326,6 +70763,8 @@ export namespace Prisma {
     observaciones?: string | null
     estado?: $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: number | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type movimientos_inventarioUpdateWithoutTipos_movimientoInput = {
@@ -70336,6 +70775,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -70355,6 +70796,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -70371,6 +70814,8 @@ export namespace Prisma {
     observaciones?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: NullableEnummovimientos_inventario_estadoFieldUpdateOperationsInput | $Enums.movimientos_inventario_estado | null
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type configuracion_notificacionesCreateManyUsuariosInput = {
@@ -70473,6 +70918,10 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -70513,6 +70962,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
     id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
@@ -70794,6 +71246,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70836,6 +71292,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70877,6 +71337,10 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70915,6 +71379,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70957,6 +71424,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70998,6 +71468,9 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null

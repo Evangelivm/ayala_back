@@ -335,7 +335,7 @@ export class ProgramacionService {
 
   async getProgramacionTecnicaById(id: number) {
     try {
-      // Usar consulta raw SQL para hacer JOINs con camiones y empresas_2025
+      // Usar consulta raw SQL para hacer JOINs con camiones, empresas_2025 y guia_remision
       const result = await this.prisma.$queryRaw<any[]>`
         SELECT
           pt.*,
@@ -346,10 +346,14 @@ export class ProgramacionService {
           c.numero_licencia as camion_numero_licencia,
           e.razon_social as empresa_razon_social,
           e.nro_documento as empresa_nro_documento,
-          e.direccion as empresa_direccion
+          e.direccion as empresa_direccion,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr
         FROM programacion_tecnica pt
         LEFT JOIN camiones c ON pt.unidad = c.id_camion
         LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
         WHERE pt.id = ${id}
         LIMIT 1
       `;
@@ -392,6 +396,10 @@ export class ProgramacionService {
         // Datos del proyecto/subproyecto
         id_proyecto: programacionTecnica.id_proyecto || null,
         id_subproyecto: programacionTecnica.id_subproyecto || null,
+        // Enlaces de la guía de remisión (desde Kafka/NUBEFACT)
+        enlace_del_pdf: programacionTecnica.enlace_del_pdf || null,
+        enlace_del_xml: programacionTecnica.enlace_del_xml || null,
+        enlace_del_cdr: programacionTecnica.enlace_del_cdr || null,
       };
     } catch (error) {
       if (error instanceof BadRequestException) {

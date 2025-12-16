@@ -60,4 +60,28 @@ export class WebsocketGateway
   emitProgTecnicaCompletada(data: { id: number; identificador_unico: string }) {
     this.server.emit('progTecnicaCompletada', data);
   }
+
+  // Emitir cuando una factura cambia de estado
+  emitFacturaUpdate(data: {
+    id_factura: number;
+    estado: string;
+    enlace_pdf?: string;
+    enlace_xml?: string;
+    enlace_cdr?: string;
+  }) {
+    try {
+      console.log(`📡 Emitiendo evento facturaUpdated:`, data);
+
+      if (!this.server) {
+        console.error('❌ WebSocket server no inicializado');
+        return;
+      }
+
+      this.server.emit('facturaUpdated', data);
+      console.log(`✅ Evento facturaUpdated emitido exitosamente`);
+    } catch (error) {
+      console.error('❌ Error emitiendo evento facturaUpdated:', error);
+      // No lanzar el error para no interrumpir el flujo
+    }
+  }
 }

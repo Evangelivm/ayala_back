@@ -24,6 +24,49 @@ export class FacturaCrudController {
   constructor(private readonly prisma: PrismaThirdService) {}
 
   /**
+   * Mapea unidades de medida comunes a códigos SUNAT válidos
+   */
+  private mapearUnidadMedidaSunat(unidad: string): string {
+    const mapeo: Record<string, string> = {
+      'UNIDAD': 'NIU',
+      'UNIDADES': 'NIU',
+      'UND': 'NIU',
+      'SERVICIO': 'ZZ',
+      'SERVICIOS': 'ZZ',
+      'SRV': 'ZZ',
+      'METRO': 'MTR',
+      'METROS': 'MTR',
+      'M': 'MTR',
+      'KILOGRAMO': 'KGM',
+      'KILOGRAMOS': 'KGM',
+      'KG': 'KGM',
+      'LITRO': 'LTR',
+      'LITROS': 'LTR',
+      'L': 'LTR',
+      'METRO CUBICO': 'MTQ',
+      'M3': 'MTQ',
+      'TONELADA': 'TNE',
+      'TONELADAS': 'TNE',
+      'TON': 'TNE',
+      'CAJA': 'BX',
+      'CAJAS': 'BX',
+      'BOLSA': 'BG',
+      'BOLSAS': 'BG',
+      'PAQUETE': 'PK',
+      'PAQUETES': 'PK',
+    };
+
+    const unidadUpper = unidad.toUpperCase().trim();
+    const unidadMapeada = mapeo[unidadUpper] || unidad;
+
+    if (unidadMapeada !== unidad) {
+      this.logger.debug(`Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`);
+    }
+
+    return unidadMapeada;
+  }
+
+  /**
    * GET /facturas/ultimo-numero
    * Obtiene el último número de factura registrado para una serie
    */
@@ -309,7 +352,7 @@ export class FacturaCrudController {
                   codigo_item: item.codigo_item,
                   codigo_producto_sunat: item.codigo_producto_sunat,
                   descripcion_item: item.descripcion_item,
-                  unidad_medida: item.unidad_medida,
+                  unidad_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
                   cantidad: item.cantidad,
                   valor_unitario: item.valor_unitario,
                   precio_unitario: item.precio_unitario,
@@ -562,7 +605,7 @@ export class FacturaCrudController {
                     codigo_item: item.codigo_item,
                     codigo_producto_sunat: item.codigo_producto_sunat,
                     descripcion_item: item.descripcion_item,
-                    unidad_medida: item.unidad_medida,
+                    unidad_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
                     cantidad: item.cantidad,
                     valor_unitario: item.valor_unitario,
                     precio_unitario: item.precio_unitario,
