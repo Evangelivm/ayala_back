@@ -1,6 +1,7 @@
 import { Injectable, OnModuleDestroy, OnModuleInit, Logger } from '@nestjs/common';
 import { GreProducerService } from './gre-producer.service';
 import { PrismaService } from '../../prisma/prisma.service';
+import { WebsocketGateway } from '../../websocket/websocket.gateway';
 import axios from 'axios';
 
 interface PollingTask {
@@ -24,6 +25,7 @@ export class GrePollingService implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly greProducer: GreProducerService,
     private readonly prismaService: PrismaService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {}
 
   async onModuleInit() {
@@ -189,7 +191,27 @@ export class GrePollingService implements OnModuleInit, OnModuleDestroy {
         if (this.hasValidLinks(enlace_del_pdf, enlace_del_xml, enlace_del_cdr)) {
           this.logger.log(`✅ Enlaces completos obtenidos para registro ${recordId}`);
 
-          // Enviar respuesta exitosa con los campos correctos (renombrados para la BD)
+          // 🔥 NUEVO: Actualizar BD inmediatamente
+          const guiaCompletada = await this.prismaService.guia_remision.update({
+            where: { id_guia: parseInt(recordId) },
+            data: {
+              estado_gre: 'COMPLETADO',
+              enlace_del_pdf: enlace_del_pdf,
+              enlace_del_xml: enlace_del_xml,
+              enlace_del_cdr: enlace_del_cdr
+            }
+          });
+
+          // 🔥 NUEVO: Emitir WebSocket INMEDIATAMENTE (sin esperar Kafka)
+          if (guiaCompletada.identificador_unico) {
+            this.websocketGateway.emitProgTecnicaCompletada({
+              id: guiaCompletada.id_guia,
+              identificador_unico: guiaCompletada.identificador_unico
+            });
+            this.logger.log(`📡 WebSocket emitido directamente desde polling para: ${guiaCompletada.identificador_unico}`);
+          }
+
+          // Enviar respuesta a Kafka (para logging/auditoría)
           await this.greProducer.sendResponse(
             task.messageId,
             recordId,
