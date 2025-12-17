@@ -1,4 +1,9 @@
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { FacturaProducerService } from './factura-producer.service';
 import axios from 'axios';
@@ -109,13 +114,17 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
 
       // Verificar si el estado cambió (puede haber sido completada manualmente)
       if (facturaRecord.estado_factura === 'COMPLETADO') {
-        this.logger.log(`Factura ${recordId} ya completada, deteniendo polling`);
+        this.logger.log(
+          `Factura ${recordId} ya completada, deteniendo polling`,
+        );
         await this.stopPolling(recordId);
         return;
       }
 
       if (facturaRecord.estado_factura === 'FALLADO') {
-        this.logger.log(`Factura ${recordId} marcada como fallada, deteniendo polling`);
+        this.logger.log(
+          `Factura ${recordId} marcada como fallada, deteniendo polling`,
+        );
         await this.stopPolling(recordId);
         return;
       }
@@ -157,8 +166,12 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
         }
 
         // Verificar si tenemos todos los enlaces válidos
-        if (this.hasValidLinks(enlace_del_pdf, enlace_del_xml, enlace_del_cdr)) {
-          this.logger.log(`✅ Enlaces completos obtenidos para factura ${recordId}`);
+        if (
+          this.hasValidLinks(enlace_del_pdf, enlace_del_xml, enlace_del_cdr)
+        ) {
+          this.logger.log(
+            `✅ Enlaces completos obtenidos para factura ${recordId}`,
+          );
 
           // Enviar respuesta exitosa
           await this.producerService.sendResponse(
@@ -286,7 +299,9 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
    */
   private async recoverPendingPollings(): Promise<void> {
     try {
-      this.logger.log('🔄 Recuperando pollings pendientes desde la base de datos...');
+      this.logger.log(
+        '🔄 Recuperando pollings pendientes desde la base de datos...',
+      );
 
       // Buscar facturas con estado PROCESANDO
       const processingRecords = await this.prisma.factura.findMany({
@@ -410,10 +425,10 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
       const NUBEFACT_CONSULTA_URL =
         process.env.NUBEFACT_CONSULTA_URL ||
         'https://api.nubefact.com/api/v1/consultar';
-      const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+      const NUBEFACT_TOKEN_2 = process.env.NUBEFACT_TOKEN_2;
 
-      if (!NUBEFACT_TOKEN) {
-        throw new Error('NUBEFACT_TOKEN no configurado');
+      if (!NUBEFACT_TOKEN_2) {
+        throw new Error('NUBEFACT_TOKEN_2 no configurado');
       }
 
       const consultaData = {
@@ -429,7 +444,7 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
 
       const response = await axios.post(NUBEFACT_CONSULTA_URL, consultaData, {
         headers: {
-          Authorization: `Token ${NUBEFACT_TOKEN}`,
+          Authorization: `Token ${NUBEFACT_TOKEN_2}`,
           'Content-Type': 'application/json',
         },
         timeout: 15000, // 15 segundos para consultas
@@ -450,7 +465,10 @@ export class FacturaPollingService implements OnModuleInit, OnModuleDestroy {
         };
       }
 
-      this.logger.debug(`Error en consultar_comprobante (se reintentará):`, error.message);
+      this.logger.debug(
+        `Error en consultar_comprobante (se reintentará):`,
+        error.message,
+      );
 
       return {
         success: false,

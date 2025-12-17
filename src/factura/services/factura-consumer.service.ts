@@ -1,5 +1,10 @@
 import { Injectable, Logger, Controller } from '@nestjs/common';
-import { MessagePattern, Payload, Ctx, KafkaContext } from '@nestjs/microservices';
+import {
+  MessagePattern,
+  Payload,
+  Ctx,
+  KafkaContext,
+} from '@nestjs/microservices';
 import { KafkaService } from '../../kafka/kafka.service';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { FacturaProducerService } from './factura-producer.service';
@@ -112,7 +117,10 @@ export class FacturaConsumerService {
               enlace_cdr: responseData.enlace_del_cdr,
             });
           } catch (wsError) {
-            this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
+            this.logger.warn(
+              `Error emitiendo WebSocket (no crítico):`,
+              wsError,
+            );
           }
         } else {
           // Si no tiene enlaces, iniciar polling
@@ -272,7 +280,9 @@ export class FacturaConsumerService {
           // Detener polling para este registro
           await this.facturaPolling.stopPolling(recordId);
 
-          this.logger.log(`Registro ${recordId} completado con todos los datos`);
+          this.logger.log(
+            `Registro ${recordId} completado con todos los datos`,
+          );
         } else {
           this.logger.debug(
             `Registro ${recordId} aún sin todos los enlaces, continuando polling`,
@@ -308,20 +318,20 @@ export class FacturaConsumerService {
    */
   private async callNubefactGenerarComprobante(nubefactData: any) {
     try {
-      const NUBEFACT_API_URL =
-        process.env.NUBEFACT_API_URL ||
+      const NUBEFACT_API_URL_2 =
+        process.env.NUBEFACT_API_URL_2 ||
         'https://api.nubefact.com/api/v1/generar_comprobante';
-      const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+      const NUBEFACT_TOKEN_2 = process.env.NUBEFACT_TOKEN_2;
 
-      if (!NUBEFACT_TOKEN) {
-        throw new Error('NUBEFACT_TOKEN no configurado');
+      if (!NUBEFACT_TOKEN_2) {
+        throw new Error('NUBEFACT_TOKEN_2 no configurado');
       }
 
       this.logger.log('Llamando a NUBEFACT API generar_comprobante');
 
-      const response = await axios.post(NUBEFACT_API_URL, nubefactData, {
+      const response = await axios.post(NUBEFACT_API_URL_2, nubefactData, {
         headers: {
-          Authorization: `Token ${NUBEFACT_TOKEN}`,
+          Authorization: `Token ${NUBEFACT_TOKEN_2}`,
           'Content-Type': 'application/json',
         },
         timeout: 30000, // 30 segundos
@@ -336,9 +346,15 @@ export class FacturaConsumerService {
 
       // Log de las fechas enviadas cuando hay error
       this.logger.error('📅 Fechas enviadas a Nubefact que causaron el error:');
-      this.logger.error(`  - fecha_de_emision: ${nubefactData.fecha_de_emision}`);
-      this.logger.error(`  - fecha_de_vencimiento: ${nubefactData.fecha_de_vencimiento}`);
-      this.logger.error(`  - fecha_de_servicio: ${nubefactData.fecha_de_servicio}`);
+      this.logger.error(
+        `  - fecha_de_emision: ${nubefactData.fecha_de_emision}`,
+      );
+      this.logger.error(
+        `  - fecha_de_vencimiento: ${nubefactData.fecha_de_vencimiento}`,
+      );
+      this.logger.error(
+        `  - fecha_de_servicio: ${nubefactData.fecha_de_servicio}`,
+      );
 
       return {
         success: false,
@@ -367,10 +383,10 @@ export class FacturaConsumerService {
       const NUBEFACT_CONSULTA_URL =
         process.env.NUBEFACT_CONSULTA_URL ||
         'https://api.nubefact.com/api/v1/consultar';
-      const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+      const NUBEFACT_TOKEN_2 = process.env.NUBEFACT_TOKEN_2;
 
-      if (!NUBEFACT_TOKEN) {
-        throw new Error('NUBEFACT_TOKEN no configurado');
+      if (!NUBEFACT_TOKEN_2) {
+        throw new Error('NUBEFACT_TOKEN_2 no configurado');
       }
 
       this.logger.log(
@@ -387,7 +403,7 @@ export class FacturaConsumerService {
         },
         {
           headers: {
-            Authorization: `Token ${NUBEFACT_TOKEN}`,
+            Authorization: `Token ${NUBEFACT_TOKEN_2}`,
             'Content-Type': 'application/json',
           },
           timeout: 15000, // 15 segundos
@@ -464,7 +480,9 @@ export class FacturaConsumerService {
         take: 10, // Procesar de a 10
       });
 
-      this.logger.log(`Reintentando ${failedRecords.length} registros fallidos`);
+      this.logger.log(
+        `Reintentando ${failedRecords.length} registros fallidos`,
+      );
 
       for (const record of failedRecords) {
         try {
@@ -484,7 +502,9 @@ export class FacturaConsumerService {
             },
           });
 
-          this.logger.log(`Registro ${record.id_factura} reseteado para reintento`);
+          this.logger.log(
+            `Registro ${record.id_factura} reseteado para reintento`,
+          );
         } catch (error) {
           this.logger.error(
             `Error reseteando registro ${record.id_factura}:`,
