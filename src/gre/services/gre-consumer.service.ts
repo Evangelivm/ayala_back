@@ -136,7 +136,18 @@ export class GreConsumerService {
         const { pdf_url, xml_url, cdr_url } = nubefact_response;
 
         if (pdf_url && xml_url && cdr_url) {
-          // Todos los enlaces están disponibles, actualizar BD
+          // ✅ VERIFICAR PRIMERO si el registro ya fue completado por el polling
+          const currentRecord = await this.prismaService.guia_remision.findUnique({
+            where: { id_guia: parseInt(recordId) }
+          });
+
+          if (currentRecord?.estado_gre === 'COMPLETADO') {
+            this.logger.log(`✅ Registro ${recordId} ya fue completado por polling, omitiendo actualización duplicada`);
+            await this.grePolling.stopPolling(recordId);
+            return;
+          }
+
+          // Si no está completado, actualizar BD (respaldo por si el polling falló)
           const guiaCompletada = await this.prismaService.guia_remision.update({
             where: { id_guia: parseInt(recordId) },
             data: {
@@ -150,15 +161,15 @@ export class GreConsumerService {
           // Detener polling para este registro
           await this.grePolling.stopPolling(recordId);
 
-          this.logger.log(`Registro ${recordId} completado con todos los enlaces`);
+          this.logger.log(`Registro ${recordId} completado con todos los enlaces (vía consumer)`);
 
-          // 📡 Emitir evento WebSocket para notificar al frontend
+          // 📡 Emitir evento WebSocket para notificar al frontend (respaldo)
           if (guiaCompletada.identificador_unico) {
             this.websocketGateway.emitProgTecnicaCompletada({
               id: guiaCompletada.id_guia,
               identificador_unico: guiaCompletada.identificador_unico
             });
-            this.logger.log(`📡 WebSocket emitido para prog-tecnica: ${guiaCompletada.identificador_unico}`);
+            this.logger.log(`📡 WebSocket emitido para prog-tecnica desde consumer: ${guiaCompletada.identificador_unico}`);
           }
         } else {
           this.logger.debug(`Registro ${recordId} aún sin todos los enlaces, continuando polling`);

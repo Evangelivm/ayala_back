@@ -58,7 +58,20 @@ export class WebsocketGateway
 
   // Emitir cuando una programación técnica se completa (GRE procesada)
   emitProgTecnicaCompletada(data: { id: number; identificador_unico: string }) {
-    this.server.emit('progTecnicaCompletada', data);
+    try {
+      console.log(`📡 Emitiendo evento progTecnicaCompletada:`, data);
+
+      if (!this.server) {
+        console.error('❌ WebSocket server no inicializado');
+        return;
+      }
+
+      this.server.emit('progTecnicaCompletada', data);
+      console.log(`✅ Evento progTecnicaCompletada emitido exitosamente`);
+    } catch (error) {
+      console.error('❌ Error emitiendo evento progTecnicaCompletada:', error);
+      // No lanzar el error para no interrumpir el flujo
+    }
   }
 
   // Emitir cuando una factura cambia de estado
