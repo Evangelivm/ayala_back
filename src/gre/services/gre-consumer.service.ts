@@ -165,11 +165,21 @@ export class GreConsumerService {
 
           // 📡 Emitir evento WebSocket para notificar al frontend (respaldo)
           if (guiaCompletada.identificador_unico) {
-            this.websocketGateway.emitProgTecnicaCompletada({
-              id: guiaCompletada.id_guia,
-              identificador_unico: guiaCompletada.identificador_unico
+            // Buscar el ID de programacion_tecnica correspondiente
+            const programacionTecnica = await this.prismaService.programacion_tecnica.findFirst({
+              where: { identificador_unico: guiaCompletada.identificador_unico },
+              select: { id: true }
             });
-            this.logger.log(`📡 WebSocket emitido para prog-tecnica desde consumer: ${guiaCompletada.identificador_unico}`);
+
+            if (programacionTecnica) {
+              this.websocketGateway.emitProgTecnicaCompletada({
+                id: programacionTecnica.id,
+                identificador_unico: guiaCompletada.identificador_unico
+              });
+              this.logger.log(`📡 WebSocket emitido para prog-tecnica desde consumer: ${guiaCompletada.identificador_unico} (ID prog_tecnica: ${programacionTecnica.id})`);
+            } else {
+              this.logger.warn(`⚠️ No se encontró programacion_tecnica con identificador_unico: ${guiaCompletada.identificador_unico}`);
+            }
           }
         } else {
           this.logger.debug(`Registro ${recordId} aún sin todos los enlaces, continuando polling`);

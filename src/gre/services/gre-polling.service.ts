@@ -204,11 +204,21 @@ export class GrePollingService implements OnModuleInit, OnModuleDestroy {
 
           // 🔥 NUEVO: Emitir WebSocket INMEDIATAMENTE (sin esperar Kafka)
           if (guiaCompletada.identificador_unico) {
-            this.websocketGateway.emitProgTecnicaCompletada({
-              id: guiaCompletada.id_guia,
-              identificador_unico: guiaCompletada.identificador_unico
+            // Buscar el ID de programacion_tecnica correspondiente
+            const programacionTecnica = await this.prismaService.programacion_tecnica.findFirst({
+              where: { identificador_unico: guiaCompletada.identificador_unico },
+              select: { id: true }
             });
-            this.logger.log(`📡 WebSocket emitido directamente desde polling para: ${guiaCompletada.identificador_unico}`);
+
+            if (programacionTecnica) {
+              this.websocketGateway.emitProgTecnicaCompletada({
+                id: programacionTecnica.id,
+                identificador_unico: guiaCompletada.identificador_unico
+              });
+              this.logger.log(`📡 WebSocket emitido directamente desde polling para: ${guiaCompletada.identificador_unico} (ID prog_tecnica: ${programacionTecnica.id})`);
+            } else {
+              this.logger.warn(`⚠️ No se encontró programacion_tecnica con identificador_unico: ${guiaCompletada.identificador_unico}`);
+            }
           }
 
           // Enviar respuesta a Kafka (para logging/auditoría)
