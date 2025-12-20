@@ -498,16 +498,25 @@ export class GreController {
     try {
       const recordId = parseInt(id);
 
-      // 1. Buscar guía en BD
-      const guia = await this.prisma.guia_remision.findUnique({
-        where: { id_guia: recordId }
+      // 1. Buscar el identificador_unico en programacion_tecnica
+      const programacion = await this.prisma.programacion_tecnica.findUnique({
+        where: { id: recordId }
+      });
+
+      if (!programacion || !programacion.identificador_unico) {
+        throw new HttpException('Registro de programación no encontrado o sin identificador único', HttpStatus.NOT_FOUND);
+      }
+
+      // 2. Buscar guía en BD usando el identificador_unico
+      const guia = await this.prisma.guia_remision.findFirst({
+        where: { identificador_unico: programacion.identificador_unico }
       });
 
       if (!guia) {
         throw new HttpException('Guía no encontrada', HttpStatus.NOT_FOUND);
       }
 
-      // 2. Preparar datos para consultar_guia
+      // 3. Preparar datos para consultar_guia
       const consultaData = {
         operacion: 'consultar_guia',
         tipo_de_comprobante: guia.tipo_de_comprobante,
@@ -517,7 +526,7 @@ export class GreController {
 
       this.logger.log(`📋 Consultando guía manualmente: ${guia.serie}-${guia.numero}`);
 
-      // 3. Llamar a NUBEFACT consultar_guia
+      // 4. Llamar a NUBEFACT consultar_guia
       const NUBEFACT_CONSULTAR_URL = process.env.NUBEFACT_CONSULTAR_URL;
       const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
 
@@ -529,7 +538,7 @@ export class GreController {
         }
       });
 
-      // 4. Verificar si tenemos enlaces
+      // 5. Verificar si tenemos enlaces
       const { enlace_del_pdf, enlace_del_xml, enlace_del_cdr,
               aceptada_por_sunat, sunat_description } = response.data;
 
@@ -542,9 +551,9 @@ export class GreController {
         };
       }
 
-      // 5. Actualizar BD con los enlaces
+      // 6. Actualizar BD con los enlaces
       const guiaActualizada = await this.prisma.guia_remision.update({
-        where: { id_guia: recordId },
+        where: { id_guia: guia.id_guia },
         data: {
           estado_gre: 'COMPLETADO',
           enlace_del_pdf,
