@@ -493,6 +493,93 @@ export class GreController {
     }
   }
 
+  @Post('manual-consulta/:id')
+  async manualConsultaGuia(@Param('id') id: string) {
+    try {
+      const recordId = parseInt(id);
+
+      // 1. Buscar guía en BD
+      const guia = await this.prisma.guia_remision.findUnique({
+        where: { id_guia: recordId }
+      });
+
+      if (!guia) {
+        throw new HttpException('Guía no encontrada', HttpStatus.NOT_FOUND);
+      }
+
+      // 2. Preparar datos para consultar_guia
+      const consultaData = {
+        operacion: 'consultar_guia',
+        tipo_de_comprobante: guia.tipo_de_comprobante,
+        serie: guia.serie,
+        numero: guia.numero
+      };
+
+      this.logger.log(`📋 Consultando guía manualmente: ${guia.serie}-${guia.numero}`);
+
+      // 3. Llamar a NUBEFACT consultar_guia
+      const NUBEFACT_CONSULTAR_URL = process.env.NUBEFACT_CONSULTAR_URL;
+      const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+
+      const axios = require('axios');
+      const response = await axios.post(NUBEFACT_CONSULTAR_URL, consultaData, {
+        headers: {
+          'Authorization': `Token ${NUBEFACT_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // 4. Verificar si tenemos enlaces
+      const { enlace_del_pdf, enlace_del_xml, enlace_del_cdr,
+              aceptada_por_sunat, sunat_description } = response.data;
+
+      if (!enlace_del_pdf || !enlace_del_xml || !enlace_del_cdr) {
+        this.logger.log(`⚠️ SUNAT aún no ha generado los archivos para ${guia.serie}-${guia.numero}`);
+        return {
+          success: false,
+          message: 'SUNAT aún no ha generado los archivos. Intente nuevamente en unos minutos.',
+          data: response.data
+        };
+      }
+
+      // 5. Actualizar BD con los enlaces
+      const guiaActualizada = await this.prisma.guia_remision.update({
+        where: { id_guia: recordId },
+        data: {
+          estado_gre: 'COMPLETADO',
+          enlace_del_pdf,
+          enlace_del_xml,
+          enlace_del_cdr,
+          aceptada_por_sunat,
+          sunat_description
+        }
+      });
+
+      this.logger.log(`✅ Enlaces recuperados exitosamente para ${guia.serie}-${guia.numero}`);
+
+      return {
+        success: true,
+        message: 'Enlaces recuperados exitosamente',
+        data: {
+          id_guia: guiaActualizada.id_guia,
+          serie: guiaActualizada.serie,
+          numero: guiaActualizada.numero,
+          estado_gre: guiaActualizada.estado_gre,
+          enlace_del_pdf,
+          enlace_del_xml,
+          enlace_del_cdr
+        }
+      };
+
+    } catch (error) {
+      this.logger.error('Error en consulta manual:', error);
+      throw new HttpException(
+        `Error en consulta manual: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   @Get('test/info')
   getTestInfo() {
     return {
