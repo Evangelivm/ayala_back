@@ -1575,7 +1575,6 @@ export class OrdenServicioService {
    * - Tiene URL de cotización (url_cotizacion)
    * - Tiene URL de operación (url)
    * - Hay 2 de 3 aprobaciones (auto_administrador, jefe_proyecto, auto_contabilidad)
-   * - El anticipo está en "SI" (tiene_anticipo = "SI")
    * @param id - ID de la orden de servicio a verificar
    */
   private async verificarYActualizarEstadoCompletada(
@@ -1602,8 +1601,7 @@ export class OrdenServicioService {
         orden.url_factura && // Tiene URL de factura
         orden.url_cotizacion && // Tiene URL de cotización
         orden.url && // Tiene URL de operación
-        aprobaciones >= 2 && // Al menos 2 de 3 aprobaciones
-        orden.tiene_anticipo === 'SI' // Anticipo en SI
+        aprobaciones >= 2 // Al menos 2 de 3 aprobaciones
       ) {
         await this.prismaThird.ordenes_servicio.update({
           where: { id_orden_servicio: id },
@@ -1614,6 +1612,64 @@ export class OrdenServicioService {
       console.error(
         'Error al verificar y actualizar estado a COMPLETADA:',
         error,
+      );
+    }
+  }
+
+  /**
+   * Migración: Actualiza todas las órdenes PENDIENTES que cumplan las condiciones a COMPLETADA
+   * Esta función debe ejecutarse una sola vez después del cambio de lógica (sin anticipo)
+   */
+  async migrarOrdenesACompletada(): Promise<{ actualizadas: number; detalles: any[] }> {
+    try {
+      // Obtener todas las órdenes en estado PENDIENTE
+      const ordenesPendientes = await this.prismaThird.ordenes_servicio.findMany({
+        where: { estado: 'PENDIENTE' },
+      });
+
+      const detalles: any[] = [];
+      let actualizadas = 0;
+
+      for (const orden of ordenesPendientes) {
+        // Contar aprobaciones
+        const aprobaciones = [
+          orden.auto_administrador === true,
+          orden.jefe_proyecto === true,
+          orden.auto_contabilidad === true,
+        ].filter(Boolean).length;
+
+        // Verificar si cumple las condiciones para estar COMPLETADA
+        const cumpleCondiciones =
+          orden.url_factura &&
+          orden.url_cotizacion &&
+          orden.url &&
+          aprobaciones >= 2;
+
+        if (cumpleCondiciones) {
+          await this.prismaThird.ordenes_servicio.update({
+            where: { id_orden_servicio: orden.id_orden_servicio },
+            data: { estado: 'COMPLETADA' },
+          });
+          actualizadas++;
+          detalles.push({
+            id: orden.id_orden_servicio,
+            numero: orden.numero_orden,
+            proveedor: orden.id_proveedor,
+            aprobaciones,
+          });
+        }
+      }
+
+      // Emitir evento WebSocket
+      if (actualizadas > 0) {
+        this.websocketGateway.emitOrdenServicioUpdate();
+      }
+
+      return { actualizadas, detalles };
+    } catch (error) {
+      console.error('Error en migración de órdenes de servicio:', error);
+      throw new BadRequestException(
+        `Error en migración: ${error.message}`,
       );
     }
   }

@@ -231,6 +231,22 @@ export class OrdenServicioController {
     }
   }
 
+  @Post('migrar-estados')
+  @HttpCode(HttpStatus.OK)
+  async migrarEstados() {
+    try {
+      const resultado = await this.ordenServicioService.migrarOrdenesACompletada();
+      return {
+        success: true,
+        message: `Migración completada. ${resultado.actualizadas} órdenes actualizadas a COMPLETADA`,
+        ...resultado,
+      };
+    } catch (error) {
+      console.error('Error al migrar estados de órdenes de servicio:', error);
+      throw error;
+    }
+  }
+
   @Post(':id/upload')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(FileInterceptor('file'))
