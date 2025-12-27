@@ -30,7 +30,7 @@ export const CreateFacturaGuiaSchema = z.object({
 // Schema para venta a crédito (opcional)
 export const CreateFacturaVentaCreditoSchema = z.object({
   cuota: z.number().int().positive('El número de cuota es requerido'),
-  fecha_pago: z.string().min(1, 'La fecha de pago es requerida'),
+  fecha_de_pago: z.string().min(1, 'La fecha de pago es requerida'), // NubeFact usa "fecha_de_pago"
   importe: z.number().positive('El importe debe ser mayor a 0'),
 });
 
@@ -57,6 +57,10 @@ export const CreateFacturaSchema = z
     fecha_emision: z.string().min(1, 'La fecha de emisión es requerida'),
     fecha_vencimiento: z.string().optional().nullable(),
     fecha_servicio: z.string().optional().nullable(),
+
+    // Tipo de venta
+    tipo_venta: z.enum(['CONTADO', 'CREDITO']).default('CONTADO'),
+    plazo_credito: z.number().int().nonnegative().optional().nullable(),
 
     // Moneda y totales
     moneda: z.number().int().positive().default(1), // 1 = PEN, 2 = USD
@@ -130,8 +134,9 @@ export const CreateFacturaSchema = z
     // Guías relacionadas (opcional)
     guias: z.array(CreateFacturaGuiaSchema).optional(),
 
-    // Cuotas de crédito (opcional)
+    // Cuotas de crédito (opcional) - NubeFact usa "venta_al_credito"
     cuotas_credito: z.array(CreateFacturaVentaCreditoSchema).optional(),
+    venta_al_credito: z.array(CreateFacturaVentaCreditoSchema).optional(),
   })
   .strip(); // Ignorar campos adicionales
 

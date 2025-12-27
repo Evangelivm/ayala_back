@@ -432,6 +432,7 @@ export class OrdenServicioService {
         condicion: ordenServicio.condicion || '',
         moneda: ordenServicio.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
+        almacenCentral: ordenServicio.almacen_central?.toUpperCase() === 'SI',
       },
       observacion: {
         nivel1: nivel1Descripcion,
@@ -639,7 +640,21 @@ export class OrdenServicioService {
             );
         }
 
-        yPos += 60;
+        yPos += 50;
+
+        // Mostrar cuadro rojo ALMACEN CENTRAL si almacen_central es 'SI'
+        if (ordenData.datosOrdenServicio.almacenCentral) {
+          this.drawHighlightBox(doc, 40, yPos, 180, 25, '#FF0000');
+          doc.fontSize(12).font('Helvetica-Bold').fillColor('#FFFFFF');
+          doc.text('ALMACEN CENTRAL', 40, yPos + 6, {
+            width: 180,
+            align: 'center',
+          });
+          doc.fillColor('#000000');
+          yPos += 35;
+        } else {
+          yPos += 10;
+        }
 
         // ==================== OBSERVACIÓN ====================
         this.drawSectionHeader(doc, 40, yPos, 'OBSERVACIÓN', 515);

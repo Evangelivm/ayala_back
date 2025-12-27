@@ -19,6 +19,8 @@ export interface IFactura {
   fecha_emision: Date;
   fecha_vencimiento?: Date | null;
   fecha_servicio?: Date | null;
+  tipo_venta?: string | null;
+  plazo_credito?: number | null;
   moneda: number;
   tipo_cambio?: Decimal | null;
   porcentaje_igv: Decimal;

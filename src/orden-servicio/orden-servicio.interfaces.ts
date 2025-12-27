@@ -16,6 +16,7 @@ export interface DatosOrdenServicio {
   condicion: string;
   moneda: string;
   tipoCambio?: number;
+  almacenCentral?: boolean;
 }
 
 export interface Observacion {
