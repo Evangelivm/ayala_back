@@ -1783,6 +1783,9 @@ model guia_remision {
   id_subsector                                  Int?
   id_subfrente                                  Int?
   id_subpartida                                 Int?
+  duplicado_origen_id                           Int?
+  duplicado_fecha                               DateTime?                 @db.DateTime(0)
+  duplicado_lote_id                             String?                   @db.VarChar(50)
   conductores_secundarios                       conductores_secundarios[]
   documento_relacionado                         documento_relacionado[]
   etapas                                        etapas?                   @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict)
@@ -2224,6 +2227,11 @@ model secalfa2_users_apps {
 
   @@id([login, app_name])
   @@index([app_name], map: "secalfa2_users_apps_ibfk_2")
+}
+
+model DROPBOX {
+  id      Int     @id @default(autoincrement())
+  archivo String? @db.VarChar(255)
 }
 
 enum proyecto_estado {

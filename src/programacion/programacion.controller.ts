@@ -84,6 +84,66 @@ export class ProgramacionController {
     return await this.programacionService.getRecienCompletados(segundosNum);
   }
 
+  // ========== PROGRAMACIÓN EXTENDIDA - DUPLICACIÓN MASIVA ==========
+
+  @Get('tecnica/originales')
+  async getGuiasOriginales() {
+    this.logger.log('Consultando guías originales (no duplicadas)');
+    return await this.programacionService.getGuiasOriginales();
+  }
+
+  @Get('tecnica/duplicadas')
+  async getGuiasDuplicadas() {
+    this.logger.log('Consultando guías duplicadas');
+    return await this.programacionService.getGuiasDuplicadas();
+  }
+
+  @Post('tecnica/duplicar')
+  async duplicarGuia(
+    @Body() body: {
+      idGuiaOriginal: number;
+      cantidad: number;
+      modificaciones?: Array<Partial<any>>;
+    },
+  ) {
+    const { idGuiaOriginal, cantidad, modificaciones } = body;
+
+    this.logger.log(
+      `Duplicando guía ${idGuiaOriginal} ${cantidad} veces`,
+    );
+
+    return await this.programacionService.duplicarGuia(
+      idGuiaOriginal,
+      cantidad,
+      modificaciones,
+    );
+  }
+
+  @Post('tecnica/enviar-kafka')
+  async enviarDuplicadosKafka(
+    @Body() body: { loteId: string; idsGuias: number[] },
+  ) {
+    const { loteId, idsGuias } = body;
+
+    this.logger.log(
+      `Enviando ${idsGuias.length} duplicados del lote ${loteId} a Kafka`,
+    );
+
+    return await this.programacionService.enviarDuplicadosKafka(
+      loteId,
+      idsGuias,
+    );
+  }
+
+  @Delete('tecnica/duplicados/:loteId')
+  async eliminarDuplicados(@Param('loteId') loteId: string) {
+    this.logger.log(`Eliminando duplicados del lote ${loteId}`);
+
+    return await this.programacionService.eliminarDuplicados(loteId);
+  }
+
+  // ========== FIN PROGRAMACIÓN EXTENDIDA ==========
+
   @Get('tecnica/:id')
   async getProgramacionTecnica(@Param('id', ParseIntPipe) id: number) {
     this.logger.log(`Consultando programación técnica con ID: ${id}`);

@@ -626,4 +626,503 @@ export class ProgramacionService {
       throw new InternalServerErrorException('Error al obtener los registros recién completados');
     }
   }
+
+  // ========== PROGRAMACIÓN EXTENDIDA - DUPLICACIÓN MASIVA ==========
+
+  async getGuiasOriginales() {
+    try {
+      // Consultar guías originales sin duplicados
+      const programacionTecnica = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.id,
+          pt.fecha,
+          pt.unidad,
+          pt.proveedor,
+          pt.programacion,
+          pt.hora_partida,
+          pt.estado_programacion,
+          pt.comentarios,
+          pt.validacion,
+          pt.identificador_unico,
+          pt.km_del_dia,
+          pt.mes,
+          pt.num_semana,
+          pt.m3,
+          pt.cantidad_viaje,
+          pt.id_proyecto,
+          pt.id_subproyecto,
+          MAX(c.placa) as unidad_placa,
+          MAX(c.nombre_chofer) as nombre_chofer,
+          MAX(c.apellido_chofer) as apellido_chofer,
+          MAX(e.razon_social) as empresa_razon_social,
+          MAX(gr.enlace_del_pdf) as enlace_del_pdf,
+          MAX(gr.enlace_del_xml) as enlace_del_xml,
+          MAX(gr.enlace_del_cdr) as enlace_del_cdr,
+          MAX(gr.estado_gre) as estado_gre,
+          MAX(gr.duplicado_origen_id) as duplicado_origen_id,
+          MAX(gr.duplicado_fecha) as duplicado_fecha,
+          MAX(gr.duplicado_lote_id) as duplicado_lote_id,
+          MAX(p.nombre) as nombre_proyecto,
+          MAX(sp.nombre) as nombre_subproyecto
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+          AND (gr.duplicado_origen_id IS NULL OR gr.duplicado_origen_id = 0)
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        GROUP BY pt.id
+        ORDER BY pt.fecha DESC, pt.id DESC
+      `;
+
+      // Mapear resultados al formato esperado
+      const data = programacionTecnica.map(pt => this.mapProgramacionTecnicaData(pt));
+
+      this.logger.log(`Encontradas ${data.length} guías originales`);
+      return data;
+    } catch (error) {
+      this.logger.error('Error al obtener guías originales:', error);
+      throw new InternalServerErrorException('Error al obtener guías originales');
+    }
+  }
+
+  async getGuiasDuplicadas() {
+    try {
+      // Consultar guías duplicadas (duplicado_origen_id IS NOT NULL)
+      const programacionTecnica = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as unidad_placa,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          e.razon_social as empresa_razon_social,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr,
+          gr.estado_gre,
+          gr.duplicado_origen_id,
+          gr.duplicado_fecha,
+          gr.duplicado_lote_id,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        WHERE gr.duplicado_origen_id IS NOT NULL AND gr.duplicado_origen_id > 0
+        ORDER BY gr.duplicado_lote_id, gr.duplicado_fecha DESC
+      `;
+
+      // Mapear resultados al formato esperado
+      const data = programacionTecnica.map(pt => this.mapProgramacionTecnicaData(pt));
+
+      this.logger.log(`Encontradas ${data.length} guías duplicadas`);
+      return data;
+    } catch (error) {
+      this.logger.error('Error al obtener guías duplicadas:', error);
+      throw new InternalServerErrorException('Error al obtener guías duplicadas');
+    }
+  }
+
+  async duplicarGuia(
+    idGuiaOriginal: number,
+    cantidad: number,
+    modificaciones?: Array<Partial<any>>,
+  ) {
+    try {
+      // Validaciones
+      if (cantidad < 1 || cantidad > 50) {
+        throw new BadRequestException('La cantidad debe estar entre 1 y 50');
+      }
+
+      // Obtener guía original de programacion_tecnica
+      const guiaOriginal = await this.prisma.programacion_tecnica.findUnique({
+        where: { id: idGuiaOriginal },
+      });
+
+      if (!guiaOriginal) {
+        throw new BadRequestException('Guía original no encontrada');
+      }
+
+      // Verificar si tiene guía de remisión
+      const guiaRemisionOriginal = await this.prisma.guia_remision.findFirst({
+        where: { identificador_unico: guiaOriginal.identificador_unico },
+      });
+
+      // Validar que no tenga archivos generados
+      if (guiaRemisionOriginal) {
+        if (
+          guiaRemisionOriginal.enlace_del_pdf ||
+          guiaRemisionOriginal.enlace_del_xml ||
+          guiaRemisionOriginal.enlace_del_cdr
+        ) {
+          throw new BadRequestException(
+            'No se puede duplicar una guía que ya tiene archivos generados',
+          );
+        }
+      }
+
+      // Generar ID único para el lote
+      const loteId = `LOTE-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      const fechaDuplicacion = new Date();
+
+      // Crear duplicados en transacción
+      const duplicados = await this.prisma.$transaction(async (tx) => {
+        const duplicadosCreados: any[] = [];
+
+        for (let i = 0; i < cantidad; i++) {
+          // Aplicar modificaciones si las hay
+          const modificacion = modificaciones && modificaciones[i] ? modificaciones[i] : {};
+
+          // Generar identificador único para el duplicado
+          const nuevoIdentificadorUnico = `${guiaOriginal.identificador_unico}-DUP-${loteId}-${i + 1}`;
+
+          // Crear duplicado en programacion_tecnica
+          const duplicadoProgramacion = await tx.programacion_tecnica.create({
+            data: {
+              fecha: guiaOriginal.fecha,
+              unidad: guiaOriginal.unidad,
+              proveedor: guiaOriginal.proveedor,
+              programacion: guiaOriginal.programacion,
+              hora_partida: modificacion.hora_partida
+                ? new Date(`1970-01-01T${modificacion.hora_partida}`)
+                : guiaOriginal.hora_partida,
+              estado_programacion: guiaOriginal.estado_programacion,
+              comentarios: guiaOriginal.comentarios,
+              validacion: guiaOriginal.validacion,
+              identificador_unico: nuevoIdentificadorUnico,
+              km_del_dia: guiaOriginal.km_del_dia,
+              mes: guiaOriginal.mes,
+              num_semana: guiaOriginal.num_semana,
+              m3: modificacion.m3 || guiaOriginal.m3,
+              cantidad_viaje: modificacion.cantidad_viaje || guiaOriginal.cantidad_viaje,
+              punto_llegada_direccion: guiaOriginal.punto_llegada_direccion,
+              punto_llegada_ubigeo: guiaOriginal.punto_llegada_ubigeo,
+              punto_partida_direccion: guiaOriginal.punto_partida_direccion,
+              punto_partida_ubigeo: guiaOriginal.punto_partida_ubigeo,
+              hora_registro: new Date(),
+              id_proyecto: guiaOriginal.id_proyecto,
+              id_subproyecto: guiaOriginal.id_subproyecto,
+              id_etapa: guiaOriginal.id_etapa,
+              id_sector: guiaOriginal.id_sector,
+              id_frente: guiaOriginal.id_frente,
+              id_partida: guiaOriginal.id_partida,
+              id_subetapa: guiaOriginal.id_subetapa,
+              id_subsector: guiaOriginal.id_subsector,
+              id_subfrente: guiaOriginal.id_subfrente,
+              id_subpartida: guiaOriginal.id_subpartida,
+            },
+          });
+
+          // Crear entrada en guia_remision para el duplicado
+          if (guiaRemisionOriginal) {
+            // Si la original tiene guía de remisión, copiar datos
+            await tx.guia_remision.create({
+              data: {
+                operacion: guiaRemisionOriginal.operacion,
+                tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
+                serie: guiaRemisionOriginal.serie,
+                numero: guiaRemisionOriginal.numero + i + 1, // Incrementar número
+                cliente_tipo_de_documento: guiaRemisionOriginal.cliente_tipo_de_documento,
+                cliente_numero_de_documento: guiaRemisionOriginal.cliente_numero_de_documento,
+                cliente_denominacion: guiaRemisionOriginal.cliente_denominacion,
+                cliente_direccion: guiaRemisionOriginal.cliente_direccion,
+                fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
+                peso_bruto_total: guiaRemisionOriginal.peso_bruto_total,
+                peso_bruto_unidad_de_medida: guiaRemisionOriginal.peso_bruto_unidad_de_medida,
+                tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
+                fecha_de_inicio_de_traslado: guiaRemisionOriginal.fecha_de_inicio_de_traslado,
+                transportista_placa_numero: guiaRemisionOriginal.transportista_placa_numero,
+                punto_de_partida_ubigeo: guiaRemisionOriginal.punto_de_partida_ubigeo,
+                punto_de_partida_direccion: guiaRemisionOriginal.punto_de_partida_direccion,
+                punto_de_llegada_ubigeo: guiaRemisionOriginal.punto_de_llegada_ubigeo,
+                punto_de_llegada_direccion: guiaRemisionOriginal.punto_de_llegada_direccion,
+                identificador_unico: nuevoIdentificadorUnico,
+                duplicado_origen_id: guiaRemisionOriginal.id_guia,
+                duplicado_fecha: fechaDuplicacion,
+                duplicado_lote_id: loteId,
+                id_proyecto: guiaOriginal.id_proyecto,
+                id_subproyecto: guiaOriginal.id_subproyecto,
+              },
+            });
+          } else {
+            // Si no tiene guía de remisión, crear entrada básica
+            await tx.guia_remision.create({
+              data: {
+                operacion: '0101',
+                tipo_de_comprobante: 9,
+                serie: 'T001',
+                numero: Date.now() + i,
+                cliente_tipo_de_documento: 6,
+                cliente_numero_de_documento: '00000000000',
+                cliente_denominacion: 'CLIENTE GENERICO',
+                cliente_direccion: 'DIRECCION GENERICA',
+                fecha_de_emision: new Date(),
+                peso_bruto_total: 0,
+                peso_bruto_unidad_de_medida: 'TNE',
+                transportista_placa_numero: 'AAA000',
+                punto_de_partida_ubigeo: '150101',
+                punto_de_partida_direccion: 'DIRECCION PARTIDA',
+                punto_de_llegada_ubigeo: '150101',
+                punto_de_llegada_direccion: 'DIRECCION LLEGADA',
+                fecha_de_inicio_de_traslado: new Date(),
+                identificador_unico: nuevoIdentificadorUnico,
+                duplicado_origen_id: idGuiaOriginal,
+                duplicado_fecha: fechaDuplicacion,
+                duplicado_lote_id: loteId,
+              },
+            });
+          }
+
+          duplicadosCreados.push(duplicadoProgramacion);
+        }
+
+        return duplicadosCreados;
+      });
+
+      // Obtener duplicados con datos completos para retornar
+      const duplicadosCompletos = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as unidad_placa,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          e.razon_social as empresa_razon_social,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr,
+          gr.estado_gre,
+          gr.duplicado_origen_id,
+          gr.duplicado_fecha,
+          gr.duplicado_lote_id,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        WHERE gr.duplicado_lote_id = ${loteId}
+        ORDER BY pt.id
+      `;
+
+      const dataMapped = duplicadosCompletos.map(pt => this.mapProgramacionTecnicaData(pt));
+
+      this.logger.log(`Se crearon ${cantidad} duplicados con lote ${loteId}`);
+
+      return {
+        success: true,
+        message: `Se crearon ${cantidad} duplicados exitosamente`,
+        loteId,
+        duplicados: dataMapped,
+      };
+    } catch (error) {
+      this.logger.error('Error al duplicar guía:', error);
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error al duplicar la guía');
+    }
+  }
+
+  async enviarDuplicadosKafka(loteId: string, idsGuias: number[]) {
+    try {
+      // Por ahora, simplemente marcamos como procesados
+      // En producción, aquí se enviaría a Kafka
+      this.logger.log(`Procesando ${idsGuias.length} guías del lote ${loteId}`);
+
+      let procesados = 0;
+      const errores: Array<{ id: number; error: string }> = [];
+
+      for (const idGuia of idsGuias) {
+        try {
+          // Verificar que la guía exista
+          const guia = await this.prisma.programacion_tecnica.findUnique({
+            where: { id: idGuia },
+          });
+
+          if (!guia) {
+            errores.push({
+              id: idGuia,
+              error: 'Guía no encontrada',
+            });
+            continue;
+          }
+
+          // Verificar que pertenezca al lote
+          const guiaRemision = await this.prisma.guia_remision.findFirst({
+            where: {
+              identificador_unico: guia.identificador_unico,
+              duplicado_lote_id: loteId,
+            },
+          });
+
+          if (!guiaRemision) {
+            errores.push({
+              id: idGuia,
+              error: 'Guía no pertenece al lote especificado',
+            });
+            continue;
+          }
+
+          // TODO: Aquí se enviaría a Kafka
+          // await this.kafkaService.send('guias-topic', { guia, guiaRemision });
+
+          procesados++;
+        } catch (error) {
+          this.logger.error(`Error procesando guía ${idGuia}:`, error);
+          errores.push({
+            id: idGuia,
+            error: error.message,
+          });
+        }
+      }
+
+      return {
+        success: true,
+        message: `Se procesaron ${procesados} de ${idsGuias.length} guías`,
+        procesados,
+        errores,
+      };
+    } catch (error) {
+      this.logger.error('Error al enviar duplicados a Kafka:', error);
+      throw new InternalServerErrorException('Error al enviar duplicados a Kafka');
+    }
+  }
+
+  async eliminarDuplicados(loteId: string) {
+    try {
+      // Verificar que no tengan archivos generados
+      const guiasConArchivos = await this.prisma.guia_remision.count({
+        where: {
+          duplicado_lote_id: loteId,
+          OR: [
+            { enlace_del_pdf: { not: null } },
+            { enlace_del_xml: { not: null } },
+            { enlace_del_cdr: { not: null } },
+          ],
+        },
+      });
+
+      if (guiasConArchivos > 0) {
+        throw new BadRequestException(
+          'No se pueden eliminar duplicados que ya tienen archivos generados',
+        );
+      }
+
+      // Obtener identificadores únicos de las guías a eliminar
+      const guiasAEliminar = await this.prisma.guia_remision.findMany({
+        where: { duplicado_lote_id: loteId },
+        select: { identificador_unico: true },
+      });
+
+      // Filtrar identificadores nulos y convertir a array de strings
+      const identificadores = guiasAEliminar
+        .map((g) => g.identificador_unico)
+        .filter((id): id is string => id !== null);
+
+      // Eliminar en transacción
+      await this.prisma.$transaction(async (tx) => {
+        // Eliminar de guia_remision
+        await tx.guia_remision.deleteMany({
+          where: { duplicado_lote_id: loteId },
+        });
+
+        // Eliminar de programacion_tecnica
+        if (identificadores.length > 0) {
+          await tx.programacion_tecnica.deleteMany({
+            where: {
+              identificador_unico: { in: identificadores },
+            },
+          });
+        }
+      });
+
+      this.logger.log(
+        `Se eliminaron ${identificadores.length} duplicados del lote ${loteId}`,
+      );
+
+      return {
+        success: true,
+        message: `Se eliminaron ${identificadores.length} duplicados del lote ${loteId}`,
+      };
+    } catch (error) {
+      this.logger.error('Error al eliminar duplicados:', error);
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error al eliminar duplicados');
+    }
+  }
+
+  // Método auxiliar para mapear datos de programación técnica
+  private mapProgramacionTecnicaData(pt: any) {
+    const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
+    const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
+    const nombreCompleto =
+      nombreCapitalizado && apellidoCapitalizado
+        ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+        : null;
+
+    let nombreProyecto: string | null = null;
+    let tipoProyecto: 'proyecto' | 'subproyecto' | null = null;
+
+    if (pt.nombre_subproyecto) {
+      nombreProyecto = pt.nombre_subproyecto;
+      tipoProyecto = 'subproyecto';
+    } else if (pt.nombre_proyecto) {
+      nombreProyecto = pt.nombre_proyecto;
+      tipoProyecto = 'proyecto';
+    }
+
+    let horaPartidaISO: string | null = null;
+    if (pt.fecha && pt.hora_partida) {
+      try {
+        const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
+        const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
+        horaPartidaISO = dayjs
+          .tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima')
+          .toISOString();
+      } catch (error) {
+        this.logger.warn(
+          `Error al combinar fecha y hora para registro ${pt.id}:`,
+          error,
+        );
+        horaPartidaISO = pt.hora_partida;
+      }
+    }
+
+    return {
+      id: pt.id,
+      fecha: pt.fecha,
+      unidad: pt.unidad_placa || null,
+      proveedor: pt.empresa_razon_social || null,
+      apellidos_nombres: nombreCompleto,
+      proyectos: nombreProyecto,
+      tipo_proyecto: tipoProyecto,
+      programacion: pt.programacion,
+      hora_partida: horaPartidaISO,
+      estado_programacion: pt.estado_programacion,
+      comentarios: pt.comentarios,
+      validacion: pt.validacion,
+      identificador_unico: pt.identificador_unico,
+      km_del_dia: pt.km_del_dia,
+      mes: pt.mes,
+      num_semana: pt.num_semana,
+      m3: pt.m3 ? pt.m3.toString() : null,
+      cantidad_viaje: pt.cantidad_viaje,
+      enlace_del_pdf: pt.enlace_del_pdf || null,
+      enlace_del_xml: pt.enlace_del_xml || null,
+      enlace_del_cdr: pt.enlace_del_cdr || null,
+      estado_gre: pt.estado_gre || null,
+      duplicado_origen_id: pt.duplicado_origen_id || null,
+      duplicado_fecha: pt.duplicado_fecha || null,
+      duplicado_lote_id: pt.duplicado_lote_id || null,
+    };
+  }
+
+  // ========== FIN PROGRAMACIÓN EXTENDIDA ==========
 }
