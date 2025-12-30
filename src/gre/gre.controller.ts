@@ -517,8 +517,8 @@ export class GreController {
       }
 
       // 2.1. Validar estado de la guía
-      if (!guia.estado_gre || guia.estado_gre === 'PENDIENTE' || guia.estado_gre === 'FALLIDO') {
-        this.logger.warn(`⚠️ Guía ${guia.serie}-${guia.numero} tiene estado: ${guia.estado_gre || 'NULL'}`);
+      if (!guia.estado_gre || guia.estado_gre === 'PENDIENTE' || guia.estado_gre === 'FALLADO') {
+        this.logger.log(`⚠️ Guía ${guia.serie}-${guia.numero} tiene estado: ${guia.estado_gre || 'NULL'}`);
         throw new HttpException(
           `La guía ${guia.serie}-${guia.numero} no ha sido generada exitosamente en Nubefact. ` +
           `Estado actual: ${guia.estado_gre || 'NO PROCESADO'}. ` +
@@ -600,7 +600,7 @@ export class GreController {
           where: { identificador_unico: (await this.prisma.programacion_tecnica.findUnique({ where: { id: parseInt(id) } }))?.identificador_unico }
         });
 
-        this.logger.warn(`⚠️ Guía ${guia?.serie}-${guia?.numero} no existe en Nubefact. Estado actual: ${guia?.estado_gre}`);
+        this.logger.log(`⚠️ Guía ${guia?.serie}-${guia?.numero} no existe en Nubefact. Estado actual: ${guia?.estado_gre}`);
 
         throw new HttpException(
           `El documento ${guia?.serie}-${guia?.numero} NO EXISTE en Nubefact. ` +
