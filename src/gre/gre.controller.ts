@@ -516,6 +516,17 @@ export class GreController {
         throw new HttpException('Guía no encontrada', HttpStatus.NOT_FOUND);
       }
 
+      // 2.1. Validar estado de la guía
+      if (!guia.estado_gre || guia.estado_gre === 'PENDIENTE' || guia.estado_gre === 'FALLIDO') {
+        this.logger.warn(`⚠️ Guía ${guia.serie}-${guia.numero} tiene estado: ${guia.estado_gre || 'NULL'}`);
+        throw new HttpException(
+          `La guía ${guia.serie}-${guia.numero} no ha sido generada exitosamente en Nubefact. ` +
+          `Estado actual: ${guia.estado_gre || 'NO PROCESADO'}. ` +
+          `Por favor, genere la guía primero antes de intentar recuperar archivos.`,
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
       // 3. Preparar datos para consultar_guia
       const consultaData = {
         operacion: 'consultar_guia',
@@ -582,6 +593,23 @@ export class GreController {
 
     } catch (error) {
       this.logger.error('Error en consulta manual:', error);
+
+      // Manejo específico para error de Nubefact "Documento no existe"
+      if (error.response?.status === 400 && error.response?.data?.errors === 'Documento no existe') {
+        const guia = await this.prisma.guia_remision.findFirst({
+          where: { identificador_unico: (await this.prisma.programacion_tecnica.findUnique({ where: { id: parseInt(id) } }))?.identificador_unico }
+        });
+
+        this.logger.warn(`⚠️ Guía ${guia?.serie}-${guia?.numero} no existe en Nubefact. Estado actual: ${guia?.estado_gre}`);
+
+        throw new HttpException(
+          `El documento ${guia?.serie}-${guia?.numero} NO EXISTE en Nubefact. ` +
+          `La guía nunca fue enviada correctamente o el proceso falló. ` +
+          `Debe generar la guía nuevamente desde el inicio.`,
+          HttpStatus.NOT_FOUND
+        );
+      }
+
       throw new HttpException(
         `Error en consulta manual: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR

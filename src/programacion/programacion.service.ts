@@ -854,7 +854,7 @@ export class ProgramacionService {
                 operacion: '0101',
                 tipo_de_comprobante: 9,
                 serie: 'T001',
-                numero: Date.now() + i,
+                numero: (Date.now() % 999999999) + i,
                 cliente_tipo_de_documento: 6,
                 cliente_numero_de_documento: '00000000000',
                 cliente_denominacion: 'CLIENTE GENERICO',
