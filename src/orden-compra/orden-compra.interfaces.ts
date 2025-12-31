@@ -43,9 +43,12 @@ export interface Totales {
   subtotal: number;
   igv: number;
   total: number;
-  proveedorAgenteRetencion: boolean;
+  tieneRetencion: boolean;
   retencionPorcentaje: number;
   retencionMonto: number;
+  tieneDetraccion: boolean;
+  detraccionPorcentaje: number;
+  detraccionMonto: number;
   netoAPagar: number;
   tieneAnticipo?: boolean;
 }

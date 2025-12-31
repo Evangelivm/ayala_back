@@ -448,8 +448,10 @@ export class FacturaCrudController {
    * Actualiza una factura (solo si está en estado NULL o FALLADO)
    */
   @Put(':id')
-  @UsePipes(new ZodValidationPipe(UpdateFacturaSchema))
-  async update(@Param('id') id: string, @Body() data: any) {
+  async update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateFacturaSchema)) data: any
+  ) {
     try {
       const id_factura = parseInt(id);
       this.logger.log(`Actualizando factura ${id}...`);

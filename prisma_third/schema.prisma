@@ -618,7 +618,7 @@ model factura {
   aplicar_detraccion             Boolean                 @default(false)
   detraccion_tipo                Int?
   detraccion_porcentaje          Decimal?                @db.Decimal(5, 2)
-  detraccion_total               Decimal?                @db.Decimal(12, 10)
+  detraccion_total               Decimal?                @db.Decimal(12, 2)
   medio_pago_detraccion          Int?
   ubigeo_origen                  String?                 @db.VarChar(6)
   direccion_origen               String?                 @db.VarChar(100)
@@ -698,9 +698,9 @@ model factura_item {
   codigo_producto_sunat     String?  @db.VarChar(8)
   descripcion_item          String   @db.VarChar(250)
   unidad_medida             String   @db.VarChar(5)
-  cantidad                  Decimal  @db.Decimal(12, 10)
-  valor_unitario            Decimal  @db.Decimal(12, 10)
-  precio_unitario           Decimal  @db.Decimal(12, 10)
+  cantidad                  Decimal  @db.Decimal(12, 4)
+  valor_unitario            Decimal  @db.Decimal(12, 2)
+  precio_unitario           Decimal  @db.Decimal(12, 2)
   descuento                 Decimal? @db.Decimal(12, 2)
   subtotal                  Decimal  @db.Decimal(12, 2)
   tipo_de_igv               Int

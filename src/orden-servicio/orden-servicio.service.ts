@@ -266,6 +266,10 @@ export class OrdenServicioService {
             porcentaje_valor_detraccion:
               createOrdenServicioDto.porcentaje_valor_detraccion,
             valor_detraccion: createOrdenServicioDto.valor_detraccion,
+            retencion: createOrdenServicioDto.retencion,
+            porcentaje_valor_retencion:
+              createOrdenServicioDto.porcentaje_valor_retencion,
+            valor_retencion: createOrdenServicioDto.valor_retencion,
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
@@ -459,25 +463,42 @@ export class OrdenServicioService {
         const igv = parseFloat(ordenServicio.igv?.toString() || '0');
         const total = parseFloat(ordenServicio.total?.toString() || '0');
 
-        // Verificar si hay detracción basándose en el campo detraccion de la orden
+        // Verificar si hay retención o detracción (solo uno puede estar activo)
+        const tieneRetencion = ordenServicio.retencion?.toUpperCase() === 'SI';
         const tieneDetraccion =
           ordenServicio.detraccion?.toUpperCase() === 'SI';
+
+        // Calcular retención
+        const retencionPorcentaje = ordenServicio.porcentaje_valor_retencion
+          ? parseFloat(ordenServicio.porcentaje_valor_retencion)
+          : 3;
+        const retencionMonto = tieneRetencion
+          ? (total * retencionPorcentaje) / 100
+          : 0;
+
+        // Calcular detracción
         const detraccionPorcentaje = ordenServicio.porcentaje_valor_detraccion
           ? parseFloat(ordenServicio.porcentaje_valor_detraccion)
-          : 3; // Valor por defecto si no está definido
+          : 3;
         const detraccionMonto = tieneDetraccion
           ? (total * detraccionPorcentaje) / 100
           : 0;
-        const netoAPagar = total - detraccionMonto;
 
-        // Verificar si hay anticipo basándose en el campo has_anticipo de la orden
+        // Neto a pagar: total - (retención o detracción)
+        const descuento = tieneRetencion ? retencionMonto : detraccionMonto;
+        const netoAPagar = total - descuento;
+
+        // Verificar si hay anticipo
         const tieneAnticipo = ordenServicio.has_anticipo === true;
 
         return {
           subtotal,
           igv,
           total,
-          proveedorAgenteRetencion: tieneDetraccion,
+          tieneRetencion,
+          retencionPorcentaje,
+          retencionMonto,
+          tieneDetraccion,
           detraccionPorcentaje,
           detraccionMonto,
           netoAPagar,
@@ -737,11 +758,22 @@ export class OrdenServicioService {
 
         yPos += 50;
 
-        // Determinar posiciones para los cuadros de DETRACCIÓN y ANTICIPO
-        const tieneDetraccion = ordenData.totales.proveedorAgenteRetencion;
+        // Determinar qué mostrar: Retención, Detracción o Anticipo
+        const tieneRetencion = ordenData.totales.tieneRetencion;
+        const tieneDetraccion = ordenData.totales.tieneDetraccion;
         const tieneAnticipo = ordenData.totales.tieneAnticipo;
 
-        // Mostrar tipo de detracción si existe (a la izquierda del cuadro)
+        // Determinar el tipo de descuento y su texto
+        const tieneDescuento = tieneRetencion || tieneDetraccion;
+        const textoDescuento = tieneRetencion ? 'RETENCIÓN' : 'DETRACCIÓN';
+        const porcentajeDescuento = tieneRetencion
+          ? ordenData.totales.retencionPorcentaje
+          : ordenData.totales.detraccionPorcentaje;
+        const montoDescuento = tieneRetencion
+          ? ordenData.totales.retencionMonto
+          : ordenData.totales.detraccionMonto;
+
+        // Mostrar tipo de detracción si existe (solo si es detracción)
         if (tieneDetraccion && ordenData.totales.tipoDetraccionTexto) {
           doc.fontSize(8).font('Helvetica').fillColor('#000000');
           doc.text(ordenData.totales.tipoDetraccionTexto, 40, yPos - 20, {
@@ -750,18 +782,18 @@ export class OrdenServicioService {
           });
         }
 
-        // Si hay detracción y anticipo, mostrar ambos cuadros lado a lado
-        if (tieneDetraccion && tieneAnticipo) {
-          // Cuadro de DETRACCIÓN (izquierda)
+        // Mostrar cuadros según lo que esté activo
+        if (tieneDescuento && tieneAnticipo) {
+          // Cuadro de RETENCIÓN/DETRACCIÓN (izquierda)
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
-          doc.text('DETRACCIÓN', 40, yPos + 1, {
+          doc.text(textoDescuento, 40, yPos + 1, {
             width: 150,
             align: 'center',
           });
           doc.fillColor('#000000');
 
-          // Cuadro de ANTICIPO (al lado de detracción)
+          // Cuadro de ANTICIPO (derecha)
           this.drawHighlightBox(doc, 200, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
           doc.text('ANTICIPO', 200, yPos + 1, {
@@ -769,17 +801,17 @@ export class OrdenServicioService {
             align: 'center',
           });
           doc.fillColor('#000000');
-        } else if (tieneDetraccion) {
-          // Solo detracción
+        } else if (tieneDescuento) {
+          // Solo RETENCIÓN o DETRACCIÓN
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
-          doc.text('DETRACCIÓN', 40, yPos + 1, {
+          doc.text(textoDescuento, 40, yPos + 1, {
             width: 150,
             align: 'center',
           });
           doc.fillColor('#000000');
         } else if (tieneAnticipo) {
-          // Solo anticipo (en la posición donde iría detracción)
+          // Solo ANTICIPO
           this.drawHighlightBox(doc, 40, yPos - 5, 150, 25, '#FF0000');
           doc.fontSize(14).font('Helvetica-Bold').fillColor('#FFFFFF');
           doc.text('ANTICIPO', 40, yPos + 1, {
@@ -789,16 +821,16 @@ export class OrdenServicioService {
           doc.fillColor('#000000');
         }
 
-        // Solo mostrar campos de detracción si proveedorAgenteRetencion es true
-        if (ordenData.totales.proveedorAgenteRetencion) {
+        // Mostrar valores de retención o detracción si están activos
+        if (tieneDescuento) {
           doc.fontSize(8).font('Helvetica');
           doc.text(
-            `Detracción ${ordenData.totales.detraccionPorcentaje}%:`,
+            `${textoDescuento === 'RETENCIÓN' ? 'Retención' : 'Detracción'} ${porcentajeDescuento}%:`,
             totalesX,
             yPos,
           );
           doc.text(
-            ordenData.totales.detraccionMonto.toFixed(2),
+            montoDescuento.toFixed(2),
             totalesX + 80,
             yPos,
             { align: 'right', width: 50 },
@@ -824,7 +856,7 @@ export class OrdenServicioService {
 
           yPos += 60;
         } else {
-          // Si no hay retención, solo mostrar el total como neto a pagar
+          // Si no hay retención ni detracción, mostrar el total como neto a pagar
           doc.fontSize(8).font('Helvetica');
           doc.text('Neto a pagar:', totalesX, yPos);
           this.drawHighlightBox(
@@ -1480,6 +1512,10 @@ export class OrdenServicioService {
               porcentaje_valor_detraccion:
                 updateOrdenServicioDto.porcentaje_valor_detraccion,
               valor_detraccion: updateOrdenServicioDto.valor_detraccion,
+              retencion: updateOrdenServicioDto.retencion,
+              porcentaje_valor_retencion:
+                updateOrdenServicioDto.porcentaje_valor_retencion,
+              valor_retencion: updateOrdenServicioDto.valor_retencion,
               almacen_central: updateOrdenServicioDto.almacen_central,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenServicioDto.tiene_anticipo,
