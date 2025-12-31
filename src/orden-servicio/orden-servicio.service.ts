@@ -486,7 +486,7 @@ export class OrdenServicioService {
         };
       })(),
       firmas: {
-        generaOrden: 'VLADIMIR',
+        generaOrden: '',
         jefeAdministrativo: '',
         gerencia: '',
         jefeProyectos: '',
@@ -1635,12 +1635,16 @@ export class OrdenServicioService {
    * Migración: Actualiza todas las órdenes PENDIENTES que cumplan las condiciones a COMPLETADA
    * Esta función debe ejecutarse una sola vez después del cambio de lógica (sin anticipo)
    */
-  async migrarOrdenesACompletada(): Promise<{ actualizadas: number; detalles: any[] }> {
+  async migrarOrdenesACompletada(): Promise<{
+    actualizadas: number;
+    detalles: any[];
+  }> {
     try {
       // Obtener todas las órdenes en estado PENDIENTE
-      const ordenesPendientes = await this.prismaThird.ordenes_servicio.findMany({
-        where: { estado: 'PENDIENTE' },
-      });
+      const ordenesPendientes =
+        await this.prismaThird.ordenes_servicio.findMany({
+          where: { estado: 'PENDIENTE' },
+        });
 
       const detalles: any[] = [];
       let actualizadas = 0;
@@ -1683,9 +1687,7 @@ export class OrdenServicioService {
       return { actualizadas, detalles };
     } catch (error) {
       console.error('Error en migración de órdenes de servicio:', error);
-      throw new BadRequestException(
-        `Error en migración: ${error.message}`,
-      );
+      throw new BadRequestException(`Error en migración: ${error.message}`);
     }
   }
 
@@ -1895,6 +1897,39 @@ export class OrdenServicioService {
       console.error('Error al pagar orden de servicio:', error);
       throw new BadRequestException(
         `Error al pagar orden de servicio: ${error.message}`,
+      );
+    }
+  }
+
+  async actualizarNumeroFactura(id: number, nroFactura: string): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el número de factura
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { nro_factura: nroFactura },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar número de factura:', error);
+      throw new BadRequestException(
+        `Error al actualizar número de factura: ${error.message}`,
       );
     }
   }

@@ -466,7 +466,7 @@ export class OrdenCompraService {
         };
       })(),
       firmas: {
-        generaOrden: 'VLADIMIR',
+        generaOrden: '',
         jefeAdministrativo: '',
         gerencia: '',
         jefeProyectos: '',
@@ -1578,7 +1578,10 @@ export class OrdenCompraService {
    * Migración: Actualiza todas las órdenes PENDIENTES que cumplan las condiciones a COMPLETADA
    * Esta función debe ejecutarse una sola vez después del cambio de lógica (sin anticipo)
    */
-  async migrarOrdenesACompletada(): Promise<{ actualizadas: number; detalles: any[] }> {
+  async migrarOrdenesACompletada(): Promise<{
+    actualizadas: number;
+    detalles: any[];
+  }> {
     try {
       // Obtener todas las órdenes en estado PENDIENTE
       const ordenesPendientes = await this.prismaThird.ordenes_compra.findMany({
@@ -1626,9 +1629,7 @@ export class OrdenCompraService {
       return { actualizadas, detalles };
     } catch (error) {
       console.error('Error en migración de órdenes de compra:', error);
-      throw new BadRequestException(
-        `Error en migración: ${error.message}`,
-      );
+      throw new BadRequestException(`Error en migración: ${error.message}`);
     }
   }
 
@@ -1795,6 +1796,39 @@ export class OrdenCompraService {
       console.error('Error al pagar orden de compra:', error);
       throw new BadRequestException(
         `Error al pagar orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  async actualizarNumeroFactura(id: number, nroFactura: string): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el número de factura
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { nro_factura: nroFactura },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar número de factura:', error);
+      throw new BadRequestException(
+        `Error al actualizar número de factura: ${error.message}`,
       );
     }
   }

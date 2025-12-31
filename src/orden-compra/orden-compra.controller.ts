@@ -231,6 +231,24 @@ export class OrdenCompraController {
     }
   }
 
+  @Patch(':id/numero-factura')
+  @HttpCode(HttpStatus.OK)
+  async actualizarNumeroFactura(
+    @Param('id') id: string,
+    @Body() body: { nro_factura: string },
+  ) {
+    try {
+      await this.ordenCompraService.actualizarNumeroFactura(+id, body.nro_factura);
+      return {
+        success: true,
+        message: 'Número de factura actualizado exitosamente',
+      };
+    } catch (error) {
+      console.error('Error al actualizar número de factura:', error);
+      throw error;
+    }
+  }
+
   @Post('migrar-estados')
   @HttpCode(HttpStatus.OK)
   async migrarEstados() {

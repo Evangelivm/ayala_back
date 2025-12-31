@@ -337,7 +337,8 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
-  url_factura: 'url_factura'
+  url_factura: 'url_factura',
+  nro_factura: 'nro_factura'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -475,7 +476,8 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
-  url_factura: 'url_factura'
+  url_factura: 'url_factura',
+  nro_factura: 'nro_factura'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -667,6 +669,38 @@ exports.Prisma.Tipo_detraccionScalarFieldEnum = {
   porcentaje_detraccion: 'porcentaje_detraccion'
 };
 
+exports.Prisma.CentroproyectoScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  proyecto: 'proyecto'
+};
+
+exports.Prisma.CentrosubproyectoScalarFieldEnum = {
+  id: 'id',
+  subcodigopro: 'subcodigopro',
+  subprodes: 'subprodes',
+  id_sub: 'id_sub'
+};
+
+exports.Prisma.FasecontrolScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.RubroScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.SubrubroScalarFieldEnum = {
+  id: 'id',
+  subcodigo: 'subcodigo',
+  subdescripcion: 'subdescripcion',
+  sub_id: 'sub_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -799,7 +833,8 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
-  url_factura: 'url_factura'
+  url_factura: 'url_factura',
+  nro_factura: 'nro_factura'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
@@ -866,7 +901,8 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   almacen_central: 'almacen_central',
   url: 'url',
   url_cotizacion: 'url_cotizacion',
-  url_factura: 'url_factura'
+  url_factura: 'url_factura',
+  nro_factura: 'nro_factura'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
@@ -948,6 +984,31 @@ exports.Prisma.movimientos_adicionalesOrderByRelevanceFieldEnum = {
 exports.Prisma.tipo_detraccionOrderByRelevanceFieldEnum = {
   id_tipo_detraccion: 'id_tipo_detraccion',
   tipo_detraccion: 'tipo_detraccion'
+};
+
+exports.Prisma.centroproyectoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  proyecto: 'proyecto'
+};
+
+exports.Prisma.centrosubproyectoOrderByRelevanceFieldEnum = {
+  subcodigopro: 'subcodigopro',
+  subprodes: 'subprodes'
+};
+
+exports.Prisma.fasecontrolOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.rubroOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.subrubroOrderByRelevanceFieldEnum = {
+  subcodigo: 'subcodigo',
+  subdescripcion: 'subdescripcion'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -1038,6 +1099,7 @@ exports.ordenes_compra_estado_firma = exports.$Enums.ordenes_compra_estado_firma
 exports.permisos_rol_rol = exports.$Enums.permisos_rol_rol = {
   ADMIN: 'ADMIN',
   ALMACENERO: 'ALMACENERO',
+  AUXILIAR: 'AUXILIAR',
   USER: 'USER'
 };
 
@@ -1066,6 +1128,7 @@ exports.tipos_movimiento_tipo_operacion = exports.$Enums.tipos_movimiento_tipo_o
 exports.usuarios_rol = exports.$Enums.usuarios_rol = {
   ADMIN: 'ADMIN',
   ALMACENERO: 'ALMACENERO',
+  AUXILIAR: 'AUXILIAR',
   USER: 'USER'
 };
 
@@ -1126,7 +1189,12 @@ exports.Prisma.ModelName = {
   factura_item: 'factura_item',
   factura_venta_credito: 'factura_venta_credito',
   movimientos_adicionales: 'movimientos_adicionales',
-  tipo_detraccion: 'tipo_detraccion'
+  tipo_detraccion: 'tipo_detraccion',
+  centroproyecto: 'centroproyecto',
+  centrosubproyecto: 'centrosubproyecto',
+  fasecontrol: 'fasecontrol',
+  rubro: 'rubro',
+  subrubro: 'subrubro'
 };
 
 /**

@@ -198,21 +198,37 @@ export type movimientos_adicionales = $Result.DefaultSelection<Prisma.$movimient
  * 
  */
 export type tipo_detraccion = $Result.DefaultSelection<Prisma.$tipo_detraccionPayload>
+/**
+ * Model centroproyecto
+ * 
+ */
+export type centroproyecto = $Result.DefaultSelection<Prisma.$centroproyectoPayload>
+/**
+ * Model centrosubproyecto
+ * 
+ */
+export type centrosubproyecto = $Result.DefaultSelection<Prisma.$centrosubproyectoPayload>
+/**
+ * Model fasecontrol
+ * 
+ */
+export type fasecontrol = $Result.DefaultSelection<Prisma.$fasecontrolPayload>
+/**
+ * Model rubro
+ * 
+ */
+export type rubro = $Result.DefaultSelection<Prisma.$rubroPayload>
+/**
+ * Model subrubro
+ * 
+ */
+export type subrubro = $Result.DefaultSelection<Prisma.$subrubroPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const permisos_rol_rol: {
-  ADMIN: 'ADMIN',
-  ALMACENERO: 'ALMACENERO',
-  USER: 'USER'
-};
-
-export type permisos_rol_rol = (typeof permisos_rol_rol)[keyof typeof permisos_rol_rol]
-
-
-export const configuracion_notificaciones_tipo_notificacion: {
+  export const configuracion_notificaciones_tipo_notificacion: {
   EMAIL: 'EMAIL',
   SMS: 'SMS'
 };
@@ -258,15 +274,6 @@ export const notificaciones_tipo: {
 };
 
 export type notificaciones_tipo = (typeof notificaciones_tipo)[keyof typeof notificaciones_tipo]
-
-
-export const usuarios_rol: {
-  ADMIN: 'ADMIN',
-  ALMACENERO: 'ALMACENERO',
-  USER: 'USER'
-};
-
-export type usuarios_rol = (typeof usuarios_rol)[keyof typeof usuarios_rol]
 
 
 export const conteo_ciclico_estado: {
@@ -408,11 +415,27 @@ export const proyecto_estado: {
 
 export type proyecto_estado = (typeof proyecto_estado)[keyof typeof proyecto_estado]
 
+
+export const permisos_rol_rol: {
+  ADMIN: 'ADMIN',
+  ALMACENERO: 'ALMACENERO',
+  AUXILIAR: 'AUXILIAR',
+  USER: 'USER'
+};
+
+export type permisos_rol_rol = (typeof permisos_rol_rol)[keyof typeof permisos_rol_rol]
+
+
+export const usuarios_rol: {
+  ADMIN: 'ADMIN',
+  ALMACENERO: 'ALMACENERO',
+  AUXILIAR: 'AUXILIAR',
+  USER: 'USER'
+};
+
+export type usuarios_rol = (typeof usuarios_rol)[keyof typeof usuarios_rol]
+
 }
-
-export type permisos_rol_rol = $Enums.permisos_rol_rol
-
-export const permisos_rol_rol: typeof $Enums.permisos_rol_rol
 
 export type configuracion_notificaciones_tipo_notificacion = $Enums.configuracion_notificaciones_tipo_notificacion
 
@@ -433,10 +456,6 @@ export const almacenes_tipo_almacen: typeof $Enums.almacenes_tipo_almacen
 export type notificaciones_tipo = $Enums.notificaciones_tipo
 
 export const notificaciones_tipo: typeof $Enums.notificaciones_tipo
-
-export type usuarios_rol = $Enums.usuarios_rol
-
-export const usuarios_rol: typeof $Enums.usuarios_rol
 
 export type conteo_ciclico_estado = $Enums.conteo_ciclico_estado
 
@@ -497,6 +516,14 @@ export const ordenes_servicio_estado_firma: typeof $Enums.ordenes_servicio_estad
 export type proyecto_estado = $Enums.proyecto_estado
 
 export const proyecto_estado: typeof $Enums.proyecto_estado
+
+export type permisos_rol_rol = $Enums.permisos_rol_rol
+
+export const permisos_rol_rol: typeof $Enums.permisos_rol_rol
+
+export type usuarios_rol = $Enums.usuarios_rol
+
+export const usuarios_rol: typeof $Enums.usuarios_rol
 
 /**
  * ##  Prisma Client ʲˢ
@@ -985,6 +1012,56 @@ export class PrismaClient<
     * ```
     */
   get tipo_detraccion(): Prisma.tipo_detraccionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.centroproyecto`: Exposes CRUD operations for the **centroproyecto** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Centroproyectos
+    * const centroproyectos = await prisma.centroproyecto.findMany()
+    * ```
+    */
+  get centroproyecto(): Prisma.centroproyectoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.centrosubproyecto`: Exposes CRUD operations for the **centrosubproyecto** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Centrosubproyectos
+    * const centrosubproyectos = await prisma.centrosubproyecto.findMany()
+    * ```
+    */
+  get centrosubproyecto(): Prisma.centrosubproyectoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.fasecontrol`: Exposes CRUD operations for the **fasecontrol** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Fasecontrols
+    * const fasecontrols = await prisma.fasecontrol.findMany()
+    * ```
+    */
+  get fasecontrol(): Prisma.fasecontrolDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rubro`: Exposes CRUD operations for the **rubro** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rubros
+    * const rubros = await prisma.rubro.findMany()
+    * ```
+    */
+  get rubro(): Prisma.rubroDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subrubro`: Exposes CRUD operations for the **subrubro** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subrubros
+    * const subrubros = await prisma.subrubro.findMany()
+    * ```
+    */
+  get subrubro(): Prisma.subrubroDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1462,7 +1539,12 @@ export namespace Prisma {
     factura_item: 'factura_item',
     factura_venta_credito: 'factura_venta_credito',
     movimientos_adicionales: 'movimientos_adicionales',
-    tipo_detraccion: 'tipo_detraccion'
+    tipo_detraccion: 'tipo_detraccion',
+    centroproyecto: 'centroproyecto',
+    centrosubproyecto: 'centrosubproyecto',
+    fasecontrol: 'fasecontrol',
+    rubro: 'rubro',
+    subrubro: 'subrubro'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1481,7 +1563,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3927,6 +4009,336 @@ export namespace Prisma {
           }
         }
       }
+      centroproyecto: {
+        payload: Prisma.$centroproyectoPayload<ExtArgs>
+        fields: Prisma.centroproyectoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.centroproyectoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.centroproyectoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          findFirst: {
+            args: Prisma.centroproyectoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.centroproyectoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          findMany: {
+            args: Prisma.centroproyectoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>[]
+          }
+          create: {
+            args: Prisma.centroproyectoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          createMany: {
+            args: Prisma.centroproyectoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.centroproyectoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          update: {
+            args: Prisma.centroproyectoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          deleteMany: {
+            args: Prisma.centroproyectoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.centroproyectoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.centroproyectoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centroproyectoPayload>
+          }
+          aggregate: {
+            args: Prisma.CentroproyectoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCentroproyecto>
+          }
+          groupBy: {
+            args: Prisma.centroproyectoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CentroproyectoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.centroproyectoCountArgs<ExtArgs>
+            result: $Utils.Optional<CentroproyectoCountAggregateOutputType> | number
+          }
+        }
+      }
+      centrosubproyecto: {
+        payload: Prisma.$centrosubproyectoPayload<ExtArgs>
+        fields: Prisma.centrosubproyectoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.centrosubproyectoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.centrosubproyectoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          findFirst: {
+            args: Prisma.centrosubproyectoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.centrosubproyectoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          findMany: {
+            args: Prisma.centrosubproyectoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>[]
+          }
+          create: {
+            args: Prisma.centrosubproyectoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          createMany: {
+            args: Prisma.centrosubproyectoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.centrosubproyectoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          update: {
+            args: Prisma.centrosubproyectoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          deleteMany: {
+            args: Prisma.centrosubproyectoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.centrosubproyectoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.centrosubproyectoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$centrosubproyectoPayload>
+          }
+          aggregate: {
+            args: Prisma.CentrosubproyectoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCentrosubproyecto>
+          }
+          groupBy: {
+            args: Prisma.centrosubproyectoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CentrosubproyectoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.centrosubproyectoCountArgs<ExtArgs>
+            result: $Utils.Optional<CentrosubproyectoCountAggregateOutputType> | number
+          }
+        }
+      }
+      fasecontrol: {
+        payload: Prisma.$fasecontrolPayload<ExtArgs>
+        fields: Prisma.fasecontrolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.fasecontrolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.fasecontrolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          findFirst: {
+            args: Prisma.fasecontrolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.fasecontrolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          findMany: {
+            args: Prisma.fasecontrolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>[]
+          }
+          create: {
+            args: Prisma.fasecontrolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          createMany: {
+            args: Prisma.fasecontrolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.fasecontrolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          update: {
+            args: Prisma.fasecontrolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          deleteMany: {
+            args: Prisma.fasecontrolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.fasecontrolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.fasecontrolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$fasecontrolPayload>
+          }
+          aggregate: {
+            args: Prisma.FasecontrolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFasecontrol>
+          }
+          groupBy: {
+            args: Prisma.fasecontrolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FasecontrolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.fasecontrolCountArgs<ExtArgs>
+            result: $Utils.Optional<FasecontrolCountAggregateOutputType> | number
+          }
+        }
+      }
+      rubro: {
+        payload: Prisma.$rubroPayload<ExtArgs>
+        fields: Prisma.rubroFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.rubroFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.rubroFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          findFirst: {
+            args: Prisma.rubroFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.rubroFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          findMany: {
+            args: Prisma.rubroFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>[]
+          }
+          create: {
+            args: Prisma.rubroCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          createMany: {
+            args: Prisma.rubroCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.rubroDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          update: {
+            args: Prisma.rubroUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          deleteMany: {
+            args: Prisma.rubroDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.rubroUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.rubroUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$rubroPayload>
+          }
+          aggregate: {
+            args: Prisma.RubroAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRubro>
+          }
+          groupBy: {
+            args: Prisma.rubroGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RubroGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.rubroCountArgs<ExtArgs>
+            result: $Utils.Optional<RubroCountAggregateOutputType> | number
+          }
+        }
+      }
+      subrubro: {
+        payload: Prisma.$subrubroPayload<ExtArgs>
+        fields: Prisma.subrubroFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.subrubroFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.subrubroFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          findFirst: {
+            args: Prisma.subrubroFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.subrubroFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          findMany: {
+            args: Prisma.subrubroFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>[]
+          }
+          create: {
+            args: Prisma.subrubroCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          createMany: {
+            args: Prisma.subrubroCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.subrubroDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          update: {
+            args: Prisma.subrubroUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          deleteMany: {
+            args: Prisma.subrubroDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.subrubroUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.subrubroUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subrubroPayload>
+          }
+          aggregate: {
+            args: Prisma.SubrubroAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubrubro>
+          }
+          groupBy: {
+            args: Prisma.subrubroGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubrubroGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.subrubroCountArgs<ExtArgs>
+            result: $Utils.Optional<SubrubroCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4060,6 +4472,11 @@ export namespace Prisma {
     factura_venta_credito?: factura_venta_creditoOmit
     movimientos_adicionales?: movimientos_adicionalesOmit
     tipo_detraccion?: tipo_detraccionOmit
+    centroproyecto?: centroproyectoOmit
+    centrosubproyecto?: centrosubproyectoOmit
+    fasecontrol?: fasecontrolOmit
+    rubro?: rubroOmit
+    subrubro?: subrubroOmit
   }
 
   /* Types for Logging */
@@ -4845,6 +5262,68 @@ export namespace Prisma {
    */
   export type FacturaCountOutputTypeCountFactura_venta_creditoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: factura_venta_creditoWhereInput
+  }
+
+
+  /**
+   * Count Type CentroproyectoCountOutputType
+   */
+
+  export type CentroproyectoCountOutputType = {
+    centrosubproyecto: number
+  }
+
+  export type CentroproyectoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    centrosubproyecto?: boolean | CentroproyectoCountOutputTypeCountCentrosubproyectoArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CentroproyectoCountOutputType without action
+   */
+  export type CentroproyectoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CentroproyectoCountOutputType
+     */
+    select?: CentroproyectoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CentroproyectoCountOutputType without action
+   */
+  export type CentroproyectoCountOutputTypeCountCentrosubproyectoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: centrosubproyectoWhereInput
+  }
+
+
+  /**
+   * Count Type RubroCountOutputType
+   */
+
+  export type RubroCountOutputType = {
+    subrubro: number
+  }
+
+  export type RubroCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subrubro?: boolean | RubroCountOutputTypeCountSubrubroArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RubroCountOutputType without action
+   */
+  export type RubroCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RubroCountOutputType
+     */
+    select?: RubroCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RubroCountOutputType without action
+   */
+  export type RubroCountOutputTypeCountSubrubroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: subrubroWhereInput
   }
 
 
@@ -20891,6 +21370,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -20935,6 +21415,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -20979,6 +21460,7 @@ export namespace Prisma {
     url: number
     url_cotizacion: number
     url_factura: number
+    nro_factura: number
     _all: number
   }
 
@@ -21053,6 +21535,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -21097,6 +21580,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -21141,6 +21625,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
     _all?: true
   }
 
@@ -21272,6 +21757,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -21335,6 +21821,7 @@ export namespace Prisma {
     url?: boolean
     url_cotizacion?: boolean
     url_factura?: boolean
+    nro_factura?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -21386,9 +21873,10 @@ export namespace Prisma {
     url?: boolean
     url_cotizacion?: boolean
     url_factura?: boolean
+    nro_factura?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -21447,6 +21935,7 @@ export namespace Prisma {
       url: string | null
       url_cotizacion: string | null
       url_factura: string | null
+      nro_factura: string | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -21861,6 +22350,7 @@ export namespace Prisma {
     readonly url: FieldRef<"ordenes_compra", 'String'>
     readonly url_cotizacion: FieldRef<"ordenes_compra", 'String'>
     readonly url_factura: FieldRef<"ordenes_compra", 'String'>
+    readonly nro_factura: FieldRef<"ordenes_compra", 'String'>
   }
     
 
@@ -30999,6 +31489,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -31043,6 +31534,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -31087,6 +31579,7 @@ export namespace Prisma {
     url: number
     url_cotizacion: number
     url_factura: number
+    nro_factura: number
     _all: number
   }
 
@@ -31161,6 +31654,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -31205,6 +31699,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -31249,6 +31744,7 @@ export namespace Prisma {
     url?: true
     url_cotizacion?: true
     url_factura?: true
+    nro_factura?: true
     _all?: true
   }
 
@@ -31380,6 +31876,7 @@ export namespace Prisma {
     url: string | null
     url_cotizacion: string | null
     url_factura: string | null
+    nro_factura: string | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -31443,6 +31940,7 @@ export namespace Prisma {
     url?: boolean
     url_cotizacion?: boolean
     url_factura?: boolean
+    nro_factura?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -31493,9 +31991,10 @@ export namespace Prisma {
     url?: boolean
     url_cotizacion?: boolean
     url_factura?: boolean
+    nro_factura?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -31552,6 +32051,7 @@ export namespace Prisma {
       url: string | null
       url_cotizacion: string | null
       url_factura: string | null
+      nro_factura: string | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -31965,6 +32465,7 @@ export namespace Prisma {
     readonly url: FieldRef<"ordenes_servicio", 'String'>
     readonly url_cotizacion: FieldRef<"ordenes_servicio", 'String'>
     readonly url_factura: FieldRef<"ordenes_servicio", 'String'>
+    readonly nro_factura: FieldRef<"ordenes_servicio", 'String'>
   }
     
 
@@ -44966,6 +45467,4784 @@ export namespace Prisma {
 
 
   /**
+   * Model centroproyecto
+   */
+
+  export type AggregateCentroproyecto = {
+    _count: CentroproyectoCountAggregateOutputType | null
+    _avg: CentroproyectoAvgAggregateOutputType | null
+    _sum: CentroproyectoSumAggregateOutputType | null
+    _min: CentroproyectoMinAggregateOutputType | null
+    _max: CentroproyectoMaxAggregateOutputType | null
+  }
+
+  export type CentroproyectoAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CentroproyectoSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CentroproyectoMinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    proyecto: string | null
+  }
+
+  export type CentroproyectoMaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    proyecto: string | null
+  }
+
+  export type CentroproyectoCountAggregateOutputType = {
+    id: number
+    codigo: number
+    proyecto: number
+    _all: number
+  }
+
+
+  export type CentroproyectoAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CentroproyectoSumAggregateInputType = {
+    id?: true
+  }
+
+  export type CentroproyectoMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    proyecto?: true
+  }
+
+  export type CentroproyectoMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    proyecto?: true
+  }
+
+  export type CentroproyectoCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    proyecto?: true
+    _all?: true
+  }
+
+  export type CentroproyectoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which centroproyecto to aggregate.
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centroproyectos to fetch.
+     */
+    orderBy?: centroproyectoOrderByWithRelationInput | centroproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: centroproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centroproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centroproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned centroproyectos
+    **/
+    _count?: true | CentroproyectoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CentroproyectoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CentroproyectoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CentroproyectoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CentroproyectoMaxAggregateInputType
+  }
+
+  export type GetCentroproyectoAggregateType<T extends CentroproyectoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCentroproyecto]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCentroproyecto[P]>
+      : GetScalarType<T[P], AggregateCentroproyecto[P]>
+  }
+
+
+
+
+  export type centroproyectoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: centroproyectoWhereInput
+    orderBy?: centroproyectoOrderByWithAggregationInput | centroproyectoOrderByWithAggregationInput[]
+    by: CentroproyectoScalarFieldEnum[] | CentroproyectoScalarFieldEnum
+    having?: centroproyectoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CentroproyectoCountAggregateInputType | true
+    _avg?: CentroproyectoAvgAggregateInputType
+    _sum?: CentroproyectoSumAggregateInputType
+    _min?: CentroproyectoMinAggregateInputType
+    _max?: CentroproyectoMaxAggregateInputType
+  }
+
+  export type CentroproyectoGroupByOutputType = {
+    id: number
+    codigo: string
+    proyecto: string
+    _count: CentroproyectoCountAggregateOutputType | null
+    _avg: CentroproyectoAvgAggregateOutputType | null
+    _sum: CentroproyectoSumAggregateOutputType | null
+    _min: CentroproyectoMinAggregateOutputType | null
+    _max: CentroproyectoMaxAggregateOutputType | null
+  }
+
+  type GetCentroproyectoGroupByPayload<T extends centroproyectoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CentroproyectoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CentroproyectoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CentroproyectoGroupByOutputType[P]>
+            : GetScalarType<T[P], CentroproyectoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type centroproyectoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    proyecto?: boolean
+    centrosubproyecto?: boolean | centroproyecto$centrosubproyectoArgs<ExtArgs>
+    _count?: boolean | CentroproyectoCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["centroproyecto"]>
+
+
+
+  export type centroproyectoSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    proyecto?: boolean
+  }
+
+  export type centroproyectoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "proyecto", ExtArgs["result"]["centroproyecto"]>
+  export type centroproyectoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    centrosubproyecto?: boolean | centroproyecto$centrosubproyectoArgs<ExtArgs>
+    _count?: boolean | CentroproyectoCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $centroproyectoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "centroproyecto"
+    objects: {
+      centrosubproyecto: Prisma.$centrosubproyectoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string
+      proyecto: string
+    }, ExtArgs["result"]["centroproyecto"]>
+    composites: {}
+  }
+
+  type centroproyectoGetPayload<S extends boolean | null | undefined | centroproyectoDefaultArgs> = $Result.GetResult<Prisma.$centroproyectoPayload, S>
+
+  type centroproyectoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<centroproyectoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CentroproyectoCountAggregateInputType | true
+    }
+
+  export interface centroproyectoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['centroproyecto'], meta: { name: 'centroproyecto' } }
+    /**
+     * Find zero or one Centroproyecto that matches the filter.
+     * @param {centroproyectoFindUniqueArgs} args - Arguments to find a Centroproyecto
+     * @example
+     * // Get one Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends centroproyectoFindUniqueArgs>(args: SelectSubset<T, centroproyectoFindUniqueArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Centroproyecto that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {centroproyectoFindUniqueOrThrowArgs} args - Arguments to find a Centroproyecto
+     * @example
+     * // Get one Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends centroproyectoFindUniqueOrThrowArgs>(args: SelectSubset<T, centroproyectoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Centroproyecto that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoFindFirstArgs} args - Arguments to find a Centroproyecto
+     * @example
+     * // Get one Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends centroproyectoFindFirstArgs>(args?: SelectSubset<T, centroproyectoFindFirstArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Centroproyecto that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoFindFirstOrThrowArgs} args - Arguments to find a Centroproyecto
+     * @example
+     * // Get one Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends centroproyectoFindFirstOrThrowArgs>(args?: SelectSubset<T, centroproyectoFindFirstOrThrowArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Centroproyectos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Centroproyectos
+     * const centroproyectos = await prisma.centroproyecto.findMany()
+     * 
+     * // Get first 10 Centroproyectos
+     * const centroproyectos = await prisma.centroproyecto.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const centroproyectoWithIdOnly = await prisma.centroproyecto.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends centroproyectoFindManyArgs>(args?: SelectSubset<T, centroproyectoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Centroproyecto.
+     * @param {centroproyectoCreateArgs} args - Arguments to create a Centroproyecto.
+     * @example
+     * // Create one Centroproyecto
+     * const Centroproyecto = await prisma.centroproyecto.create({
+     *   data: {
+     *     // ... data to create a Centroproyecto
+     *   }
+     * })
+     * 
+     */
+    create<T extends centroproyectoCreateArgs>(args: SelectSubset<T, centroproyectoCreateArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Centroproyectos.
+     * @param {centroproyectoCreateManyArgs} args - Arguments to create many Centroproyectos.
+     * @example
+     * // Create many Centroproyectos
+     * const centroproyecto = await prisma.centroproyecto.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends centroproyectoCreateManyArgs>(args?: SelectSubset<T, centroproyectoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Centroproyecto.
+     * @param {centroproyectoDeleteArgs} args - Arguments to delete one Centroproyecto.
+     * @example
+     * // Delete one Centroproyecto
+     * const Centroproyecto = await prisma.centroproyecto.delete({
+     *   where: {
+     *     // ... filter to delete one Centroproyecto
+     *   }
+     * })
+     * 
+     */
+    delete<T extends centroproyectoDeleteArgs>(args: SelectSubset<T, centroproyectoDeleteArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Centroproyecto.
+     * @param {centroproyectoUpdateArgs} args - Arguments to update one Centroproyecto.
+     * @example
+     * // Update one Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends centroproyectoUpdateArgs>(args: SelectSubset<T, centroproyectoUpdateArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Centroproyectos.
+     * @param {centroproyectoDeleteManyArgs} args - Arguments to filter Centroproyectos to delete.
+     * @example
+     * // Delete a few Centroproyectos
+     * const { count } = await prisma.centroproyecto.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends centroproyectoDeleteManyArgs>(args?: SelectSubset<T, centroproyectoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Centroproyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Centroproyectos
+     * const centroproyecto = await prisma.centroproyecto.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends centroproyectoUpdateManyArgs>(args: SelectSubset<T, centroproyectoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Centroproyecto.
+     * @param {centroproyectoUpsertArgs} args - Arguments to update or create a Centroproyecto.
+     * @example
+     * // Update or create a Centroproyecto
+     * const centroproyecto = await prisma.centroproyecto.upsert({
+     *   create: {
+     *     // ... data to create a Centroproyecto
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Centroproyecto we want to update
+     *   }
+     * })
+     */
+    upsert<T extends centroproyectoUpsertArgs>(args: SelectSubset<T, centroproyectoUpsertArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Centroproyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoCountArgs} args - Arguments to filter Centroproyectos to count.
+     * @example
+     * // Count the number of Centroproyectos
+     * const count = await prisma.centroproyecto.count({
+     *   where: {
+     *     // ... the filter for the Centroproyectos we want to count
+     *   }
+     * })
+    **/
+    count<T extends centroproyectoCountArgs>(
+      args?: Subset<T, centroproyectoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CentroproyectoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Centroproyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CentroproyectoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CentroproyectoAggregateArgs>(args: Subset<T, CentroproyectoAggregateArgs>): Prisma.PrismaPromise<GetCentroproyectoAggregateType<T>>
+
+    /**
+     * Group by Centroproyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centroproyectoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends centroproyectoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: centroproyectoGroupByArgs['orderBy'] }
+        : { orderBy?: centroproyectoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, centroproyectoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCentroproyectoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the centroproyecto model
+   */
+  readonly fields: centroproyectoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for centroproyecto.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__centroproyectoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    centrosubproyecto<T extends centroproyecto$centrosubproyectoArgs<ExtArgs> = {}>(args?: Subset<T, centroproyecto$centrosubproyectoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the centroproyecto model
+   */
+  interface centroproyectoFieldRefs {
+    readonly id: FieldRef<"centroproyecto", 'Int'>
+    readonly codigo: FieldRef<"centroproyecto", 'String'>
+    readonly proyecto: FieldRef<"centroproyecto", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * centroproyecto findUnique
+   */
+  export type centroproyectoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centroproyecto to fetch.
+     */
+    where: centroproyectoWhereUniqueInput
+  }
+
+  /**
+   * centroproyecto findUniqueOrThrow
+   */
+  export type centroproyectoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centroproyecto to fetch.
+     */
+    where: centroproyectoWhereUniqueInput
+  }
+
+  /**
+   * centroproyecto findFirst
+   */
+  export type centroproyectoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centroproyecto to fetch.
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centroproyectos to fetch.
+     */
+    orderBy?: centroproyectoOrderByWithRelationInput | centroproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for centroproyectos.
+     */
+    cursor?: centroproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centroproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centroproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of centroproyectos.
+     */
+    distinct?: CentroproyectoScalarFieldEnum | CentroproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centroproyecto findFirstOrThrow
+   */
+  export type centroproyectoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centroproyecto to fetch.
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centroproyectos to fetch.
+     */
+    orderBy?: centroproyectoOrderByWithRelationInput | centroproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for centroproyectos.
+     */
+    cursor?: centroproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centroproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centroproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of centroproyectos.
+     */
+    distinct?: CentroproyectoScalarFieldEnum | CentroproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centroproyecto findMany
+   */
+  export type centroproyectoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centroproyectos to fetch.
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centroproyectos to fetch.
+     */
+    orderBy?: centroproyectoOrderByWithRelationInput | centroproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing centroproyectos.
+     */
+    cursor?: centroproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centroproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centroproyectos.
+     */
+    skip?: number
+    distinct?: CentroproyectoScalarFieldEnum | CentroproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centroproyecto create
+   */
+  export type centroproyectoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a centroproyecto.
+     */
+    data: XOR<centroproyectoCreateInput, centroproyectoUncheckedCreateInput>
+  }
+
+  /**
+   * centroproyecto createMany
+   */
+  export type centroproyectoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many centroproyectos.
+     */
+    data: centroproyectoCreateManyInput | centroproyectoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * centroproyecto update
+   */
+  export type centroproyectoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a centroproyecto.
+     */
+    data: XOR<centroproyectoUpdateInput, centroproyectoUncheckedUpdateInput>
+    /**
+     * Choose, which centroproyecto to update.
+     */
+    where: centroproyectoWhereUniqueInput
+  }
+
+  /**
+   * centroproyecto updateMany
+   */
+  export type centroproyectoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update centroproyectos.
+     */
+    data: XOR<centroproyectoUpdateManyMutationInput, centroproyectoUncheckedUpdateManyInput>
+    /**
+     * Filter which centroproyectos to update
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * Limit how many centroproyectos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * centroproyecto upsert
+   */
+  export type centroproyectoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the centroproyecto to update in case it exists.
+     */
+    where: centroproyectoWhereUniqueInput
+    /**
+     * In case the centroproyecto found by the `where` argument doesn't exist, create a new centroproyecto with this data.
+     */
+    create: XOR<centroproyectoCreateInput, centroproyectoUncheckedCreateInput>
+    /**
+     * In case the centroproyecto was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<centroproyectoUpdateInput, centroproyectoUncheckedUpdateInput>
+  }
+
+  /**
+   * centroproyecto delete
+   */
+  export type centroproyectoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    /**
+     * Filter which centroproyecto to delete.
+     */
+    where: centroproyectoWhereUniqueInput
+  }
+
+  /**
+   * centroproyecto deleteMany
+   */
+  export type centroproyectoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which centroproyectos to delete
+     */
+    where?: centroproyectoWhereInput
+    /**
+     * Limit how many centroproyectos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * centroproyecto.centrosubproyecto
+   */
+  export type centroproyecto$centrosubproyectoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    where?: centrosubproyectoWhereInput
+    orderBy?: centrosubproyectoOrderByWithRelationInput | centrosubproyectoOrderByWithRelationInput[]
+    cursor?: centrosubproyectoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CentrosubproyectoScalarFieldEnum | CentrosubproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centroproyecto without action
+   */
+  export type centroproyectoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model centrosubproyecto
+   */
+
+  export type AggregateCentrosubproyecto = {
+    _count: CentrosubproyectoCountAggregateOutputType | null
+    _avg: CentrosubproyectoAvgAggregateOutputType | null
+    _sum: CentrosubproyectoSumAggregateOutputType | null
+    _min: CentrosubproyectoMinAggregateOutputType | null
+    _max: CentrosubproyectoMaxAggregateOutputType | null
+  }
+
+  export type CentrosubproyectoAvgAggregateOutputType = {
+    id: number | null
+    id_sub: number | null
+  }
+
+  export type CentrosubproyectoSumAggregateOutputType = {
+    id: number | null
+    id_sub: number | null
+  }
+
+  export type CentrosubproyectoMinAggregateOutputType = {
+    id: number | null
+    subcodigopro: string | null
+    subprodes: string | null
+    id_sub: number | null
+  }
+
+  export type CentrosubproyectoMaxAggregateOutputType = {
+    id: number | null
+    subcodigopro: string | null
+    subprodes: string | null
+    id_sub: number | null
+  }
+
+  export type CentrosubproyectoCountAggregateOutputType = {
+    id: number
+    subcodigopro: number
+    subprodes: number
+    id_sub: number
+    _all: number
+  }
+
+
+  export type CentrosubproyectoAvgAggregateInputType = {
+    id?: true
+    id_sub?: true
+  }
+
+  export type CentrosubproyectoSumAggregateInputType = {
+    id?: true
+    id_sub?: true
+  }
+
+  export type CentrosubproyectoMinAggregateInputType = {
+    id?: true
+    subcodigopro?: true
+    subprodes?: true
+    id_sub?: true
+  }
+
+  export type CentrosubproyectoMaxAggregateInputType = {
+    id?: true
+    subcodigopro?: true
+    subprodes?: true
+    id_sub?: true
+  }
+
+  export type CentrosubproyectoCountAggregateInputType = {
+    id?: true
+    subcodigopro?: true
+    subprodes?: true
+    id_sub?: true
+    _all?: true
+  }
+
+  export type CentrosubproyectoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which centrosubproyecto to aggregate.
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centrosubproyectos to fetch.
+     */
+    orderBy?: centrosubproyectoOrderByWithRelationInput | centrosubproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: centrosubproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centrosubproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centrosubproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned centrosubproyectos
+    **/
+    _count?: true | CentrosubproyectoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CentrosubproyectoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CentrosubproyectoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CentrosubproyectoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CentrosubproyectoMaxAggregateInputType
+  }
+
+  export type GetCentrosubproyectoAggregateType<T extends CentrosubproyectoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCentrosubproyecto]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCentrosubproyecto[P]>
+      : GetScalarType<T[P], AggregateCentrosubproyecto[P]>
+  }
+
+
+
+
+  export type centrosubproyectoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: centrosubproyectoWhereInput
+    orderBy?: centrosubproyectoOrderByWithAggregationInput | centrosubproyectoOrderByWithAggregationInput[]
+    by: CentrosubproyectoScalarFieldEnum[] | CentrosubproyectoScalarFieldEnum
+    having?: centrosubproyectoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CentrosubproyectoCountAggregateInputType | true
+    _avg?: CentrosubproyectoAvgAggregateInputType
+    _sum?: CentrosubproyectoSumAggregateInputType
+    _min?: CentrosubproyectoMinAggregateInputType
+    _max?: CentrosubproyectoMaxAggregateInputType
+  }
+
+  export type CentrosubproyectoGroupByOutputType = {
+    id: number
+    subcodigopro: string
+    subprodes: string
+    id_sub: number | null
+    _count: CentrosubproyectoCountAggregateOutputType | null
+    _avg: CentrosubproyectoAvgAggregateOutputType | null
+    _sum: CentrosubproyectoSumAggregateOutputType | null
+    _min: CentrosubproyectoMinAggregateOutputType | null
+    _max: CentrosubproyectoMaxAggregateOutputType | null
+  }
+
+  type GetCentrosubproyectoGroupByPayload<T extends centrosubproyectoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CentrosubproyectoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CentrosubproyectoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CentrosubproyectoGroupByOutputType[P]>
+            : GetScalarType<T[P], CentrosubproyectoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type centrosubproyectoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subcodigopro?: boolean
+    subprodes?: boolean
+    id_sub?: boolean
+    centroproyecto?: boolean | centrosubproyecto$centroproyectoArgs<ExtArgs>
+  }, ExtArgs["result"]["centrosubproyecto"]>
+
+
+
+  export type centrosubproyectoSelectScalar = {
+    id?: boolean
+    subcodigopro?: boolean
+    subprodes?: boolean
+    id_sub?: boolean
+  }
+
+  export type centrosubproyectoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subcodigopro" | "subprodes" | "id_sub", ExtArgs["result"]["centrosubproyecto"]>
+  export type centrosubproyectoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    centroproyecto?: boolean | centrosubproyecto$centroproyectoArgs<ExtArgs>
+  }
+
+  export type $centrosubproyectoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "centrosubproyecto"
+    objects: {
+      centroproyecto: Prisma.$centroproyectoPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      subcodigopro: string
+      subprodes: string
+      id_sub: number | null
+    }, ExtArgs["result"]["centrosubproyecto"]>
+    composites: {}
+  }
+
+  type centrosubproyectoGetPayload<S extends boolean | null | undefined | centrosubproyectoDefaultArgs> = $Result.GetResult<Prisma.$centrosubproyectoPayload, S>
+
+  type centrosubproyectoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<centrosubproyectoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CentrosubproyectoCountAggregateInputType | true
+    }
+
+  export interface centrosubproyectoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['centrosubproyecto'], meta: { name: 'centrosubproyecto' } }
+    /**
+     * Find zero or one Centrosubproyecto that matches the filter.
+     * @param {centrosubproyectoFindUniqueArgs} args - Arguments to find a Centrosubproyecto
+     * @example
+     * // Get one Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends centrosubproyectoFindUniqueArgs>(args: SelectSubset<T, centrosubproyectoFindUniqueArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Centrosubproyecto that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {centrosubproyectoFindUniqueOrThrowArgs} args - Arguments to find a Centrosubproyecto
+     * @example
+     * // Get one Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends centrosubproyectoFindUniqueOrThrowArgs>(args: SelectSubset<T, centrosubproyectoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Centrosubproyecto that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoFindFirstArgs} args - Arguments to find a Centrosubproyecto
+     * @example
+     * // Get one Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends centrosubproyectoFindFirstArgs>(args?: SelectSubset<T, centrosubproyectoFindFirstArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Centrosubproyecto that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoFindFirstOrThrowArgs} args - Arguments to find a Centrosubproyecto
+     * @example
+     * // Get one Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends centrosubproyectoFindFirstOrThrowArgs>(args?: SelectSubset<T, centrosubproyectoFindFirstOrThrowArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Centrosubproyectos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Centrosubproyectos
+     * const centrosubproyectos = await prisma.centrosubproyecto.findMany()
+     * 
+     * // Get first 10 Centrosubproyectos
+     * const centrosubproyectos = await prisma.centrosubproyecto.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const centrosubproyectoWithIdOnly = await prisma.centrosubproyecto.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends centrosubproyectoFindManyArgs>(args?: SelectSubset<T, centrosubproyectoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Centrosubproyecto.
+     * @param {centrosubproyectoCreateArgs} args - Arguments to create a Centrosubproyecto.
+     * @example
+     * // Create one Centrosubproyecto
+     * const Centrosubproyecto = await prisma.centrosubproyecto.create({
+     *   data: {
+     *     // ... data to create a Centrosubproyecto
+     *   }
+     * })
+     * 
+     */
+    create<T extends centrosubproyectoCreateArgs>(args: SelectSubset<T, centrosubproyectoCreateArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Centrosubproyectos.
+     * @param {centrosubproyectoCreateManyArgs} args - Arguments to create many Centrosubproyectos.
+     * @example
+     * // Create many Centrosubproyectos
+     * const centrosubproyecto = await prisma.centrosubproyecto.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends centrosubproyectoCreateManyArgs>(args?: SelectSubset<T, centrosubproyectoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Centrosubproyecto.
+     * @param {centrosubproyectoDeleteArgs} args - Arguments to delete one Centrosubproyecto.
+     * @example
+     * // Delete one Centrosubproyecto
+     * const Centrosubproyecto = await prisma.centrosubproyecto.delete({
+     *   where: {
+     *     // ... filter to delete one Centrosubproyecto
+     *   }
+     * })
+     * 
+     */
+    delete<T extends centrosubproyectoDeleteArgs>(args: SelectSubset<T, centrosubproyectoDeleteArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Centrosubproyecto.
+     * @param {centrosubproyectoUpdateArgs} args - Arguments to update one Centrosubproyecto.
+     * @example
+     * // Update one Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends centrosubproyectoUpdateArgs>(args: SelectSubset<T, centrosubproyectoUpdateArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Centrosubproyectos.
+     * @param {centrosubproyectoDeleteManyArgs} args - Arguments to filter Centrosubproyectos to delete.
+     * @example
+     * // Delete a few Centrosubproyectos
+     * const { count } = await prisma.centrosubproyecto.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends centrosubproyectoDeleteManyArgs>(args?: SelectSubset<T, centrosubproyectoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Centrosubproyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Centrosubproyectos
+     * const centrosubproyecto = await prisma.centrosubproyecto.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends centrosubproyectoUpdateManyArgs>(args: SelectSubset<T, centrosubproyectoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Centrosubproyecto.
+     * @param {centrosubproyectoUpsertArgs} args - Arguments to update or create a Centrosubproyecto.
+     * @example
+     * // Update or create a Centrosubproyecto
+     * const centrosubproyecto = await prisma.centrosubproyecto.upsert({
+     *   create: {
+     *     // ... data to create a Centrosubproyecto
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Centrosubproyecto we want to update
+     *   }
+     * })
+     */
+    upsert<T extends centrosubproyectoUpsertArgs>(args: SelectSubset<T, centrosubproyectoUpsertArgs<ExtArgs>>): Prisma__centrosubproyectoClient<$Result.GetResult<Prisma.$centrosubproyectoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Centrosubproyectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoCountArgs} args - Arguments to filter Centrosubproyectos to count.
+     * @example
+     * // Count the number of Centrosubproyectos
+     * const count = await prisma.centrosubproyecto.count({
+     *   where: {
+     *     // ... the filter for the Centrosubproyectos we want to count
+     *   }
+     * })
+    **/
+    count<T extends centrosubproyectoCountArgs>(
+      args?: Subset<T, centrosubproyectoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CentrosubproyectoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Centrosubproyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CentrosubproyectoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CentrosubproyectoAggregateArgs>(args: Subset<T, CentrosubproyectoAggregateArgs>): Prisma.PrismaPromise<GetCentrosubproyectoAggregateType<T>>
+
+    /**
+     * Group by Centrosubproyecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {centrosubproyectoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends centrosubproyectoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: centrosubproyectoGroupByArgs['orderBy'] }
+        : { orderBy?: centrosubproyectoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, centrosubproyectoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCentrosubproyectoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the centrosubproyecto model
+   */
+  readonly fields: centrosubproyectoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for centrosubproyecto.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__centrosubproyectoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    centroproyecto<T extends centrosubproyecto$centroproyectoArgs<ExtArgs> = {}>(args?: Subset<T, centrosubproyecto$centroproyectoArgs<ExtArgs>>): Prisma__centroproyectoClient<$Result.GetResult<Prisma.$centroproyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the centrosubproyecto model
+   */
+  interface centrosubproyectoFieldRefs {
+    readonly id: FieldRef<"centrosubproyecto", 'Int'>
+    readonly subcodigopro: FieldRef<"centrosubproyecto", 'String'>
+    readonly subprodes: FieldRef<"centrosubproyecto", 'String'>
+    readonly id_sub: FieldRef<"centrosubproyecto", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * centrosubproyecto findUnique
+   */
+  export type centrosubproyectoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centrosubproyecto to fetch.
+     */
+    where: centrosubproyectoWhereUniqueInput
+  }
+
+  /**
+   * centrosubproyecto findUniqueOrThrow
+   */
+  export type centrosubproyectoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centrosubproyecto to fetch.
+     */
+    where: centrosubproyectoWhereUniqueInput
+  }
+
+  /**
+   * centrosubproyecto findFirst
+   */
+  export type centrosubproyectoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centrosubproyecto to fetch.
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centrosubproyectos to fetch.
+     */
+    orderBy?: centrosubproyectoOrderByWithRelationInput | centrosubproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for centrosubproyectos.
+     */
+    cursor?: centrosubproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centrosubproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centrosubproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of centrosubproyectos.
+     */
+    distinct?: CentrosubproyectoScalarFieldEnum | CentrosubproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centrosubproyecto findFirstOrThrow
+   */
+  export type centrosubproyectoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centrosubproyecto to fetch.
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centrosubproyectos to fetch.
+     */
+    orderBy?: centrosubproyectoOrderByWithRelationInput | centrosubproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for centrosubproyectos.
+     */
+    cursor?: centrosubproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centrosubproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centrosubproyectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of centrosubproyectos.
+     */
+    distinct?: CentrosubproyectoScalarFieldEnum | CentrosubproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centrosubproyecto findMany
+   */
+  export type centrosubproyectoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter, which centrosubproyectos to fetch.
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of centrosubproyectos to fetch.
+     */
+    orderBy?: centrosubproyectoOrderByWithRelationInput | centrosubproyectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing centrosubproyectos.
+     */
+    cursor?: centrosubproyectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` centrosubproyectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` centrosubproyectos.
+     */
+    skip?: number
+    distinct?: CentrosubproyectoScalarFieldEnum | CentrosubproyectoScalarFieldEnum[]
+  }
+
+  /**
+   * centrosubproyecto create
+   */
+  export type centrosubproyectoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a centrosubproyecto.
+     */
+    data: XOR<centrosubproyectoCreateInput, centrosubproyectoUncheckedCreateInput>
+  }
+
+  /**
+   * centrosubproyecto createMany
+   */
+  export type centrosubproyectoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many centrosubproyectos.
+     */
+    data: centrosubproyectoCreateManyInput | centrosubproyectoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * centrosubproyecto update
+   */
+  export type centrosubproyectoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a centrosubproyecto.
+     */
+    data: XOR<centrosubproyectoUpdateInput, centrosubproyectoUncheckedUpdateInput>
+    /**
+     * Choose, which centrosubproyecto to update.
+     */
+    where: centrosubproyectoWhereUniqueInput
+  }
+
+  /**
+   * centrosubproyecto updateMany
+   */
+  export type centrosubproyectoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update centrosubproyectos.
+     */
+    data: XOR<centrosubproyectoUpdateManyMutationInput, centrosubproyectoUncheckedUpdateManyInput>
+    /**
+     * Filter which centrosubproyectos to update
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * Limit how many centrosubproyectos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * centrosubproyecto upsert
+   */
+  export type centrosubproyectoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the centrosubproyecto to update in case it exists.
+     */
+    where: centrosubproyectoWhereUniqueInput
+    /**
+     * In case the centrosubproyecto found by the `where` argument doesn't exist, create a new centrosubproyecto with this data.
+     */
+    create: XOR<centrosubproyectoCreateInput, centrosubproyectoUncheckedCreateInput>
+    /**
+     * In case the centrosubproyecto was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<centrosubproyectoUpdateInput, centrosubproyectoUncheckedUpdateInput>
+  }
+
+  /**
+   * centrosubproyecto delete
+   */
+  export type centrosubproyectoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+    /**
+     * Filter which centrosubproyecto to delete.
+     */
+    where: centrosubproyectoWhereUniqueInput
+  }
+
+  /**
+   * centrosubproyecto deleteMany
+   */
+  export type centrosubproyectoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which centrosubproyectos to delete
+     */
+    where?: centrosubproyectoWhereInput
+    /**
+     * Limit how many centrosubproyectos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * centrosubproyecto.centroproyecto
+   */
+  export type centrosubproyecto$centroproyectoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centroproyecto
+     */
+    select?: centroproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centroproyecto
+     */
+    omit?: centroproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centroproyectoInclude<ExtArgs> | null
+    where?: centroproyectoWhereInput
+  }
+
+  /**
+   * centrosubproyecto without action
+   */
+  export type centrosubproyectoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the centrosubproyecto
+     */
+    select?: centrosubproyectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the centrosubproyecto
+     */
+    omit?: centrosubproyectoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: centrosubproyectoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model fasecontrol
+   */
+
+  export type AggregateFasecontrol = {
+    _count: FasecontrolCountAggregateOutputType | null
+    _avg: FasecontrolAvgAggregateOutputType | null
+    _sum: FasecontrolSumAggregateOutputType | null
+    _min: FasecontrolMinAggregateOutputType | null
+    _max: FasecontrolMaxAggregateOutputType | null
+  }
+
+  export type FasecontrolAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FasecontrolSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FasecontrolMinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type FasecontrolMaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type FasecontrolCountAggregateOutputType = {
+    id: number
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type FasecontrolAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type FasecontrolSumAggregateInputType = {
+    id?: true
+  }
+
+  export type FasecontrolMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type FasecontrolMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type FasecontrolCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type FasecontrolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which fasecontrol to aggregate.
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of fasecontrols to fetch.
+     */
+    orderBy?: fasecontrolOrderByWithRelationInput | fasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: fasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` fasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` fasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned fasecontrols
+    **/
+    _count?: true | FasecontrolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FasecontrolAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FasecontrolSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FasecontrolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FasecontrolMaxAggregateInputType
+  }
+
+  export type GetFasecontrolAggregateType<T extends FasecontrolAggregateArgs> = {
+        [P in keyof T & keyof AggregateFasecontrol]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFasecontrol[P]>
+      : GetScalarType<T[P], AggregateFasecontrol[P]>
+  }
+
+
+
+
+  export type fasecontrolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: fasecontrolWhereInput
+    orderBy?: fasecontrolOrderByWithAggregationInput | fasecontrolOrderByWithAggregationInput[]
+    by: FasecontrolScalarFieldEnum[] | FasecontrolScalarFieldEnum
+    having?: fasecontrolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FasecontrolCountAggregateInputType | true
+    _avg?: FasecontrolAvgAggregateInputType
+    _sum?: FasecontrolSumAggregateInputType
+    _min?: FasecontrolMinAggregateInputType
+    _max?: FasecontrolMaxAggregateInputType
+  }
+
+  export type FasecontrolGroupByOutputType = {
+    id: number
+    codigo: string | null
+    descripcion: string | null
+    _count: FasecontrolCountAggregateOutputType | null
+    _avg: FasecontrolAvgAggregateOutputType | null
+    _sum: FasecontrolSumAggregateOutputType | null
+    _min: FasecontrolMinAggregateOutputType | null
+    _max: FasecontrolMaxAggregateOutputType | null
+  }
+
+  type GetFasecontrolGroupByPayload<T extends fasecontrolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FasecontrolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FasecontrolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FasecontrolGroupByOutputType[P]>
+            : GetScalarType<T[P], FasecontrolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type fasecontrolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["fasecontrol"]>
+
+
+
+  export type fasecontrolSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type fasecontrolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "descripcion", ExtArgs["result"]["fasecontrol"]>
+
+  export type $fasecontrolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "fasecontrol"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string | null
+      descripcion: string | null
+    }, ExtArgs["result"]["fasecontrol"]>
+    composites: {}
+  }
+
+  type fasecontrolGetPayload<S extends boolean | null | undefined | fasecontrolDefaultArgs> = $Result.GetResult<Prisma.$fasecontrolPayload, S>
+
+  type fasecontrolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<fasecontrolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FasecontrolCountAggregateInputType | true
+    }
+
+  export interface fasecontrolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['fasecontrol'], meta: { name: 'fasecontrol' } }
+    /**
+     * Find zero or one Fasecontrol that matches the filter.
+     * @param {fasecontrolFindUniqueArgs} args - Arguments to find a Fasecontrol
+     * @example
+     * // Get one Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends fasecontrolFindUniqueArgs>(args: SelectSubset<T, fasecontrolFindUniqueArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Fasecontrol that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {fasecontrolFindUniqueOrThrowArgs} args - Arguments to find a Fasecontrol
+     * @example
+     * // Get one Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends fasecontrolFindUniqueOrThrowArgs>(args: SelectSubset<T, fasecontrolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Fasecontrol that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolFindFirstArgs} args - Arguments to find a Fasecontrol
+     * @example
+     * // Get one Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends fasecontrolFindFirstArgs>(args?: SelectSubset<T, fasecontrolFindFirstArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Fasecontrol that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolFindFirstOrThrowArgs} args - Arguments to find a Fasecontrol
+     * @example
+     * // Get one Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends fasecontrolFindFirstOrThrowArgs>(args?: SelectSubset<T, fasecontrolFindFirstOrThrowArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Fasecontrols that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Fasecontrols
+     * const fasecontrols = await prisma.fasecontrol.findMany()
+     * 
+     * // Get first 10 Fasecontrols
+     * const fasecontrols = await prisma.fasecontrol.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fasecontrolWithIdOnly = await prisma.fasecontrol.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends fasecontrolFindManyArgs>(args?: SelectSubset<T, fasecontrolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Fasecontrol.
+     * @param {fasecontrolCreateArgs} args - Arguments to create a Fasecontrol.
+     * @example
+     * // Create one Fasecontrol
+     * const Fasecontrol = await prisma.fasecontrol.create({
+     *   data: {
+     *     // ... data to create a Fasecontrol
+     *   }
+     * })
+     * 
+     */
+    create<T extends fasecontrolCreateArgs>(args: SelectSubset<T, fasecontrolCreateArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Fasecontrols.
+     * @param {fasecontrolCreateManyArgs} args - Arguments to create many Fasecontrols.
+     * @example
+     * // Create many Fasecontrols
+     * const fasecontrol = await prisma.fasecontrol.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends fasecontrolCreateManyArgs>(args?: SelectSubset<T, fasecontrolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Fasecontrol.
+     * @param {fasecontrolDeleteArgs} args - Arguments to delete one Fasecontrol.
+     * @example
+     * // Delete one Fasecontrol
+     * const Fasecontrol = await prisma.fasecontrol.delete({
+     *   where: {
+     *     // ... filter to delete one Fasecontrol
+     *   }
+     * })
+     * 
+     */
+    delete<T extends fasecontrolDeleteArgs>(args: SelectSubset<T, fasecontrolDeleteArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Fasecontrol.
+     * @param {fasecontrolUpdateArgs} args - Arguments to update one Fasecontrol.
+     * @example
+     * // Update one Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends fasecontrolUpdateArgs>(args: SelectSubset<T, fasecontrolUpdateArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Fasecontrols.
+     * @param {fasecontrolDeleteManyArgs} args - Arguments to filter Fasecontrols to delete.
+     * @example
+     * // Delete a few Fasecontrols
+     * const { count } = await prisma.fasecontrol.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends fasecontrolDeleteManyArgs>(args?: SelectSubset<T, fasecontrolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Fasecontrols.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Fasecontrols
+     * const fasecontrol = await prisma.fasecontrol.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends fasecontrolUpdateManyArgs>(args: SelectSubset<T, fasecontrolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Fasecontrol.
+     * @param {fasecontrolUpsertArgs} args - Arguments to update or create a Fasecontrol.
+     * @example
+     * // Update or create a Fasecontrol
+     * const fasecontrol = await prisma.fasecontrol.upsert({
+     *   create: {
+     *     // ... data to create a Fasecontrol
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Fasecontrol we want to update
+     *   }
+     * })
+     */
+    upsert<T extends fasecontrolUpsertArgs>(args: SelectSubset<T, fasecontrolUpsertArgs<ExtArgs>>): Prisma__fasecontrolClient<$Result.GetResult<Prisma.$fasecontrolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Fasecontrols.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolCountArgs} args - Arguments to filter Fasecontrols to count.
+     * @example
+     * // Count the number of Fasecontrols
+     * const count = await prisma.fasecontrol.count({
+     *   where: {
+     *     // ... the filter for the Fasecontrols we want to count
+     *   }
+     * })
+    **/
+    count<T extends fasecontrolCountArgs>(
+      args?: Subset<T, fasecontrolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FasecontrolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Fasecontrol.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FasecontrolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FasecontrolAggregateArgs>(args: Subset<T, FasecontrolAggregateArgs>): Prisma.PrismaPromise<GetFasecontrolAggregateType<T>>
+
+    /**
+     * Group by Fasecontrol.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {fasecontrolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends fasecontrolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: fasecontrolGroupByArgs['orderBy'] }
+        : { orderBy?: fasecontrolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, fasecontrolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFasecontrolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the fasecontrol model
+   */
+  readonly fields: fasecontrolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for fasecontrol.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__fasecontrolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the fasecontrol model
+   */
+  interface fasecontrolFieldRefs {
+    readonly id: FieldRef<"fasecontrol", 'Int'>
+    readonly codigo: FieldRef<"fasecontrol", 'String'>
+    readonly descripcion: FieldRef<"fasecontrol", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * fasecontrol findUnique
+   */
+  export type fasecontrolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which fasecontrol to fetch.
+     */
+    where: fasecontrolWhereUniqueInput
+  }
+
+  /**
+   * fasecontrol findUniqueOrThrow
+   */
+  export type fasecontrolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which fasecontrol to fetch.
+     */
+    where: fasecontrolWhereUniqueInput
+  }
+
+  /**
+   * fasecontrol findFirst
+   */
+  export type fasecontrolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which fasecontrol to fetch.
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of fasecontrols to fetch.
+     */
+    orderBy?: fasecontrolOrderByWithRelationInput | fasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for fasecontrols.
+     */
+    cursor?: fasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` fasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` fasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of fasecontrols.
+     */
+    distinct?: FasecontrolScalarFieldEnum | FasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * fasecontrol findFirstOrThrow
+   */
+  export type fasecontrolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which fasecontrol to fetch.
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of fasecontrols to fetch.
+     */
+    orderBy?: fasecontrolOrderByWithRelationInput | fasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for fasecontrols.
+     */
+    cursor?: fasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` fasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` fasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of fasecontrols.
+     */
+    distinct?: FasecontrolScalarFieldEnum | FasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * fasecontrol findMany
+   */
+  export type fasecontrolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which fasecontrols to fetch.
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of fasecontrols to fetch.
+     */
+    orderBy?: fasecontrolOrderByWithRelationInput | fasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing fasecontrols.
+     */
+    cursor?: fasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` fasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` fasecontrols.
+     */
+    skip?: number
+    distinct?: FasecontrolScalarFieldEnum | FasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * fasecontrol create
+   */
+  export type fasecontrolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * The data needed to create a fasecontrol.
+     */
+    data?: XOR<fasecontrolCreateInput, fasecontrolUncheckedCreateInput>
+  }
+
+  /**
+   * fasecontrol createMany
+   */
+  export type fasecontrolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many fasecontrols.
+     */
+    data: fasecontrolCreateManyInput | fasecontrolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * fasecontrol update
+   */
+  export type fasecontrolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * The data needed to update a fasecontrol.
+     */
+    data: XOR<fasecontrolUpdateInput, fasecontrolUncheckedUpdateInput>
+    /**
+     * Choose, which fasecontrol to update.
+     */
+    where: fasecontrolWhereUniqueInput
+  }
+
+  /**
+   * fasecontrol updateMany
+   */
+  export type fasecontrolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update fasecontrols.
+     */
+    data: XOR<fasecontrolUpdateManyMutationInput, fasecontrolUncheckedUpdateManyInput>
+    /**
+     * Filter which fasecontrols to update
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * Limit how many fasecontrols to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * fasecontrol upsert
+   */
+  export type fasecontrolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * The filter to search for the fasecontrol to update in case it exists.
+     */
+    where: fasecontrolWhereUniqueInput
+    /**
+     * In case the fasecontrol found by the `where` argument doesn't exist, create a new fasecontrol with this data.
+     */
+    create: XOR<fasecontrolCreateInput, fasecontrolUncheckedCreateInput>
+    /**
+     * In case the fasecontrol was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<fasecontrolUpdateInput, fasecontrolUncheckedUpdateInput>
+  }
+
+  /**
+   * fasecontrol delete
+   */
+  export type fasecontrolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter which fasecontrol to delete.
+     */
+    where: fasecontrolWhereUniqueInput
+  }
+
+  /**
+   * fasecontrol deleteMany
+   */
+  export type fasecontrolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which fasecontrols to delete
+     */
+    where?: fasecontrolWhereInput
+    /**
+     * Limit how many fasecontrols to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * fasecontrol without action
+   */
+  export type fasecontrolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the fasecontrol
+     */
+    select?: fasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the fasecontrol
+     */
+    omit?: fasecontrolOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model rubro
+   */
+
+  export type AggregateRubro = {
+    _count: RubroCountAggregateOutputType | null
+    _avg: RubroAvgAggregateOutputType | null
+    _sum: RubroSumAggregateOutputType | null
+    _min: RubroMinAggregateOutputType | null
+    _max: RubroMaxAggregateOutputType | null
+  }
+
+  export type RubroAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type RubroSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type RubroMinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type RubroMaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type RubroCountAggregateOutputType = {
+    id: number
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type RubroAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type RubroSumAggregateInputType = {
+    id?: true
+  }
+
+  export type RubroMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type RubroMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type RubroCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type RubroAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which rubro to aggregate.
+     */
+    where?: rubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rubros to fetch.
+     */
+    orderBy?: rubroOrderByWithRelationInput | rubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: rubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned rubros
+    **/
+    _count?: true | RubroCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RubroAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RubroSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RubroMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RubroMaxAggregateInputType
+  }
+
+  export type GetRubroAggregateType<T extends RubroAggregateArgs> = {
+        [P in keyof T & keyof AggregateRubro]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRubro[P]>
+      : GetScalarType<T[P], AggregateRubro[P]>
+  }
+
+
+
+
+  export type rubroGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: rubroWhereInput
+    orderBy?: rubroOrderByWithAggregationInput | rubroOrderByWithAggregationInput[]
+    by: RubroScalarFieldEnum[] | RubroScalarFieldEnum
+    having?: rubroScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RubroCountAggregateInputType | true
+    _avg?: RubroAvgAggregateInputType
+    _sum?: RubroSumAggregateInputType
+    _min?: RubroMinAggregateInputType
+    _max?: RubroMaxAggregateInputType
+  }
+
+  export type RubroGroupByOutputType = {
+    id: number
+    codigo: string
+    descripcion: string
+    _count: RubroCountAggregateOutputType | null
+    _avg: RubroAvgAggregateOutputType | null
+    _sum: RubroSumAggregateOutputType | null
+    _min: RubroMinAggregateOutputType | null
+    _max: RubroMaxAggregateOutputType | null
+  }
+
+  type GetRubroGroupByPayload<T extends rubroGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RubroGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RubroGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RubroGroupByOutputType[P]>
+            : GetScalarType<T[P], RubroGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type rubroSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+    subrubro?: boolean | rubro$subrubroArgs<ExtArgs>
+    _count?: boolean | RubroCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rubro"]>
+
+
+
+  export type rubroSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type rubroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "descripcion", ExtArgs["result"]["rubro"]>
+  export type rubroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subrubro?: boolean | rubro$subrubroArgs<ExtArgs>
+    _count?: boolean | RubroCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $rubroPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "rubro"
+    objects: {
+      subrubro: Prisma.$subrubroPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["rubro"]>
+    composites: {}
+  }
+
+  type rubroGetPayload<S extends boolean | null | undefined | rubroDefaultArgs> = $Result.GetResult<Prisma.$rubroPayload, S>
+
+  type rubroCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<rubroFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RubroCountAggregateInputType | true
+    }
+
+  export interface rubroDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['rubro'], meta: { name: 'rubro' } }
+    /**
+     * Find zero or one Rubro that matches the filter.
+     * @param {rubroFindUniqueArgs} args - Arguments to find a Rubro
+     * @example
+     * // Get one Rubro
+     * const rubro = await prisma.rubro.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends rubroFindUniqueArgs>(args: SelectSubset<T, rubroFindUniqueArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rubro that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {rubroFindUniqueOrThrowArgs} args - Arguments to find a Rubro
+     * @example
+     * // Get one Rubro
+     * const rubro = await prisma.rubro.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends rubroFindUniqueOrThrowArgs>(args: SelectSubset<T, rubroFindUniqueOrThrowArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rubro that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroFindFirstArgs} args - Arguments to find a Rubro
+     * @example
+     * // Get one Rubro
+     * const rubro = await prisma.rubro.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends rubroFindFirstArgs>(args?: SelectSubset<T, rubroFindFirstArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rubro that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroFindFirstOrThrowArgs} args - Arguments to find a Rubro
+     * @example
+     * // Get one Rubro
+     * const rubro = await prisma.rubro.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends rubroFindFirstOrThrowArgs>(args?: SelectSubset<T, rubroFindFirstOrThrowArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Rubros that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rubros
+     * const rubros = await prisma.rubro.findMany()
+     * 
+     * // Get first 10 Rubros
+     * const rubros = await prisma.rubro.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rubroWithIdOnly = await prisma.rubro.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends rubroFindManyArgs>(args?: SelectSubset<T, rubroFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rubro.
+     * @param {rubroCreateArgs} args - Arguments to create a Rubro.
+     * @example
+     * // Create one Rubro
+     * const Rubro = await prisma.rubro.create({
+     *   data: {
+     *     // ... data to create a Rubro
+     *   }
+     * })
+     * 
+     */
+    create<T extends rubroCreateArgs>(args: SelectSubset<T, rubroCreateArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Rubros.
+     * @param {rubroCreateManyArgs} args - Arguments to create many Rubros.
+     * @example
+     * // Create many Rubros
+     * const rubro = await prisma.rubro.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends rubroCreateManyArgs>(args?: SelectSubset<T, rubroCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Rubro.
+     * @param {rubroDeleteArgs} args - Arguments to delete one Rubro.
+     * @example
+     * // Delete one Rubro
+     * const Rubro = await prisma.rubro.delete({
+     *   where: {
+     *     // ... filter to delete one Rubro
+     *   }
+     * })
+     * 
+     */
+    delete<T extends rubroDeleteArgs>(args: SelectSubset<T, rubroDeleteArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rubro.
+     * @param {rubroUpdateArgs} args - Arguments to update one Rubro.
+     * @example
+     * // Update one Rubro
+     * const rubro = await prisma.rubro.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends rubroUpdateArgs>(args: SelectSubset<T, rubroUpdateArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Rubros.
+     * @param {rubroDeleteManyArgs} args - Arguments to filter Rubros to delete.
+     * @example
+     * // Delete a few Rubros
+     * const { count } = await prisma.rubro.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends rubroDeleteManyArgs>(args?: SelectSubset<T, rubroDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rubros.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rubros
+     * const rubro = await prisma.rubro.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends rubroUpdateManyArgs>(args: SelectSubset<T, rubroUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rubro.
+     * @param {rubroUpsertArgs} args - Arguments to update or create a Rubro.
+     * @example
+     * // Update or create a Rubro
+     * const rubro = await prisma.rubro.upsert({
+     *   create: {
+     *     // ... data to create a Rubro
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rubro we want to update
+     *   }
+     * })
+     */
+    upsert<T extends rubroUpsertArgs>(args: SelectSubset<T, rubroUpsertArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Rubros.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroCountArgs} args - Arguments to filter Rubros to count.
+     * @example
+     * // Count the number of Rubros
+     * const count = await prisma.rubro.count({
+     *   where: {
+     *     // ... the filter for the Rubros we want to count
+     *   }
+     * })
+    **/
+    count<T extends rubroCountArgs>(
+      args?: Subset<T, rubroCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RubroCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rubro.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RubroAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RubroAggregateArgs>(args: Subset<T, RubroAggregateArgs>): Prisma.PrismaPromise<GetRubroAggregateType<T>>
+
+    /**
+     * Group by Rubro.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rubroGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends rubroGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: rubroGroupByArgs['orderBy'] }
+        : { orderBy?: rubroGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, rubroGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRubroGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the rubro model
+   */
+  readonly fields: rubroFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for rubro.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__rubroClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subrubro<T extends rubro$subrubroArgs<ExtArgs> = {}>(args?: Subset<T, rubro$subrubroArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the rubro model
+   */
+  interface rubroFieldRefs {
+    readonly id: FieldRef<"rubro", 'Int'>
+    readonly codigo: FieldRef<"rubro", 'String'>
+    readonly descripcion: FieldRef<"rubro", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * rubro findUnique
+   */
+  export type rubroFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter, which rubro to fetch.
+     */
+    where: rubroWhereUniqueInput
+  }
+
+  /**
+   * rubro findUniqueOrThrow
+   */
+  export type rubroFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter, which rubro to fetch.
+     */
+    where: rubroWhereUniqueInput
+  }
+
+  /**
+   * rubro findFirst
+   */
+  export type rubroFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter, which rubro to fetch.
+     */
+    where?: rubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rubros to fetch.
+     */
+    orderBy?: rubroOrderByWithRelationInput | rubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for rubros.
+     */
+    cursor?: rubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of rubros.
+     */
+    distinct?: RubroScalarFieldEnum | RubroScalarFieldEnum[]
+  }
+
+  /**
+   * rubro findFirstOrThrow
+   */
+  export type rubroFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter, which rubro to fetch.
+     */
+    where?: rubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rubros to fetch.
+     */
+    orderBy?: rubroOrderByWithRelationInput | rubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for rubros.
+     */
+    cursor?: rubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of rubros.
+     */
+    distinct?: RubroScalarFieldEnum | RubroScalarFieldEnum[]
+  }
+
+  /**
+   * rubro findMany
+   */
+  export type rubroFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter, which rubros to fetch.
+     */
+    where?: rubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rubros to fetch.
+     */
+    orderBy?: rubroOrderByWithRelationInput | rubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing rubros.
+     */
+    cursor?: rubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rubros.
+     */
+    skip?: number
+    distinct?: RubroScalarFieldEnum | RubroScalarFieldEnum[]
+  }
+
+  /**
+   * rubro create
+   */
+  export type rubroCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * The data needed to create a rubro.
+     */
+    data: XOR<rubroCreateInput, rubroUncheckedCreateInput>
+  }
+
+  /**
+   * rubro createMany
+   */
+  export type rubroCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many rubros.
+     */
+    data: rubroCreateManyInput | rubroCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * rubro update
+   */
+  export type rubroUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * The data needed to update a rubro.
+     */
+    data: XOR<rubroUpdateInput, rubroUncheckedUpdateInput>
+    /**
+     * Choose, which rubro to update.
+     */
+    where: rubroWhereUniqueInput
+  }
+
+  /**
+   * rubro updateMany
+   */
+  export type rubroUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update rubros.
+     */
+    data: XOR<rubroUpdateManyMutationInput, rubroUncheckedUpdateManyInput>
+    /**
+     * Filter which rubros to update
+     */
+    where?: rubroWhereInput
+    /**
+     * Limit how many rubros to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * rubro upsert
+   */
+  export type rubroUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * The filter to search for the rubro to update in case it exists.
+     */
+    where: rubroWhereUniqueInput
+    /**
+     * In case the rubro found by the `where` argument doesn't exist, create a new rubro with this data.
+     */
+    create: XOR<rubroCreateInput, rubroUncheckedCreateInput>
+    /**
+     * In case the rubro was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<rubroUpdateInput, rubroUncheckedUpdateInput>
+  }
+
+  /**
+   * rubro delete
+   */
+  export type rubroDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    /**
+     * Filter which rubro to delete.
+     */
+    where: rubroWhereUniqueInput
+  }
+
+  /**
+   * rubro deleteMany
+   */
+  export type rubroDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which rubros to delete
+     */
+    where?: rubroWhereInput
+    /**
+     * Limit how many rubros to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * rubro.subrubro
+   */
+  export type rubro$subrubroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    where?: subrubroWhereInput
+    orderBy?: subrubroOrderByWithRelationInput | subrubroOrderByWithRelationInput[]
+    cursor?: subrubroWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubrubroScalarFieldEnum | SubrubroScalarFieldEnum[]
+  }
+
+  /**
+   * rubro without action
+   */
+  export type rubroDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model subrubro
+   */
+
+  export type AggregateSubrubro = {
+    _count: SubrubroCountAggregateOutputType | null
+    _avg: SubrubroAvgAggregateOutputType | null
+    _sum: SubrubroSumAggregateOutputType | null
+    _min: SubrubroMinAggregateOutputType | null
+    _max: SubrubroMaxAggregateOutputType | null
+  }
+
+  export type SubrubroAvgAggregateOutputType = {
+    id: number | null
+    sub_id: number | null
+  }
+
+  export type SubrubroSumAggregateOutputType = {
+    id: number | null
+    sub_id: number | null
+  }
+
+  export type SubrubroMinAggregateOutputType = {
+    id: number | null
+    subcodigo: string | null
+    subdescripcion: string | null
+    sub_id: number | null
+  }
+
+  export type SubrubroMaxAggregateOutputType = {
+    id: number | null
+    subcodigo: string | null
+    subdescripcion: string | null
+    sub_id: number | null
+  }
+
+  export type SubrubroCountAggregateOutputType = {
+    id: number
+    subcodigo: number
+    subdescripcion: number
+    sub_id: number
+    _all: number
+  }
+
+
+  export type SubrubroAvgAggregateInputType = {
+    id?: true
+    sub_id?: true
+  }
+
+  export type SubrubroSumAggregateInputType = {
+    id?: true
+    sub_id?: true
+  }
+
+  export type SubrubroMinAggregateInputType = {
+    id?: true
+    subcodigo?: true
+    subdescripcion?: true
+    sub_id?: true
+  }
+
+  export type SubrubroMaxAggregateInputType = {
+    id?: true
+    subcodigo?: true
+    subdescripcion?: true
+    sub_id?: true
+  }
+
+  export type SubrubroCountAggregateInputType = {
+    id?: true
+    subcodigo?: true
+    subdescripcion?: true
+    sub_id?: true
+    _all?: true
+  }
+
+  export type SubrubroAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which subrubro to aggregate.
+     */
+    where?: subrubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subrubros to fetch.
+     */
+    orderBy?: subrubroOrderByWithRelationInput | subrubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: subrubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subrubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subrubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned subrubros
+    **/
+    _count?: true | SubrubroCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubrubroAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubrubroSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubrubroMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubrubroMaxAggregateInputType
+  }
+
+  export type GetSubrubroAggregateType<T extends SubrubroAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubrubro]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubrubro[P]>
+      : GetScalarType<T[P], AggregateSubrubro[P]>
+  }
+
+
+
+
+  export type subrubroGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: subrubroWhereInput
+    orderBy?: subrubroOrderByWithAggregationInput | subrubroOrderByWithAggregationInput[]
+    by: SubrubroScalarFieldEnum[] | SubrubroScalarFieldEnum
+    having?: subrubroScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubrubroCountAggregateInputType | true
+    _avg?: SubrubroAvgAggregateInputType
+    _sum?: SubrubroSumAggregateInputType
+    _min?: SubrubroMinAggregateInputType
+    _max?: SubrubroMaxAggregateInputType
+  }
+
+  export type SubrubroGroupByOutputType = {
+    id: number
+    subcodigo: string
+    subdescripcion: string
+    sub_id: number | null
+    _count: SubrubroCountAggregateOutputType | null
+    _avg: SubrubroAvgAggregateOutputType | null
+    _sum: SubrubroSumAggregateOutputType | null
+    _min: SubrubroMinAggregateOutputType | null
+    _max: SubrubroMaxAggregateOutputType | null
+  }
+
+  type GetSubrubroGroupByPayload<T extends subrubroGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubrubroGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubrubroGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubrubroGroupByOutputType[P]>
+            : GetScalarType<T[P], SubrubroGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type subrubroSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subcodigo?: boolean
+    subdescripcion?: boolean
+    sub_id?: boolean
+    rubro?: boolean | subrubro$rubroArgs<ExtArgs>
+  }, ExtArgs["result"]["subrubro"]>
+
+
+
+  export type subrubroSelectScalar = {
+    id?: boolean
+    subcodigo?: boolean
+    subdescripcion?: boolean
+    sub_id?: boolean
+  }
+
+  export type subrubroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subcodigo" | "subdescripcion" | "sub_id", ExtArgs["result"]["subrubro"]>
+  export type subrubroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rubro?: boolean | subrubro$rubroArgs<ExtArgs>
+  }
+
+  export type $subrubroPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "subrubro"
+    objects: {
+      rubro: Prisma.$rubroPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      subcodigo: string
+      subdescripcion: string
+      sub_id: number | null
+    }, ExtArgs["result"]["subrubro"]>
+    composites: {}
+  }
+
+  type subrubroGetPayload<S extends boolean | null | undefined | subrubroDefaultArgs> = $Result.GetResult<Prisma.$subrubroPayload, S>
+
+  type subrubroCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<subrubroFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubrubroCountAggregateInputType | true
+    }
+
+  export interface subrubroDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['subrubro'], meta: { name: 'subrubro' } }
+    /**
+     * Find zero or one Subrubro that matches the filter.
+     * @param {subrubroFindUniqueArgs} args - Arguments to find a Subrubro
+     * @example
+     * // Get one Subrubro
+     * const subrubro = await prisma.subrubro.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends subrubroFindUniqueArgs>(args: SelectSubset<T, subrubroFindUniqueArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subrubro that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {subrubroFindUniqueOrThrowArgs} args - Arguments to find a Subrubro
+     * @example
+     * // Get one Subrubro
+     * const subrubro = await prisma.subrubro.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends subrubroFindUniqueOrThrowArgs>(args: SelectSubset<T, subrubroFindUniqueOrThrowArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subrubro that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroFindFirstArgs} args - Arguments to find a Subrubro
+     * @example
+     * // Get one Subrubro
+     * const subrubro = await prisma.subrubro.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends subrubroFindFirstArgs>(args?: SelectSubset<T, subrubroFindFirstArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subrubro that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroFindFirstOrThrowArgs} args - Arguments to find a Subrubro
+     * @example
+     * // Get one Subrubro
+     * const subrubro = await prisma.subrubro.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends subrubroFindFirstOrThrowArgs>(args?: SelectSubset<T, subrubroFindFirstOrThrowArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subrubros that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subrubros
+     * const subrubros = await prisma.subrubro.findMany()
+     * 
+     * // Get first 10 Subrubros
+     * const subrubros = await prisma.subrubro.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subrubroWithIdOnly = await prisma.subrubro.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends subrubroFindManyArgs>(args?: SelectSubset<T, subrubroFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subrubro.
+     * @param {subrubroCreateArgs} args - Arguments to create a Subrubro.
+     * @example
+     * // Create one Subrubro
+     * const Subrubro = await prisma.subrubro.create({
+     *   data: {
+     *     // ... data to create a Subrubro
+     *   }
+     * })
+     * 
+     */
+    create<T extends subrubroCreateArgs>(args: SelectSubset<T, subrubroCreateArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subrubros.
+     * @param {subrubroCreateManyArgs} args - Arguments to create many Subrubros.
+     * @example
+     * // Create many Subrubros
+     * const subrubro = await prisma.subrubro.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends subrubroCreateManyArgs>(args?: SelectSubset<T, subrubroCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Subrubro.
+     * @param {subrubroDeleteArgs} args - Arguments to delete one Subrubro.
+     * @example
+     * // Delete one Subrubro
+     * const Subrubro = await prisma.subrubro.delete({
+     *   where: {
+     *     // ... filter to delete one Subrubro
+     *   }
+     * })
+     * 
+     */
+    delete<T extends subrubroDeleteArgs>(args: SelectSubset<T, subrubroDeleteArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subrubro.
+     * @param {subrubroUpdateArgs} args - Arguments to update one Subrubro.
+     * @example
+     * // Update one Subrubro
+     * const subrubro = await prisma.subrubro.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends subrubroUpdateArgs>(args: SelectSubset<T, subrubroUpdateArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subrubros.
+     * @param {subrubroDeleteManyArgs} args - Arguments to filter Subrubros to delete.
+     * @example
+     * // Delete a few Subrubros
+     * const { count } = await prisma.subrubro.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends subrubroDeleteManyArgs>(args?: SelectSubset<T, subrubroDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subrubros.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subrubros
+     * const subrubro = await prisma.subrubro.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends subrubroUpdateManyArgs>(args: SelectSubset<T, subrubroUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Subrubro.
+     * @param {subrubroUpsertArgs} args - Arguments to update or create a Subrubro.
+     * @example
+     * // Update or create a Subrubro
+     * const subrubro = await prisma.subrubro.upsert({
+     *   create: {
+     *     // ... data to create a Subrubro
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subrubro we want to update
+     *   }
+     * })
+     */
+    upsert<T extends subrubroUpsertArgs>(args: SelectSubset<T, subrubroUpsertArgs<ExtArgs>>): Prisma__subrubroClient<$Result.GetResult<Prisma.$subrubroPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subrubros.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroCountArgs} args - Arguments to filter Subrubros to count.
+     * @example
+     * // Count the number of Subrubros
+     * const count = await prisma.subrubro.count({
+     *   where: {
+     *     // ... the filter for the Subrubros we want to count
+     *   }
+     * })
+    **/
+    count<T extends subrubroCountArgs>(
+      args?: Subset<T, subrubroCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubrubroCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subrubro.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubrubroAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubrubroAggregateArgs>(args: Subset<T, SubrubroAggregateArgs>): Prisma.PrismaPromise<GetSubrubroAggregateType<T>>
+
+    /**
+     * Group by Subrubro.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subrubroGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends subrubroGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: subrubroGroupByArgs['orderBy'] }
+        : { orderBy?: subrubroGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, subrubroGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubrubroGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the subrubro model
+   */
+  readonly fields: subrubroFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for subrubro.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__subrubroClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    rubro<T extends subrubro$rubroArgs<ExtArgs> = {}>(args?: Subset<T, subrubro$rubroArgs<ExtArgs>>): Prisma__rubroClient<$Result.GetResult<Prisma.$rubroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the subrubro model
+   */
+  interface subrubroFieldRefs {
+    readonly id: FieldRef<"subrubro", 'Int'>
+    readonly subcodigo: FieldRef<"subrubro", 'String'>
+    readonly subdescripcion: FieldRef<"subrubro", 'String'>
+    readonly sub_id: FieldRef<"subrubro", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * subrubro findUnique
+   */
+  export type subrubroFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter, which subrubro to fetch.
+     */
+    where: subrubroWhereUniqueInput
+  }
+
+  /**
+   * subrubro findUniqueOrThrow
+   */
+  export type subrubroFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter, which subrubro to fetch.
+     */
+    where: subrubroWhereUniqueInput
+  }
+
+  /**
+   * subrubro findFirst
+   */
+  export type subrubroFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter, which subrubro to fetch.
+     */
+    where?: subrubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subrubros to fetch.
+     */
+    orderBy?: subrubroOrderByWithRelationInput | subrubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for subrubros.
+     */
+    cursor?: subrubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subrubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subrubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of subrubros.
+     */
+    distinct?: SubrubroScalarFieldEnum | SubrubroScalarFieldEnum[]
+  }
+
+  /**
+   * subrubro findFirstOrThrow
+   */
+  export type subrubroFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter, which subrubro to fetch.
+     */
+    where?: subrubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subrubros to fetch.
+     */
+    orderBy?: subrubroOrderByWithRelationInput | subrubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for subrubros.
+     */
+    cursor?: subrubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subrubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subrubros.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of subrubros.
+     */
+    distinct?: SubrubroScalarFieldEnum | SubrubroScalarFieldEnum[]
+  }
+
+  /**
+   * subrubro findMany
+   */
+  export type subrubroFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter, which subrubros to fetch.
+     */
+    where?: subrubroWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subrubros to fetch.
+     */
+    orderBy?: subrubroOrderByWithRelationInput | subrubroOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing subrubros.
+     */
+    cursor?: subrubroWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subrubros from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subrubros.
+     */
+    skip?: number
+    distinct?: SubrubroScalarFieldEnum | SubrubroScalarFieldEnum[]
+  }
+
+  /**
+   * subrubro create
+   */
+  export type subrubroCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * The data needed to create a subrubro.
+     */
+    data: XOR<subrubroCreateInput, subrubroUncheckedCreateInput>
+  }
+
+  /**
+   * subrubro createMany
+   */
+  export type subrubroCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many subrubros.
+     */
+    data: subrubroCreateManyInput | subrubroCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * subrubro update
+   */
+  export type subrubroUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * The data needed to update a subrubro.
+     */
+    data: XOR<subrubroUpdateInput, subrubroUncheckedUpdateInput>
+    /**
+     * Choose, which subrubro to update.
+     */
+    where: subrubroWhereUniqueInput
+  }
+
+  /**
+   * subrubro updateMany
+   */
+  export type subrubroUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update subrubros.
+     */
+    data: XOR<subrubroUpdateManyMutationInput, subrubroUncheckedUpdateManyInput>
+    /**
+     * Filter which subrubros to update
+     */
+    where?: subrubroWhereInput
+    /**
+     * Limit how many subrubros to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * subrubro upsert
+   */
+  export type subrubroUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * The filter to search for the subrubro to update in case it exists.
+     */
+    where: subrubroWhereUniqueInput
+    /**
+     * In case the subrubro found by the `where` argument doesn't exist, create a new subrubro with this data.
+     */
+    create: XOR<subrubroCreateInput, subrubroUncheckedCreateInput>
+    /**
+     * In case the subrubro was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<subrubroUpdateInput, subrubroUncheckedUpdateInput>
+  }
+
+  /**
+   * subrubro delete
+   */
+  export type subrubroDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+    /**
+     * Filter which subrubro to delete.
+     */
+    where: subrubroWhereUniqueInput
+  }
+
+  /**
+   * subrubro deleteMany
+   */
+  export type subrubroDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which subrubros to delete
+     */
+    where?: subrubroWhereInput
+    /**
+     * Limit how many subrubros to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * subrubro.rubro
+   */
+  export type subrubro$rubroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rubro
+     */
+    select?: rubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the rubro
+     */
+    omit?: rubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: rubroInclude<ExtArgs> | null
+    where?: rubroWhereInput
+  }
+
+  /**
+   * subrubro without action
+   */
+  export type subrubroDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subrubro
+     */
+    select?: subrubroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the subrubro
+     */
+    omit?: subrubroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: subrubroInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -45240,7 +50519,8 @@ export namespace Prisma {
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
-    url_factura: 'url_factura'
+    url_factura: 'url_factura',
+    nro_factura: 'nro_factura'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -45405,7 +50685,8 @@ export namespace Prisma {
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
-    url_factura: 'url_factura'
+    url_factura: 'url_factura',
+    nro_factura: 'nro_factura'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -45636,6 +50917,53 @@ export namespace Prisma {
   export type Tipo_detraccionScalarFieldEnum = (typeof Tipo_detraccionScalarFieldEnum)[keyof typeof Tipo_detraccionScalarFieldEnum]
 
 
+  export const CentroproyectoScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    proyecto: 'proyecto'
+  };
+
+  export type CentroproyectoScalarFieldEnum = (typeof CentroproyectoScalarFieldEnum)[keyof typeof CentroproyectoScalarFieldEnum]
+
+
+  export const CentrosubproyectoScalarFieldEnum: {
+    id: 'id',
+    subcodigopro: 'subcodigopro',
+    subprodes: 'subprodes',
+    id_sub: 'id_sub'
+  };
+
+  export type CentrosubproyectoScalarFieldEnum = (typeof CentrosubproyectoScalarFieldEnum)[keyof typeof CentrosubproyectoScalarFieldEnum]
+
+
+  export const FasecontrolScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type FasecontrolScalarFieldEnum = (typeof FasecontrolScalarFieldEnum)[keyof typeof FasecontrolScalarFieldEnum]
+
+
+  export const RubroScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type RubroScalarFieldEnum = (typeof RubroScalarFieldEnum)[keyof typeof RubroScalarFieldEnum]
+
+
+  export const SubrubroScalarFieldEnum: {
+    id: 'id',
+    subcodigo: 'subcodigo',
+    subdescripcion: 'subdescripcion',
+    sub_id: 'sub_id'
+  };
+
+  export type SubrubroScalarFieldEnum = (typeof SubrubroScalarFieldEnum)[keyof typeof SubrubroScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -45828,7 +51156,8 @@ export namespace Prisma {
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
-    url_factura: 'url_factura'
+    url_factura: 'url_factura',
+    nro_factura: 'nro_factura'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -45916,7 +51245,8 @@ export namespace Prisma {
     almacen_central: 'almacen_central',
     url: 'url',
     url_cotizacion: 'url_cotizacion',
-    url_factura: 'url_factura'
+    url_factura: 'url_factura',
+    nro_factura: 'nro_factura'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -46028,6 +51358,46 @@ export namespace Prisma {
   };
 
   export type tipo_detraccionOrderByRelevanceFieldEnum = (typeof tipo_detraccionOrderByRelevanceFieldEnum)[keyof typeof tipo_detraccionOrderByRelevanceFieldEnum]
+
+
+  export const centroproyectoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    proyecto: 'proyecto'
+  };
+
+  export type centroproyectoOrderByRelevanceFieldEnum = (typeof centroproyectoOrderByRelevanceFieldEnum)[keyof typeof centroproyectoOrderByRelevanceFieldEnum]
+
+
+  export const centrosubproyectoOrderByRelevanceFieldEnum: {
+    subcodigopro: 'subcodigopro',
+    subprodes: 'subprodes'
+  };
+
+  export type centrosubproyectoOrderByRelevanceFieldEnum = (typeof centrosubproyectoOrderByRelevanceFieldEnum)[keyof typeof centrosubproyectoOrderByRelevanceFieldEnum]
+
+
+  export const fasecontrolOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type fasecontrolOrderByRelevanceFieldEnum = (typeof fasecontrolOrderByRelevanceFieldEnum)[keyof typeof fasecontrolOrderByRelevanceFieldEnum]
+
+
+  export const rubroOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type rubroOrderByRelevanceFieldEnum = (typeof rubroOrderByRelevanceFieldEnum)[keyof typeof rubroOrderByRelevanceFieldEnum]
+
+
+  export const subrubroOrderByRelevanceFieldEnum: {
+    subcodigo: 'subcodigo',
+    subdescripcion: 'subdescripcion'
+  };
+
+  export type subrubroOrderByRelevanceFieldEnum = (typeof subrubroOrderByRelevanceFieldEnum)[keyof typeof subrubroOrderByRelevanceFieldEnum]
 
 
   /**
@@ -47523,6 +52893,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_compra"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -47571,6 +52942,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -47623,6 +52995,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_compra"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -47671,6 +53044,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -47723,6 +53097,7 @@ export namespace Prisma {
     url?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    nro_factura?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -48451,6 +53826,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -48498,6 +53874,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -48549,6 +53926,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -48596,6 +53974,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -48648,6 +54027,7 @@ export namespace Prisma {
     url?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    nro_factura?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -49801,6 +55181,253 @@ export namespace Prisma {
     id_tipo_detraccion?: StringWithAggregatesFilter<"tipo_detraccion"> | string
     tipo_detraccion?: StringNullableWithAggregatesFilter<"tipo_detraccion"> | string | null
     porcentaje_detraccion?: DecimalNullableWithAggregatesFilter<"tipo_detraccion"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type centroproyectoWhereInput = {
+    AND?: centroproyectoWhereInput | centroproyectoWhereInput[]
+    OR?: centroproyectoWhereInput[]
+    NOT?: centroproyectoWhereInput | centroproyectoWhereInput[]
+    id?: IntFilter<"centroproyecto"> | number
+    codigo?: StringFilter<"centroproyecto"> | string
+    proyecto?: StringFilter<"centroproyecto"> | string
+    centrosubproyecto?: CentrosubproyectoListRelationFilter
+  }
+
+  export type centroproyectoOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    proyecto?: SortOrder
+    centrosubproyecto?: centrosubproyectoOrderByRelationAggregateInput
+    _relevance?: centroproyectoOrderByRelevanceInput
+  }
+
+  export type centroproyectoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: centroproyectoWhereInput | centroproyectoWhereInput[]
+    OR?: centroproyectoWhereInput[]
+    NOT?: centroproyectoWhereInput | centroproyectoWhereInput[]
+    codigo?: StringFilter<"centroproyecto"> | string
+    proyecto?: StringFilter<"centroproyecto"> | string
+    centrosubproyecto?: CentrosubproyectoListRelationFilter
+  }, "id">
+
+  export type centroproyectoOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    proyecto?: SortOrder
+    _count?: centroproyectoCountOrderByAggregateInput
+    _avg?: centroproyectoAvgOrderByAggregateInput
+    _max?: centroproyectoMaxOrderByAggregateInput
+    _min?: centroproyectoMinOrderByAggregateInput
+    _sum?: centroproyectoSumOrderByAggregateInput
+  }
+
+  export type centroproyectoScalarWhereWithAggregatesInput = {
+    AND?: centroproyectoScalarWhereWithAggregatesInput | centroproyectoScalarWhereWithAggregatesInput[]
+    OR?: centroproyectoScalarWhereWithAggregatesInput[]
+    NOT?: centroproyectoScalarWhereWithAggregatesInput | centroproyectoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"centroproyecto"> | number
+    codigo?: StringWithAggregatesFilter<"centroproyecto"> | string
+    proyecto?: StringWithAggregatesFilter<"centroproyecto"> | string
+  }
+
+  export type centrosubproyectoWhereInput = {
+    AND?: centrosubproyectoWhereInput | centrosubproyectoWhereInput[]
+    OR?: centrosubproyectoWhereInput[]
+    NOT?: centrosubproyectoWhereInput | centrosubproyectoWhereInput[]
+    id?: IntFilter<"centrosubproyecto"> | number
+    subcodigopro?: StringFilter<"centrosubproyecto"> | string
+    subprodes?: StringFilter<"centrosubproyecto"> | string
+    id_sub?: IntNullableFilter<"centrosubproyecto"> | number | null
+    centroproyecto?: XOR<CentroproyectoNullableScalarRelationFilter, centroproyectoWhereInput> | null
+  }
+
+  export type centrosubproyectoOrderByWithRelationInput = {
+    id?: SortOrder
+    subcodigopro?: SortOrder
+    subprodes?: SortOrder
+    id_sub?: SortOrderInput | SortOrder
+    centroproyecto?: centroproyectoOrderByWithRelationInput
+    _relevance?: centrosubproyectoOrderByRelevanceInput
+  }
+
+  export type centrosubproyectoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: centrosubproyectoWhereInput | centrosubproyectoWhereInput[]
+    OR?: centrosubproyectoWhereInput[]
+    NOT?: centrosubproyectoWhereInput | centrosubproyectoWhereInput[]
+    subcodigopro?: StringFilter<"centrosubproyecto"> | string
+    subprodes?: StringFilter<"centrosubproyecto"> | string
+    id_sub?: IntNullableFilter<"centrosubproyecto"> | number | null
+    centroproyecto?: XOR<CentroproyectoNullableScalarRelationFilter, centroproyectoWhereInput> | null
+  }, "id">
+
+  export type centrosubproyectoOrderByWithAggregationInput = {
+    id?: SortOrder
+    subcodigopro?: SortOrder
+    subprodes?: SortOrder
+    id_sub?: SortOrderInput | SortOrder
+    _count?: centrosubproyectoCountOrderByAggregateInput
+    _avg?: centrosubproyectoAvgOrderByAggregateInput
+    _max?: centrosubproyectoMaxOrderByAggregateInput
+    _min?: centrosubproyectoMinOrderByAggregateInput
+    _sum?: centrosubproyectoSumOrderByAggregateInput
+  }
+
+  export type centrosubproyectoScalarWhereWithAggregatesInput = {
+    AND?: centrosubproyectoScalarWhereWithAggregatesInput | centrosubproyectoScalarWhereWithAggregatesInput[]
+    OR?: centrosubproyectoScalarWhereWithAggregatesInput[]
+    NOT?: centrosubproyectoScalarWhereWithAggregatesInput | centrosubproyectoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"centrosubproyecto"> | number
+    subcodigopro?: StringWithAggregatesFilter<"centrosubproyecto"> | string
+    subprodes?: StringWithAggregatesFilter<"centrosubproyecto"> | string
+    id_sub?: IntNullableWithAggregatesFilter<"centrosubproyecto"> | number | null
+  }
+
+  export type fasecontrolWhereInput = {
+    AND?: fasecontrolWhereInput | fasecontrolWhereInput[]
+    OR?: fasecontrolWhereInput[]
+    NOT?: fasecontrolWhereInput | fasecontrolWhereInput[]
+    id?: IntFilter<"fasecontrol"> | number
+    codigo?: StringNullableFilter<"fasecontrol"> | string | null
+    descripcion?: StringNullableFilter<"fasecontrol"> | string | null
+  }
+
+  export type fasecontrolOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _relevance?: fasecontrolOrderByRelevanceInput
+  }
+
+  export type fasecontrolWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: fasecontrolWhereInput | fasecontrolWhereInput[]
+    OR?: fasecontrolWhereInput[]
+    NOT?: fasecontrolWhereInput | fasecontrolWhereInput[]
+    codigo?: StringNullableFilter<"fasecontrol"> | string | null
+    descripcion?: StringNullableFilter<"fasecontrol"> | string | null
+  }, "id">
+
+  export type fasecontrolOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _count?: fasecontrolCountOrderByAggregateInput
+    _avg?: fasecontrolAvgOrderByAggregateInput
+    _max?: fasecontrolMaxOrderByAggregateInput
+    _min?: fasecontrolMinOrderByAggregateInput
+    _sum?: fasecontrolSumOrderByAggregateInput
+  }
+
+  export type fasecontrolScalarWhereWithAggregatesInput = {
+    AND?: fasecontrolScalarWhereWithAggregatesInput | fasecontrolScalarWhereWithAggregatesInput[]
+    OR?: fasecontrolScalarWhereWithAggregatesInput[]
+    NOT?: fasecontrolScalarWhereWithAggregatesInput | fasecontrolScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"fasecontrol"> | number
+    codigo?: StringNullableWithAggregatesFilter<"fasecontrol"> | string | null
+    descripcion?: StringNullableWithAggregatesFilter<"fasecontrol"> | string | null
+  }
+
+  export type rubroWhereInput = {
+    AND?: rubroWhereInput | rubroWhereInput[]
+    OR?: rubroWhereInput[]
+    NOT?: rubroWhereInput | rubroWhereInput[]
+    id?: IntFilter<"rubro"> | number
+    codigo?: StringFilter<"rubro"> | string
+    descripcion?: StringFilter<"rubro"> | string
+    subrubro?: SubrubroListRelationFilter
+  }
+
+  export type rubroOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    subrubro?: subrubroOrderByRelationAggregateInput
+    _relevance?: rubroOrderByRelevanceInput
+  }
+
+  export type rubroWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: rubroWhereInput | rubroWhereInput[]
+    OR?: rubroWhereInput[]
+    NOT?: rubroWhereInput | rubroWhereInput[]
+    codigo?: StringFilter<"rubro"> | string
+    descripcion?: StringFilter<"rubro"> | string
+    subrubro?: SubrubroListRelationFilter
+  }, "id">
+
+  export type rubroOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: rubroCountOrderByAggregateInput
+    _avg?: rubroAvgOrderByAggregateInput
+    _max?: rubroMaxOrderByAggregateInput
+    _min?: rubroMinOrderByAggregateInput
+    _sum?: rubroSumOrderByAggregateInput
+  }
+
+  export type rubroScalarWhereWithAggregatesInput = {
+    AND?: rubroScalarWhereWithAggregatesInput | rubroScalarWhereWithAggregatesInput[]
+    OR?: rubroScalarWhereWithAggregatesInput[]
+    NOT?: rubroScalarWhereWithAggregatesInput | rubroScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"rubro"> | number
+    codigo?: StringWithAggregatesFilter<"rubro"> | string
+    descripcion?: StringWithAggregatesFilter<"rubro"> | string
+  }
+
+  export type subrubroWhereInput = {
+    AND?: subrubroWhereInput | subrubroWhereInput[]
+    OR?: subrubroWhereInput[]
+    NOT?: subrubroWhereInput | subrubroWhereInput[]
+    id?: IntFilter<"subrubro"> | number
+    subcodigo?: StringFilter<"subrubro"> | string
+    subdescripcion?: StringFilter<"subrubro"> | string
+    sub_id?: IntNullableFilter<"subrubro"> | number | null
+    rubro?: XOR<RubroNullableScalarRelationFilter, rubroWhereInput> | null
+  }
+
+  export type subrubroOrderByWithRelationInput = {
+    id?: SortOrder
+    subcodigo?: SortOrder
+    subdescripcion?: SortOrder
+    sub_id?: SortOrderInput | SortOrder
+    rubro?: rubroOrderByWithRelationInput
+    _relevance?: subrubroOrderByRelevanceInput
+  }
+
+  export type subrubroWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: subrubroWhereInput | subrubroWhereInput[]
+    OR?: subrubroWhereInput[]
+    NOT?: subrubroWhereInput | subrubroWhereInput[]
+    subcodigo?: StringFilter<"subrubro"> | string
+    subdescripcion?: StringFilter<"subrubro"> | string
+    sub_id?: IntNullableFilter<"subrubro"> | number | null
+    rubro?: XOR<RubroNullableScalarRelationFilter, rubroWhereInput> | null
+  }, "id">
+
+  export type subrubroOrderByWithAggregationInput = {
+    id?: SortOrder
+    subcodigo?: SortOrder
+    subdescripcion?: SortOrder
+    sub_id?: SortOrderInput | SortOrder
+    _count?: subrubroCountOrderByAggregateInput
+    _avg?: subrubroAvgOrderByAggregateInput
+    _max?: subrubroMaxOrderByAggregateInput
+    _min?: subrubroMinOrderByAggregateInput
+    _sum?: subrubroSumOrderByAggregateInput
+  }
+
+  export type subrubroScalarWhereWithAggregatesInput = {
+    AND?: subrubroScalarWhereWithAggregatesInput | subrubroScalarWhereWithAggregatesInput[]
+    OR?: subrubroScalarWhereWithAggregatesInput[]
+    NOT?: subrubroScalarWhereWithAggregatesInput | subrubroScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"subrubro"> | number
+    subcodigo?: StringWithAggregatesFilter<"subrubro"> | string
+    subdescripcion?: StringWithAggregatesFilter<"subrubro"> | string
+    sub_id?: IntNullableWithAggregatesFilter<"subrubro"> | number | null
   }
 
   export type almacenesCreateInput = {
@@ -51092,6 +56719,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -51140,6 +56768,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -51183,6 +56812,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -51231,6 +56861,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -51277,6 +56908,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -51318,6 +56950,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -51362,6 +56995,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -52092,6 +57726,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -52139,6 +57774,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -52181,6 +57817,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -52228,6 +57865,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -52273,6 +57911,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -52314,6 +57953,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -52358,6 +57998,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -53653,6 +59294,221 @@ export namespace Prisma {
     id_tipo_detraccion?: StringFieldUpdateOperationsInput | string
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type centroproyectoCreateInput = {
+    codigo: string
+    proyecto: string
+    centrosubproyecto?: centrosubproyectoCreateNestedManyWithoutCentroproyectoInput
+  }
+
+  export type centroproyectoUncheckedCreateInput = {
+    id?: number
+    codigo: string
+    proyecto: string
+    centrosubproyecto?: centrosubproyectoUncheckedCreateNestedManyWithoutCentroproyectoInput
+  }
+
+  export type centroproyectoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+    centrosubproyecto?: centrosubproyectoUpdateManyWithoutCentroproyectoNestedInput
+  }
+
+  export type centroproyectoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+    centrosubproyecto?: centrosubproyectoUncheckedUpdateManyWithoutCentroproyectoNestedInput
+  }
+
+  export type centroproyectoCreateManyInput = {
+    id?: number
+    codigo: string
+    proyecto: string
+  }
+
+  export type centroproyectoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centroproyectoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centrosubproyectoCreateInput = {
+    subcodigopro: string
+    subprodes: string
+    centroproyecto?: centroproyectoCreateNestedOneWithoutCentrosubproyectoInput
+  }
+
+  export type centrosubproyectoUncheckedCreateInput = {
+    id?: number
+    subcodigopro: string
+    subprodes: string
+    id_sub?: number | null
+  }
+
+  export type centrosubproyectoUpdateInput = {
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+    centroproyecto?: centroproyectoUpdateOneWithoutCentrosubproyectoNestedInput
+  }
+
+  export type centrosubproyectoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+    id_sub?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type centrosubproyectoCreateManyInput = {
+    id?: number
+    subcodigopro: string
+    subprodes: string
+    id_sub?: number | null
+  }
+
+  export type centrosubproyectoUpdateManyMutationInput = {
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centrosubproyectoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+    id_sub?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type fasecontrolCreateInput = {
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type fasecontrolUncheckedCreateInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type fasecontrolUpdateInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type fasecontrolUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type fasecontrolCreateManyInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type fasecontrolUpdateManyMutationInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type fasecontrolUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type rubroCreateInput = {
+    codigo: string
+    descripcion: string
+    subrubro?: subrubroCreateNestedManyWithoutRubroInput
+  }
+
+  export type rubroUncheckedCreateInput = {
+    id?: number
+    codigo: string
+    descripcion: string
+    subrubro?: subrubroUncheckedCreateNestedManyWithoutRubroInput
+  }
+
+  export type rubroUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    subrubro?: subrubroUpdateManyWithoutRubroNestedInput
+  }
+
+  export type rubroUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    subrubro?: subrubroUncheckedUpdateManyWithoutRubroNestedInput
+  }
+
+  export type rubroCreateManyInput = {
+    id?: number
+    codigo: string
+    descripcion: string
+  }
+
+  export type rubroUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type rubroUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroCreateInput = {
+    subcodigo: string
+    subdescripcion: string
+    rubro?: rubroCreateNestedOneWithoutSubrubroInput
+  }
+
+  export type subrubroUncheckedCreateInput = {
+    id?: number
+    subcodigo: string
+    subdescripcion: string
+    sub_id?: number | null
+  }
+
+  export type subrubroUpdateInput = {
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+    rubro?: rubroUpdateOneWithoutSubrubroNestedInput
+  }
+
+  export type subrubroUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+    sub_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type subrubroCreateManyInput = {
+    id?: number
+    subcodigo: string
+    subdescripcion: string
+    sub_id?: number | null
+  }
+
+  export type subrubroUpdateManyMutationInput = {
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+    sub_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -55263,6 +61119,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -55321,6 +61178,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -55365,6 +61223,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -56083,6 +61942,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -56141,6 +62001,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -56185,6 +62046,7 @@ export namespace Prisma {
     url?: SortOrder
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
+    nro_factura?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -57130,6 +62992,206 @@ export namespace Prisma {
 
   export type tipo_detraccionSumOrderByAggregateInput = {
     porcentaje_detraccion?: SortOrder
+  }
+
+  export type CentrosubproyectoListRelationFilter = {
+    every?: centrosubproyectoWhereInput
+    some?: centrosubproyectoWhereInput
+    none?: centrosubproyectoWhereInput
+  }
+
+  export type centrosubproyectoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type centroproyectoOrderByRelevanceInput = {
+    fields: centroproyectoOrderByRelevanceFieldEnum | centroproyectoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type centroproyectoCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    proyecto?: SortOrder
+  }
+
+  export type centroproyectoAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type centroproyectoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    proyecto?: SortOrder
+  }
+
+  export type centroproyectoMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    proyecto?: SortOrder
+  }
+
+  export type centroproyectoSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type CentroproyectoNullableScalarRelationFilter = {
+    is?: centroproyectoWhereInput | null
+    isNot?: centroproyectoWhereInput | null
+  }
+
+  export type centrosubproyectoOrderByRelevanceInput = {
+    fields: centrosubproyectoOrderByRelevanceFieldEnum | centrosubproyectoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type centrosubproyectoCountOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigopro?: SortOrder
+    subprodes?: SortOrder
+    id_sub?: SortOrder
+  }
+
+  export type centrosubproyectoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    id_sub?: SortOrder
+  }
+
+  export type centrosubproyectoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigopro?: SortOrder
+    subprodes?: SortOrder
+    id_sub?: SortOrder
+  }
+
+  export type centrosubproyectoMinOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigopro?: SortOrder
+    subprodes?: SortOrder
+    id_sub?: SortOrder
+  }
+
+  export type centrosubproyectoSumOrderByAggregateInput = {
+    id?: SortOrder
+    id_sub?: SortOrder
+  }
+
+  export type fasecontrolOrderByRelevanceInput = {
+    fields: fasecontrolOrderByRelevanceFieldEnum | fasecontrolOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type fasecontrolCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type fasecontrolAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type fasecontrolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type fasecontrolMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type fasecontrolSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type SubrubroListRelationFilter = {
+    every?: subrubroWhereInput
+    some?: subrubroWhereInput
+    none?: subrubroWhereInput
+  }
+
+  export type subrubroOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type rubroOrderByRelevanceInput = {
+    fields: rubroOrderByRelevanceFieldEnum | rubroOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type rubroCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type rubroAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type rubroMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type rubroMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type rubroSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type RubroNullableScalarRelationFilter = {
+    is?: rubroWhereInput | null
+    isNot?: rubroWhereInput | null
+  }
+
+  export type subrubroOrderByRelevanceInput = {
+    fields: subrubroOrderByRelevanceFieldEnum | subrubroOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type subrubroCountOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigo?: SortOrder
+    subdescripcion?: SortOrder
+    sub_id?: SortOrder
+  }
+
+  export type subrubroAvgOrderByAggregateInput = {
+    id?: SortOrder
+    sub_id?: SortOrder
+  }
+
+  export type subrubroMaxOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigo?: SortOrder
+    subdescripcion?: SortOrder
+    sub_id?: SortOrder
+  }
+
+  export type subrubroMinOrderByAggregateInput = {
+    id?: SortOrder
+    subcodigo?: SortOrder
+    subdescripcion?: SortOrder
+    sub_id?: SortOrder
+  }
+
+  export type subrubroSumOrderByAggregateInput = {
+    id?: SortOrder
+    sub_id?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -59816,6 +65878,122 @@ export namespace Prisma {
     update?: XOR<XOR<movimientos_inventarioUpdateToOneWithWhereWithoutMovimientos_adicionalesInput, movimientos_inventarioUpdateWithoutMovimientos_adicionalesInput>, movimientos_inventarioUncheckedUpdateWithoutMovimientos_adicionalesInput>
   }
 
+  export type centrosubproyectoCreateNestedManyWithoutCentroproyectoInput = {
+    create?: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput> | centrosubproyectoCreateWithoutCentroproyectoInput[] | centrosubproyectoUncheckedCreateWithoutCentroproyectoInput[]
+    connectOrCreate?: centrosubproyectoCreateOrConnectWithoutCentroproyectoInput | centrosubproyectoCreateOrConnectWithoutCentroproyectoInput[]
+    createMany?: centrosubproyectoCreateManyCentroproyectoInputEnvelope
+    connect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+  }
+
+  export type centrosubproyectoUncheckedCreateNestedManyWithoutCentroproyectoInput = {
+    create?: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput> | centrosubproyectoCreateWithoutCentroproyectoInput[] | centrosubproyectoUncheckedCreateWithoutCentroproyectoInput[]
+    connectOrCreate?: centrosubproyectoCreateOrConnectWithoutCentroproyectoInput | centrosubproyectoCreateOrConnectWithoutCentroproyectoInput[]
+    createMany?: centrosubproyectoCreateManyCentroproyectoInputEnvelope
+    connect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+  }
+
+  export type centrosubproyectoUpdateManyWithoutCentroproyectoNestedInput = {
+    create?: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput> | centrosubproyectoCreateWithoutCentroproyectoInput[] | centrosubproyectoUncheckedCreateWithoutCentroproyectoInput[]
+    connectOrCreate?: centrosubproyectoCreateOrConnectWithoutCentroproyectoInput | centrosubproyectoCreateOrConnectWithoutCentroproyectoInput[]
+    upsert?: centrosubproyectoUpsertWithWhereUniqueWithoutCentroproyectoInput | centrosubproyectoUpsertWithWhereUniqueWithoutCentroproyectoInput[]
+    createMany?: centrosubproyectoCreateManyCentroproyectoInputEnvelope
+    set?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    disconnect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    delete?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    connect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    update?: centrosubproyectoUpdateWithWhereUniqueWithoutCentroproyectoInput | centrosubproyectoUpdateWithWhereUniqueWithoutCentroproyectoInput[]
+    updateMany?: centrosubproyectoUpdateManyWithWhereWithoutCentroproyectoInput | centrosubproyectoUpdateManyWithWhereWithoutCentroproyectoInput[]
+    deleteMany?: centrosubproyectoScalarWhereInput | centrosubproyectoScalarWhereInput[]
+  }
+
+  export type centrosubproyectoUncheckedUpdateManyWithoutCentroproyectoNestedInput = {
+    create?: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput> | centrosubproyectoCreateWithoutCentroproyectoInput[] | centrosubproyectoUncheckedCreateWithoutCentroproyectoInput[]
+    connectOrCreate?: centrosubproyectoCreateOrConnectWithoutCentroproyectoInput | centrosubproyectoCreateOrConnectWithoutCentroproyectoInput[]
+    upsert?: centrosubproyectoUpsertWithWhereUniqueWithoutCentroproyectoInput | centrosubproyectoUpsertWithWhereUniqueWithoutCentroproyectoInput[]
+    createMany?: centrosubproyectoCreateManyCentroproyectoInputEnvelope
+    set?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    disconnect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    delete?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    connect?: centrosubproyectoWhereUniqueInput | centrosubproyectoWhereUniqueInput[]
+    update?: centrosubproyectoUpdateWithWhereUniqueWithoutCentroproyectoInput | centrosubproyectoUpdateWithWhereUniqueWithoutCentroproyectoInput[]
+    updateMany?: centrosubproyectoUpdateManyWithWhereWithoutCentroproyectoInput | centrosubproyectoUpdateManyWithWhereWithoutCentroproyectoInput[]
+    deleteMany?: centrosubproyectoScalarWhereInput | centrosubproyectoScalarWhereInput[]
+  }
+
+  export type centroproyectoCreateNestedOneWithoutCentrosubproyectoInput = {
+    create?: XOR<centroproyectoCreateWithoutCentrosubproyectoInput, centroproyectoUncheckedCreateWithoutCentrosubproyectoInput>
+    connectOrCreate?: centroproyectoCreateOrConnectWithoutCentrosubproyectoInput
+    connect?: centroproyectoWhereUniqueInput
+  }
+
+  export type centroproyectoUpdateOneWithoutCentrosubproyectoNestedInput = {
+    create?: XOR<centroproyectoCreateWithoutCentrosubproyectoInput, centroproyectoUncheckedCreateWithoutCentrosubproyectoInput>
+    connectOrCreate?: centroproyectoCreateOrConnectWithoutCentrosubproyectoInput
+    upsert?: centroproyectoUpsertWithoutCentrosubproyectoInput
+    disconnect?: centroproyectoWhereInput | boolean
+    delete?: centroproyectoWhereInput | boolean
+    connect?: centroproyectoWhereUniqueInput
+    update?: XOR<XOR<centroproyectoUpdateToOneWithWhereWithoutCentrosubproyectoInput, centroproyectoUpdateWithoutCentrosubproyectoInput>, centroproyectoUncheckedUpdateWithoutCentrosubproyectoInput>
+  }
+
+  export type subrubroCreateNestedManyWithoutRubroInput = {
+    create?: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput> | subrubroCreateWithoutRubroInput[] | subrubroUncheckedCreateWithoutRubroInput[]
+    connectOrCreate?: subrubroCreateOrConnectWithoutRubroInput | subrubroCreateOrConnectWithoutRubroInput[]
+    createMany?: subrubroCreateManyRubroInputEnvelope
+    connect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+  }
+
+  export type subrubroUncheckedCreateNestedManyWithoutRubroInput = {
+    create?: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput> | subrubroCreateWithoutRubroInput[] | subrubroUncheckedCreateWithoutRubroInput[]
+    connectOrCreate?: subrubroCreateOrConnectWithoutRubroInput | subrubroCreateOrConnectWithoutRubroInput[]
+    createMany?: subrubroCreateManyRubroInputEnvelope
+    connect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+  }
+
+  export type subrubroUpdateManyWithoutRubroNestedInput = {
+    create?: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput> | subrubroCreateWithoutRubroInput[] | subrubroUncheckedCreateWithoutRubroInput[]
+    connectOrCreate?: subrubroCreateOrConnectWithoutRubroInput | subrubroCreateOrConnectWithoutRubroInput[]
+    upsert?: subrubroUpsertWithWhereUniqueWithoutRubroInput | subrubroUpsertWithWhereUniqueWithoutRubroInput[]
+    createMany?: subrubroCreateManyRubroInputEnvelope
+    set?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    disconnect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    delete?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    connect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    update?: subrubroUpdateWithWhereUniqueWithoutRubroInput | subrubroUpdateWithWhereUniqueWithoutRubroInput[]
+    updateMany?: subrubroUpdateManyWithWhereWithoutRubroInput | subrubroUpdateManyWithWhereWithoutRubroInput[]
+    deleteMany?: subrubroScalarWhereInput | subrubroScalarWhereInput[]
+  }
+
+  export type subrubroUncheckedUpdateManyWithoutRubroNestedInput = {
+    create?: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput> | subrubroCreateWithoutRubroInput[] | subrubroUncheckedCreateWithoutRubroInput[]
+    connectOrCreate?: subrubroCreateOrConnectWithoutRubroInput | subrubroCreateOrConnectWithoutRubroInput[]
+    upsert?: subrubroUpsertWithWhereUniqueWithoutRubroInput | subrubroUpsertWithWhereUniqueWithoutRubroInput[]
+    createMany?: subrubroCreateManyRubroInputEnvelope
+    set?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    disconnect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    delete?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    connect?: subrubroWhereUniqueInput | subrubroWhereUniqueInput[]
+    update?: subrubroUpdateWithWhereUniqueWithoutRubroInput | subrubroUpdateWithWhereUniqueWithoutRubroInput[]
+    updateMany?: subrubroUpdateManyWithWhereWithoutRubroInput | subrubroUpdateManyWithWhereWithoutRubroInput[]
+    deleteMany?: subrubroScalarWhereInput | subrubroScalarWhereInput[]
+  }
+
+  export type rubroCreateNestedOneWithoutSubrubroInput = {
+    create?: XOR<rubroCreateWithoutSubrubroInput, rubroUncheckedCreateWithoutSubrubroInput>
+    connectOrCreate?: rubroCreateOrConnectWithoutSubrubroInput
+    connect?: rubroWhereUniqueInput
+  }
+
+  export type rubroUpdateOneWithoutSubrubroNestedInput = {
+    create?: XOR<rubroCreateWithoutSubrubroInput, rubroUncheckedCreateWithoutSubrubroInput>
+    connectOrCreate?: rubroCreateOrConnectWithoutSubrubroInput
+    upsert?: rubroUpsertWithoutSubrubroInput
+    disconnect?: rubroWhereInput | boolean
+    delete?: rubroWhereInput | boolean
+    connect?: rubroWhereUniqueInput
+    update?: XOR<XOR<rubroUpdateToOneWithWhereWithoutSubrubroInput, rubroUpdateWithoutSubrubroInput>, rubroUncheckedUpdateWithoutSubrubroInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -61932,6 +68110,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -61979,6 +68158,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -62090,6 +68270,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -62137,6 +68318,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -64613,6 +70795,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -64659,6 +70842,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -64712,6 +70896,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -64757,6 +70942,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -64930,6 +71116,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_compra"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -64993,6 +71180,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -65059,6 +71247,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -65106,6 +71295,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -65222,6 +71412,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -65269,6 +71460,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -66319,6 +72511,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -66365,6 +72558,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -66418,6 +72612,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -66463,6 +72658,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -67220,6 +73416,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -67266,6 +73463,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
@@ -67376,6 +73574,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -67422,6 +73621,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
@@ -68894,6 +75094,176 @@ export namespace Prisma {
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
+  export type centrosubproyectoCreateWithoutCentroproyectoInput = {
+    subcodigopro: string
+    subprodes: string
+  }
+
+  export type centrosubproyectoUncheckedCreateWithoutCentroproyectoInput = {
+    id?: number
+    subcodigopro: string
+    subprodes: string
+  }
+
+  export type centrosubproyectoCreateOrConnectWithoutCentroproyectoInput = {
+    where: centrosubproyectoWhereUniqueInput
+    create: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput>
+  }
+
+  export type centrosubproyectoCreateManyCentroproyectoInputEnvelope = {
+    data: centrosubproyectoCreateManyCentroproyectoInput | centrosubproyectoCreateManyCentroproyectoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type centrosubproyectoUpsertWithWhereUniqueWithoutCentroproyectoInput = {
+    where: centrosubproyectoWhereUniqueInput
+    update: XOR<centrosubproyectoUpdateWithoutCentroproyectoInput, centrosubproyectoUncheckedUpdateWithoutCentroproyectoInput>
+    create: XOR<centrosubproyectoCreateWithoutCentroproyectoInput, centrosubproyectoUncheckedCreateWithoutCentroproyectoInput>
+  }
+
+  export type centrosubproyectoUpdateWithWhereUniqueWithoutCentroproyectoInput = {
+    where: centrosubproyectoWhereUniqueInput
+    data: XOR<centrosubproyectoUpdateWithoutCentroproyectoInput, centrosubproyectoUncheckedUpdateWithoutCentroproyectoInput>
+  }
+
+  export type centrosubproyectoUpdateManyWithWhereWithoutCentroproyectoInput = {
+    where: centrosubproyectoScalarWhereInput
+    data: XOR<centrosubproyectoUpdateManyMutationInput, centrosubproyectoUncheckedUpdateManyWithoutCentroproyectoInput>
+  }
+
+  export type centrosubproyectoScalarWhereInput = {
+    AND?: centrosubproyectoScalarWhereInput | centrosubproyectoScalarWhereInput[]
+    OR?: centrosubproyectoScalarWhereInput[]
+    NOT?: centrosubproyectoScalarWhereInput | centrosubproyectoScalarWhereInput[]
+    id?: IntFilter<"centrosubproyecto"> | number
+    subcodigopro?: StringFilter<"centrosubproyecto"> | string
+    subprodes?: StringFilter<"centrosubproyecto"> | string
+    id_sub?: IntNullableFilter<"centrosubproyecto"> | number | null
+  }
+
+  export type centroproyectoCreateWithoutCentrosubproyectoInput = {
+    codigo: string
+    proyecto: string
+  }
+
+  export type centroproyectoUncheckedCreateWithoutCentrosubproyectoInput = {
+    id?: number
+    codigo: string
+    proyecto: string
+  }
+
+  export type centroproyectoCreateOrConnectWithoutCentrosubproyectoInput = {
+    where: centroproyectoWhereUniqueInput
+    create: XOR<centroproyectoCreateWithoutCentrosubproyectoInput, centroproyectoUncheckedCreateWithoutCentrosubproyectoInput>
+  }
+
+  export type centroproyectoUpsertWithoutCentrosubproyectoInput = {
+    update: XOR<centroproyectoUpdateWithoutCentrosubproyectoInput, centroproyectoUncheckedUpdateWithoutCentrosubproyectoInput>
+    create: XOR<centroproyectoCreateWithoutCentrosubproyectoInput, centroproyectoUncheckedCreateWithoutCentrosubproyectoInput>
+    where?: centroproyectoWhereInput
+  }
+
+  export type centroproyectoUpdateToOneWithWhereWithoutCentrosubproyectoInput = {
+    where?: centroproyectoWhereInput
+    data: XOR<centroproyectoUpdateWithoutCentrosubproyectoInput, centroproyectoUncheckedUpdateWithoutCentrosubproyectoInput>
+  }
+
+  export type centroproyectoUpdateWithoutCentrosubproyectoInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centroproyectoUncheckedUpdateWithoutCentrosubproyectoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    proyecto?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroCreateWithoutRubroInput = {
+    subcodigo: string
+    subdescripcion: string
+  }
+
+  export type subrubroUncheckedCreateWithoutRubroInput = {
+    id?: number
+    subcodigo: string
+    subdescripcion: string
+  }
+
+  export type subrubroCreateOrConnectWithoutRubroInput = {
+    where: subrubroWhereUniqueInput
+    create: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput>
+  }
+
+  export type subrubroCreateManyRubroInputEnvelope = {
+    data: subrubroCreateManyRubroInput | subrubroCreateManyRubroInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type subrubroUpsertWithWhereUniqueWithoutRubroInput = {
+    where: subrubroWhereUniqueInput
+    update: XOR<subrubroUpdateWithoutRubroInput, subrubroUncheckedUpdateWithoutRubroInput>
+    create: XOR<subrubroCreateWithoutRubroInput, subrubroUncheckedCreateWithoutRubroInput>
+  }
+
+  export type subrubroUpdateWithWhereUniqueWithoutRubroInput = {
+    where: subrubroWhereUniqueInput
+    data: XOR<subrubroUpdateWithoutRubroInput, subrubroUncheckedUpdateWithoutRubroInput>
+  }
+
+  export type subrubroUpdateManyWithWhereWithoutRubroInput = {
+    where: subrubroScalarWhereInput
+    data: XOR<subrubroUpdateManyMutationInput, subrubroUncheckedUpdateManyWithoutRubroInput>
+  }
+
+  export type subrubroScalarWhereInput = {
+    AND?: subrubroScalarWhereInput | subrubroScalarWhereInput[]
+    OR?: subrubroScalarWhereInput[]
+    NOT?: subrubroScalarWhereInput | subrubroScalarWhereInput[]
+    id?: IntFilter<"subrubro"> | number
+    subcodigo?: StringFilter<"subrubro"> | string
+    subdescripcion?: StringFilter<"subrubro"> | string
+    sub_id?: IntNullableFilter<"subrubro"> | number | null
+  }
+
+  export type rubroCreateWithoutSubrubroInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type rubroUncheckedCreateWithoutSubrubroInput = {
+    id?: number
+    codigo: string
+    descripcion: string
+  }
+
+  export type rubroCreateOrConnectWithoutSubrubroInput = {
+    where: rubroWhereUniqueInput
+    create: XOR<rubroCreateWithoutSubrubroInput, rubroUncheckedCreateWithoutSubrubroInput>
+  }
+
+  export type rubroUpsertWithoutSubrubroInput = {
+    update: XOR<rubroUpdateWithoutSubrubroInput, rubroUncheckedUpdateWithoutSubrubroInput>
+    create: XOR<rubroCreateWithoutSubrubroInput, rubroUncheckedCreateWithoutSubrubroInput>
+    where?: rubroWhereInput
+  }
+
+  export type rubroUpdateToOneWithWhereWithoutSubrubroInput = {
+    where?: rubroWhereInput
+    data: XOR<rubroUpdateWithoutSubrubroInput, rubroUncheckedUpdateWithoutSubrubroInput>
+  }
+
+  export type rubroUpdateWithoutSubrubroInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type rubroUncheckedUpdateWithoutSubrubroInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
   export type almacenesCreateManyAlmacenesInput = {
     id_almacen?: number
     codigo_almacen: string
@@ -70171,6 +76541,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -70214,6 +76585,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type facturaUpdateWithoutProveedoresInput = {
@@ -70497,6 +76869,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -70543,6 +76916,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -70588,6 +76962,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -70629,6 +77004,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -70674,6 +77050,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -70718,6 +77095,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -70927,6 +77305,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -70970,6 +77349,7 @@ export namespace Prisma {
     url?: string | null
     url_cotizacion?: string | null
     url_factura?: string | null
+    nro_factura?: string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -71255,6 +77635,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -71301,6 +77682,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -71346,6 +77728,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -71387,6 +77770,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -71432,6 +77816,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -71476,6 +77861,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
@@ -71784,6 +78170,52 @@ export namespace Prisma {
     fecha_pago?: DateTimeFieldUpdateOperationsInput | Date | string
     importe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type centrosubproyectoCreateManyCentroproyectoInput = {
+    id?: number
+    subcodigopro: string
+    subprodes: string
+  }
+
+  export type centrosubproyectoUpdateWithoutCentroproyectoInput = {
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centrosubproyectoUncheckedUpdateWithoutCentroproyectoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type centrosubproyectoUncheckedUpdateManyWithoutCentroproyectoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigopro?: StringFieldUpdateOperationsInput | string
+    subprodes?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroCreateManyRubroInput = {
+    id?: number
+    subcodigo: string
+    subdescripcion: string
+  }
+
+  export type subrubroUpdateWithoutRubroInput = {
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroUncheckedUpdateWithoutRubroInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type subrubroUncheckedUpdateManyWithoutRubroInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    subcodigo?: StringFieldUpdateOperationsInput | string
+    subdescripcion?: StringFieldUpdateOperationsInput | string
   }
 
 

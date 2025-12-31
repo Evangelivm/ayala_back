@@ -309,6 +309,7 @@ model ordenes_compra {
   url                         String?                      @db.VarChar(255)
   url_cotizacion              String?                      @db.VarChar(255)
   url_factura                 String?                      @db.VarChar(255)
+  nro_factura                 String?                      @db.VarChar(45)
   detalles_orden_compra       detalles_orden_compra[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios                    usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
@@ -510,6 +511,7 @@ model ordenes_servicio {
   url                         String?                        @db.VarChar(255)
   url_cotizacion              String?                        @db.VarChar(255)
   url_factura                 String?                        @db.VarChar(255)
+  nro_factura                 String?                        @db.VarChar(45)
   detalles_orden_servicio     detalles_orden_servicio[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
@@ -751,10 +753,44 @@ model tipo_detraccion {
   porcentaje_detraccion Decimal? @db.Decimal(4, 2)
 }
 
-enum permisos_rol_rol {
-  ADMIN
-  ALMACENERO
-  USER
+model centroproyecto {
+  id                Int                 @id @default(autoincrement())
+  codigo            String              @db.VarChar(50)
+  proyecto          String              @db.VarChar(255)
+  centrosubproyecto centrosubproyecto[]
+}
+
+model centrosubproyecto {
+  id             Int             @id @default(autoincrement())
+  subcodigopro   String          @db.VarChar(50)
+  subprodes      String          @db.VarChar(255)
+  id_sub         Int?
+  centroproyecto centroproyecto? @relation(fields: [id_sub], references: [id], onDelete: Cascade, map: "centrosubproyecto_ibfk_1")
+
+  @@index([id_sub], map: "id_sub")
+}
+
+model fasecontrol {
+  id          Int     @id @default(autoincrement())
+  codigo      String? @db.VarChar(255)
+  descripcion String? @db.VarChar(255)
+}
+
+model rubro {
+  id          Int        @id @default(autoincrement())
+  codigo      String     @db.VarChar(50)
+  descripcion String     @db.VarChar(255)
+  subrubro    subrubro[]
+}
+
+model subrubro {
+  id             Int    @id @default(autoincrement())
+  subcodigo      String @db.VarChar(50)
+  subdescripcion String @db.VarChar(255)
+  sub_id         Int?
+  rubro          rubro? @relation(fields: [sub_id], references: [id], onDelete: Cascade, map: "subrubro_ibfk_1")
+
+  @@index([sub_id], map: "sub_id")
 }
 
 enum configuracion_notificaciones_tipo_notificacion {
@@ -788,12 +824,6 @@ enum notificaciones_tipo {
   entrada
   salida
   info
-}
-
-enum usuarios_rol {
-  ADMIN
-  ALMACENERO
-  USER
 }
 
 enum conteo_ciclico_estado {
@@ -889,4 +919,18 @@ enum proyecto_estado {
   activo
   inactivo
   finalizado
+}
+
+enum permisos_rol_rol {
+  ADMIN
+  ALMACENERO
+  AUXILIAR
+  USER
+}
+
+enum usuarios_rol {
+  ADMIN
+  ALMACENERO
+  AUXILIAR
+  USER
 }
