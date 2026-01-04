@@ -638,6 +638,8 @@ model factura {
   orden_compra_valor             String?                 @db.VarChar(100)
   placa_vehiculo                 String?                 @db.VarChar(8)
   orden_compra_servicio          String?                 @db.VarChar(20)
+  condiciones_de_pago            String?                 @db.VarChar(250)
+  medio_de_pago                  String?                 @db.VarChar(250)
   centro_costo_nivel1_codigo     String?                 @db.VarChar(50)
   centro_costo_nivel2_codigo     String?                 @db.VarChar(50)
   centro_costo_nivel3_codigo     String?                 @db.VarChar(50)

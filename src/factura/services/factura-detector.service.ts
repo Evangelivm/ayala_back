@@ -336,7 +336,12 @@ export class FacturaDetectorService {
    * @returns Objeto en formato NUBEFACT
    */
   private transformRecordToNubefactApi(record: any): any {
-    return {
+    // DEBUG: Log de datos antes de transformar
+    this.logger.debug(`[TRANSFORM] condiciones_de_pago: ${record.condiciones_de_pago}`);
+    this.logger.debug(`[TRANSFORM] medio_de_pago: ${record.medio_de_pago}`);
+    this.logger.debug(`[TRANSFORM] factura_venta_credito count: ${record.factura_venta_credito?.length || 0}`);
+
+    const result = {
       // Datos principales
       operacion: record.operacion,
       tipo_de_comprobante: record.tipo_de_comprobante,
@@ -411,7 +416,7 @@ export class FacturaDetectorService {
       detraccion_total: record.detraccion_total
         ? this.decimalToString(record.detraccion_total)
         : undefined,
-      medio_de_pago: record.medio_pago_detraccion || undefined,
+      medio_pago_detraccion: record.medio_pago_detraccion || undefined,
 
       // Ubicaciones (para servicios de transporte)
       ubigeo_de_origen: record.ubigeo_origen || undefined,
@@ -445,6 +450,10 @@ export class FacturaDetectorService {
       observaciones: record.observaciones || undefined,
       orden_compra_servicio: record.orden_compra_servicio || undefined,
       placa_vehiculo: record.placa_vehiculo || undefined,
+
+      // Forma de pago (según documentación NubeFact)
+      condiciones_de_pago: record.condiciones_de_pago || undefined,
+      medio_de_pago: record.medio_de_pago || undefined,
 
       // Configuración de envío
       enviar_automaticamente_a_la_sunat: record.enviar_automaticamente_sunat,
@@ -493,6 +502,13 @@ export class FacturaDetectorService {
             }))
           : undefined,
     };
+
+    // DEBUG: Log de lo que se enviará a NubeFact
+    this.logger.debug(`[TRANSFORM RESULT] condiciones_de_pago: ${result.condiciones_de_pago}`);
+    this.logger.debug(`[TRANSFORM RESULT] medio_de_pago: ${result.medio_de_pago}`);
+    this.logger.debug(`[TRANSFORM RESULT] venta_al_credito: ${JSON.stringify(result.venta_al_credito)}`);
+
+    return result;
   }
 
   /**

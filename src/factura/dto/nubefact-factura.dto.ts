@@ -80,7 +80,7 @@ export const NubefactFacturaSchema = z.object({
   detraccion_tipo: z.number().int().optional(),
   detraccion_porcentaje: z.number().optional(),
   detraccion_total: z.number().optional(),
-  medio_de_pago: z.number().int().optional(),
+  medio_pago_detraccion: z.number().int().optional(), // Para detracciones (número)
 
   // Ubicaciones (para servicios de transporte)
   ubigeo_de_origen: z.string().optional(),
@@ -118,13 +118,17 @@ export const NubefactFacturaSchema = z.object({
   codigo_unico: z.string().optional(),
   formato_de_pdf: z.string().optional(),
 
+  // Forma de pago (según documentación NubeFact)
+  condiciones_de_pago: z.string().optional(),
+  medio_de_pago: z.string().optional(), // String para forma de pago general (solo CONTADO)
+
   // Items
   items: z.array(NubefactFacturaItemSchema),
 
   // Guías relacionadas
   guias: z.array(NubefactFacturaGuiaSchema).optional(),
 
-  // Venta a crédito
+  // Venta a crédito (solo CREDITO)
   venta_al_credito: z.array(NubefactFacturaVentaCreditoSchema).optional(),
 });
 

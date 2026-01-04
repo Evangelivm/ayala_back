@@ -62,6 +62,10 @@ export const CreateFacturaSchema = z
     tipo_venta: z.enum(['CONTADO', 'CREDITO']).default('CONTADO'),
     plazo_credito: z.number().int().nonnegative().optional().nullable(),
 
+    // Forma de pago (según documentación NubeFact)
+    condiciones_de_pago: z.string().optional().nullable(),
+    medio_de_pago: z.string().optional().nullable(), // Solo para CONTADO
+
     // Moneda y totales
     moneda: z.number().int().positive().default(1), // 1 = PEN, 2 = USD
     tipo_cambio: z.number().nonnegative().optional().nullable(),

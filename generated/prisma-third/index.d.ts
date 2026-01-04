@@ -38593,6 +38593,8 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -38673,6 +38675,8 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -38753,6 +38757,8 @@ export namespace Prisma {
     orden_compra_valor: number
     placa_vehiculo: number
     orden_compra_servicio: number
+    condiciones_de_pago: number
+    medio_de_pago: number
     centro_costo_nivel1_codigo: number
     centro_costo_nivel2_codigo: number
     centro_costo_nivel3_codigo: number
@@ -38905,6 +38911,8 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -38985,6 +38993,8 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -39065,6 +39075,8 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -39232,6 +39244,8 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -39331,6 +39345,8 @@ export namespace Prisma {
     orden_compra_valor?: boolean
     placa_vehiculo?: boolean
     orden_compra_servicio?: boolean
+    condiciones_de_pago?: boolean
+    medio_de_pago?: boolean
     centro_costo_nivel1_codigo?: boolean
     centro_costo_nivel2_codigo?: boolean
     centro_costo_nivel3_codigo?: boolean
@@ -39418,6 +39434,8 @@ export namespace Prisma {
     orden_compra_valor?: boolean
     placa_vehiculo?: boolean
     orden_compra_servicio?: boolean
+    condiciones_de_pago?: boolean
+    medio_de_pago?: boolean
     centro_costo_nivel1_codigo?: boolean
     centro_costo_nivel2_codigo?: boolean
     centro_costo_nivel3_codigo?: boolean
@@ -39442,7 +39460,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at", ExtArgs["result"]["factura"]>
+  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "condiciones_de_pago" | "medio_de_pago" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at", ExtArgs["result"]["factura"]>
   export type facturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
@@ -39515,6 +39533,8 @@ export namespace Prisma {
       orden_compra_valor: string | null
       placa_vehiculo: string | null
       orden_compra_servicio: string | null
+      condiciones_de_pago: string | null
+      medio_de_pago: string | null
       centro_costo_nivel1_codigo: string | null
       centro_costo_nivel2_codigo: string | null
       centro_costo_nivel3_codigo: string | null
@@ -39965,6 +39985,8 @@ export namespace Prisma {
     readonly orden_compra_valor: FieldRef<"factura", 'String'>
     readonly placa_vehiculo: FieldRef<"factura", 'String'>
     readonly orden_compra_servicio: FieldRef<"factura", 'String'>
+    readonly condiciones_de_pago: FieldRef<"factura", 'String'>
+    readonly medio_de_pago: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel1_codigo: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel2_codigo: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel3_codigo: FieldRef<"factura", 'String'>
@@ -50817,6 +50839,8 @@ export namespace Prisma {
     orden_compra_valor: 'orden_compra_valor',
     placa_vehiculo: 'placa_vehiculo',
     orden_compra_servicio: 'orden_compra_servicio',
+    condiciones_de_pago: 'condiciones_de_pago',
+    medio_de_pago: 'medio_de_pago',
     centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
     centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
     centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -51305,6 +51329,8 @@ export namespace Prisma {
     orden_compra_valor: 'orden_compra_valor',
     placa_vehiculo: 'placa_vehiculo',
     orden_compra_servicio: 'orden_compra_servicio',
+    condiciones_de_pago: 'condiciones_de_pago',
+    medio_de_pago: 'medio_de_pago',
     centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
     centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
     centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -54438,6 +54464,8 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -54522,6 +54550,8 @@ export namespace Prisma {
     orden_compra_valor?: SortOrderInput | SortOrder
     placa_vehiculo?: SortOrderInput | SortOrder
     orden_compra_servicio?: SortOrderInput | SortOrder
+    condiciones_de_pago?: SortOrderInput | SortOrder
+    medio_de_pago?: SortOrderInput | SortOrder
     centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
@@ -54611,6 +54641,8 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -54695,6 +54727,8 @@ export namespace Prisma {
     orden_compra_valor?: SortOrderInput | SortOrder
     placa_vehiculo?: SortOrderInput | SortOrder
     orden_compra_servicio?: SortOrderInput | SortOrder
+    condiciones_de_pago?: SortOrderInput | SortOrder
+    medio_de_pago?: SortOrderInput | SortOrder
     centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
@@ -54783,6 +54817,8 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableWithAggregatesFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    condiciones_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
@@ -58392,6 +58428,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58476,6 +58514,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58557,6 +58597,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58641,6 +58683,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58724,6 +58768,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58802,6 +58848,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58882,6 +58930,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62444,6 +62494,8 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -62559,6 +62611,8 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -62639,6 +62693,8 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -70637,6 +70693,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -70719,6 +70777,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -71031,6 +71091,8 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -74036,6 +74098,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74119,6 +74183,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74215,6 +74281,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74298,6 +74366,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74378,6 +74448,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74461,6 +74533,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74557,6 +74631,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74640,6 +74716,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74720,6 +74798,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74803,6 +74883,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74899,6 +74981,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74982,6 +75066,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76476,6 +76562,8 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -76642,6 +76730,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76724,6 +76814,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76806,6 +76898,8 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null

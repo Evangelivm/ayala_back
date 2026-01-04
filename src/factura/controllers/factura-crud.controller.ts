@@ -26,6 +26,46 @@ export class FacturaCrudController {
   /**
    * Mapea unidades de medida comunes a códigos SUNAT válidos
    */
+  /**
+   * Convierte una fecha en formato DD-MM-YYYY o YYYY-MM-DD a objeto Date
+   * @param dateString - Fecha en formato DD-MM-YYYY o YYYY-MM-DD
+   * @returns Date object o null si es inválido
+   */
+  private parseDate(dateString: string | null | undefined): Date | null {
+    if (!dateString || dateString.trim() === '') {
+      return null;
+    }
+
+    const parts = dateString.split('-');
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    let year: number, month: number, day: number;
+
+    // Detectar formato: si el primer elemento tiene 4 dígitos es YYYY-MM-DD
+    if (parts[0].length === 4) {
+      // Formato YYYY-MM-DD
+      year = parseInt(parts[0], 10);
+      month = parseInt(parts[1], 10) - 1;
+      day = parseInt(parts[2], 10);
+    } else {
+      // Formato DD-MM-YYYY
+      day = parseInt(parts[0], 10);
+      month = parseInt(parts[1], 10) - 1;
+      year = parseInt(parts[2], 10);
+    }
+
+    const date = new Date(year, month, day);
+
+    // Verificar que la fecha sea válida
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+
+    return date;
+  }
+
   private mapearUnidadMedidaSunat(unidad: string): string {
     const mapeo: Record<string, string> = {
       'UNIDAD': 'NIU',
@@ -242,6 +282,12 @@ export class FacturaCrudController {
         );
       }
 
+      // DEBUG: Log de datos recibidos para forma de pago
+      this.logger.debug(`[FORMA DE PAGO] condiciones_de_pago: ${data.condiciones_de_pago}`);
+      this.logger.debug(`[FORMA DE PAGO] medio_de_pago: ${data.medio_de_pago}`);
+      this.logger.debug(`[FORMA DE PAGO] venta_al_credito: ${JSON.stringify(data.venta_al_credito)}`);
+      this.logger.debug(`[FORMA DE PAGO] cuotas_credito: ${JSON.stringify(data.cuotas_credito)}`);
+
       // 3. Crear factura con items, guías y cuotas en una transacción
       const factura = await this.prisma.$transaction(async (tx) => {
         // Crear la factura principal con estado NULL
@@ -267,14 +313,10 @@ export class FacturaCrudController {
             cliente_email_1: data.cliente_email_1,
             cliente_email_2: data.cliente_email_2,
 
-            // Fechas
-            fecha_emision: new Date(data.fecha_emision),
-            fecha_vencimiento: data.fecha_vencimiento
-              ? new Date(data.fecha_vencimiento)
-              : null,
-            fecha_servicio: data.fecha_servicio
-              ? new Date(data.fecha_servicio)
-              : null,
+            // Fechas (soporta DD-MM-YYYY y YYYY-MM-DD)
+            fecha_emision: this.parseDate(data.fecha_emision) || new Date(),
+            fecha_vencimiento: this.parseDate(data.fecha_vencimiento),
+            fecha_servicio: this.parseDate(data.fecha_servicio),
 
             // Moneda y totales
             moneda: data.moneda || 1,
@@ -324,6 +366,10 @@ export class FacturaCrudController {
             orden_compra_valor: data.orden_compra_valor,
             placa_vehiculo: data.placa_vehiculo,
             orden_compra_servicio: data.orden_compra_servicio,
+
+            // Forma de pago (según documentación NubeFact)
+            condiciones_de_pago: data.condiciones_de_pago,
+            medio_de_pago: data.medio_de_pago,
 
             // Centros de costo
             centro_costo_nivel1_codigo: data.centro_costo_nivel1_codigo,
@@ -387,15 +433,16 @@ export class FacturaCrudController {
           );
         }
 
-        // Crear cuotas de crédito si existen
-        if (data.cuotas_credito && data.cuotas_credito.length > 0) {
+        // Crear cuotas de crédito si existen (soporta ambos nombres por compatibilidad)
+        const cuotasCredito = data.venta_al_credito || data.cuotas_credito;
+        if (cuotasCredito && cuotasCredito.length > 0) {
           await Promise.all(
-            data.cuotas_credito.map((cuota: any) =>
+            cuotasCredito.map((cuota: any) =>
               tx.factura_venta_credito.create({
                 data: {
                   id_factura: nuevaFactura.id_factura,
                   cuota: cuota.cuota,
-                  fecha_pago: new Date(cuota.fecha_pago),
+                  fecha_pago: this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) || new Date(),
                   importe: cuota.importe,
                 },
               }),
@@ -545,17 +592,13 @@ export class FacturaCrudController {
         if (data.cliente_email_2 !== undefined)
           facturaData.cliente_email_2 = data.cliente_email_2;
 
-        // Fechas
+        // Fechas (soporta DD-MM-YYYY y YYYY-MM-DD)
         if (data.fecha_emision !== undefined)
-          facturaData.fecha_emision = new Date(data.fecha_emision);
+          facturaData.fecha_emision = this.parseDate(data.fecha_emision) || new Date();
         if (data.fecha_vencimiento !== undefined)
-          facturaData.fecha_vencimiento = data.fecha_vencimiento
-            ? new Date(data.fecha_vencimiento)
-            : null;
+          facturaData.fecha_vencimiento = this.parseDate(data.fecha_vencimiento);
         if (data.fecha_servicio !== undefined)
-          facturaData.fecha_servicio = data.fecha_servicio
-            ? new Date(data.fecha_servicio)
-            : null;
+          facturaData.fecha_servicio = this.parseDate(data.fecha_servicio);
 
         // Totales
         if (data.moneda !== undefined) facturaData.moneda = data.moneda;
@@ -570,6 +613,12 @@ export class FacturaCrudController {
           facturaData.total_igv = data.total_igv;
 
         // ... mapear resto de campos según se necesite
+
+        // Forma de pago
+        if (data.condiciones_de_pago !== undefined)
+          facturaData.condiciones_de_pago = data.condiciones_de_pago;
+        if (data.medio_de_pago !== undefined)
+          facturaData.medio_de_pago = data.medio_de_pago;
 
         if (data.observaciones !== undefined)
           facturaData.observaciones = data.observaciones;
@@ -650,20 +699,21 @@ export class FacturaCrudController {
           }
         }
 
-        // Si se proporcionaron cuotas, reemplazarlas
-        if (data.cuotas_credito) {
+        // Si se proporcionaron cuotas, reemplazarlas (soporta ambos nombres)
+        const cuotasCreditoUpdate = data.venta_al_credito || data.cuotas_credito;
+        if (cuotasCreditoUpdate) {
           await tx.factura_venta_credito.deleteMany({
             where: { id_factura },
           });
 
-          if (data.cuotas_credito.length > 0) {
+          if (cuotasCreditoUpdate.length > 0) {
             await Promise.all(
-              data.cuotas_credito.map((cuota: any) =>
+              cuotasCreditoUpdate.map((cuota: any) =>
                 tx.factura_venta_credito.create({
                   data: {
                     id_factura,
                     cuota: cuota.cuota,
-                    fecha_pago: new Date(cuota.fecha_pago),
+                    fecha_pago: this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) || new Date(),
                     importe: cuota.importe,
                   },
                 }),
