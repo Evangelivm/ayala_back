@@ -776,8 +776,8 @@ export class ProgramacionService {
           // Aplicar modificaciones si las hay
           const modificacion = modificaciones && modificaciones[i] ? modificaciones[i] : {};
 
-          // Generar identificador único para el duplicado
-          const nuevoIdentificadorUnico = `${guiaOriginal.identificador_unico}-DUP-${loteId}-${i + 1}`;
+          // Generar identificador único para el duplicado (10 caracteres alfanuméricos)
+          const nuevoIdentificadorUnico = generarIdentificadorAleatorio();
 
           // Crear duplicado en programacion_tecnica
           const duplicadoProgramacion = await tx.programacion_tecnica.create({
