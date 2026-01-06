@@ -39,6 +39,7 @@ import { WebsocketModule } from './websocket/websocket.module';
 import { DropboxModule } from './dropbox/dropbox.module';
 import { TipoDetraccionModule } from './tipo-detraccion/tipo-detraccion.module';
 import { LoggerModule } from './utils/logger.module';
+import { LocksModule } from './locks/locks.module';
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { LoggerModule } from './utils/logger.module';
     RubroModule,
     DropboxModule,
     TipoDetraccionModule,
+    LocksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -49,9 +49,9 @@ export const CreateFacturaSchema = z
     cliente_numero_documento: z.string().min(1, 'El número de documento es requerido'),
     cliente_denominacion: z.string().min(1, 'La denominación del cliente es requerida'),
     cliente_direccion: z.string().optional().nullable(),
-    cliente_email: z.string().email('Email inválido').optional().nullable(),
-    cliente_email_1: z.string().email('Email inválido').optional().nullable(),
-    cliente_email_2: z.string().email('Email inválido').optional().nullable(),
+    cliente_email: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
+    cliente_email_1: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
+    cliente_email_2: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
 
     // Fechas
     fecha_emision: z.string().min(1, 'La fecha de emisión es requerida'),
