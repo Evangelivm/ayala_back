@@ -1,11 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { FacturaProducerService } from './factura-producer.service';
 import { Decimal } from '@prisma/client/runtime/library';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import axios from 'axios';
+import { WebsocketGateway } from '../../websocket/websocket.gateway';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -22,7 +23,7 @@ export class FacturaDetectorService {
 
   constructor(
     private readonly prisma: PrismaThirdService,
-    private readonly facturaProducer: FacturaProducerService,
+    private readonly websocketGateway: WebsocketGateway,
   ) {}
 
   /**
@@ -282,27 +283,89 @@ export class FacturaDetectorService {
         `Procesando factura ${record.serie}-${record.numero} (ID: ${record.id_factura})`,
       );
 
-      // Transformar al formato NUBEFACT
-      const nubefactData = this.transformRecordToNubefactApi(record);
-
-      // Enviar a Kafka
-      await this.facturaProducer.sendFacturaRequest(
-        record.id_factura,
-        nubefactData,
-      );
-
-      // Actualizar estado a PENDIENTE
+      // Actualizar estado a PROCESANDO
       await this.prisma.factura.update({
         where: { id_factura: record.id_factura },
         data: {
-          estado_factura: 'PENDIENTE',
+          estado_factura: 'PROCESANDO',
           updated_at: new Date(),
         },
       });
 
-      this.logger.log(
-        `Factura ${record.id_factura} enviada a Kafka exitosamente`,
-      );
+      // Transformar al formato NUBEFACT
+      const nubefactData = this.transformRecordToNubefactApi(record);
+
+      // Procesar directamente sin Kafka
+      const nubefactResponse = await this.callNubefactGenerarComprobante(nubefactData);
+
+      if (nubefactResponse.success) {
+        this.logger.log(
+          `API generar comprobante exitosa para registro ${record.id_factura}`,
+        );
+
+        const responseData = nubefactResponse.data;
+
+        // Guardar en la BD
+        await this.prisma.factura.update({
+          where: { id_factura: record.id_factura },
+          data: {
+            estado_factura: 'COMPLETADO',
+            enlace: responseData.enlace || null,
+            enlace_del_pdf: responseData.enlace_del_pdf || null,
+            enlace_del_xml: responseData.enlace_del_xml || null,
+            enlace_del_cdr: responseData.enlace_del_cdr || null,
+            aceptada_por_sunat: responseData.aceptada_por_sunat || null,
+            sunat_description: responseData.sunat_description || null,
+            sunat_note: responseData.sunat_note || null,
+            sunat_responsecode: responseData.sunat_responsecode || null,
+            sunat_soap_error: responseData.sunat_soap_error || null,
+            updated_at: new Date(),
+          },
+        });
+
+        this.logger.log(`Factura ${record.id_factura} completada exitosamente`);
+
+        // Emitir evento WebSocket para notificar al frontend
+        try {
+          this.websocketGateway.emitFacturaUpdate({
+            id_factura: record.id_factura,
+            estado: 'COMPLETADO',
+            enlace_pdf: responseData.enlace_del_pdf,
+            enlace_xml: responseData.enlace_del_xml,
+            enlace_cdr: responseData.enlace_del_cdr,
+          });
+        } catch (wsError) {
+          this.logger.warn(
+            `Error emitiendo WebSocket (no crítico):`,
+            wsError,
+          );
+        }
+      } else {
+        this.logger.error(
+          `Error en API generar comprobante para registro ${record.id_factura}:`,
+          nubefactResponse.error,
+        );
+
+        // Actualizar a FALLADO con información del error
+        await this.prisma.factura.update({
+          where: { id_factura: record.id_factura },
+          data: {
+            estado_factura: 'FALLADO',
+            sunat_soap_error: JSON.stringify(nubefactResponse.error),
+            updated_at: new Date(),
+          },
+        });
+
+        // Emitir evento WebSocket para notificar al frontend
+        try {
+          this.websocketGateway.emitFacturaUpdate({
+            id_factura: record.id_factura,
+            estado: 'FALLADO',
+          });
+        } catch (wsError) {
+          this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
+        }
+      }
     } catch (error) {
       this.logger.error(
         `Error procesando factura ${record.id_factura}:`,
@@ -315,10 +378,20 @@ export class FacturaDetectorService {
           where: { id_factura: record.id_factura },
           data: {
             estado_factura: 'FALLADO',
-            sunat_soap_error: `Error en detección: ${error.message}`,
+            sunat_soap_error: `Error en procesamiento: ${error.message}`,
             updated_at: new Date(),
           },
         });
+
+        // Emitir evento WebSocket
+        try {
+          this.websocketGateway.emitFacturaUpdate({
+            id_factura: record.id_factura,
+            estado: 'FALLADO',
+          });
+        } catch (wsError) {
+          this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
+        }
       } catch (updateError) {
         this.logger.error(
           `Error actualizando estado a FALLADO:`,
@@ -596,6 +669,62 @@ export class FacturaDetectorService {
     } catch (error) {
       this.logger.error(`Error en detección forzada de factura ${id_factura}:`, error);
       throw error;
+    }
+  }
+
+  /**
+   * Llama a la API de NUBEFACT para generar comprobante
+   * @param nubefactData - Datos en formato NUBEFACT
+   * @returns Respuesta de NUBEFACT
+   */
+  private async callNubefactGenerarComprobante(nubefactData: any) {
+    try {
+      const NUBEFACT_API_URL_2 =
+        process.env.NUBEFACT_API_URL_2 ||
+        'https://api.nubefact.com/api/v1/generar_comprobante';
+      const NUBEFACT_TOKEN_2 = process.env.NUBEFACT_TOKEN_2;
+
+      if (!NUBEFACT_TOKEN_2) {
+        throw new Error('NUBEFACT_TOKEN_2 no configurado');
+      }
+
+      this.logger.log('Llamando a NUBEFACT API generar_comprobante');
+
+      const response = await axios.post(NUBEFACT_API_URL_2, nubefactData, {
+        headers: {
+          Authorization: `Token ${NUBEFACT_TOKEN_2}`,
+          'Content-Type': 'application/json',
+        },
+        timeout: 30000, // 30 segundos
+      });
+
+      return {
+        success: true,
+        data: response.data,
+      };
+    } catch (error) {
+      this.logger.error('Error en llamada a NUBEFACT:', error);
+
+      // Log de las fechas enviadas cuando hay error
+      this.logger.error('📅 Fechas enviadas a Nubefact que causaron el error:');
+      this.logger.error(
+        `  - fecha_de_emision: ${nubefactData.fecha_de_emision}`,
+      );
+      this.logger.error(
+        `  - fecha_de_vencimiento: ${nubefactData.fecha_de_vencimiento}`,
+      );
+      this.logger.error(
+        `  - fecha_de_servicio: ${nubefactData.fecha_de_servicio}`,
+      );
+
+      return {
+        success: false,
+        error: {
+          message: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        },
+      };
     }
   }
 

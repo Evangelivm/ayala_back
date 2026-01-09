@@ -15,11 +15,13 @@ import { FacturaCrudController } from './controllers/factura-crud.controller';
 // Modules
 import { KafkaModule } from '../kafka/kafka.module';
 import { PrismaModule } from '../prisma/prisma.module';
+import { WebsocketModule } from '../websocket/websocket.module';
 
 @Module({
   imports: [
     KafkaModule,
     PrismaModule,
+    WebsocketModule,
     ScheduleModule.forRoot(), // Para los cron jobs del detector
   ],
   controllers: [
