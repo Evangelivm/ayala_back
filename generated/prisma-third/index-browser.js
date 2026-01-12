@@ -311,9 +311,13 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   registrado_por: 'registrado_por',
   tiene_anticipo: 'tiene_anticipo',
   procede_pago: 'procede_pago',
+  fecha_procede_pago: 'fecha_procede_pago',
   auto_administrador: 'auto_administrador',
+  fecha_auto_administrador: 'fecha_auto_administrador',
   auto_contabilidad: 'auto_contabilidad',
+  fecha_auto_contabilidad: 'fecha_auto_contabilidad',
   jefe_proyecto: 'jefe_proyecto',
+  fecha_jefe_proyecto: 'fecha_jefe_proyecto',
   has_anticipo: 'has_anticipo',
   direccion: 'direccion',
   centro_costo_nivel1: 'centro_costo_nivel1',
@@ -450,9 +454,13 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   registrado_por: 'registrado_por',
   tiene_anticipo: 'tiene_anticipo',
   procede_pago: 'procede_pago',
+  fecha_procede_pago: 'fecha_procede_pago',
   auto_administrador: 'auto_administrador',
+  fecha_auto_administrador: 'fecha_auto_administrador',
   jefe_proyecto: 'jefe_proyecto',
+  fecha_jefe_proyecto: 'fecha_jefe_proyecto',
   auto_contabilidad: 'auto_contabilidad',
+  fecha_auto_contabilidad: 'fecha_auto_contabilidad',
   has_anticipo: 'has_anticipo',
   direccion: 'direccion',
   centro_costo_nivel1: 'centro_costo_nivel1',
@@ -587,8 +595,6 @@ exports.Prisma.FacturaScalarFieldEnum = {
   orden_compra_valor: 'orden_compra_valor',
   placa_vehiculo: 'placa_vehiculo',
   orden_compra_servicio: 'orden_compra_servicio',
-  condiciones_de_pago: 'condiciones_de_pago',
-  medio_de_pago: 'medio_de_pago',
   centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
   centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
   centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -610,7 +616,9 @@ exports.Prisma.FacturaScalarFieldEnum = {
   sunat_responsecode: 'sunat_responsecode',
   sunat_soap_error: 'sunat_soap_error',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  condiciones_de_pago: 'condiciones_de_pago',
+  medio_de_pago: 'medio_de_pago'
 };
 
 exports.Prisma.Factura_guiaScalarFieldEnum = {
@@ -701,6 +709,11 @@ exports.Prisma.SubrubroScalarFieldEnum = {
   subcodigo: 'subcodigo',
   subdescripcion: 'subdescripcion',
   sub_id: 'sub_id'
+};
+
+exports.Prisma.DetalladoScalarFieldEnum = {
+  id: 'id',
+  detalle: 'detalle'
 };
 
 exports.Prisma.SortOrder = {
@@ -948,8 +961,6 @@ exports.Prisma.facturaOrderByRelevanceFieldEnum = {
   orden_compra_valor: 'orden_compra_valor',
   placa_vehiculo: 'placa_vehiculo',
   orden_compra_servicio: 'orden_compra_servicio',
-  condiciones_de_pago: 'condiciones_de_pago',
-  medio_de_pago: 'medio_de_pago',
   centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
   centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
   centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -965,7 +976,9 @@ exports.Prisma.facturaOrderByRelevanceFieldEnum = {
   sunat_description: 'sunat_description',
   sunat_note: 'sunat_note',
   sunat_responsecode: 'sunat_responsecode',
-  sunat_soap_error: 'sunat_soap_error'
+  sunat_soap_error: 'sunat_soap_error',
+  condiciones_de_pago: 'condiciones_de_pago',
+  medio_de_pago: 'medio_de_pago'
 };
 
 exports.Prisma.factura_guiaOrderByRelevanceFieldEnum = {
@@ -1013,6 +1026,10 @@ exports.Prisma.rubroOrderByRelevanceFieldEnum = {
 exports.Prisma.subrubroOrderByRelevanceFieldEnum = {
   subcodigo: 'subcodigo',
   subdescripcion: 'subdescripcion'
+};
+
+exports.Prisma.detalladoOrderByRelevanceFieldEnum = {
+  detalle: 'detalle'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -1198,7 +1215,8 @@ exports.Prisma.ModelName = {
   centrosubproyecto: 'centrosubproyecto',
   fasecontrol: 'fasecontrol',
   rubro: 'rubro',
-  subrubro: 'subrubro'
+  subrubro: 'subrubro',
+  detallado: 'detallado'
 };
 
 /**

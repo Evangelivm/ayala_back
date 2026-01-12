@@ -282,9 +282,13 @@ model ordenes_compra {
   registrado_por              Int
   tiene_anticipo              String?                      @db.VarChar(255)
   procede_pago                String?                      @db.VarChar(255)
+  fecha_procede_pago          DateTime?                    @db.DateTime(0)
   auto_administrador          Boolean?                     @default(false)
+  fecha_auto_administrador    DateTime?                    @db.DateTime(0)
   auto_contabilidad           Boolean?                     @default(false)
+  fecha_auto_contabilidad     DateTime?                    @db.DateTime(0)
   jefe_proyecto               Boolean?                     @default(false)
+  fecha_jefe_proyecto         DateTime?                    @db.DateTime(0)
   has_anticipo                Boolean?                     @default(false)
   direccion                   String?                      @db.VarChar(255)
   centro_costo_nivel1         String?                      @db.VarChar(255)
@@ -484,9 +488,13 @@ model ordenes_servicio {
   registrado_por              Int
   tiene_anticipo              String?                        @db.VarChar(255)
   procede_pago                String?                        @db.VarChar(255)
+  fecha_procede_pago          DateTime?                      @db.DateTime(0)
   auto_administrador          Boolean?                       @default(false)
+  fecha_auto_administrador    DateTime?                      @db.DateTime(0)
   jefe_proyecto               Boolean?                       @default(false)
+  fecha_jefe_proyecto         DateTime?                      @db.DateTime(0)
   auto_contabilidad           Boolean?                       @default(false)
+  fecha_auto_contabilidad     DateTime?                      @db.DateTime(0)
   has_anticipo                Boolean?                       @default(false)
   direccion                   String?                        @db.VarChar(255)
   centro_costo_nivel1         String?                        @db.VarChar(255)
@@ -638,8 +646,6 @@ model factura {
   orden_compra_valor             String?                 @db.VarChar(100)
   placa_vehiculo                 String?                 @db.VarChar(8)
   orden_compra_servicio          String?                 @db.VarChar(20)
-  condiciones_de_pago            String?                 @db.VarChar(250)
-  medio_de_pago                  String?                 @db.VarChar(250)
   centro_costo_nivel1_codigo     String?                 @db.VarChar(50)
   centro_costo_nivel2_codigo     String?                 @db.VarChar(50)
   centro_costo_nivel3_codigo     String?                 @db.VarChar(50)
@@ -662,6 +668,8 @@ model factura {
   sunat_soap_error               String?                 @db.Text
   created_at                     DateTime                @default(now()) @db.Timestamp(0)
   updated_at                     DateTime                @default(now()) @db.Timestamp(0)
+  condiciones_de_pago            String?                 @db.VarChar(250)
+  medio_de_pago                  String?                 @db.VarChar(250)
   proveedores                    proveedores             @relation(fields: [id_proveedor], references: [id_proveedor], onUpdate: NoAction, map: "factura_ibfk_1")
   factura_guia                   factura_guia[]
   factura_item                   factura_item[]
@@ -793,6 +801,11 @@ model subrubro {
   rubro          rubro? @relation(fields: [sub_id], references: [id], onDelete: Cascade, map: "subrubro_ibfk_1")
 
   @@index([sub_id], map: "sub_id")
+}
+
+model detallado {
+  id      Int     @id @default(autoincrement())
+  detalle String? @db.VarChar(255)
 }
 
 enum configuracion_notificaciones_tipo_notificacion {

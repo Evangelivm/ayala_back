@@ -1538,10 +1538,13 @@ export class OrdenCompraService {
         );
       }
 
-      // Actualizar el campo auto_contabilidad a 1
+      // Actualizar el campo auto_contabilidad a 1 y registrar la fecha
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
-        data: { auto_contabilidad: true },
+        data: {
+          auto_contabilidad: true,
+          fecha_auto_contabilidad: new Date(),
+        },
       });
 
       // Verificar si debe cambiar a COMPLETADA
@@ -1688,11 +1691,12 @@ export class OrdenCompraService {
         );
       }
 
-      // Actualizar el campo auto_administrador a 1 (true)
+      // Actualizar el campo auto_administrador a 1 (true) y registrar la fecha
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
         data: {
           auto_administrador: true,
+          fecha_auto_administrador: new Date(),
         },
       });
 
@@ -1733,11 +1737,12 @@ export class OrdenCompraService {
         );
       }
 
-      // Actualizar el campo jefe_proyecto a 1 (true)
+      // Actualizar el campo jefe_proyecto a 1 (true) y registrar la fecha
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
         data: {
           jefe_proyecto: true,
+          fecha_jefe_proyecto: new Date(),
         },
       });
 
@@ -1778,10 +1783,13 @@ export class OrdenCompraService {
         );
       }
 
-      // Actualizar el campo procede_pago a 'TRANSFERIR'
+      // Actualizar el campo procede_pago a 'TRANSFERIR' y registrar la fecha
       await this.prismaThird.ordenes_compra.update({
         where: { id_orden_compra: id },
-        data: { procede_pago: 'TRANSFERIR' },
+        data: {
+          procede_pago: 'TRANSFERIR',
+          fecha_procede_pago: new Date(),
+        },
       });
 
       // Verificar si debe cambiar a COMPLETADA

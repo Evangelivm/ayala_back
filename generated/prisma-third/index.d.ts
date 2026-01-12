@@ -223,6 +223,11 @@ export type rubro = $Result.DefaultSelection<Prisma.$rubroPayload>
  * 
  */
 export type subrubro = $Result.DefaultSelection<Prisma.$subrubroPayload>
+/**
+ * Model detallado
+ * 
+ */
+export type detallado = $Result.DefaultSelection<Prisma.$detalladoPayload>
 
 /**
  * Enums
@@ -1062,6 +1067,16 @@ export class PrismaClient<
     * ```
     */
   get subrubro(): Prisma.subrubroDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.detallado`: Exposes CRUD operations for the **detallado** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Detallados
+    * const detallados = await prisma.detallado.findMany()
+    * ```
+    */
+  get detallado(): Prisma.detalladoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1544,7 +1559,8 @@ export namespace Prisma {
     centrosubproyecto: 'centrosubproyecto',
     fasecontrol: 'fasecontrol',
     rubro: 'rubro',
-    subrubro: 'subrubro'
+    subrubro: 'subrubro',
+    detallado: 'detallado'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1563,7 +1579,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4339,6 +4355,72 @@ export namespace Prisma {
           }
         }
       }
+      detallado: {
+        payload: Prisma.$detalladoPayload<ExtArgs>
+        fields: Prisma.detalladoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.detalladoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.detalladoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          findFirst: {
+            args: Prisma.detalladoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.detalladoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          findMany: {
+            args: Prisma.detalladoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>[]
+          }
+          create: {
+            args: Prisma.detalladoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          createMany: {
+            args: Prisma.detalladoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.detalladoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          update: {
+            args: Prisma.detalladoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          deleteMany: {
+            args: Prisma.detalladoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.detalladoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.detalladoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$detalladoPayload>
+          }
+          aggregate: {
+            args: Prisma.DetalladoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDetallado>
+          }
+          groupBy: {
+            args: Prisma.detalladoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DetalladoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.detalladoCountArgs<ExtArgs>
+            result: $Utils.Optional<DetalladoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4477,6 +4559,7 @@ export namespace Prisma {
     fasecontrol?: fasecontrolOmit
     rubro?: rubroOmit
     subrubro?: subrubroOmit
+    detallado?: detalladoOmit
   }
 
   /* Types for Logging */
@@ -21343,9 +21426,13 @@ export namespace Prisma {
     registrado_por: number | null
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -21388,9 +21475,13 @@ export namespace Prisma {
     registrado_por: number | null
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -21433,9 +21524,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo: number
     procede_pago: number
+    fecha_procede_pago: number
     auto_administrador: number
+    fecha_auto_administrador: number
     auto_contabilidad: number
+    fecha_auto_contabilidad: number
     jefe_proyecto: number
+    fecha_jefe_proyecto: number
     has_anticipo: number
     direccion: number
     centro_costo_nivel1: number
@@ -21508,9 +21603,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -21553,9 +21652,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -21598,9 +21701,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -21730,9 +21837,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -21794,9 +21905,13 @@ export namespace Prisma {
     registrado_por?: boolean
     tiene_anticipo?: boolean
     procede_pago?: boolean
+    fecha_procede_pago?: boolean
     auto_administrador?: boolean
+    fecha_auto_administrador?: boolean
     auto_contabilidad?: boolean
+    fecha_auto_contabilidad?: boolean
     jefe_proyecto?: boolean
+    fecha_jefe_proyecto?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -21846,9 +21961,13 @@ export namespace Prisma {
     registrado_por?: boolean
     tiene_anticipo?: boolean
     procede_pago?: boolean
+    fecha_procede_pago?: boolean
     auto_administrador?: boolean
+    fecha_auto_administrador?: boolean
     auto_contabilidad?: boolean
+    fecha_auto_contabilidad?: boolean
     jefe_proyecto?: boolean
+    fecha_jefe_proyecto?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -21876,7 +21995,7 @@ export namespace Prisma {
     nro_factura?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "auto_contabilidad" | "jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -21908,9 +22027,13 @@ export namespace Prisma {
       registrado_por: number
       tiene_anticipo: string | null
       procede_pago: string | null
+      fecha_procede_pago: Date | null
       auto_administrador: boolean | null
+      fecha_auto_administrador: Date | null
       auto_contabilidad: boolean | null
+      fecha_auto_contabilidad: Date | null
       jefe_proyecto: boolean | null
+      fecha_jefe_proyecto: Date | null
       has_anticipo: boolean | null
       direccion: string | null
       centro_costo_nivel1: string | null
@@ -22323,9 +22446,13 @@ export namespace Prisma {
     readonly registrado_por: FieldRef<"ordenes_compra", 'Int'>
     readonly tiene_anticipo: FieldRef<"ordenes_compra", 'String'>
     readonly procede_pago: FieldRef<"ordenes_compra", 'String'>
+    readonly fecha_procede_pago: FieldRef<"ordenes_compra", 'DateTime'>
     readonly auto_administrador: FieldRef<"ordenes_compra", 'Boolean'>
+    readonly fecha_auto_administrador: FieldRef<"ordenes_compra", 'DateTime'>
     readonly auto_contabilidad: FieldRef<"ordenes_compra", 'Boolean'>
+    readonly fecha_auto_contabilidad: FieldRef<"ordenes_compra", 'DateTime'>
     readonly jefe_proyecto: FieldRef<"ordenes_compra", 'Boolean'>
+    readonly fecha_jefe_proyecto: FieldRef<"ordenes_compra", 'DateTime'>
     readonly has_anticipo: FieldRef<"ordenes_compra", 'Boolean'>
     readonly direccion: FieldRef<"ordenes_compra", 'String'>
     readonly centro_costo_nivel1: FieldRef<"ordenes_compra", 'String'>
@@ -31462,9 +31589,13 @@ export namespace Prisma {
     registrado_por: number | null
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -31507,9 +31638,13 @@ export namespace Prisma {
     registrado_por: number | null
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -31552,9 +31687,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo: number
     procede_pago: number
+    fecha_procede_pago: number
     auto_administrador: number
+    fecha_auto_administrador: number
     jefe_proyecto: number
+    fecha_jefe_proyecto: number
     auto_contabilidad: number
+    fecha_auto_contabilidad: number
     has_anticipo: number
     direccion: number
     centro_costo_nivel1: number
@@ -31627,9 +31766,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -31672,9 +31815,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -31717,9 +31864,13 @@ export namespace Prisma {
     registrado_por?: true
     tiene_anticipo?: true
     procede_pago?: true
+    fecha_procede_pago?: true
     auto_administrador?: true
+    fecha_auto_administrador?: true
     jefe_proyecto?: true
+    fecha_jefe_proyecto?: true
     auto_contabilidad?: true
+    fecha_auto_contabilidad?: true
     has_anticipo?: true
     direccion?: true
     centro_costo_nivel1?: true
@@ -31849,9 +32000,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo: string | null
     procede_pago: string | null
+    fecha_procede_pago: Date | null
     auto_administrador: boolean | null
+    fecha_auto_administrador: Date | null
     jefe_proyecto: boolean | null
+    fecha_jefe_proyecto: Date | null
     auto_contabilidad: boolean | null
+    fecha_auto_contabilidad: Date | null
     has_anticipo: boolean | null
     direccion: string | null
     centro_costo_nivel1: string | null
@@ -31913,9 +32068,13 @@ export namespace Prisma {
     registrado_por?: boolean
     tiene_anticipo?: boolean
     procede_pago?: boolean
+    fecha_procede_pago?: boolean
     auto_administrador?: boolean
+    fecha_auto_administrador?: boolean
     jefe_proyecto?: boolean
+    fecha_jefe_proyecto?: boolean
     auto_contabilidad?: boolean
+    fecha_auto_contabilidad?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -31964,9 +32123,13 @@ export namespace Prisma {
     registrado_por?: boolean
     tiene_anticipo?: boolean
     procede_pago?: boolean
+    fecha_procede_pago?: boolean
     auto_administrador?: boolean
+    fecha_auto_administrador?: boolean
     jefe_proyecto?: boolean
+    fecha_jefe_proyecto?: boolean
     auto_contabilidad?: boolean
+    fecha_auto_contabilidad?: boolean
     has_anticipo?: boolean
     direccion?: boolean
     centro_costo_nivel1?: boolean
@@ -31994,7 +32157,7 @@ export namespace Prisma {
     nro_factura?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "auto_administrador" | "jefe_proyecto" | "auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -32024,9 +32187,13 @@ export namespace Prisma {
       registrado_por: number
       tiene_anticipo: string | null
       procede_pago: string | null
+      fecha_procede_pago: Date | null
       auto_administrador: boolean | null
+      fecha_auto_administrador: Date | null
       jefe_proyecto: boolean | null
+      fecha_jefe_proyecto: Date | null
       auto_contabilidad: boolean | null
+      fecha_auto_contabilidad: Date | null
       has_anticipo: boolean | null
       direccion: string | null
       centro_costo_nivel1: string | null
@@ -32438,9 +32605,13 @@ export namespace Prisma {
     readonly registrado_por: FieldRef<"ordenes_servicio", 'Int'>
     readonly tiene_anticipo: FieldRef<"ordenes_servicio", 'String'>
     readonly procede_pago: FieldRef<"ordenes_servicio", 'String'>
+    readonly fecha_procede_pago: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly auto_administrador: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly fecha_auto_administrador: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly jefe_proyecto: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly fecha_jefe_proyecto: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly auto_contabilidad: FieldRef<"ordenes_servicio", 'Boolean'>
+    readonly fecha_auto_contabilidad: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly has_anticipo: FieldRef<"ordenes_servicio", 'Boolean'>
     readonly direccion: FieldRef<"ordenes_servicio", 'String'>
     readonly centro_costo_nivel1: FieldRef<"ordenes_servicio", 'String'>
@@ -38593,8 +38764,6 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
-    condiciones_de_pago: string | null
-    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -38617,6 +38786,8 @@ export namespace Prisma {
     sunat_soap_error: string | null
     created_at: Date | null
     updated_at: Date | null
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
   }
 
   export type FacturaMaxAggregateOutputType = {
@@ -38675,8 +38846,6 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
-    condiciones_de_pago: string | null
-    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -38699,6 +38868,8 @@ export namespace Prisma {
     sunat_soap_error: string | null
     created_at: Date | null
     updated_at: Date | null
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
   }
 
   export type FacturaCountAggregateOutputType = {
@@ -38757,8 +38928,6 @@ export namespace Prisma {
     orden_compra_valor: number
     placa_vehiculo: number
     orden_compra_servicio: number
-    condiciones_de_pago: number
-    medio_de_pago: number
     centro_costo_nivel1_codigo: number
     centro_costo_nivel2_codigo: number
     centro_costo_nivel3_codigo: number
@@ -38781,6 +38950,8 @@ export namespace Prisma {
     sunat_soap_error: number
     created_at: number
     updated_at: number
+    condiciones_de_pago: number
+    medio_de_pago: number
     _all: number
   }
 
@@ -38911,8 +39082,6 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
-    condiciones_de_pago?: true
-    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -38935,6 +39104,8 @@ export namespace Prisma {
     sunat_soap_error?: true
     created_at?: true
     updated_at?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
   }
 
   export type FacturaMaxAggregateInputType = {
@@ -38993,8 +39164,6 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
-    condiciones_de_pago?: true
-    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -39017,6 +39186,8 @@ export namespace Prisma {
     sunat_soap_error?: true
     created_at?: true
     updated_at?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
   }
 
   export type FacturaCountAggregateInputType = {
@@ -39075,8 +39246,6 @@ export namespace Prisma {
     orden_compra_valor?: true
     placa_vehiculo?: true
     orden_compra_servicio?: true
-    condiciones_de_pago?: true
-    medio_de_pago?: true
     centro_costo_nivel1_codigo?: true
     centro_costo_nivel2_codigo?: true
     centro_costo_nivel3_codigo?: true
@@ -39099,6 +39268,8 @@ export namespace Prisma {
     sunat_soap_error?: true
     created_at?: true
     updated_at?: true
+    condiciones_de_pago?: true
+    medio_de_pago?: true
     _all?: true
   }
 
@@ -39244,8 +39415,6 @@ export namespace Prisma {
     orden_compra_valor: string | null
     placa_vehiculo: string | null
     orden_compra_servicio: string | null
-    condiciones_de_pago: string | null
-    medio_de_pago: string | null
     centro_costo_nivel1_codigo: string | null
     centro_costo_nivel2_codigo: string | null
     centro_costo_nivel3_codigo: string | null
@@ -39268,6 +39437,8 @@ export namespace Prisma {
     sunat_soap_error: string | null
     created_at: Date
     updated_at: Date
+    condiciones_de_pago: string | null
+    medio_de_pago: string | null
     _count: FacturaCountAggregateOutputType | null
     _avg: FacturaAvgAggregateOutputType | null
     _sum: FacturaSumAggregateOutputType | null
@@ -39345,8 +39516,6 @@ export namespace Prisma {
     orden_compra_valor?: boolean
     placa_vehiculo?: boolean
     orden_compra_servicio?: boolean
-    condiciones_de_pago?: boolean
-    medio_de_pago?: boolean
     centro_costo_nivel1_codigo?: boolean
     centro_costo_nivel2_codigo?: boolean
     centro_costo_nivel3_codigo?: boolean
@@ -39369,6 +39538,8 @@ export namespace Prisma {
     sunat_soap_error?: boolean
     created_at?: boolean
     updated_at?: boolean
+    condiciones_de_pago?: boolean
+    medio_de_pago?: boolean
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
     factura_item?: boolean | factura$factura_itemArgs<ExtArgs>
@@ -39434,8 +39605,6 @@ export namespace Prisma {
     orden_compra_valor?: boolean
     placa_vehiculo?: boolean
     orden_compra_servicio?: boolean
-    condiciones_de_pago?: boolean
-    medio_de_pago?: boolean
     centro_costo_nivel1_codigo?: boolean
     centro_costo_nivel2_codigo?: boolean
     centro_costo_nivel3_codigo?: boolean
@@ -39458,9 +39627,11 @@ export namespace Prisma {
     sunat_soap_error?: boolean
     created_at?: boolean
     updated_at?: boolean
+    condiciones_de_pago?: boolean
+    medio_de_pago?: boolean
   }
 
-  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "condiciones_de_pago" | "medio_de_pago" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at", ExtArgs["result"]["factura"]>
+  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at" | "condiciones_de_pago" | "medio_de_pago", ExtArgs["result"]["factura"]>
   export type facturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
@@ -39533,8 +39704,6 @@ export namespace Prisma {
       orden_compra_valor: string | null
       placa_vehiculo: string | null
       orden_compra_servicio: string | null
-      condiciones_de_pago: string | null
-      medio_de_pago: string | null
       centro_costo_nivel1_codigo: string | null
       centro_costo_nivel2_codigo: string | null
       centro_costo_nivel3_codigo: string | null
@@ -39557,6 +39726,8 @@ export namespace Prisma {
       sunat_soap_error: string | null
       created_at: Date
       updated_at: Date
+      condiciones_de_pago: string | null
+      medio_de_pago: string | null
     }, ExtArgs["result"]["factura"]>
     composites: {}
   }
@@ -39985,8 +40156,6 @@ export namespace Prisma {
     readonly orden_compra_valor: FieldRef<"factura", 'String'>
     readonly placa_vehiculo: FieldRef<"factura", 'String'>
     readonly orden_compra_servicio: FieldRef<"factura", 'String'>
-    readonly condiciones_de_pago: FieldRef<"factura", 'String'>
-    readonly medio_de_pago: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel1_codigo: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel2_codigo: FieldRef<"factura", 'String'>
     readonly centro_costo_nivel3_codigo: FieldRef<"factura", 'String'>
@@ -40009,6 +40178,8 @@ export namespace Prisma {
     readonly sunat_soap_error: FieldRef<"factura", 'String'>
     readonly created_at: FieldRef<"factura", 'DateTime'>
     readonly updated_at: FieldRef<"factura", 'DateTime'>
+    readonly condiciones_de_pago: FieldRef<"factura", 'String'>
+    readonly medio_de_pago: FieldRef<"factura", 'String'>
   }
     
 
@@ -50267,6 +50438,889 @@ export namespace Prisma {
 
 
   /**
+   * Model detallado
+   */
+
+  export type AggregateDetallado = {
+    _count: DetalladoCountAggregateOutputType | null
+    _avg: DetalladoAvgAggregateOutputType | null
+    _sum: DetalladoSumAggregateOutputType | null
+    _min: DetalladoMinAggregateOutputType | null
+    _max: DetalladoMaxAggregateOutputType | null
+  }
+
+  export type DetalladoAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DetalladoSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DetalladoMinAggregateOutputType = {
+    id: number | null
+    detalle: string | null
+  }
+
+  export type DetalladoMaxAggregateOutputType = {
+    id: number | null
+    detalle: string | null
+  }
+
+  export type DetalladoCountAggregateOutputType = {
+    id: number
+    detalle: number
+    _all: number
+  }
+
+
+  export type DetalladoAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type DetalladoSumAggregateInputType = {
+    id?: true
+  }
+
+  export type DetalladoMinAggregateInputType = {
+    id?: true
+    detalle?: true
+  }
+
+  export type DetalladoMaxAggregateInputType = {
+    id?: true
+    detalle?: true
+  }
+
+  export type DetalladoCountAggregateInputType = {
+    id?: true
+    detalle?: true
+    _all?: true
+  }
+
+  export type DetalladoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which detallado to aggregate.
+     */
+    where?: detalladoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detallados to fetch.
+     */
+    orderBy?: detalladoOrderByWithRelationInput | detalladoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: detalladoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detallados from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detallados.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned detallados
+    **/
+    _count?: true | DetalladoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DetalladoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DetalladoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DetalladoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DetalladoMaxAggregateInputType
+  }
+
+  export type GetDetalladoAggregateType<T extends DetalladoAggregateArgs> = {
+        [P in keyof T & keyof AggregateDetallado]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDetallado[P]>
+      : GetScalarType<T[P], AggregateDetallado[P]>
+  }
+
+
+
+
+  export type detalladoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: detalladoWhereInput
+    orderBy?: detalladoOrderByWithAggregationInput | detalladoOrderByWithAggregationInput[]
+    by: DetalladoScalarFieldEnum[] | DetalladoScalarFieldEnum
+    having?: detalladoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DetalladoCountAggregateInputType | true
+    _avg?: DetalladoAvgAggregateInputType
+    _sum?: DetalladoSumAggregateInputType
+    _min?: DetalladoMinAggregateInputType
+    _max?: DetalladoMaxAggregateInputType
+  }
+
+  export type DetalladoGroupByOutputType = {
+    id: number
+    detalle: string | null
+    _count: DetalladoCountAggregateOutputType | null
+    _avg: DetalladoAvgAggregateOutputType | null
+    _sum: DetalladoSumAggregateOutputType | null
+    _min: DetalladoMinAggregateOutputType | null
+    _max: DetalladoMaxAggregateOutputType | null
+  }
+
+  type GetDetalladoGroupByPayload<T extends detalladoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DetalladoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DetalladoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DetalladoGroupByOutputType[P]>
+            : GetScalarType<T[P], DetalladoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type detalladoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    detalle?: boolean
+  }, ExtArgs["result"]["detallado"]>
+
+
+
+  export type detalladoSelectScalar = {
+    id?: boolean
+    detalle?: boolean
+  }
+
+  export type detalladoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "detalle", ExtArgs["result"]["detallado"]>
+
+  export type $detalladoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "detallado"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      detalle: string | null
+    }, ExtArgs["result"]["detallado"]>
+    composites: {}
+  }
+
+  type detalladoGetPayload<S extends boolean | null | undefined | detalladoDefaultArgs> = $Result.GetResult<Prisma.$detalladoPayload, S>
+
+  type detalladoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<detalladoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DetalladoCountAggregateInputType | true
+    }
+
+  export interface detalladoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['detallado'], meta: { name: 'detallado' } }
+    /**
+     * Find zero or one Detallado that matches the filter.
+     * @param {detalladoFindUniqueArgs} args - Arguments to find a Detallado
+     * @example
+     * // Get one Detallado
+     * const detallado = await prisma.detallado.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends detalladoFindUniqueArgs>(args: SelectSubset<T, detalladoFindUniqueArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Detallado that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {detalladoFindUniqueOrThrowArgs} args - Arguments to find a Detallado
+     * @example
+     * // Get one Detallado
+     * const detallado = await prisma.detallado.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends detalladoFindUniqueOrThrowArgs>(args: SelectSubset<T, detalladoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Detallado that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoFindFirstArgs} args - Arguments to find a Detallado
+     * @example
+     * // Get one Detallado
+     * const detallado = await prisma.detallado.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends detalladoFindFirstArgs>(args?: SelectSubset<T, detalladoFindFirstArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Detallado that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoFindFirstOrThrowArgs} args - Arguments to find a Detallado
+     * @example
+     * // Get one Detallado
+     * const detallado = await prisma.detallado.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends detalladoFindFirstOrThrowArgs>(args?: SelectSubset<T, detalladoFindFirstOrThrowArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Detallados that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Detallados
+     * const detallados = await prisma.detallado.findMany()
+     * 
+     * // Get first 10 Detallados
+     * const detallados = await prisma.detallado.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const detalladoWithIdOnly = await prisma.detallado.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends detalladoFindManyArgs>(args?: SelectSubset<T, detalladoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Detallado.
+     * @param {detalladoCreateArgs} args - Arguments to create a Detallado.
+     * @example
+     * // Create one Detallado
+     * const Detallado = await prisma.detallado.create({
+     *   data: {
+     *     // ... data to create a Detallado
+     *   }
+     * })
+     * 
+     */
+    create<T extends detalladoCreateArgs>(args: SelectSubset<T, detalladoCreateArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Detallados.
+     * @param {detalladoCreateManyArgs} args - Arguments to create many Detallados.
+     * @example
+     * // Create many Detallados
+     * const detallado = await prisma.detallado.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends detalladoCreateManyArgs>(args?: SelectSubset<T, detalladoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Detallado.
+     * @param {detalladoDeleteArgs} args - Arguments to delete one Detallado.
+     * @example
+     * // Delete one Detallado
+     * const Detallado = await prisma.detallado.delete({
+     *   where: {
+     *     // ... filter to delete one Detallado
+     *   }
+     * })
+     * 
+     */
+    delete<T extends detalladoDeleteArgs>(args: SelectSubset<T, detalladoDeleteArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Detallado.
+     * @param {detalladoUpdateArgs} args - Arguments to update one Detallado.
+     * @example
+     * // Update one Detallado
+     * const detallado = await prisma.detallado.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends detalladoUpdateArgs>(args: SelectSubset<T, detalladoUpdateArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Detallados.
+     * @param {detalladoDeleteManyArgs} args - Arguments to filter Detallados to delete.
+     * @example
+     * // Delete a few Detallados
+     * const { count } = await prisma.detallado.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends detalladoDeleteManyArgs>(args?: SelectSubset<T, detalladoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Detallados.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Detallados
+     * const detallado = await prisma.detallado.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends detalladoUpdateManyArgs>(args: SelectSubset<T, detalladoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Detallado.
+     * @param {detalladoUpsertArgs} args - Arguments to update or create a Detallado.
+     * @example
+     * // Update or create a Detallado
+     * const detallado = await prisma.detallado.upsert({
+     *   create: {
+     *     // ... data to create a Detallado
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Detallado we want to update
+     *   }
+     * })
+     */
+    upsert<T extends detalladoUpsertArgs>(args: SelectSubset<T, detalladoUpsertArgs<ExtArgs>>): Prisma__detalladoClient<$Result.GetResult<Prisma.$detalladoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Detallados.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoCountArgs} args - Arguments to filter Detallados to count.
+     * @example
+     * // Count the number of Detallados
+     * const count = await prisma.detallado.count({
+     *   where: {
+     *     // ... the filter for the Detallados we want to count
+     *   }
+     * })
+    **/
+    count<T extends detalladoCountArgs>(
+      args?: Subset<T, detalladoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DetalladoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Detallado.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DetalladoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DetalladoAggregateArgs>(args: Subset<T, DetalladoAggregateArgs>): Prisma.PrismaPromise<GetDetalladoAggregateType<T>>
+
+    /**
+     * Group by Detallado.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {detalladoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends detalladoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: detalladoGroupByArgs['orderBy'] }
+        : { orderBy?: detalladoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, detalladoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDetalladoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the detallado model
+   */
+  readonly fields: detalladoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for detallado.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__detalladoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the detallado model
+   */
+  interface detalladoFieldRefs {
+    readonly id: FieldRef<"detallado", 'Int'>
+    readonly detalle: FieldRef<"detallado", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * detallado findUnique
+   */
+  export type detalladoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter, which detallado to fetch.
+     */
+    where: detalladoWhereUniqueInput
+  }
+
+  /**
+   * detallado findUniqueOrThrow
+   */
+  export type detalladoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter, which detallado to fetch.
+     */
+    where: detalladoWhereUniqueInput
+  }
+
+  /**
+   * detallado findFirst
+   */
+  export type detalladoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter, which detallado to fetch.
+     */
+    where?: detalladoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detallados to fetch.
+     */
+    orderBy?: detalladoOrderByWithRelationInput | detalladoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for detallados.
+     */
+    cursor?: detalladoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detallados from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detallados.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of detallados.
+     */
+    distinct?: DetalladoScalarFieldEnum | DetalladoScalarFieldEnum[]
+  }
+
+  /**
+   * detallado findFirstOrThrow
+   */
+  export type detalladoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter, which detallado to fetch.
+     */
+    where?: detalladoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detallados to fetch.
+     */
+    orderBy?: detalladoOrderByWithRelationInput | detalladoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for detallados.
+     */
+    cursor?: detalladoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detallados from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detallados.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of detallados.
+     */
+    distinct?: DetalladoScalarFieldEnum | DetalladoScalarFieldEnum[]
+  }
+
+  /**
+   * detallado findMany
+   */
+  export type detalladoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter, which detallados to fetch.
+     */
+    where?: detalladoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of detallados to fetch.
+     */
+    orderBy?: detalladoOrderByWithRelationInput | detalladoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing detallados.
+     */
+    cursor?: detalladoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` detallados from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` detallados.
+     */
+    skip?: number
+    distinct?: DetalladoScalarFieldEnum | DetalladoScalarFieldEnum[]
+  }
+
+  /**
+   * detallado create
+   */
+  export type detalladoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a detallado.
+     */
+    data?: XOR<detalladoCreateInput, detalladoUncheckedCreateInput>
+  }
+
+  /**
+   * detallado createMany
+   */
+  export type detalladoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many detallados.
+     */
+    data: detalladoCreateManyInput | detalladoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * detallado update
+   */
+  export type detalladoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a detallado.
+     */
+    data: XOR<detalladoUpdateInput, detalladoUncheckedUpdateInput>
+    /**
+     * Choose, which detallado to update.
+     */
+    where: detalladoWhereUniqueInput
+  }
+
+  /**
+   * detallado updateMany
+   */
+  export type detalladoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update detallados.
+     */
+    data: XOR<detalladoUpdateManyMutationInput, detalladoUncheckedUpdateManyInput>
+    /**
+     * Filter which detallados to update
+     */
+    where?: detalladoWhereInput
+    /**
+     * Limit how many detallados to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * detallado upsert
+   */
+  export type detalladoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the detallado to update in case it exists.
+     */
+    where: detalladoWhereUniqueInput
+    /**
+     * In case the detallado found by the `where` argument doesn't exist, create a new detallado with this data.
+     */
+    create: XOR<detalladoCreateInput, detalladoUncheckedCreateInput>
+    /**
+     * In case the detallado was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<detalladoUpdateInput, detalladoUncheckedUpdateInput>
+  }
+
+  /**
+   * detallado delete
+   */
+  export type detalladoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+    /**
+     * Filter which detallado to delete.
+     */
+    where: detalladoWhereUniqueInput
+  }
+
+  /**
+   * detallado deleteMany
+   */
+  export type detalladoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which detallados to delete
+     */
+    where?: detalladoWhereInput
+    /**
+     * Limit how many detallados to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * detallado without action
+   */
+  export type detalladoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the detallado
+     */
+    select?: detalladoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the detallado
+     */
+    omit?: detalladoOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -50515,9 +51569,13 @@ export namespace Prisma {
     registrado_por: 'registrado_por',
     tiene_anticipo: 'tiene_anticipo',
     procede_pago: 'procede_pago',
+    fecha_procede_pago: 'fecha_procede_pago',
     auto_administrador: 'auto_administrador',
+    fecha_auto_administrador: 'fecha_auto_administrador',
     auto_contabilidad: 'auto_contabilidad',
+    fecha_auto_contabilidad: 'fecha_auto_contabilidad',
     jefe_proyecto: 'jefe_proyecto',
+    fecha_jefe_proyecto: 'fecha_jefe_proyecto',
     has_anticipo: 'has_anticipo',
     direccion: 'direccion',
     centro_costo_nivel1: 'centro_costo_nivel1',
@@ -50681,9 +51739,13 @@ export namespace Prisma {
     registrado_por: 'registrado_por',
     tiene_anticipo: 'tiene_anticipo',
     procede_pago: 'procede_pago',
+    fecha_procede_pago: 'fecha_procede_pago',
     auto_administrador: 'auto_administrador',
+    fecha_auto_administrador: 'fecha_auto_administrador',
     jefe_proyecto: 'jefe_proyecto',
+    fecha_jefe_proyecto: 'fecha_jefe_proyecto',
     auto_contabilidad: 'auto_contabilidad',
+    fecha_auto_contabilidad: 'fecha_auto_contabilidad',
     has_anticipo: 'has_anticipo',
     direccion: 'direccion',
     centro_costo_nivel1: 'centro_costo_nivel1',
@@ -50839,8 +51901,6 @@ export namespace Prisma {
     orden_compra_valor: 'orden_compra_valor',
     placa_vehiculo: 'placa_vehiculo',
     orden_compra_servicio: 'orden_compra_servicio',
-    condiciones_de_pago: 'condiciones_de_pago',
-    medio_de_pago: 'medio_de_pago',
     centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
     centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
     centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -50862,7 +51922,9 @@ export namespace Prisma {
     sunat_responsecode: 'sunat_responsecode',
     sunat_soap_error: 'sunat_soap_error',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    condiciones_de_pago: 'condiciones_de_pago',
+    medio_de_pago: 'medio_de_pago'
   };
 
   export type FacturaScalarFieldEnum = (typeof FacturaScalarFieldEnum)[keyof typeof FacturaScalarFieldEnum]
@@ -50986,6 +52048,14 @@ export namespace Prisma {
   };
 
   export type SubrubroScalarFieldEnum = (typeof SubrubroScalarFieldEnum)[keyof typeof SubrubroScalarFieldEnum]
+
+
+  export const DetalladoScalarFieldEnum: {
+    id: 'id',
+    detalle: 'detalle'
+  };
+
+  export type DetalladoScalarFieldEnum = (typeof DetalladoScalarFieldEnum)[keyof typeof DetalladoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -51329,8 +52399,6 @@ export namespace Prisma {
     orden_compra_valor: 'orden_compra_valor',
     placa_vehiculo: 'placa_vehiculo',
     orden_compra_servicio: 'orden_compra_servicio',
-    condiciones_de_pago: 'condiciones_de_pago',
-    medio_de_pago: 'medio_de_pago',
     centro_costo_nivel1_codigo: 'centro_costo_nivel1_codigo',
     centro_costo_nivel2_codigo: 'centro_costo_nivel2_codigo',
     centro_costo_nivel3_codigo: 'centro_costo_nivel3_codigo',
@@ -51346,7 +52414,9 @@ export namespace Prisma {
     sunat_description: 'sunat_description',
     sunat_note: 'sunat_note',
     sunat_responsecode: 'sunat_responsecode',
-    sunat_soap_error: 'sunat_soap_error'
+    sunat_soap_error: 'sunat_soap_error',
+    condiciones_de_pago: 'condiciones_de_pago',
+    medio_de_pago: 'medio_de_pago'
   };
 
   export type facturaOrderByRelevanceFieldEnum = (typeof facturaOrderByRelevanceFieldEnum)[keyof typeof facturaOrderByRelevanceFieldEnum]
@@ -51424,6 +52494,13 @@ export namespace Prisma {
   };
 
   export type subrubroOrderByRelevanceFieldEnum = (typeof subrubroOrderByRelevanceFieldEnum)[keyof typeof subrubroOrderByRelevanceFieldEnum]
+
+
+  export const detalladoOrderByRelevanceFieldEnum: {
+    detalle: 'detalle'
+  };
+
+  export type detalladoOrderByRelevanceFieldEnum = (typeof detalladoOrderByRelevanceFieldEnum)[keyof typeof detalladoOrderByRelevanceFieldEnum]
 
 
   /**
@@ -52892,9 +53969,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_compra"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_compra"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -52941,9 +54022,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
+    fecha_procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    fecha_auto_administrador?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    fecha_auto_contabilidad?: SortOrderInput | SortOrder
     jefe_proyecto?: SortOrderInput | SortOrder
+    fecha_jefe_proyecto?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -52994,9 +54079,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_compra"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_compra"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -53043,9 +54132,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
+    fecha_procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    fecha_auto_administrador?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    fecha_auto_contabilidad?: SortOrderInput | SortOrder
     jefe_proyecto?: SortOrderInput | SortOrder
+    fecha_jefe_proyecto?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -53096,9 +54189,13 @@ export namespace Prisma {
     registrado_por?: IntWithAggregatesFilter<"ordenes_compra"> | number
     tiene_anticipo?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     procede_pago?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    fecha_procede_pago?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     auto_administrador?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     auto_contabilidad?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     jefe_proyecto?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     has_anticipo?: BoolNullableWithAggregatesFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
@@ -53825,9 +54922,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_servicio"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -53873,9 +54974,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
+    fecha_procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    fecha_auto_administrador?: SortOrderInput | SortOrder
     jefe_proyecto?: SortOrderInput | SortOrder
+    fecha_jefe_proyecto?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    fecha_auto_contabilidad?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -53925,9 +55030,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_servicio"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -53973,9 +55082,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrderInput | SortOrder
     procede_pago?: SortOrderInput | SortOrder
+    fecha_procede_pago?: SortOrderInput | SortOrder
     auto_administrador?: SortOrderInput | SortOrder
+    fecha_auto_administrador?: SortOrderInput | SortOrder
     jefe_proyecto?: SortOrderInput | SortOrder
+    fecha_jefe_proyecto?: SortOrderInput | SortOrder
     auto_contabilidad?: SortOrderInput | SortOrder
+    fecha_auto_contabilidad?: SortOrderInput | SortOrder
     has_anticipo?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     centro_costo_nivel1?: SortOrderInput | SortOrder
@@ -54026,9 +55139,13 @@ export namespace Prisma {
     registrado_por?: IntWithAggregatesFilter<"ordenes_servicio"> | number
     tiene_anticipo?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    fecha_procede_pago?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     auto_administrador?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     jefe_proyecto?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     auto_contabilidad?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     has_anticipo?: BoolNullableWithAggregatesFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     centro_costo_nivel1?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
@@ -54464,8 +55581,6 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
-    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
-    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -54488,6 +55603,8 @@ export namespace Prisma {
     sunat_soap_error?: StringNullableFilter<"factura"> | string | null
     created_at?: DateTimeFilter<"factura"> | Date | string
     updated_at?: DateTimeFilter<"factura"> | Date | string
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     factura_guia?: Factura_guiaListRelationFilter
     factura_item?: Factura_itemListRelationFilter
@@ -54550,8 +55667,6 @@ export namespace Prisma {
     orden_compra_valor?: SortOrderInput | SortOrder
     placa_vehiculo?: SortOrderInput | SortOrder
     orden_compra_servicio?: SortOrderInput | SortOrder
-    condiciones_de_pago?: SortOrderInput | SortOrder
-    medio_de_pago?: SortOrderInput | SortOrder
     centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
@@ -54574,6 +55689,8 @@ export namespace Prisma {
     sunat_soap_error?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    condiciones_de_pago?: SortOrderInput | SortOrder
+    medio_de_pago?: SortOrderInput | SortOrder
     proveedores?: proveedoresOrderByWithRelationInput
     factura_guia?: factura_guiaOrderByRelationAggregateInput
     factura_item?: factura_itemOrderByRelationAggregateInput
@@ -54641,8 +55758,6 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
-    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
-    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -54665,6 +55780,8 @@ export namespace Prisma {
     sunat_soap_error?: StringNullableFilter<"factura"> | string | null
     created_at?: DateTimeFilter<"factura"> | Date | string
     updated_at?: DateTimeFilter<"factura"> | Date | string
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     factura_guia?: Factura_guiaListRelationFilter
     factura_item?: Factura_itemListRelationFilter
@@ -54727,8 +55844,6 @@ export namespace Prisma {
     orden_compra_valor?: SortOrderInput | SortOrder
     placa_vehiculo?: SortOrderInput | SortOrder
     orden_compra_servicio?: SortOrderInput | SortOrder
-    condiciones_de_pago?: SortOrderInput | SortOrder
-    medio_de_pago?: SortOrderInput | SortOrder
     centro_costo_nivel1_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel2_codigo?: SortOrderInput | SortOrder
     centro_costo_nivel3_codigo?: SortOrderInput | SortOrder
@@ -54751,6 +55866,8 @@ export namespace Prisma {
     sunat_soap_error?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    condiciones_de_pago?: SortOrderInput | SortOrder
+    medio_de_pago?: SortOrderInput | SortOrder
     _count?: facturaCountOrderByAggregateInput
     _avg?: facturaAvgOrderByAggregateInput
     _max?: facturaMaxOrderByAggregateInput
@@ -54817,8 +55934,6 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableWithAggregatesFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableWithAggregatesFilter<"factura"> | string | null
-    condiciones_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
-    medio_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableWithAggregatesFilter<"factura"> | string | null
@@ -54841,6 +55956,8 @@ export namespace Prisma {
     sunat_soap_error?: StringNullableWithAggregatesFilter<"factura"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"factura"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"factura"> | Date | string
+    condiciones_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
   }
 
   export type factura_guiaWhereInput = {
@@ -55464,6 +56581,46 @@ export namespace Prisma {
     subcodigo?: StringWithAggregatesFilter<"subrubro"> | string
     subdescripcion?: StringWithAggregatesFilter<"subrubro"> | string
     sub_id?: IntNullableWithAggregatesFilter<"subrubro"> | number | null
+  }
+
+  export type detalladoWhereInput = {
+    AND?: detalladoWhereInput | detalladoWhereInput[]
+    OR?: detalladoWhereInput[]
+    NOT?: detalladoWhereInput | detalladoWhereInput[]
+    id?: IntFilter<"detallado"> | number
+    detalle?: StringNullableFilter<"detallado"> | string | null
+  }
+
+  export type detalladoOrderByWithRelationInput = {
+    id?: SortOrder
+    detalle?: SortOrderInput | SortOrder
+    _relevance?: detalladoOrderByRelevanceInput
+  }
+
+  export type detalladoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: detalladoWhereInput | detalladoWhereInput[]
+    OR?: detalladoWhereInput[]
+    NOT?: detalladoWhereInput | detalladoWhereInput[]
+    detalle?: StringNullableFilter<"detallado"> | string | null
+  }, "id">
+
+  export type detalladoOrderByWithAggregationInput = {
+    id?: SortOrder
+    detalle?: SortOrderInput | SortOrder
+    _count?: detalladoCountOrderByAggregateInput
+    _avg?: detalladoAvgOrderByAggregateInput
+    _max?: detalladoMaxOrderByAggregateInput
+    _min?: detalladoMinOrderByAggregateInput
+    _sum?: detalladoSumOrderByAggregateInput
+  }
+
+  export type detalladoScalarWhereWithAggregatesInput = {
+    AND?: detalladoScalarWhereWithAggregatesInput | detalladoScalarWhereWithAggregatesInput[]
+    OR?: detalladoScalarWhereWithAggregatesInput[]
+    NOT?: detalladoScalarWhereWithAggregatesInput | detalladoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"detallado"> | number
+    detalle?: StringNullableWithAggregatesFilter<"detallado"> | string | null
   }
 
   export type almacenesCreateInput = {
@@ -56728,9 +57885,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -56777,9 +57938,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -56821,9 +57986,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56870,9 +58039,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56917,9 +58090,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -56959,9 +58136,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57004,9 +58185,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57735,9 +58920,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -57783,9 +58972,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -57826,9 +59019,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57874,9 +59071,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57920,9 +59121,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -57962,9 +59167,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58007,9 +59216,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58428,8 +59641,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58452,6 +59663,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
@@ -58514,8 +59727,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58538,6 +59749,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
@@ -58597,8 +59810,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58621,6 +59832,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
@@ -58683,8 +59896,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58707,6 +59918,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
@@ -58768,8 +59981,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -58792,6 +60003,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
   }
 
   export type facturaUpdateManyMutationInput = {
@@ -58848,8 +60061,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58872,6 +60083,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type facturaUncheckedUpdateManyInput = {
@@ -58930,8 +60143,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58954,6 +60165,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type factura_guiaCreateInput = {
@@ -59559,6 +60772,38 @@ export namespace Prisma {
     subcodigo?: StringFieldUpdateOperationsInput | string
     subdescripcion?: StringFieldUpdateOperationsInput | string
     sub_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type detalladoCreateInput = {
+    detalle?: string | null
+  }
+
+  export type detalladoUncheckedCreateInput = {
+    id?: number
+    detalle?: string | null
+  }
+
+  export type detalladoUpdateInput = {
+    detalle?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type detalladoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    detalle?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type detalladoCreateManyInput = {
+    id?: number
+    detalle?: string | null
+  }
+
+  export type detalladoUpdateManyMutationInput = {
+    detalle?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type detalladoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    detalle?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -61142,9 +62387,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -61201,9 +62450,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -61246,9 +62499,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -61965,9 +63222,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -62024,9 +63285,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -62069,9 +63334,13 @@ export namespace Prisma {
     registrado_por?: SortOrder
     tiene_anticipo?: SortOrder
     procede_pago?: SortOrder
+    fecha_procede_pago?: SortOrder
     auto_administrador?: SortOrder
+    fecha_auto_administrador?: SortOrder
     jefe_proyecto?: SortOrder
+    fecha_jefe_proyecto?: SortOrder
     auto_contabilidad?: SortOrder
+    fecha_auto_contabilidad?: SortOrder
     has_anticipo?: SortOrder
     direccion?: SortOrder
     centro_costo_nivel1?: SortOrder
@@ -62494,8 +63763,6 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
-    condiciones_de_pago?: SortOrder
-    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -62518,6 +63785,8 @@ export namespace Prisma {
     sunat_soap_error?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
   }
 
   export type facturaAvgOrderByAggregateInput = {
@@ -62611,8 +63880,6 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
-    condiciones_de_pago?: SortOrder
-    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -62635,6 +63902,8 @@ export namespace Prisma {
     sunat_soap_error?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
   }
 
   export type facturaMinOrderByAggregateInput = {
@@ -62693,8 +63962,6 @@ export namespace Prisma {
     orden_compra_valor?: SortOrder
     placa_vehiculo?: SortOrder
     orden_compra_servicio?: SortOrder
-    condiciones_de_pago?: SortOrder
-    medio_de_pago?: SortOrder
     centro_costo_nivel1_codigo?: SortOrder
     centro_costo_nivel2_codigo?: SortOrder
     centro_costo_nivel3_codigo?: SortOrder
@@ -62717,6 +63984,8 @@ export namespace Prisma {
     sunat_soap_error?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    condiciones_de_pago?: SortOrder
+    medio_de_pago?: SortOrder
   }
 
   export type facturaSumOrderByAggregateInput = {
@@ -63248,6 +64517,35 @@ export namespace Prisma {
   export type subrubroSumOrderByAggregateInput = {
     id?: SortOrder
     sub_id?: SortOrder
+  }
+
+  export type detalladoOrderByRelevanceInput = {
+    fields: detalladoOrderByRelevanceFieldEnum | detalladoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type detalladoCountOrderByAggregateInput = {
+    id?: SortOrder
+    detalle?: SortOrder
+  }
+
+  export type detalladoAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type detalladoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    detalle?: SortOrder
+  }
+
+  export type detalladoMinOrderByAggregateInput = {
+    id?: SortOrder
+    detalle?: SortOrder
+  }
+
+  export type detalladoSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
@@ -68139,9 +69437,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -68187,9 +69489,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -68299,9 +69605,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68347,9 +69657,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70693,8 +72007,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -70717,6 +72029,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -70777,8 +72091,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -70801,6 +72113,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
@@ -70828,9 +72142,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -70875,9 +72193,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -70929,9 +72251,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -70975,9 +72301,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -71091,8 +72421,6 @@ export namespace Prisma {
     orden_compra_valor?: StringNullableFilter<"factura"> | string | null
     placa_vehiculo?: StringNullableFilter<"factura"> | string | null
     orden_compra_servicio?: StringNullableFilter<"factura"> | string | null
-    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
-    medio_de_pago?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel1_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel2_codigo?: StringNullableFilter<"factura"> | string | null
     centro_costo_nivel3_codigo?: StringNullableFilter<"factura"> | string | null
@@ -71115,6 +72443,8 @@ export namespace Prisma {
     sunat_soap_error?: StringNullableFilter<"factura"> | string | null
     created_at?: DateTimeFilter<"factura"> | Date | string
     updated_at?: DateTimeFilter<"factura"> | Date | string
+    condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
+    medio_de_pago?: StringNullableFilter<"factura"> | string | null
   }
 
   export type ordenes_compraUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -71151,9 +72481,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_compra"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_compra"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_compra"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_compra"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_compra"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_compra"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_compra"> | string | null
@@ -71215,9 +72549,13 @@ export namespace Prisma {
     registrado_por?: IntFilter<"ordenes_servicio"> | number
     tiene_anticipo?: StringNullableFilter<"ordenes_servicio"> | string | null
     procede_pago?: StringNullableFilter<"ordenes_servicio"> | string | null
+    fecha_procede_pago?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_administrador?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_administrador?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     jefe_proyecto?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_jefe_proyecto?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     auto_contabilidad?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
+    fecha_auto_contabilidad?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     has_anticipo?: BoolNullableFilter<"ordenes_servicio"> | boolean | null
     direccion?: StringNullableFilter<"ordenes_servicio"> | string | null
     centro_costo_nivel1?: StringNullableFilter<"ordenes_servicio"> | string | null
@@ -71282,9 +72620,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -71330,9 +72672,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -71447,9 +72793,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71495,9 +72845,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72546,9 +73900,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -72593,9 +73951,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -72647,9 +74009,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -72693,9 +74059,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -73451,9 +74821,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -73498,9 +74872,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -73609,9 +74987,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73656,9 +75038,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74098,8 +75484,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74122,6 +75506,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -74183,8 +75569,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74207,6 +75591,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -74281,8 +75667,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74305,6 +75689,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -74366,8 +75752,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74390,6 +75774,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -74448,8 +75834,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74472,6 +75856,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -74533,8 +75919,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74557,6 +75941,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -74631,8 +76017,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74655,6 +76039,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -74716,8 +76102,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74740,6 +76124,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -74798,8 +76184,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74822,6 +76206,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
@@ -74883,8 +76269,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -74907,6 +76291,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -74981,8 +76367,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75005,6 +76389,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
@@ -75066,8 +76452,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75090,6 +76474,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -76562,8 +77948,6 @@ export namespace Prisma {
     orden_compra_valor?: string | null
     placa_vehiculo?: string | null
     orden_compra_servicio?: string | null
-    condiciones_de_pago?: string | null
-    medio_de_pago?: string | null
     centro_costo_nivel1_codigo?: string | null
     centro_costo_nivel2_codigo?: string | null
     centro_costo_nivel3_codigo?: string | null
@@ -76586,6 +77970,8 @@ export namespace Prisma {
     sunat_soap_error?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    condiciones_de_pago?: string | null
+    medio_de_pago?: string | null
   }
 
   export type ordenes_compraCreateManyProveedoresInput = {
@@ -76602,9 +77988,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -76646,9 +78036,13 @@ export namespace Prisma {
     registrado_por: number
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -76730,8 +78124,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76754,6 +78146,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -76814,8 +78208,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76838,6 +78230,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
@@ -76898,8 +78292,6 @@ export namespace Prisma {
     orden_compra_valor?: NullableStringFieldUpdateOperationsInput | string | null
     placa_vehiculo?: NullableStringFieldUpdateOperationsInput | string | null
     orden_compra_servicio?: NullableStringFieldUpdateOperationsInput | string | null
-    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel2_codigo?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel3_codigo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76922,6 +78314,8 @@ export namespace Prisma {
     sunat_soap_error?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -76936,9 +78330,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76983,9 +78381,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77029,9 +78431,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77071,9 +78477,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77117,9 +78527,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77162,9 +78576,13 @@ export namespace Prisma {
     registrado_por?: IntFieldUpdateOperationsInput | number
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77372,9 +78790,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -77416,9 +78838,13 @@ export namespace Prisma {
     fecha_registro?: Date | string | null
     tiene_anticipo?: string | null
     procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
     auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
     jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
     auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
     has_anticipo?: boolean | null
     direccion?: string | null
     centro_costo_nivel1?: string | null
@@ -77702,9 +79128,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77749,9 +79179,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77795,9 +79229,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77837,9 +79275,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77883,9 +79325,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77928,9 +79374,13 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
     procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
