@@ -37,6 +37,7 @@ export class FacturaDetectorService {
       'SERVICIO': 'ZZ',
       'SERVICIOS': 'ZZ',
       'SRV': 'ZZ',
+      'SERV': 'ZZ',
       'METRO': 'MTR',
       'METROS': 'MTR',
       'M': 'MTR',
