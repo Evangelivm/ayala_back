@@ -166,10 +166,8 @@ export class DropboxService {
       const response = await this.dropboxClient.filesUpload({
         path: fullPath,
         contents: file,
-        mode: { '.tag': 'add' }, // No sobrescribir, fallar si existe
-        autorename: false, // No renombrar automáticamente
+        mode: { '.tag': 'overwrite' }, // Sobrescribir si existe
         mute: false,
-        strict_conflict: false,
       });
 
       this.logger.log(`Archivo subido exitosamente: ${response.result.name}`);
