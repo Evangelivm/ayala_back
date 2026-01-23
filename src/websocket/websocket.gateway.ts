@@ -57,7 +57,13 @@ export class WebsocketGateway
   }
 
   // Emitir cuando una programación técnica se completa (GRE procesada)
-  emitProgTecnicaCompletada(data: { id: number; identificador_unico: string }) {
+  emitProgTecnicaCompletada(data: {
+    id: number;
+    identificador_unico: string;
+    pdf_link?: string;
+    xml_link?: string;
+    cdr_link?: string;
+  }) {
     try {
       console.log(`📡 Emitiendo evento progTecnicaCompletada:`, data);
 
@@ -66,10 +72,13 @@ export class WebsocketGateway
         return;
       }
 
-      this.server.emit('progTecnicaCompletada', data);
-      console.log(`✅ Evento progTecnicaCompletada emitido exitosamente`);
+      this.server.emit('prog-tecnica-completada', {
+        event: 'prog-tecnica-completada',
+        ...data
+      });
+      console.log(`✅ Evento prog-tecnica-completada emitido exitosamente`);
     } catch (error) {
-      console.error('❌ Error emitiendo evento progTecnicaCompletada:', error);
+      console.error('❌ Error emitiendo evento prog-tecnica-completada:', error);
       // No lanzar el error para no interrumpir el flujo
     }
   }

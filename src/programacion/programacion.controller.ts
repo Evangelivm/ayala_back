@@ -119,6 +119,37 @@ export class ProgramacionController {
     );
   }
 
+  @Patch('tecnica/duplicados/actualizar')
+  async actualizarDuplicados(
+    @Body() body: {
+      loteId: string;
+      modificaciones: {
+        peso_bruto_total?: number;
+        id_proyecto?: number;
+        id_subproyecto?: number;
+        id_etapa?: number;
+        id_sector?: number;
+        id_frente?: number;
+        id_partida?: number;
+        id_subetapa?: number;
+        id_subsector?: number;
+        id_subfrente?: number;
+        id_subpartida?: number;
+      };
+    },
+  ) {
+    const { loteId, modificaciones } = body;
+
+    this.logger.log(
+      `Actualizando duplicados del lote ${loteId} con modificaciones`,
+    );
+
+    return await this.programacionService.actualizarDuplicadosLote(
+      loteId,
+      modificaciones,
+    );
+  }
+
   @Post('tecnica/enviar-kafka')
   async enviarDuplicadosKafka(
     @Body() body: { loteId: string; idsGuias: number[] },

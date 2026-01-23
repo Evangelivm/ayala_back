@@ -108,6 +108,11 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
         'gre-processing',
         'gre-responses',
         'gre-failed',
+        // ✅ Topics para GRE Extendido (duplicación masiva)
+        'gre-extendido-requests',
+        'gre-extendido-processing',
+        'gre-extendido-responses',
+        'gre-extendido-failed',
       ];
 
       this.logger.log(`Creating GRE Topics: ${greTopics.join(', ')}`);

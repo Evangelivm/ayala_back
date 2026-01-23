@@ -1,12 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
-// Services
+// Services - GRE Regular
 import { GreDetectorService } from './services/gre-detector.service';
 import { GreProducerService } from './services/gre-producer.service';
 import { GreConsumerService } from './services/gre-consumer.service';
 import { GrePollingService } from './services/gre-polling.service';
 import { GreTestService } from './services/gre-test.service';
+
+// Services - GRE Extendido (para programación extendida)
+import { GreExtendidoDetectorService } from './services/gre-extendido-detector.service';
+import { GreExtendidoProducerService } from './services/gre-extendido-producer.service';
+import { GreExtendidoConsumerService } from './services/gre-extendido-consumer.service';
+import { GreExtendidoPollingService } from './services/gre-extendido-polling.service';
 
 // Controllers
 import { GreController } from './gre.controller';
@@ -28,19 +34,31 @@ import { WebsocketModule } from '../websocket/websocket.module';
     GreController,
     GreCrudController, // CRUD endpoints para frontend
     GreConsumerService, // ✅ Como controller para @MessagePattern
+    GreExtendidoConsumerService, // ✅ Como controller para @MessagePattern extendido
   ],
   providers: [
+    // GRE Regular
     GreDetectorService,
     GreProducerService,
     GreConsumerService, // ✅ Como provider para inyección (NestJS optimiza, no duplica instancia)
     GrePollingService,
     GreTestService,
+    // GRE Extendido
+    GreExtendidoDetectorService,
+    GreExtendidoProducerService,
+    GreExtendidoConsumerService, // ✅ Como provider para inyección
+    GreExtendidoPollingService,
   ],
   exports: [
+    // GRE Regular
     GreDetectorService,
     GreProducerService,
     GrePollingService,
     GreTestService,
+    // GRE Extendido
+    GreExtendidoDetectorService,
+    GreExtendidoProducerService,
+    GreExtendidoPollingService,
   ],
 })
 export class GreModule {}
