@@ -681,6 +681,245 @@ export class GreController {
     };
   }
 
+  @Post('extendido/procesar-pendientes')
+  async procesarPendientesExtendidos() {
+    try {
+      this.logger.log('🚨 PROCESAMIENTO DE EMERGENCIA - Procesando registros pendientes extendidos');
+
+      // 1. Buscar registros con estado PENDIENTE
+      const pendientes = await this.prisma.guia_remision_extendido.findMany({
+        where: { estado_gre: 'PENDIENTE' },
+        take: 10 // Procesar máximo 10 a la vez
+      });
+
+      if (pendientes.length === 0) {
+        return {
+          success: true,
+          message: 'No hay registros pendientes para procesar',
+          procesados: 0
+        };
+      }
+
+      this.logger.log(`📋 Encontrados ${pendientes.length} registros pendientes`);
+
+      const resultados: Array<{ id_guia: number; serie?: string; numero?: number; status: string; mensaje: string }> = [];
+
+      for (const guia of pendientes) {
+        try {
+          this.logger.log(`🔄 Procesando guía extendida ID: ${guia.id_guia}`);
+
+          // 2. Actualizar a PROCESANDO
+          await this.prisma.guia_remision_extendido.update({
+            where: { id_guia: guia.id_guia },
+            data: { estado_gre: 'PROCESANDO' }
+          });
+
+          // 3. Preparar datos para NUBEFACT generar_guia
+          const greData: any = {
+            operacion: 'generar_guia',
+            tipo_de_comprobante: guia.tipo_de_comprobante,
+            serie: guia.serie,
+            numero: guia.numero,
+            fecha_de_emision: guia.fecha_de_emision,
+          };
+
+          // Agregar todos los campos necesarios según el tipo
+          if (guia.tipo_de_comprobante === 7) {
+            Object.assign(greData, {
+              observaciones: guia.observaciones,
+              motivo_de_traslado: guia.motivo_de_traslado,
+              peso_bruto_total: guia.peso_bruto_total,
+              numero_de_bultos: guia.numero_de_bultos,
+              tipo_de_transporte: guia.tipo_de_transporte,
+              fecha_de_inicio_de_traslado: guia.fecha_de_inicio_de_traslado,
+              transportista_documento_tipo: guia.transportista_documento_tipo,
+              transportista_documento_numero: guia.transportista_documento_numero,
+              transportista_denominacion: guia.transportista_denominacion,
+              conductor_documento_tipo: guia.conductor_documento_tipo,
+              conductor_documento_numero: guia.conductor_documento_numero,
+              conductor_nombre: guia.conductor_nombre,
+              conductor_apellidos: guia.conductor_apellidos,
+              conductor_numero_licencia: guia.conductor_numero_licencia,
+              vehiculo_placa_numero: guia.transportista_placa_numero,
+              destinatario_documento_tipo: guia.destinatario_documento_tipo,
+              destinatario_documento_numero: guia.destinatario_documento_numero,
+              destinatario_denominacion: guia.destinatario_denominacion,
+              punto_de_partida_ubigeo: guia.punto_de_partida_ubigeo,
+              punto_de_partida_direccion: guia.punto_de_partida_direccion,
+              punto_de_llegada_ubigeo: guia.punto_de_llegada_ubigeo,
+              punto_de_llegada_direccion: guia.punto_de_llegada_direccion,
+            });
+          } else if (guia.tipo_de_comprobante === 8) {
+            Object.assign(greData, {
+              observaciones: guia.observaciones,
+              peso_bruto_total: guia.peso_bruto_total,
+              numero_de_bultos: guia.numero_de_bultos,
+              fecha_de_inicio_de_traslado: guia.fecha_de_inicio_de_traslado,
+              conductor_documento_tipo: guia.conductor_documento_tipo,
+              conductor_documento_numero: guia.conductor_documento_numero,
+              conductor_nombre: guia.conductor_nombre,
+              conductor_apellidos: guia.conductor_apellidos,
+              conductor_numero_licencia: guia.conductor_numero_licencia,
+              vehiculo_placa_numero: guia.transportista_placa_numero,
+              destinatario_documento_tipo: guia.destinatario_documento_tipo,
+              destinatario_documento_numero: guia.destinatario_documento_numero,
+              destinatario_denominacion: guia.destinatario_denominacion,
+              punto_de_partida_ubigeo: guia.punto_de_partida_ubigeo,
+              punto_de_partida_direccion: guia.punto_de_partida_direccion,
+              punto_de_llegada_ubigeo: guia.punto_de_llegada_ubigeo,
+              punto_de_llegada_direccion: guia.punto_de_llegada_direccion,
+              tuc_vehiculo_principal: guia.tuc_vehiculo_principal,
+            });
+          }
+
+          // 4. Obtener items - usar tabla correcta
+          const items: any[] = await this.prisma.$queryRaw`
+            SELECT * FROM guia_remision_items_extendido WHERE id_guia = ${guia.id_guia}
+          `;
+
+          greData.items = items.map((item: any) => ({
+            unidad_de_medida: item.unidad_de_medida,
+            codigo: item.codigo,
+            descripcion: item.descripcion,
+            cantidad: item.cantidad,
+            codigo_producto_sunat: item.codigo_producto_sunat,
+          }));
+
+          // 5. Llamar a NUBEFACT generar_guia
+          const NUBEFACT_API_URL = process.env.NUBEFACT_API_URL || 'https://api.nubefact.com/api/v1/generar_guia';
+          const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+
+          const axios = require('axios');
+          const response = await axios.post(NUBEFACT_API_URL, greData, {
+            headers: {
+              'Authorization': `Token ${NUBEFACT_TOKEN}`,
+              'Content-Type': 'application/json'
+            },
+            timeout: 30000
+          });
+
+          this.logger.log(`✅ Llamada a generar_guia exitosa para ID: ${guia.id_guia}`);
+
+          // 6. Iniciar polling inmediato (intento de consultar_guia después de 5 segundos)
+          setTimeout(async () => {
+            await this.consultarYActualizarExtendido(guia.id_guia, guia.identificador_unico, guia.serie, guia.numero, guia.tipo_de_comprobante);
+          }, 5000);
+
+          resultados.push({
+            id_guia: guia.id_guia,
+            serie: guia.serie,
+            numero: guia.numero,
+            status: 'procesado',
+            mensaje: 'Enviado a NUBEFACT, iniciando polling'
+          });
+
+        } catch (error) {
+          this.logger.error(`Error procesando guía extendida ${guia.id_guia}:`, error);
+
+          await this.prisma.guia_remision_extendido.update({
+            where: { id_guia: guia.id_guia },
+            data: { estado_gre: 'FALLADO' }
+          });
+
+          resultados.push({
+            id_guia: guia.id_guia,
+            status: 'error',
+            mensaje: error.message
+          });
+        }
+      }
+
+      return {
+        success: true,
+        message: `Procesados ${resultados.length} registros`,
+        resultados
+      };
+
+    } catch (error) {
+      this.logger.error('Error en procesamiento de emergencia:', error);
+      throw new HttpException(
+        `Error procesando pendientes: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  private async consultarYActualizarExtendido(idGuia: number, identificadorUnico: string | null, serie: string, numero: number, tipoComprobante: number) {
+    try {
+      const consultaData = {
+        operacion: 'consultar_guia',
+        tipo_de_comprobante: tipoComprobante,
+        serie: serie,
+        numero: numero
+      };
+
+      const NUBEFACT_CONSULTAR_URL = process.env.NUBEFACT_CONSULTAR_URL;
+      const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
+
+      const axios = require('axios');
+      const response = await axios.post(NUBEFACT_CONSULTAR_URL, consultaData, {
+        headers: {
+          'Authorization': `Token ${NUBEFACT_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const { enlace_del_pdf, enlace_del_xml, enlace_del_cdr, aceptada_por_sunat, sunat_description } = response.data;
+
+      if (enlace_del_pdf && enlace_del_xml && enlace_del_cdr && aceptada_por_sunat === true) {
+        // Actualizar BD
+        const guiaCompletada = await this.prisma.guia_remision_extendido.update({
+          where: { id_guia: idGuia },
+          data: {
+            estado_gre: 'COMPLETADO',
+            enlace_del_pdf,
+            enlace_del_xml,
+            enlace_del_cdr
+          }
+        });
+
+        this.logger.log(`✅ Guía extendida ${serie}-${numero} COMPLETADA con archivos`);
+
+        // Emitir WebSocket si tiene identificador
+        if (identificadorUnico) {
+          const programacionTecnica = await this.prisma.programacion_tecnica.findFirst({
+            where: { identificador_unico: identificadorUnico },
+            select: { id: true }
+          });
+
+          if (programacionTecnica) {
+            // Importar WebsocketGateway
+            const { WebsocketGateway } = require('../websocket/websocket.gateway');
+            const websocketGateway = new WebsocketGateway();
+
+            websocketGateway.emitProgTecnicaCompletada({
+              id: programacionTecnica.id,
+              identificador_unico: identificadorUnico,
+              pdf_link: enlace_del_pdf,
+              xml_link: enlace_del_xml,
+              cdr_link: enlace_del_cdr
+            });
+
+            this.logger.log(`📡 WebSocket emitido para identificador: ${identificadorUnico}`);
+          }
+        }
+      } else {
+        this.logger.log(`⏳ Archivos aún no disponibles para ${serie}-${numero}, reintentando en 30s...`);
+        // Reintentar después de 30 segundos
+        setTimeout(async () => {
+          await this.consultarYActualizarExtendido(idGuia, identificadorUnico, serie, numero, tipoComprobante);
+        }, 30000);
+      }
+
+    } catch (error) {
+      this.logger.error(`Error consultando guía extendida ${serie}-${numero}:`, error);
+      // Reintentar después de 30 segundos si falla
+      setTimeout(async () => {
+        await this.consultarYActualizarExtendido(idGuia, identificadorUnico, serie, numero, tipoComprobante);
+      }, 30000);
+    }
+  }
+
   private readonly logger = new (class {
     log(message: string) {
       console.log(`[GreController] ${message}`);
