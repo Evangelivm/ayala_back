@@ -123,8 +123,12 @@ export class OrdenCompraService {
       });
 
       // Mapear las órdenes para incluir el nombre_proveedor, ruc y los items al mismo nivel
+      // Formatear fechas DATE como strings YYYY-MM-DD para evitar problemas de zona horaria
       return ordenes.map((orden) => ({
         ...orden,
+        // Formatear fechas DATE a string para evitar conversión de zona horaria en el frontend
+        fecha_orden: orden.fecha_orden ? dayjs(orden.fecha_orden).format('YYYY-MM-DD') : null,
+        fecha_registro: orden.fecha_registro ? dayjs(orden.fecha_registro).format('YYYY-MM-DD') : null,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
         ruc_proveedor: orden.proveedores?.ruc || null,
         items: orden.detalles_orden_compra || [],
@@ -607,17 +611,19 @@ export class OrdenCompraService {
         doc.text(ordenData.datosOrdenCompra.condicion, 100, yPos + 15);
 
         doc.text('MONEDA:', 40, yPos + 30);
-        doc.text(ordenData.datosOrdenCompra.moneda, 100, yPos + 30);
 
-        // Si la moneda es DOLARES, mostrar cuadro rojo debajo
+        // Si la moneda es DOLARES, mostrar solo cuadro rojo, sino mostrar texto normal
         if (ordenData.datosOrdenCompra.moneda.toUpperCase().includes('DOLAR')) {
-          this.drawHighlightBox(doc, 100, yPos + 40, 60, 15, '#FF0000');
+          this.drawHighlightBox(doc, 100, yPos + 30, 60, 15, '#FF0000');
           doc.fontSize(9).font('Helvetica-Bold').fillColor('#FFFFFF');
-          doc.text('DOLARES', 100, yPos + 43, {
+          doc.text('DOLARES', 100, yPos + 33, {
             width: 60,
             align: 'center',
           });
           doc.fillColor('#000000');
+        } else {
+          doc.fontSize(8).font('Helvetica');
+          doc.text(ordenData.datosOrdenCompra.moneda, 100, yPos + 30);
         }
 
         // Mostrar tipo de cambio en amarillo solo si la moneda es DOLARES
@@ -629,12 +635,13 @@ export class OrdenCompraService {
           doc
             .fontSize(9)
             .font('Helvetica-Bold')
+            .fillColor('#000000')
             .text(
-              ordenData.datosOrdenCompra.tipoCambio.toFixed(3),
-              205,
+              `T/C: ${ordenData.datosOrdenCompra.tipoCambio.toFixed(3)}`,
+              200,
               yPos + 30,
               {
-                width: 65,
+                width: 75,
                 align: 'center',
               },
             );
@@ -1267,12 +1274,15 @@ export class OrdenCompraService {
     items: DetalleItem[],
   ): number {
     let currentY = startY;
+    const baseRowHeight = 18;
+    const fontSize = 7;
+    const descripcionFontSize = 6; // Tamaño más pequeño para descripciones
 
     // Headers
     let currentX = startX;
     headers.forEach((header, index) => {
-      doc.rect(currentX, currentY, colWidths[index], 18).stroke();
-      doc.fontSize(7).font('Helvetica-Bold');
+      doc.rect(currentX, currentY, colWidths[index], baseRowHeight).stroke();
+      doc.fontSize(fontSize).font('Helvetica-Bold');
       doc.text(header, currentX + 2, currentY + 5, {
         width: colWidths[index] - 4,
         align: 'center',
@@ -1280,7 +1290,7 @@ export class OrdenCompraService {
       currentX += colWidths[index];
     });
 
-    currentY += 18;
+    currentY += baseRowHeight;
 
     // Data rows
     items.forEach((item) => {
@@ -1295,18 +1305,39 @@ export class OrdenCompraService {
         item.subTotal.toFixed(4),
       ];
 
+      // Calcular la altura necesaria para la descripción (columna índice 1) con fuente más pequeña
+      doc.fontSize(descripcionFontSize).font('Helvetica');
+      const descripcionLines = this.calculateTextLines(
+        doc,
+        item.descripcion,
+        colWidths[1] - 4,
+        descripcionFontSize,
+      );
+      const rowHeight = Math.max(baseRowHeight, descripcionLines * 8 + 6);
+
+      // Dibujar las celdas con la altura calculada
       rowData.forEach((cell, index) => {
-        doc.rect(currentX, currentY, colWidths[index], 18).stroke();
-        doc.fontSize(7).font('Helvetica');
+        doc.rect(currentX, currentY, colWidths[index], rowHeight).stroke();
+
+        // Usar tamaño de fuente diferente para descripción
+        const cellFontSize = index === 1 ? descripcionFontSize : fontSize;
+        doc.fontSize(cellFontSize).font('Helvetica');
+
         const align = index === 1 ? 'left' : index === 0 ? 'center' : 'right';
-        doc.text(cell, currentX + 2, currentY + 5, {
+
+        // Calcular la posición Y centrada verticalmente para celdas que no son descripción
+        const textY = index === 1
+          ? currentY + 3  // Para descripción, empezar desde arriba
+          : currentY + (rowHeight / 2) - 3; // Para otras celdas, centrar verticalmente
+
+        doc.text(cell, currentX + 2, textY, {
           width: colWidths[index] - 4,
           align: align as any,
         });
         currentX += colWidths[index];
       });
 
-      currentY += 18;
+      currentY += rowHeight;
     });
 
     return currentY;

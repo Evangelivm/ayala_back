@@ -746,6 +746,7 @@ export class ProgramacionService {
     }
   }
 
+  // ✅ NUEVO FLUJO OPCIÓN B: Solo devuelve estructura de datos, NO guarda en BD
   async duplicarGuia(
     idGuiaOriginal: number,
     cantidad: number,
@@ -757,7 +758,7 @@ export class ProgramacionService {
         throw new BadRequestException('La cantidad debe estar entre 1 y 50');
       }
 
-      // Obtener guía original de programacion_tecnica con todos los datos necesarios (camión, empresa, etc.)
+      // Obtener guía original de programacion_tecnica con todos los datos necesarios
       const guiaOriginalData = await this.prisma.$queryRaw<any[]>`
         SELECT
           pt.*,
@@ -768,10 +769,14 @@ export class ProgramacionService {
           c.numero_licencia as camion_numero_licencia,
           e.nro_documento as empresa_nro_documento,
           e.razon_social as empresa_razon_social,
-          e.direccion as empresa_direccion
+          e.direccion as empresa_direccion,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
         FROM programacion_tecnica pt
         LEFT JOIN camiones c ON pt.unidad = c.id_camion
         LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
         WHERE pt.id = ${idGuiaOriginal}
       `;
 
@@ -799,45 +804,24 @@ export class ProgramacionService {
         }
       }
 
-      // ✅ VALIDAR DATOS OBLIGATORIOS ANTES DE DUPLICAR
+      // Validar datos obligatorios
       const camposVacios: string[] = [];
-
-      if (!guiaOriginal.empresa_nro_documento) {
-        camposVacios.push('Número de documento de la empresa');
-      }
-      if (!guiaOriginal.empresa_razon_social) {
-        camposVacios.push('Razón social de la empresa');
-      }
-      if (!guiaOriginal.empresa_direccion) {
-        camposVacios.push('Dirección de la empresa');
-      }
-      if (!guiaOriginal.camion_placa) {
-        camposVacios.push('Placa del vehículo');
-      }
-      if (!guiaOriginal.camion_dni) {
-        camposVacios.push('DNI del conductor');
-      }
-      if (!guiaOriginal.camion_nombre_chofer) {
-        camposVacios.push('Nombre del conductor');
-      }
-      if (!guiaOriginal.camion_apellido_chofer) {
-        camposVacios.push('Apellidos del conductor');
-      }
-      if (!guiaOriginal.camion_numero_licencia) {
-        camposVacios.push('Número de licencia del conductor');
-      }
+      if (!guiaOriginal.empresa_nro_documento) camposVacios.push('Número de documento de la empresa');
+      if (!guiaOriginal.empresa_razon_social) camposVacios.push('Razón social de la empresa');
+      if (!guiaOriginal.empresa_direccion) camposVacios.push('Dirección de la empresa');
+      if (!guiaOriginal.camion_placa) camposVacios.push('Placa del vehículo');
+      if (!guiaOriginal.camion_dni) camposVacios.push('DNI del conductor');
+      if (!guiaOriginal.camion_nombre_chofer) camposVacios.push('Nombre del conductor');
+      if (!guiaOriginal.camion_apellido_chofer) camposVacios.push('Apellidos del conductor');
+      if (!guiaOriginal.camion_numero_licencia) camposVacios.push('Número de licencia del conductor');
       if (!guiaOriginal.punto_partida_ubigeo || guiaOriginal.punto_partida_ubigeo.length !== 6) {
         camposVacios.push('Ubigeo de partida (debe tener 6 dígitos)');
       }
-      if (!guiaOriginal.punto_partida_direccion) {
-        camposVacios.push('Dirección de partida');
-      }
+      if (!guiaOriginal.punto_partida_direccion) camposVacios.push('Dirección de partida');
       if (!guiaOriginal.punto_llegada_ubigeo || guiaOriginal.punto_llegada_ubigeo.length !== 6) {
         camposVacios.push('Ubigeo de llegada (debe tener 6 dígitos)');
       }
-      if (!guiaOriginal.punto_llegada_direccion) {
-        camposVacios.push('Dirección de llegada');
-      }
+      if (!guiaOriginal.punto_llegada_direccion) camposVacios.push('Dirección de llegada');
 
       if (camposVacios.length > 0) {
         throw new BadRequestException(
@@ -846,15 +830,154 @@ export class ProgramacionService {
         );
       }
 
-      // Generar ID único para el lote
-      const loteId = `LOTE-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-      const fechaDuplicacion = new Date();
+      this.logger.log(`🎫 Preparando ${cantidad} duplicados (estructura en memoria, NO se guardan en BD todavía)`);
 
-      this.logger.log(`🎫 Generando lote con ID: ${loteId}`);
+      // Preparar estructuras de datos para el frontend (sin guardar en BD)
+      const duplicadosPreparados: any[] = [];
 
-      // Crear duplicados en transacción
-      const duplicados = await this.prisma.$transaction(async (tx) => {
-        const duplicadosCreados: any[] = [];
+      for (let i = 0; i < cantidad; i++) {
+        // Generar identificador único temporal (se regenerará al guardar)
+        const tempIdentificadorUnico = `TEMP-${Date.now()}-${i}-${Math.random().toString(36).substring(2, 8)}`;
+
+        // Aplicar modificaciones si las hay
+        const modificacion = modificaciones && modificaciones[i] ? modificaciones[i] : {};
+
+        // Preparar datos del duplicado
+        const duplicadoData = {
+          // Datos temporales para el frontend
+          tempId: `temp-${i}-${Date.now()}`,
+          identificador_unico: tempIdentificadorUnico,
+
+          // Datos de la guía original
+          fecha: guiaOriginal.fecha,
+          unidad: guiaOriginal.camion_placa || null,
+          proveedor: guiaOriginal.empresa_razon_social || null,
+          apellidos_nombres: this.capitalizeWords(guiaOriginal.camion_nombre_chofer) && this.capitalizeWords(guiaOriginal.camion_apellido_chofer)
+            ? `${this.capitalizeWords(guiaOriginal.camion_nombre_chofer)} ${this.capitalizeWords(guiaOriginal.camion_apellido_chofer)}`
+            : null,
+          proyectos: guiaOriginal.nombre_subproyecto || guiaOriginal.nombre_proyecto || null,
+          tipo_proyecto: guiaOriginal.nombre_subproyecto ? 'subproyecto' : guiaOriginal.nombre_proyecto ? 'proyecto' : null,
+          programacion: guiaOriginal.programacion,
+          hora_partida: guiaOriginal.hora_partida,
+          estado_programacion: guiaOriginal.estado_programacion,
+          comentarios: guiaOriginal.comentarios,
+          validacion: guiaOriginal.validacion,
+          km_del_dia: guiaOriginal.km_del_dia,
+          mes: guiaOriginal.mes,
+          num_semana: guiaOriginal.num_semana,
+          m3: guiaOriginal.m3 ? guiaOriginal.m3.toString() : null,
+          cantidad_viaje: "1",
+
+          // Campos editables
+          peso_bruto_total: modificacion.peso_bruto_total !== undefined
+            ? modificacion.peso_bruto_total
+            : (guiaRemisionOriginal?.peso_bruto_total || 0),
+
+          // IDs de proyecto
+          id_proyecto: modificacion.id_proyecto !== undefined ? modificacion.id_proyecto : guiaOriginal.id_proyecto,
+          id_etapa: modificacion.id_etapa !== undefined ? modificacion.id_etapa : guiaOriginal.id_etapa,
+          id_sector: modificacion.id_sector !== undefined ? modificacion.id_sector : guiaOriginal.id_sector,
+          id_frente: modificacion.id_frente !== undefined ? modificacion.id_frente : guiaOriginal.id_frente,
+          id_partida: modificacion.id_partida !== undefined ? modificacion.id_partida : guiaOriginal.id_partida,
+          id_subproyecto: modificacion.id_subproyecto !== undefined ? modificacion.id_subproyecto : guiaOriginal.id_subproyecto,
+          id_subetapa: modificacion.id_subetapa !== undefined ? modificacion.id_subetapa : guiaOriginal.id_subetapa,
+          id_subsector: modificacion.id_subsector !== undefined ? modificacion.id_subsector : guiaOriginal.id_subsector,
+          id_subfrente: modificacion.id_subfrente !== undefined ? modificacion.id_subfrente : guiaOriginal.id_subfrente,
+          id_subpartida: modificacion.id_subpartida !== undefined ? modificacion.id_subpartida : guiaOriginal.id_subpartida,
+
+          // Datos completos de la guía para guardar después
+          _datosCompletos: {
+            idGuiaOriginal,
+            guiaOriginal: {
+              fecha: guiaOriginal.fecha,
+              unidad: guiaOriginal.unidad,
+              proveedor: guiaOriginal.proveedor,
+              empresa_nro_documento: guiaOriginal.empresa_nro_documento,
+              empresa_razon_social: guiaOriginal.empresa_razon_social,
+              empresa_direccion: guiaOriginal.empresa_direccion,
+              camion_placa: guiaOriginal.camion_placa,
+              camion_dni: guiaOriginal.camion_dni,
+              camion_nombre_chofer: guiaOriginal.camion_nombre_chofer,
+              camion_apellido_chofer: guiaOriginal.camion_apellido_chofer,
+              camion_numero_licencia: guiaOriginal.camion_numero_licencia,
+              punto_partida_ubigeo: guiaOriginal.punto_partida_ubigeo,
+              punto_partida_direccion: guiaOriginal.punto_partida_direccion,
+              punto_llegada_ubigeo: guiaOriginal.punto_llegada_ubigeo,
+              punto_llegada_direccion: guiaOriginal.punto_llegada_direccion,
+              programacion: guiaOriginal.programacion,
+              hora_partida: guiaOriginal.hora_partida,
+              estado_programacion: guiaOriginal.estado_programacion,
+              comentarios: guiaOriginal.comentarios,
+              validacion: guiaOriginal.validacion,
+              km_del_dia: guiaOriginal.km_del_dia,
+              mes: guiaOriginal.mes,
+              num_semana: guiaOriginal.num_semana,
+              m3: guiaOriginal.m3,
+            },
+            guiaRemisionOriginal: guiaRemisionOriginal ? {
+              operacion: guiaRemisionOriginal.operacion,
+              tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
+              cliente_tipo_de_documento: guiaRemisionOriginal.cliente_tipo_de_documento,
+              cliente_numero_de_documento: guiaRemisionOriginal.cliente_numero_de_documento,
+              cliente_denominacion: guiaRemisionOriginal.cliente_denominacion,
+              cliente_direccion: guiaRemisionOriginal.cliente_direccion,
+              fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
+              peso_bruto_unidad_de_medida: guiaRemisionOriginal.peso_bruto_unidad_de_medida,
+              numero_de_bultos: guiaRemisionOriginal.numero_de_bultos,
+              tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
+              fecha_de_inicio_de_traslado: guiaRemisionOriginal.fecha_de_inicio_de_traslado,
+              transportista_placa_numero: guiaRemisionOriginal.transportista_placa_numero,
+              transportista_documento_tipo: guiaRemisionOriginal.transportista_documento_tipo,
+              transportista_documento_numero: guiaRemisionOriginal.transportista_documento_numero,
+              transportista_denominacion: guiaRemisionOriginal.transportista_denominacion,
+              conductor_documento_tipo: guiaRemisionOriginal.conductor_documento_tipo,
+              conductor_documento_numero: guiaRemisionOriginal.conductor_documento_numero,
+              conductor_numero_licencia: guiaRemisionOriginal.conductor_numero_licencia,
+              conductor_nombre: guiaRemisionOriginal.conductor_nombre,
+              conductor_apellidos: guiaRemisionOriginal.conductor_apellidos,
+              conductor_denominacion: guiaRemisionOriginal.conductor_denominacion,
+              destinatario_documento_tipo: guiaRemisionOriginal.destinatario_documento_tipo,
+              destinatario_documento_numero: guiaRemisionOriginal.destinatario_documento_numero,
+              destinatario_denominacion: guiaRemisionOriginal.destinatario_denominacion,
+              mtc: guiaRemisionOriginal.mtc,
+              punto_de_partida_ubigeo: guiaRemisionOriginal.punto_de_partida_ubigeo,
+              punto_de_partida_direccion: guiaRemisionOriginal.punto_de_partida_direccion,
+              punto_de_llegada_ubigeo: guiaRemisionOriginal.punto_de_llegada_ubigeo,
+              punto_de_llegada_direccion: guiaRemisionOriginal.punto_de_llegada_direccion,
+              motivo_de_traslado: guiaRemisionOriginal.motivo_de_traslado,
+              motivo_de_traslado_otros_descripcion: guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
+              observaciones: guiaRemisionOriginal.observaciones,
+            } : null,
+          },
+        };
+
+        duplicadosPreparados.push(duplicadoData);
+      }
+
+      this.logger.log(`✅ Preparados ${cantidad} duplicados en memoria (listos para editar en frontend)`);
+
+      return {
+        success: true,
+        message: `Se prepararon ${cantidad} duplicados para edición`,
+        duplicados: duplicadosPreparados,
+      };
+    } catch (error) {
+      this.logger.error('Error al preparar duplicados:', error);
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error al preparar duplicados');
+    }
+  }
+
+  // ✅ NUEVO MÉTODO: Guarda los duplicados editados en BD con estado_gre: null
+  // El detector los procesará automáticamente
+  async guardarDuplicados(duplicados: Array<any>) {
+    try {
+      this.logger.log(`📝 Guardando ${duplicados.length} duplicados en la base de datos...`);
+
+      const resultados = await this.prisma.$transaction(async (tx) => {
+        const guiasCreadas: any[] = [];
 
         // Obtener el último número usado en la serie 'TTT2' para autoincrement
         const ultimoNumero = await tx.guia_remision_extendido.findFirst({
@@ -866,282 +989,159 @@ export class ProgramacionService {
         let numeroActual = ultimoNumero ? ultimoNumero.numero : 0;
         this.logger.log(`   📝 Último número en serie TTT2: ${numeroActual}, iniciando desde ${numeroActual + 1}`);
 
-        for (let i = 0; i < cantidad; i++) {
-          // Incrementar el número para este duplicado
+        for (const duplicado of duplicados) {
           numeroActual++;
 
-          // Aplicar modificaciones si las hay
-          const modificacion = modificaciones && modificaciones[i] ? modificaciones[i] : {};
-
-          // Generar identificador único para el duplicado (10 caracteres alfanuméricos)
+          // Generar nuevo identificador único real
           const nuevoIdentificadorUnico = generarIdentificadorAleatorio();
 
-          // Crear duplicado en programacion_tecnica con TODOS los datos del original
-          const duplicadoProgramacion = await tx.programacion_tecnica.create({
-            data: {
-              // Datos básicos
-              fecha: guiaOriginal.fecha,
-              unidad: guiaOriginal.unidad,
-              proveedor: guiaOriginal.proveedor,
-              programacion: guiaOriginal.programacion,
-              hora_partida: modificacion.hora_partida
-                ? new Date(`1970-01-01T${modificacion.hora_partida}`)
-                : guiaOriginal.hora_partida,
-              estado_programacion: guiaOriginal.estado_programacion,
-              comentarios: guiaOriginal.comentarios,
-              validacion: guiaOriginal.validacion,
-              identificador_unico: nuevoIdentificadorUnico,
-              km_del_dia: guiaOriginal.km_del_dia,
-              mes: guiaOriginal.mes,
-              num_semana: guiaOriginal.num_semana,
+          const datosCompletos = duplicado._datosCompletos;
+          const guiaOriginal = datosCompletos.guiaOriginal;
+          const guiaRemisionOriginal = datosCompletos.guiaRemisionOriginal;
 
-              // M3 y cantidad_viaje (cada duplicado = 1 viaje)
-              m3: modificacion.m3 !== undefined ? modificacion.m3 : guiaOriginal.m3,
-              cantidad_viaje: "1", // Siempre 1 viaje por duplicado
+          // Crear registro en guia_remision_extendido con estado_gre: null
+          // SIN duplicado_lote_id para que el detector lo procese automáticamente
+          let nuevoRegistroGre;
 
-              // Puntos de partida/llegada
-              punto_llegada_direccion: guiaOriginal.punto_llegada_direccion,
-              punto_llegada_ubigeo: guiaOriginal.punto_llegada_ubigeo,
-              punto_partida_direccion: guiaOriginal.punto_partida_direccion,
-              punto_partida_ubigeo: guiaOriginal.punto_partida_ubigeo,
-
-              // Proyecto (permite modificación en cascada desde frontend)
-              id_proyecto: modificacion.id_proyecto !== undefined ? modificacion.id_proyecto : guiaOriginal.id_proyecto,
-              id_subproyecto: modificacion.id_subproyecto !== undefined ? modificacion.id_subproyecto : guiaOriginal.id_subproyecto,
-              id_etapa: modificacion.id_etapa !== undefined ? modificacion.id_etapa : guiaOriginal.id_etapa,
-              id_sector: modificacion.id_sector !== undefined ? modificacion.id_sector : guiaOriginal.id_sector,
-              id_frente: modificacion.id_frente !== undefined ? modificacion.id_frente : guiaOriginal.id_frente,
-              id_partida: modificacion.id_partida !== undefined ? modificacion.id_partida : guiaOriginal.id_partida,
-              id_subetapa: modificacion.id_subetapa !== undefined ? modificacion.id_subetapa : guiaOriginal.id_subetapa,
-              id_subsector: modificacion.id_subsector !== undefined ? modificacion.id_subsector : guiaOriginal.id_subsector,
-              id_subfrente: modificacion.id_subfrente !== undefined ? modificacion.id_subfrente : guiaOriginal.id_subfrente,
-              id_subpartida: modificacion.id_subpartida !== undefined ? modificacion.id_subpartida : guiaOriginal.id_subpartida,
-
-              // Otros campos
-              hora_registro: new Date(),
-            },
-          });
-
-          // Crear entrada en guia_remision_extendido para el duplicado
           if (guiaRemisionOriginal) {
-            // Si la original tiene guía de remisión, copiar datos
-            const nuevoRegistroGre = await tx.guia_remision_extendido.create({
+            // Si hay guía de remisión original, usar esos datos
+            nuevoRegistroGre = await tx.guia_remision_extendido.create({
               data: {
                 operacion: guiaRemisionOriginal.operacion,
                 tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
                 serie: 'TTT2',
-                numero: numeroActual, // Número autoincremental basado en el último de la serie
+                numero: numeroActual,
                 cliente_tipo_de_documento: guiaRemisionOriginal.cliente_tipo_de_documento,
                 cliente_numero_de_documento: guiaRemisionOriginal.cliente_numero_de_documento,
                 cliente_denominacion: guiaRemisionOriginal.cliente_denominacion,
                 cliente_direccion: guiaRemisionOriginal.cliente_direccion,
                 fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
-                // Peso: permite modificación desde frontend, sino usar el original
-                peso_bruto_total: modificacion.peso_bruto_total !== undefined
-                  ? modificacion.peso_bruto_total
-                  : guiaRemisionOriginal.peso_bruto_total,
+                peso_bruto_total: duplicado.peso_bruto_total, // Valor editado
                 peso_bruto_unidad_de_medida: guiaRemisionOriginal.peso_bruto_unidad_de_medida,
                 numero_de_bultos: guiaRemisionOriginal.numero_de_bultos,
                 tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
                 fecha_de_inicio_de_traslado: guiaRemisionOriginal.fecha_de_inicio_de_traslado,
-
-                // Datos del transportista
                 transportista_placa_numero: guiaRemisionOriginal.transportista_placa_numero,
                 transportista_documento_tipo: guiaRemisionOriginal.transportista_documento_tipo,
                 transportista_documento_numero: guiaRemisionOriginal.transportista_documento_numero,
                 transportista_denominacion: guiaRemisionOriginal.transportista_denominacion,
-
-                // Datos del conductor
                 conductor_documento_tipo: guiaRemisionOriginal.conductor_documento_tipo,
                 conductor_documento_numero: guiaRemisionOriginal.conductor_documento_numero,
                 conductor_numero_licencia: guiaRemisionOriginal.conductor_numero_licencia,
                 conductor_nombre: guiaRemisionOriginal.conductor_nombre,
                 conductor_apellidos: guiaRemisionOriginal.conductor_apellidos,
                 conductor_denominacion: guiaRemisionOriginal.conductor_denominacion,
-
-                // Destinatario
                 destinatario_documento_tipo: guiaRemisionOriginal.destinatario_documento_tipo,
                 destinatario_documento_numero: guiaRemisionOriginal.destinatario_documento_numero,
                 destinatario_denominacion: guiaRemisionOriginal.destinatario_denominacion,
-
-                // MTC
                 mtc: guiaRemisionOriginal.mtc,
-
-                // Puntos de partida y llegada
                 punto_de_partida_ubigeo: guiaRemisionOriginal.punto_de_partida_ubigeo,
                 punto_de_partida_direccion: guiaRemisionOriginal.punto_de_partida_direccion,
                 punto_de_llegada_ubigeo: guiaRemisionOriginal.punto_de_llegada_ubigeo,
                 punto_de_llegada_direccion: guiaRemisionOriginal.punto_de_llegada_direccion,
-
-                // Motivo de traslado
                 motivo_de_traslado: guiaRemisionOriginal.motivo_de_traslado,
                 motivo_de_traslado_otros_descripcion: guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
-
-                // Observaciones
                 observaciones: guiaRemisionOriginal.observaciones,
-
                 identificador_unico: nuevoIdentificadorUnico,
-                duplicado_origen_id: guiaRemisionOriginal.id_guia,
-                duplicado_fecha: fechaDuplicacion,
-                duplicado_lote_id: loteId,
-
-                // Estado (NULL para duplicados nuevos - se actualizará cuando se envíe a SUNAT)
+                // ✅ Sin duplicado_lote_id y con estado_gre: null para que el detector lo procese
                 estado_gre: null,
                 aceptada_por_sunat: null,
                 sunat_description: null,
-
-                // Proyecto: permite modificación desde frontend (con toda la cascada)
-                id_proyecto: modificacion.id_proyecto !== undefined ? modificacion.id_proyecto : guiaRemisionOriginal.id_proyecto,
-                id_subproyecto: modificacion.id_subproyecto !== undefined ? modificacion.id_subproyecto : guiaRemisionOriginal.id_subproyecto,
-                id_etapa: modificacion.id_etapa !== undefined ? modificacion.id_etapa : guiaRemisionOriginal.id_etapa,
-                id_sector: modificacion.id_sector !== undefined ? modificacion.id_sector : guiaRemisionOriginal.id_sector,
-                id_frente: modificacion.id_frente !== undefined ? modificacion.id_frente : guiaRemisionOriginal.id_frente,
-                id_partida: modificacion.id_partida !== undefined ? modificacion.id_partida : guiaRemisionOriginal.id_partida,
-                id_subetapa: modificacion.id_subetapa !== undefined ? modificacion.id_subetapa : guiaRemisionOriginal.id_subetapa,
-                id_subsector: modificacion.id_subsector !== undefined ? modificacion.id_subsector : guiaRemisionOriginal.id_subsector,
-                id_subfrente: modificacion.id_subfrente !== undefined ? modificacion.id_subfrente : guiaRemisionOriginal.id_subfrente,
-                id_subpartida: modificacion.id_subpartida !== undefined ? modificacion.id_subpartida : guiaRemisionOriginal.id_subpartida,
+                // Valores editados de proyecto
+                id_proyecto: duplicado.id_proyecto || null,
+                id_etapa: duplicado.id_etapa || null,
+                id_sector: duplicado.id_sector || null,
+                id_frente: duplicado.id_frente || null,
+                id_partida: duplicado.id_partida || null,
+                id_subproyecto: duplicado.id_subproyecto || null,
+                id_subetapa: duplicado.id_subetapa || null,
+                id_subsector: duplicado.id_subsector || null,
+                id_subfrente: duplicado.id_subfrente || null,
+                id_subpartida: duplicado.id_subpartida || null,
               },
             });
-
-            this.logger.log(`   ✅ Creado duplicado ${i + 1}/${cantidad} en guia_remision_extendido (id: ${nuevoRegistroGre.id_guia}, serie-numero: TTT2-${numeroActual}, lote: ${loteId})`);
           } else {
-            // Si no tiene guía de remisión, crear entrada con datos reales de la programación técnica
-            // ✅ AHORA USA SOLO DATOS REALES (sin valores por defecto genéricos)
-            const nuevoRegistroGre = await tx.guia_remision_extendido.create({
+            // Crear con datos de la programación técnica
+            nuevoRegistroGre = await tx.guia_remision_extendido.create({
               data: {
                 operacion: 'generar_guia',
-                tipo_de_comprobante: 7, // GRE Remitente
+                tipo_de_comprobante: 7,
                 serie: 'TTT2',
-                numero: numeroActual, // Número autoincremental basado en el último de la serie
-
-                // Cliente: usar datos de la empresa (proveedor) - SIN valores por defecto
-                cliente_tipo_de_documento: 6, // RUC
+                numero: numeroActual,
+                cliente_tipo_de_documento: 6,
                 cliente_numero_de_documento: guiaOriginal.empresa_nro_documento,
                 cliente_denominacion: guiaOriginal.empresa_razon_social,
                 cliente_direccion: guiaOriginal.empresa_direccion,
-
                 fecha_de_emision: guiaOriginal.fecha,
-
-                // Peso: usar peso de la modificación (será validado al enviar a Kafka)
-                peso_bruto_total: modificacion.peso_bruto_total !== undefined ? modificacion.peso_bruto_total : 0,
+                peso_bruto_total: duplicado.peso_bruto_total, // Valor editado
                 peso_bruto_unidad_de_medida: 'TNE',
                 numero_de_bultos: 1,
-                tipo_de_transporte: '02', // Transporte privado
+                tipo_de_transporte: '02',
                 fecha_de_inicio_de_traslado: guiaOriginal.fecha,
-
-                // Vehículo: usar datos del camión - SIN valores por defecto
                 transportista_placa_numero: guiaOriginal.camion_placa,
-
-                // Transportista: usar datos de la empresa (proveedor) - SIN valores por defecto
-                transportista_documento_tipo: 6, // RUC
+                transportista_documento_tipo: 6,
                 transportista_documento_numero: guiaOriginal.empresa_nro_documento,
                 transportista_denominacion: guiaOriginal.empresa_razon_social,
-
-                // Conductor: usar datos del camión - SIN valores por defecto
-                conductor_documento_tipo: 1, // DNI
+                conductor_documento_tipo: 1,
                 conductor_documento_numero: guiaOriginal.camion_dni,
                 conductor_nombre: guiaOriginal.camion_nombre_chofer,
                 conductor_apellidos: guiaOriginal.camion_apellido_chofer,
                 conductor_numero_licencia: guiaOriginal.camion_numero_licencia,
-
-                // Destinatario (usar los mismos datos del cliente) - SIN valores por defecto
-                destinatario_documento_tipo: 6, // RUC
+                destinatario_documento_tipo: 6,
                 destinatario_documento_numero: guiaOriginal.empresa_nro_documento,
                 destinatario_denominacion: guiaOriginal.empresa_razon_social,
-
-                // MTC: se puede dejar null o agregar un valor por defecto
                 mtc: null,
-
-                // Puntos de partida y llegada: usar datos de programación técnica - SIN valores por defecto
                 punto_de_partida_ubigeo: guiaOriginal.punto_partida_ubigeo,
                 punto_de_partida_direccion: guiaOriginal.punto_partida_direccion,
                 punto_de_llegada_ubigeo: guiaOriginal.punto_llegada_ubigeo,
                 punto_de_llegada_direccion: guiaOriginal.punto_llegada_direccion,
-
-                // Motivo de traslado
-                motivo_de_traslado: '01', // Venta
+                motivo_de_traslado: '01',
                 motivo_de_traslado_otros_descripcion: null,
-
-                // Observaciones
                 observaciones: null,
-
                 identificador_unico: nuevoIdentificadorUnico,
-                duplicado_origen_id: idGuiaOriginal,
-                duplicado_fecha: fechaDuplicacion,
-                duplicado_lote_id: loteId,
-
-                // Estado (NULL para duplicados nuevos - se actualizará cuando se envíe a SUNAT)
+                // ✅ Sin duplicado_lote_id y con estado_gre: null para que el detector lo procese
                 estado_gre: null,
                 aceptada_por_sunat: null,
                 sunat_description: null,
-
-                // Proyecto: permite modificación desde frontend (con toda la cascada)
-                id_proyecto: modificacion.id_proyecto !== undefined ? modificacion.id_proyecto : guiaOriginal.id_proyecto,
-                id_subproyecto: modificacion.id_subproyecto !== undefined ? modificacion.id_subproyecto : guiaOriginal.id_subproyecto,
-                id_etapa: modificacion.id_etapa !== undefined ? modificacion.id_etapa : guiaOriginal.id_etapa,
-                id_sector: modificacion.id_sector !== undefined ? modificacion.id_sector : guiaOriginal.id_sector,
-                id_frente: modificacion.id_frente !== undefined ? modificacion.id_frente : guiaOriginal.id_frente,
-                id_partida: modificacion.id_partida !== undefined ? modificacion.id_partida : guiaOriginal.id_partida,
-                id_subetapa: modificacion.id_subetapa !== undefined ? modificacion.id_subetapa : guiaOriginal.id_etapa,
-                id_subsector: modificacion.id_subsector !== undefined ? modificacion.id_subsector : guiaOriginal.id_subsector,
-                id_subfrente: modificacion.id_subfrente !== undefined ? modificacion.id_subfrente : guiaOriginal.id_subfrente,
-                id_subpartida: modificacion.id_subpartida !== undefined ? modificacion.id_subpartida : guiaOriginal.id_subpartida,
+                // Valores editados de proyecto
+                id_proyecto: duplicado.id_proyecto || null,
+                id_etapa: duplicado.id_etapa || null,
+                id_sector: duplicado.id_sector || null,
+                id_frente: duplicado.id_frente || null,
+                id_partida: duplicado.id_partida || null,
+                id_subproyecto: duplicado.id_subproyecto || null,
+                id_subetapa: duplicado.id_subetapa || null,
+                id_subsector: duplicado.id_subsector || null,
+                id_subfrente: duplicado.id_subfrente || null,
+                id_subpartida: duplicado.id_subpartida || null,
               },
             });
-
-            this.logger.log(`   ✅ Creado duplicado ${i + 1}/${cantidad} en guia_remision_extendido (id: ${nuevoRegistroGre.id_guia}, serie-numero: TTT2-${numeroActual}, lote: ${loteId})`);
           }
 
-          duplicadosCreados.push(duplicadoProgramacion);
+          this.logger.log(`   ✅ Guardado duplicado TTT2-${numeroActual} (id: ${nuevoRegistroGre.id_guia})`);
+
+          guiasCreadas.push({
+            id_guia: nuevoRegistroGre.id_guia,
+            identificador_unico: nuevoIdentificadorUnico,
+            serie: 'TTT2',
+            numero: numeroActual,
+          });
         }
 
-        return duplicadosCreados;
+        return guiasCreadas;
       });
 
-      // Obtener duplicados con datos completos para retornar
-      const duplicadosCompletos = await this.prisma.$queryRaw<any[]>`
-        SELECT
-          pt.*,
-          c.placa as unidad_placa,
-          c.nombre_chofer,
-          c.apellido_chofer,
-          e.razon_social as empresa_razon_social,
-          gr.enlace_del_pdf,
-          gr.enlace_del_xml,
-          gr.enlace_del_cdr,
-          gr.estado_gre,
-          gr.duplicado_origen_id,
-          gr.duplicado_fecha,
-          gr.duplicado_lote_id,
-          p.nombre as nombre_proyecto,
-          sp.nombre as nombre_subproyecto
-        FROM programacion_tecnica pt
-        LEFT JOIN camiones c ON pt.unidad = c.id_camion
-        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
-        LEFT JOIN guia_remision_extendido gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
-        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
-        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
-        WHERE gr.duplicado_lote_id = ${loteId}
-        ORDER BY pt.id
-      `;
-
-      const dataMapped = duplicadosCompletos.map(pt => this.mapProgramacionTecnicaData(pt));
-
-      this.logger.log(`Se crearon ${cantidad} duplicados con lote ${loteId}`);
+      this.logger.log(`✅ Se guardaron ${resultados.length} duplicados exitosamente`);
+      this.logger.log(`🤖 El detector los procesará automáticamente en los próximos 30 segundos`);
 
       return {
         success: true,
-        message: `Se crearon ${cantidad} duplicados exitosamente`,
-        loteId,
-        duplicados: dataMapped,
+        message: `Se guardaron ${resultados.length} duplicados exitosamente. El sistema los procesará automáticamente.`,
+        guiasCreadas: resultados,
       };
     } catch (error) {
-      this.logger.error('Error al duplicar guía:', error);
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-      throw new InternalServerErrorException('Error al duplicar la guía');
+      this.logger.error('Error al guardar duplicados:', error);
+      throw new InternalServerErrorException('Error al guardar duplicados');
     }
   }
 
@@ -1198,42 +1198,9 @@ export class ProgramacionService {
 
       this.logger.log(`✏️  Actualizados ${result.count} registros en guia_remision_extendido`);
 
-      // También actualizar programacion_tecnica si hay campos relacionados
-      const camposProgramacion: any = {};
-      if (modificaciones.id_proyecto !== undefined) camposProgramacion.id_proyecto = modificaciones.id_proyecto;
-      if (modificaciones.id_subproyecto !== undefined) camposProgramacion.id_subproyecto = modificaciones.id_subproyecto;
-      if (modificaciones.id_etapa !== undefined) camposProgramacion.id_etapa = modificaciones.id_etapa;
-      if (modificaciones.id_sector !== undefined) camposProgramacion.id_sector = modificaciones.id_sector;
-      if (modificaciones.id_frente !== undefined) camposProgramacion.id_frente = modificaciones.id_frente;
-      if (modificaciones.id_partida !== undefined) camposProgramacion.id_partida = modificaciones.id_partida;
-      if (modificaciones.id_subetapa !== undefined) camposProgramacion.id_subetapa = modificaciones.id_subetapa;
-      if (modificaciones.id_subsector !== undefined) camposProgramacion.id_subsector = modificaciones.id_subsector;
-      if (modificaciones.id_subfrente !== undefined) camposProgramacion.id_subfrente = modificaciones.id_subfrente;
-      if (modificaciones.id_subpartida !== undefined) camposProgramacion.id_subpartida = modificaciones.id_subpartida;
-      if (modificaciones.peso_bruto_total !== undefined) camposProgramacion.peso_bruto_total = modificaciones.peso_bruto_total;
-
-      if (Object.keys(camposProgramacion).length > 0) {
-        // Obtener los identificadores únicos del lote
-        const guiasRemision = await this.prisma.guia_remision_extendido.findMany({
-          where: { duplicado_lote_id: loteId },
-          select: { identificador_unico: true },
-        });
-
-        const identificadores = guiasRemision
-          .map(g => g.identificador_unico)
-          .filter((id): id is string => id !== null && id !== undefined);
-
-        if (identificadores.length > 0) {
-          const resultProgramacion = await this.prisma.programacion_tecnica.updateMany({
-            where: {
-              identificador_unico: { in: identificadores },
-            },
-            data: camposProgramacion,
-          });
-
-          this.logger.log(`Actualizados ${resultProgramacion.count} registros en programacion_tecnica`);
-        }
-      }
+      // ✅ NO actualizar programacion_tecnica porque esos registros aún no existen
+      // Se crearán cuando se envíe a Kafka con los datos actualizados de guia_remision_extendido
+      this.logger.log(`📌 Los registros en programacion_tecnica se crearán al enviar a Kafka`);
 
       return {
         success: true,
@@ -1445,10 +1412,55 @@ export class ProgramacionService {
           this.logger.log(`   - conductor: ${guiaRemision.conductor_nombre} ${guiaRemision.conductor_apellidos} (DNI: ${guiaRemision.conductor_documento_numero})`);
           this.logger.log(`   - transportista: ${guiaRemision.transportista_denominacion} (RUC: ${guiaRemision.transportista_documento_numero})`);
 
-          // Transformar datos al formato de Nubefact
-          const greData = this.transformRecordToNubefactApi(guiaRemision);
+          // ✅ PASO 1: Crear registro en programacion_tecnica ANTES de enviar a Kafka
+          this.logger.log(`📝 Creando registro en programacion_tecnica para guía ${idGuia}...`);
+          try {
+            await this.prisma.programacion_tecnica.create({
+              data: {
+                fecha: guia.fecha,
+                unidad: guia.unidad,
+                proveedor: guia.proveedor,
+                programacion: guia.programacion,
+                hora_partida: guia.hora_partida,
+                estado_programacion: guia.estado_programacion,
+                comentarios: guia.comentarios,
+                validacion: guia.validacion,
+                identificador_unico: guia.identificador_unico,
+                km_del_dia: guia.km_del_dia,
+                mes: guia.mes,
+                num_semana: guia.num_semana,
+                m3: guia.m3,
+                cantidad_viaje: "1", // Siempre 1 viaje por duplicado
+                peso_bruto_total: guiaRemision.peso_bruto_total,
+                punto_llegada_direccion: guiaRemision.punto_de_llegada_direccion,
+                punto_llegada_ubigeo: guiaRemision.punto_de_llegada_ubigeo,
+                punto_partida_direccion: guiaRemision.punto_de_partida_direccion,
+                punto_partida_ubigeo: guiaRemision.punto_de_partida_ubigeo,
+                id_proyecto: guiaRemision.id_proyecto,
+                id_subproyecto: guiaRemision.id_subproyecto,
+                id_etapa: guiaRemision.id_etapa,
+                id_sector: guiaRemision.id_sector,
+                id_frente: guiaRemision.id_frente,
+                id_partida: guiaRemision.id_partida,
+                id_subetapa: guiaRemision.id_subetapa,
+                id_subsector: guiaRemision.id_subsector,
+                id_subfrente: guiaRemision.id_subfrente,
+                id_subpartida: guiaRemision.id_subpartida,
+                hora_registro: new Date(),
+              },
+            });
+            this.logger.log(`✅ Registro creado en programacion_tecnica para guía ${idGuia}`);
+          } catch (error) {
+            this.logger.error(`❌ Error creando registro en programacion_tecnica para guía ${idGuia}:`, error.message);
+            errores.push({
+              id: idGuia,
+              error: `Error creando en programacion_tecnica: ${error.message}`,
+            });
+            continue;
+          }
 
-          // Actualizar estado a PENDIENTE antes de enviar a Kafka
+          // ✅ PASO 2: Actualizar estado a PENDIENTE en guia_remision_extendido
+          this.logger.log(`📝 Actualizando estado a PENDIENTE para guía ${idGuia}...`);
           await this.prisma.guia_remision_extendido.update({
             where: { id_guia: guiaRemision.id_guia },
             data: {
@@ -1456,14 +1468,17 @@ export class ProgramacionService {
               duplicado_lote_id: null, // Limpiar loteId para que no sea filtrado por el detector
             },
           });
+          this.logger.log(`✅ Estado actualizado a PENDIENTE para guía ${idGuia}`);
 
-          // Enviar a Kafka Producer si está disponible
+          // ✅ PASO 3: Transformar datos al formato de Nubefact y enviar a Kafka
+          const greData = this.transformRecordToNubefactApi(guiaRemision);
+
           if (this.greExtendidoProducer) {
             await this.greExtendidoProducer.sendGreRequest(
               guiaRemision.id_guia.toString(),
               greData
             );
-            this.logger.log(`📤 Guía ${idGuia} enviada a Kafka con estado PENDIENTE`);
+            this.logger.log(`📤 Guía ${idGuia} enviada a Kafka exitosamente`);
           } else {
             this.logger.warn(`⚠️  GreExtendidoProducer no disponible, solo se actualizó el estado`);
           }
@@ -1526,41 +1541,20 @@ export class ProgramacionService {
         );
       }
 
-      // Obtener identificadores únicos de las guías a eliminar
-      const guiasAEliminar = await this.prisma.guia_remision_extendido.findMany({
+      // ✅ Solo eliminar de guia_remision_extendido
+      // Los registros en programacion_tecnica aún no existen (se crean al enviar a Kafka)
+      const result = await this.prisma.guia_remision_extendido.deleteMany({
         where: { duplicado_lote_id: loteId },
-        select: { identificador_unico: true },
-      });
-
-      // Filtrar identificadores nulos y convertir a array de strings
-      const identificadores = guiasAEliminar
-        .map((g) => g.identificador_unico)
-        .filter((id): id is string => id !== null);
-
-      // Eliminar en transacción
-      await this.prisma.$transaction(async (tx) => {
-        // Eliminar de guia_remision_extendido
-        await tx.guia_remision_extendido.deleteMany({
-          where: { duplicado_lote_id: loteId },
-        });
-
-        // Eliminar de programacion_tecnica
-        if (identificadores.length > 0) {
-          await tx.programacion_tecnica.deleteMany({
-            where: {
-              identificador_unico: { in: identificadores },
-            },
-          });
-        }
       });
 
       this.logger.log(
-        `Se eliminaron ${identificadores.length} duplicados del lote ${loteId}`,
+        `Se eliminaron ${result.count} duplicados del lote ${loteId} de guia_remision_extendido`,
       );
+      this.logger.log(`📌 No se eliminó de programacion_tecnica porque esos registros aún no existen`);
 
       return {
         success: true,
-        message: `Se eliminaron ${identificadores.length} duplicados del lote ${loteId}`,
+        message: `Se eliminaron ${result.count} duplicados del lote ${loteId}`,
       };
     } catch (error) {
       this.logger.error('Error al eliminar duplicados:', error);

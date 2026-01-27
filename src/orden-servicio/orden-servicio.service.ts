@@ -123,8 +123,12 @@ export class OrdenServicioService {
       });
 
       // Mapear las órdenes para incluir el nombre_proveedor, ruc y los items al mismo nivel
+      // Formatear fechas DATE como strings YYYY-MM-DD para evitar problemas de zona horaria
       return ordenes.map((orden) => ({
         ...orden,
+        // Formatear fechas DATE a string para evitar conversión de zona horaria en el frontend
+        fecha_orden: orden.fecha_orden ? dayjs(orden.fecha_orden).format('YYYY-MM-DD') : null,
+        fecha_registro: orden.fecha_registro ? dayjs(orden.fecha_registro).format('YYYY-MM-DD') : null,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
         ruc_proveedor: orden.proveedores?.ruc || null,
         items: orden.detalles_orden_servicio || [],

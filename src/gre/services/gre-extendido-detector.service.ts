@@ -23,13 +23,11 @@ export class GreExtendidoDetectorService {
     try {
       this.logger.debug('Detectando registros completos para GRE Extendido...');
 
-      // Buscar registros con estado_gre NULL y que tengan todos los campos obligatorios
-      // IMPORTANTE: Excluir duplicados en modo edición (duplicado_lote_id NOT NULL)
-      // Estos duplicados solo se procesarán cuando el usuario presione "Enviar a Kafka"
+      // ✅ NUEVO FLUJO: Buscar TODOS los registros con estado_gre NULL
+      // Ya no se excluyen duplicados, todos se procesan automáticamente
       const completeRecords = await this.prisma.guia_remision_extendido.findMany({
         where: {
           estado_gre: null,
-          duplicado_lote_id: null, // Solo procesar registros que NO sean duplicados pendientes
         },
       });
 

@@ -119,6 +119,19 @@ export class ProgramacionController {
     );
   }
 
+  @Post('tecnica/guardar-duplicados')
+  async guardarDuplicados(
+    @Body() body: { duplicados: Array<any> },
+  ) {
+    const { duplicados } = body;
+
+    this.logger.log(
+      `Guardando ${duplicados.length} duplicados editados en la base de datos`,
+    );
+
+    return await this.programacionService.guardarDuplicados(duplicados);
+  }
+
   @Patch('tecnica/duplicados/actualizar')
   async actualizarDuplicados(
     @Body() body: {
