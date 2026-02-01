@@ -7,7 +7,7 @@ services:
     container_name: ayala-flink-jobmanager
     hostname: flink-jobmanager
     ports:
-      - "8081:8081" # Web UI de Flink
+      - "8082:8081" # Web UI de Flink (mapeado a 8082 externamente)
       - "6123:6123" # RPC
     command: jobmanager
     environment:

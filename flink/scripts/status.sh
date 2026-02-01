@@ -33,8 +33,8 @@ echo "→ Health checks:"
 echo ""
 
 # Flink JobManager
-if curl -s http://localhost:8081/overview > /dev/null 2>&1; then
-    echo "  ✓ Flink JobManager:   ONLINE (http://localhost:8081)"
+if curl -s http://localhost:8082/overview > /dev/null 2>&1; then
+    echo "  ✓ Flink JobManager:   ONLINE (http://localhost:8082)"
 else
     echo "  ✗ Flink JobManager:   OFFLINE"
 fi

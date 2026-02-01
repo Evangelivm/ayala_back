@@ -47,7 +47,7 @@ docker compose up -d
 
 Accede a las siguientes URLs:
 
-- **Flink Web UI:** http://localhost:8081
+- **Flink Web UI:** http://localhost:8082
 - **Elasticsearch:** http://localhost:9200
 - **Kibana:** http://localhost:5601
 
@@ -136,7 +136,7 @@ mvn clean package
 cp target/factura-counter.jar ./jobs/
 
 # 3. Subir via Web UI
-# http://localhost:8081 → Submit New Job → Upload JAR
+# http://localhost:8082 → Submit New Job → Upload JAR
 ```
 
 ## 🔧 Troubleshooting Rápido

@@ -152,7 +152,7 @@ docker compose ps
 
 ```bash
 # Flink Web UI
-http://localhost:8081
+http://localhost:8082
 
 # Elasticsearch
 curl http://localhost:9200
@@ -168,7 +168,7 @@ http://localhost:5601
 ### Acceder a Flink Web UI:
 
 ```
-http://localhost:8081
+http://localhost:8082
 ```
 
 Desde aquí puedes:
@@ -181,7 +181,7 @@ Desde aquí puedes:
 ### Subir un Job a Flink:
 
 #### Opción 1: Via Web UI
-1. Ir a http://localhost:8081
+1. Ir a http://localhost:8082
 2. Click en "Submit New Job"
 3. Upload tu archivo `.jar`
 4. Configurar parámetros
@@ -196,7 +196,7 @@ docker exec -it ayala-flink-jobmanager flink run \
 
 #### Opción 3: Via REST API
 ```bash
-curl -X POST http://localhost:8081/jars/upload \
+curl -X POST http://localhost:8082/jars/upload \
   -F "jarfile=@./jobs/factura-processor.jar"
 ```
 
