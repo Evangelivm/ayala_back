@@ -15,11 +15,11 @@ if [ -z "$SERVICE" ]; then
     echo "  Logs de todos los servicios"
     echo "=========================================="
     echo ""
-    docker-compose logs -f --tail=100
+    docker compose logs -f --tail=100
 else
     echo "=========================================="
     echo "  Logs de: $SERVICE"
     echo "=========================================="
     echo ""
-    docker-compose logs -f --tail=100 "$SERVICE"
+    docker compose logs -f --tail=100 "$SERVICE"
 fi

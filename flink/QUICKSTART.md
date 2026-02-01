@@ -40,7 +40,7 @@ docker network connect shared_network <nombre-contenedor-nestjs>
 ./scripts/start.sh
 
 # Opción B: Docker Compose directamente
-docker-compose up -d
+docker compose up -d
 ```
 
 ## ✅ Verificación
@@ -58,7 +58,7 @@ Accede a las siguientes URLs:
 ./scripts/status.sh
 
 # Opción B: Docker Compose
-docker-compose ps
+docker compose ps
 ```
 
 ## 📝 Ver Logs
@@ -79,7 +79,7 @@ docker-compose ps
 ./scripts/stop.sh
 
 # Opción B: Docker Compose
-docker-compose down
+docker compose down
 ```
 
 ## 🎯 Primer Job de Flink
@@ -145,10 +145,10 @@ cp target/factura-counter.jar ./jobs/
 
 ```bash
 # Ver logs
-docker-compose logs
+docker compose logs
 
 # Reiniciar
-docker-compose restart
+docker compose restart
 ```
 
 ### Problema: No hay memoria suficiente
@@ -158,7 +158,7 @@ docker-compose restart
 free -h
 
 # Reducir memoria de Elasticsearch
-# En docker-compose.yml cambiar:
+# En docker compose.yml cambiar:
 ELASTICSEARCH_MEMORY=1g  # de 2g a 1g
 ```
 
@@ -168,7 +168,7 @@ ELASTICSEARCH_MEMORY=1g  # de 2g a 1g
 # Verificar qué usa el puerto 8081
 netstat -tuln | grep 8081
 
-# Cambiar puerto en docker-compose.yml
+# Cambiar puerto en docker compose.yml
 ports:
   - "8082:8081"  # Cambiar 8081 a 8082
 ```

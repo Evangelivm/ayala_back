@@ -25,13 +25,13 @@ fi
 echo "✓ Docker está corriendo"
 echo ""
 
-# Verificar que docker-compose existe
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Error: docker-compose no está instalado"
+# Verificar que docker compose existe
+if ! docker compose version &> /dev/null; then
+    echo "❌ Error: docker compose no está disponible"
     exit 1
 fi
 
-echo "✓ docker-compose encontrado"
+echo "✓ docker compose encontrado"
 echo ""
 
 # Verificar que existe la red compartida
@@ -56,7 +56,7 @@ echo ""
 # Levantar servicios
 echo "→ Iniciando servicios..."
 echo ""
-docker-compose up -d
+docker compose up -d
 
 echo ""
 echo "=========================================="
@@ -72,7 +72,7 @@ sleep 10
 echo ""
 echo "Estado de los servicios:"
 echo ""
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "=========================================="
@@ -87,9 +87,9 @@ echo "=========================================="
 echo "  Comandos útiles:"
 echo "=========================================="
 echo ""
-echo "  Ver logs:           docker-compose logs -f"
-echo "  Detener servicios:  docker-compose down"
-echo "  Reiniciar:          docker-compose restart"
-echo "  Ver estado:         docker-compose ps"
+echo "  Ver logs:           docker compose logs -f"
+echo "  Detener servicios:  docker compose down"
+echo "  Reiniciar:          docker compose restart"
+echo "  Ver estado:         docker compose ps"
 echo ""
 echo "=========================================="

@@ -100,7 +100,7 @@ cd D:\recuperacion\ayala\ayala_back\flink
 
 ```
 flink/
-├── docker-compose.yml
+├── docker compose.yml
 ├── .env
 ├── README.md
 ├── config/
@@ -139,13 +139,13 @@ REDIS_HOST=redis
 
 ```bash
 # Levantar todo
-docker-compose up -d
+docker compose up -d
 
 # Ver logs
-docker-compose logs -f
+docker compose logs -f
 
 # Verificar estado
-docker-compose ps
+docker compose ps
 ```
 
 ### 6. Verificar que todo funciona:
@@ -304,7 +304,7 @@ taskmanager.numberOfTaskSlots: 4
 
 Si necesitas más/menos memoria:
 
-1. Edita `docker-compose.yml`:
+1. Edita `docker compose.yml`:
 ```yaml
 flink-taskmanager-1:
   deploy:
@@ -320,7 +320,7 @@ taskmanager.memory.process.size: 8192m  # Cambiar aquí
 
 3. Reinicia:
 ```bash
-docker-compose restart flink-taskmanager-1
+docker compose restart flink-taskmanager-1
 ```
 
 ### Ajustar Paralelismo:
@@ -329,7 +329,7 @@ docker-compose restart flink-taskmanager-1
 # En flink-conf.yaml
 parallelism.default: 8  # Cambiar de 4 a 8
 
-# En docker-compose.yml
+# En docker compose.yml
 TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 8
 ```
 
@@ -419,7 +419,7 @@ docker stats ayala-flink-taskmanager-1
 akka.ask.timeout: 120s
 
 # Reiniciar
-docker-compose restart flink-taskmanager-1
+docker compose restart flink-taskmanager-1
 ```
 
 ### Problema: Checkpoints fallan
@@ -470,7 +470,7 @@ docker exec -it ayala-flink-jobmanager flink run \
 docker exec -it ayala-flink-taskmanager-1 free -h
 
 # Solución 1: Aumentar memoria TaskManager
-# En docker-compose.yml: memory: 8G
+# En docker compose.yml: memory: 8G
 
 # Solución 2: Reducir estado en memoria
 # En flink-conf.yaml:
@@ -566,7 +566,7 @@ docker logs ayala-elasticsearch -f --tail 100
 
 Para problemas o preguntas:
 1. Revisar [Troubleshooting](#troubleshooting)
-2. Ver logs: `docker-compose logs`
+2. Ver logs: `docker compose logs`
 3. Contactar al equipo de desarrollo
 
 ---
@@ -575,8 +575,8 @@ Para problemas o preguntas:
 
 - **RocksDB** guarda checkpoints en `./checkpoints/` - asegúrate de tener espacio en disco
 - **Elasticsearch** puede consumir mucha RAM - ajusta según necesidad
-- **Kibana** es opcional - puedes comentarlo en docker-compose.yml si no lo necesitas
-- Los **TaskManagers** se pueden escalar horizontalmente agregando más en docker-compose.yml
+- **Kibana** es opcional - puedes comentarlo en docker compose.yml si no lo necesitas
+- Los **TaskManagers** se pueden escalar horizontalmente agregando más en docker compose.yml
 
 ---
 

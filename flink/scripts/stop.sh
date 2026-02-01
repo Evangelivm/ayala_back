@@ -15,16 +15,16 @@ echo "  Deteniendo Flink Stack - Sistema Ayala"
 echo "=========================================="
 echo ""
 
-# Verificar que docker-compose existe
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Error: docker-compose no está instalado"
+# Verificar que docker compose existe
+if ! docker compose version &> /dev/null; then
+    echo "❌ Error: docker compose no está disponible"
     exit 1
 fi
 
 # Detener servicios
 echo "→ Deteniendo servicios..."
 echo ""
-docker-compose down
+docker compose down
 
 echo ""
 echo "=========================================="
@@ -36,5 +36,5 @@ echo "  - Checkpoints: ./checkpoints/"
 echo "  - Elasticsearch: volume ayala-elasticsearch-data"
 echo ""
 echo "  Para eliminar todo (incluyendo datos):"
-echo "  docker-compose down -v"
+echo "  docker compose down -v"
 echo ""

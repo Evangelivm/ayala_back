@@ -16,7 +16,7 @@ echo ""
 # Estado de contenedores
 echo "→ Contenedores Docker:"
 echo ""
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "→ Uso de recursos:"
