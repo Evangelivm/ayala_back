@@ -228,6 +228,26 @@ export type subrubro = $Result.DefaultSelection<Prisma.$subrubroPayload>
  * 
  */
 export type detallado = $Result.DefaultSelection<Prisma.$detalladoPayload>
+/**
+ * Model balances_iniciales
+ * 
+ */
+export type balances_iniciales = $Result.DefaultSelection<Prisma.$balances_inicialesPayload>
+/**
+ * Model camiones
+ * 
+ */
+export type camiones = $Result.DefaultSelection<Prisma.$camionesPayload>
+/**
+ * Model oldfasecontrol
+ * 
+ */
+export type oldfasecontrol = $Result.DefaultSelection<Prisma.$oldfasecontrolPayload>
+/**
+ * Model subirfasecontrol_copy1
+ * 
+ */
+export type subirfasecontrol_copy1 = $Result.DefaultSelection<Prisma.$subirfasecontrol_copy1Payload>
 
 /**
  * Enums
@@ -440,6 +460,23 @@ export const usuarios_rol: {
 
 export type usuarios_rol = (typeof usuarios_rol)[keyof typeof usuarios_rol]
 
+
+export const balances_iniciales_estado: {
+  PENDIENTE: 'PENDIENTE',
+  APROBADO: 'APROBADO',
+  ANULADO: 'ANULADO'
+};
+
+export type balances_iniciales_estado = (typeof balances_iniciales_estado)[keyof typeof balances_iniciales_estado]
+
+
+export const camiones_tipo: {
+  CAMION: 'CAMION',
+  MAQUINARIA: 'MAQUINARIA'
+};
+
+export type camiones_tipo = (typeof camiones_tipo)[keyof typeof camiones_tipo]
+
 }
 
 export type configuracion_notificaciones_tipo_notificacion = $Enums.configuracion_notificaciones_tipo_notificacion
@@ -529,6 +566,14 @@ export const permisos_rol_rol: typeof $Enums.permisos_rol_rol
 export type usuarios_rol = $Enums.usuarios_rol
 
 export const usuarios_rol: typeof $Enums.usuarios_rol
+
+export type balances_iniciales_estado = $Enums.balances_iniciales_estado
+
+export const balances_iniciales_estado: typeof $Enums.balances_iniciales_estado
+
+export type camiones_tipo = $Enums.camiones_tipo
+
+export const camiones_tipo: typeof $Enums.camiones_tipo
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1077,6 +1122,46 @@ export class PrismaClient<
     * ```
     */
   get detallado(): Prisma.detalladoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.balances_iniciales`: Exposes CRUD operations for the **balances_iniciales** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Balances_iniciales
+    * const balances_iniciales = await prisma.balances_iniciales.findMany()
+    * ```
+    */
+  get balances_iniciales(): Prisma.balances_inicialesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.camiones`: Exposes CRUD operations for the **camiones** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Camiones
+    * const camiones = await prisma.camiones.findMany()
+    * ```
+    */
+  get camiones(): Prisma.camionesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.oldfasecontrol`: Exposes CRUD operations for the **oldfasecontrol** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Oldfasecontrols
+    * const oldfasecontrols = await prisma.oldfasecontrol.findMany()
+    * ```
+    */
+  get oldfasecontrol(): Prisma.oldfasecontrolDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subirfasecontrol_copy1`: Exposes CRUD operations for the **subirfasecontrol_copy1** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subirfasecontrol_copy1s
+    * const subirfasecontrol_copy1s = await prisma.subirfasecontrol_copy1.findMany()
+    * ```
+    */
+  get subirfasecontrol_copy1(): Prisma.subirfasecontrol_copy1Delegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1560,7 +1645,11 @@ export namespace Prisma {
     fasecontrol: 'fasecontrol',
     rubro: 'rubro',
     subrubro: 'subrubro',
-    detallado: 'detallado'
+    detallado: 'detallado',
+    balances_iniciales: 'balances_iniciales',
+    camiones: 'camiones',
+    oldfasecontrol: 'oldfasecontrol',
+    subirfasecontrol_copy1: 'subirfasecontrol_copy1'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1579,7 +1668,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4421,6 +4510,270 @@ export namespace Prisma {
           }
         }
       }
+      balances_iniciales: {
+        payload: Prisma.$balances_inicialesPayload<ExtArgs>
+        fields: Prisma.balances_inicialesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.balances_inicialesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.balances_inicialesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          findFirst: {
+            args: Prisma.balances_inicialesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.balances_inicialesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          findMany: {
+            args: Prisma.balances_inicialesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>[]
+          }
+          create: {
+            args: Prisma.balances_inicialesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          createMany: {
+            args: Prisma.balances_inicialesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.balances_inicialesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          update: {
+            args: Prisma.balances_inicialesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          deleteMany: {
+            args: Prisma.balances_inicialesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.balances_inicialesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.balances_inicialesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$balances_inicialesPayload>
+          }
+          aggregate: {
+            args: Prisma.Balances_inicialesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBalances_iniciales>
+          }
+          groupBy: {
+            args: Prisma.balances_inicialesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Balances_inicialesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.balances_inicialesCountArgs<ExtArgs>
+            result: $Utils.Optional<Balances_inicialesCountAggregateOutputType> | number
+          }
+        }
+      }
+      camiones: {
+        payload: Prisma.$camionesPayload<ExtArgs>
+        fields: Prisma.camionesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.camionesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.camionesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          findFirst: {
+            args: Prisma.camionesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.camionesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          findMany: {
+            args: Prisma.camionesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>[]
+          }
+          create: {
+            args: Prisma.camionesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          createMany: {
+            args: Prisma.camionesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.camionesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          update: {
+            args: Prisma.camionesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          deleteMany: {
+            args: Prisma.camionesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.camionesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.camionesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$camionesPayload>
+          }
+          aggregate: {
+            args: Prisma.CamionesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCamiones>
+          }
+          groupBy: {
+            args: Prisma.camionesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CamionesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.camionesCountArgs<ExtArgs>
+            result: $Utils.Optional<CamionesCountAggregateOutputType> | number
+          }
+        }
+      }
+      oldfasecontrol: {
+        payload: Prisma.$oldfasecontrolPayload<ExtArgs>
+        fields: Prisma.oldfasecontrolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.oldfasecontrolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.oldfasecontrolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          findFirst: {
+            args: Prisma.oldfasecontrolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.oldfasecontrolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          findMany: {
+            args: Prisma.oldfasecontrolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>[]
+          }
+          create: {
+            args: Prisma.oldfasecontrolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          createMany: {
+            args: Prisma.oldfasecontrolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.oldfasecontrolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          update: {
+            args: Prisma.oldfasecontrolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          deleteMany: {
+            args: Prisma.oldfasecontrolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.oldfasecontrolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.oldfasecontrolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oldfasecontrolPayload>
+          }
+          aggregate: {
+            args: Prisma.OldfasecontrolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOldfasecontrol>
+          }
+          groupBy: {
+            args: Prisma.oldfasecontrolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OldfasecontrolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.oldfasecontrolCountArgs<ExtArgs>
+            result: $Utils.Optional<OldfasecontrolCountAggregateOutputType> | number
+          }
+        }
+      }
+      subirfasecontrol_copy1: {
+        payload: Prisma.$subirfasecontrol_copy1Payload<ExtArgs>
+        fields: Prisma.subirfasecontrol_copy1FieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.subirfasecontrol_copy1FindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.subirfasecontrol_copy1FindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          findFirst: {
+            args: Prisma.subirfasecontrol_copy1FindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.subirfasecontrol_copy1FindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          findMany: {
+            args: Prisma.subirfasecontrol_copy1FindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>[]
+          }
+          create: {
+            args: Prisma.subirfasecontrol_copy1CreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          createMany: {
+            args: Prisma.subirfasecontrol_copy1CreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.subirfasecontrol_copy1DeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          update: {
+            args: Prisma.subirfasecontrol_copy1UpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          deleteMany: {
+            args: Prisma.subirfasecontrol_copy1DeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.subirfasecontrol_copy1UpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.subirfasecontrol_copy1UpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$subirfasecontrol_copy1Payload>
+          }
+          aggregate: {
+            args: Prisma.Subirfasecontrol_copy1AggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubirfasecontrol_copy1>
+          }
+          groupBy: {
+            args: Prisma.subirfasecontrol_copy1GroupByArgs<ExtArgs>
+            result: $Utils.Optional<Subirfasecontrol_copy1GroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.subirfasecontrol_copy1CountArgs<ExtArgs>
+            result: $Utils.Optional<Subirfasecontrol_copy1CountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4560,6 +4913,10 @@ export namespace Prisma {
     rubro?: rubroOmit
     subrubro?: subrubroOmit
     detallado?: detalladoOmit
+    balances_iniciales?: balances_inicialesOmit
+    camiones?: camionesOmit
+    oldfasecontrol?: oldfasecontrolOmit
+    subirfasecontrol_copy1?: subirfasecontrol_copy1Omit
   }
 
   /* Types for Logging */
@@ -4641,6 +4998,7 @@ export namespace Prisma {
 
   export type AlmacenesCountOutputType = {
     other_almacenes: number
+    balances_iniciales: number
     conteo_ciclico: number
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes: number
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes: number
@@ -4652,6 +5010,7 @@ export namespace Prisma {
 
   export type AlmacenesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     other_almacenes?: boolean | AlmacenesCountOutputTypeCountOther_almacenesArgs
+    balances_iniciales?: boolean | AlmacenesCountOutputTypeCountBalances_inicialesArgs
     conteo_ciclico?: boolean | AlmacenesCountOutputTypeCountConteo_ciclicoArgs
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: boolean | AlmacenesCountOutputTypeCountMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesArgs
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: boolean | AlmacenesCountOutputTypeCountMovimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesArgs
@@ -4677,6 +5036,13 @@ export namespace Prisma {
    */
   export type AlmacenesCountOutputTypeCountOther_almacenesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: almacenesWhereInput
+  }
+
+  /**
+   * AlmacenesCountOutputType without action
+   */
+  export type AlmacenesCountOutputTypeCountBalances_inicialesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: balances_inicialesWhereInput
   }
 
   /**
@@ -4836,6 +5202,7 @@ export namespace Prisma {
    */
 
   export type Listado_items_2025CountOutputType = {
+    balances_iniciales: number
     detalles_conteo_ciclico: number
     detalles_orden_compra: number
     detalles_orden_servicio: number
@@ -4846,6 +5213,7 @@ export namespace Prisma {
   }
 
   export type Listado_items_2025CountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    balances_iniciales?: boolean | Listado_items_2025CountOutputTypeCountBalances_inicialesArgs
     detalles_conteo_ciclico?: boolean | Listado_items_2025CountOutputTypeCountDetalles_conteo_ciclicoArgs
     detalles_orden_compra?: boolean | Listado_items_2025CountOutputTypeCountDetalles_orden_compraArgs
     detalles_orden_servicio?: boolean | Listado_items_2025CountOutputTypeCountDetalles_orden_servicioArgs
@@ -4864,6 +5232,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listado_items_2025CountOutputType
      */
     select?: Listado_items_2025CountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Listado_items_2025CountOutputType without action
+   */
+  export type Listado_items_2025CountOutputTypeCountBalances_inicialesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: balances_inicialesWhereInput
   }
 
   /**
@@ -5650,6 +6025,7 @@ export namespace Prisma {
     fecha_modificacion?: boolean
     almacenes?: boolean | almacenes$almacenesArgs<ExtArgs>
     other_almacenes?: boolean | almacenes$other_almacenesArgs<ExtArgs>
+    balances_iniciales?: boolean | almacenes$balances_inicialesArgs<ExtArgs>
     conteo_ciclico?: boolean | almacenes$conteo_ciclicoArgs<ExtArgs>
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: boolean | almacenes$movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: boolean | almacenes$movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesArgs<ExtArgs>
@@ -5678,6 +6054,7 @@ export namespace Prisma {
   export type almacenesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     almacenes?: boolean | almacenes$almacenesArgs<ExtArgs>
     other_almacenes?: boolean | almacenes$other_almacenesArgs<ExtArgs>
+    balances_iniciales?: boolean | almacenes$balances_inicialesArgs<ExtArgs>
     conteo_ciclico?: boolean | almacenes$conteo_ciclicoArgs<ExtArgs>
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: boolean | almacenes$movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: boolean | almacenes$movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesArgs<ExtArgs>
@@ -5693,6 +6070,7 @@ export namespace Prisma {
     objects: {
       almacenes: Prisma.$almacenesPayload<ExtArgs> | null
       other_almacenes: Prisma.$almacenesPayload<ExtArgs>[]
+      balances_iniciales: Prisma.$balances_inicialesPayload<ExtArgs>[]
       conteo_ciclico: Prisma.$conteo_ciclicoPayload<ExtArgs>[]
       movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes: Prisma.$movimientos_inventarioPayload<ExtArgs>[]
       movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes: Prisma.$movimientos_inventarioPayload<ExtArgs>[]
@@ -6053,6 +6431,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     almacenes<T extends almacenes$almacenesArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$almacenesArgs<ExtArgs>>): Prisma__almacenesClient<$Result.GetResult<Prisma.$almacenesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     other_almacenes<T extends almacenes$other_almacenesArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$other_almacenesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$almacenesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    balances_iniciales<T extends almacenes$balances_inicialesArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$balances_inicialesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conteo_ciclico<T extends almacenes$conteo_ciclicoArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$conteo_ciclicoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$conteo_ciclicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes<T extends almacenes$movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$movimientos_inventarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes<T extends almacenes$movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesArgs<ExtArgs> = {}>(args?: Subset<T, almacenes$movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$movimientos_inventarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6481,6 +6860,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AlmacenesScalarFieldEnum | AlmacenesScalarFieldEnum[]
+  }
+
+  /**
+   * almacenes.balances_iniciales
+   */
+  export type almacenes$balances_inicialesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    where?: balances_inicialesWhereInput
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    cursor?: balances_inicialesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Balances_inicialesScalarFieldEnum | Balances_inicialesScalarFieldEnum[]
   }
 
   /**
@@ -15090,6 +15493,7 @@ export namespace Prisma {
     activo?: boolean
     fecha_creacion?: boolean
     fecha_modificacion?: boolean
+    balances_iniciales?: boolean | listado_items_2025$balances_inicialesArgs<ExtArgs>
     detalles_conteo_ciclico?: boolean | listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>
     detalles_orden_compra?: boolean | listado_items_2025$detalles_orden_compraArgs<ExtArgs>
     detalles_orden_servicio?: boolean | listado_items_2025$detalles_orden_servicioArgs<ExtArgs>
@@ -15123,6 +15527,7 @@ export namespace Prisma {
 
   export type listado_items_2025Omit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion" | "id_familia" | "grupo" | "u_m" | "precio_unitario" | "stock_minimo" | "stock_maximo" | "ubicacion" | "marca" | "modelo" | "numero_serie" | "activo" | "fecha_creacion" | "fecha_modificacion", ExtArgs["result"]["listado_items_2025"]>
   export type listado_items_2025Include<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    balances_iniciales?: boolean | listado_items_2025$balances_inicialesArgs<ExtArgs>
     detalles_conteo_ciclico?: boolean | listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>
     detalles_orden_compra?: boolean | listado_items_2025$detalles_orden_compraArgs<ExtArgs>
     detalles_orden_servicio?: boolean | listado_items_2025$detalles_orden_servicioArgs<ExtArgs>
@@ -15137,6 +15542,7 @@ export namespace Prisma {
   export type $listado_items_2025Payload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "listado_items_2025"
     objects: {
+      balances_iniciales: Prisma.$balances_inicialesPayload<ExtArgs>[]
       detalles_conteo_ciclico: Prisma.$detalles_conteo_ciclicoPayload<ExtArgs>[]
       detalles_orden_compra: Prisma.$detalles_orden_compraPayload<ExtArgs>[]
       detalles_orden_servicio: Prisma.$detalles_orden_servicioPayload<ExtArgs>[]
@@ -15502,6 +15908,7 @@ export namespace Prisma {
    */
   export interface Prisma__listado_items_2025Client<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    balances_iniciales<T extends listado_items_2025$balances_inicialesArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$balances_inicialesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     detalles_conteo_ciclico<T extends listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_conteo_ciclicoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_conteo_ciclicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     detalles_orden_compra<T extends listado_items_2025$detalles_orden_compraArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_orden_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     detalles_orden_servicio<T extends listado_items_2025$detalles_orden_servicioArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025$detalles_orden_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -15894,6 +16301,30 @@ export namespace Prisma {
      * Limit how many listado_items_2025s to delete.
      */
     limit?: number
+  }
+
+  /**
+   * listado_items_2025.balances_iniciales
+   */
+  export type listado_items_2025$balances_inicialesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    where?: balances_inicialesWhereInput
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    cursor?: balances_inicialesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Balances_inicialesScalarFieldEnum | Balances_inicialesScalarFieldEnum[]
   }
 
   /**
@@ -18174,6 +18605,7 @@ export namespace Prisma {
     id_usuario_registro: number | null
     subtotal: Decimal | null
     precio_unitario: Decimal | null
+    placa: string | null
   }
 
   export type Movimientos_inventarioMaxAggregateOutputType = {
@@ -18191,6 +18623,7 @@ export namespace Prisma {
     id_usuario_registro: number | null
     subtotal: Decimal | null
     precio_unitario: Decimal | null
+    placa: string | null
   }
 
   export type Movimientos_inventarioCountAggregateOutputType = {
@@ -18208,6 +18641,7 @@ export namespace Prisma {
     id_usuario_registro: number
     subtotal: number
     precio_unitario: number
+    placa: number
     _all: number
   }
 
@@ -18249,6 +18683,7 @@ export namespace Prisma {
     id_usuario_registro?: true
     subtotal?: true
     precio_unitario?: true
+    placa?: true
   }
 
   export type Movimientos_inventarioMaxAggregateInputType = {
@@ -18266,6 +18701,7 @@ export namespace Prisma {
     id_usuario_registro?: true
     subtotal?: true
     precio_unitario?: true
+    placa?: true
   }
 
   export type Movimientos_inventarioCountAggregateInputType = {
@@ -18283,6 +18719,7 @@ export namespace Prisma {
     id_usuario_registro?: true
     subtotal?: true
     precio_unitario?: true
+    placa?: true
     _all?: true
   }
 
@@ -18387,6 +18824,7 @@ export namespace Prisma {
     id_usuario_registro: number | null
     subtotal: Decimal | null
     precio_unitario: Decimal | null
+    placa: string | null
     _count: Movimientos_inventarioCountAggregateOutputType | null
     _avg: Movimientos_inventarioAvgAggregateOutputType | null
     _sum: Movimientos_inventarioSumAggregateOutputType | null
@@ -18423,6 +18861,7 @@ export namespace Prisma {
     id_usuario_registro?: boolean
     subtotal?: boolean
     precio_unitario?: boolean
+    placa?: boolean
     movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
@@ -18449,9 +18888,10 @@ export namespace Prisma {
     id_usuario_registro?: boolean
     subtotal?: boolean
     precio_unitario?: boolean
+    placa?: boolean
   }
 
-  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado" | "id_usuario_registro" | "subtotal" | "precio_unitario", ExtArgs["result"]["movimientos_inventario"]>
+  export type movimientos_inventarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_movimiento" | "id_tipo_movimiento" | "codigo_item" | "cantidad" | "id_almacen_origen" | "id_almacen_destino" | "numero_documento" | "fecha_movimiento" | "responsable" | "observaciones" | "estado" | "id_usuario_registro" | "subtotal" | "precio_unitario" | "placa", ExtArgs["result"]["movimientos_inventario"]>
   export type movimientos_inventarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movimientos_adicionales?: boolean | movimientos_inventario$movimientos_adicionalesArgs<ExtArgs>
     tipos_movimiento?: boolean | tipos_movimientoDefaultArgs<ExtArgs>
@@ -18487,6 +18927,7 @@ export namespace Prisma {
       id_usuario_registro: number | null
       subtotal: Prisma.Decimal | null
       precio_unitario: Prisma.Decimal | null
+      placa: string | null
     }, ExtArgs["result"]["movimientos_inventario"]>
     composites: {}
   }
@@ -18876,6 +19317,7 @@ export namespace Prisma {
     readonly id_usuario_registro: FieldRef<"movimientos_inventario", 'Int'>
     readonly subtotal: FieldRef<"movimientos_inventario", 'Decimal'>
     readonly precio_unitario: FieldRef<"movimientos_inventario", 'Decimal'>
+    readonly placa: FieldRef<"movimientos_inventario", 'String'>
   }
     
 
@@ -21458,6 +21900,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -21507,6 +21951,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -21556,6 +22002,8 @@ export namespace Prisma {
     url_cotizacion: number
     url_factura: number
     nro_factura: number
+    url_comprobante_retencion: number
+    nro_serie: number
     _all: number
   }
 
@@ -21635,6 +22083,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -21684,6 +22134,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -21733,6 +22185,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
     _all?: true
   }
 
@@ -21869,6 +22323,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -21937,6 +22393,8 @@ export namespace Prisma {
     url_cotizacion?: boolean
     url_factura?: boolean
     nro_factura?: boolean
+    url_comprobante_retencion?: boolean
+    nro_serie?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -21993,9 +22451,11 @@ export namespace Prisma {
     url_cotizacion?: boolean
     url_factura?: boolean
     nro_factura?: boolean
+    url_comprobante_retencion?: boolean
+    nro_serie?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -22059,6 +22519,8 @@ export namespace Prisma {
       url_cotizacion: string | null
       url_factura: string | null
       nro_factura: string | null
+      url_comprobante_retencion: string | null
+      nro_serie: string | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -22478,6 +22940,8 @@ export namespace Prisma {
     readonly url_cotizacion: FieldRef<"ordenes_compra", 'String'>
     readonly url_factura: FieldRef<"ordenes_compra", 'String'>
     readonly nro_factura: FieldRef<"ordenes_compra", 'String'>
+    readonly url_comprobante_retencion: FieldRef<"ordenes_compra", 'String'>
+    readonly nro_serie: FieldRef<"ordenes_compra", 'String'>
   }
     
 
@@ -27122,6 +27586,7 @@ export namespace Prisma {
     fecha_autorizacion: Date | null
     comentario_autorizacion: string | null
     id_movimiento_generado: number | null
+    placa: string | null
   }
 
   export type Solicitudes_salidaMaxAggregateOutputType = {
@@ -27139,6 +27604,7 @@ export namespace Prisma {
     fecha_autorizacion: Date | null
     comentario_autorizacion: string | null
     id_movimiento_generado: number | null
+    placa: string | null
   }
 
   export type Solicitudes_salidaCountAggregateOutputType = {
@@ -27156,6 +27622,7 @@ export namespace Prisma {
     fecha_autorizacion: number
     comentario_autorizacion: number
     id_movimiento_generado: number
+    placa: number
     _all: number
   }
 
@@ -27193,6 +27660,7 @@ export namespace Prisma {
     fecha_autorizacion?: true
     comentario_autorizacion?: true
     id_movimiento_generado?: true
+    placa?: true
   }
 
   export type Solicitudes_salidaMaxAggregateInputType = {
@@ -27210,6 +27678,7 @@ export namespace Prisma {
     fecha_autorizacion?: true
     comentario_autorizacion?: true
     id_movimiento_generado?: true
+    placa?: true
   }
 
   export type Solicitudes_salidaCountAggregateInputType = {
@@ -27227,6 +27696,7 @@ export namespace Prisma {
     fecha_autorizacion?: true
     comentario_autorizacion?: true
     id_movimiento_generado?: true
+    placa?: true
     _all?: true
   }
 
@@ -27331,6 +27801,7 @@ export namespace Prisma {
     fecha_autorizacion: Date | null
     comentario_autorizacion: string | null
     id_movimiento_generado: number | null
+    placa: string | null
     _count: Solicitudes_salidaCountAggregateOutputType | null
     _avg: Solicitudes_salidaAvgAggregateOutputType | null
     _sum: Solicitudes_salidaSumAggregateOutputType | null
@@ -27367,6 +27838,7 @@ export namespace Prisma {
     fecha_autorizacion?: boolean
     comentario_autorizacion?: boolean
     id_movimiento_generado?: boolean
+    placa?: boolean
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
     almacenes?: boolean | almacenesDefaultArgs<ExtArgs>
     usuarios_solicitudes_salida_solicitante_idTousuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -27391,9 +27863,10 @@ export namespace Prisma {
     fecha_autorizacion?: boolean
     comentario_autorizacion?: boolean
     id_movimiento_generado?: boolean
+    placa?: boolean
   }
 
-  export type solicitudes_salidaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "codigo_item" | "id_almacen" | "cantidad" | "numero_documento" | "solicitante_id" | "solicitante_nombre" | "observaciones" | "estado" | "fecha_solicitud" | "autorizado_por" | "fecha_autorizacion" | "comentario_autorizacion" | "id_movimiento_generado", ExtArgs["result"]["solicitudes_salida"]>
+  export type solicitudes_salidaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "codigo_item" | "id_almacen" | "cantidad" | "numero_documento" | "solicitante_id" | "solicitante_nombre" | "observaciones" | "estado" | "fecha_solicitud" | "autorizado_por" | "fecha_autorizacion" | "comentario_autorizacion" | "id_movimiento_generado" | "placa", ExtArgs["result"]["solicitudes_salida"]>
   export type solicitudes_salidaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
     almacenes?: boolean | almacenesDefaultArgs<ExtArgs>
@@ -27426,6 +27899,7 @@ export namespace Prisma {
       fecha_autorizacion: Date | null
       comentario_autorizacion: string | null
       id_movimiento_generado: number | null
+      placa: string | null
     }, ExtArgs["result"]["solicitudes_salida"]>
     composites: {}
   }
@@ -27814,6 +28288,7 @@ export namespace Prisma {
     readonly fecha_autorizacion: FieldRef<"solicitudes_salida", 'DateTime'>
     readonly comentario_autorizacion: FieldRef<"solicitudes_salida", 'String'>
     readonly id_movimiento_generado: FieldRef<"solicitudes_salida", 'Int'>
+    readonly placa: FieldRef<"solicitudes_salida", 'String'>
   }
     
 
@@ -31621,6 +32096,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -31670,6 +32147,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -31719,6 +32198,8 @@ export namespace Prisma {
     url_cotizacion: number
     url_factura: number
     nro_factura: number
+    url_comprobante_retencion: number
+    nro_serie: number
     _all: number
   }
 
@@ -31798,6 +32279,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -31847,6 +32330,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -31896,6 +32381,8 @@ export namespace Prisma {
     url_cotizacion?: true
     url_factura?: true
     nro_factura?: true
+    url_comprobante_retencion?: true
+    nro_serie?: true
     _all?: true
   }
 
@@ -32032,6 +32519,8 @@ export namespace Prisma {
     url_cotizacion: string | null
     url_factura: string | null
     nro_factura: string | null
+    url_comprobante_retencion: string | null
+    nro_serie: string | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -32100,6 +32589,8 @@ export namespace Prisma {
     url_cotizacion?: boolean
     url_factura?: boolean
     nro_factura?: boolean
+    url_comprobante_retencion?: boolean
+    nro_serie?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
@@ -32155,9 +32646,11 @@ export namespace Prisma {
     url_cotizacion?: boolean
     url_factura?: boolean
     nro_factura?: boolean
+    url_comprobante_retencion?: boolean
+    nro_serie?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -32219,6 +32712,8 @@ export namespace Prisma {
       url_cotizacion: string | null
       url_factura: string | null
       nro_factura: string | null
+      url_comprobante_retencion: string | null
+      nro_serie: string | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -32637,6 +33132,8 @@ export namespace Prisma {
     readonly url_cotizacion: FieldRef<"ordenes_servicio", 'String'>
     readonly url_factura: FieldRef<"ordenes_servicio", 'String'>
     readonly nro_factura: FieldRef<"ordenes_servicio", 'String'>
+    readonly url_comprobante_retencion: FieldRef<"ordenes_servicio", 'String'>
+    readonly nro_serie: FieldRef<"ordenes_servicio", 'String'>
   }
     
 
@@ -51321,6 +51818,3881 @@ export namespace Prisma {
 
 
   /**
+   * Model balances_iniciales
+   */
+
+  export type AggregateBalances_iniciales = {
+    _count: Balances_inicialesCountAggregateOutputType | null
+    _avg: Balances_inicialesAvgAggregateOutputType | null
+    _sum: Balances_inicialesSumAggregateOutputType | null
+    _min: Balances_inicialesMinAggregateOutputType | null
+    _max: Balances_inicialesMaxAggregateOutputType | null
+  }
+
+  export type Balances_inicialesAvgAggregateOutputType = {
+    id_balance_inicial: number | null
+    id_almacen: number | null
+    cantidad_inicial: Decimal | null
+    costo_unitario: Decimal | null
+    registrado_por: number | null
+  }
+
+  export type Balances_inicialesSumAggregateOutputType = {
+    id_balance_inicial: number | null
+    id_almacen: number | null
+    cantidad_inicial: Decimal | null
+    costo_unitario: Decimal | null
+    registrado_por: number | null
+  }
+
+  export type Balances_inicialesMinAggregateOutputType = {
+    id_balance_inicial: number | null
+    codigo_item: string | null
+    id_almacen: number | null
+    cantidad_inicial: Decimal | null
+    costo_unitario: Decimal | null
+    fecha_registro: Date | null
+    fecha_inicio: Date | null
+    registrado_por: number | null
+    observaciones: string | null
+    numero_factura: string | null
+    estado: $Enums.balances_iniciales_estado | null
+  }
+
+  export type Balances_inicialesMaxAggregateOutputType = {
+    id_balance_inicial: number | null
+    codigo_item: string | null
+    id_almacen: number | null
+    cantidad_inicial: Decimal | null
+    costo_unitario: Decimal | null
+    fecha_registro: Date | null
+    fecha_inicio: Date | null
+    registrado_por: number | null
+    observaciones: string | null
+    numero_factura: string | null
+    estado: $Enums.balances_iniciales_estado | null
+  }
+
+  export type Balances_inicialesCountAggregateOutputType = {
+    id_balance_inicial: number
+    codigo_item: number
+    id_almacen: number
+    cantidad_inicial: number
+    costo_unitario: number
+    fecha_registro: number
+    fecha_inicio: number
+    registrado_por: number
+    observaciones: number
+    numero_factura: number
+    estado: number
+    _all: number
+  }
+
+
+  export type Balances_inicialesAvgAggregateInputType = {
+    id_balance_inicial?: true
+    id_almacen?: true
+    cantidad_inicial?: true
+    costo_unitario?: true
+    registrado_por?: true
+  }
+
+  export type Balances_inicialesSumAggregateInputType = {
+    id_balance_inicial?: true
+    id_almacen?: true
+    cantidad_inicial?: true
+    costo_unitario?: true
+    registrado_por?: true
+  }
+
+  export type Balances_inicialesMinAggregateInputType = {
+    id_balance_inicial?: true
+    codigo_item?: true
+    id_almacen?: true
+    cantidad_inicial?: true
+    costo_unitario?: true
+    fecha_registro?: true
+    fecha_inicio?: true
+    registrado_por?: true
+    observaciones?: true
+    numero_factura?: true
+    estado?: true
+  }
+
+  export type Balances_inicialesMaxAggregateInputType = {
+    id_balance_inicial?: true
+    codigo_item?: true
+    id_almacen?: true
+    cantidad_inicial?: true
+    costo_unitario?: true
+    fecha_registro?: true
+    fecha_inicio?: true
+    registrado_por?: true
+    observaciones?: true
+    numero_factura?: true
+    estado?: true
+  }
+
+  export type Balances_inicialesCountAggregateInputType = {
+    id_balance_inicial?: true
+    codigo_item?: true
+    id_almacen?: true
+    cantidad_inicial?: true
+    costo_unitario?: true
+    fecha_registro?: true
+    fecha_inicio?: true
+    registrado_por?: true
+    observaciones?: true
+    numero_factura?: true
+    estado?: true
+    _all?: true
+  }
+
+  export type Balances_inicialesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which balances_iniciales to aggregate.
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of balances_iniciales to fetch.
+     */
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: balances_inicialesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` balances_iniciales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` balances_iniciales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned balances_iniciales
+    **/
+    _count?: true | Balances_inicialesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Balances_inicialesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Balances_inicialesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Balances_inicialesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Balances_inicialesMaxAggregateInputType
+  }
+
+  export type GetBalances_inicialesAggregateType<T extends Balances_inicialesAggregateArgs> = {
+        [P in keyof T & keyof AggregateBalances_iniciales]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBalances_iniciales[P]>
+      : GetScalarType<T[P], AggregateBalances_iniciales[P]>
+  }
+
+
+
+
+  export type balances_inicialesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: balances_inicialesWhereInput
+    orderBy?: balances_inicialesOrderByWithAggregationInput | balances_inicialesOrderByWithAggregationInput[]
+    by: Balances_inicialesScalarFieldEnum[] | Balances_inicialesScalarFieldEnum
+    having?: balances_inicialesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Balances_inicialesCountAggregateInputType | true
+    _avg?: Balances_inicialesAvgAggregateInputType
+    _sum?: Balances_inicialesSumAggregateInputType
+    _min?: Balances_inicialesMinAggregateInputType
+    _max?: Balances_inicialesMaxAggregateInputType
+  }
+
+  export type Balances_inicialesGroupByOutputType = {
+    id_balance_inicial: number
+    codigo_item: string
+    id_almacen: number
+    cantidad_inicial: Decimal
+    costo_unitario: Decimal
+    fecha_registro: Date | null
+    fecha_inicio: Date
+    registrado_por: number | null
+    observaciones: string | null
+    numero_factura: string | null
+    estado: $Enums.balances_iniciales_estado | null
+    _count: Balances_inicialesCountAggregateOutputType | null
+    _avg: Balances_inicialesAvgAggregateOutputType | null
+    _sum: Balances_inicialesSumAggregateOutputType | null
+    _min: Balances_inicialesMinAggregateOutputType | null
+    _max: Balances_inicialesMaxAggregateOutputType | null
+  }
+
+  type GetBalances_inicialesGroupByPayload<T extends balances_inicialesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Balances_inicialesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Balances_inicialesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Balances_inicialesGroupByOutputType[P]>
+            : GetScalarType<T[P], Balances_inicialesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type balances_inicialesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_balance_inicial?: boolean
+    codigo_item?: boolean
+    id_almacen?: boolean
+    cantidad_inicial?: boolean
+    costo_unitario?: boolean
+    fecha_registro?: boolean
+    fecha_inicio?: boolean
+    registrado_por?: boolean
+    observaciones?: boolean
+    numero_factura?: boolean
+    estado?: boolean
+    listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
+    almacenes?: boolean | almacenesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["balances_iniciales"]>
+
+
+
+  export type balances_inicialesSelectScalar = {
+    id_balance_inicial?: boolean
+    codigo_item?: boolean
+    id_almacen?: boolean
+    cantidad_inicial?: boolean
+    costo_unitario?: boolean
+    fecha_registro?: boolean
+    fecha_inicio?: boolean
+    registrado_por?: boolean
+    observaciones?: boolean
+    numero_factura?: boolean
+    estado?: boolean
+  }
+
+  export type balances_inicialesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_balance_inicial" | "codigo_item" | "id_almacen" | "cantidad_inicial" | "costo_unitario" | "fecha_registro" | "fecha_inicio" | "registrado_por" | "observaciones" | "numero_factura" | "estado", ExtArgs["result"]["balances_iniciales"]>
+  export type balances_inicialesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
+    almacenes?: boolean | almacenesDefaultArgs<ExtArgs>
+  }
+
+  export type $balances_inicialesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "balances_iniciales"
+    objects: {
+      listado_items_2025: Prisma.$listado_items_2025Payload<ExtArgs>
+      almacenes: Prisma.$almacenesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_balance_inicial: number
+      codigo_item: string
+      id_almacen: number
+      cantidad_inicial: Prisma.Decimal
+      costo_unitario: Prisma.Decimal
+      fecha_registro: Date | null
+      fecha_inicio: Date
+      registrado_por: number | null
+      observaciones: string | null
+      numero_factura: string | null
+      estado: $Enums.balances_iniciales_estado | null
+    }, ExtArgs["result"]["balances_iniciales"]>
+    composites: {}
+  }
+
+  type balances_inicialesGetPayload<S extends boolean | null | undefined | balances_inicialesDefaultArgs> = $Result.GetResult<Prisma.$balances_inicialesPayload, S>
+
+  type balances_inicialesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<balances_inicialesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Balances_inicialesCountAggregateInputType | true
+    }
+
+  export interface balances_inicialesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['balances_iniciales'], meta: { name: 'balances_iniciales' } }
+    /**
+     * Find zero or one Balances_iniciales that matches the filter.
+     * @param {balances_inicialesFindUniqueArgs} args - Arguments to find a Balances_iniciales
+     * @example
+     * // Get one Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends balances_inicialesFindUniqueArgs>(args: SelectSubset<T, balances_inicialesFindUniqueArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Balances_iniciales that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {balances_inicialesFindUniqueOrThrowArgs} args - Arguments to find a Balances_iniciales
+     * @example
+     * // Get one Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends balances_inicialesFindUniqueOrThrowArgs>(args: SelectSubset<T, balances_inicialesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Balances_iniciales that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesFindFirstArgs} args - Arguments to find a Balances_iniciales
+     * @example
+     * // Get one Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends balances_inicialesFindFirstArgs>(args?: SelectSubset<T, balances_inicialesFindFirstArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Balances_iniciales that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesFindFirstOrThrowArgs} args - Arguments to find a Balances_iniciales
+     * @example
+     * // Get one Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends balances_inicialesFindFirstOrThrowArgs>(args?: SelectSubset<T, balances_inicialesFindFirstOrThrowArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Balances_iniciales that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findMany()
+     * 
+     * // Get first 10 Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.findMany({ take: 10 })
+     * 
+     * // Only select the `id_balance_inicial`
+     * const balances_inicialesWithId_balance_inicialOnly = await prisma.balances_iniciales.findMany({ select: { id_balance_inicial: true } })
+     * 
+     */
+    findMany<T extends balances_inicialesFindManyArgs>(args?: SelectSubset<T, balances_inicialesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Balances_iniciales.
+     * @param {balances_inicialesCreateArgs} args - Arguments to create a Balances_iniciales.
+     * @example
+     * // Create one Balances_iniciales
+     * const Balances_iniciales = await prisma.balances_iniciales.create({
+     *   data: {
+     *     // ... data to create a Balances_iniciales
+     *   }
+     * })
+     * 
+     */
+    create<T extends balances_inicialesCreateArgs>(args: SelectSubset<T, balances_inicialesCreateArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Balances_iniciales.
+     * @param {balances_inicialesCreateManyArgs} args - Arguments to create many Balances_iniciales.
+     * @example
+     * // Create many Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends balances_inicialesCreateManyArgs>(args?: SelectSubset<T, balances_inicialesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Balances_iniciales.
+     * @param {balances_inicialesDeleteArgs} args - Arguments to delete one Balances_iniciales.
+     * @example
+     * // Delete one Balances_iniciales
+     * const Balances_iniciales = await prisma.balances_iniciales.delete({
+     *   where: {
+     *     // ... filter to delete one Balances_iniciales
+     *   }
+     * })
+     * 
+     */
+    delete<T extends balances_inicialesDeleteArgs>(args: SelectSubset<T, balances_inicialesDeleteArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Balances_iniciales.
+     * @param {balances_inicialesUpdateArgs} args - Arguments to update one Balances_iniciales.
+     * @example
+     * // Update one Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends balances_inicialesUpdateArgs>(args: SelectSubset<T, balances_inicialesUpdateArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Balances_iniciales.
+     * @param {balances_inicialesDeleteManyArgs} args - Arguments to filter Balances_iniciales to delete.
+     * @example
+     * // Delete a few Balances_iniciales
+     * const { count } = await prisma.balances_iniciales.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends balances_inicialesDeleteManyArgs>(args?: SelectSubset<T, balances_inicialesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Balances_iniciales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends balances_inicialesUpdateManyArgs>(args: SelectSubset<T, balances_inicialesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Balances_iniciales.
+     * @param {balances_inicialesUpsertArgs} args - Arguments to update or create a Balances_iniciales.
+     * @example
+     * // Update or create a Balances_iniciales
+     * const balances_iniciales = await prisma.balances_iniciales.upsert({
+     *   create: {
+     *     // ... data to create a Balances_iniciales
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Balances_iniciales we want to update
+     *   }
+     * })
+     */
+    upsert<T extends balances_inicialesUpsertArgs>(args: SelectSubset<T, balances_inicialesUpsertArgs<ExtArgs>>): Prisma__balances_inicialesClient<$Result.GetResult<Prisma.$balances_inicialesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Balances_iniciales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesCountArgs} args - Arguments to filter Balances_iniciales to count.
+     * @example
+     * // Count the number of Balances_iniciales
+     * const count = await prisma.balances_iniciales.count({
+     *   where: {
+     *     // ... the filter for the Balances_iniciales we want to count
+     *   }
+     * })
+    **/
+    count<T extends balances_inicialesCountArgs>(
+      args?: Subset<T, balances_inicialesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Balances_inicialesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Balances_iniciales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Balances_inicialesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Balances_inicialesAggregateArgs>(args: Subset<T, Balances_inicialesAggregateArgs>): Prisma.PrismaPromise<GetBalances_inicialesAggregateType<T>>
+
+    /**
+     * Group by Balances_iniciales.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {balances_inicialesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends balances_inicialesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: balances_inicialesGroupByArgs['orderBy'] }
+        : { orderBy?: balances_inicialesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, balances_inicialesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBalances_inicialesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the balances_iniciales model
+   */
+  readonly fields: balances_inicialesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for balances_iniciales.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__balances_inicialesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    listado_items_2025<T extends listado_items_2025DefaultArgs<ExtArgs> = {}>(args?: Subset<T, listado_items_2025DefaultArgs<ExtArgs>>): Prisma__listado_items_2025Client<$Result.GetResult<Prisma.$listado_items_2025Payload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    almacenes<T extends almacenesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, almacenesDefaultArgs<ExtArgs>>): Prisma__almacenesClient<$Result.GetResult<Prisma.$almacenesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the balances_iniciales model
+   */
+  interface balances_inicialesFieldRefs {
+    readonly id_balance_inicial: FieldRef<"balances_iniciales", 'Int'>
+    readonly codigo_item: FieldRef<"balances_iniciales", 'String'>
+    readonly id_almacen: FieldRef<"balances_iniciales", 'Int'>
+    readonly cantidad_inicial: FieldRef<"balances_iniciales", 'Decimal'>
+    readonly costo_unitario: FieldRef<"balances_iniciales", 'Decimal'>
+    readonly fecha_registro: FieldRef<"balances_iniciales", 'DateTime'>
+    readonly fecha_inicio: FieldRef<"balances_iniciales", 'DateTime'>
+    readonly registrado_por: FieldRef<"balances_iniciales", 'Int'>
+    readonly observaciones: FieldRef<"balances_iniciales", 'String'>
+    readonly numero_factura: FieldRef<"balances_iniciales", 'String'>
+    readonly estado: FieldRef<"balances_iniciales", 'balances_iniciales_estado'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * balances_iniciales findUnique
+   */
+  export type balances_inicialesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter, which balances_iniciales to fetch.
+     */
+    where: balances_inicialesWhereUniqueInput
+  }
+
+  /**
+   * balances_iniciales findUniqueOrThrow
+   */
+  export type balances_inicialesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter, which balances_iniciales to fetch.
+     */
+    where: balances_inicialesWhereUniqueInput
+  }
+
+  /**
+   * balances_iniciales findFirst
+   */
+  export type balances_inicialesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter, which balances_iniciales to fetch.
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of balances_iniciales to fetch.
+     */
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for balances_iniciales.
+     */
+    cursor?: balances_inicialesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` balances_iniciales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` balances_iniciales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of balances_iniciales.
+     */
+    distinct?: Balances_inicialesScalarFieldEnum | Balances_inicialesScalarFieldEnum[]
+  }
+
+  /**
+   * balances_iniciales findFirstOrThrow
+   */
+  export type balances_inicialesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter, which balances_iniciales to fetch.
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of balances_iniciales to fetch.
+     */
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for balances_iniciales.
+     */
+    cursor?: balances_inicialesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` balances_iniciales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` balances_iniciales.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of balances_iniciales.
+     */
+    distinct?: Balances_inicialesScalarFieldEnum | Balances_inicialesScalarFieldEnum[]
+  }
+
+  /**
+   * balances_iniciales findMany
+   */
+  export type balances_inicialesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter, which balances_iniciales to fetch.
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of balances_iniciales to fetch.
+     */
+    orderBy?: balances_inicialesOrderByWithRelationInput | balances_inicialesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing balances_iniciales.
+     */
+    cursor?: balances_inicialesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` balances_iniciales from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` balances_iniciales.
+     */
+    skip?: number
+    distinct?: Balances_inicialesScalarFieldEnum | Balances_inicialesScalarFieldEnum[]
+  }
+
+  /**
+   * balances_iniciales create
+   */
+  export type balances_inicialesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a balances_iniciales.
+     */
+    data: XOR<balances_inicialesCreateInput, balances_inicialesUncheckedCreateInput>
+  }
+
+  /**
+   * balances_iniciales createMany
+   */
+  export type balances_inicialesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many balances_iniciales.
+     */
+    data: balances_inicialesCreateManyInput | balances_inicialesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * balances_iniciales update
+   */
+  export type balances_inicialesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a balances_iniciales.
+     */
+    data: XOR<balances_inicialesUpdateInput, balances_inicialesUncheckedUpdateInput>
+    /**
+     * Choose, which balances_iniciales to update.
+     */
+    where: balances_inicialesWhereUniqueInput
+  }
+
+  /**
+   * balances_iniciales updateMany
+   */
+  export type balances_inicialesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update balances_iniciales.
+     */
+    data: XOR<balances_inicialesUpdateManyMutationInput, balances_inicialesUncheckedUpdateManyInput>
+    /**
+     * Filter which balances_iniciales to update
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * Limit how many balances_iniciales to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * balances_iniciales upsert
+   */
+  export type balances_inicialesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the balances_iniciales to update in case it exists.
+     */
+    where: balances_inicialesWhereUniqueInput
+    /**
+     * In case the balances_iniciales found by the `where` argument doesn't exist, create a new balances_iniciales with this data.
+     */
+    create: XOR<balances_inicialesCreateInput, balances_inicialesUncheckedCreateInput>
+    /**
+     * In case the balances_iniciales was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<balances_inicialesUpdateInput, balances_inicialesUncheckedUpdateInput>
+  }
+
+  /**
+   * balances_iniciales delete
+   */
+  export type balances_inicialesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+    /**
+     * Filter which balances_iniciales to delete.
+     */
+    where: balances_inicialesWhereUniqueInput
+  }
+
+  /**
+   * balances_iniciales deleteMany
+   */
+  export type balances_inicialesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which balances_iniciales to delete
+     */
+    where?: balances_inicialesWhereInput
+    /**
+     * Limit how many balances_iniciales to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * balances_iniciales without action
+   */
+  export type balances_inicialesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the balances_iniciales
+     */
+    select?: balances_inicialesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the balances_iniciales
+     */
+    omit?: balances_inicialesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: balances_inicialesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model camiones
+   */
+
+  export type AggregateCamiones = {
+    _count: CamionesCountAggregateOutputType | null
+    _avg: CamionesAvgAggregateOutputType | null
+    _sum: CamionesSumAggregateOutputType | null
+    _min: CamionesMinAggregateOutputType | null
+    _max: CamionesMaxAggregateOutputType | null
+  }
+
+  export type CamionesAvgAggregateOutputType = {
+    id_camion: number | null
+    a_o: number | null
+    capacidad_tanque: Decimal | null
+    id_tipo_combustible_preferido: number | null
+  }
+
+  export type CamionesSumAggregateOutputType = {
+    id_camion: number | null
+    a_o: number | null
+    capacidad_tanque: Decimal | null
+    id_tipo_combustible_preferido: number | null
+  }
+
+  export type CamionesMinAggregateOutputType = {
+    id_camion: number | null
+    placa: string | null
+    marca: string | null
+    modelo: string | null
+    a_o: number | null
+    capacidad_tanque: Decimal | null
+    id_tipo_combustible_preferido: number | null
+    activo: boolean | null
+    fecha_registro: Date | null
+    dni: string | null
+    nombre_chofer: string | null
+    apellido_chofer: string | null
+    numero_licencia: string | null
+    empresa: string | null
+    tipo: $Enums.camiones_tipo | null
+  }
+
+  export type CamionesMaxAggregateOutputType = {
+    id_camion: number | null
+    placa: string | null
+    marca: string | null
+    modelo: string | null
+    a_o: number | null
+    capacidad_tanque: Decimal | null
+    id_tipo_combustible_preferido: number | null
+    activo: boolean | null
+    fecha_registro: Date | null
+    dni: string | null
+    nombre_chofer: string | null
+    apellido_chofer: string | null
+    numero_licencia: string | null
+    empresa: string | null
+    tipo: $Enums.camiones_tipo | null
+  }
+
+  export type CamionesCountAggregateOutputType = {
+    id_camion: number
+    placa: number
+    marca: number
+    modelo: number
+    a_o: number
+    capacidad_tanque: number
+    id_tipo_combustible_preferido: number
+    activo: number
+    fecha_registro: number
+    dni: number
+    nombre_chofer: number
+    apellido_chofer: number
+    numero_licencia: number
+    empresa: number
+    tipo: number
+    _all: number
+  }
+
+
+  export type CamionesAvgAggregateInputType = {
+    id_camion?: true
+    a_o?: true
+    capacidad_tanque?: true
+    id_tipo_combustible_preferido?: true
+  }
+
+  export type CamionesSumAggregateInputType = {
+    id_camion?: true
+    a_o?: true
+    capacidad_tanque?: true
+    id_tipo_combustible_preferido?: true
+  }
+
+  export type CamionesMinAggregateInputType = {
+    id_camion?: true
+    placa?: true
+    marca?: true
+    modelo?: true
+    a_o?: true
+    capacidad_tanque?: true
+    id_tipo_combustible_preferido?: true
+    activo?: true
+    fecha_registro?: true
+    dni?: true
+    nombre_chofer?: true
+    apellido_chofer?: true
+    numero_licencia?: true
+    empresa?: true
+    tipo?: true
+  }
+
+  export type CamionesMaxAggregateInputType = {
+    id_camion?: true
+    placa?: true
+    marca?: true
+    modelo?: true
+    a_o?: true
+    capacidad_tanque?: true
+    id_tipo_combustible_preferido?: true
+    activo?: true
+    fecha_registro?: true
+    dni?: true
+    nombre_chofer?: true
+    apellido_chofer?: true
+    numero_licencia?: true
+    empresa?: true
+    tipo?: true
+  }
+
+  export type CamionesCountAggregateInputType = {
+    id_camion?: true
+    placa?: true
+    marca?: true
+    modelo?: true
+    a_o?: true
+    capacidad_tanque?: true
+    id_tipo_combustible_preferido?: true
+    activo?: true
+    fecha_registro?: true
+    dni?: true
+    nombre_chofer?: true
+    apellido_chofer?: true
+    numero_licencia?: true
+    empresa?: true
+    tipo?: true
+    _all?: true
+  }
+
+  export type CamionesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which camiones to aggregate.
+     */
+    where?: camionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of camiones to fetch.
+     */
+    orderBy?: camionesOrderByWithRelationInput | camionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: camionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` camiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` camiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned camiones
+    **/
+    _count?: true | CamionesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CamionesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CamionesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CamionesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CamionesMaxAggregateInputType
+  }
+
+  export type GetCamionesAggregateType<T extends CamionesAggregateArgs> = {
+        [P in keyof T & keyof AggregateCamiones]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCamiones[P]>
+      : GetScalarType<T[P], AggregateCamiones[P]>
+  }
+
+
+
+
+  export type camionesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: camionesWhereInput
+    orderBy?: camionesOrderByWithAggregationInput | camionesOrderByWithAggregationInput[]
+    by: CamionesScalarFieldEnum[] | CamionesScalarFieldEnum
+    having?: camionesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CamionesCountAggregateInputType | true
+    _avg?: CamionesAvgAggregateInputType
+    _sum?: CamionesSumAggregateInputType
+    _min?: CamionesMinAggregateInputType
+    _max?: CamionesMaxAggregateInputType
+  }
+
+  export type CamionesGroupByOutputType = {
+    id_camion: number
+    placa: string
+    marca: string | null
+    modelo: string | null
+    a_o: number | null
+    capacidad_tanque: Decimal | null
+    id_tipo_combustible_preferido: number | null
+    activo: boolean | null
+    fecha_registro: Date | null
+    dni: string | null
+    nombre_chofer: string | null
+    apellido_chofer: string | null
+    numero_licencia: string | null
+    empresa: string | null
+    tipo: $Enums.camiones_tipo
+    _count: CamionesCountAggregateOutputType | null
+    _avg: CamionesAvgAggregateOutputType | null
+    _sum: CamionesSumAggregateOutputType | null
+    _min: CamionesMinAggregateOutputType | null
+    _max: CamionesMaxAggregateOutputType | null
+  }
+
+  type GetCamionesGroupByPayload<T extends camionesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CamionesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CamionesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CamionesGroupByOutputType[P]>
+            : GetScalarType<T[P], CamionesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type camionesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_camion?: boolean
+    placa?: boolean
+    marca?: boolean
+    modelo?: boolean
+    a_o?: boolean
+    capacidad_tanque?: boolean
+    id_tipo_combustible_preferido?: boolean
+    activo?: boolean
+    fecha_registro?: boolean
+    dni?: boolean
+    nombre_chofer?: boolean
+    apellido_chofer?: boolean
+    numero_licencia?: boolean
+    empresa?: boolean
+    tipo?: boolean
+  }, ExtArgs["result"]["camiones"]>
+
+
+
+  export type camionesSelectScalar = {
+    id_camion?: boolean
+    placa?: boolean
+    marca?: boolean
+    modelo?: boolean
+    a_o?: boolean
+    capacidad_tanque?: boolean
+    id_tipo_combustible_preferido?: boolean
+    activo?: boolean
+    fecha_registro?: boolean
+    dni?: boolean
+    nombre_chofer?: boolean
+    apellido_chofer?: boolean
+    numero_licencia?: boolean
+    empresa?: boolean
+    tipo?: boolean
+  }
+
+  export type camionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_camion" | "placa" | "marca" | "modelo" | "a_o" | "capacidad_tanque" | "id_tipo_combustible_preferido" | "activo" | "fecha_registro" | "dni" | "nombre_chofer" | "apellido_chofer" | "numero_licencia" | "empresa" | "tipo", ExtArgs["result"]["camiones"]>
+
+  export type $camionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "camiones"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id_camion: number
+      placa: string
+      marca: string | null
+      modelo: string | null
+      a_o: number | null
+      capacidad_tanque: Prisma.Decimal | null
+      id_tipo_combustible_preferido: number | null
+      activo: boolean | null
+      fecha_registro: Date | null
+      dni: string | null
+      nombre_chofer: string | null
+      apellido_chofer: string | null
+      numero_licencia: string | null
+      empresa: string | null
+      tipo: $Enums.camiones_tipo
+    }, ExtArgs["result"]["camiones"]>
+    composites: {}
+  }
+
+  type camionesGetPayload<S extends boolean | null | undefined | camionesDefaultArgs> = $Result.GetResult<Prisma.$camionesPayload, S>
+
+  type camionesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<camionesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CamionesCountAggregateInputType | true
+    }
+
+  export interface camionesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['camiones'], meta: { name: 'camiones' } }
+    /**
+     * Find zero or one Camiones that matches the filter.
+     * @param {camionesFindUniqueArgs} args - Arguments to find a Camiones
+     * @example
+     * // Get one Camiones
+     * const camiones = await prisma.camiones.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends camionesFindUniqueArgs>(args: SelectSubset<T, camionesFindUniqueArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Camiones that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {camionesFindUniqueOrThrowArgs} args - Arguments to find a Camiones
+     * @example
+     * // Get one Camiones
+     * const camiones = await prisma.camiones.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends camionesFindUniqueOrThrowArgs>(args: SelectSubset<T, camionesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Camiones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesFindFirstArgs} args - Arguments to find a Camiones
+     * @example
+     * // Get one Camiones
+     * const camiones = await prisma.camiones.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends camionesFindFirstArgs>(args?: SelectSubset<T, camionesFindFirstArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Camiones that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesFindFirstOrThrowArgs} args - Arguments to find a Camiones
+     * @example
+     * // Get one Camiones
+     * const camiones = await prisma.camiones.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends camionesFindFirstOrThrowArgs>(args?: SelectSubset<T, camionesFindFirstOrThrowArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Camiones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Camiones
+     * const camiones = await prisma.camiones.findMany()
+     * 
+     * // Get first 10 Camiones
+     * const camiones = await prisma.camiones.findMany({ take: 10 })
+     * 
+     * // Only select the `id_camion`
+     * const camionesWithId_camionOnly = await prisma.camiones.findMany({ select: { id_camion: true } })
+     * 
+     */
+    findMany<T extends camionesFindManyArgs>(args?: SelectSubset<T, camionesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Camiones.
+     * @param {camionesCreateArgs} args - Arguments to create a Camiones.
+     * @example
+     * // Create one Camiones
+     * const Camiones = await prisma.camiones.create({
+     *   data: {
+     *     // ... data to create a Camiones
+     *   }
+     * })
+     * 
+     */
+    create<T extends camionesCreateArgs>(args: SelectSubset<T, camionesCreateArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Camiones.
+     * @param {camionesCreateManyArgs} args - Arguments to create many Camiones.
+     * @example
+     * // Create many Camiones
+     * const camiones = await prisma.camiones.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends camionesCreateManyArgs>(args?: SelectSubset<T, camionesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Camiones.
+     * @param {camionesDeleteArgs} args - Arguments to delete one Camiones.
+     * @example
+     * // Delete one Camiones
+     * const Camiones = await prisma.camiones.delete({
+     *   where: {
+     *     // ... filter to delete one Camiones
+     *   }
+     * })
+     * 
+     */
+    delete<T extends camionesDeleteArgs>(args: SelectSubset<T, camionesDeleteArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Camiones.
+     * @param {camionesUpdateArgs} args - Arguments to update one Camiones.
+     * @example
+     * // Update one Camiones
+     * const camiones = await prisma.camiones.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends camionesUpdateArgs>(args: SelectSubset<T, camionesUpdateArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Camiones.
+     * @param {camionesDeleteManyArgs} args - Arguments to filter Camiones to delete.
+     * @example
+     * // Delete a few Camiones
+     * const { count } = await prisma.camiones.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends camionesDeleteManyArgs>(args?: SelectSubset<T, camionesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Camiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Camiones
+     * const camiones = await prisma.camiones.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends camionesUpdateManyArgs>(args: SelectSubset<T, camionesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Camiones.
+     * @param {camionesUpsertArgs} args - Arguments to update or create a Camiones.
+     * @example
+     * // Update or create a Camiones
+     * const camiones = await prisma.camiones.upsert({
+     *   create: {
+     *     // ... data to create a Camiones
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Camiones we want to update
+     *   }
+     * })
+     */
+    upsert<T extends camionesUpsertArgs>(args: SelectSubset<T, camionesUpsertArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Camiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesCountArgs} args - Arguments to filter Camiones to count.
+     * @example
+     * // Count the number of Camiones
+     * const count = await prisma.camiones.count({
+     *   where: {
+     *     // ... the filter for the Camiones we want to count
+     *   }
+     * })
+    **/
+    count<T extends camionesCountArgs>(
+      args?: Subset<T, camionesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CamionesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Camiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CamionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CamionesAggregateArgs>(args: Subset<T, CamionesAggregateArgs>): Prisma.PrismaPromise<GetCamionesAggregateType<T>>
+
+    /**
+     * Group by Camiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {camionesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends camionesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: camionesGroupByArgs['orderBy'] }
+        : { orderBy?: camionesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, camionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCamionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the camiones model
+   */
+  readonly fields: camionesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for camiones.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__camionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the camiones model
+   */
+  interface camionesFieldRefs {
+    readonly id_camion: FieldRef<"camiones", 'Int'>
+    readonly placa: FieldRef<"camiones", 'String'>
+    readonly marca: FieldRef<"camiones", 'String'>
+    readonly modelo: FieldRef<"camiones", 'String'>
+    readonly a_o: FieldRef<"camiones", 'Int'>
+    readonly capacidad_tanque: FieldRef<"camiones", 'Decimal'>
+    readonly id_tipo_combustible_preferido: FieldRef<"camiones", 'Int'>
+    readonly activo: FieldRef<"camiones", 'Boolean'>
+    readonly fecha_registro: FieldRef<"camiones", 'DateTime'>
+    readonly dni: FieldRef<"camiones", 'String'>
+    readonly nombre_chofer: FieldRef<"camiones", 'String'>
+    readonly apellido_chofer: FieldRef<"camiones", 'String'>
+    readonly numero_licencia: FieldRef<"camiones", 'String'>
+    readonly empresa: FieldRef<"camiones", 'String'>
+    readonly tipo: FieldRef<"camiones", 'camiones_tipo'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * camiones findUnique
+   */
+  export type camionesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter, which camiones to fetch.
+     */
+    where: camionesWhereUniqueInput
+  }
+
+  /**
+   * camiones findUniqueOrThrow
+   */
+  export type camionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter, which camiones to fetch.
+     */
+    where: camionesWhereUniqueInput
+  }
+
+  /**
+   * camiones findFirst
+   */
+  export type camionesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter, which camiones to fetch.
+     */
+    where?: camionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of camiones to fetch.
+     */
+    orderBy?: camionesOrderByWithRelationInput | camionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for camiones.
+     */
+    cursor?: camionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` camiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` camiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of camiones.
+     */
+    distinct?: CamionesScalarFieldEnum | CamionesScalarFieldEnum[]
+  }
+
+  /**
+   * camiones findFirstOrThrow
+   */
+  export type camionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter, which camiones to fetch.
+     */
+    where?: camionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of camiones to fetch.
+     */
+    orderBy?: camionesOrderByWithRelationInput | camionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for camiones.
+     */
+    cursor?: camionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` camiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` camiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of camiones.
+     */
+    distinct?: CamionesScalarFieldEnum | CamionesScalarFieldEnum[]
+  }
+
+  /**
+   * camiones findMany
+   */
+  export type camionesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter, which camiones to fetch.
+     */
+    where?: camionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of camiones to fetch.
+     */
+    orderBy?: camionesOrderByWithRelationInput | camionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing camiones.
+     */
+    cursor?: camionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` camiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` camiones.
+     */
+    skip?: number
+    distinct?: CamionesScalarFieldEnum | CamionesScalarFieldEnum[]
+  }
+
+  /**
+   * camiones create
+   */
+  export type camionesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a camiones.
+     */
+    data: XOR<camionesCreateInput, camionesUncheckedCreateInput>
+  }
+
+  /**
+   * camiones createMany
+   */
+  export type camionesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many camiones.
+     */
+    data: camionesCreateManyInput | camionesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * camiones update
+   */
+  export type camionesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a camiones.
+     */
+    data: XOR<camionesUpdateInput, camionesUncheckedUpdateInput>
+    /**
+     * Choose, which camiones to update.
+     */
+    where: camionesWhereUniqueInput
+  }
+
+  /**
+   * camiones updateMany
+   */
+  export type camionesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update camiones.
+     */
+    data: XOR<camionesUpdateManyMutationInput, camionesUncheckedUpdateManyInput>
+    /**
+     * Filter which camiones to update
+     */
+    where?: camionesWhereInput
+    /**
+     * Limit how many camiones to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * camiones upsert
+   */
+  export type camionesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the camiones to update in case it exists.
+     */
+    where: camionesWhereUniqueInput
+    /**
+     * In case the camiones found by the `where` argument doesn't exist, create a new camiones with this data.
+     */
+    create: XOR<camionesCreateInput, camionesUncheckedCreateInput>
+    /**
+     * In case the camiones was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<camionesUpdateInput, camionesUncheckedUpdateInput>
+  }
+
+  /**
+   * camiones delete
+   */
+  export type camionesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+    /**
+     * Filter which camiones to delete.
+     */
+    where: camionesWhereUniqueInput
+  }
+
+  /**
+   * camiones deleteMany
+   */
+  export type camionesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which camiones to delete
+     */
+    where?: camionesWhereInput
+    /**
+     * Limit how many camiones to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * camiones without action
+   */
+  export type camionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the camiones
+     */
+    select?: camionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the camiones
+     */
+    omit?: camionesOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model oldfasecontrol
+   */
+
+  export type AggregateOldfasecontrol = {
+    _count: OldfasecontrolCountAggregateOutputType | null
+    _avg: OldfasecontrolAvgAggregateOutputType | null
+    _sum: OldfasecontrolSumAggregateOutputType | null
+    _min: OldfasecontrolMinAggregateOutputType | null
+    _max: OldfasecontrolMaxAggregateOutputType | null
+  }
+
+  export type OldfasecontrolAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type OldfasecontrolSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type OldfasecontrolMinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type OldfasecontrolMaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type OldfasecontrolCountAggregateOutputType = {
+    id: number
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type OldfasecontrolAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type OldfasecontrolSumAggregateInputType = {
+    id?: true
+  }
+
+  export type OldfasecontrolMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type OldfasecontrolMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type OldfasecontrolCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type OldfasecontrolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which oldfasecontrol to aggregate.
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oldfasecontrols to fetch.
+     */
+    orderBy?: oldfasecontrolOrderByWithRelationInput | oldfasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: oldfasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oldfasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oldfasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned oldfasecontrols
+    **/
+    _count?: true | OldfasecontrolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OldfasecontrolAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OldfasecontrolSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OldfasecontrolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OldfasecontrolMaxAggregateInputType
+  }
+
+  export type GetOldfasecontrolAggregateType<T extends OldfasecontrolAggregateArgs> = {
+        [P in keyof T & keyof AggregateOldfasecontrol]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOldfasecontrol[P]>
+      : GetScalarType<T[P], AggregateOldfasecontrol[P]>
+  }
+
+
+
+
+  export type oldfasecontrolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: oldfasecontrolWhereInput
+    orderBy?: oldfasecontrolOrderByWithAggregationInput | oldfasecontrolOrderByWithAggregationInput[]
+    by: OldfasecontrolScalarFieldEnum[] | OldfasecontrolScalarFieldEnum
+    having?: oldfasecontrolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OldfasecontrolCountAggregateInputType | true
+    _avg?: OldfasecontrolAvgAggregateInputType
+    _sum?: OldfasecontrolSumAggregateInputType
+    _min?: OldfasecontrolMinAggregateInputType
+    _max?: OldfasecontrolMaxAggregateInputType
+  }
+
+  export type OldfasecontrolGroupByOutputType = {
+    id: number
+    codigo: string | null
+    descripcion: string | null
+    _count: OldfasecontrolCountAggregateOutputType | null
+    _avg: OldfasecontrolAvgAggregateOutputType | null
+    _sum: OldfasecontrolSumAggregateOutputType | null
+    _min: OldfasecontrolMinAggregateOutputType | null
+    _max: OldfasecontrolMaxAggregateOutputType | null
+  }
+
+  type GetOldfasecontrolGroupByPayload<T extends oldfasecontrolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OldfasecontrolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OldfasecontrolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OldfasecontrolGroupByOutputType[P]>
+            : GetScalarType<T[P], OldfasecontrolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type oldfasecontrolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["oldfasecontrol"]>
+
+
+
+  export type oldfasecontrolSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type oldfasecontrolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "descripcion", ExtArgs["result"]["oldfasecontrol"]>
+
+  export type $oldfasecontrolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "oldfasecontrol"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string | null
+      descripcion: string | null
+    }, ExtArgs["result"]["oldfasecontrol"]>
+    composites: {}
+  }
+
+  type oldfasecontrolGetPayload<S extends boolean | null | undefined | oldfasecontrolDefaultArgs> = $Result.GetResult<Prisma.$oldfasecontrolPayload, S>
+
+  type oldfasecontrolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<oldfasecontrolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OldfasecontrolCountAggregateInputType | true
+    }
+
+  export interface oldfasecontrolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['oldfasecontrol'], meta: { name: 'oldfasecontrol' } }
+    /**
+     * Find zero or one Oldfasecontrol that matches the filter.
+     * @param {oldfasecontrolFindUniqueArgs} args - Arguments to find a Oldfasecontrol
+     * @example
+     * // Get one Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends oldfasecontrolFindUniqueArgs>(args: SelectSubset<T, oldfasecontrolFindUniqueArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Oldfasecontrol that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {oldfasecontrolFindUniqueOrThrowArgs} args - Arguments to find a Oldfasecontrol
+     * @example
+     * // Get one Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends oldfasecontrolFindUniqueOrThrowArgs>(args: SelectSubset<T, oldfasecontrolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Oldfasecontrol that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolFindFirstArgs} args - Arguments to find a Oldfasecontrol
+     * @example
+     * // Get one Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends oldfasecontrolFindFirstArgs>(args?: SelectSubset<T, oldfasecontrolFindFirstArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Oldfasecontrol that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolFindFirstOrThrowArgs} args - Arguments to find a Oldfasecontrol
+     * @example
+     * // Get one Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends oldfasecontrolFindFirstOrThrowArgs>(args?: SelectSubset<T, oldfasecontrolFindFirstOrThrowArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Oldfasecontrols that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Oldfasecontrols
+     * const oldfasecontrols = await prisma.oldfasecontrol.findMany()
+     * 
+     * // Get first 10 Oldfasecontrols
+     * const oldfasecontrols = await prisma.oldfasecontrol.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oldfasecontrolWithIdOnly = await prisma.oldfasecontrol.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends oldfasecontrolFindManyArgs>(args?: SelectSubset<T, oldfasecontrolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Oldfasecontrol.
+     * @param {oldfasecontrolCreateArgs} args - Arguments to create a Oldfasecontrol.
+     * @example
+     * // Create one Oldfasecontrol
+     * const Oldfasecontrol = await prisma.oldfasecontrol.create({
+     *   data: {
+     *     // ... data to create a Oldfasecontrol
+     *   }
+     * })
+     * 
+     */
+    create<T extends oldfasecontrolCreateArgs>(args: SelectSubset<T, oldfasecontrolCreateArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Oldfasecontrols.
+     * @param {oldfasecontrolCreateManyArgs} args - Arguments to create many Oldfasecontrols.
+     * @example
+     * // Create many Oldfasecontrols
+     * const oldfasecontrol = await prisma.oldfasecontrol.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends oldfasecontrolCreateManyArgs>(args?: SelectSubset<T, oldfasecontrolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Oldfasecontrol.
+     * @param {oldfasecontrolDeleteArgs} args - Arguments to delete one Oldfasecontrol.
+     * @example
+     * // Delete one Oldfasecontrol
+     * const Oldfasecontrol = await prisma.oldfasecontrol.delete({
+     *   where: {
+     *     // ... filter to delete one Oldfasecontrol
+     *   }
+     * })
+     * 
+     */
+    delete<T extends oldfasecontrolDeleteArgs>(args: SelectSubset<T, oldfasecontrolDeleteArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Oldfasecontrol.
+     * @param {oldfasecontrolUpdateArgs} args - Arguments to update one Oldfasecontrol.
+     * @example
+     * // Update one Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends oldfasecontrolUpdateArgs>(args: SelectSubset<T, oldfasecontrolUpdateArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Oldfasecontrols.
+     * @param {oldfasecontrolDeleteManyArgs} args - Arguments to filter Oldfasecontrols to delete.
+     * @example
+     * // Delete a few Oldfasecontrols
+     * const { count } = await prisma.oldfasecontrol.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends oldfasecontrolDeleteManyArgs>(args?: SelectSubset<T, oldfasecontrolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Oldfasecontrols.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Oldfasecontrols
+     * const oldfasecontrol = await prisma.oldfasecontrol.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends oldfasecontrolUpdateManyArgs>(args: SelectSubset<T, oldfasecontrolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Oldfasecontrol.
+     * @param {oldfasecontrolUpsertArgs} args - Arguments to update or create a Oldfasecontrol.
+     * @example
+     * // Update or create a Oldfasecontrol
+     * const oldfasecontrol = await prisma.oldfasecontrol.upsert({
+     *   create: {
+     *     // ... data to create a Oldfasecontrol
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Oldfasecontrol we want to update
+     *   }
+     * })
+     */
+    upsert<T extends oldfasecontrolUpsertArgs>(args: SelectSubset<T, oldfasecontrolUpsertArgs<ExtArgs>>): Prisma__oldfasecontrolClient<$Result.GetResult<Prisma.$oldfasecontrolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Oldfasecontrols.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolCountArgs} args - Arguments to filter Oldfasecontrols to count.
+     * @example
+     * // Count the number of Oldfasecontrols
+     * const count = await prisma.oldfasecontrol.count({
+     *   where: {
+     *     // ... the filter for the Oldfasecontrols we want to count
+     *   }
+     * })
+    **/
+    count<T extends oldfasecontrolCountArgs>(
+      args?: Subset<T, oldfasecontrolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OldfasecontrolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Oldfasecontrol.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldfasecontrolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OldfasecontrolAggregateArgs>(args: Subset<T, OldfasecontrolAggregateArgs>): Prisma.PrismaPromise<GetOldfasecontrolAggregateType<T>>
+
+    /**
+     * Group by Oldfasecontrol.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oldfasecontrolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends oldfasecontrolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: oldfasecontrolGroupByArgs['orderBy'] }
+        : { orderBy?: oldfasecontrolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, oldfasecontrolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOldfasecontrolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the oldfasecontrol model
+   */
+  readonly fields: oldfasecontrolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for oldfasecontrol.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__oldfasecontrolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the oldfasecontrol model
+   */
+  interface oldfasecontrolFieldRefs {
+    readonly id: FieldRef<"oldfasecontrol", 'Int'>
+    readonly codigo: FieldRef<"oldfasecontrol", 'String'>
+    readonly descripcion: FieldRef<"oldfasecontrol", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * oldfasecontrol findUnique
+   */
+  export type oldfasecontrolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which oldfasecontrol to fetch.
+     */
+    where: oldfasecontrolWhereUniqueInput
+  }
+
+  /**
+   * oldfasecontrol findUniqueOrThrow
+   */
+  export type oldfasecontrolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which oldfasecontrol to fetch.
+     */
+    where: oldfasecontrolWhereUniqueInput
+  }
+
+  /**
+   * oldfasecontrol findFirst
+   */
+  export type oldfasecontrolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which oldfasecontrol to fetch.
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oldfasecontrols to fetch.
+     */
+    orderBy?: oldfasecontrolOrderByWithRelationInput | oldfasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for oldfasecontrols.
+     */
+    cursor?: oldfasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oldfasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oldfasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of oldfasecontrols.
+     */
+    distinct?: OldfasecontrolScalarFieldEnum | OldfasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * oldfasecontrol findFirstOrThrow
+   */
+  export type oldfasecontrolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which oldfasecontrol to fetch.
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oldfasecontrols to fetch.
+     */
+    orderBy?: oldfasecontrolOrderByWithRelationInput | oldfasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for oldfasecontrols.
+     */
+    cursor?: oldfasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oldfasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oldfasecontrols.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of oldfasecontrols.
+     */
+    distinct?: OldfasecontrolScalarFieldEnum | OldfasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * oldfasecontrol findMany
+   */
+  export type oldfasecontrolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter, which oldfasecontrols to fetch.
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oldfasecontrols to fetch.
+     */
+    orderBy?: oldfasecontrolOrderByWithRelationInput | oldfasecontrolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing oldfasecontrols.
+     */
+    cursor?: oldfasecontrolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oldfasecontrols from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oldfasecontrols.
+     */
+    skip?: number
+    distinct?: OldfasecontrolScalarFieldEnum | OldfasecontrolScalarFieldEnum[]
+  }
+
+  /**
+   * oldfasecontrol create
+   */
+  export type oldfasecontrolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * The data needed to create a oldfasecontrol.
+     */
+    data?: XOR<oldfasecontrolCreateInput, oldfasecontrolUncheckedCreateInput>
+  }
+
+  /**
+   * oldfasecontrol createMany
+   */
+  export type oldfasecontrolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many oldfasecontrols.
+     */
+    data: oldfasecontrolCreateManyInput | oldfasecontrolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * oldfasecontrol update
+   */
+  export type oldfasecontrolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * The data needed to update a oldfasecontrol.
+     */
+    data: XOR<oldfasecontrolUpdateInput, oldfasecontrolUncheckedUpdateInput>
+    /**
+     * Choose, which oldfasecontrol to update.
+     */
+    where: oldfasecontrolWhereUniqueInput
+  }
+
+  /**
+   * oldfasecontrol updateMany
+   */
+  export type oldfasecontrolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update oldfasecontrols.
+     */
+    data: XOR<oldfasecontrolUpdateManyMutationInput, oldfasecontrolUncheckedUpdateManyInput>
+    /**
+     * Filter which oldfasecontrols to update
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * Limit how many oldfasecontrols to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * oldfasecontrol upsert
+   */
+  export type oldfasecontrolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * The filter to search for the oldfasecontrol to update in case it exists.
+     */
+    where: oldfasecontrolWhereUniqueInput
+    /**
+     * In case the oldfasecontrol found by the `where` argument doesn't exist, create a new oldfasecontrol with this data.
+     */
+    create: XOR<oldfasecontrolCreateInput, oldfasecontrolUncheckedCreateInput>
+    /**
+     * In case the oldfasecontrol was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<oldfasecontrolUpdateInput, oldfasecontrolUncheckedUpdateInput>
+  }
+
+  /**
+   * oldfasecontrol delete
+   */
+  export type oldfasecontrolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+    /**
+     * Filter which oldfasecontrol to delete.
+     */
+    where: oldfasecontrolWhereUniqueInput
+  }
+
+  /**
+   * oldfasecontrol deleteMany
+   */
+  export type oldfasecontrolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which oldfasecontrols to delete
+     */
+    where?: oldfasecontrolWhereInput
+    /**
+     * Limit how many oldfasecontrols to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * oldfasecontrol without action
+   */
+  export type oldfasecontrolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oldfasecontrol
+     */
+    select?: oldfasecontrolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oldfasecontrol
+     */
+    omit?: oldfasecontrolOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model subirfasecontrol_copy1
+   */
+
+  export type AggregateSubirfasecontrol_copy1 = {
+    _count: Subirfasecontrol_copy1CountAggregateOutputType | null
+    _avg: Subirfasecontrol_copy1AvgAggregateOutputType | null
+    _sum: Subirfasecontrol_copy1SumAggregateOutputType | null
+    _min: Subirfasecontrol_copy1MinAggregateOutputType | null
+    _max: Subirfasecontrol_copy1MaxAggregateOutputType | null
+  }
+
+  export type Subirfasecontrol_copy1AvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Subirfasecontrol_copy1SumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Subirfasecontrol_copy1MinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Subirfasecontrol_copy1MaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Subirfasecontrol_copy1CountAggregateOutputType = {
+    id: number
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Subirfasecontrol_copy1AvgAggregateInputType = {
+    id?: true
+  }
+
+  export type Subirfasecontrol_copy1SumAggregateInputType = {
+    id?: true
+  }
+
+  export type Subirfasecontrol_copy1MinAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Subirfasecontrol_copy1MaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Subirfasecontrol_copy1CountAggregateInputType = {
+    id?: true
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Subirfasecontrol_copy1AggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which subirfasecontrol_copy1 to aggregate.
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subirfasecontrol_copy1s to fetch.
+     */
+    orderBy?: subirfasecontrol_copy1OrderByWithRelationInput | subirfasecontrol_copy1OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: subirfasecontrol_copy1WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subirfasecontrol_copy1s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subirfasecontrol_copy1s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned subirfasecontrol_copy1s
+    **/
+    _count?: true | Subirfasecontrol_copy1CountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Subirfasecontrol_copy1AvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Subirfasecontrol_copy1SumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Subirfasecontrol_copy1MinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Subirfasecontrol_copy1MaxAggregateInputType
+  }
+
+  export type GetSubirfasecontrol_copy1AggregateType<T extends Subirfasecontrol_copy1AggregateArgs> = {
+        [P in keyof T & keyof AggregateSubirfasecontrol_copy1]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubirfasecontrol_copy1[P]>
+      : GetScalarType<T[P], AggregateSubirfasecontrol_copy1[P]>
+  }
+
+
+
+
+  export type subirfasecontrol_copy1GroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: subirfasecontrol_copy1WhereInput
+    orderBy?: subirfasecontrol_copy1OrderByWithAggregationInput | subirfasecontrol_copy1OrderByWithAggregationInput[]
+    by: Subirfasecontrol_copy1ScalarFieldEnum[] | Subirfasecontrol_copy1ScalarFieldEnum
+    having?: subirfasecontrol_copy1ScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Subirfasecontrol_copy1CountAggregateInputType | true
+    _avg?: Subirfasecontrol_copy1AvgAggregateInputType
+    _sum?: Subirfasecontrol_copy1SumAggregateInputType
+    _min?: Subirfasecontrol_copy1MinAggregateInputType
+    _max?: Subirfasecontrol_copy1MaxAggregateInputType
+  }
+
+  export type Subirfasecontrol_copy1GroupByOutputType = {
+    id: number
+    codigo: string | null
+    descripcion: string | null
+    _count: Subirfasecontrol_copy1CountAggregateOutputType | null
+    _avg: Subirfasecontrol_copy1AvgAggregateOutputType | null
+    _sum: Subirfasecontrol_copy1SumAggregateOutputType | null
+    _min: Subirfasecontrol_copy1MinAggregateOutputType | null
+    _max: Subirfasecontrol_copy1MaxAggregateOutputType | null
+  }
+
+  type GetSubirfasecontrol_copy1GroupByPayload<T extends subirfasecontrol_copy1GroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Subirfasecontrol_copy1GroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Subirfasecontrol_copy1GroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Subirfasecontrol_copy1GroupByOutputType[P]>
+            : GetScalarType<T[P], Subirfasecontrol_copy1GroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type subirfasecontrol_copy1Select<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["subirfasecontrol_copy1"]>
+
+
+
+  export type subirfasecontrol_copy1SelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type subirfasecontrol_copy1Omit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "descripcion", ExtArgs["result"]["subirfasecontrol_copy1"]>
+
+  export type $subirfasecontrol_copy1Payload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "subirfasecontrol_copy1"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string | null
+      descripcion: string | null
+    }, ExtArgs["result"]["subirfasecontrol_copy1"]>
+    composites: {}
+  }
+
+  type subirfasecontrol_copy1GetPayload<S extends boolean | null | undefined | subirfasecontrol_copy1DefaultArgs> = $Result.GetResult<Prisma.$subirfasecontrol_copy1Payload, S>
+
+  type subirfasecontrol_copy1CountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<subirfasecontrol_copy1FindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Subirfasecontrol_copy1CountAggregateInputType | true
+    }
+
+  export interface subirfasecontrol_copy1Delegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['subirfasecontrol_copy1'], meta: { name: 'subirfasecontrol_copy1' } }
+    /**
+     * Find zero or one Subirfasecontrol_copy1 that matches the filter.
+     * @param {subirfasecontrol_copy1FindUniqueArgs} args - Arguments to find a Subirfasecontrol_copy1
+     * @example
+     * // Get one Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends subirfasecontrol_copy1FindUniqueArgs>(args: SelectSubset<T, subirfasecontrol_copy1FindUniqueArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subirfasecontrol_copy1 that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {subirfasecontrol_copy1FindUniqueOrThrowArgs} args - Arguments to find a Subirfasecontrol_copy1
+     * @example
+     * // Get one Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends subirfasecontrol_copy1FindUniqueOrThrowArgs>(args: SelectSubset<T, subirfasecontrol_copy1FindUniqueOrThrowArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subirfasecontrol_copy1 that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1FindFirstArgs} args - Arguments to find a Subirfasecontrol_copy1
+     * @example
+     * // Get one Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends subirfasecontrol_copy1FindFirstArgs>(args?: SelectSubset<T, subirfasecontrol_copy1FindFirstArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subirfasecontrol_copy1 that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1FindFirstOrThrowArgs} args - Arguments to find a Subirfasecontrol_copy1
+     * @example
+     * // Get one Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends subirfasecontrol_copy1FindFirstOrThrowArgs>(args?: SelectSubset<T, subirfasecontrol_copy1FindFirstOrThrowArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subirfasecontrol_copy1s that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1FindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subirfasecontrol_copy1s
+     * const subirfasecontrol_copy1s = await prisma.subirfasecontrol_copy1.findMany()
+     * 
+     * // Get first 10 Subirfasecontrol_copy1s
+     * const subirfasecontrol_copy1s = await prisma.subirfasecontrol_copy1.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subirfasecontrol_copy1WithIdOnly = await prisma.subirfasecontrol_copy1.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends subirfasecontrol_copy1FindManyArgs>(args?: SelectSubset<T, subirfasecontrol_copy1FindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subirfasecontrol_copy1.
+     * @param {subirfasecontrol_copy1CreateArgs} args - Arguments to create a Subirfasecontrol_copy1.
+     * @example
+     * // Create one Subirfasecontrol_copy1
+     * const Subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.create({
+     *   data: {
+     *     // ... data to create a Subirfasecontrol_copy1
+     *   }
+     * })
+     * 
+     */
+    create<T extends subirfasecontrol_copy1CreateArgs>(args: SelectSubset<T, subirfasecontrol_copy1CreateArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subirfasecontrol_copy1s.
+     * @param {subirfasecontrol_copy1CreateManyArgs} args - Arguments to create many Subirfasecontrol_copy1s.
+     * @example
+     * // Create many Subirfasecontrol_copy1s
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends subirfasecontrol_copy1CreateManyArgs>(args?: SelectSubset<T, subirfasecontrol_copy1CreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Subirfasecontrol_copy1.
+     * @param {subirfasecontrol_copy1DeleteArgs} args - Arguments to delete one Subirfasecontrol_copy1.
+     * @example
+     * // Delete one Subirfasecontrol_copy1
+     * const Subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.delete({
+     *   where: {
+     *     // ... filter to delete one Subirfasecontrol_copy1
+     *   }
+     * })
+     * 
+     */
+    delete<T extends subirfasecontrol_copy1DeleteArgs>(args: SelectSubset<T, subirfasecontrol_copy1DeleteArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subirfasecontrol_copy1.
+     * @param {subirfasecontrol_copy1UpdateArgs} args - Arguments to update one Subirfasecontrol_copy1.
+     * @example
+     * // Update one Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends subirfasecontrol_copy1UpdateArgs>(args: SelectSubset<T, subirfasecontrol_copy1UpdateArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subirfasecontrol_copy1s.
+     * @param {subirfasecontrol_copy1DeleteManyArgs} args - Arguments to filter Subirfasecontrol_copy1s to delete.
+     * @example
+     * // Delete a few Subirfasecontrol_copy1s
+     * const { count } = await prisma.subirfasecontrol_copy1.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends subirfasecontrol_copy1DeleteManyArgs>(args?: SelectSubset<T, subirfasecontrol_copy1DeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subirfasecontrol_copy1s.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1UpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subirfasecontrol_copy1s
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends subirfasecontrol_copy1UpdateManyArgs>(args: SelectSubset<T, subirfasecontrol_copy1UpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Subirfasecontrol_copy1.
+     * @param {subirfasecontrol_copy1UpsertArgs} args - Arguments to update or create a Subirfasecontrol_copy1.
+     * @example
+     * // Update or create a Subirfasecontrol_copy1
+     * const subirfasecontrol_copy1 = await prisma.subirfasecontrol_copy1.upsert({
+     *   create: {
+     *     // ... data to create a Subirfasecontrol_copy1
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subirfasecontrol_copy1 we want to update
+     *   }
+     * })
+     */
+    upsert<T extends subirfasecontrol_copy1UpsertArgs>(args: SelectSubset<T, subirfasecontrol_copy1UpsertArgs<ExtArgs>>): Prisma__subirfasecontrol_copy1Client<$Result.GetResult<Prisma.$subirfasecontrol_copy1Payload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subirfasecontrol_copy1s.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1CountArgs} args - Arguments to filter Subirfasecontrol_copy1s to count.
+     * @example
+     * // Count the number of Subirfasecontrol_copy1s
+     * const count = await prisma.subirfasecontrol_copy1.count({
+     *   where: {
+     *     // ... the filter for the Subirfasecontrol_copy1s we want to count
+     *   }
+     * })
+    **/
+    count<T extends subirfasecontrol_copy1CountArgs>(
+      args?: Subset<T, subirfasecontrol_copy1CountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Subirfasecontrol_copy1CountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subirfasecontrol_copy1.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Subirfasecontrol_copy1AggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Subirfasecontrol_copy1AggregateArgs>(args: Subset<T, Subirfasecontrol_copy1AggregateArgs>): Prisma.PrismaPromise<GetSubirfasecontrol_copy1AggregateType<T>>
+
+    /**
+     * Group by Subirfasecontrol_copy1.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {subirfasecontrol_copy1GroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends subirfasecontrol_copy1GroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: subirfasecontrol_copy1GroupByArgs['orderBy'] }
+        : { orderBy?: subirfasecontrol_copy1GroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, subirfasecontrol_copy1GroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubirfasecontrol_copy1GroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the subirfasecontrol_copy1 model
+   */
+  readonly fields: subirfasecontrol_copy1FieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for subirfasecontrol_copy1.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__subirfasecontrol_copy1Client<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the subirfasecontrol_copy1 model
+   */
+  interface subirfasecontrol_copy1FieldRefs {
+    readonly id: FieldRef<"subirfasecontrol_copy1", 'Int'>
+    readonly codigo: FieldRef<"subirfasecontrol_copy1", 'String'>
+    readonly descripcion: FieldRef<"subirfasecontrol_copy1", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * subirfasecontrol_copy1 findUnique
+   */
+  export type subirfasecontrol_copy1FindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter, which subirfasecontrol_copy1 to fetch.
+     */
+    where: subirfasecontrol_copy1WhereUniqueInput
+  }
+
+  /**
+   * subirfasecontrol_copy1 findUniqueOrThrow
+   */
+  export type subirfasecontrol_copy1FindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter, which subirfasecontrol_copy1 to fetch.
+     */
+    where: subirfasecontrol_copy1WhereUniqueInput
+  }
+
+  /**
+   * subirfasecontrol_copy1 findFirst
+   */
+  export type subirfasecontrol_copy1FindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter, which subirfasecontrol_copy1 to fetch.
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subirfasecontrol_copy1s to fetch.
+     */
+    orderBy?: subirfasecontrol_copy1OrderByWithRelationInput | subirfasecontrol_copy1OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for subirfasecontrol_copy1s.
+     */
+    cursor?: subirfasecontrol_copy1WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subirfasecontrol_copy1s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subirfasecontrol_copy1s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of subirfasecontrol_copy1s.
+     */
+    distinct?: Subirfasecontrol_copy1ScalarFieldEnum | Subirfasecontrol_copy1ScalarFieldEnum[]
+  }
+
+  /**
+   * subirfasecontrol_copy1 findFirstOrThrow
+   */
+  export type subirfasecontrol_copy1FindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter, which subirfasecontrol_copy1 to fetch.
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subirfasecontrol_copy1s to fetch.
+     */
+    orderBy?: subirfasecontrol_copy1OrderByWithRelationInput | subirfasecontrol_copy1OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for subirfasecontrol_copy1s.
+     */
+    cursor?: subirfasecontrol_copy1WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subirfasecontrol_copy1s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subirfasecontrol_copy1s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of subirfasecontrol_copy1s.
+     */
+    distinct?: Subirfasecontrol_copy1ScalarFieldEnum | Subirfasecontrol_copy1ScalarFieldEnum[]
+  }
+
+  /**
+   * subirfasecontrol_copy1 findMany
+   */
+  export type subirfasecontrol_copy1FindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter, which subirfasecontrol_copy1s to fetch.
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of subirfasecontrol_copy1s to fetch.
+     */
+    orderBy?: subirfasecontrol_copy1OrderByWithRelationInput | subirfasecontrol_copy1OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing subirfasecontrol_copy1s.
+     */
+    cursor?: subirfasecontrol_copy1WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` subirfasecontrol_copy1s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` subirfasecontrol_copy1s.
+     */
+    skip?: number
+    distinct?: Subirfasecontrol_copy1ScalarFieldEnum | Subirfasecontrol_copy1ScalarFieldEnum[]
+  }
+
+  /**
+   * subirfasecontrol_copy1 create
+   */
+  export type subirfasecontrol_copy1CreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * The data needed to create a subirfasecontrol_copy1.
+     */
+    data?: XOR<subirfasecontrol_copy1CreateInput, subirfasecontrol_copy1UncheckedCreateInput>
+  }
+
+  /**
+   * subirfasecontrol_copy1 createMany
+   */
+  export type subirfasecontrol_copy1CreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many subirfasecontrol_copy1s.
+     */
+    data: subirfasecontrol_copy1CreateManyInput | subirfasecontrol_copy1CreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * subirfasecontrol_copy1 update
+   */
+  export type subirfasecontrol_copy1UpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * The data needed to update a subirfasecontrol_copy1.
+     */
+    data: XOR<subirfasecontrol_copy1UpdateInput, subirfasecontrol_copy1UncheckedUpdateInput>
+    /**
+     * Choose, which subirfasecontrol_copy1 to update.
+     */
+    where: subirfasecontrol_copy1WhereUniqueInput
+  }
+
+  /**
+   * subirfasecontrol_copy1 updateMany
+   */
+  export type subirfasecontrol_copy1UpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update subirfasecontrol_copy1s.
+     */
+    data: XOR<subirfasecontrol_copy1UpdateManyMutationInput, subirfasecontrol_copy1UncheckedUpdateManyInput>
+    /**
+     * Filter which subirfasecontrol_copy1s to update
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * Limit how many subirfasecontrol_copy1s to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * subirfasecontrol_copy1 upsert
+   */
+  export type subirfasecontrol_copy1UpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * The filter to search for the subirfasecontrol_copy1 to update in case it exists.
+     */
+    where: subirfasecontrol_copy1WhereUniqueInput
+    /**
+     * In case the subirfasecontrol_copy1 found by the `where` argument doesn't exist, create a new subirfasecontrol_copy1 with this data.
+     */
+    create: XOR<subirfasecontrol_copy1CreateInput, subirfasecontrol_copy1UncheckedCreateInput>
+    /**
+     * In case the subirfasecontrol_copy1 was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<subirfasecontrol_copy1UpdateInput, subirfasecontrol_copy1UncheckedUpdateInput>
+  }
+
+  /**
+   * subirfasecontrol_copy1 delete
+   */
+  export type subirfasecontrol_copy1DeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+    /**
+     * Filter which subirfasecontrol_copy1 to delete.
+     */
+    where: subirfasecontrol_copy1WhereUniqueInput
+  }
+
+  /**
+   * subirfasecontrol_copy1 deleteMany
+   */
+  export type subirfasecontrol_copy1DeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which subirfasecontrol_copy1s to delete
+     */
+    where?: subirfasecontrol_copy1WhereInput
+    /**
+     * Limit how many subirfasecontrol_copy1s to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * subirfasecontrol_copy1 without action
+   */
+  export type subirfasecontrol_copy1DefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the subirfasecontrol_copy1
+     */
+    select?: subirfasecontrol_copy1Select<ExtArgs> | null
+    /**
+     * Omit specific fields from the subirfasecontrol_copy1
+     */
+    omit?: subirfasecontrol_copy1Omit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -51517,7 +55889,8 @@ export namespace Prisma {
     estado: 'estado',
     id_usuario_registro: 'id_usuario_registro',
     subtotal: 'subtotal',
-    precio_unitario: 'precio_unitario'
+    precio_unitario: 'precio_unitario',
+    placa: 'placa'
   };
 
   export type Movimientos_inventarioScalarFieldEnum = (typeof Movimientos_inventarioScalarFieldEnum)[keyof typeof Movimientos_inventarioScalarFieldEnum]
@@ -51600,7 +55973,9 @@ export namespace Prisma {
     url: 'url',
     url_cotizacion: 'url_cotizacion',
     url_factura: 'url_factura',
-    nro_factura: 'nro_factura'
+    nro_factura: 'nro_factura',
+    url_comprobante_retencion: 'url_comprobante_retencion',
+    nro_serie: 'nro_serie'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -51682,7 +56057,8 @@ export namespace Prisma {
     autorizado_por: 'autorizado_por',
     fecha_autorizacion: 'fecha_autorizacion',
     comentario_autorizacion: 'comentario_autorizacion',
-    id_movimiento_generado: 'id_movimiento_generado'
+    id_movimiento_generado: 'id_movimiento_generado',
+    placa: 'placa'
   };
 
   export type Solicitudes_salidaScalarFieldEnum = (typeof Solicitudes_salidaScalarFieldEnum)[keyof typeof Solicitudes_salidaScalarFieldEnum]
@@ -51770,7 +56146,9 @@ export namespace Prisma {
     url: 'url',
     url_cotizacion: 'url_cotizacion',
     url_factura: 'url_factura',
-    nro_factura: 'nro_factura'
+    nro_factura: 'nro_factura',
+    url_comprobante_retencion: 'url_comprobante_retencion',
+    nro_serie: 'nro_serie'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -52058,6 +56436,62 @@ export namespace Prisma {
   export type DetalladoScalarFieldEnum = (typeof DetalladoScalarFieldEnum)[keyof typeof DetalladoScalarFieldEnum]
 
 
+  export const Balances_inicialesScalarFieldEnum: {
+    id_balance_inicial: 'id_balance_inicial',
+    codigo_item: 'codigo_item',
+    id_almacen: 'id_almacen',
+    cantidad_inicial: 'cantidad_inicial',
+    costo_unitario: 'costo_unitario',
+    fecha_registro: 'fecha_registro',
+    fecha_inicio: 'fecha_inicio',
+    registrado_por: 'registrado_por',
+    observaciones: 'observaciones',
+    numero_factura: 'numero_factura',
+    estado: 'estado'
+  };
+
+  export type Balances_inicialesScalarFieldEnum = (typeof Balances_inicialesScalarFieldEnum)[keyof typeof Balances_inicialesScalarFieldEnum]
+
+
+  export const CamionesScalarFieldEnum: {
+    id_camion: 'id_camion',
+    placa: 'placa',
+    marca: 'marca',
+    modelo: 'modelo',
+    a_o: 'a_o',
+    capacidad_tanque: 'capacidad_tanque',
+    id_tipo_combustible_preferido: 'id_tipo_combustible_preferido',
+    activo: 'activo',
+    fecha_registro: 'fecha_registro',
+    dni: 'dni',
+    nombre_chofer: 'nombre_chofer',
+    apellido_chofer: 'apellido_chofer',
+    numero_licencia: 'numero_licencia',
+    empresa: 'empresa',
+    tipo: 'tipo'
+  };
+
+  export type CamionesScalarFieldEnum = (typeof CamionesScalarFieldEnum)[keyof typeof CamionesScalarFieldEnum]
+
+
+  export const OldfasecontrolScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type OldfasecontrolScalarFieldEnum = (typeof OldfasecontrolScalarFieldEnum)[keyof typeof OldfasecontrolScalarFieldEnum]
+
+
+  export const Subirfasecontrol_copy1ScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Subirfasecontrol_copy1ScalarFieldEnum = (typeof Subirfasecontrol_copy1ScalarFieldEnum)[keyof typeof Subirfasecontrol_copy1ScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -52206,7 +56640,8 @@ export namespace Prisma {
     codigo_item: 'codigo_item',
     numero_documento: 'numero_documento',
     responsable: 'responsable',
-    observaciones: 'observaciones'
+    observaciones: 'observaciones',
+    placa: 'placa'
   };
 
   export type movimientos_inventarioOrderByRelevanceFieldEnum = (typeof movimientos_inventarioOrderByRelevanceFieldEnum)[keyof typeof movimientos_inventarioOrderByRelevanceFieldEnum]
@@ -52251,7 +56686,9 @@ export namespace Prisma {
     url: 'url',
     url_cotizacion: 'url_cotizacion',
     url_factura: 'url_factura',
-    nro_factura: 'nro_factura'
+    nro_factura: 'nro_factura',
+    url_comprobante_retencion: 'url_comprobante_retencion',
+    nro_serie: 'nro_serie'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -52288,7 +56725,8 @@ export namespace Prisma {
     numero_documento: 'numero_documento',
     solicitante_nombre: 'solicitante_nombre',
     observaciones: 'observaciones',
-    comentario_autorizacion: 'comentario_autorizacion'
+    comentario_autorizacion: 'comentario_autorizacion',
+    placa: 'placa'
   };
 
   export type solicitudes_salidaOrderByRelevanceFieldEnum = (typeof solicitudes_salidaOrderByRelevanceFieldEnum)[keyof typeof solicitudes_salidaOrderByRelevanceFieldEnum]
@@ -52340,7 +56778,9 @@ export namespace Prisma {
     url: 'url',
     url_cotizacion: 'url_cotizacion',
     url_factura: 'url_factura',
-    nro_factura: 'nro_factura'
+    nro_factura: 'nro_factura',
+    url_comprobante_retencion: 'url_comprobante_retencion',
+    nro_serie: 'nro_serie'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -52501,6 +56941,45 @@ export namespace Prisma {
   };
 
   export type detalladoOrderByRelevanceFieldEnum = (typeof detalladoOrderByRelevanceFieldEnum)[keyof typeof detalladoOrderByRelevanceFieldEnum]
+
+
+  export const balances_inicialesOrderByRelevanceFieldEnum: {
+    codigo_item: 'codigo_item',
+    observaciones: 'observaciones',
+    numero_factura: 'numero_factura'
+  };
+
+  export type balances_inicialesOrderByRelevanceFieldEnum = (typeof balances_inicialesOrderByRelevanceFieldEnum)[keyof typeof balances_inicialesOrderByRelevanceFieldEnum]
+
+
+  export const camionesOrderByRelevanceFieldEnum: {
+    placa: 'placa',
+    marca: 'marca',
+    modelo: 'modelo',
+    dni: 'dni',
+    nombre_chofer: 'nombre_chofer',
+    apellido_chofer: 'apellido_chofer',
+    numero_licencia: 'numero_licencia',
+    empresa: 'empresa'
+  };
+
+  export type camionesOrderByRelevanceFieldEnum = (typeof camionesOrderByRelevanceFieldEnum)[keyof typeof camionesOrderByRelevanceFieldEnum]
+
+
+  export const oldfasecontrolOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type oldfasecontrolOrderByRelevanceFieldEnum = (typeof oldfasecontrolOrderByRelevanceFieldEnum)[keyof typeof oldfasecontrolOrderByRelevanceFieldEnum]
+
+
+  export const subirfasecontrol_copy1OrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type subirfasecontrol_copy1OrderByRelevanceFieldEnum = (typeof subirfasecontrol_copy1OrderByRelevanceFieldEnum)[keyof typeof subirfasecontrol_copy1OrderByRelevanceFieldEnum]
 
 
   /**
@@ -52712,6 +57191,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'balances_iniciales_estado'
+   */
+  export type Enumbalances_iniciales_estadoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'balances_iniciales_estado'>
+    
+
+
+  /**
+   * Reference to a field of type 'camiones_tipo'
+   */
+  export type Enumcamiones_tipoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'camiones_tipo'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -52736,6 +57229,7 @@ export namespace Prisma {
     fecha_modificacion?: DateTimeNullableFilter<"almacenes"> | Date | string | null
     almacenes?: XOR<AlmacenesNullableScalarRelationFilter, almacenesWhereInput> | null
     other_almacenes?: AlmacenesListRelationFilter
+    balances_iniciales?: Balances_inicialesListRelationFilter
     conteo_ciclico?: Conteo_ciclicoListRelationFilter
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: Movimientos_inventarioListRelationFilter
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: Movimientos_inventarioListRelationFilter
@@ -52757,6 +57251,7 @@ export namespace Prisma {
     fecha_modificacion?: SortOrderInput | SortOrder
     almacenes?: almacenesOrderByWithRelationInput
     other_almacenes?: almacenesOrderByRelationAggregateInput
+    balances_iniciales?: balances_inicialesOrderByRelationAggregateInput
     conteo_ciclico?: conteo_ciclicoOrderByRelationAggregateInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioOrderByRelationAggregateInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioOrderByRelationAggregateInput
@@ -52782,6 +57277,7 @@ export namespace Prisma {
     fecha_modificacion?: DateTimeNullableFilter<"almacenes"> | Date | string | null
     almacenes?: XOR<AlmacenesNullableScalarRelationFilter, almacenesWhereInput> | null
     other_almacenes?: AlmacenesListRelationFilter
+    balances_iniciales?: Balances_inicialesListRelationFilter
     conteo_ciclico?: Conteo_ciclicoListRelationFilter
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: Movimientos_inventarioListRelationFilter
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: Movimientos_inventarioListRelationFilter
@@ -53426,6 +57922,7 @@ export namespace Prisma {
     activo?: BoolNullableFilter<"listado_items_2025"> | boolean | null
     fecha_creacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
     fecha_modificacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
+    balances_iniciales?: Balances_inicialesListRelationFilter
     detalles_conteo_ciclico?: Detalles_conteo_ciclicoListRelationFilter
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
@@ -53452,6 +57949,7 @@ export namespace Prisma {
     activo?: SortOrderInput | SortOrder
     fecha_creacion?: SortOrderInput | SortOrder
     fecha_modificacion?: SortOrderInput | SortOrder
+    balances_iniciales?: balances_inicialesOrderByRelationAggregateInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoOrderByRelationAggregateInput
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
@@ -53482,6 +57980,7 @@ export namespace Prisma {
     activo?: BoolNullableFilter<"listado_items_2025"> | boolean | null
     fecha_creacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
     fecha_modificacion?: DateTimeNullableFilter<"listado_items_2025"> | Date | string | null
+    balances_iniciales?: Balances_inicialesListRelationFilter
     detalles_conteo_ciclico?: Detalles_conteo_ciclicoListRelationFilter
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
@@ -53690,6 +58189,7 @@ export namespace Prisma {
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
     subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    placa?: StringNullableFilter<"movimientos_inventario"> | string | null
     movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
@@ -53713,6 +58213,7 @@ export namespace Prisma {
     id_usuario_registro?: SortOrderInput | SortOrder
     subtotal?: SortOrderInput | SortOrder
     precio_unitario?: SortOrderInput | SortOrder
+    placa?: SortOrderInput | SortOrder
     movimientos_adicionales?: movimientos_adicionalesOrderByRelationAggregateInput
     tipos_movimiento?: tipos_movimientoOrderByWithRelationInput
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
@@ -53740,6 +58241,7 @@ export namespace Prisma {
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
     subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    placa?: StringNullableFilter<"movimientos_inventario"> | string | null
     movimientos_adicionales?: Movimientos_adicionalesListRelationFilter
     tipos_movimiento?: XOR<Tipos_movimientoScalarRelationFilter, tipos_movimientoWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
@@ -53763,6 +58265,7 @@ export namespace Prisma {
     id_usuario_registro?: SortOrderInput | SortOrder
     subtotal?: SortOrderInput | SortOrder
     precio_unitario?: SortOrderInput | SortOrder
+    placa?: SortOrderInput | SortOrder
     _count?: movimientos_inventarioCountOrderByAggregateInput
     _avg?: movimientos_inventarioAvgOrderByAggregateInput
     _max?: movimientos_inventarioMaxOrderByAggregateInput
@@ -53788,6 +58291,7 @@ export namespace Prisma {
     id_usuario_registro?: IntNullableWithAggregatesFilter<"movimientos_inventario"> | number | null
     subtotal?: DecimalNullableWithAggregatesFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: DecimalNullableWithAggregatesFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    placa?: StringNullableWithAggregatesFilter<"movimientos_inventario"> | string | null
   }
 
   export type notificacionesWhereInput = {
@@ -54001,6 +58505,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -54054,6 +58560,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
     nro_factura?: SortOrderInput | SortOrder
+    url_comprobante_retencion?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -54111,6 +58619,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -54164,6 +58674,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
     nro_factura?: SortOrderInput | SortOrder
+    url_comprobante_retencion?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -54221,6 +58733,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     nro_factura?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    url_comprobante_retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    nro_serie?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -54578,6 +59092,7 @@ export namespace Prisma {
     fecha_autorizacion?: DateTimeNullableFilter<"solicitudes_salida"> | Date | string | null
     comentario_autorizacion?: StringNullableFilter<"solicitudes_salida"> | string | null
     id_movimiento_generado?: IntNullableFilter<"solicitudes_salida"> | number | null
+    placa?: StringNullableFilter<"solicitudes_salida"> | string | null
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
     almacenes?: XOR<AlmacenesScalarRelationFilter, almacenesWhereInput>
     usuarios_solicitudes_salida_solicitante_idTousuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -54600,6 +59115,7 @@ export namespace Prisma {
     fecha_autorizacion?: SortOrderInput | SortOrder
     comentario_autorizacion?: SortOrderInput | SortOrder
     id_movimiento_generado?: SortOrderInput | SortOrder
+    placa?: SortOrderInput | SortOrder
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
     almacenes?: almacenesOrderByWithRelationInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosOrderByWithRelationInput
@@ -54626,6 +59142,7 @@ export namespace Prisma {
     fecha_autorizacion?: DateTimeNullableFilter<"solicitudes_salida"> | Date | string | null
     comentario_autorizacion?: StringNullableFilter<"solicitudes_salida"> | string | null
     id_movimiento_generado?: IntNullableFilter<"solicitudes_salida"> | number | null
+    placa?: StringNullableFilter<"solicitudes_salida"> | string | null
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
     almacenes?: XOR<AlmacenesScalarRelationFilter, almacenesWhereInput>
     usuarios_solicitudes_salida_solicitante_idTousuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -54648,6 +59165,7 @@ export namespace Prisma {
     fecha_autorizacion?: SortOrderInput | SortOrder
     comentario_autorizacion?: SortOrderInput | SortOrder
     id_movimiento_generado?: SortOrderInput | SortOrder
+    placa?: SortOrderInput | SortOrder
     _count?: solicitudes_salidaCountOrderByAggregateInput
     _avg?: solicitudes_salidaAvgOrderByAggregateInput
     _max?: solicitudes_salidaMaxOrderByAggregateInput
@@ -54673,6 +59191,7 @@ export namespace Prisma {
     fecha_autorizacion?: DateTimeNullableWithAggregatesFilter<"solicitudes_salida"> | Date | string | null
     comentario_autorizacion?: StringNullableWithAggregatesFilter<"solicitudes_salida"> | string | null
     id_movimiento_generado?: IntNullableWithAggregatesFilter<"solicitudes_salida"> | number | null
+    placa?: StringNullableWithAggregatesFilter<"solicitudes_salida"> | string | null
   }
 
   export type stock_almacenesWhereInput = {
@@ -54954,6 +59473,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -55006,6 +59527,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
     nro_factura?: SortOrderInput | SortOrder
+    url_comprobante_retencion?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
@@ -55062,6 +59585,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
@@ -55114,6 +59639,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrderInput | SortOrder
     url_factura?: SortOrderInput | SortOrder
     nro_factura?: SortOrderInput | SortOrder
+    url_comprobante_retencion?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -55171,6 +59698,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     nro_factura?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    url_comprobante_retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    nro_serie?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -56623,6 +61152,293 @@ export namespace Prisma {
     detalle?: StringNullableWithAggregatesFilter<"detallado"> | string | null
   }
 
+  export type balances_inicialesWhereInput = {
+    AND?: balances_inicialesWhereInput | balances_inicialesWhereInput[]
+    OR?: balances_inicialesWhereInput[]
+    NOT?: balances_inicialesWhereInput | balances_inicialesWhereInput[]
+    id_balance_inicial?: IntFilter<"balances_iniciales"> | number
+    codigo_item?: StringFilter<"balances_iniciales"> | string
+    id_almacen?: IntFilter<"balances_iniciales"> | number
+    cantidad_inicial?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    fecha_registro?: DateTimeNullableFilter<"balances_iniciales"> | Date | string | null
+    fecha_inicio?: DateTimeFilter<"balances_iniciales"> | Date | string
+    registrado_por?: IntNullableFilter<"balances_iniciales"> | number | null
+    observaciones?: StringNullableFilter<"balances_iniciales"> | string | null
+    numero_factura?: StringNullableFilter<"balances_iniciales"> | string | null
+    estado?: Enumbalances_iniciales_estadoNullableFilter<"balances_iniciales"> | $Enums.balances_iniciales_estado | null
+    listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
+    almacenes?: XOR<AlmacenesScalarRelationFilter, almacenesWhereInput>
+  }
+
+  export type balances_inicialesOrderByWithRelationInput = {
+    id_balance_inicial?: SortOrder
+    codigo_item?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    fecha_inicio?: SortOrder
+    registrado_por?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    numero_factura?: SortOrderInput | SortOrder
+    estado?: SortOrderInput | SortOrder
+    listado_items_2025?: listado_items_2025OrderByWithRelationInput
+    almacenes?: almacenesOrderByWithRelationInput
+    _relevance?: balances_inicialesOrderByRelevanceInput
+  }
+
+  export type balances_inicialesWhereUniqueInput = Prisma.AtLeast<{
+    id_balance_inicial?: number
+    codigo_item_id_almacen?: balances_inicialesCodigo_itemId_almacenCompoundUniqueInput
+    AND?: balances_inicialesWhereInput | balances_inicialesWhereInput[]
+    OR?: balances_inicialesWhereInput[]
+    NOT?: balances_inicialesWhereInput | balances_inicialesWhereInput[]
+    codigo_item?: StringFilter<"balances_iniciales"> | string
+    id_almacen?: IntFilter<"balances_iniciales"> | number
+    cantidad_inicial?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    fecha_registro?: DateTimeNullableFilter<"balances_iniciales"> | Date | string | null
+    fecha_inicio?: DateTimeFilter<"balances_iniciales"> | Date | string
+    registrado_por?: IntNullableFilter<"balances_iniciales"> | number | null
+    observaciones?: StringNullableFilter<"balances_iniciales"> | string | null
+    numero_factura?: StringNullableFilter<"balances_iniciales"> | string | null
+    estado?: Enumbalances_iniciales_estadoNullableFilter<"balances_iniciales"> | $Enums.balances_iniciales_estado | null
+    listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
+    almacenes?: XOR<AlmacenesScalarRelationFilter, almacenesWhereInput>
+  }, "id_balance_inicial" | "codigo_item_id_almacen">
+
+  export type balances_inicialesOrderByWithAggregationInput = {
+    id_balance_inicial?: SortOrder
+    codigo_item?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    fecha_inicio?: SortOrder
+    registrado_por?: SortOrderInput | SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    numero_factura?: SortOrderInput | SortOrder
+    estado?: SortOrderInput | SortOrder
+    _count?: balances_inicialesCountOrderByAggregateInput
+    _avg?: balances_inicialesAvgOrderByAggregateInput
+    _max?: balances_inicialesMaxOrderByAggregateInput
+    _min?: balances_inicialesMinOrderByAggregateInput
+    _sum?: balances_inicialesSumOrderByAggregateInput
+  }
+
+  export type balances_inicialesScalarWhereWithAggregatesInput = {
+    AND?: balances_inicialesScalarWhereWithAggregatesInput | balances_inicialesScalarWhereWithAggregatesInput[]
+    OR?: balances_inicialesScalarWhereWithAggregatesInput[]
+    NOT?: balances_inicialesScalarWhereWithAggregatesInput | balances_inicialesScalarWhereWithAggregatesInput[]
+    id_balance_inicial?: IntWithAggregatesFilter<"balances_iniciales"> | number
+    codigo_item?: StringWithAggregatesFilter<"balances_iniciales"> | string
+    id_almacen?: IntWithAggregatesFilter<"balances_iniciales"> | number
+    cantidad_inicial?: DecimalWithAggregatesFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalWithAggregatesFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    fecha_registro?: DateTimeNullableWithAggregatesFilter<"balances_iniciales"> | Date | string | null
+    fecha_inicio?: DateTimeWithAggregatesFilter<"balances_iniciales"> | Date | string
+    registrado_por?: IntNullableWithAggregatesFilter<"balances_iniciales"> | number | null
+    observaciones?: StringNullableWithAggregatesFilter<"balances_iniciales"> | string | null
+    numero_factura?: StringNullableWithAggregatesFilter<"balances_iniciales"> | string | null
+    estado?: Enumbalances_iniciales_estadoNullableWithAggregatesFilter<"balances_iniciales"> | $Enums.balances_iniciales_estado | null
+  }
+
+  export type camionesWhereInput = {
+    AND?: camionesWhereInput | camionesWhereInput[]
+    OR?: camionesWhereInput[]
+    NOT?: camionesWhereInput | camionesWhereInput[]
+    id_camion?: IntFilter<"camiones"> | number
+    placa?: StringFilter<"camiones"> | string
+    marca?: StringNullableFilter<"camiones"> | string | null
+    modelo?: StringNullableFilter<"camiones"> | string | null
+    a_o?: IntNullableFilter<"camiones"> | number | null
+    capacidad_tanque?: DecimalNullableFilter<"camiones"> | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: IntNullableFilter<"camiones"> | number | null
+    activo?: BoolNullableFilter<"camiones"> | boolean | null
+    fecha_registro?: DateTimeNullableFilter<"camiones"> | Date | string | null
+    dni?: StringNullableFilter<"camiones"> | string | null
+    nombre_chofer?: StringNullableFilter<"camiones"> | string | null
+    apellido_chofer?: StringNullableFilter<"camiones"> | string | null
+    numero_licencia?: StringNullableFilter<"camiones"> | string | null
+    empresa?: StringNullableFilter<"camiones"> | string | null
+    tipo?: Enumcamiones_tipoFilter<"camiones"> | $Enums.camiones_tipo
+  }
+
+  export type camionesOrderByWithRelationInput = {
+    id_camion?: SortOrder
+    placa?: SortOrder
+    marca?: SortOrderInput | SortOrder
+    modelo?: SortOrderInput | SortOrder
+    a_o?: SortOrderInput | SortOrder
+    capacidad_tanque?: SortOrderInput | SortOrder
+    id_tipo_combustible_preferido?: SortOrderInput | SortOrder
+    activo?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    dni?: SortOrderInput | SortOrder
+    nombre_chofer?: SortOrderInput | SortOrder
+    apellido_chofer?: SortOrderInput | SortOrder
+    numero_licencia?: SortOrderInput | SortOrder
+    empresa?: SortOrderInput | SortOrder
+    tipo?: SortOrder
+    _relevance?: camionesOrderByRelevanceInput
+  }
+
+  export type camionesWhereUniqueInput = Prisma.AtLeast<{
+    id_camion?: number
+    placa?: string
+    AND?: camionesWhereInput | camionesWhereInput[]
+    OR?: camionesWhereInput[]
+    NOT?: camionesWhereInput | camionesWhereInput[]
+    marca?: StringNullableFilter<"camiones"> | string | null
+    modelo?: StringNullableFilter<"camiones"> | string | null
+    a_o?: IntNullableFilter<"camiones"> | number | null
+    capacidad_tanque?: DecimalNullableFilter<"camiones"> | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: IntNullableFilter<"camiones"> | number | null
+    activo?: BoolNullableFilter<"camiones"> | boolean | null
+    fecha_registro?: DateTimeNullableFilter<"camiones"> | Date | string | null
+    dni?: StringNullableFilter<"camiones"> | string | null
+    nombre_chofer?: StringNullableFilter<"camiones"> | string | null
+    apellido_chofer?: StringNullableFilter<"camiones"> | string | null
+    numero_licencia?: StringNullableFilter<"camiones"> | string | null
+    empresa?: StringNullableFilter<"camiones"> | string | null
+    tipo?: Enumcamiones_tipoFilter<"camiones"> | $Enums.camiones_tipo
+  }, "id_camion" | "placa">
+
+  export type camionesOrderByWithAggregationInput = {
+    id_camion?: SortOrder
+    placa?: SortOrder
+    marca?: SortOrderInput | SortOrder
+    modelo?: SortOrderInput | SortOrder
+    a_o?: SortOrderInput | SortOrder
+    capacidad_tanque?: SortOrderInput | SortOrder
+    id_tipo_combustible_preferido?: SortOrderInput | SortOrder
+    activo?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    dni?: SortOrderInput | SortOrder
+    nombre_chofer?: SortOrderInput | SortOrder
+    apellido_chofer?: SortOrderInput | SortOrder
+    numero_licencia?: SortOrderInput | SortOrder
+    empresa?: SortOrderInput | SortOrder
+    tipo?: SortOrder
+    _count?: camionesCountOrderByAggregateInput
+    _avg?: camionesAvgOrderByAggregateInput
+    _max?: camionesMaxOrderByAggregateInput
+    _min?: camionesMinOrderByAggregateInput
+    _sum?: camionesSumOrderByAggregateInput
+  }
+
+  export type camionesScalarWhereWithAggregatesInput = {
+    AND?: camionesScalarWhereWithAggregatesInput | camionesScalarWhereWithAggregatesInput[]
+    OR?: camionesScalarWhereWithAggregatesInput[]
+    NOT?: camionesScalarWhereWithAggregatesInput | camionesScalarWhereWithAggregatesInput[]
+    id_camion?: IntWithAggregatesFilter<"camiones"> | number
+    placa?: StringWithAggregatesFilter<"camiones"> | string
+    marca?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    modelo?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    a_o?: IntNullableWithAggregatesFilter<"camiones"> | number | null
+    capacidad_tanque?: DecimalNullableWithAggregatesFilter<"camiones"> | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: IntNullableWithAggregatesFilter<"camiones"> | number | null
+    activo?: BoolNullableWithAggregatesFilter<"camiones"> | boolean | null
+    fecha_registro?: DateTimeNullableWithAggregatesFilter<"camiones"> | Date | string | null
+    dni?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    nombre_chofer?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    apellido_chofer?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    numero_licencia?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    empresa?: StringNullableWithAggregatesFilter<"camiones"> | string | null
+    tipo?: Enumcamiones_tipoWithAggregatesFilter<"camiones"> | $Enums.camiones_tipo
+  }
+
+  export type oldfasecontrolWhereInput = {
+    AND?: oldfasecontrolWhereInput | oldfasecontrolWhereInput[]
+    OR?: oldfasecontrolWhereInput[]
+    NOT?: oldfasecontrolWhereInput | oldfasecontrolWhereInput[]
+    id?: IntFilter<"oldfasecontrol"> | number
+    codigo?: StringNullableFilter<"oldfasecontrol"> | string | null
+    descripcion?: StringNullableFilter<"oldfasecontrol"> | string | null
+  }
+
+  export type oldfasecontrolOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _relevance?: oldfasecontrolOrderByRelevanceInput
+  }
+
+  export type oldfasecontrolWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: oldfasecontrolWhereInput | oldfasecontrolWhereInput[]
+    OR?: oldfasecontrolWhereInput[]
+    NOT?: oldfasecontrolWhereInput | oldfasecontrolWhereInput[]
+    codigo?: StringNullableFilter<"oldfasecontrol"> | string | null
+    descripcion?: StringNullableFilter<"oldfasecontrol"> | string | null
+  }, "id">
+
+  export type oldfasecontrolOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _count?: oldfasecontrolCountOrderByAggregateInput
+    _avg?: oldfasecontrolAvgOrderByAggregateInput
+    _max?: oldfasecontrolMaxOrderByAggregateInput
+    _min?: oldfasecontrolMinOrderByAggregateInput
+    _sum?: oldfasecontrolSumOrderByAggregateInput
+  }
+
+  export type oldfasecontrolScalarWhereWithAggregatesInput = {
+    AND?: oldfasecontrolScalarWhereWithAggregatesInput | oldfasecontrolScalarWhereWithAggregatesInput[]
+    OR?: oldfasecontrolScalarWhereWithAggregatesInput[]
+    NOT?: oldfasecontrolScalarWhereWithAggregatesInput | oldfasecontrolScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"oldfasecontrol"> | number
+    codigo?: StringNullableWithAggregatesFilter<"oldfasecontrol"> | string | null
+    descripcion?: StringNullableWithAggregatesFilter<"oldfasecontrol"> | string | null
+  }
+
+  export type subirfasecontrol_copy1WhereInput = {
+    AND?: subirfasecontrol_copy1WhereInput | subirfasecontrol_copy1WhereInput[]
+    OR?: subirfasecontrol_copy1WhereInput[]
+    NOT?: subirfasecontrol_copy1WhereInput | subirfasecontrol_copy1WhereInput[]
+    id?: IntFilter<"subirfasecontrol_copy1"> | number
+    codigo?: StringNullableFilter<"subirfasecontrol_copy1"> | string | null
+    descripcion?: StringNullableFilter<"subirfasecontrol_copy1"> | string | null
+  }
+
+  export type subirfasecontrol_copy1OrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _relevance?: subirfasecontrol_copy1OrderByRelevanceInput
+  }
+
+  export type subirfasecontrol_copy1WhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: subirfasecontrol_copy1WhereInput | subirfasecontrol_copy1WhereInput[]
+    OR?: subirfasecontrol_copy1WhereInput[]
+    NOT?: subirfasecontrol_copy1WhereInput | subirfasecontrol_copy1WhereInput[]
+    codigo?: StringNullableFilter<"subirfasecontrol_copy1"> | string | null
+    descripcion?: StringNullableFilter<"subirfasecontrol_copy1"> | string | null
+  }, "id">
+
+  export type subirfasecontrol_copy1OrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrderInput | SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    _count?: subirfasecontrol_copy1CountOrderByAggregateInput
+    _avg?: subirfasecontrol_copy1AvgOrderByAggregateInput
+    _max?: subirfasecontrol_copy1MaxOrderByAggregateInput
+    _min?: subirfasecontrol_copy1MinOrderByAggregateInput
+    _sum?: subirfasecontrol_copy1SumOrderByAggregateInput
+  }
+
+  export type subirfasecontrol_copy1ScalarWhereWithAggregatesInput = {
+    AND?: subirfasecontrol_copy1ScalarWhereWithAggregatesInput | subirfasecontrol_copy1ScalarWhereWithAggregatesInput[]
+    OR?: subirfasecontrol_copy1ScalarWhereWithAggregatesInput[]
+    NOT?: subirfasecontrol_copy1ScalarWhereWithAggregatesInput | subirfasecontrol_copy1ScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"subirfasecontrol_copy1"> | number
+    codigo?: StringNullableWithAggregatesFilter<"subirfasecontrol_copy1"> | string | null
+    descripcion?: StringNullableWithAggregatesFilter<"subirfasecontrol_copy1"> | string | null
+  }
+
   export type almacenesCreateInput = {
     codigo_almacen: string
     nombre_almacen: string
@@ -56633,6 +61449,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -56653,6 +61470,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -56672,6 +61490,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -56692,6 +61511,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -57311,6 +62131,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -57337,6 +62158,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -57361,6 +62183,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -57387,6 +62210,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -57596,6 +62420,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -57619,6 +62444,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -57633,6 +62459,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -57656,6 +62483,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -57675,6 +62503,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
   }
 
   export type movimientos_inventarioUpdateManyMutationInput = {
@@ -57687,6 +62516,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type movimientos_inventarioUncheckedUpdateManyInput = {
@@ -57704,6 +62534,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type notificacionesCreateInput = {
@@ -57917,6 +62748,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -57970,6 +62803,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -58018,6 +62853,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -58071,6 +62908,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -58122,6 +62961,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -58168,6 +63009,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -58217,6 +63060,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -58577,6 +63422,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutSolicitudes_salidaInput
     almacenes: almacenesCreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_solicitante_idTousuarios: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosInput
@@ -58599,6 +63445,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaUpdateInput = {
@@ -58610,6 +63457,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     almacenes?: almacenesUpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosUpdateOneRequiredWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosNestedInput
@@ -58632,6 +63480,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaCreateManyInput = {
@@ -58649,6 +63498,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaUpdateManyMutationInput = {
@@ -58660,6 +63510,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyInput = {
@@ -58677,6 +63528,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type stock_almacenesCreateInput = {
@@ -58952,6 +63804,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -59004,6 +63858,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -59051,6 +63907,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -59103,6 +63961,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -59153,6 +64013,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -59199,6 +64061,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -59248,6 +64112,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -60806,6 +65672,300 @@ export namespace Prisma {
     detalle?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type balances_inicialesCreateInput = {
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+    listado_items_2025: listado_items_2025CreateNestedOneWithoutBalances_inicialesInput
+    almacenes: almacenesCreateNestedOneWithoutBalances_inicialesInput
+  }
+
+  export type balances_inicialesUncheckedCreateInput = {
+    id_balance_inicial?: number
+    codigo_item: string
+    id_almacen: number
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesUpdateInput = {
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+    listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutBalances_inicialesNestedInput
+    almacenes?: almacenesUpdateOneRequiredWithoutBalances_inicialesNestedInput
+  }
+
+  export type balances_inicialesUncheckedUpdateInput = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    id_almacen?: IntFieldUpdateOperationsInput | number
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesCreateManyInput = {
+    id_balance_inicial?: number
+    codigo_item: string
+    id_almacen: number
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesUpdateManyMutationInput = {
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesUncheckedUpdateManyInput = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    id_almacen?: IntFieldUpdateOperationsInput | number
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+  }
+
+  export type camionesCreateInput = {
+    placa: string
+    marca?: string | null
+    modelo?: string | null
+    a_o?: number | null
+    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: number | null
+    activo?: boolean | null
+    fecha_registro?: Date | string | null
+    dni?: string | null
+    nombre_chofer?: string | null
+    apellido_chofer?: string | null
+    numero_licencia?: string | null
+    empresa?: string | null
+    tipo: $Enums.camiones_tipo
+  }
+
+  export type camionesUncheckedCreateInput = {
+    id_camion?: number
+    placa: string
+    marca?: string | null
+    modelo?: string | null
+    a_o?: number | null
+    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: number | null
+    activo?: boolean | null
+    fecha_registro?: Date | string | null
+    dni?: string | null
+    nombre_chofer?: string | null
+    apellido_chofer?: string | null
+    numero_licencia?: string | null
+    empresa?: string | null
+    tipo: $Enums.camiones_tipo
+  }
+
+  export type camionesUpdateInput = {
+    placa?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    a_o?: NullableIntFieldUpdateOperationsInput | number | null
+    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dni?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
+  }
+
+  export type camionesUncheckedUpdateInput = {
+    id_camion?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    a_o?: NullableIntFieldUpdateOperationsInput | number | null
+    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dni?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
+  }
+
+  export type camionesCreateManyInput = {
+    id_camion?: number
+    placa: string
+    marca?: string | null
+    modelo?: string | null
+    a_o?: number | null
+    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: number | null
+    activo?: boolean | null
+    fecha_registro?: Date | string | null
+    dni?: string | null
+    nombre_chofer?: string | null
+    apellido_chofer?: string | null
+    numero_licencia?: string | null
+    empresa?: string | null
+    tipo: $Enums.camiones_tipo
+  }
+
+  export type camionesUpdateManyMutationInput = {
+    placa?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    a_o?: NullableIntFieldUpdateOperationsInput | number | null
+    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dni?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
+  }
+
+  export type camionesUncheckedUpdateManyInput = {
+    id_camion?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    a_o?: NullableIntFieldUpdateOperationsInput | number | null
+    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dni?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
+  }
+
+  export type oldfasecontrolCreateInput = {
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type oldfasecontrolUncheckedCreateInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type oldfasecontrolUpdateInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type oldfasecontrolUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type oldfasecontrolCreateManyInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type oldfasecontrolUpdateManyMutationInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type oldfasecontrolUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type subirfasecontrol_copy1CreateInput = {
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type subirfasecontrol_copy1UncheckedCreateInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type subirfasecontrol_copy1UpdateInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type subirfasecontrol_copy1UncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type subirfasecontrol_copy1CreateManyInput = {
+    id?: number
+    codigo?: string | null
+    descripcion?: string | null
+  }
+
+  export type subirfasecontrol_copy1UpdateManyMutationInput = {
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type subirfasecontrol_copy1UncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: NullableStringFieldUpdateOperationsInput | string | null
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -60892,6 +66052,12 @@ export namespace Prisma {
     none?: almacenesWhereInput
   }
 
+  export type Balances_inicialesListRelationFilter = {
+    every?: balances_inicialesWhereInput
+    some?: balances_inicialesWhereInput
+    none?: balances_inicialesWhereInput
+  }
+
   export type Conteo_ciclicoListRelationFilter = {
     every?: conteo_ciclicoWhereInput
     some?: conteo_ciclicoWhereInput
@@ -60934,6 +66100,10 @@ export namespace Prisma {
   }
 
   export type almacenesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type balances_inicialesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -62123,6 +67293,7 @@ export namespace Prisma {
     id_usuario_registro?: SortOrder
     subtotal?: SortOrder
     precio_unitario?: SortOrder
+    placa?: SortOrder
   }
 
   export type movimientos_inventarioAvgOrderByAggregateInput = {
@@ -62151,6 +67322,7 @@ export namespace Prisma {
     id_usuario_registro?: SortOrder
     subtotal?: SortOrder
     precio_unitario?: SortOrder
+    placa?: SortOrder
   }
 
   export type movimientos_inventarioMinOrderByAggregateInput = {
@@ -62168,6 +67340,7 @@ export namespace Prisma {
     id_usuario_registro?: SortOrder
     subtotal?: SortOrder
     precio_unitario?: SortOrder
+    placa?: SortOrder
   }
 
   export type movimientos_inventarioSumOrderByAggregateInput = {
@@ -62419,6 +67592,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -62482,6 +67657,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -62531,6 +67708,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -62905,6 +68084,7 @@ export namespace Prisma {
     fecha_autorizacion?: SortOrder
     comentario_autorizacion?: SortOrder
     id_movimiento_generado?: SortOrder
+    placa?: SortOrder
   }
 
   export type solicitudes_salidaAvgOrderByAggregateInput = {
@@ -62931,6 +68111,7 @@ export namespace Prisma {
     fecha_autorizacion?: SortOrder
     comentario_autorizacion?: SortOrder
     id_movimiento_generado?: SortOrder
+    placa?: SortOrder
   }
 
   export type solicitudes_salidaMinOrderByAggregateInput = {
@@ -62948,6 +68129,7 @@ export namespace Prisma {
     fecha_autorizacion?: SortOrder
     comentario_autorizacion?: SortOrder
     id_movimiento_generado?: SortOrder
+    placa?: SortOrder
   }
 
   export type solicitudes_salidaSumOrderByAggregateInput = {
@@ -63254,6 +68436,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -63317,6 +68501,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -63366,6 +68552,8 @@ export namespace Prisma {
     url_cotizacion?: SortOrder
     url_factura?: SortOrder
     nro_factura?: SortOrder
+    url_comprobante_retencion?: SortOrder
+    nro_serie?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -64548,6 +69736,247 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type Enumbalances_iniciales_estadoNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.balances_iniciales_estado | Enumbalances_iniciales_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.balances_iniciales_estado[] | null
+    notIn?: $Enums.balances_iniciales_estado[] | null
+    not?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel> | $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesOrderByRelevanceInput = {
+    fields: balances_inicialesOrderByRelevanceFieldEnum | balances_inicialesOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type balances_inicialesCodigo_itemId_almacenCompoundUniqueInput = {
+    codigo_item: string
+    id_almacen: number
+  }
+
+  export type balances_inicialesCountOrderByAggregateInput = {
+    id_balance_inicial?: SortOrder
+    codigo_item?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_inicio?: SortOrder
+    registrado_por?: SortOrder
+    observaciones?: SortOrder
+    numero_factura?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type balances_inicialesAvgOrderByAggregateInput = {
+    id_balance_inicial?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    registrado_por?: SortOrder
+  }
+
+  export type balances_inicialesMaxOrderByAggregateInput = {
+    id_balance_inicial?: SortOrder
+    codigo_item?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_inicio?: SortOrder
+    registrado_por?: SortOrder
+    observaciones?: SortOrder
+    numero_factura?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type balances_inicialesMinOrderByAggregateInput = {
+    id_balance_inicial?: SortOrder
+    codigo_item?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_inicio?: SortOrder
+    registrado_por?: SortOrder
+    observaciones?: SortOrder
+    numero_factura?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type balances_inicialesSumOrderByAggregateInput = {
+    id_balance_inicial?: SortOrder
+    id_almacen?: SortOrder
+    cantidad_inicial?: SortOrder
+    costo_unitario?: SortOrder
+    registrado_por?: SortOrder
+  }
+
+  export type Enumbalances_iniciales_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.balances_iniciales_estado | Enumbalances_iniciales_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.balances_iniciales_estado[] | null
+    notIn?: $Enums.balances_iniciales_estado[] | null
+    not?: NestedEnumbalances_iniciales_estadoNullableWithAggregatesFilter<$PrismaModel> | $Enums.balances_iniciales_estado | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel>
+    _max?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel>
+  }
+
+  export type Enumcamiones_tipoFilter<$PrismaModel = never> = {
+    equals?: $Enums.camiones_tipo | Enumcamiones_tipoFieldRefInput<$PrismaModel>
+    in?: $Enums.camiones_tipo[]
+    notIn?: $Enums.camiones_tipo[]
+    not?: NestedEnumcamiones_tipoFilter<$PrismaModel> | $Enums.camiones_tipo
+  }
+
+  export type camionesOrderByRelevanceInput = {
+    fields: camionesOrderByRelevanceFieldEnum | camionesOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type camionesCountOrderByAggregateInput = {
+    id_camion?: SortOrder
+    placa?: SortOrder
+    marca?: SortOrder
+    modelo?: SortOrder
+    a_o?: SortOrder
+    capacidad_tanque?: SortOrder
+    id_tipo_combustible_preferido?: SortOrder
+    activo?: SortOrder
+    fecha_registro?: SortOrder
+    dni?: SortOrder
+    nombre_chofer?: SortOrder
+    apellido_chofer?: SortOrder
+    numero_licencia?: SortOrder
+    empresa?: SortOrder
+    tipo?: SortOrder
+  }
+
+  export type camionesAvgOrderByAggregateInput = {
+    id_camion?: SortOrder
+    a_o?: SortOrder
+    capacidad_tanque?: SortOrder
+    id_tipo_combustible_preferido?: SortOrder
+  }
+
+  export type camionesMaxOrderByAggregateInput = {
+    id_camion?: SortOrder
+    placa?: SortOrder
+    marca?: SortOrder
+    modelo?: SortOrder
+    a_o?: SortOrder
+    capacidad_tanque?: SortOrder
+    id_tipo_combustible_preferido?: SortOrder
+    activo?: SortOrder
+    fecha_registro?: SortOrder
+    dni?: SortOrder
+    nombre_chofer?: SortOrder
+    apellido_chofer?: SortOrder
+    numero_licencia?: SortOrder
+    empresa?: SortOrder
+    tipo?: SortOrder
+  }
+
+  export type camionesMinOrderByAggregateInput = {
+    id_camion?: SortOrder
+    placa?: SortOrder
+    marca?: SortOrder
+    modelo?: SortOrder
+    a_o?: SortOrder
+    capacidad_tanque?: SortOrder
+    id_tipo_combustible_preferido?: SortOrder
+    activo?: SortOrder
+    fecha_registro?: SortOrder
+    dni?: SortOrder
+    nombre_chofer?: SortOrder
+    apellido_chofer?: SortOrder
+    numero_licencia?: SortOrder
+    empresa?: SortOrder
+    tipo?: SortOrder
+  }
+
+  export type camionesSumOrderByAggregateInput = {
+    id_camion?: SortOrder
+    a_o?: SortOrder
+    capacidad_tanque?: SortOrder
+    id_tipo_combustible_preferido?: SortOrder
+  }
+
+  export type Enumcamiones_tipoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.camiones_tipo | Enumcamiones_tipoFieldRefInput<$PrismaModel>
+    in?: $Enums.camiones_tipo[]
+    notIn?: $Enums.camiones_tipo[]
+    not?: NestedEnumcamiones_tipoWithAggregatesFilter<$PrismaModel> | $Enums.camiones_tipo
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumcamiones_tipoFilter<$PrismaModel>
+    _max?: NestedEnumcamiones_tipoFilter<$PrismaModel>
+  }
+
+  export type oldfasecontrolOrderByRelevanceInput = {
+    fields: oldfasecontrolOrderByRelevanceFieldEnum | oldfasecontrolOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type oldfasecontrolCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type oldfasecontrolAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type oldfasecontrolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type oldfasecontrolMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type oldfasecontrolSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type subirfasecontrol_copy1OrderByRelevanceInput = {
+    fields: subirfasecontrol_copy1OrderByRelevanceFieldEnum | subirfasecontrol_copy1OrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type subirfasecontrol_copy1CountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type subirfasecontrol_copy1AvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type subirfasecontrol_copy1MaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type subirfasecontrol_copy1MinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type subirfasecontrol_copy1SumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
     create?: XOR<almacenesCreateWithoutOther_almacenesInput, almacenesUncheckedCreateWithoutOther_almacenesInput>
     connectOrCreate?: almacenesCreateOrConnectWithoutOther_almacenesInput
@@ -64559,6 +69988,13 @@ export namespace Prisma {
     connectOrCreate?: almacenesCreateOrConnectWithoutAlmacenesInput | almacenesCreateOrConnectWithoutAlmacenesInput[]
     createMany?: almacenesCreateManyAlmacenesInputEnvelope
     connect?: almacenesWhereUniqueInput | almacenesWhereUniqueInput[]
+  }
+
+  export type balances_inicialesCreateNestedManyWithoutAlmacenesInput = {
+    create?: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput> | balances_inicialesCreateWithoutAlmacenesInput[] | balances_inicialesUncheckedCreateWithoutAlmacenesInput[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutAlmacenesInput | balances_inicialesCreateOrConnectWithoutAlmacenesInput[]
+    createMany?: balances_inicialesCreateManyAlmacenesInputEnvelope
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
   }
 
   export type conteo_ciclicoCreateNestedManyWithoutAlmacenesInput = {
@@ -64615,6 +70051,13 @@ export namespace Prisma {
     connectOrCreate?: almacenesCreateOrConnectWithoutAlmacenesInput | almacenesCreateOrConnectWithoutAlmacenesInput[]
     createMany?: almacenesCreateManyAlmacenesInputEnvelope
     connect?: almacenesWhereUniqueInput | almacenesWhereUniqueInput[]
+  }
+
+  export type balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput = {
+    create?: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput> | balances_inicialesCreateWithoutAlmacenesInput[] | balances_inicialesUncheckedCreateWithoutAlmacenesInput[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutAlmacenesInput | balances_inicialesCreateOrConnectWithoutAlmacenesInput[]
+    createMany?: balances_inicialesCreateManyAlmacenesInputEnvelope
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
   }
 
   export type conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput = {
@@ -64708,6 +70151,20 @@ export namespace Prisma {
     update?: almacenesUpdateWithWhereUniqueWithoutAlmacenesInput | almacenesUpdateWithWhereUniqueWithoutAlmacenesInput[]
     updateMany?: almacenesUpdateManyWithWhereWithoutAlmacenesInput | almacenesUpdateManyWithWhereWithoutAlmacenesInput[]
     deleteMany?: almacenesScalarWhereInput | almacenesScalarWhereInput[]
+  }
+
+  export type balances_inicialesUpdateManyWithoutAlmacenesNestedInput = {
+    create?: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput> | balances_inicialesCreateWithoutAlmacenesInput[] | balances_inicialesUncheckedCreateWithoutAlmacenesInput[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutAlmacenesInput | balances_inicialesCreateOrConnectWithoutAlmacenesInput[]
+    upsert?: balances_inicialesUpsertWithWhereUniqueWithoutAlmacenesInput | balances_inicialesUpsertWithWhereUniqueWithoutAlmacenesInput[]
+    createMany?: balances_inicialesCreateManyAlmacenesInputEnvelope
+    set?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    disconnect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    delete?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    update?: balances_inicialesUpdateWithWhereUniqueWithoutAlmacenesInput | balances_inicialesUpdateWithWhereUniqueWithoutAlmacenesInput[]
+    updateMany?: balances_inicialesUpdateManyWithWhereWithoutAlmacenesInput | balances_inicialesUpdateManyWithWhereWithoutAlmacenesInput[]
+    deleteMany?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
   }
 
   export type conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput = {
@@ -64836,6 +70293,20 @@ export namespace Prisma {
     update?: almacenesUpdateWithWhereUniqueWithoutAlmacenesInput | almacenesUpdateWithWhereUniqueWithoutAlmacenesInput[]
     updateMany?: almacenesUpdateManyWithWhereWithoutAlmacenesInput | almacenesUpdateManyWithWhereWithoutAlmacenesInput[]
     deleteMany?: almacenesScalarWhereInput | almacenesScalarWhereInput[]
+  }
+
+  export type balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput = {
+    create?: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput> | balances_inicialesCreateWithoutAlmacenesInput[] | balances_inicialesUncheckedCreateWithoutAlmacenesInput[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutAlmacenesInput | balances_inicialesCreateOrConnectWithoutAlmacenesInput[]
+    upsert?: balances_inicialesUpsertWithWhereUniqueWithoutAlmacenesInput | balances_inicialesUpsertWithWhereUniqueWithoutAlmacenesInput[]
+    createMany?: balances_inicialesCreateManyAlmacenesInputEnvelope
+    set?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    disconnect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    delete?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    update?: balances_inicialesUpdateWithWhereUniqueWithoutAlmacenesInput | balances_inicialesUpdateWithWhereUniqueWithoutAlmacenesInput[]
+    updateMany?: balances_inicialesUpdateManyWithWhereWithoutAlmacenesInput | balances_inicialesUpdateManyWithWhereWithoutAlmacenesInput[]
+    deleteMany?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
   }
 
   export type conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput = {
@@ -65310,6 +70781,13 @@ export namespace Prisma {
     update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutHistorial_reportesInput, usuariosUpdateWithoutHistorial_reportesInput>, usuariosUncheckedUpdateWithoutHistorial_reportesInput>
   }
 
+  export type balances_inicialesCreateNestedManyWithoutListado_items_2025Input = {
+    create?: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input> | balances_inicialesCreateWithoutListado_items_2025Input[] | balances_inicialesUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutListado_items_2025Input | balances_inicialesCreateOrConnectWithoutListado_items_2025Input[]
+    createMany?: balances_inicialesCreateManyListado_items_2025InputEnvelope
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+  }
+
   export type detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input = {
     create?: XOR<detalles_conteo_ciclicoCreateWithoutListado_items_2025Input, detalles_conteo_ciclicoUncheckedCreateWithoutListado_items_2025Input> | detalles_conteo_ciclicoCreateWithoutListado_items_2025Input[] | detalles_conteo_ciclicoUncheckedCreateWithoutListado_items_2025Input[]
     connectOrCreate?: detalles_conteo_ciclicoCreateOrConnectWithoutListado_items_2025Input | detalles_conteo_ciclicoCreateOrConnectWithoutListado_items_2025Input[]
@@ -65363,6 +70841,13 @@ export namespace Prisma {
     connectOrCreate?: stock_almacenesCreateOrConnectWithoutListado_items_2025Input | stock_almacenesCreateOrConnectWithoutListado_items_2025Input[]
     createMany?: stock_almacenesCreateManyListado_items_2025InputEnvelope
     connect?: stock_almacenesWhereUniqueInput | stock_almacenesWhereUniqueInput[]
+  }
+
+  export type balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input = {
+    create?: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input> | balances_inicialesCreateWithoutListado_items_2025Input[] | balances_inicialesUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutListado_items_2025Input | balances_inicialesCreateOrConnectWithoutListado_items_2025Input[]
+    createMany?: balances_inicialesCreateManyListado_items_2025InputEnvelope
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
   }
 
   export type detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input = {
@@ -65420,6 +70905,20 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type balances_inicialesUpdateManyWithoutListado_items_2025NestedInput = {
+    create?: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input> | balances_inicialesCreateWithoutListado_items_2025Input[] | balances_inicialesUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutListado_items_2025Input | balances_inicialesCreateOrConnectWithoutListado_items_2025Input[]
+    upsert?: balances_inicialesUpsertWithWhereUniqueWithoutListado_items_2025Input | balances_inicialesUpsertWithWhereUniqueWithoutListado_items_2025Input[]
+    createMany?: balances_inicialesCreateManyListado_items_2025InputEnvelope
+    set?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    disconnect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    delete?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    update?: balances_inicialesUpdateWithWhereUniqueWithoutListado_items_2025Input | balances_inicialesUpdateWithWhereUniqueWithoutListado_items_2025Input[]
+    updateMany?: balances_inicialesUpdateManyWithWhereWithoutListado_items_2025Input | balances_inicialesUpdateManyWithWhereWithoutListado_items_2025Input[]
+    deleteMany?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
   }
 
   export type detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput = {
@@ -65528,6 +71027,20 @@ export namespace Prisma {
     update?: stock_almacenesUpdateWithWhereUniqueWithoutListado_items_2025Input | stock_almacenesUpdateWithWhereUniqueWithoutListado_items_2025Input[]
     updateMany?: stock_almacenesUpdateManyWithWhereWithoutListado_items_2025Input | stock_almacenesUpdateManyWithWhereWithoutListado_items_2025Input[]
     deleteMany?: stock_almacenesScalarWhereInput | stock_almacenesScalarWhereInput[]
+  }
+
+  export type balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput = {
+    create?: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input> | balances_inicialesCreateWithoutListado_items_2025Input[] | balances_inicialesUncheckedCreateWithoutListado_items_2025Input[]
+    connectOrCreate?: balances_inicialesCreateOrConnectWithoutListado_items_2025Input | balances_inicialesCreateOrConnectWithoutListado_items_2025Input[]
+    upsert?: balances_inicialesUpsertWithWhereUniqueWithoutListado_items_2025Input | balances_inicialesUpsertWithWhereUniqueWithoutListado_items_2025Input[]
+    createMany?: balances_inicialesCreateManyListado_items_2025InputEnvelope
+    set?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    disconnect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    delete?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    connect?: balances_inicialesWhereUniqueInput | balances_inicialesWhereUniqueInput[]
+    update?: balances_inicialesUpdateWithWhereUniqueWithoutListado_items_2025Input | balances_inicialesUpdateWithWhereUniqueWithoutListado_items_2025Input[]
+    updateMany?: balances_inicialesUpdateManyWithWhereWithoutListado_items_2025Input | balances_inicialesUpdateManyWithWhereWithoutListado_items_2025Input[]
+    deleteMany?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
   }
 
   export type detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput = {
@@ -67348,6 +72861,42 @@ export namespace Prisma {
     update?: XOR<XOR<rubroUpdateToOneWithWhereWithoutSubrubroInput, rubroUpdateWithoutSubrubroInput>, rubroUncheckedUpdateWithoutSubrubroInput>
   }
 
+  export type listado_items_2025CreateNestedOneWithoutBalances_inicialesInput = {
+    create?: XOR<listado_items_2025CreateWithoutBalances_inicialesInput, listado_items_2025UncheckedCreateWithoutBalances_inicialesInput>
+    connectOrCreate?: listado_items_2025CreateOrConnectWithoutBalances_inicialesInput
+    connect?: listado_items_2025WhereUniqueInput
+  }
+
+  export type almacenesCreateNestedOneWithoutBalances_inicialesInput = {
+    create?: XOR<almacenesCreateWithoutBalances_inicialesInput, almacenesUncheckedCreateWithoutBalances_inicialesInput>
+    connectOrCreate?: almacenesCreateOrConnectWithoutBalances_inicialesInput
+    connect?: almacenesWhereUniqueInput
+  }
+
+  export type NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput = {
+    set?: $Enums.balances_iniciales_estado | null
+  }
+
+  export type listado_items_2025UpdateOneRequiredWithoutBalances_inicialesNestedInput = {
+    create?: XOR<listado_items_2025CreateWithoutBalances_inicialesInput, listado_items_2025UncheckedCreateWithoutBalances_inicialesInput>
+    connectOrCreate?: listado_items_2025CreateOrConnectWithoutBalances_inicialesInput
+    upsert?: listado_items_2025UpsertWithoutBalances_inicialesInput
+    connect?: listado_items_2025WhereUniqueInput
+    update?: XOR<XOR<listado_items_2025UpdateToOneWithWhereWithoutBalances_inicialesInput, listado_items_2025UpdateWithoutBalances_inicialesInput>, listado_items_2025UncheckedUpdateWithoutBalances_inicialesInput>
+  }
+
+  export type almacenesUpdateOneRequiredWithoutBalances_inicialesNestedInput = {
+    create?: XOR<almacenesCreateWithoutBalances_inicialesInput, almacenesUncheckedCreateWithoutBalances_inicialesInput>
+    connectOrCreate?: almacenesCreateOrConnectWithoutBalances_inicialesInput
+    upsert?: almacenesUpsertWithoutBalances_inicialesInput
+    connect?: almacenesWhereUniqueInput
+    update?: XOR<XOR<almacenesUpdateToOneWithWhereWithoutBalances_inicialesInput, almacenesUpdateWithoutBalances_inicialesInput>, almacenesUncheckedUpdateWithoutBalances_inicialesInput>
+  }
+
+  export type Enumcamiones_tipoFieldUpdateOperationsInput = {
+    set?: $Enums.camiones_tipo
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -68040,6 +73589,40 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.balances_iniciales_estado | Enumbalances_iniciales_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.balances_iniciales_estado[] | null
+    notIn?: $Enums.balances_iniciales_estado[] | null
+    not?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel> | $Enums.balances_iniciales_estado | null
+  }
+
+  export type NestedEnumbalances_iniciales_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.balances_iniciales_estado | Enumbalances_iniciales_estadoFieldRefInput<$PrismaModel> | null
+    in?: $Enums.balances_iniciales_estado[] | null
+    notIn?: $Enums.balances_iniciales_estado[] | null
+    not?: NestedEnumbalances_iniciales_estadoNullableWithAggregatesFilter<$PrismaModel> | $Enums.balances_iniciales_estado | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel>
+    _max?: NestedEnumbalances_iniciales_estadoNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumcamiones_tipoFilter<$PrismaModel = never> = {
+    equals?: $Enums.camiones_tipo | Enumcamiones_tipoFieldRefInput<$PrismaModel>
+    in?: $Enums.camiones_tipo[]
+    notIn?: $Enums.camiones_tipo[]
+    not?: NestedEnumcamiones_tipoFilter<$PrismaModel> | $Enums.camiones_tipo
+  }
+
+  export type NestedEnumcamiones_tipoWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.camiones_tipo | Enumcamiones_tipoFieldRefInput<$PrismaModel>
+    in?: $Enums.camiones_tipo[]
+    notIn?: $Enums.camiones_tipo[]
+    not?: NestedEnumcamiones_tipoWithAggregatesFilter<$PrismaModel> | $Enums.camiones_tipo
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumcamiones_tipoFilter<$PrismaModel>
+    _max?: NestedEnumcamiones_tipoFilter<$PrismaModel>
+  }
+
   export type almacenesCreateWithoutOther_almacenesInput = {
     codigo_almacen: string
     nombre_almacen: string
@@ -68049,6 +73632,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -68068,6 +73652,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -68091,6 +73676,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -68110,6 +73696,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -68126,6 +73713,41 @@ export namespace Prisma {
 
   export type almacenesCreateManyAlmacenesInputEnvelope = {
     data: almacenesCreateManyAlmacenesInput | almacenesCreateManyAlmacenesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type balances_inicialesCreateWithoutAlmacenesInput = {
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+    listado_items_2025: listado_items_2025CreateNestedOneWithoutBalances_inicialesInput
+  }
+
+  export type balances_inicialesUncheckedCreateWithoutAlmacenesInput = {
+    id_balance_inicial?: number
+    codigo_item: string
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesCreateOrConnectWithoutAlmacenesInput = {
+    where: balances_inicialesWhereUniqueInput
+    create: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput>
+  }
+
+  export type balances_inicialesCreateManyAlmacenesInputEnvelope = {
+    data: balances_inicialesCreateManyAlmacenesInput | balances_inicialesCreateManyAlmacenesInput[]
     skipDuplicates?: boolean
   }
 
@@ -68170,6 +73792,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -68191,6 +73814,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -68215,6 +73839,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -68236,6 +73861,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -68290,6 +73916,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_solicitante_idTousuarios: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosInput
@@ -68310,6 +73937,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateOrConnectWithoutAlmacenesInput = {
@@ -68420,6 +74048,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -68439,6 +74068,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -68477,6 +74107,39 @@ export namespace Prisma {
     activo?: BoolNullableFilter<"almacenes"> | boolean | null
     fecha_creacion?: DateTimeNullableFilter<"almacenes"> | Date | string | null
     fecha_modificacion?: DateTimeNullableFilter<"almacenes"> | Date | string | null
+  }
+
+  export type balances_inicialesUpsertWithWhereUniqueWithoutAlmacenesInput = {
+    where: balances_inicialesWhereUniqueInput
+    update: XOR<balances_inicialesUpdateWithoutAlmacenesInput, balances_inicialesUncheckedUpdateWithoutAlmacenesInput>
+    create: XOR<balances_inicialesCreateWithoutAlmacenesInput, balances_inicialesUncheckedCreateWithoutAlmacenesInput>
+  }
+
+  export type balances_inicialesUpdateWithWhereUniqueWithoutAlmacenesInput = {
+    where: balances_inicialesWhereUniqueInput
+    data: XOR<balances_inicialesUpdateWithoutAlmacenesInput, balances_inicialesUncheckedUpdateWithoutAlmacenesInput>
+  }
+
+  export type balances_inicialesUpdateManyWithWhereWithoutAlmacenesInput = {
+    where: balances_inicialesScalarWhereInput
+    data: XOR<balances_inicialesUpdateManyMutationInput, balances_inicialesUncheckedUpdateManyWithoutAlmacenesInput>
+  }
+
+  export type balances_inicialesScalarWhereInput = {
+    AND?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
+    OR?: balances_inicialesScalarWhereInput[]
+    NOT?: balances_inicialesScalarWhereInput | balances_inicialesScalarWhereInput[]
+    id_balance_inicial?: IntFilter<"balances_iniciales"> | number
+    codigo_item?: StringFilter<"balances_iniciales"> | string
+    id_almacen?: IntFilter<"balances_iniciales"> | number
+    cantidad_inicial?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFilter<"balances_iniciales"> | Decimal | DecimalJsLike | number | string
+    fecha_registro?: DateTimeNullableFilter<"balances_iniciales"> | Date | string | null
+    fecha_inicio?: DateTimeFilter<"balances_iniciales"> | Date | string
+    registrado_por?: IntNullableFilter<"balances_iniciales"> | number | null
+    observaciones?: StringNullableFilter<"balances_iniciales"> | string | null
+    numero_factura?: StringNullableFilter<"balances_iniciales"> | string | null
+    estado?: Enumbalances_iniciales_estadoNullableFilter<"balances_iniciales"> | $Enums.balances_iniciales_estado | null
   }
 
   export type conteo_ciclicoUpsertWithWhereUniqueWithoutAlmacenesInput = {
@@ -68543,6 +74206,7 @@ export namespace Prisma {
     id_usuario_registro?: IntNullableFilter<"movimientos_inventario"> | number | null
     subtotal?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: DecimalNullableFilter<"movimientos_inventario"> | Decimal | DecimalJsLike | number | string | null
+    placa?: StringNullableFilter<"movimientos_inventario"> | string | null
   }
 
   export type movimientos_inventarioUpsertWithWhereUniqueWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -68625,6 +74289,7 @@ export namespace Prisma {
     fecha_autorizacion?: DateTimeNullableFilter<"solicitudes_salida"> | Date | string | null
     comentario_autorizacion?: StringNullableFilter<"solicitudes_salida"> | string | null
     id_movimiento_generado?: IntNullableFilter<"solicitudes_salida"> | number | null
+    placa?: StringNullableFilter<"solicitudes_salida"> | string | null
   }
 
   export type stock_almacenesUpsertWithWhereUniqueWithoutAlmacenesInput = {
@@ -69011,6 +74676,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutAlmacenesInput
@@ -69030,6 +74696,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutAlmacenesInput
@@ -69143,6 +74810,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutAlmacenesNestedInput
@@ -69162,6 +74830,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutAlmacenesNestedInput
@@ -69296,6 +74965,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
@@ -69321,6 +74991,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -69392,6 +75063,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
@@ -69417,6 +75089,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -69469,6 +75142,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -69521,6 +75196,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -69544,6 +75221,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
@@ -69569,6 +75247,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -69637,6 +75316,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -69689,6 +75370,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -69718,6 +75401,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
@@ -69743,6 +75427,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -69792,6 +75477,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -69817,6 +75503,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -69888,6 +75575,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -69913,6 +75601,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -69936,6 +75625,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -69960,6 +75650,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -70188,6 +75879,41 @@ export namespace Prisma {
     solicitudes_salida_solicitudes_salida_autorizado_porTousuarios?: solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosNestedInput
   }
 
+  export type balances_inicialesCreateWithoutListado_items_2025Input = {
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+    almacenes: almacenesCreateNestedOneWithoutBalances_inicialesInput
+  }
+
+  export type balances_inicialesUncheckedCreateWithoutListado_items_2025Input = {
+    id_balance_inicial?: number
+    id_almacen: number
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesCreateOrConnectWithoutListado_items_2025Input = {
+    where: balances_inicialesWhereUniqueInput
+    create: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input>
+  }
+
+  export type balances_inicialesCreateManyListado_items_2025InputEnvelope = {
+    data: balances_inicialesCreateManyListado_items_2025Input | balances_inicialesCreateManyListado_items_2025Input[]
+    skipDuplicates?: boolean
+  }
+
   export type detalles_conteo_ciclicoCreateWithoutListado_items_2025Input = {
     stock_sistema?: number | null
     stock_fisico?: number | null
@@ -70336,6 +76062,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -70357,6 +76084,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -70380,6 +76108,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     almacenes: almacenesCreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_solicitante_idTousuarios: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosInput
@@ -70400,6 +76129,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateOrConnectWithoutListado_items_2025Input = {
@@ -70435,6 +76165,22 @@ export namespace Prisma {
   export type stock_almacenesCreateManyListado_items_2025InputEnvelope = {
     data: stock_almacenesCreateManyListado_items_2025Input | stock_almacenesCreateManyListado_items_2025Input[]
     skipDuplicates?: boolean
+  }
+
+  export type balances_inicialesUpsertWithWhereUniqueWithoutListado_items_2025Input = {
+    where: balances_inicialesWhereUniqueInput
+    update: XOR<balances_inicialesUpdateWithoutListado_items_2025Input, balances_inicialesUncheckedUpdateWithoutListado_items_2025Input>
+    create: XOR<balances_inicialesCreateWithoutListado_items_2025Input, balances_inicialesUncheckedCreateWithoutListado_items_2025Input>
+  }
+
+  export type balances_inicialesUpdateWithWhereUniqueWithoutListado_items_2025Input = {
+    where: balances_inicialesWhereUniqueInput
+    data: XOR<balances_inicialesUpdateWithoutListado_items_2025Input, balances_inicialesUncheckedUpdateWithoutListado_items_2025Input>
+  }
+
+  export type balances_inicialesUpdateManyWithWhereWithoutListado_items_2025Input = {
+    where: balances_inicialesScalarWhereInput
+    data: XOR<balances_inicialesUpdateManyMutationInput, balances_inicialesUncheckedUpdateManyWithoutListado_items_2025Input>
   }
 
   export type detalles_conteo_ciclicoUpsertWithWhereUniqueWithoutListado_items_2025Input = {
@@ -70839,6 +76585,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -70864,6 +76611,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -70887,6 +76635,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutAlmacenesInput
@@ -70906,6 +76655,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutAlmacenesInput
@@ -70929,6 +76679,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutAlmacenesInput
@@ -70948,6 +76699,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutAlmacenesInput
@@ -70970,6 +76722,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutSolicitudes_salidaInput
     almacenes: almacenesCreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_solicitante_idTousuarios: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosInput
@@ -70990,6 +76743,7 @@ export namespace Prisma {
     autorizado_por?: number | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateOrConnectWithoutMovimientos_inventarioInput = {
@@ -71082,6 +76836,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -71107,6 +76862,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -71136,6 +76892,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutAlmacenesNestedInput
@@ -71155,6 +76912,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutAlmacenesNestedInput
@@ -71184,6 +76942,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutAlmacenesNestedInput
@@ -71203,6 +76962,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutAlmacenesNestedInput
@@ -72174,6 +77934,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -72225,6 +77987,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -72283,6 +78047,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -72333,6 +78099,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -72513,6 +78281,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_compra"> | string | null
     url_factura?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_compra"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -72581,6 +78351,8 @@ export namespace Prisma {
     url_cotizacion?: StringNullableFilter<"ordenes_servicio"> | string | null
     url_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_factura?: StringNullableFilter<"ordenes_servicio"> | string | null
+    url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
+    nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -72652,6 +78424,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -72704,6 +78478,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -72722,6 +78498,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -72741,6 +78518,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -72825,6 +78603,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -72877,6 +78657,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -72901,6 +78683,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -72920,6 +78703,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -72943,6 +78727,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -72968,6 +78753,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -72991,6 +78777,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -73010,6 +78797,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -73129,6 +78917,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
@@ -73151,6 +78940,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -73185,6 +78975,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -73210,6 +79001,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -73239,6 +79031,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -73258,6 +79051,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -73395,6 +79189,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -73417,6 +79212,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -73435,6 +79231,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
@@ -73460,6 +79257,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -73483,6 +79281,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -73502,6 +79301,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -73541,6 +79341,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -73566,6 +79367,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -73595,6 +79397,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -73614,6 +79417,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -73632,6 +79436,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesCreateNestedManyWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -73653,6 +79458,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
@@ -73932,6 +79738,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -73983,6 +79791,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -74041,6 +79851,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -74091,6 +79903,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -74140,6 +79954,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutSolicitudes_salidaInput
     almacenes: almacenesCreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosInput
@@ -74160,6 +79975,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateOrConnectWithoutUsuarios_solicitudes_salida_solicitante_idTousuariosInput = {
@@ -74181,6 +79997,7 @@ export namespace Prisma {
     fecha_solicitud?: Date | string | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutSolicitudes_salidaInput
     almacenes: almacenesCreateNestedOneWithoutSolicitudes_salidaInput
     usuarios_solicitudes_salida_solicitante_idTousuarios: usuariosCreateNestedOneWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosInput
@@ -74201,6 +80018,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateOrConnectWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosInput = {
@@ -74223,6 +80041,7 @@ export namespace Prisma {
     fecha_modificacion?: Date | string | null
     almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
     other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -74242,6 +80061,7 @@ export namespace Prisma {
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
     other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutAlmacenesInput
     conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
@@ -74537,6 +80357,7 @@ export namespace Prisma {
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -74556,6 +80377,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -74853,6 +80675,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -74904,6 +80728,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
@@ -74926,6 +80752,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
@@ -74951,6 +80778,7 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
@@ -75019,6 +80847,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -75070,6 +80900,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
@@ -75098,6 +80930,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
@@ -75123,6 +80956,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -76490,6 +82324,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     tipos_movimiento: tipos_movimientoCreateNestedOneWithoutMovimientos_inventarioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutMovimientos_inventarioInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesCreateNestedOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesInput
@@ -76512,6 +82347,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
     solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutMovimientos_inventarioInput
   }
 
@@ -76541,6 +82377,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -76563,6 +82400,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
 
@@ -76736,6 +82574,216 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
   }
 
+  export type listado_items_2025CreateWithoutBalances_inicialesInput = {
+    codigo: string
+    descripcion: string
+    grupo?: string | null
+    u_m?: string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: number | null
+    stock_maximo?: number | null
+    ubicacion?: string | null
+    marca?: string | null
+    modelo?: string | null
+    numero_serie?: string | null
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutListado_items_2025Input
+    detalles_recepcion_compra?: detalles_recepcion_compraCreateNestedManyWithoutListado_items_2025Input
+    familias_productos?: familias_productosCreateNestedOneWithoutListado_items_2025Input
+    movimientos_inventario?: movimientos_inventarioCreateNestedManyWithoutListado_items_2025Input
+    solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutListado_items_2025Input
+    stock_almacenes?: stock_almacenesCreateNestedManyWithoutListado_items_2025Input
+  }
+
+  export type listado_items_2025UncheckedCreateWithoutBalances_inicialesInput = {
+    codigo: string
+    descripcion: string
+    id_familia?: number | null
+    grupo?: string | null
+    u_m?: string | null
+    precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: number | null
+    stock_maximo?: number | null
+    ubicacion?: string | null
+    marca?: string | null
+    modelo?: string | null
+    numero_serie?: string | null
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutListado_items_2025Input
+    detalles_recepcion_compra?: detalles_recepcion_compraUncheckedCreateNestedManyWithoutListado_items_2025Input
+    movimientos_inventario?: movimientos_inventarioUncheckedCreateNestedManyWithoutListado_items_2025Input
+    solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutListado_items_2025Input
+    stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutListado_items_2025Input
+  }
+
+  export type listado_items_2025CreateOrConnectWithoutBalances_inicialesInput = {
+    where: listado_items_2025WhereUniqueInput
+    create: XOR<listado_items_2025CreateWithoutBalances_inicialesInput, listado_items_2025UncheckedCreateWithoutBalances_inicialesInput>
+  }
+
+  export type almacenesCreateWithoutBalances_inicialesInput = {
+    codigo_almacen: string
+    nombre_almacen: string
+    descripcion?: string | null
+    tipo_almacen: $Enums.almacenes_tipo_almacen
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    almacenes?: almacenesCreateNestedOneWithoutOther_almacenesInput
+    other_almacenes?: almacenesCreateNestedManyWithoutAlmacenesInput
+    conteo_ciclico?: conteo_ciclicoCreateNestedManyWithoutAlmacenesInput
+    movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
+    movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
+    recepciones_compra?: recepciones_compraCreateNestedManyWithoutAlmacenesInput
+    solicitudes_salida?: solicitudes_salidaCreateNestedManyWithoutAlmacenesInput
+    stock_almacenes?: stock_almacenesCreateNestedManyWithoutAlmacenesInput
+    usuarios?: usuariosCreateNestedManyWithoutAlmacenesInput
+  }
+
+  export type almacenesUncheckedCreateWithoutBalances_inicialesInput = {
+    id_almacen?: number
+    codigo_almacen: string
+    nombre_almacen: string
+    descripcion?: string | null
+    tipo_almacen: $Enums.almacenes_tipo_almacen
+    id_almacen_padre?: number | null
+    activo?: boolean | null
+    fecha_creacion?: Date | string | null
+    fecha_modificacion?: Date | string | null
+    other_almacenes?: almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    conteo_ciclico?: conteo_ciclicoUncheckedCreateNestedManyWithoutAlmacenesInput
+    movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesInput
+    movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedCreateNestedManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput
+    recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutAlmacenesInput
+    solicitudes_salida?: solicitudes_salidaUncheckedCreateNestedManyWithoutAlmacenesInput
+    stock_almacenes?: stock_almacenesUncheckedCreateNestedManyWithoutAlmacenesInput
+    usuarios?: usuariosUncheckedCreateNestedManyWithoutAlmacenesInput
+  }
+
+  export type almacenesCreateOrConnectWithoutBalances_inicialesInput = {
+    where: almacenesWhereUniqueInput
+    create: XOR<almacenesCreateWithoutBalances_inicialesInput, almacenesUncheckedCreateWithoutBalances_inicialesInput>
+  }
+
+  export type listado_items_2025UpsertWithoutBalances_inicialesInput = {
+    update: XOR<listado_items_2025UpdateWithoutBalances_inicialesInput, listado_items_2025UncheckedUpdateWithoutBalances_inicialesInput>
+    create: XOR<listado_items_2025CreateWithoutBalances_inicialesInput, listado_items_2025UncheckedCreateWithoutBalances_inicialesInput>
+    where?: listado_items_2025WhereInput
+  }
+
+  export type listado_items_2025UpdateToOneWithWhereWithoutBalances_inicialesInput = {
+    where?: listado_items_2025WhereInput
+    data: XOR<listado_items_2025UpdateWithoutBalances_inicialesInput, listado_items_2025UncheckedUpdateWithoutBalances_inicialesInput>
+  }
+
+  export type listado_items_2025UpdateWithoutBalances_inicialesInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    grupo?: NullableStringFieldUpdateOperationsInput | string | null
+    u_m?: NullableStringFieldUpdateOperationsInput | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: NullableIntFieldUpdateOperationsInput | number | null
+    stock_maximo?: NullableIntFieldUpdateOperationsInput | number | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
+    detalles_recepcion_compra?: detalles_recepcion_compraUpdateManyWithoutListado_items_2025NestedInput
+    familias_productos?: familias_productosUpdateOneWithoutListado_items_2025NestedInput
+    movimientos_inventario?: movimientos_inventarioUpdateManyWithoutListado_items_2025NestedInput
+    solicitudes_salida?: solicitudes_salidaUpdateManyWithoutListado_items_2025NestedInput
+    stock_almacenes?: stock_almacenesUpdateManyWithoutListado_items_2025NestedInput
+  }
+
+  export type listado_items_2025UncheckedUpdateWithoutBalances_inicialesInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    id_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    grupo?: NullableStringFieldUpdateOperationsInput | string | null
+    u_m?: NullableStringFieldUpdateOperationsInput | string | null
+    precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_minimo?: NullableIntFieldUpdateOperationsInput | number | null
+    stock_maximo?: NullableIntFieldUpdateOperationsInput | number | null
+    ubicacion?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    detalles_recepcion_compra?: detalles_recepcion_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    movimientos_inventario?: movimientos_inventarioUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025NestedInput
+    stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutListado_items_2025NestedInput
+  }
+
+  export type almacenesUpsertWithoutBalances_inicialesInput = {
+    update: XOR<almacenesUpdateWithoutBalances_inicialesInput, almacenesUncheckedUpdateWithoutBalances_inicialesInput>
+    create: XOR<almacenesCreateWithoutBalances_inicialesInput, almacenesUncheckedCreateWithoutBalances_inicialesInput>
+    where?: almacenesWhereInput
+  }
+
+  export type almacenesUpdateToOneWithWhereWithoutBalances_inicialesInput = {
+    where?: almacenesWhereInput
+    data: XOR<almacenesUpdateWithoutBalances_inicialesInput, almacenesUncheckedUpdateWithoutBalances_inicialesInput>
+  }
+
+  export type almacenesUpdateWithoutBalances_inicialesInput = {
+    codigo_almacen?: StringFieldUpdateOperationsInput | string
+    nombre_almacen?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_almacen?: Enumalmacenes_tipo_almacenFieldUpdateOperationsInput | $Enums.almacenes_tipo_almacen
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    almacenes?: almacenesUpdateOneWithoutOther_almacenesNestedInput
+    other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
+    movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
+    movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
+    recepciones_compra?: recepciones_compraUpdateManyWithoutAlmacenesNestedInput
+    solicitudes_salida?: solicitudes_salidaUpdateManyWithoutAlmacenesNestedInput
+    stock_almacenes?: stock_almacenesUpdateManyWithoutAlmacenesNestedInput
+    usuarios?: usuariosUpdateManyWithoutAlmacenesNestedInput
+  }
+
+  export type almacenesUncheckedUpdateWithoutBalances_inicialesInput = {
+    id_almacen?: IntFieldUpdateOperationsInput | number
+    codigo_almacen?: StringFieldUpdateOperationsInput | string
+    nombre_almacen?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_almacen?: Enumalmacenes_tipo_almacenFieldUpdateOperationsInput | $Enums.almacenes_tipo_almacen
+    id_almacen_padre?: NullableIntFieldUpdateOperationsInput | number | null
+    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
+    movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
+    movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
+    recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutAlmacenesNestedInput
+    solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutAlmacenesNestedInput
+    stock_almacenes?: stock_almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    usuarios?: usuariosUncheckedUpdateManyWithoutAlmacenesNestedInput
+  }
+
   export type almacenesCreateManyAlmacenesInput = {
     id_almacen?: number
     codigo_almacen: string
@@ -76745,6 +82793,19 @@ export namespace Prisma {
     activo?: boolean | null
     fecha_creacion?: Date | string | null
     fecha_modificacion?: Date | string | null
+  }
+
+  export type balances_inicialesCreateManyAlmacenesInput = {
+    id_balance_inicial?: number
+    codigo_item: string
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
   }
 
   export type conteo_ciclicoCreateManyAlmacenesInput = {
@@ -76771,6 +82832,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
   }
 
   export type movimientos_inventarioCreateManyAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -76787,6 +82849,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
   }
 
   export type recepciones_compraCreateManyAlmacenesInput = {
@@ -76813,6 +82876,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type stock_almacenesCreateManyAlmacenesInput = {
@@ -76842,6 +82906,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -76861,6 +82926,7 @@ export namespace Prisma {
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     other_almacenes?: almacenesUncheckedUpdateManyWithoutAlmacenesNestedInput
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutAlmacenesNestedInput
     conteo_ciclico?: conteo_ciclicoUncheckedUpdateManyWithoutAlmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
     movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes?: movimientos_inventarioUncheckedUpdateManyWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesNestedInput
@@ -76879,6 +82945,44 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type balances_inicialesUpdateWithoutAlmacenesInput = {
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+    listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutBalances_inicialesNestedInput
+  }
+
+  export type balances_inicialesUncheckedUpdateWithoutAlmacenesInput = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesUncheckedUpdateManyWithoutAlmacenesInput = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    codigo_item?: StringFieldUpdateOperationsInput | string
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
   }
 
   export type conteo_ciclicoUpdateWithoutAlmacenesInput = {
@@ -76922,6 +83026,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -76943,6 +83048,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -76961,6 +83067,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type movimientos_inventarioUpdateWithoutAlmacenes_movimientos_inventario_id_almacen_destinoToalmacenesInput = {
@@ -76973,6 +83080,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
@@ -76994,6 +83102,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -77012,6 +83121,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recepciones_compraUpdateWithoutAlmacenesInput = {
@@ -77054,6 +83164,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosUpdateOneRequiredWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosNestedInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosUpdateOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosNestedInput
@@ -77074,6 +83185,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutAlmacenesInput = {
@@ -77090,6 +83202,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type stock_almacenesUpdateWithoutAlmacenesInput = {
@@ -77313,6 +83426,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutListado_items_2025NestedInput
@@ -77337,6 +83451,7 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balances_iniciales?: balances_inicialesUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_conteo_ciclico?: detalles_conteo_ciclicoUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025NestedInput
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025NestedInput
@@ -77361,6 +83476,19 @@ export namespace Prisma {
     activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
     fecha_creacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_modificacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type balances_inicialesCreateManyListado_items_2025Input = {
+    id_balance_inicial?: number
+    id_almacen: number
+    cantidad_inicial?: Decimal | DecimalJsLike | number | string
+    costo_unitario?: Decimal | DecimalJsLike | number | string
+    fecha_registro?: Date | string | null
+    fecha_inicio: Date | string
+    registrado_por?: number | null
+    observaciones?: string | null
+    numero_factura?: string | null
+    estado?: $Enums.balances_iniciales_estado | null
   }
 
   export type detalles_conteo_ciclicoCreateManyListado_items_2025Input = {
@@ -77416,6 +83544,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateManyListado_items_2025Input = {
@@ -77432,6 +83561,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type stock_almacenesCreateManyListado_items_2025Input = {
@@ -77440,6 +83570,44 @@ export namespace Prisma {
     cantidad?: number | null
     fecha_actualizacion?: Date | string | null
     ubicacion?: string | null
+  }
+
+  export type balances_inicialesUpdateWithoutListado_items_2025Input = {
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+    almacenes?: almacenesUpdateOneRequiredWithoutBalances_inicialesNestedInput
+  }
+
+  export type balances_inicialesUncheckedUpdateWithoutListado_items_2025Input = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    id_almacen?: IntFieldUpdateOperationsInput | number
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
+  }
+
+  export type balances_inicialesUncheckedUpdateManyWithoutListado_items_2025Input = {
+    id_balance_inicial?: IntFieldUpdateOperationsInput | number
+    id_almacen?: IntFieldUpdateOperationsInput | number
+    cantidad_inicial?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costo_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: NullableEnumbalances_iniciales_estadoFieldUpdateOperationsInput | $Enums.balances_iniciales_estado | null
   }
 
   export type detalles_conteo_ciclicoUpdateWithoutListado_items_2025Input = {
@@ -77565,6 +83733,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     tipos_movimiento?: tipos_movimientoUpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -77586,6 +83755,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -77604,6 +83774,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUpdateWithoutListado_items_2025Input = {
@@ -77615,6 +83786,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     almacenes?: almacenesUpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosUpdateOneRequiredWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosNestedInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosUpdateOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosNestedInput
@@ -77635,6 +83807,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutListado_items_2025Input = {
@@ -77651,6 +83824,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type stock_almacenesUpdateWithoutListado_items_2025Input = {
@@ -77735,6 +83909,7 @@ export namespace Prisma {
     autorizado_por?: number | null
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
+    placa?: string | null
   }
 
   export type movimientos_adicionalesUpdateWithoutMovimientos_inventarioInput = {
@@ -77775,6 +83950,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     almacenes?: almacenesUpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosUpdateOneRequiredWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosNestedInput
@@ -77795,6 +83971,7 @@ export namespace Prisma {
     autorizado_por?: NullableIntFieldUpdateOperationsInput | number | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioInput = {
@@ -77811,6 +83988,7 @@ export namespace Prisma {
     autorizado_por?: NullableIntFieldUpdateOperationsInput | number | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_orden_compraCreateManyOrdenes_compraInput = {
@@ -78020,6 +84198,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -78068,6 +84248,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type facturaUpdateWithoutProveedoresInput = {
@@ -78362,6 +84544,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -78413,6 +84597,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -78463,6 +84649,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -78509,6 +84697,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -78559,6 +84749,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -78608,6 +84800,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -78655,6 +84849,7 @@ export namespace Prisma {
     id_usuario_registro?: number | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
     precio_unitario?: Decimal | DecimalJsLike | number | string | null
+    placa?: string | null
   }
 
   export type movimientos_inventarioUpdateWithoutTipos_movimientoInput = {
@@ -78667,6 +84862,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUpdateManyWithoutMovimientos_inventarioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutMovimientos_inventarioNestedInput
     almacenes_movimientos_inventario_id_almacen_origenToalmacenes?: almacenesUpdateOneWithoutMovimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenesNestedInput
@@ -78688,6 +84884,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     movimientos_adicionales?: movimientos_adicionalesUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
     solicitudes_salida?: solicitudes_salidaUncheckedUpdateManyWithoutMovimientos_inventarioNestedInput
   }
@@ -78706,6 +84903,7 @@ export namespace Prisma {
     id_usuario_registro?: NullableIntFieldUpdateOperationsInput | number | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     precio_unitario?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type configuracion_notificacionesCreateManyUsuariosInput = {
@@ -78822,6 +85020,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -78870,6 +85070,8 @@ export namespace Prisma {
     url_cotizacion?: string | null
     url_factura?: string | null
     nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -78895,6 +85097,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type solicitudes_salidaCreateManyUsuarios_solicitudes_salida_autorizado_porTousuariosInput = {
@@ -78911,6 +85114,7 @@ export namespace Prisma {
     fecha_autorizacion?: Date | string | null
     comentario_autorizacion?: string | null
     id_movimiento_generado?: number | null
+    placa?: string | null
   }
 
   export type configuracion_notificacionesUpdateWithoutUsuariosInput = {
@@ -79160,6 +85364,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -79211,6 +85417,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -79261,6 +85469,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -79307,6 +85517,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -79357,6 +85569,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -79406,6 +85620,8 @@ export namespace Prisma {
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
     url_factura?: NullableStringFieldUpdateOperationsInput | string | null
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
@@ -79443,6 +85659,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     almacenes?: almacenesUpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_autorizado_porTousuarios?: usuariosUpdateOneWithoutSolicitudes_salida_solicitudes_salida_autorizado_porTousuariosNestedInput
@@ -79463,6 +85680,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_solicitante_idTousuariosInput = {
@@ -79479,6 +85697,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUpdateWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosInput = {
@@ -79490,6 +85709,7 @@ export namespace Prisma {
     fecha_solicitud?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     almacenes?: almacenesUpdateOneRequiredWithoutSolicitudes_salidaNestedInput
     usuarios_solicitudes_salida_solicitante_idTousuarios?: usuariosUpdateOneRequiredWithoutSolicitudes_salida_solicitudes_salida_solicitante_idTousuariosNestedInput
@@ -79510,6 +85730,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosInput = {
@@ -79526,6 +85747,7 @@ export namespace Prisma {
     fecha_autorizacion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comentario_autorizacion?: NullableStringFieldUpdateOperationsInput | string | null
     id_movimiento_generado?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_orden_servicioCreateManyOrdenes_compraInput = {

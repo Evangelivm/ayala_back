@@ -2108,4 +2108,40 @@ export class OrdenServicioService {
       );
     }
   }
+
+  /**
+   * Actualiza la URL de comprobante de retención y el número de serie de una orden de servicio
+   * @param id - ID de la orden de servicio
+   * @param comprobanteRetencionUrl - URL del comprobante de retención en Dropbox
+   * @param nroSerie - Número de serie del comprobante
+   */
+  async updateComprobanteRetencionUrl(
+    id: number,
+    comprobanteRetencionUrl: string,
+    nroSerie: string,
+  ): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: {
+          url_comprobante_retencion: comprobanteRetencionUrl,
+          nro_serie: nroSerie,
+        },
+      });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
+    } catch (error) {
+      console.error(
+        'Error al actualizar URL de comprobante de retención de la orden de servicio:',
+        error,
+      );
+      throw new BadRequestException(
+        `Error al actualizar URL de comprobante de retención de la orden de servicio: ${error.message}`,
+      );
+    }
+  }
 }

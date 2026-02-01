@@ -21,6 +21,7 @@ model almacenes {
   fecha_modificacion                                                          DateTime?                @default(now()) @db.Timestamp(0)
   almacenes                                                                   almacenes?               @relation("almacenesToalmacenes", fields: [id_almacen_padre], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "almacenes_ibfk_1")
   other_almacenes                                                             almacenes[]              @relation("almacenesToalmacenes")
+  balances_iniciales                                                          balances_iniciales[]
   conteo_ciclico                                                              conteo_ciclico[]
   movimientos_inventario_movimientos_inventario_id_almacen_origenToalmacenes  movimientos_inventario[] @relation("movimientos_inventario_id_almacen_origenToalmacenes")
   movimientos_inventario_movimientos_inventario_id_almacen_destinoToalmacenes movimientos_inventario[] @relation("movimientos_inventario_id_almacen_destinoToalmacenes")
@@ -169,6 +170,7 @@ model listado_items_2025 {
   activo                    Boolean?                    @default(true)
   fecha_creacion            DateTime?                   @default(now()) @db.Timestamp(0)
   fecha_modificacion        DateTime?                   @default(now()) @db.Timestamp(0)
+  balances_iniciales        balances_iniciales[]
   detalles_conteo_ciclico   detalles_conteo_ciclico[]
   detalles_orden_compra     detalles_orden_compra[]
   detalles_orden_servicio   detalles_orden_servicio[]
@@ -222,6 +224,7 @@ model movimientos_inventario {
   id_usuario_registro                                            Int?                           @default(0)
   subtotal                                                       Decimal?                       @db.Decimal(10, 2)
   precio_unitario                                                Decimal?                       @db.Decimal(10, 2)
+  placa                                                          String?                        @db.VarChar(50)
   movimientos_adicionales                                        movimientos_adicionales[]
   tipos_movimiento                                               tipos_movimiento               @relation(fields: [id_tipo_movimiento], references: [id_tipo_movimiento], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_1")
   listado_items_2025                                             listado_items_2025             @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "movimientos_inventario_ibfk_2")
@@ -314,6 +317,8 @@ model ordenes_compra {
   url_cotizacion              String?                      @db.VarChar(255)
   url_factura                 String?                      @db.VarChar(255)
   nro_factura                 String?                      @db.VarChar(45)
+  url_comprobante_retencion   String?                      @db.VarChar(255)
+  nro_serie                   String?                      @db.VarChar(255)
   detalles_orden_compra       detalles_orden_compra[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios                    usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
@@ -409,6 +414,7 @@ model solicitudes_salida {
   fecha_autorizacion                                   DateTime?                  @db.Timestamp(0)
   comentario_autorizacion                              String?                    @db.Text
   id_movimiento_generado                               Int?
+  placa                                                String?                    @db.VarChar(50)
   listado_items_2025                                   listado_items_2025         @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_1")
   almacenes                                            almacenes                  @relation(fields: [id_almacen], references: [id_almacen], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_2")
   usuarios_solicitudes_salida_solicitante_idTousuarios usuarios                   @relation("solicitudes_salida_solicitante_idTousuarios", fields: [solicitante_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "solicitudes_salida_ibfk_3")
@@ -520,6 +526,8 @@ model ordenes_servicio {
   url_cotizacion              String?                        @db.VarChar(255)
   url_factura                 String?                        @db.VarChar(255)
   nro_factura                 String?                        @db.VarChar(45)
+  url_comprobante_retencion   String?                        @db.VarChar(255)
+  nro_serie                   String?                        @db.VarChar(255)
   detalles_orden_servicio     detalles_orden_servicio[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
@@ -808,6 +816,58 @@ model detallado {
   detalle String? @db.VarChar(255)
 }
 
+model balances_iniciales {
+  id_balance_inicial Int                        @id @default(autoincrement())
+  codigo_item        String                     @db.VarChar(255)
+  id_almacen         Int
+  cantidad_inicial   Decimal                    @default(0.00) @db.Decimal(10, 2)
+  costo_unitario     Decimal                    @default(0.00) @db.Decimal(10, 2)
+  fecha_registro     DateTime?                  @default(now()) @db.Timestamp(0)
+  fecha_inicio       DateTime                   @db.Date
+  registrado_por     Int?
+  observaciones      String?                    @db.Text
+  numero_factura     String?                    @db.VarChar(255)
+  estado             balances_iniciales_estado? @default(APROBADO)
+  listado_items_2025 listado_items_2025         @relation(fields: [codigo_item], references: [codigo], onDelete: Cascade, onUpdate: NoAction, map: "balances_iniciales_ibfk_1")
+  almacenes          almacenes                  @relation(fields: [id_almacen], references: [id_almacen], onDelete: Cascade, onUpdate: NoAction, map: "balances_iniciales_ibfk_2")
+
+  @@unique([codigo_item, id_almacen], map: "uk_codigo_almacen")
+  @@index([codigo_item], map: "idx_codigo_item")
+  @@index([id_almacen], map: "idx_id_almacen")
+}
+
+model camiones {
+  id_camion                     Int           @id @default(autoincrement())
+  placa                         String        @unique(map: "uk_placa") @db.VarChar(10)
+  marca                         String?       @db.VarChar(50)
+  modelo                        String?       @db.VarChar(50)
+  a_o                           Int?          @map("año") @db.Year
+  capacidad_tanque              Decimal?      @db.Decimal(10, 2)
+  id_tipo_combustible_preferido Int?
+  activo                        Boolean?      @default(true)
+  fecha_registro                DateTime?     @default(now()) @db.Timestamp(0)
+  dni                           String?       @db.VarChar(255)
+  nombre_chofer                 String?       @db.VarChar(255)
+  apellido_chofer               String?       @db.VarChar(255)
+  numero_licencia               String?       @db.VarChar(255)
+  empresa                       String?       @db.VarChar(255)
+  tipo                          camiones_tipo
+
+  @@index([id_tipo_combustible_preferido], map: "id_tipo_combustible_preferido")
+}
+
+model oldfasecontrol {
+  id          Int     @id @default(autoincrement())
+  codigo      String? @db.VarChar(255)
+  descripcion String? @db.VarChar(255)
+}
+
+model subirfasecontrol_copy1 {
+  id          Int     @id @default(autoincrement())
+  codigo      String? @db.VarChar(255)
+  descripcion String? @db.VarChar(255)
+}
+
 enum configuracion_notificaciones_tipo_notificacion {
   EMAIL
   SMS
@@ -948,4 +1008,15 @@ enum usuarios_rol {
   ALMACENERO
   AUXILIAR
   USER
+}
+
+enum balances_iniciales_estado {
+  PENDIENTE
+  APROBADO
+  ANULADO
+}
+
+enum camiones_tipo {
+  CAMION
+  MAQUINARIA
 }

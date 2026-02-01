@@ -488,6 +488,7 @@ model frente {
   orden                   Int?                      @default(1)
   sector                  sector                    @relation(fields: [id_sector], references: [id_sector], onDelete: Cascade, onUpdate: Restrict, map: "frente_ibfk_1")
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   partida                 partida[]
 
@@ -509,6 +510,7 @@ model partida {
   activo                  Boolean?                  @default(true)
   orden                   Int?                      @default(1)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   frente                  frente                    @relation(fields: [id_frente], references: [id_frente], onDelete: Cascade, onUpdate: Restrict, map: "partida_ibfk_1")
 
@@ -531,6 +533,7 @@ model proyecto {
   etapas                  etapas[]
   facturas                facturas[]
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   empresas_2025           empresas_2025?            @relation(fields: [cliente], references: [codigo], onDelete: Restrict, onUpdate: Restrict, map: "proyecto_ibfk_1")
   reportes_operadores     reportes_operadores[]
@@ -553,6 +556,7 @@ model sector {
   orden                   Int?                      @default(1)
   frente                  frente[]
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   etapa                   etapas                    @relation(fields: [id_etapa], references: [id_etapa], onDelete: Cascade, onUpdate: Restrict, map: "sector_ibfk_1")
 
@@ -985,6 +989,7 @@ model etapas {
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   proyecto                proyecto                  @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   reportes_operadores     reportes_operadores[]
   sector                  sector[]
@@ -1003,6 +1008,7 @@ model subproyectos {
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   sub_etapas              sub_etapas[]
   proyecto                proyecto                  @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade)
@@ -1021,6 +1027,7 @@ model sub_etapas {
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   subproyecto             subproyectos              @relation(fields: [id_subproyecto], references: [id_subproyecto], onDelete: Cascade)
   subsector               subsector[]
@@ -1040,6 +1047,7 @@ model subsector {
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   subfrente               subfrente[]
   sub_etapa               sub_etapas                @relation(fields: [id_sub_etapa], references: [id_sub_etapa], onDelete: Cascade)
@@ -1059,6 +1067,7 @@ model subfrente {
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   subsector               subsector                 @relation(fields: [id_subsector], references: [id_subsector], onDelete: Cascade)
   subpartida              subpartida[]
@@ -1081,6 +1090,7 @@ model subpartida {
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   guia_remision           guia_remision[]
+  guia_remision_extendida guia_remision_extendida[]
   guia_remision_extendido guia_remision_extendido[]
   subfrente               subfrente                 @relation(fields: [id_subfrente], references: [id_subfrente], onDelete: Cascade)
 
@@ -2367,6 +2377,7 @@ model guia_remision_extendido {
   duplicado_origen_id                           Int?
   duplicado_fecha                               DateTime?                           @db.DateTime(0)
   duplicado_lote_id                             String?                             @db.VarChar(50)
+  items                                         String?                             @db.Text
   etapas                                        etapas?                             @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendido_ibfk_1")
   subsector                                     subsector?                          @relation(fields: [id_subsector], references: [id_subsector], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendido_ibfk_10")
   frente                                        frente?                             @relation(fields: [id_frente], references: [id_frente], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendido_ibfk_2")
@@ -2407,6 +2418,178 @@ model subrubro_copy1 {
   rubro          rubro? @relation(fields: [sub_id], references: [id], onDelete: Cascade, map: "subrubro_copy1_ibfk_1")
 
   @@index([sub_id], map: "sub_id")
+}
+
+model sc_log {
+  id            Int       @id @default(autoincrement())
+  inserted_date DateTime? @db.DateTime(0)
+  username      String    @db.VarChar(90)
+  application   String    @db.VarChar(255)
+  creator       String    @db.VarChar(30)
+  ip_user       String    @db.VarChar(255)
+  action        String    @db.VarChar(30)
+  description   String?   @db.Text
+}
+
+model conductores_secundarios_extendida {
+  id_conductor_secundario Int                     @id @default(autoincrement())
+  id_guia                 Int
+  documento_tipo          Int                     @db.TinyInt
+  documento_numero        String                  @db.VarChar(15)
+  nombre                  String                  @db.VarChar(250)
+  apellidos               String                  @db.VarChar(250)
+  numero_licencia         String?                 @db.VarChar(10)
+  guia_remision_extendida guia_remision_extendida @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction, map: "conductores_secundarios_extendida_ibfk_1")
+
+  @@index([id_guia], map: "idx_conductores_secundarios_guia")
+}
+
+model documento_relacionado_extendida {
+  id_documento_relacionado Int                     @id @default(autoincrement())
+  id_guia                  Int
+  tipo                     String                  @db.VarChar(2)
+  serie                    String                  @db.VarChar(4)
+  numero                   Int
+  guia_remision_extendida  guia_remision_extendida @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction, map: "documento_relacionado_extendida_ibfk_1")
+
+  @@index([id_guia], map: "idx_documento_relacionado_guia")
+}
+
+model guia_remision_extendida {
+  id_guia                                       Int                                 @id @default(autoincrement())
+  operacion                                     String                              @db.VarChar(20)
+  tipo_de_comprobante                           Int                                 @db.TinyInt
+  serie                                         String                              @db.VarChar(4)
+  numero                                        Int
+  cliente_tipo_de_documento                     Int                                 @db.TinyInt
+  cliente_numero_de_documento                   String                              @db.VarChar(15)
+  cliente_denominacion                          String                              @db.VarChar(100)
+  cliente_direccion                             String                              @db.VarChar(100)
+  cliente_email                                 String?                             @db.VarChar(250)
+  cliente_email_1                               String?                             @db.VarChar(250)
+  cliente_email_2                               String?                             @db.VarChar(250)
+  fecha_de_emision                              DateTime                            @db.Date
+  fecha_de_inicio_de_traslado                   DateTime                            @db.Date
+  observaciones                                 String?                             @db.Text
+  id_proyecto                                   Int?
+  id_etapa                                      Int?
+  id_sector                                     Int?
+  id_frente                                     Int?
+  id_partida                                    Int?
+  id_subproyecto                                Int?
+  id_subetapa                                   Int?
+  id_subsector                                  Int?
+  id_subfrente                                  Int?
+  id_subpartida                                 Int?
+  motivo_de_traslado                            String?                             @db.VarChar(2)
+  motivo_de_traslado_otros_descripcion          String?                             @db.VarChar(70)
+  documento_relacionado_codigo                  String?                             @db.VarChar(2)
+  peso_bruto_total                              Decimal                             @db.Decimal(12, 10)
+  peso_bruto_unidad_de_medida                   String                              @db.VarChar(3)
+  numero_de_bultos                              Int?
+  tipo_de_transporte                            String?                             @db.VarChar(2)
+  transportista_documento_tipo                  Int?                                @db.TinyInt
+  transportista_documento_numero                String?                             @db.VarChar(11)
+  transportista_denominacion                    String?                             @db.VarChar(100)
+  transportista_placa_numero                    String                              @db.VarChar(8)
+  tuc_vehiculo_principal                        String?                             @db.VarChar(15)
+  conductor_documento_tipo                      Int?                                @db.TinyInt
+  conductor_documento_numero                    String?                             @db.VarChar(15)
+  conductor_denominacion                        String?                             @db.VarChar(100)
+  conductor_nombre                              String?                             @db.VarChar(250)
+  conductor_apellidos                           String?                             @db.VarChar(250)
+  conductor_numero_licencia                     String?                             @db.VarChar(10)
+  destinatario_documento_tipo                   Int?                                @db.TinyInt
+  destinatario_documento_numero                 String?                             @db.VarChar(15)
+  destinatario_denominacion                     String?                             @db.VarChar(100)
+  mtc                                           String?                             @db.VarChar(20)
+  sunat_envio_indicador                         String?                             @db.VarChar(2)
+  subcontratador_documento_tipo                 Int?                                @db.TinyInt
+  subcontratador_documento_numero               String?                             @db.VarChar(11)
+  subcontratador_denominacion                   String?                             @db.VarChar(250)
+  pagador_servicio_documento_tipo_identidad     Int?                                @db.TinyInt
+  pagador_servicio_documento_numero_identidad   String?                             @db.VarChar(15)
+  pagador_servicio_denominacion                 String?                             @db.VarChar(250)
+  punto_de_partida_ubigeo                       String                              @db.VarChar(6)
+  punto_de_partida_direccion                    String                              @db.VarChar(150)
+  punto_de_partida_codigo_establecimiento_sunat String?                             @db.VarChar(4)
+  punto_de_llegada_ubigeo                       String                              @db.VarChar(6)
+  punto_de_llegada_direccion                    String                              @db.VarChar(150)
+  punto_de_llegada_codigo_establecimiento_sunat String?                             @db.VarChar(4)
+  enviar_automaticamente_al_cliente             Boolean?                            @default(false)
+  formato_de_pdf                                String?                             @db.VarChar(6)
+  enlace                                        String?                             @db.VarChar(255)
+  aceptada_por_sunat                            Boolean?
+  sunat_description                             String?                             @db.Text
+  sunat_note                                    String?                             @db.Text
+  sunat_responsecode                            String?                             @db.VarChar(20)
+  sunat_soap_error                              String?                             @db.Text
+  pdf_zip_base64                                String?                             @db.LongText
+  xml_zip_base64                                String?                             @db.LongText
+  cdr_zip_base64                                String?                             @db.LongText
+  cadena_para_codigo_qr                         String?                             @db.Text
+  enlace_del_pdf                                String?                             @db.VarChar(255)
+  enlace_del_xml                                String?                             @db.VarChar(255)
+  enlace_del_cdr                                String?                             @db.VarChar(255)
+  estado_gre                                    guia_remision_extendida_estado_gre?
+  created_at                                    DateTime?                           @default(now()) @db.Timestamp(0)
+  updated_at                                    DateTime?                           @db.Timestamp(0)
+  identificador_unico                           String?                             @db.VarChar(255)
+  duplicado_origen_id                           Int?
+  duplicado_fecha                               DateTime?                           @db.DateTime(0)
+  duplicado_lote_id                             String?                             @db.VarChar(50)
+  conductores_secundarios_extendida             conductores_secundarios_extendida[]
+  documento_relacionado_extendida               documento_relacionado_extendida[]
+  etapas                                        etapas?                             @relation(fields: [id_etapa], references: [id_etapa], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_1")
+  subsector                                     subsector?                          @relation(fields: [id_subsector], references: [id_subsector], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_10")
+  frente                                        frente?                             @relation(fields: [id_frente], references: [id_frente], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_2")
+  partida                                       partida?                            @relation(fields: [id_partida], references: [id_partida], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_3")
+  proyecto                                      proyecto?                           @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_4")
+  sector                                        sector?                             @relation(fields: [id_sector], references: [id_sector], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_5")
+  sub_etapas                                    sub_etapas?                         @relation(fields: [id_subetapa], references: [id_sub_etapa], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_6")
+  subfrente                                     subfrente?                          @relation(fields: [id_subfrente], references: [id_subfrente], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_7")
+  subpartida                                    subpartida?                         @relation(fields: [id_subpartida], references: [id_subpartida], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_8")
+  subproyectos                                  subproyectos?                       @relation(fields: [id_subproyecto], references: [id_subproyecto], onDelete: Restrict, onUpdate: Restrict, map: "guia_remision_extendida_ibfk_9")
+  items_extendida                               items_extendida[]
+  vehiculos_secundarios_extendida               vehiculos_secundarios_extendida[]
+
+  @@index([id_subetapa], map: "guia_remision_extendida_id_subetapa_fkey_idx")
+  @@index([id_subfrente], map: "guia_remision_extendida_id_subfrente_fkey_idx")
+  @@index([id_subpartida], map: "guia_remision_extendida_id_subpartida_fkey_idx")
+  @@index([id_subproyecto], map: "guia_remision_extendida_id_subproyecto_fkey_idx")
+  @@index([id_subsector], map: "guia_remision_extendida_id_subsector_fkey_idx")
+  @@index([cliente_numero_de_documento], map: "idx_guia_cliente_documento")
+  @@index([id_etapa], map: "idx_guia_etapa")
+  @@index([fecha_de_emision], map: "idx_guia_fecha_emision")
+  @@index([id_frente], map: "idx_guia_frente")
+  @@index([id_partida], map: "idx_guia_partida")
+  @@index([id_proyecto], map: "idx_guia_proyecto")
+  @@index([id_sector], map: "idx_guia_sector")
+  @@index([serie, numero, tipo_de_comprobante], map: "idx_guia_serie_numero")
+}
+
+model items_extendida {
+  id_item                 Int                     @id @default(autoincrement())
+  id_guia                 Int
+  unidad_de_medida        String                  @db.VarChar(5)
+  codigo                  String?                 @db.VarChar(250)
+  descripcion             String                  @db.Text
+  cantidad                Decimal                 @db.Decimal(12, 10)
+  codigo_dam              String?                 @db.VarChar(23)
+  orden                   Int?
+  guia_remision_extendida guia_remision_extendida @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction, map: "items_extendida_ibfk_1")
+
+  @@index([id_guia], map: "idx_items_guia")
+}
+
+model vehiculos_secundarios_extendida {
+  id_vehiculo_secundario  Int                     @id @default(autoincrement())
+  id_guia                 Int
+  placa_numero            String                  @db.VarChar(8)
+  tuc                     String?                 @db.VarChar(15)
+  guia_remision_extendida guia_remision_extendida @relation(fields: [id_guia], references: [id_guia], onDelete: Cascade, onUpdate: NoAction, map: "vehiculos_secundarios_extendida_ibfk_1")
+
+  @@index([id_guia], map: "idx_vehiculos_secundarios_guia")
 }
 
 enum proyecto_estado {
@@ -2533,6 +2716,13 @@ enum camiones_copy1_tipo {
 }
 
 enum guia_remision_extendido_estado_gre {
+  PENDIENTE
+  PROCESANDO
+  COMPLETADO
+  FALLADO
+}
+
+enum guia_remision_extendida_estado_gre {
   PENDIENTE
   PROCESANDO
   COMPLETADO

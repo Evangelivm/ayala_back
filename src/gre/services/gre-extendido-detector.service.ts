@@ -25,9 +25,15 @@ export class GreExtendidoDetectorService {
 
       // ✅ NUEVO FLUJO: Buscar TODOS los registros con estado_gre NULL
       // Ya no se excluyen duplicados, todos se procesan automáticamente
-      const completeRecords = await this.prisma.guia_remision_extendido.findMany({
+      const completeRecords = await this.prisma.guia_remision_extendida.findMany({
         where: {
           estado_gre: null,
+        },
+        include: {
+          items_extendida: true,
+          documento_relacionado_extendida: true,
+          vehiculos_secundarios_extendida: true,
+          conductores_secundarios_extendida: true,
         },
       });
 
@@ -137,8 +143,9 @@ export class GreExtendidoDetectorService {
         return false;
       }
 
-      // Items: por ahora no validamos porque no hay relación en el schema
-      // TODO: Agregar validación de items cuando se cree la relación en Prisma schema
+      // Validar items (ahora sí tenemos relación en el schema)
+      // Nota: Los items se validan al cargar el registro con include
+      // Si no hay items_extendida, el registro no debería pasar la validación en el CRUD
 
       // VALIDACIONES ESPECÍFICAS POR TIPO
       if (tipoRemitente) {
@@ -296,7 +303,7 @@ export class GreExtendidoDetectorService {
       const greData = this.transformRecordToNubefactApi(record);
 
       // Actualizar estado a PENDIENTE antes de enviar a Kafka
-      await this.prisma.guia_remision_extendido.update({
+      await this.prisma.guia_remision_extendida.update({
         where: { id_guia: record.id_guia },
         data: { estado_gre: 'PENDIENTE' },
       });
@@ -309,7 +316,7 @@ export class GreExtendidoDetectorService {
       this.logger.error(`Error procesando registro extendido ${record.id_guia}:`, error);
 
       // Marcar como FALLADO si hay error
-      await this.prisma.guia_remision_extendido.update({
+      await this.prisma.guia_remision_extendida.update({
         where: { id_guia: record.id_guia },
         data: { estado_gre: 'FALLADO' },
       });
@@ -479,22 +486,66 @@ export class GreExtendidoDetectorService {
       }
     }
 
-    // Items: hardcodeado por ahora hasta que se cree la relación en el schema
-    payload.items = [
-      {
-        unidad_de_medida: 'NIU',
-        descripcion: 'MATERIAL DE CONSTRUCCION',
-        cantidad: '1'
-      }
-    ];
+    // ✅ Cargar items desde la tabla relacional items_extendida
+    console.log(`\n🔍 [DETECTOR-TRANSFORM] record.id_guia: ${record.id_guia}`);
+    console.log(`🔍 [DETECTOR-TRANSFORM] record.items_extendida:`, record.items_extendida);
 
-    // Documentos relacionados, vehículos secundarios y conductores secundarios
-    // Por ahora no se incluyen hasta que se cree la relación en el schema
-    // TODO: Agregar cuando se tengan las relaciones en Prisma
+    if (record.items_extendida && Array.isArray(record.items_extendida) && record.items_extendida.length > 0) {
+      payload.items = record.items_extendida.map((item: any) => ({
+        unidad_de_medida: item.unidad_de_medida,
+        codigo: item.codigo || 'PROD001',
+        descripcion: item.descripcion,
+        cantidad: String(item.cantidad),
+      }));
+      console.log('✅ [DETECTOR-EXTENDIDO] Items cargados desde items_extendida:', payload.items);
+    } else {
+      // Fallback si no hay items
+      console.warn('⚠️ [DETECTOR-EXTENDIDO] No hay items_extendida, usando fallback');
+      payload.items = [
+        {
+          unidad_de_medida: 'NIU',
+          codigo: 'PROD001',
+          descripcion: 'MATERIAL DE CONSTRUCCION',
+          cantidad: '1',
+        }
+      ];
+    }
+
+    // Documentos relacionados
+    if (record.documento_relacionado_extendida && Array.isArray(record.documento_relacionado_extendida) && record.documento_relacionado_extendida.length > 0) {
+      payload.documentos_relacionados = record.documento_relacionado_extendida.map((doc: any) => ({
+        tipo: doc.tipo,
+        serie: doc.serie,
+        numero: String(doc.numero),
+      }));
+      console.log('✅ [DETECTOR-EXTENDIDO] Documentos relacionados cargados:', payload.documentos_relacionados);
+    }
+
+    // Vehículos secundarios
+    if (record.vehiculos_secundarios_extendida && Array.isArray(record.vehiculos_secundarios_extendida) && record.vehiculos_secundarios_extendida.length > 0) {
+      payload.vehiculos_secundarios = record.vehiculos_secundarios_extendida.map((vehiculo: any) => ({
+        placa_numero: vehiculo.placa_numero,
+        tuc: vehiculo.tuc,
+      }));
+      console.log('✅ [DETECTOR-EXTENDIDO] Vehículos secundarios cargados:', payload.vehiculos_secundarios);
+    }
+
+    // Conductores secundarios
+    if (record.conductores_secundarios_extendida && Array.isArray(record.conductores_secundarios_extendida) && record.conductores_secundarios_extendida.length > 0) {
+      payload.conductores_secundarios = record.conductores_secundarios_extendida.map((conductor: any) => ({
+        documento_tipo: String(conductor.documento_tipo),
+        documento_numero: conductor.documento_numero,
+        nombre: conductor.nombre,
+        apellidos: conductor.apellidos,
+        numero_licencia: conductor.numero_licencia,
+      }));
+      console.log('✅ [DETECTOR-EXTENDIDO] Conductores secundarios cargados:', payload.conductores_secundarios);
+    }
 
     console.log('📤 [DETECTOR-EXTENDIDO] Payload FINAL para Kafka/Nubefact:');
     console.log('   - fecha_de_emision:', payload.fecha_de_emision);
     console.log('   - fecha_de_inicio_de_traslado:', payload.fecha_de_inicio_de_traslado);
+    console.log('   - items:', JSON.stringify(payload.items, null, 2));
 
     return payload;
   }
@@ -505,23 +556,23 @@ export class GreExtendidoDetectorService {
   }
 
   async getDetectionStats() {
-    const pendientes = await this.prisma.guia_remision_extendido.count({
+    const pendientes = await this.prisma.guia_remision_extendida.count({
       where: { estado_gre: 'PENDIENTE' }
     });
 
-    const procesando = await this.prisma.guia_remision_extendido.count({
+    const procesando = await this.prisma.guia_remision_extendida.count({
       where: { estado_gre: 'PROCESANDO' }
     });
 
-    const completados = await this.prisma.guia_remision_extendido.count({
+    const completados = await this.prisma.guia_remision_extendida.count({
       where: { estado_gre: 'COMPLETADO' }
     });
 
-    const fallados = await this.prisma.guia_remision_extendido.count({
+    const fallados = await this.prisma.guia_remision_extendida.count({
       where: { estado_gre: 'FALLADO' }
     });
 
-    const sinProcesar = await this.prisma.guia_remision_extendido.count({
+    const sinProcesar = await this.prisma.guia_remision_extendida.count({
       where: { estado_gre: null }
     });
 

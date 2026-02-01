@@ -17,6 +17,7 @@ import { GreExtendidoPollingService } from './services/gre-extendido-polling.ser
 // Controllers
 import { GreController } from './gre.controller';
 import { GreCrudController } from './gre-crud.controller';
+import { GreExtendidoCrudController } from './gre-extendido-crud.controller';
 
 // Modules
 import { KafkaModule } from '../kafka/kafka.module';
@@ -33,6 +34,7 @@ import { WebsocketModule } from '../websocket/websocket.module';
   controllers: [
     GreController,
     GreCrudController, // CRUD endpoints para frontend
+    GreExtendidoCrudController, // CRUD endpoints para frontend - TTT2
     GreConsumerService, // ✅ Como controller para @MessagePattern
     GreExtendidoConsumerService, // ✅ Como controller para @MessagePattern extendido
   ],

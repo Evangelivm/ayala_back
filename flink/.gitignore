@@ -1,0 +1,30 @@
+# Checkpoints (generados por Flink)
+checkpoints/
+!checkpoints/.gitkeep
+
+# Jobs compilados
+jobs/*.jar
+
+# Logs
+logs/
+*.log
+
+# Data volumes
+data/
+
+# Environment variables (pueden contener secrets)
+.env.local
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore

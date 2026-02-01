@@ -31,8 +31,11 @@ export class GreExtendidoConsumerService {
 
       this.logger.log(`Procesando GRE Extendido request: ${id} para registro ${recordId}`);
 
+      // 🔍 DEBUG: Ver qué items vienen en el mensaje de Kafka
+      console.log(`\n🔍 [CONSUMER-KAFKA] Mensaje data.items:`, data?.items);
+
       // Verificar estado antes de procesar
-      const currentRecord = await this.prismaService.guia_remision_extendido.findUnique({
+      const currentRecord = await this.prismaService.guia_remision_extendida.findUnique({
         where: { id_guia: parseInt(recordId) }
       });
 
@@ -47,7 +50,7 @@ export class GreExtendidoConsumerService {
       }
 
       // Actualizar estado a PROCESANDO
-      await this.prismaService.guia_remision_extendido.update({
+      await this.prismaService.guia_remision_extendida.update({
         where: { id_guia: parseInt(recordId) },
         data: { estado_gre: 'PROCESANDO' }
       });
@@ -72,7 +75,7 @@ export class GreExtendidoConsumerService {
         this.logger.error(`Error en API generar_guia para registro extendido ${recordId}:`, nubefactResponse.error);
 
         // Actualizar a FALLADO
-        await this.prismaService.guia_remision_extendido.update({
+        await this.prismaService.guia_remision_extendida.update({
           where: { id_guia: parseInt(recordId) },
           data: { estado_gre: 'FALLADO' }
         });
@@ -86,7 +89,7 @@ export class GreExtendidoConsumerService {
 
       try {
         if (message?.recordId) {
-          await this.prismaService.guia_remision_extendido.update({
+          await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: parseInt(message.recordId) },
             data: { estado_gre: 'FALLADO' }
           });
@@ -105,7 +108,7 @@ export class GreExtendidoConsumerService {
       this.logger.debug(`Procesando mensaje extendido en processing: ${id} para registro ${recordId}`);
 
       // Verificar si el registro ya está COMPLETADO
-      const record = await this.prismaService.guia_remision_extendido.findUnique({
+      const record = await this.prismaService.guia_remision_extendida.findUnique({
         where: { id_guia: parseInt(recordId) }
       });
 
@@ -131,7 +134,7 @@ export class GreExtendidoConsumerService {
 
         if (pdf_url && xml_url && cdr_url) {
           // Verificar primero si ya fue completado
-          const currentRecord = await this.prismaService.guia_remision_extendido.findUnique({
+          const currentRecord = await this.prismaService.guia_remision_extendida.findUnique({
             where: { id_guia: parseInt(recordId) }
           });
 
@@ -142,7 +145,7 @@ export class GreExtendidoConsumerService {
           }
 
           // Si no está completado, actualizar BD
-          const guiaCompletada = await this.prismaService.guia_remision_extendido.update({
+          const guiaCompletada = await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: parseInt(recordId) },
             data: {
               estado_gre: 'COMPLETADO',
@@ -185,7 +188,7 @@ export class GreExtendidoConsumerService {
         this.logger.error(`Error en respuesta extendida para registro ${recordId}:`, error);
 
         // Actualizar a FALLADO
-        await this.prismaService.guia_remision_extendido.update({
+        await this.prismaService.guia_remision_extendida.update({
           where: { id_guia: parseInt(recordId) },
           data: { estado_gre: 'FALLADO' }
         });
@@ -209,6 +212,9 @@ export class GreExtendidoConsumerService {
       }
 
       this.logger.log('Llamando a NUBEFACT API generar_guia (extendido)');
+
+      // 🔍 DEBUG: Ver payload final que se envía a Nubefact
+      console.log(`\n🔍 [NUBEFACT-PAYLOAD] greData.items antes de enviar:`, JSON.stringify(greData.items, null, 2));
 
       const response = await axios.post(NUBEFACT_API_URL, greData, {
         headers: {
@@ -239,19 +245,19 @@ export class GreExtendidoConsumerService {
 
   async getConsumerStats() {
     try {
-      const pendientes = await this.prismaService.guia_remision_extendido.count({
+      const pendientes = await this.prismaService.guia_remision_extendida.count({
         where: { estado_gre: 'PENDIENTE' }
       });
 
-      const procesando = await this.prismaService.guia_remision_extendido.count({
+      const procesando = await this.prismaService.guia_remision_extendida.count({
         where: { estado_gre: 'PROCESANDO' }
       });
 
-      const completados = await this.prismaService.guia_remision_extendido.count({
+      const completados = await this.prismaService.guia_remision_extendida.count({
         where: { estado_gre: 'COMPLETADO' }
       });
 
-      const fallados = await this.prismaService.guia_remision_extendido.count({
+      const fallados = await this.prismaService.guia_remision_extendida.count({
         where: { estado_gre: 'FALLADO' }
       });
 
@@ -274,7 +280,7 @@ export class GreExtendidoConsumerService {
 
   async retryFailedRecords(): Promise<void> {
     try {
-      const failedRecords = await this.prismaService.guia_remision_extendido.findMany({
+      const failedRecords = await this.prismaService.guia_remision_extendida.findMany({
         where: { estado_gre: 'FALLADO' },
         take: 10
       });
@@ -283,7 +289,7 @@ export class GreExtendidoConsumerService {
 
       for (const record of failedRecords) {
         try {
-          await this.prismaService.guia_remision_extendido.update({
+          await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: record.id_guia },
             data: { estado_gre: null }
           });

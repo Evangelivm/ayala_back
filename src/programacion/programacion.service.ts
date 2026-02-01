@@ -976,6 +976,15 @@ export class ProgramacionService {
     try {
       this.logger.log(`📝 Guardando ${duplicados.length} duplicados en la base de datos...`);
 
+      // 🔍 DEBUG: Ver qué items vienen desde el frontend
+      duplicados.forEach((dup, index) => {
+        console.log(`\n🔍 [GUARDAR-DUPLICADOS] Duplicado ${index + 1}:`, {
+          peso_bruto_total: dup.peso_bruto_total,
+          items_raw: dup.items,
+          items_parsed: dup.items ? JSON.parse(dup.items) : null
+        });
+      });
+
       const resultados = await this.prisma.$transaction(async (tx) => {
         const guiasCreadas: any[] = [];
 
@@ -1058,6 +1067,8 @@ export class ProgramacionService {
                 id_subsector: duplicado.id_subsector || null,
                 id_subfrente: duplicado.id_subfrente || null,
                 id_subpartida: duplicado.id_subpartida || null,
+                // ✅ NUEVO: Guardar items con código
+                items: duplicado.items || null,
               },
             });
           } else {
@@ -1114,11 +1125,14 @@ export class ProgramacionService {
                 id_subsector: duplicado.id_subsector || null,
                 id_subfrente: duplicado.id_subfrente || null,
                 id_subpartida: duplicado.id_subpartida || null,
+                // ✅ NUEVO: Guardar items con código
+                items: duplicado.items || null,
               },
             });
           }
 
           this.logger.log(`   ✅ Guardado duplicado TTT2-${numeroActual} (id: ${nuevoRegistroGre.id_guia})`);
+          console.log(`   🔍 [DB-SAVED] Items guardados en BD:`, nuevoRegistroGre.items);
 
           guiasCreadas.push({
             id_guia: nuevoRegistroGre.id_guia,
@@ -1812,18 +1826,59 @@ export class ProgramacionService {
       }
     }
 
-    // Items: hardcodeado por ahora hasta que se cree la relación en el schema
-    payload.items = [
-      {
-        unidad_de_medida: 'NIU',
-        descripcion: 'MATERIAL DE CONSTRUCCION',
-        cantidad: '1'
+    // ✅ NUEVO: Usar items reales del registro (con código)
+    console.log(`\n🔍 [TRANSFORM-RECORD] record.id_guia: ${record.id_guia}`);
+    console.log(`🔍 [TRANSFORM-RECORD] record.items (raw):`, record.items);
+
+    if (record.items) {
+      try {
+        const itemsArray = JSON.parse(record.items);
+        console.log(`🔍 [TRANSFORM-RECORD] itemsArray parsed:`, itemsArray);
+
+        if (Array.isArray(itemsArray) && itemsArray.length > 0) {
+          payload.items = itemsArray;
+          console.log('✅ [PROGRAMACION-SERVICE] Items con código cargados:', itemsArray);
+        } else {
+          // Fallback si no hay items válidos
+          console.warn('⚠️ [PROGRAMACION-SERVICE] Items vacío o inválido, usando fallback');
+          payload.items = [
+            {
+              unidad_de_medida: 'NIU',
+              descripcion: 'MATERIAL DE CONSTRUCCION',
+              cantidad: '1',
+              codigo: 'PROD001' // Código por defecto
+            }
+          ];
+        }
+      } catch (e) {
+        console.error('❌ [PROGRAMACION-SERVICE] Error parseando items:', e);
+        // Fallback en caso de error
+        payload.items = [
+          {
+            unidad_de_medida: 'NIU',
+            descripcion: 'MATERIAL DE CONSTRUCCION',
+            cantidad: '1',
+            codigo: 'PROD001' // Código por defecto
+          }
+        ];
       }
-    ];
+    } else {
+      // Fallback si no existe el campo items
+      console.warn('⚠️ [PROGRAMACION-SERVICE] Campo items no existe en el registro, usando fallback');
+      payload.items = [
+        {
+          unidad_de_medida: 'NIU',
+          descripcion: 'MATERIAL DE CONSTRUCCION',
+          cantidad: '1',
+          codigo: 'PROD001' // Código por defecto
+        }
+      ];
+    }
 
     console.log('📤 [PROGRAMACION-SERVICE] Payload FINAL para Kafka/Nubefact:');
     console.log('   - fecha_de_emision:', payload.fecha_de_emision);
     console.log('   - fecha_de_inicio_de_traslado:', payload.fecha_de_inicio_de_traslado);
+    console.log('   - items:', JSON.stringify(payload.items, null, 2));
 
     return payload;
   }

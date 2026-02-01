@@ -2036,4 +2036,40 @@ export class OrdenCompraService {
       );
     }
   }
+
+  /**
+   * Actualiza la URL de comprobante de retención y el número de serie de una orden de compra
+   * @param id - ID de la orden de compra
+   * @param comprobanteRetencionUrl - URL del comprobante de retención en Dropbox
+   * @param nroSerie - Número de serie del comprobante
+   */
+  async updateComprobanteRetencionUrl(
+    id: number,
+    comprobanteRetencionUrl: string,
+    nroSerie: string,
+  ): Promise<void> {
+    try {
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: {
+          url_comprobante_retencion: comprobanteRetencionUrl,
+          nro_serie: nroSerie,
+        },
+      });
+
+      // Verificar si debe cambiar a COMPLETADA
+      await this.verificarYActualizarEstadoCompletada(id);
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      console.error(
+        'Error al actualizar URL de comprobante de retención de la orden de compra:',
+        error,
+      );
+      throw new BadRequestException(
+        `Error al actualizar URL de comprobante de retención de la orden de compra: ${error.message}`,
+      );
+    }
+  }
 }

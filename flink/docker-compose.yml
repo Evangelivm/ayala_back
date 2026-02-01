@@ -1,0 +1,167 @@
+version: '3.8'
+
+services:
+  # ===================================================
+  # FLINK JOBMANAGER (Coordinador)
+  # ===================================================
+  flink-jobmanager:
+    image: flink:1.18-scala_2.12-java11
+    container_name: ayala-flink-jobmanager
+    hostname: flink-jobmanager
+    ports:
+      - "8081:8081"  # Web UI de Flink
+      - "6123:6123"  # RPC
+    command: jobmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: flink-jobmanager
+    volumes:
+      - ./config/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ./checkpoints:/opt/flink/checkpoints
+      - ./jobs:/opt/flink/jobs
+      - flink-data:/opt/flink/data
+    networks:
+      - ayala-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+  # ===================================================
+  # FLINK TASKMANAGER 1 (Ejecutor)
+  # ===================================================
+  flink-taskmanager-1:
+    image: flink:1.18-scala_2.12-java11
+    container_name: ayala-flink-taskmanager-1
+    hostname: flink-taskmanager-1
+    depends_on:
+      - flink-jobmanager
+    command: taskmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: flink-jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: "4"
+    volumes:
+      - ./config/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ./checkpoints:/opt/flink/checkpoints
+      - ./jobs:/opt/flink/jobs
+      - flink-data:/opt/flink/data
+    networks:
+      - ayala-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 3G
+
+  # ===================================================
+  # FLINK TASKMANAGER 2 (Ejecutor)
+  # ===================================================
+  flink-taskmanager-2:
+    image: flink:1.18-scala_2.12-java11
+    container_name: ayala-flink-taskmanager-2
+    hostname: flink-taskmanager-2
+    depends_on:
+      - flink-jobmanager
+    command: taskmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: flink-jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: "4"
+    volumes:
+      - ./config/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ./checkpoints:/opt/flink/checkpoints
+      - ./jobs:/opt/flink/jobs
+      - flink-data:/opt/flink/data
+    networks:
+      - ayala-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 3G
+
+  # ===================================================
+  # ELASTICSEARCH (Motor de búsqueda)
+  # ===================================================
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: ayala-elasticsearch
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"  # REST API
+      - "9300:9300"  # Transport
+    environment:
+      node.name: ayala-es-node
+      cluster.name: ayala-cluster
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+      xpack.security.enabled: "false"
+      xpack.security.enrollment.enabled: "false"
+      xpack.security.http.ssl.enabled: "false"
+      xpack.security.transport.ssl.enabled: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - ayala-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+
+  # ===================================================
+  # KIBANA (UI para Elasticsearch) - OPCIONAL
+  # ===================================================
+  kibana:
+    image: kibana:8.11.0
+    container_name: ayala-kibana
+    hostname: kibana
+    ports:
+      - "5601:5601"  # Web UI
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      SERVER_NAME: ayala-kibana
+      xpack.security.enabled: "false"
+    depends_on:
+      - elasticsearch
+    networks:
+      - ayala-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+# ===================================================
+# NETWORKS
+# ===================================================
+networks:
+  ayala-network:
+    name: ayala-network
+    driver: bridge
+
+# ===================================================
+# VOLUMES
+# ===================================================
+volumes:
+  flink-data:
+    name: ayala-flink-data
+  elasticsearch-data:
+    name: ayala-elasticsearch-data

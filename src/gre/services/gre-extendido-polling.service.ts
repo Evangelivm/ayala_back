@@ -43,7 +43,7 @@ export class GreExtendidoPollingService implements OnModuleInit, OnModuleDestroy
     try {
       this.logger.log('🔄 Recuperando pollings extendidos pendientes desde la base de datos...');
 
-      const processingRecords = await this.prismaService.guia_remision_extendido.findMany({
+      const processingRecords = await this.prismaService.guia_remision_extendida.findMany({
         where: {
           estado_gre: 'PROCESANDO',
         },
@@ -176,7 +176,7 @@ export class GreExtendidoPollingService implements OnModuleInit, OnModuleDestroy
           this.logger.log(`✅ Enlaces completos obtenidos para registro extendido ${recordId}`);
 
           // Actualizar BD inmediatamente
-          const guiaCompletada = await this.prismaService.guia_remision_extendido.update({
+          const guiaCompletada = await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: parseInt(recordId) },
             data: {
               estado_gre: 'COMPLETADO',

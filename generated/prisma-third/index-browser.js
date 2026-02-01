@@ -268,7 +268,8 @@ exports.Prisma.Movimientos_inventarioScalarFieldEnum = {
   estado: 'estado',
   id_usuario_registro: 'id_usuario_registro',
   subtotal: 'subtotal',
-  precio_unitario: 'precio_unitario'
+  precio_unitario: 'precio_unitario',
+  placa: 'placa'
 };
 
 exports.Prisma.NotificacionesScalarFieldEnum = {
@@ -342,7 +343,9 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   url: 'url',
   url_cotizacion: 'url_cotizacion',
   url_factura: 'url_factura',
-  nro_factura: 'nro_factura'
+  nro_factura: 'nro_factura',
+  url_comprobante_retencion: 'url_comprobante_retencion',
+  nro_serie: 'nro_serie'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -409,7 +412,8 @@ exports.Prisma.Solicitudes_salidaScalarFieldEnum = {
   autorizado_por: 'autorizado_por',
   fecha_autorizacion: 'fecha_autorizacion',
   comentario_autorizacion: 'comentario_autorizacion',
-  id_movimiento_generado: 'id_movimiento_generado'
+  id_movimiento_generado: 'id_movimiento_generado',
+  placa: 'placa'
 };
 
 exports.Prisma.Stock_almacenesScalarFieldEnum = {
@@ -485,7 +489,9 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   url: 'url',
   url_cotizacion: 'url_cotizacion',
   url_factura: 'url_factura',
-  nro_factura: 'nro_factura'
+  nro_factura: 'nro_factura',
+  url_comprobante_retencion: 'url_comprobante_retencion',
+  nro_serie: 'nro_serie'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -716,6 +722,50 @@ exports.Prisma.DetalladoScalarFieldEnum = {
   detalle: 'detalle'
 };
 
+exports.Prisma.Balances_inicialesScalarFieldEnum = {
+  id_balance_inicial: 'id_balance_inicial',
+  codigo_item: 'codigo_item',
+  id_almacen: 'id_almacen',
+  cantidad_inicial: 'cantidad_inicial',
+  costo_unitario: 'costo_unitario',
+  fecha_registro: 'fecha_registro',
+  fecha_inicio: 'fecha_inicio',
+  registrado_por: 'registrado_por',
+  observaciones: 'observaciones',
+  numero_factura: 'numero_factura',
+  estado: 'estado'
+};
+
+exports.Prisma.CamionesScalarFieldEnum = {
+  id_camion: 'id_camion',
+  placa: 'placa',
+  marca: 'marca',
+  modelo: 'modelo',
+  a_o: 'a_o',
+  capacidad_tanque: 'capacidad_tanque',
+  id_tipo_combustible_preferido: 'id_tipo_combustible_preferido',
+  activo: 'activo',
+  fecha_registro: 'fecha_registro',
+  dni: 'dni',
+  nombre_chofer: 'nombre_chofer',
+  apellido_chofer: 'apellido_chofer',
+  numero_licencia: 'numero_licencia',
+  empresa: 'empresa',
+  tipo: 'tipo'
+};
+
+exports.Prisma.OldfasecontrolScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Subirfasecontrol_copy1ScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -813,7 +863,8 @@ exports.Prisma.movimientos_inventarioOrderByRelevanceFieldEnum = {
   codigo_item: 'codigo_item',
   numero_documento: 'numero_documento',
   responsable: 'responsable',
-  observaciones: 'observaciones'
+  observaciones: 'observaciones',
+  placa: 'placa'
 };
 
 exports.Prisma.notificacionesOrderByRelevanceFieldEnum = {
@@ -849,7 +900,9 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   url: 'url',
   url_cotizacion: 'url_cotizacion',
   url_factura: 'url_factura',
-  nro_factura: 'nro_factura'
+  nro_factura: 'nro_factura',
+  url_comprobante_retencion: 'url_comprobante_retencion',
+  nro_serie: 'nro_serie'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
@@ -877,7 +930,8 @@ exports.Prisma.solicitudes_salidaOrderByRelevanceFieldEnum = {
   numero_documento: 'numero_documento',
   solicitante_nombre: 'solicitante_nombre',
   observaciones: 'observaciones',
-  comentario_autorizacion: 'comentario_autorizacion'
+  comentario_autorizacion: 'comentario_autorizacion',
+  placa: 'placa'
 };
 
 exports.Prisma.stock_almacenesOrderByRelevanceFieldEnum = {
@@ -917,7 +971,9 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   url: 'url',
   url_cotizacion: 'url_cotizacion',
   url_factura: 'url_factura',
-  nro_factura: 'nro_factura'
+  nro_factura: 'nro_factura',
+  url_comprobante_retencion: 'url_comprobante_retencion',
+  nro_serie: 'nro_serie'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
@@ -1030,6 +1086,33 @@ exports.Prisma.subrubroOrderByRelevanceFieldEnum = {
 
 exports.Prisma.detalladoOrderByRelevanceFieldEnum = {
   detalle: 'detalle'
+};
+
+exports.Prisma.balances_inicialesOrderByRelevanceFieldEnum = {
+  codigo_item: 'codigo_item',
+  observaciones: 'observaciones',
+  numero_factura: 'numero_factura'
+};
+
+exports.Prisma.camionesOrderByRelevanceFieldEnum = {
+  placa: 'placa',
+  marca: 'marca',
+  modelo: 'modelo',
+  dni: 'dni',
+  nombre_chofer: 'nombre_chofer',
+  apellido_chofer: 'apellido_chofer',
+  numero_licencia: 'numero_licencia',
+  empresa: 'empresa'
+};
+
+exports.Prisma.oldfasecontrolOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.subirfasecontrol_copy1OrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
 };
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
@@ -1173,6 +1256,17 @@ exports.proyecto_estado = exports.$Enums.proyecto_estado = {
   finalizado: 'finalizado'
 };
 
+exports.balances_iniciales_estado = exports.$Enums.balances_iniciales_estado = {
+  PENDIENTE: 'PENDIENTE',
+  APROBADO: 'APROBADO',
+  ANULADO: 'ANULADO'
+};
+
+exports.camiones_tipo = exports.$Enums.camiones_tipo = {
+  CAMION: 'CAMION',
+  MAQUINARIA: 'MAQUINARIA'
+};
+
 exports.Prisma.ModelName = {
   almacenes: 'almacenes',
   configuracion_notificaciones: 'configuracion_notificaciones',
@@ -1216,7 +1310,11 @@ exports.Prisma.ModelName = {
   fasecontrol: 'fasecontrol',
   rubro: 'rubro',
   subrubro: 'subrubro',
-  detallado: 'detallado'
+  detallado: 'detallado',
+  balances_iniciales: 'balances_iniciales',
+  camiones: 'camiones',
+  oldfasecontrol: 'oldfasecontrol',
+  subirfasecontrol_copy1: 'subirfasecontrol_copy1'
 };
 
 /**
