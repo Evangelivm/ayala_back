@@ -34,14 +34,14 @@ fi
 echo "✓ docker-compose encontrado"
 echo ""
 
-# Crear red si no existe
-echo "→ Verificando red ayala-network..."
-if ! docker network ls | grep -q ayala-network; then
-    echo "  Creando red ayala-network..."
-    docker network create ayala-network
-    echo "  ✓ Red creada"
+# Verificar que existe la red compartida
+echo "→ Verificando red shared_network..."
+if ! docker network ls | grep -q shared_network; then
+    echo "  ⚠️  La red shared_network no existe"
+    echo "  Créala con: docker network create shared_network"
+    exit 1
 else
-    echo "  ✓ Red ya existe"
+    echo "  ✓ Red shared_network encontrada"
 fi
 echo ""
 

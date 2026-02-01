@@ -24,13 +24,13 @@ REDIS_PORT=6379
 
 ```bash
 # Crear red (si no existe)
-docker network create ayala-network
+docker network create shared_network
 
 # Conectar tus servicios existentes
-docker network connect ayala-network <nombre-contenedor-kafka>
-docker network connect ayala-network <nombre-contenedor-mysql>
-docker network connect ayala-network <nombre-contenedor-redis>
-docker network connect ayala-network <nombre-contenedor-nestjs>
+docker network connect shared_network <nombre-contenedor-kafka>
+docker network connect shared_network <nombre-contenedor-mysql>
+docker network connect shared_network <nombre-contenedor-redis>
+docker network connect shared_network <nombre-contenedor-nestjs>
 ```
 
 ### 3. Iniciar Servicios
