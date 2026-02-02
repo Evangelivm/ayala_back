@@ -1,0 +1,850 @@
+================================================================================
+PLAN DE IMPLEMENTACIÓN: SISTEMA DE ALTA VELOCIDAD
+================================================================================
+Proyecto: Sistema Ayala - Optimización de Rendimiento
+Objetivo: Conseguir respuestas a "velocidad de la luz" (<1ms - 50ms)
+Fecha: 2026-02-01
+================================================================================
+
+================================================================================
+RESUMEN EJECUTIVO
+================================================================================
+
+PROBLEMA ACTUAL:
+- Queries a MySQL tardan 50-500ms (especialmente agregaciones)
+- Dashboard se recarga lento
+- Búsquedas de texto tardan mucho
+- Reportes complejos bloquean la base de datos
+
+SOLUCIÓN PROPUESTA:
+Arquitectura híbrida de 3 capas de velocidad:
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  CAPA 1: Ultra Rápido (<1ms)    → Redis Cache + Flink              │
+│  CAPA 2: Muy Rápido (5-50ms)    → Elasticsearch                    │
+│  CAPA 3: Rápido (10-100ms)      → MySQL con índices                │
+└─────────────────────────────────────────────────────────────────────┘
+
+RESULTADO ESPERADO:
+✓ Dashboard: 500ms → <1ms (500x más rápido)
+✓ Búsquedas: 200ms → 10ms (20x más rápido)
+✓ Facturas individuales: 50ms → 1ms (50x más rápido)
+✓ Agregaciones complejas: 1000ms → <1ms (1000x más rápido)
+
+================================================================================
+ARQUITECTURA PROPUESTA
+================================================================================
+
+┌───────────────────────────────────────────────────────────────────┐
+│                        FRONTEND (Next.js)                          │
+└────────────────────────────┬──────────────────────────────────────┘
+                             ↓
+┌───────────────────────────────────────────────────────────────────┐
+│                     NESTJS BACKEND (API)                           │
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐  │
+│  │  CAPA DE VELOCIDAD (nuevo)                                  │  │
+│  ├─────────────────────────────────────────────────────────────┤  │
+│  │                                                              │  │
+│  │  1. Redis Cache Service                                     │  │
+│  │     • Facturas individuales (TTL: 5min)                    │  │
+│  │     • Métricas pre-calculadas (Flink escribe aquí)         │  │
+│  │     • Listas frecuentes                                     │  │
+│  │                                                              │  │
+│  │  2. Elasticsearch Service                                   │  │
+│  │     • Búsquedas full-text                                   │  │
+│  │     • Autocompletado                                        │  │
+│  │     • Filtros complejos                                     │  │
+│  │                                                              │  │
+│  │  3. Prisma Service (fallback)                              │  │
+│  │     • Queries ad-hoc                                        │  │
+│  │     • Escrituras                                            │  │
+│  │     • Transacciones                                         │  │
+│  │                                                              │  │
+│  └─────────────────────────────────────────────────────────────┘  │
+└────────────────────────────┬──────────────────────────────────────┘
+                             ↓
+┌───────────────────────────────────────────────────────────────────┐
+│                      CAPA DE DATOS                                 │
+├───────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  ┌────────────┐  ┌─────────────┐  ┌──────────────┐               │
+│  │   Redis    │  │ Elasticsearch│  │    MySQL     │               │
+│  │  (Cache)   │  │  (Búsqueda) │  │  (Verdad)    │               │
+│  │  <1ms ⚡   │  │   5-50ms ⚡  │  │  10-100ms    │               │
+│  └─────┬──────┘  └──────┬──────┘  └──────┬───────┘               │
+│        ↑                 ↑                 ↑                        │
+│        │                 │                 │                        │
+│        └─────────────────┴─────────────────┘                       │
+│                          ↑                                          │
+│                    Apache Flink                                     │
+│              (Procesamiento Continuo)                               │
+│                                                                     │
+└───────────────────────────────────────────────────────────────────┘
+
+FLUJO DE DATOS:
+1. Usuario crea factura → NestJS → MySQL (Prisma)
+2. NestJS → Publica a Kafka
+3. Flink → Procesa stream → Calcula métricas
+4. Flink → Escribe en Redis (métricas) + Elasticsearch (índice)
+5. Frontend pide dashboard → NestJS → Redis → <1ms ⚡
+
+================================================================================
+FASE 1: REDIS CACHE (1-2 días) - MÁXIMA PRIORIDAD
+================================================================================
+
+OBJETIVO: Reducir latencia de 50-500ms a <1ms para queries frecuentes
+
+COMPONENTES A INSTALAR:
+✓ Redis ya está corriendo en tu VPS
+
+IMPLEMENTACIÓN:
+
+────────────────────────────────────────────────────────────────────
+1.1 - Instalar dependencias en NestJS
+────────────────────────────────────────────────────────────────────
+
+cd ~/ayala_back
+npm install ioredis @nestjs/cache-manager cache-manager-ioredis-yet
+
+────────────────────────────────────────────────────────────────────
+1.2 - Configurar Redis Module
+────────────────────────────────────────────────────────────────────
+
+// src/redis/redis.module.ts
+import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-ioredis-yet';
+
+@Module({
+  imports: [
+    CacheModule.registerAsync({
+      useFactory: async () => ({
+        store: await redisStore({
+          host: process.env.REDIS_HOST || 'localhost',
+          port: parseInt(process.env.REDIS_PORT) || 6379,
+          ttl: 300, // 5 minutos por defecto
+        }),
+      }),
+      isGlobal: true,
+    }),
+  ],
+  exports: [CacheModule],
+})
+export class RedisModule {}
+
+────────────────────────────────────────────────────────────────────
+1.3 - Crear Redis Service
+────────────────────────────────────────────────────────────────────
+
+// src/redis/redis.service.ts
+import { Injectable, Inject } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+
+@Injectable()
+export class RedisService {
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
+  // Guardar en cache
+  async set(key: string, value: any, ttl?: number): Promise<void> {
+    await this.cacheManager.set(key, value, ttl);
+  }
+
+  // Obtener del cache
+  async get<T>(key: string): Promise<T | null> {
+    return await this.cacheManager.get<T>(key);
+  }
+
+  // Eliminar del cache
+  async del(key: string): Promise<void> {
+    await this.cacheManager.del(key);
+  }
+
+  // Invalidar patrón (ej: "factura:*")
+  async delPattern(pattern: string): Promise<void> {
+    const keys = await this.cacheManager.store.keys(pattern);
+    await Promise.all(keys.map(key => this.cacheManager.del(key)));
+  }
+
+  // Cache con función de fallback
+  async getOrSet<T>(
+    key: string,
+    fallbackFn: () => Promise<T>,
+    ttl?: number,
+  ): Promise<T> {
+    const cached = await this.get<T>(key);
+    if (cached !== null) {
+      return cached; // ⚡ Retorna cache (<1ms)
+    }
+
+    const value = await fallbackFn(); // Ejecuta query (50ms)
+    await this.set(key, value, ttl);
+    return value;
+  }
+}
+
+────────────────────────────────────────────────────────────────────
+1.4 - Implementar Cache en Facturas Service
+────────────────────────────────────────────────────────────────────
+
+// src/facturas/facturas.service.ts
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { RedisService } from '../redis/redis.service';
+
+@Injectable()
+export class FacturasService {
+  constructor(
+    private prisma: PrismaService,
+    private redis: RedisService,
+  ) {}
+
+  // ================================================================
+  // CASO 1: Obtener factura individual (CON CACHE)
+  // ================================================================
+  async findOne(id: number) {
+    return this.redis.getOrSet(
+      `factura:${id}`,
+      async () => {
+        // Solo se ejecuta si no está en cache
+        return this.prisma.factura.findUnique({
+          where: { id },
+          include: {
+            items: true,
+            proveedor: true,
+          },
+        });
+      },
+      300, // Cache por 5 minutos
+    );
+    // Primera vez: 50ms
+    // Siguientes veces: <1ms ⚡
+  }
+
+  // ================================================================
+  // CASO 2: Dashboard en tiempo real (LEE DE FLINK)
+  // ================================================================
+  async getDashboard() {
+    // Flink escribe aquí continuamente
+    const cached = await this.redis.get('dashboard:realtime');
+
+    if (cached) {
+      return cached; // <1ms ⚡
+    }
+
+    // Fallback si Flink no está corriendo
+    const stats = await this.prisma.factura.aggregate({
+      _count: true,
+      _sum: { monto_total: true },
+      where: {
+        fecha_emision: {
+          gte: new Date(new Date().setHours(0, 0, 0, 0)),
+        },
+      },
+    });
+
+    return stats; // 200ms (solo si falla cache)
+  }
+
+  // ================================================================
+  // CASO 3: Lista de facturas (CON CACHE + INVALIDACIÓN)
+  // ================================================================
+  async findAll(filters: any) {
+    const cacheKey = `facturas:list:${JSON.stringify(filters)}`;
+
+    return this.redis.getOrSet(
+      cacheKey,
+      async () => {
+        return this.prisma.factura.findMany({
+          where: filters,
+          take: 50,
+          orderBy: { fecha_emision: 'desc' },
+        });
+      },
+      60, // Cache por 1 minuto
+    );
+  }
+
+  // ================================================================
+  // CASO 4: Crear factura (INVALIDA CACHE)
+  // ================================================================
+  async create(data: any) {
+    const factura = await this.prisma.factura.create({ data });
+
+    // Invalidar caches relacionados
+    await this.redis.del('dashboard:realtime');
+    await this.redis.delPattern('facturas:list:*');
+
+    return factura;
+  }
+
+  // ================================================================
+  // CASO 5: Actualizar factura (INVALIDA CACHE)
+  // ================================================================
+  async update(id: number, data: any) {
+    const factura = await this.prisma.factura.update({
+      where: { id },
+      data,
+    });
+
+    // Invalidar cache de esta factura
+    await this.redis.del(`factura:${id}`);
+    await this.redis.del('dashboard:realtime');
+
+    return factura;
+  }
+}
+
+────────────────────────────────────────────────────────────────────
+1.5 - Configurar Variables de Entorno
+────────────────────────────────────────────────────────────────────
+
+# ayala_back/.env
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+────────────────────────────────────────────────────────────────────
+1.6 - Testing
+────────────────────────────────────────────────────────────────────
+
+// Probar manualmente en consola
+const service = app.get(FacturasService);
+
+// Primera vez (sin cache)
+console.time('Sin cache');
+await service.findOne(1);
+console.timeEnd('Sin cache'); // ~50ms
+
+// Segunda vez (con cache)
+console.time('Con cache');
+await service.findOne(1);
+console.timeEnd('Con cache'); // <1ms ⚡
+
+RESULTADO ESPERADO:
+✓ Facturas individuales: 50ms → <1ms (50x más rápido)
+✓ Listas de facturas: 100ms → <1ms
+✓ Dashboard: 200ms → <1ms (si Flink está corriendo)
+
+================================================================================
+FASE 2: FLINK → REDIS (Métricas Pre-calculadas) (2-3 días)
+================================================================================
+
+OBJETIVO: Dashboard en tiempo real con latencia <1ms
+
+FLUJO:
+1. Flink consume facturas de Kafka
+2. Flink calcula métricas cada segundo
+3. Flink escribe en Redis
+4. NestJS lee de Redis (<1ms)
+
+────────────────────────────────────────────────────────────────────
+2.1 - Configurar Flink con Conector Redis
+────────────────────────────────────────────────────────────────────
+
+Descargar conector Redis para Flink:
+
+cd ~/ayala_back/flink/jobs
+
+wget https://repo1.maven.org/maven2/org/apache/bahir/flink-connector-redis_2.12/1.0/flink-connector-redis_2.12-1.0.jar
+
+────────────────────────────────────────────────────────────────────
+2.2 - Flink Job: Calcular Dashboard en Tiempo Real
+────────────────────────────────────────────────────────────────────
+
+// Crear job de Flink que:
+// 1. Consume de Kafka topic "facturas.nuevas"
+// 2. Calcula totales cada segundo
+// 3. Escribe en Redis
+
+Archivo: flink/examples/dashboard-realtime.sql
+
+-- 1. Tabla Kafka (source)
+CREATE TABLE facturas_kafka (
+  id BIGINT,
+  fecha_emision TIMESTAMP(3),
+  monto_total DECIMAL(10, 2),
+  estado STRING,
+  WATERMARK FOR fecha_emision AS fecha_emision - INTERVAL '5' SECOND
+) WITH (
+  'connector' = 'kafka',
+  'topic' = 'facturas.nuevas',
+  'properties.bootstrap.servers' = 'kafka:9092',
+  'properties.group.id' = 'flink-dashboard',
+  'format' = 'json'
+);
+
+-- 2. Vista de agregación cada segundo
+CREATE VIEW dashboard_stats AS
+SELECT
+  TUMBLE_START(fecha_emision, INTERVAL '1' SECOND) as ventana,
+  COUNT(*) as total_facturas,
+  SUM(monto_total) as monto_total,
+  SUM(CASE WHEN estado = 'COMPLETADO' THEN 1 ELSE 0 END) as completadas,
+  SUM(CASE WHEN estado = 'PROCESANDO' THEN 1 ELSE 0 END) as procesando,
+  SUM(CASE WHEN estado = 'FALLADO' THEN 1 ELSE 0 END) as falladas
+FROM facturas_kafka
+GROUP BY TUMBLE(fecha_emision, INTERVAL '1' SECOND);
+
+-- 3. Escribir a Redis (usando custom sink)
+-- Nota: Esto requiere un job Java custom
+-- Ver ejemplo completo en: flink/examples/DashboardRedisJob.java
+
+────────────────────────────────────────────────────────────────────
+2.3 - NestJS Consumer: Actualizar Redis desde Kafka
+────────────────────────────────────────────────────────────────────
+
+ALTERNATIVA MÁS FÁCIL (sin escribir Java):
+En lugar de Flink → Redis, usar NestJS Kafka Consumer → Redis
+
+// src/kafka/dashboard.consumer.ts
+import { Injectable } from '@nestjs/common';
+import { OnKafkaMessage } from '@nestjs/microservices';
+import { RedisService } from '../redis/redis.service';
+
+@Injectable()
+export class DashboardConsumer {
+  constructor(private redis: RedisService) {}
+
+  private stats = {
+    total_facturas: 0,
+    monto_total: 0,
+    completadas: 0,
+    procesando: 0,
+    falladas: 0,
+    ultima_actualizacion: new Date(),
+  };
+
+  @OnKafkaMessage('facturas.nuevas')
+  async handleNuevaFactura(@Payload() message: any) {
+    // Actualizar stats en memoria
+    this.stats.total_facturas++;
+    this.stats.monto_total += parseFloat(message.monto_total);
+
+    switch (message.estado) {
+      case 'COMPLETADO':
+        this.stats.completadas++;
+        break;
+      case 'PROCESANDO':
+        this.stats.procesando++;
+        break;
+      case 'FALLADO':
+        this.stats.falladas++;
+        break;
+    }
+
+    this.stats.ultima_actualizacion = new Date();
+
+    // Escribir a Redis cada segundo
+    await this.redis.set('dashboard:realtime', this.stats, 60);
+  }
+
+  // Reset diario
+  @Cron('0 0 * * *')
+  async resetDailyStats() {
+    this.stats = {
+      total_facturas: 0,
+      monto_total: 0,
+      completadas: 0,
+      procesando: 0,
+      falladas: 0,
+      ultima_actualizacion: new Date(),
+    };
+  }
+}
+
+RESULTADO:
+✓ Dashboard se actualiza en tiempo real
+✓ Latencia de lectura: <1ms
+✓ No queries pesadas a MySQL
+
+================================================================================
+FASE 3: ELASTICSEARCH (3-4 días)
+================================================================================
+
+OBJETIVO: Búsquedas full-text súper rápidas (5-50ms)
+
+────────────────────────────────────────────────────────────────────
+3.1 - Elasticsearch ya está corriendo (Flink stack)
+────────────────────────────────────────────────────────────────────
+
+✓ Elasticsearch: http://localhost:9200
+✓ Kibana: http://localhost:5601
+
+────────────────────────────────────────────────────────────────────
+3.2 - Instalar Cliente Elasticsearch en NestJS
+────────────────────────────────────────────────────────────────────
+
+cd ~/ayala_back
+npm install @nestjs/elasticsearch @elastic/elasticsearch
+
+────────────────────────────────────────────────────────────────────
+3.3 - Configurar Elasticsearch Module
+────────────────────────────────────────────────────────────────────
+
+// src/elasticsearch/elasticsearch.module.ts
+import { Module } from '@nestjs/common';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
+
+@Module({
+  imports: [
+    ElasticsearchModule.register({
+      node: process.env.ELASTICSEARCH_URL || 'http://localhost:9200',
+    }),
+  ],
+  exports: [ElasticsearchModule],
+})
+export class ElasticsearchConfigModule {}
+
+────────────────────────────────────────────────────────────────────
+3.4 - Crear índice de facturas
+────────────────────────────────────────────────────────────────────
+
+// src/elasticsearch/elasticsearch.service.ts
+import { Injectable } from '@nestjs/common';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
+
+@Injectable()
+export class SearchService {
+  constructor(private elasticsearch: ElasticsearchService) {}
+
+  // Crear índice
+  async createFacturasIndex() {
+    await this.elasticsearch.indices.create({
+      index: 'facturas',
+      body: {
+        mappings: {
+          properties: {
+            id: { type: 'long' },
+            serie: { type: 'keyword' },
+            numero: { type: 'keyword' },
+            fecha_emision: { type: 'date' },
+            cliente_razon_social: {
+              type: 'text',
+              fields: {
+                keyword: { type: 'keyword' }
+              }
+            },
+            proveedor_razon_social: {
+              type: 'text',
+              fields: {
+                keyword: { type: 'keyword' }
+              }
+            },
+            monto_total: { type: 'double' },
+            estado: { type: 'keyword' },
+          },
+        },
+      },
+    });
+  }
+
+  // Indexar factura
+  async indexFactura(factura: any) {
+    await this.elasticsearch.index({
+      index: 'facturas',
+      id: factura.id.toString(),
+      body: factura,
+    });
+  }
+
+  // Búsqueda full-text
+  async buscarFacturas(query: string) {
+    const result = await this.elasticsearch.search({
+      index: 'facturas',
+      body: {
+        query: {
+          multi_match: {
+            query: query,
+            fields: [
+              'cliente_razon_social^2',  // Mayor peso
+              'proveedor_razon_social',
+              'serie',
+              'numero',
+            ],
+            fuzziness: 'AUTO',  // Tolerancia a typos
+          },
+        },
+        highlight: {
+          fields: {
+            cliente_razon_social: {},
+            proveedor_razon_social: {},
+          },
+        },
+      },
+    });
+
+    return result.hits.hits.map(hit => ({
+      ...hit._source,
+      score: hit._score,
+      highlight: hit.highlight,
+    }));
+  }
+
+  // Autocompletado
+  async autocompletar(query: string) {
+    const result = await this.elasticsearch.search({
+      index: 'facturas',
+      body: {
+        query: {
+          match_phrase_prefix: {
+            cliente_razon_social: {
+              query: query,
+              max_expansions: 10,
+            },
+          },
+        },
+        size: 5,
+      },
+    });
+
+    return result.hits.hits.map(hit => hit._source);
+  }
+}
+
+────────────────────────────────────────────────────────────────────
+3.5 - Indexar facturas automáticamente
+────────────────────────────────────────────────────────────────────
+
+// src/facturas/facturas.service.ts
+async create(data: any) {
+  const factura = await this.prisma.factura.create({ data });
+
+  // Indexar en Elasticsearch (async, no bloquea)
+  this.searchService.indexFactura(factura).catch(console.error);
+
+  return factura;
+}
+
+────────────────────────────────────────────────────────────────────
+3.6 - Endpoint de búsqueda
+────────────────────────────────────────────────────────────────────
+
+// src/facturas/facturas.controller.ts
+@Get('search')
+async buscar(@Query('q') query: string) {
+  return this.searchService.buscarFacturas(query);
+  // Latencia: 5-50ms ⚡
+}
+
+RESULTADO:
+✓ Búsquedas: 200ms → 10ms (20x más rápido)
+✓ Tolerancia a typos
+✓ Highlighting de resultados
+✓ Autocompletado rápido
+
+================================================================================
+FASE 4: INDEXACIÓN BATCH (1 día)
+================================================================================
+
+OBJETIVO: Indexar todas las facturas existentes en Elasticsearch
+
+────────────────────────────────────────────────────────────────────
+4.1 - Script de indexación masiva
+────────────────────────────────────────────────────────────────────
+
+// scripts/index-facturas.ts
+import { PrismaClient } from '@prisma/client';
+import { Client } from '@elastic/elasticsearch';
+
+const prisma = new PrismaClient();
+const elasticsearch = new Client({ node: 'http://localhost:9200' });
+
+async function indexarTodasLasFacturas() {
+  console.log('Iniciando indexación...');
+
+  const total = await prisma.factura.count();
+  console.log(`Total facturas: ${total}`);
+
+  const batchSize = 100;
+  let offset = 0;
+
+  while (offset < total) {
+    const facturas = await prisma.factura.findMany({
+      skip: offset,
+      take: batchSize,
+      include: {
+        proveedor: true,
+      },
+    });
+
+    // Bulk indexing (más rápido)
+    const body = facturas.flatMap(factura => [
+      { index: { _index: 'facturas', _id: factura.id.toString() } },
+      {
+        id: factura.id,
+        serie: factura.serie,
+        numero: factura.numero,
+        fecha_emision: factura.fecha_emision,
+        cliente_razon_social: factura.cliente_razon_social,
+        proveedor_razon_social: factura.proveedor?.razon_social,
+        monto_total: factura.monto_total,
+        estado: factura.estado,
+      },
+    ]);
+
+    await elasticsearch.bulk({ body });
+
+    offset += batchSize;
+    console.log(`Indexadas: ${offset}/${total}`);
+  }
+
+  console.log('✓ Indexación completa');
+}
+
+indexarTodasLasFacturas();
+
+Ejecutar:
+npx ts-node scripts/index-facturas.ts
+
+================================================================================
+FASE 5: MONITOREO Y OPTIMIZACIÓN (Continuo)
+================================================================================
+
+────────────────────────────────────────────────────────────────────
+5.1 - Métricas de Rendimiento
+────────────────────────────────────────────────────────────────────
+
+// src/common/interceptors/performance.interceptor.ts
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Injectable()
+export class PerformanceInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const start = Date.now();
+    const request = context.switchToHttp().getRequest();
+
+    return next.handle().pipe(
+      tap(() => {
+        const duration = Date.now() - start;
+        console.log(`${request.method} ${request.url}: ${duration}ms`);
+
+        // Alertar si es muy lento
+        if (duration > 100) {
+          console.warn(`⚠️ Slow request: ${request.url} (${duration}ms)`);
+        }
+      }),
+    );
+  }
+}
+
+────────────────────────────────────────────────────────────────────
+5.2 - Dashboard de Monitoreo
+────────────────────────────────────────────────────────────────────
+
+Usar Kibana para visualizar:
+- Latencia de queries
+- Hit rate de cache
+- Throughput de Elasticsearch
+- Uso de memoria de Redis
+
+http://localhost:5601
+
+================================================================================
+CRONOGRAMA Y PRIORIDADES
+================================================================================
+
+┌──────┬─────────────────────────────┬──────────┬─────────────┬──────────┐
+│ Fase │ Tarea                       │ Duración │ Prioridad   │ Impacto  │
+├──────┼─────────────────────────────┼──────────┼─────────────┼──────────┤
+│  1   │ Redis Cache                 │ 1-2 días │ ALTA ⭐⭐⭐  │ 50x      │
+│  2   │ Flink → Redis (Dashboard)   │ 2-3 días │ MEDIA ⭐⭐   │ 500x     │
+│  3   │ Elasticsearch (Búsquedas)   │ 3-4 días │ ALTA ⭐⭐⭐  │ 20x      │
+│  4   │ Indexación Batch            │ 1 día    │ BAJA ⭐     │ N/A      │
+│  5   │ Monitoreo                   │ Continuo │ MEDIA ⭐⭐   │ N/A      │
+└──────┴─────────────────────────────┴──────────┴─────────────┴──────────┘
+
+TOTAL ESTIMADO: 7-10 días
+
+RECOMENDACIÓN: Implementar en orden (Fase 1 → 2 → 3 → 4 → 5)
+
+================================================================================
+MÉTRICAS DE ÉXITO
+================================================================================
+
+ANTES (Sistema Actual):
+┌────────────────────────────┬──────────┐
+│ Operación                  │ Latencia │
+├────────────────────────────┼──────────┤
+│ GET /facturas/:id          │ 50ms     │
+│ GET /dashboard             │ 500ms    │
+│ GET /facturas?search=...   │ 200ms    │
+│ GET /reportes/totales      │ 1000ms   │
+└────────────────────────────┴──────────┘
+
+DESPUÉS (Con Optimizaciones):
+┌────────────────────────────┬──────────┬───────────┐
+│ Operación                  │ Latencia │ Tecnología│
+├────────────────────────────┼──────────┼───────────┤
+│ GET /facturas/:id          │ <1ms ⚡  │ Redis     │
+│ GET /dashboard             │ <1ms ⚡  │ Flink+Redis│
+│ GET /facturas?search=...   │ 10ms ⚡  │ Elastic   │
+│ GET /reportes/totales      │ <1ms ⚡  │ Flink+Redis│
+└────────────────────────────┴──────────┴───────────┘
+
+MEJORA PROMEDIO: 100x más rápido
+
+================================================================================
+COSTOS Y RECURSOS
+================================================================================
+
+INFRAESTRUCTURA (Ya disponible):
+✓ Redis: Ya corriendo
+✓ Elasticsearch: Ya corriendo (Flink stack)
+✓ Flink: Ya corriendo
+✓ Kafka: Ya corriendo
+
+COSTO ADICIONAL: $0 (todo ya está instalado)
+
+RECURSOS HUMANOS:
+- 1 desarrollador backend: 7-10 días
+- Mantenimiento: 2-4 horas/mes
+
+ROI:
+- Mejor experiencia de usuario (respuestas instantáneas)
+- Menor carga en MySQL (menos queries)
+- Escalabilidad mejorada (cache + búsquedas distribuidas)
+
+================================================================================
+RIESGOS Y MITIGACIONES
+================================================================================
+
+RIESGO 1: Cache desincronizado
+Mitigación: TTL cortos (5min) + invalidación en writes
+
+RIESGO 2: Elasticsearch se queda atrás
+Mitigación: Indexación async + re-indexación periódica
+
+RIESGO 3: Redis lleno
+Mitigación: Política de eviction (allkeys-lru) + monitoreo
+
+RIESGO 4: Complejidad aumentada
+Mitigación: Documentación completa + logging
+
+================================================================================
+PRÓXIMOS PASOS
+================================================================================
+
+1. Revisar y aprobar este plan
+2. Crear rama de desarrollo: feature/performance-optimization
+3. Implementar Fase 1 (Redis Cache)
+4. Testing y medición de mejoras
+5. Continuar con Fase 2, 3, etc.
+
+================================================================================
+CONTACTO Y DUDAS
+================================================================================
+
+Para preguntas sobre este plan:
+- Revisar documentación en: ~/ayala_back/flink/
+- Consultar ejemplos en: ~/ayala_back/flink/examples/
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
+
+Última actualización: 2026-02-01
+Versión: 1.0
+Estado: Listo para implementación
