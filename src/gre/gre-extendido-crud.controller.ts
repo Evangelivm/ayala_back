@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpException, HttpStatus, Logger, Res } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
+import { Response } from 'express';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import * as archiver from 'archiver';
+import axios from 'axios';
 
 // Extender dayjs con plugins
 dayjs.extend(utc);
@@ -546,6 +549,119 @@ export class GreExtendidoCrudController {
       // Otros errores
       throw new HttpException(
         error.message || 'Error al recuperar archivos de la guía extendida',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  /**
+   * Descargar todos los archivos de un identificador como ZIP
+   * Actúa como proxy para evitar problemas de CORS
+   */
+  @Post('descargar-zip/:identificador')
+  async descargarZip(@Param('identificador') identificador: string, @Res() res: Response) {
+    try {
+      this.logger.log(`📦 Iniciando descarga de archivos para identificador: ${identificador}`);
+
+      // 1. Obtener todas las guías del identificador
+      const guias = await this.prismaService.guia_remision_extendida.findMany({
+        where: {
+          identificador_unico: identificador,
+        },
+        select: {
+          id_guia: true,
+          serie: true,
+          numero: true,
+          enlace_del_pdf: true,
+          enlace_del_xml: true,
+          enlace_del_cdr: true,
+        },
+      });
+
+      if (!guias || guias.length === 0) {
+        throw new HttpException('No se encontraron guías para este identificador', HttpStatus.NOT_FOUND);
+      }
+
+      // 2. Filtrar solo las guías con todos los archivos
+      const guiasCompletas = guias.filter(
+        (g) => g.enlace_del_pdf && g.enlace_del_xml && g.enlace_del_cdr
+      );
+
+      if (guiasCompletas.length === 0) {
+        throw new HttpException(
+          'No hay guías con archivos completos para descargar',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
+      this.logger.log(`📦 Encontradas ${guiasCompletas.length} guías completas para descargar`);
+
+      // 3. Configurar respuesta como archivo ZIP
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="guias_${identificador}.zip"`);
+
+      // 4. Crear archivo ZIP
+      const archive = archiver('zip', {
+        zlib: { level: 9 } // Nivel máximo de compresión
+      });
+
+      // 5. Manejar errores del archiver
+      archive.on('error', (err) => {
+        this.logger.error('Error creando ZIP:', err);
+        throw err;
+      });
+
+      // 6. Pipe el archivo ZIP a la respuesta
+      archive.pipe(res);
+
+      // 7. Descargar y agregar cada archivo al ZIP
+      for (const guia of guiasCompletas) {
+        const nombreGuia = `${guia.serie}-${String(guia.numero).padStart(4, '0')}`;
+
+        try {
+          // Descargar PDF
+          if (guia.enlace_del_pdf) {
+            this.logger.log(`📄 Descargando PDF: ${nombreGuia}.pdf`);
+            const pdfResponse = await axios.get(guia.enlace_del_pdf, {
+              responseType: 'arraybuffer'
+            });
+            archive.append(Buffer.from(pdfResponse.data), { name: `${nombreGuia}.pdf` });
+          }
+
+          // Descargar XML
+          if (guia.enlace_del_xml) {
+            this.logger.log(`📄 Descargando XML: ${nombreGuia}.xml`);
+            const xmlResponse = await axios.get(guia.enlace_del_xml, {
+              responseType: 'arraybuffer'
+            });
+            archive.append(Buffer.from(xmlResponse.data), { name: `${nombreGuia}.xml` });
+          }
+
+          // Descargar CDR
+          if (guia.enlace_del_cdr) {
+            this.logger.log(`📄 Descargando CDR: ${nombreGuia}_CDR.zip`);
+            const cdrResponse = await axios.get(guia.enlace_del_cdr, {
+              responseType: 'arraybuffer'
+            });
+            archive.append(Buffer.from(cdrResponse.data), { name: `${nombreGuia}_CDR.zip` });
+          }
+        } catch (error) {
+          this.logger.error(`Error descargando archivos de guía ${nombreGuia}:`, error);
+          // Continuar con las siguientes guías
+        }
+      }
+
+      // 8. Finalizar el archivo ZIP
+      await archive.finalize();
+      this.logger.log(`✅ ZIP generado exitosamente con ${guiasCompletas.length * 3} archivos`);
+
+    } catch (error) {
+      this.logger.error('Error generando ZIP:', error);
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Error al generar el archivo ZIP',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
