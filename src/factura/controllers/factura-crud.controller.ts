@@ -16,12 +16,18 @@ import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { CreateFacturaSchema } from '../dto/create-factura.dto';
 import { UpdateFacturaSchema } from '../dto/update-factura.dto';
+import { FacturaConsumerService } from '../services/factura-consumer.service';
+import { WebsocketGateway } from '../../websocket/websocket.gateway';
 
 @Controller('facturas')
 export class FacturaCrudController {
   private readonly logger = new Logger(FacturaCrudController.name);
 
-  constructor(private readonly prisma: PrismaThirdService) {}
+  constructor(
+    private readonly prisma: PrismaThirdService,
+    private readonly facturaConsumer: FacturaConsumerService,
+    private readonly websocketGateway: WebsocketGateway,
+  ) {}
 
   /**
    * Mapea unidades de medida comunes a códigos SUNAT válidos
@@ -800,6 +806,148 @@ export class FacturaCrudController {
       this.logger.error(`Error eliminando factura ${id}:`, error);
       throw new HttpException(
         'Error eliminando factura',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * POST /facturas/:id/consultar
+   * Consulta una factura en NubeFact
+   */
+  @Post(':id/consultar')
+  async consultarEnNubefact(@Param('id') id: string) {
+    try {
+      const id_factura = parseInt(id);
+      this.logger.log(`Consultando factura ${id} en NubeFact...`);
+
+      // 1. Obtener la factura de la base de datos
+      const factura = await this.prisma.factura.findUnique({
+        where: { id_factura },
+        include: {
+          factura_item: true,
+          proveedores: true,
+        },
+      });
+
+      if (!factura) {
+        throw new HttpException('Factura no encontrada', HttpStatus.NOT_FOUND);
+      }
+
+      // 2. Llamar a NubeFact para consultar el comprobante
+      const resultado = await this.facturaConsumer.callNubefactConsultarComprobante(
+        factura.tipo_de_comprobante,
+        factura.serie,
+        factura.numero,
+      );
+
+      if (!resultado.success) {
+        this.logger.error('Error consultando en NubeFact:', resultado.error);
+
+        // Actualizar estado a ERROR si la consulta falla
+        await this.prisma.factura.update({
+          where: { id_factura },
+          data: {
+            estado_factura: 'ERROR',
+            sunat_description: resultado.error?.data?.errors || 'Error al consultar en NubeFact',
+          },
+        });
+
+        throw new HttpException(
+          resultado.error?.data?.errors || 'Error al consultar en NubeFact',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      // 3. Actualizar la factura con los datos obtenidos de NubeFact
+      const datosNubefact = resultado.data;
+
+      const updateData: any = {
+        updated_at: new Date(),
+      };
+
+      // Si la consulta fue exitosa y tiene enlaces, actualizar
+      if (datosNubefact.enlace_del_pdf) {
+        updateData.enlace_del_pdf = datosNubefact.enlace_del_pdf;
+      }
+
+      if (datosNubefact.enlace_del_xml) {
+        updateData.enlace_del_xml = datosNubefact.enlace_del_xml;
+      }
+
+      if (datosNubefact.enlace_del_cdr) {
+        updateData.enlace_del_cdr = datosNubefact.enlace_del_cdr;
+      }
+
+      if (datosNubefact.enlace) {
+        updateData.enlace = datosNubefact.enlace;
+      }
+
+      // Actualizar estado según respuesta de SUNAT
+      if (datosNubefact.aceptada_por_sunat !== undefined) {
+        updateData.aceptada_por_sunat = datosNubefact.aceptada_por_sunat;
+      }
+
+      if (datosNubefact.sunat_description) {
+        updateData.sunat_description = datosNubefact.sunat_description;
+      }
+
+      if (datosNubefact.sunat_note) {
+        updateData.sunat_note = datosNubefact.sunat_note;
+      }
+
+      if (datosNubefact.sunat_responsecode) {
+        updateData.sunat_responsecode = datosNubefact.sunat_responsecode;
+      }
+
+      // Determinar el estado final
+      if (datosNubefact.enlace_del_pdf && datosNubefact.aceptada_por_sunat) {
+        updateData.estado_factura = 'COMPLETADO';
+      } else if (datosNubefact.aceptada_por_sunat === false) {
+        updateData.estado_factura = 'FALLADO';
+      } else {
+        updateData.estado_factura = 'PROCESANDO';
+      }
+
+      // Actualizar en la base de datos
+      const facturaActualizada = await this.prisma.factura.update({
+        where: { id_factura },
+        data: updateData,
+      });
+
+      // Emitir evento WebSocket para actualizar el frontend en tiempo real
+      this.websocketGateway.emitFacturaUpdate({
+        id_factura: factura.id_factura,
+        estado: facturaActualizada.estado_factura || 'SIN PROCESAR',
+        enlace_pdf: facturaActualizada.enlace_del_pdf || undefined,
+        enlace_xml: facturaActualizada.enlace_del_xml || undefined,
+        enlace_cdr: facturaActualizada.enlace_del_cdr || undefined,
+        aceptada_por_sunat: facturaActualizada.aceptada_por_sunat ?? undefined,
+      });
+
+      this.logger.log(
+        `Factura ${factura.serie}-${factura.numero} consultada exitosamente. Estado: ${updateData.estado_factura}`,
+      );
+
+      return {
+        success: true,
+        message: 'Consulta realizada exitosamente',
+        data: {
+          estado: updateData.estado_factura,
+          enlace_pdf: datosNubefact.enlace_del_pdf,
+          enlace_xml: datosNubefact.enlace_del_xml,
+          enlace_cdr: datosNubefact.enlace_del_cdr,
+          aceptada_por_sunat: datosNubefact.aceptada_por_sunat,
+          sunat_description: datosNubefact.sunat_description,
+          sunat_note: datosNubefact.sunat_note,
+        },
+      };
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+
+      this.logger.error(`Error consultando factura ${id}:`, error);
+      throw new HttpException(
+        error.message || 'Error consultando factura en NubeFact',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

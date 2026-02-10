@@ -718,23 +718,34 @@ export class OrdenCompraService {
           ordenData.detalleItems,
         );
 
-        yPos += 10;
+        yPos += 5; // Reducido de 10 a 5 para optimizar espacio
 
         // ==================== VERIFICAR ESPACIO PARA TOTALES Y FIRMAS ====================
-        // Calcular espacio necesario para totales y firmas
-        const espacioNecesarioTotales = 150; // Espacio para totales + retención/detracción + anticipo
-        const espacioNecesarioFirmas = 60; // Espacio para firmas
-        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas;
+        // Calcular espacio necesario para totales y firmas (ajustado según logs reales)
+        const espacioNecesarioTotales = 90; // Espacio para totales + retención/detracción + anticipo
+        const espacioNecesarioFirmas = 40; // Espacio para firmas
+        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas; // Total: 130
         const alturaPagina = 792; // Altura de página A4 en puntos
         const margenInferior = 40; // Margen inferior
 
+        // DEBUG: Log de cálculos de espacio
+        console.log('📊 VERIFICACIÓN DE ESPACIO PARA TOTALES Y FIRMAS:');
+        console.log(`   yPos actual: ${yPos}`);
+        console.log(`   Espacio necesario total: ${espacioTotal}`);
+        console.log(`   yPos + espacioTotal: ${yPos + espacioTotal}`);
+        console.log(`   Límite (alturaPagina - margenInferior): ${alturaPagina - margenInferior}`);
+        console.log(`   ¿Necesita nueva página?: ${yPos + espacioTotal > alturaPagina - margenInferior}`);
+
         // Si no hay suficiente espacio, agregar nueva página
         if (yPos + espacioTotal > alturaPagina - margenInferior) {
+          console.log('⚠️ Moviendo totales y firmas a nueva página');
           doc.addPage({
             size: 'A4',
             margin: 40,
           });
           yPos = 40; // Reiniciar posición Y al inicio de la nueva página
+        } else {
+          console.log('✅ Totales y firmas caben en la página actual');
         }
 
         // ==================== TOTALES ====================
@@ -848,7 +859,7 @@ export class OrdenCompraService {
               { align: 'center', width: 40 },
             );
 
-          yPos += 60;
+          yPos += 45; // Reducido de 60 a 45
         } else {
           // Si no hay retención ni detracción, mostrar el total como neto a pagar
           doc.fontSize(8).font('Helvetica');
@@ -868,10 +879,10 @@ export class OrdenCompraService {
               width: 40,
             });
 
-          yPos += 35;
+          yPos += 25; // Reducido de 35 a 25
         }
 
-        yPos += 40; // Espacio adicional antes de las firmas
+        yPos += 20; // Espacio reducido antes de las firmas (era 40)
 
         // ==================== FIRMAS ====================
         // 4 firmas en una sola fila

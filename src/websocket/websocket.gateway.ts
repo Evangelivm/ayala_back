@@ -90,6 +90,7 @@ export class WebsocketGateway
     enlace_pdf?: string;
     enlace_xml?: string;
     enlace_cdr?: string;
+    aceptada_por_sunat?: boolean | null;
   }) {
     try {
       console.log(`📡 Emitiendo evento facturaUpdated:`, data);
