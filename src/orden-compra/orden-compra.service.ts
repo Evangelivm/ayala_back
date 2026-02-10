@@ -720,6 +720,23 @@ export class OrdenCompraService {
 
         yPos += 10;
 
+        // ==================== VERIFICAR ESPACIO PARA TOTALES Y FIRMAS ====================
+        // Calcular espacio necesario para totales y firmas
+        const espacioNecesarioTotales = 150; // Espacio para totales + retención/detracción + anticipo
+        const espacioNecesarioFirmas = 60; // Espacio para firmas
+        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas;
+        const alturaPagina = 792; // Altura de página A4 en puntos
+        const margenInferior = 40; // Margen inferior
+
+        // Si no hay suficiente espacio, agregar nueva página
+        if (yPos + espacioTotal > alturaPagina - margenInferior) {
+          doc.addPage({
+            size: 'A4',
+            margin: 40,
+          });
+          yPos = 40; // Reiniciar posición Y al inicio de la nueva página
+        }
+
         // ==================== TOTALES ====================
         const totalesX = 425;
 
