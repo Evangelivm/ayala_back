@@ -784,7 +784,8 @@ export class FacturaCrudController {
 
       if (
         factura.estado_factura !== null &&
-        factura.estado_factura !== 'FALLADO'
+        factura.estado_factura !== 'FALLADO' &&
+        factura.estado_factura !== 'ERROR'
       ) {
         throw new HttpException(
           'No se puede eliminar una factura en estado ' +
