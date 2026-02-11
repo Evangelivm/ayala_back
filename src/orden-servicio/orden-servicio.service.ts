@@ -736,15 +736,15 @@ export class OrdenServicioService {
           ordenData.detalleItems,
         );
 
-        yPos += 5; // Reducido de 10 a 5 para optimizar espacio
+        yPos += 3; // Mínimo espacio
 
         // ==================== VERIFICAR ESPACIO PARA TOTALES Y FIRMAS ====================
-        // Calcular espacio necesario para totales y firmas (ajustado según logs reales)
-        const espacioNecesarioTotales = 90; // Espacio para totales + retención/detracción + anticipo
-        const espacioNecesarioFirmas = 40; // Espacio para firmas
-        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas; // Total: 130
+        // Calcular espacio necesario para totales y firmas (compacto)
+        const espacioNecesarioTotales = 75; // Reducido
+        const espacioNecesarioFirmas = 30; // Reducido
+        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas; // Total: 105
         const alturaPagina = 792; // Altura de página A4 en puntos
-        const margenInferior = 40; // Margen inferior
+        const margenInferior = 30; // Margen inferior reducido
 
         // DEBUG: Log de cálculos de espacio
         console.log('📊 VERIFICACIÓN DE ESPACIO PARA TOTALES Y FIRMAS:');
@@ -769,26 +769,26 @@ export class OrdenServicioService {
         // ==================== TOTALES ====================
         const totalesX = 425;
 
-        doc.fontSize(8).font('Helvetica');
+        doc.fontSize(7).font('Helvetica'); // Reducido a 7pt
         doc.text('Subtotal:', totalesX, yPos);
         doc.text(ordenData.totales.subtotal.toFixed(2), totalesX + 80, yPos, {
           align: 'right',
           width: 50,
         });
 
-        doc.text('Igvtotal:', totalesX, yPos + 15);
-        doc.text(ordenData.totales.igv.toFixed(2), totalesX + 80, yPos + 15, {
+        doc.text('Igvtotal:', totalesX, yPos + 12);
+        doc.text(ordenData.totales.igv.toFixed(2), totalesX + 80, yPos + 12, {
           align: 'right',
           width: 50,
         });
 
-        doc.text('Total:', totalesX, yPos + 30);
-        doc.text(ordenData.totales.total.toFixed(2), totalesX + 80, yPos + 30, {
+        doc.text('Total:', totalesX, yPos + 24);
+        doc.text(ordenData.totales.total.toFixed(2), totalesX + 80, yPos + 24, {
           align: 'right',
           width: 50,
         });
 
-        yPos += 50;
+        yPos += 40; // Reducido
 
         // Determinar qué mostrar: Retención, Detracción o Anticipo
         const tieneRetencion = ordenData.totales.tieneRetencion;
@@ -855,7 +855,7 @@ export class OrdenServicioService {
 
         // Mostrar valores de retención o detracción si están activos
         if (tieneDescuento) {
-          doc.fontSize(8).font('Helvetica');
+          doc.fontSize(7).font('Helvetica'); // Reducido
           doc.text(
             `${textoDescuento === 'RETENCIÓN' ? 'Retención' : 'Detracción'} ${porcentajeDescuento}%:`,
             totalesX,
@@ -868,13 +868,13 @@ export class OrdenServicioService {
             { align: 'right', width: 50 },
           );
 
-          doc.text('Neto a pagar:', totalesX, yPos + 15);
+          doc.text('Neto a pagar:', totalesX, yPos + 12);
           this.drawHighlightBox(
             doc,
             totalesX + 95,
-            yPos + 10,
+            yPos + 8,
             40,
-            15,
+            12,
             '#FFFF00',
           );
           doc
@@ -882,21 +882,21 @@ export class OrdenServicioService {
             .text(
               ordenData.totales.netoAPagar.toFixed(2),
               totalesX + 95,
-              yPos + 15,
+              yPos + 12,
               { align: 'center', width: 40 },
             );
 
-          yPos += 45; // Reducido de 60 a 45
+          yPos += 30; // Reducido
         } else {
           // Si no hay retención ni detracción, mostrar el total como neto a pagar
-          doc.fontSize(8).font('Helvetica');
+          doc.fontSize(7).font('Helvetica'); // Reducido
           doc.text('Neto a pagar:', totalesX, yPos);
           this.drawHighlightBox(
             doc,
             totalesX + 95,
             yPos - 5,
             40,
-            15,
+            12,
             '#FFFF00',
           );
           doc
@@ -906,13 +906,13 @@ export class OrdenServicioService {
               width: 40,
             });
 
-          yPos += 25; // Reducido de 35 a 25
+          yPos += 18; // Reducido
         }
 
-        yPos += 20; // Espacio reducido antes de las firmas (era 40)
+        yPos += 10; // Espacio mínimo antes de las firmas
 
         // ==================== FIRMAS ====================
-        // 4 firmas en una sola fila
+        // 4 firmas en una sola fila (compacto)
         const pageWidth = 515; // Ancho total del contenido
         const firmaWidth = 110; // Ancho de cada firma
         const spacingBetween = 15; // Espacio entre firmas
@@ -921,7 +921,7 @@ export class OrdenServicioService {
 
         const firmaLineY = yPos;
 
-        doc.fontSize(8).font('Helvetica');
+        doc.fontSize(6).font('Helvetica'); // Reducido a 6pt
 
         // Firma 1: Genera orden
         const firma1X = startX;
@@ -929,19 +929,10 @@ export class OrdenServicioService {
           .moveTo(firma1X, firmaLineY)
           .lineTo(firma1X + firmaWidth, firmaLineY)
           .stroke();
-        doc.text('Genera orden', firma1X, firmaLineY + 10, {
+        doc.text('Genera orden', firma1X, firmaLineY + 5, {
           width: firmaWidth,
           align: 'center',
         });
-        if (ordenData.firmas.generaOrden) {
-          doc
-            .font('Helvetica-Bold')
-            .text(ordenData.firmas.generaOrden, firma1X, firmaLineY + 25, {
-              width: firmaWidth,
-              align: 'center',
-            });
-          doc.font('Helvetica');
-        }
 
         // Firma 2: Jefe Administrativo
         const firma2X = firma1X + firmaWidth + spacingBetween;
@@ -949,24 +940,10 @@ export class OrdenServicioService {
           .moveTo(firma2X, firmaLineY)
           .lineTo(firma2X + firmaWidth, firmaLineY)
           .stroke();
-        doc.text('Jefe Administrativo', firma2X, firmaLineY + 10, {
+        doc.text('Jefe Administrativo', firma2X, firmaLineY + 5, {
           width: firmaWidth,
           align: 'center',
         });
-        if (ordenData.firmas.jefeAdministrativo) {
-          doc
-            .font('Helvetica-Bold')
-            .text(
-              ordenData.firmas.jefeAdministrativo,
-              firma2X,
-              firmaLineY + 25,
-              {
-                width: firmaWidth,
-                align: 'center',
-              },
-            );
-          doc.font('Helvetica');
-        }
 
         // Firma 3: Gerencia
         const firma3X = firma2X + firmaWidth + spacingBetween;
@@ -974,19 +951,10 @@ export class OrdenServicioService {
           .moveTo(firma3X, firmaLineY)
           .lineTo(firma3X + firmaWidth, firmaLineY)
           .stroke();
-        doc.text('Gerencia', firma3X, firmaLineY + 10, {
+        doc.text('Gerencia', firma3X, firmaLineY + 5, {
           width: firmaWidth,
           align: 'center',
         });
-        if (ordenData.firmas.gerencia) {
-          doc
-            .font('Helvetica-Bold')
-            .text(ordenData.firmas.gerencia, firma3X, firmaLineY + 25, {
-              width: firmaWidth,
-              align: 'center',
-            });
-          doc.font('Helvetica');
-        }
 
         // Firma 4: Jefe de Proyectos
         const firma4X = firma3X + firmaWidth + spacingBetween;
@@ -994,25 +962,16 @@ export class OrdenServicioService {
           .moveTo(firma4X, firmaLineY)
           .lineTo(firma4X + firmaWidth, firmaLineY)
           .stroke();
-        doc.text('Jefe de Proyectos', firma4X, firmaLineY + 10, {
+        doc.text('Jefe de Proyectos', firma4X, firmaLineY + 5, {
           width: firmaWidth,
           align: 'center',
         });
-        if (ordenData.firmas.jefeProyectos) {
-          doc
-            .font('Helvetica-Bold')
-            .text(ordenData.firmas.jefeProyectos, firma4X, firmaLineY + 25, {
-              width: firmaWidth,
-              align: 'center',
-            });
-          doc.font('Helvetica');
-        }
 
-        // Espacio antes de las consideraciones (ajustado para mejor legibilidad)
-        yPos = firmaLineY + 30;
+        // Espacio antes de las consideraciones
+        yPos = firmaLineY + 25; // Ajustado para mejor separación visual
 
         // ==================== CONSIDERACIONES GENERALES ====================
-        // Consideraciones
+        // Consideraciones (reducidas y compactas)
         const consideraciones = [
           '1.-Es responsabilidad del PROVEEDOR anticipar ante un posible cambio de las características solicitadas.',
           '2.-El cliente realizara la entrega técnica cuando se recoja el equipo (inducción en el manejo y operación del equipo).',
@@ -1028,27 +987,7 @@ export class OrdenServicioService {
           '12.-Se considera PDR en todo el proyecto.',
         ];
 
-        // Calcular altura total necesaria para todas las consideraciones
-        doc.fontSize(4).font('Helvetica');
-        let alturaConsideracionesTotal = 18; // Header
-        consideraciones.forEach((consideracion) => {
-          const textHeight = this.calculateConsideracionHeight(
-            doc,
-            consideracion,
-            515 - 8,
-          );
-          alturaConsideracionesTotal += textHeight;
-        });
-
-        // Verificar si hay suficiente espacio para todas las consideraciones
-        if (yPos + alturaConsideracionesTotal > alturaPagina - margenInferior) {
-          // No hay espacio suficiente, mover toda la sección a nueva página
-          doc.addPage({
-            size: 'A4',
-            margin: 40,
-          });
-          yPos = 40;
-        }
+        // No mover a nueva página - forzar que quepan en la primera
 
         // Header de consideraciones
         this.drawSectionHeader(
@@ -1058,27 +997,24 @@ export class OrdenServicioService {
           'CONSIDERACIONES GENERALES:',
           515,
         );
-        yPos += 18;
+        yPos += 16; // Ajustado para mejor separación
 
-        // Dibujar tabla de consideraciones (muy pequeño)
-        doc.fontSize(4).font('Helvetica');
+        // Dibujar tabla de consideraciones (ultra compacto)
+        doc.fontSize(3.5).font('Helvetica'); // Reducido a 3.5pt
 
         consideraciones.forEach((consideracion) => {
-          // Calcular altura necesaria para esta consideración (muy compacta)
-          const textHeight = this.calculateConsideracionHeight(
-            doc,
-            consideracion,
-            515 - 8,
-          );
+          // Calcular altura necesaria para esta consideración (ultra compacta)
+          const lines = this.calculateTextLines(doc, consideracion, 515 - 6, 3.5);
+          const textHeight = Math.max(4, lines * 4 + 0.5); // Más compacto
 
           // Dibujar celda
           doc.rect(40, yPos, 515, textHeight).stroke();
 
           // Escribir texto
-          doc.text(consideracion, 43, yPos + 0.5, {
-            width: 509,
+          doc.text(consideracion, 42, yPos + 0.3, {
+            width: 511,
             align: 'left',
-            lineGap: -3,
+            lineGap: -3.5,
           });
 
           yPos += textHeight;
@@ -1434,7 +1370,6 @@ export class OrdenServicioService {
 
     // Data rows
     items.forEach((item) => {
-      currentX = startX;
       const rowData = [
         item.numero.toString(),
         item.descripcion,
@@ -1445,18 +1380,42 @@ export class OrdenServicioService {
         item.subTotal.toFixed(4),
       ];
 
+      // Calcular la altura de la fila basándose en la descripción (índice 1)
+      doc.fontSize(7).font('Helvetica');
+      const descripcionLines = this.calculateTextLines(
+        doc,
+        item.descripcion,
+        colWidths[1] - 4,
+        7,
+      );
+      const rowHeight = Math.max(18, descripcionLines * 10 + 8);
+
+      // Dibujar las celdas con la altura calculada
+      currentX = startX;
       rowData.forEach((cell, index) => {
-        doc.rect(currentX, currentY, colWidths[index], 18).stroke();
+        doc.rect(currentX, currentY, colWidths[index], rowHeight).stroke();
         doc.fontSize(7).font('Helvetica');
         const align = index === 1 ? 'left' : index === 0 ? 'center' : 'right';
-        doc.text(cell, currentX + 2, currentY + 5, {
-          width: colWidths[index] - 4,
-          align: align as any,
-        });
+
+        // Para la descripción, usar el espacio completo con line breaks
+        if (index === 1) {
+          doc.text(cell, currentX + 2, currentY + 5, {
+            width: colWidths[index] - 4,
+            align: align as any,
+            lineGap: 0,
+          });
+        } else {
+          // Para las demás columnas, centrar verticalmente el texto
+          const textY = currentY + (rowHeight - 10) / 2;
+          doc.text(cell, currentX + 2, textY, {
+            width: colWidths[index] - 4,
+            align: align as any,
+          });
+        }
         currentX += colWidths[index];
       });
 
-      currentY += 18;
+      currentY += rowHeight;
     });
 
     return currentY;
