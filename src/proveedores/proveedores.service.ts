@@ -1,10 +1,14 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateProveedorDto } from '../dto/proveedores.dto';
 
 @Injectable()
 export class ProveedoresService {
-  constructor(private prismaThird: PrismaThirdService) {}
+  constructor(
+    private prismaThird: PrismaThirdService,
+    private prisma: PrismaService,
+  ) {}
 
   async findAll() {
     const proveedores = await this.prismaThird.proveedores.findMany({
@@ -74,6 +78,50 @@ export class ProveedoresService {
     return `PROV${codigoNumero}`;
   }
 
+  /**
+   * Genera el siguiente código de empresa disponible para empresas_2025
+   * Busca el último código con formato C#### y genera el siguiente
+   */
+  private async generateCodigoEmpresa(): Promise<string> {
+    // Obtener todas las empresas con código que empiece con 'C'
+    const empresas = await this.prisma.empresas_2025.findMany({
+      where: {
+        codigo: {
+          startsWith: 'C',
+        },
+      },
+      select: {
+        codigo: true,
+      },
+      orderBy: {
+        codigo: 'desc',
+      },
+    });
+
+    // Si no hay empresas, empezar desde C0001
+    if (empresas.length === 0) {
+      return 'C0001';
+    }
+
+    // Obtener el último código y extraer el número
+    const ultimoCodigo = empresas[0].codigo;
+    const match = ultimoCodigo.match(/^C(\d+)$/);
+
+    if (!match) {
+      // Si el formato no es correcto, empezar desde C0001
+      return 'C0001';
+    }
+
+    const ultimoNumero = parseInt(match[1], 10);
+    const siguienteNumero = ultimoNumero + 1;
+
+    // Formatear con el mismo número de dígitos que el último código (mínimo 4)
+    const numDigitos = Math.max(4, match[1].length);
+    const codigoNumero = siguienteNumero.toString().padStart(numDigitos, '0');
+
+    return `C${codigoNumero}`;
+  }
+
   async create(createProveedorDto: CreateProveedorDto) {
     // Verificar que no exista un proveedor con el mismo RUC
     const existente = await this.prismaThird.proveedores.findFirst({
@@ -86,6 +134,9 @@ export class ProveedoresService {
 
     // Generar el código de proveedor automáticamente
     const codigoProveedor = await this.generateCodigoProveedor();
+
+    // Generar el código de empresa para empresas_2025
+    const codigoEmpresa = await this.generateCodigoEmpresa();
 
     // Crear el proveedor con el código generado
     const proveedor = await this.prismaThird.proveedores.create({
@@ -104,6 +155,24 @@ export class ProveedoresService {
         activo: createProveedorDto.activo ?? true,
       },
     });
+
+    // También crear el registro en empresas_2025
+    try {
+      await this.prisma.empresas_2025.create({
+        data: {
+          codigo: codigoEmpresa,
+          razon_social: createProveedorDto.nombre_proveedor,
+          nro_documento: createProveedorDto.ruc,
+          tipo: 'Cliente',
+          direccion: createProveedorDto.direccion || null,
+        },
+      });
+    } catch (error) {
+      // Log del error pero no fallar la creación del proveedor
+      console.error('Error al crear registro en empresas_2025:', error);
+      // Nota: Podrías considerar hacer rollback del proveedor si esto falla
+      // pero por ahora solo registramos el error
+    }
 
     return proveedor;
   }

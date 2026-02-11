@@ -380,9 +380,10 @@ export class FacturaConsumerService {
     numero: number,
   ): Promise<any> {
     try {
+      // URL correcta para consultar comprobantes (misma que GRE)
       const NUBEFACT_CONSULTA_URL =
-        process.env.NUBEFACT_CONSULTA_URL ||
-        'https://api.nubefact.com/api/v1/consultar';
+        process.env.NUBEFACT_CONSULTAR_URL ||
+        'https://api.nubefact.com/authorization/consultar';
       const NUBEFACT_TOKEN_2 = process.env.NUBEFACT_TOKEN_2;
 
       if (!NUBEFACT_TOKEN_2) {
@@ -390,7 +391,7 @@ export class FacturaConsumerService {
       }
 
       this.logger.log(
-        `Consultando comprobante: tipo=${tipo}, serie=${serie}, numero=${numero}`,
+        `Consultando comprobante en ${NUBEFACT_CONSULTA_URL}: tipo=${tipo}, serie=${serie}, numero=${numero}`,
       );
 
       const response = await axios.post(
