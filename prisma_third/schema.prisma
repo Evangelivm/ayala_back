@@ -320,6 +320,7 @@ model ordenes_compra {
   url_comprobante_retencion   String?                      @db.VarChar(255)
   nro_serie                   String?                      @db.VarChar(255)
   detalles_orden_compra       detalles_orden_compra[]
+  multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios                    usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
   recepciones_compra          recepciones_compra[]
@@ -529,6 +530,7 @@ model ordenes_servicio {
   url_comprobante_retencion   String?                        @db.VarChar(255)
   nro_serie                   String?                        @db.VarChar(255)
   detalles_orden_servicio     detalles_orden_servicio[]
+  multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
 
@@ -866,6 +868,25 @@ model subirfasecontrol_copy1 {
   id          Int     @id @default(autoincrement())
   codigo      String? @db.VarChar(255)
   descripcion String? @db.VarChar(255)
+}
+
+model multifactura_detalle {
+  id_detalle        Int               @id @default(autoincrement())
+  id_orden_compra   Int?
+  id_orden_servicio Int?
+  nro_serie         String?           @db.VarChar(50)
+  nro_factura       String?           @db.VarChar(100)
+  galones           String?           @db.VarChar(50)
+  proyecto          String?           @db.VarChar(255)
+  url_factura       String?           @db.VarChar(500)
+  url_guia          String?           @db.VarChar(500)
+  fecha_registro    DateTime?         @default(now()) @db.Timestamp(0)
+
+  ordenes_compra    ordenes_compra?   @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: Cascade, onUpdate: NoAction, map: "multifactura_detalle_ibfk_1")
+  ordenes_servicio  ordenes_servicio? @relation(fields: [id_orden_servicio], references: [id_orden_servicio], onDelete: Cascade, onUpdate: NoAction, map: "multifactura_detalle_ibfk_2")
+
+  @@index([id_orden_compra], map: "idx_multifactura_compra")
+  @@index([id_orden_servicio], map: "idx_multifactura_servicio")
 }
 
 enum configuracion_notificaciones_tipo_notificacion {

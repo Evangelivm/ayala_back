@@ -703,4 +703,81 @@ export class OrdenCompraController {
       throw error;
     }
   }
+
+  // ─── MULTIFACTURAS ────────────────────────────────────────────────────────
+
+  @Get(':id/multifacturas')
+  @HttpCode(HttpStatus.OK)
+  async getMultifacturas(@Param('id') id: string) {
+    return this.ordenCompraService.getMultifacturas(+id);
+  }
+
+  @Post(':id/multifacturas')
+  @HttpCode(HttpStatus.OK)
+  async saveMultifacturas(
+    @Param('id') id: string,
+    @Body() body: { rows: { id_detalle?: number; nro_serie?: string; nro_factura?: string; galones?: string; proyecto?: string }[] },
+  ) {
+    return this.ordenCompraService.saveMultifacturas(+id, body.rows || []);
+  }
+
+  @Post(':id/multifacturas/:detalleId/upload-factura')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadMultifacturaFactura(
+    @Param('id') id: string,
+    @Param('detalleId') detalleId: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) throw new BadRequestException('No se ha proporcionado ningún archivo');
+
+    // Eliminar archivo anterior si existe
+    const detalle = await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
+    if (detalle?.url_factura) {
+      await this.dropboxService.deleteFileBySharedUrl(detalle.url_factura);
+    }
+
+    const orden = await this.ordenCompraService.getOrdenData(+id);
+    const nombreArchivo = `factura-${orden.numero_orden}-det${detalleId}`;
+    const result = await this.dropboxService.uploadOrdenFile(
+      file.buffer,
+      nombreArchivo,
+      new Date(orden.fecha_registro),
+      'ordenes-compra',
+      file.originalname,
+    );
+
+    await this.ordenCompraService.updateMultifacturaFileUrl(+detalleId, 'factura', result.fileUrl);
+    return { message: 'Factura subida exitosamente', fileUrl: result.fileUrl };
+  }
+
+  @Post(':id/multifacturas/:detalleId/upload-guia')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadMultifacturaGuia(
+    @Param('id') id: string,
+    @Param('detalleId') detalleId: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) throw new BadRequestException('No se ha proporcionado ningún archivo');
+
+    // Eliminar archivo anterior si existe
+    const detalle = await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
+    if (detalle?.url_guia) {
+      await this.dropboxService.deleteFileBySharedUrl(detalle.url_guia);
+    }
+
+    const orden = await this.ordenCompraService.getOrdenData(+id);
+    const nombreArchivo = `guia-${orden.numero_orden}-det${detalleId}`;
+    const result = await this.dropboxService.uploadOrdenFile(
+      file.buffer,
+      nombreArchivo,
+      new Date(orden.fecha_registro),
+      'ordenes-compra',
+      file.originalname,
+    );
+
+    await this.ordenCompraService.updateMultifacturaFileUrl(+detalleId, 'guia', result.fileUrl);
+    return { message: 'Guía subida exitosamente', fileUrl: result.fileUrl };
+  }
 }

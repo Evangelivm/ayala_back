@@ -248,6 +248,11 @@ export type oldfasecontrol = $Result.DefaultSelection<Prisma.$oldfasecontrolPayl
  * 
  */
 export type subirfasecontrol_copy1 = $Result.DefaultSelection<Prisma.$subirfasecontrol_copy1Payload>
+/**
+ * Model multifactura_detalle
+ * 
+ */
+export type multifactura_detalle = $Result.DefaultSelection<Prisma.$multifactura_detallePayload>
 
 /**
  * Enums
@@ -1162,6 +1167,16 @@ export class PrismaClient<
     * ```
     */
   get subirfasecontrol_copy1(): Prisma.subirfasecontrol_copy1Delegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.multifactura_detalle`: Exposes CRUD operations for the **multifactura_detalle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Multifactura_detalles
+    * const multifactura_detalles = await prisma.multifactura_detalle.findMany()
+    * ```
+    */
+  get multifactura_detalle(): Prisma.multifactura_detalleDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1649,7 +1664,8 @@ export namespace Prisma {
     balances_iniciales: 'balances_iniciales',
     camiones: 'camiones',
     oldfasecontrol: 'oldfasecontrol',
-    subirfasecontrol_copy1: 'subirfasecontrol_copy1'
+    subirfasecontrol_copy1: 'subirfasecontrol_copy1',
+    multifactura_detalle: 'multifactura_detalle'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1668,7 +1684,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4774,6 +4790,72 @@ export namespace Prisma {
           }
         }
       }
+      multifactura_detalle: {
+        payload: Prisma.$multifactura_detallePayload<ExtArgs>
+        fields: Prisma.multifactura_detalleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.multifactura_detalleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.multifactura_detalleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          findFirst: {
+            args: Prisma.multifactura_detalleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.multifactura_detalleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          findMany: {
+            args: Prisma.multifactura_detalleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>[]
+          }
+          create: {
+            args: Prisma.multifactura_detalleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          createMany: {
+            args: Prisma.multifactura_detalleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.multifactura_detalleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          update: {
+            args: Prisma.multifactura_detalleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          deleteMany: {
+            args: Prisma.multifactura_detalleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.multifactura_detalleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.multifactura_detalleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$multifactura_detallePayload>
+          }
+          aggregate: {
+            args: Prisma.Multifactura_detalleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMultifactura_detalle>
+          }
+          groupBy: {
+            args: Prisma.multifactura_detalleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Multifactura_detalleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.multifactura_detalleCountArgs<ExtArgs>
+            result: $Utils.Optional<Multifactura_detalleCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4917,6 +4999,7 @@ export namespace Prisma {
     camiones?: camionesOmit
     oldfasecontrol?: oldfasecontrolOmit
     subirfasecontrol_copy1?: subirfasecontrol_copy1Omit
+    multifactura_detalle?: multifactura_detalleOmit
   }
 
   /* Types for Logging */
@@ -5368,11 +5451,13 @@ export namespace Prisma {
 
   export type Ordenes_compraCountOutputType = {
     detalles_orden_compra: number
+    multifactura_detalle: number
     recepciones_compra: number
   }
 
   export type Ordenes_compraCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | Ordenes_compraCountOutputTypeCountDetalles_orden_compraArgs
+    multifactura_detalle?: boolean | Ordenes_compraCountOutputTypeCountMultifactura_detalleArgs
     recepciones_compra?: boolean | Ordenes_compraCountOutputTypeCountRecepciones_compraArgs
   }
 
@@ -5392,6 +5477,13 @@ export namespace Prisma {
    */
   export type Ordenes_compraCountOutputTypeCountDetalles_orden_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: detalles_orden_compraWhereInput
+  }
+
+  /**
+   * Ordenes_compraCountOutputType without action
+   */
+  export type Ordenes_compraCountOutputTypeCountMultifactura_detalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: multifactura_detalleWhereInput
   }
 
   /**
@@ -5649,10 +5741,12 @@ export namespace Prisma {
 
   export type Ordenes_servicioCountOutputType = {
     detalles_orden_servicio: number
+    multifactura_detalle: number
   }
 
   export type Ordenes_servicioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | Ordenes_servicioCountOutputTypeCountDetalles_orden_servicioArgs
+    multifactura_detalle?: boolean | Ordenes_servicioCountOutputTypeCountMultifactura_detalleArgs
   }
 
   // Custom InputTypes
@@ -5671,6 +5765,13 @@ export namespace Prisma {
    */
   export type Ordenes_servicioCountOutputTypeCountDetalles_orden_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: detalles_orden_servicioWhereInput
+  }
+
+  /**
+   * Ordenes_servicioCountOutputType without action
+   */
+  export type Ordenes_servicioCountOutputTypeCountMultifactura_detalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: multifactura_detalleWhereInput
   }
 
 
@@ -22396,6 +22497,7 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
+    multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     recepciones_compra?: boolean | ordenes_compra$recepciones_compraArgs<ExtArgs>
@@ -22458,6 +22560,7 @@ export namespace Prisma {
   export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
+    multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     recepciones_compra?: boolean | ordenes_compra$recepciones_compraArgs<ExtArgs>
@@ -22468,6 +22571,7 @@ export namespace Prisma {
     name: "ordenes_compra"
     objects: {
       detalles_orden_compra: Prisma.$detalles_orden_compraPayload<ExtArgs>[]
+      multifactura_detalle: Prisma.$multifactura_detallePayload<ExtArgs>[]
       proveedores: Prisma.$proveedoresPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
       recepciones_compra: Prisma.$recepciones_compraPayload<ExtArgs>[]
@@ -22862,6 +22966,7 @@ export namespace Prisma {
   export interface Prisma__ordenes_compraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     detalles_orden_compra<T extends ordenes_compra$detalles_orden_compraArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_compra$detalles_orden_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    multifactura_detalle<T extends ordenes_compra$multifactura_detalleArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_compra$multifactura_detalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recepciones_compra<T extends ordenes_compra$recepciones_compraArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_compra$recepciones_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recepciones_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -23306,6 +23411,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Detalles_orden_compraScalarFieldEnum | Detalles_orden_compraScalarFieldEnum[]
+  }
+
+  /**
+   * ordenes_compra.multifactura_detalle
+   */
+  export type ordenes_compra$multifactura_detalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    where?: multifactura_detalleWhereInput
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    cursor?: multifactura_detalleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
   }
 
   /**
@@ -32592,6 +32721,7 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
+    multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
@@ -32653,6 +32783,7 @@ export namespace Prisma {
   export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
+    multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
@@ -32662,6 +32793,7 @@ export namespace Prisma {
     name: "ordenes_servicio"
     objects: {
       detalles_orden_servicio: Prisma.$detalles_orden_servicioPayload<ExtArgs>[]
+      multifactura_detalle: Prisma.$multifactura_detallePayload<ExtArgs>[]
       proveedores: Prisma.$proveedoresPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
     }
@@ -33055,6 +33187,7 @@ export namespace Prisma {
   export interface Prisma__ordenes_servicioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     detalles_orden_servicio<T extends ordenes_servicio$detalles_orden_servicioArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalles_orden_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    multifactura_detalle<T extends ordenes_servicio$multifactura_detalleArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicio$multifactura_detalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -33498,6 +33631,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Detalles_orden_servicioScalarFieldEnum | Detalles_orden_servicioScalarFieldEnum[]
+  }
+
+  /**
+   * ordenes_servicio.multifactura_detalle
+   */
+  export type ordenes_servicio$multifactura_detalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    where?: multifactura_detalleWhereInput
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    cursor?: multifactura_detalleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
   }
 
   /**
@@ -55693,6 +55850,1074 @@ export namespace Prisma {
 
 
   /**
+   * Model multifactura_detalle
+   */
+
+  export type AggregateMultifactura_detalle = {
+    _count: Multifactura_detalleCountAggregateOutputType | null
+    _avg: Multifactura_detalleAvgAggregateOutputType | null
+    _sum: Multifactura_detalleSumAggregateOutputType | null
+    _min: Multifactura_detalleMinAggregateOutputType | null
+    _max: Multifactura_detalleMaxAggregateOutputType | null
+  }
+
+  export type Multifactura_detalleAvgAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_compra: number | null
+    id_orden_servicio: number | null
+  }
+
+  export type Multifactura_detalleSumAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_compra: number | null
+    id_orden_servicio: number | null
+  }
+
+  export type Multifactura_detalleMinAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_compra: number | null
+    id_orden_servicio: number | null
+    nro_serie: string | null
+    nro_factura: string | null
+    galones: string | null
+    proyecto: string | null
+    url_factura: string | null
+    url_guia: string | null
+    fecha_registro: Date | null
+  }
+
+  export type Multifactura_detalleMaxAggregateOutputType = {
+    id_detalle: number | null
+    id_orden_compra: number | null
+    id_orden_servicio: number | null
+    nro_serie: string | null
+    nro_factura: string | null
+    galones: string | null
+    proyecto: string | null
+    url_factura: string | null
+    url_guia: string | null
+    fecha_registro: Date | null
+  }
+
+  export type Multifactura_detalleCountAggregateOutputType = {
+    id_detalle: number
+    id_orden_compra: number
+    id_orden_servicio: number
+    nro_serie: number
+    nro_factura: number
+    galones: number
+    proyecto: number
+    url_factura: number
+    url_guia: number
+    fecha_registro: number
+    _all: number
+  }
+
+
+  export type Multifactura_detalleAvgAggregateInputType = {
+    id_detalle?: true
+    id_orden_compra?: true
+    id_orden_servicio?: true
+  }
+
+  export type Multifactura_detalleSumAggregateInputType = {
+    id_detalle?: true
+    id_orden_compra?: true
+    id_orden_servicio?: true
+  }
+
+  export type Multifactura_detalleMinAggregateInputType = {
+    id_detalle?: true
+    id_orden_compra?: true
+    id_orden_servicio?: true
+    nro_serie?: true
+    nro_factura?: true
+    galones?: true
+    proyecto?: true
+    url_factura?: true
+    url_guia?: true
+    fecha_registro?: true
+  }
+
+  export type Multifactura_detalleMaxAggregateInputType = {
+    id_detalle?: true
+    id_orden_compra?: true
+    id_orden_servicio?: true
+    nro_serie?: true
+    nro_factura?: true
+    galones?: true
+    proyecto?: true
+    url_factura?: true
+    url_guia?: true
+    fecha_registro?: true
+  }
+
+  export type Multifactura_detalleCountAggregateInputType = {
+    id_detalle?: true
+    id_orden_compra?: true
+    id_orden_servicio?: true
+    nro_serie?: true
+    nro_factura?: true
+    galones?: true
+    proyecto?: true
+    url_factura?: true
+    url_guia?: true
+    fecha_registro?: true
+    _all?: true
+  }
+
+  export type Multifactura_detalleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which multifactura_detalle to aggregate.
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of multifactura_detalles to fetch.
+     */
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: multifactura_detalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` multifactura_detalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` multifactura_detalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned multifactura_detalles
+    **/
+    _count?: true | Multifactura_detalleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Multifactura_detalleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Multifactura_detalleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Multifactura_detalleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Multifactura_detalleMaxAggregateInputType
+  }
+
+  export type GetMultifactura_detalleAggregateType<T extends Multifactura_detalleAggregateArgs> = {
+        [P in keyof T & keyof AggregateMultifactura_detalle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMultifactura_detalle[P]>
+      : GetScalarType<T[P], AggregateMultifactura_detalle[P]>
+  }
+
+
+
+
+  export type multifactura_detalleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: multifactura_detalleWhereInput
+    orderBy?: multifactura_detalleOrderByWithAggregationInput | multifactura_detalleOrderByWithAggregationInput[]
+    by: Multifactura_detalleScalarFieldEnum[] | Multifactura_detalleScalarFieldEnum
+    having?: multifactura_detalleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Multifactura_detalleCountAggregateInputType | true
+    _avg?: Multifactura_detalleAvgAggregateInputType
+    _sum?: Multifactura_detalleSumAggregateInputType
+    _min?: Multifactura_detalleMinAggregateInputType
+    _max?: Multifactura_detalleMaxAggregateInputType
+  }
+
+  export type Multifactura_detalleGroupByOutputType = {
+    id_detalle: number
+    id_orden_compra: number | null
+    id_orden_servicio: number | null
+    nro_serie: string | null
+    nro_factura: string | null
+    galones: string | null
+    proyecto: string | null
+    url_factura: string | null
+    url_guia: string | null
+    fecha_registro: Date | null
+    _count: Multifactura_detalleCountAggregateOutputType | null
+    _avg: Multifactura_detalleAvgAggregateOutputType | null
+    _sum: Multifactura_detalleSumAggregateOutputType | null
+    _min: Multifactura_detalleMinAggregateOutputType | null
+    _max: Multifactura_detalleMaxAggregateOutputType | null
+  }
+
+  type GetMultifactura_detalleGroupByPayload<T extends multifactura_detalleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Multifactura_detalleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Multifactura_detalleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Multifactura_detalleGroupByOutputType[P]>
+            : GetScalarType<T[P], Multifactura_detalleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type multifactura_detalleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_detalle?: boolean
+    id_orden_compra?: boolean
+    id_orden_servicio?: boolean
+    nro_serie?: boolean
+    nro_factura?: boolean
+    galones?: boolean
+    proyecto?: boolean
+    url_factura?: boolean
+    url_guia?: boolean
+    fecha_registro?: boolean
+    ordenes_compra?: boolean | multifactura_detalle$ordenes_compraArgs<ExtArgs>
+    ordenes_servicio?: boolean | multifactura_detalle$ordenes_servicioArgs<ExtArgs>
+  }, ExtArgs["result"]["multifactura_detalle"]>
+
+
+
+  export type multifactura_detalleSelectScalar = {
+    id_detalle?: boolean
+    id_orden_compra?: boolean
+    id_orden_servicio?: boolean
+    nro_serie?: boolean
+    nro_factura?: boolean
+    galones?: boolean
+    proyecto?: boolean
+    url_factura?: boolean
+    url_guia?: boolean
+    fecha_registro?: boolean
+  }
+
+  export type multifactura_detalleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_compra" | "id_orden_servicio" | "nro_serie" | "nro_factura" | "galones" | "proyecto" | "url_factura" | "url_guia" | "fecha_registro", ExtArgs["result"]["multifactura_detalle"]>
+  export type multifactura_detalleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ordenes_compra?: boolean | multifactura_detalle$ordenes_compraArgs<ExtArgs>
+    ordenes_servicio?: boolean | multifactura_detalle$ordenes_servicioArgs<ExtArgs>
+  }
+
+  export type $multifactura_detallePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "multifactura_detalle"
+    objects: {
+      ordenes_compra: Prisma.$ordenes_compraPayload<ExtArgs> | null
+      ordenes_servicio: Prisma.$ordenes_servicioPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_detalle: number
+      id_orden_compra: number | null
+      id_orden_servicio: number | null
+      nro_serie: string | null
+      nro_factura: string | null
+      galones: string | null
+      proyecto: string | null
+      url_factura: string | null
+      url_guia: string | null
+      fecha_registro: Date | null
+    }, ExtArgs["result"]["multifactura_detalle"]>
+    composites: {}
+  }
+
+  type multifactura_detalleGetPayload<S extends boolean | null | undefined | multifactura_detalleDefaultArgs> = $Result.GetResult<Prisma.$multifactura_detallePayload, S>
+
+  type multifactura_detalleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<multifactura_detalleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Multifactura_detalleCountAggregateInputType | true
+    }
+
+  export interface multifactura_detalleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['multifactura_detalle'], meta: { name: 'multifactura_detalle' } }
+    /**
+     * Find zero or one Multifactura_detalle that matches the filter.
+     * @param {multifactura_detalleFindUniqueArgs} args - Arguments to find a Multifactura_detalle
+     * @example
+     * // Get one Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends multifactura_detalleFindUniqueArgs>(args: SelectSubset<T, multifactura_detalleFindUniqueArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Multifactura_detalle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {multifactura_detalleFindUniqueOrThrowArgs} args - Arguments to find a Multifactura_detalle
+     * @example
+     * // Get one Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends multifactura_detalleFindUniqueOrThrowArgs>(args: SelectSubset<T, multifactura_detalleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Multifactura_detalle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleFindFirstArgs} args - Arguments to find a Multifactura_detalle
+     * @example
+     * // Get one Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends multifactura_detalleFindFirstArgs>(args?: SelectSubset<T, multifactura_detalleFindFirstArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Multifactura_detalle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleFindFirstOrThrowArgs} args - Arguments to find a Multifactura_detalle
+     * @example
+     * // Get one Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends multifactura_detalleFindFirstOrThrowArgs>(args?: SelectSubset<T, multifactura_detalleFindFirstOrThrowArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Multifactura_detalles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Multifactura_detalles
+     * const multifactura_detalles = await prisma.multifactura_detalle.findMany()
+     * 
+     * // Get first 10 Multifactura_detalles
+     * const multifactura_detalles = await prisma.multifactura_detalle.findMany({ take: 10 })
+     * 
+     * // Only select the `id_detalle`
+     * const multifactura_detalleWithId_detalleOnly = await prisma.multifactura_detalle.findMany({ select: { id_detalle: true } })
+     * 
+     */
+    findMany<T extends multifactura_detalleFindManyArgs>(args?: SelectSubset<T, multifactura_detalleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Multifactura_detalle.
+     * @param {multifactura_detalleCreateArgs} args - Arguments to create a Multifactura_detalle.
+     * @example
+     * // Create one Multifactura_detalle
+     * const Multifactura_detalle = await prisma.multifactura_detalle.create({
+     *   data: {
+     *     // ... data to create a Multifactura_detalle
+     *   }
+     * })
+     * 
+     */
+    create<T extends multifactura_detalleCreateArgs>(args: SelectSubset<T, multifactura_detalleCreateArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Multifactura_detalles.
+     * @param {multifactura_detalleCreateManyArgs} args - Arguments to create many Multifactura_detalles.
+     * @example
+     * // Create many Multifactura_detalles
+     * const multifactura_detalle = await prisma.multifactura_detalle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends multifactura_detalleCreateManyArgs>(args?: SelectSubset<T, multifactura_detalleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Multifactura_detalle.
+     * @param {multifactura_detalleDeleteArgs} args - Arguments to delete one Multifactura_detalle.
+     * @example
+     * // Delete one Multifactura_detalle
+     * const Multifactura_detalle = await prisma.multifactura_detalle.delete({
+     *   where: {
+     *     // ... filter to delete one Multifactura_detalle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends multifactura_detalleDeleteArgs>(args: SelectSubset<T, multifactura_detalleDeleteArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Multifactura_detalle.
+     * @param {multifactura_detalleUpdateArgs} args - Arguments to update one Multifactura_detalle.
+     * @example
+     * // Update one Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends multifactura_detalleUpdateArgs>(args: SelectSubset<T, multifactura_detalleUpdateArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Multifactura_detalles.
+     * @param {multifactura_detalleDeleteManyArgs} args - Arguments to filter Multifactura_detalles to delete.
+     * @example
+     * // Delete a few Multifactura_detalles
+     * const { count } = await prisma.multifactura_detalle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends multifactura_detalleDeleteManyArgs>(args?: SelectSubset<T, multifactura_detalleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Multifactura_detalles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Multifactura_detalles
+     * const multifactura_detalle = await prisma.multifactura_detalle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends multifactura_detalleUpdateManyArgs>(args: SelectSubset<T, multifactura_detalleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Multifactura_detalle.
+     * @param {multifactura_detalleUpsertArgs} args - Arguments to update or create a Multifactura_detalle.
+     * @example
+     * // Update or create a Multifactura_detalle
+     * const multifactura_detalle = await prisma.multifactura_detalle.upsert({
+     *   create: {
+     *     // ... data to create a Multifactura_detalle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Multifactura_detalle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends multifactura_detalleUpsertArgs>(args: SelectSubset<T, multifactura_detalleUpsertArgs<ExtArgs>>): Prisma__multifactura_detalleClient<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Multifactura_detalles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleCountArgs} args - Arguments to filter Multifactura_detalles to count.
+     * @example
+     * // Count the number of Multifactura_detalles
+     * const count = await prisma.multifactura_detalle.count({
+     *   where: {
+     *     // ... the filter for the Multifactura_detalles we want to count
+     *   }
+     * })
+    **/
+    count<T extends multifactura_detalleCountArgs>(
+      args?: Subset<T, multifactura_detalleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Multifactura_detalleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Multifactura_detalle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Multifactura_detalleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Multifactura_detalleAggregateArgs>(args: Subset<T, Multifactura_detalleAggregateArgs>): Prisma.PrismaPromise<GetMultifactura_detalleAggregateType<T>>
+
+    /**
+     * Group by Multifactura_detalle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {multifactura_detalleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends multifactura_detalleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: multifactura_detalleGroupByArgs['orderBy'] }
+        : { orderBy?: multifactura_detalleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, multifactura_detalleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMultifactura_detalleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the multifactura_detalle model
+   */
+  readonly fields: multifactura_detalleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for multifactura_detalle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__multifactura_detalleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ordenes_compra<T extends multifactura_detalle$ordenes_compraArgs<ExtArgs> = {}>(args?: Subset<T, multifactura_detalle$ordenes_compraArgs<ExtArgs>>): Prisma__ordenes_compraClient<$Result.GetResult<Prisma.$ordenes_compraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ordenes_servicio<T extends multifactura_detalle$ordenes_servicioArgs<ExtArgs> = {}>(args?: Subset<T, multifactura_detalle$ordenes_servicioArgs<ExtArgs>>): Prisma__ordenes_servicioClient<$Result.GetResult<Prisma.$ordenes_servicioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the multifactura_detalle model
+   */
+  interface multifactura_detalleFieldRefs {
+    readonly id_detalle: FieldRef<"multifactura_detalle", 'Int'>
+    readonly id_orden_compra: FieldRef<"multifactura_detalle", 'Int'>
+    readonly id_orden_servicio: FieldRef<"multifactura_detalle", 'Int'>
+    readonly nro_serie: FieldRef<"multifactura_detalle", 'String'>
+    readonly nro_factura: FieldRef<"multifactura_detalle", 'String'>
+    readonly galones: FieldRef<"multifactura_detalle", 'String'>
+    readonly proyecto: FieldRef<"multifactura_detalle", 'String'>
+    readonly url_factura: FieldRef<"multifactura_detalle", 'String'>
+    readonly url_guia: FieldRef<"multifactura_detalle", 'String'>
+    readonly fecha_registro: FieldRef<"multifactura_detalle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * multifactura_detalle findUnique
+   */
+  export type multifactura_detalleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter, which multifactura_detalle to fetch.
+     */
+    where: multifactura_detalleWhereUniqueInput
+  }
+
+  /**
+   * multifactura_detalle findUniqueOrThrow
+   */
+  export type multifactura_detalleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter, which multifactura_detalle to fetch.
+     */
+    where: multifactura_detalleWhereUniqueInput
+  }
+
+  /**
+   * multifactura_detalle findFirst
+   */
+  export type multifactura_detalleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter, which multifactura_detalle to fetch.
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of multifactura_detalles to fetch.
+     */
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for multifactura_detalles.
+     */
+    cursor?: multifactura_detalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` multifactura_detalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` multifactura_detalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of multifactura_detalles.
+     */
+    distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
+  }
+
+  /**
+   * multifactura_detalle findFirstOrThrow
+   */
+  export type multifactura_detalleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter, which multifactura_detalle to fetch.
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of multifactura_detalles to fetch.
+     */
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for multifactura_detalles.
+     */
+    cursor?: multifactura_detalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` multifactura_detalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` multifactura_detalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of multifactura_detalles.
+     */
+    distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
+  }
+
+  /**
+   * multifactura_detalle findMany
+   */
+  export type multifactura_detalleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter, which multifactura_detalles to fetch.
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of multifactura_detalles to fetch.
+     */
+    orderBy?: multifactura_detalleOrderByWithRelationInput | multifactura_detalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing multifactura_detalles.
+     */
+    cursor?: multifactura_detalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` multifactura_detalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` multifactura_detalles.
+     */
+    skip?: number
+    distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
+  }
+
+  /**
+   * multifactura_detalle create
+   */
+  export type multifactura_detalleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a multifactura_detalle.
+     */
+    data?: XOR<multifactura_detalleCreateInput, multifactura_detalleUncheckedCreateInput>
+  }
+
+  /**
+   * multifactura_detalle createMany
+   */
+  export type multifactura_detalleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many multifactura_detalles.
+     */
+    data: multifactura_detalleCreateManyInput | multifactura_detalleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * multifactura_detalle update
+   */
+  export type multifactura_detalleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a multifactura_detalle.
+     */
+    data: XOR<multifactura_detalleUpdateInput, multifactura_detalleUncheckedUpdateInput>
+    /**
+     * Choose, which multifactura_detalle to update.
+     */
+    where: multifactura_detalleWhereUniqueInput
+  }
+
+  /**
+   * multifactura_detalle updateMany
+   */
+  export type multifactura_detalleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update multifactura_detalles.
+     */
+    data: XOR<multifactura_detalleUpdateManyMutationInput, multifactura_detalleUncheckedUpdateManyInput>
+    /**
+     * Filter which multifactura_detalles to update
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * Limit how many multifactura_detalles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * multifactura_detalle upsert
+   */
+  export type multifactura_detalleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the multifactura_detalle to update in case it exists.
+     */
+    where: multifactura_detalleWhereUniqueInput
+    /**
+     * In case the multifactura_detalle found by the `where` argument doesn't exist, create a new multifactura_detalle with this data.
+     */
+    create: XOR<multifactura_detalleCreateInput, multifactura_detalleUncheckedCreateInput>
+    /**
+     * In case the multifactura_detalle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<multifactura_detalleUpdateInput, multifactura_detalleUncheckedUpdateInput>
+  }
+
+  /**
+   * multifactura_detalle delete
+   */
+  export type multifactura_detalleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+    /**
+     * Filter which multifactura_detalle to delete.
+     */
+    where: multifactura_detalleWhereUniqueInput
+  }
+
+  /**
+   * multifactura_detalle deleteMany
+   */
+  export type multifactura_detalleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which multifactura_detalles to delete
+     */
+    where?: multifactura_detalleWhereInput
+    /**
+     * Limit how many multifactura_detalles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * multifactura_detalle.ordenes_compra
+   */
+  export type multifactura_detalle$ordenes_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ordenes_compra
+     */
+    select?: ordenes_compraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ordenes_compra
+     */
+    omit?: ordenes_compraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ordenes_compraInclude<ExtArgs> | null
+    where?: ordenes_compraWhereInput
+  }
+
+  /**
+   * multifactura_detalle.ordenes_servicio
+   */
+  export type multifactura_detalle$ordenes_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ordenes_servicio
+     */
+    select?: ordenes_servicioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ordenes_servicio
+     */
+    omit?: ordenes_servicioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ordenes_servicioInclude<ExtArgs> | null
+    where?: ordenes_servicioWhereInput
+  }
+
+  /**
+   * multifactura_detalle without action
+   */
+  export type multifactura_detalleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the multifactura_detalle
+     */
+    select?: multifactura_detalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the multifactura_detalle
+     */
+    omit?: multifactura_detalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: multifactura_detalleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -56492,6 +57717,22 @@ export namespace Prisma {
   export type Subirfasecontrol_copy1ScalarFieldEnum = (typeof Subirfasecontrol_copy1ScalarFieldEnum)[keyof typeof Subirfasecontrol_copy1ScalarFieldEnum]
 
 
+  export const Multifactura_detalleScalarFieldEnum: {
+    id_detalle: 'id_detalle',
+    id_orden_compra: 'id_orden_compra',
+    id_orden_servicio: 'id_orden_servicio',
+    nro_serie: 'nro_serie',
+    nro_factura: 'nro_factura',
+    galones: 'galones',
+    proyecto: 'proyecto',
+    url_factura: 'url_factura',
+    url_guia: 'url_guia',
+    fecha_registro: 'fecha_registro'
+  };
+
+  export type Multifactura_detalleScalarFieldEnum = (typeof Multifactura_detalleScalarFieldEnum)[keyof typeof Multifactura_detalleScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -56980,6 +58221,18 @@ export namespace Prisma {
   };
 
   export type subirfasecontrol_copy1OrderByRelevanceFieldEnum = (typeof subirfasecontrol_copy1OrderByRelevanceFieldEnum)[keyof typeof subirfasecontrol_copy1OrderByRelevanceFieldEnum]
+
+
+  export const multifactura_detalleOrderByRelevanceFieldEnum: {
+    nro_serie: 'nro_serie',
+    nro_factura: 'nro_factura',
+    galones: 'galones',
+    proyecto: 'proyecto',
+    url_factura: 'url_factura',
+    url_guia: 'url_guia'
+  };
+
+  export type multifactura_detalleOrderByRelevanceFieldEnum = (typeof multifactura_detalleOrderByRelevanceFieldEnum)[keyof typeof multifactura_detalleOrderByRelevanceFieldEnum]
 
 
   /**
@@ -58508,6 +59761,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
+    multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     recepciones_compra?: Recepciones_compraListRelationFilter
@@ -58563,6 +59817,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
+    multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
     recepciones_compra?: recepciones_compraOrderByRelationAggregateInput
@@ -58622,6 +59877,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
+    multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     recepciones_compra?: Recepciones_compraListRelationFilter
@@ -59476,6 +60732,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
+    multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
   }
@@ -59530,6 +60787,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
+    multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
     _relevance?: ordenes_servicioOrderByRelevanceInput
@@ -59588,6 +60846,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
+    multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
   }, "id_orden_servicio" | "numero_orden">
@@ -61439,6 +62698,92 @@ export namespace Prisma {
     descripcion?: StringNullableWithAggregatesFilter<"subirfasecontrol_copy1"> | string | null
   }
 
+  export type multifactura_detalleWhereInput = {
+    AND?: multifactura_detalleWhereInput | multifactura_detalleWhereInput[]
+    OR?: multifactura_detalleWhereInput[]
+    NOT?: multifactura_detalleWhereInput | multifactura_detalleWhereInput[]
+    id_detalle?: IntFilter<"multifactura_detalle"> | number
+    id_orden_compra?: IntNullableFilter<"multifactura_detalle"> | number | null
+    id_orden_servicio?: IntNullableFilter<"multifactura_detalle"> | number | null
+    nro_serie?: StringNullableFilter<"multifactura_detalle"> | string | null
+    nro_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    galones?: StringNullableFilter<"multifactura_detalle"> | string | null
+    proyecto?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_guia?: StringNullableFilter<"multifactura_detalle"> | string | null
+    fecha_registro?: DateTimeNullableFilter<"multifactura_detalle"> | Date | string | null
+    ordenes_compra?: XOR<Ordenes_compraNullableScalarRelationFilter, ordenes_compraWhereInput> | null
+    ordenes_servicio?: XOR<Ordenes_servicioNullableScalarRelationFilter, ordenes_servicioWhereInput> | null
+  }
+
+  export type multifactura_detalleOrderByWithRelationInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrderInput | SortOrder
+    id_orden_servicio?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
+    galones?: SortOrderInput | SortOrder
+    proyecto?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
+    url_guia?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    ordenes_compra?: ordenes_compraOrderByWithRelationInput
+    ordenes_servicio?: ordenes_servicioOrderByWithRelationInput
+    _relevance?: multifactura_detalleOrderByRelevanceInput
+  }
+
+  export type multifactura_detalleWhereUniqueInput = Prisma.AtLeast<{
+    id_detalle?: number
+    AND?: multifactura_detalleWhereInput | multifactura_detalleWhereInput[]
+    OR?: multifactura_detalleWhereInput[]
+    NOT?: multifactura_detalleWhereInput | multifactura_detalleWhereInput[]
+    id_orden_compra?: IntNullableFilter<"multifactura_detalle"> | number | null
+    id_orden_servicio?: IntNullableFilter<"multifactura_detalle"> | number | null
+    nro_serie?: StringNullableFilter<"multifactura_detalle"> | string | null
+    nro_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    galones?: StringNullableFilter<"multifactura_detalle"> | string | null
+    proyecto?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_guia?: StringNullableFilter<"multifactura_detalle"> | string | null
+    fecha_registro?: DateTimeNullableFilter<"multifactura_detalle"> | Date | string | null
+    ordenes_compra?: XOR<Ordenes_compraNullableScalarRelationFilter, ordenes_compraWhereInput> | null
+    ordenes_servicio?: XOR<Ordenes_servicioNullableScalarRelationFilter, ordenes_servicioWhereInput> | null
+  }, "id_detalle">
+
+  export type multifactura_detalleOrderByWithAggregationInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrderInput | SortOrder
+    id_orden_servicio?: SortOrderInput | SortOrder
+    nro_serie?: SortOrderInput | SortOrder
+    nro_factura?: SortOrderInput | SortOrder
+    galones?: SortOrderInput | SortOrder
+    proyecto?: SortOrderInput | SortOrder
+    url_factura?: SortOrderInput | SortOrder
+    url_guia?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    _count?: multifactura_detalleCountOrderByAggregateInput
+    _avg?: multifactura_detalleAvgOrderByAggregateInput
+    _max?: multifactura_detalleMaxOrderByAggregateInput
+    _min?: multifactura_detalleMinOrderByAggregateInput
+    _sum?: multifactura_detalleSumOrderByAggregateInput
+  }
+
+  export type multifactura_detalleScalarWhereWithAggregatesInput = {
+    AND?: multifactura_detalleScalarWhereWithAggregatesInput | multifactura_detalleScalarWhereWithAggregatesInput[]
+    OR?: multifactura_detalleScalarWhereWithAggregatesInput[]
+    NOT?: multifactura_detalleScalarWhereWithAggregatesInput | multifactura_detalleScalarWhereWithAggregatesInput[]
+    id_detalle?: IntWithAggregatesFilter<"multifactura_detalle"> | number
+    id_orden_compra?: IntNullableWithAggregatesFilter<"multifactura_detalle"> | number | null
+    id_orden_servicio?: IntNullableWithAggregatesFilter<"multifactura_detalle"> | number | null
+    nro_serie?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    nro_factura?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    galones?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    proyecto?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    url_factura?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    url_guia?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
+    fecha_registro?: DateTimeNullableWithAggregatesFilter<"multifactura_detalle"> | Date | string | null
+  }
+
   export type almacenesCreateInput = {
     codigo_almacen: string
     nombre_almacen: string
@@ -62751,6 +64096,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -62806,6 +64152,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -62856,6 +64203,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -62911,6 +64259,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -63807,6 +65156,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -63861,6 +65211,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUpdateInput = {
@@ -63910,6 +65261,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -63964,6 +65316,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioCreateManyInput = {
@@ -65966,6 +67319,92 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type multifactura_detalleCreateInput = {
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+    ordenes_compra?: ordenes_compraCreateNestedOneWithoutMultifactura_detalleInput
+    ordenes_servicio?: ordenes_servicioCreateNestedOneWithoutMultifactura_detalleInput
+  }
+
+  export type multifactura_detalleUncheckedCreateInput = {
+    id_detalle?: number
+    id_orden_compra?: number | null
+    id_orden_servicio?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type multifactura_detalleUpdateInput = {
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ordenes_compra?: ordenes_compraUpdateOneWithoutMultifactura_detalleNestedInput
+    ordenes_servicio?: ordenes_servicioUpdateOneWithoutMultifactura_detalleNestedInput
+  }
+
+  export type multifactura_detalleUncheckedUpdateInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_compra?: NullableIntFieldUpdateOperationsInput | number | null
+    id_orden_servicio?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type multifactura_detalleCreateManyInput = {
+    id_detalle?: number
+    id_orden_compra?: number | null
+    id_orden_servicio?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type multifactura_detalleUpdateManyMutationInput = {
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type multifactura_detalleUncheckedUpdateManyInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_compra?: NullableIntFieldUpdateOperationsInput | number | null
+    id_orden_servicio?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -67534,9 +68973,19 @@ export namespace Prisma {
     not?: NestedEnumordenes_compra_estado_firmaNullableFilter<$PrismaModel> | $Enums.ordenes_compra_estado_firma | null
   }
 
+  export type Multifactura_detalleListRelationFilter = {
+    every?: multifactura_detalleWhereInput
+    some?: multifactura_detalleWhereInput
+    none?: multifactura_detalleWhereInput
+  }
+
   export type ProveedoresScalarRelationFilter = {
     is?: proveedoresWhereInput
     isNot?: proveedoresWhereInput
+  }
+
+  export type multifactura_detalleOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ordenes_compraOrderByRelevanceInput = {
@@ -69977,6 +71426,73 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type Ordenes_compraNullableScalarRelationFilter = {
+    is?: ordenes_compraWhereInput | null
+    isNot?: ordenes_compraWhereInput | null
+  }
+
+  export type Ordenes_servicioNullableScalarRelationFilter = {
+    is?: ordenes_servicioWhereInput | null
+    isNot?: ordenes_servicioWhereInput | null
+  }
+
+  export type multifactura_detalleOrderByRelevanceInput = {
+    fields: multifactura_detalleOrderByRelevanceFieldEnum | multifactura_detalleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type multifactura_detalleCountOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrder
+    id_orden_servicio?: SortOrder
+    nro_serie?: SortOrder
+    nro_factura?: SortOrder
+    galones?: SortOrder
+    proyecto?: SortOrder
+    url_factura?: SortOrder
+    url_guia?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type multifactura_detalleAvgOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrder
+    id_orden_servicio?: SortOrder
+  }
+
+  export type multifactura_detalleMaxOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrder
+    id_orden_servicio?: SortOrder
+    nro_serie?: SortOrder
+    nro_factura?: SortOrder
+    galones?: SortOrder
+    proyecto?: SortOrder
+    url_factura?: SortOrder
+    url_guia?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type multifactura_detalleMinOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrder
+    id_orden_servicio?: SortOrder
+    nro_serie?: SortOrder
+    nro_factura?: SortOrder
+    galones?: SortOrder
+    proyecto?: SortOrder
+    url_factura?: SortOrder
+    url_guia?: SortOrder
+    fecha_registro?: SortOrder
+  }
+
+  export type multifactura_detalleSumOrderByAggregateInput = {
+    id_detalle?: SortOrder
+    id_orden_compra?: SortOrder
+    id_orden_servicio?: SortOrder
+  }
+
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
     create?: XOR<almacenesCreateWithoutOther_almacenesInput, almacenesUncheckedCreateWithoutOther_almacenesInput>
     connectOrCreate?: almacenesCreateOrConnectWithoutOther_almacenesInput
@@ -71396,6 +72912,13 @@ export namespace Prisma {
     connect?: detalles_orden_compraWhereUniqueInput | detalles_orden_compraWhereUniqueInput[]
   }
 
+  export type multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput> | multifactura_detalleCreateWithoutOrdenes_compraInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput | multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_compraInputEnvelope
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+  }
+
   export type proveedoresCreateNestedOneWithoutOrdenes_compraInput = {
     create?: XOR<proveedoresCreateWithoutOrdenes_compraInput, proveedoresUncheckedCreateWithoutOrdenes_compraInput>
     connectOrCreate?: proveedoresCreateOrConnectWithoutOrdenes_compraInput
@@ -71420,6 +72943,13 @@ export namespace Prisma {
     connectOrCreate?: detalles_orden_compraCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_compraCreateOrConnectWithoutOrdenes_compraInput[]
     createMany?: detalles_orden_compraCreateManyOrdenes_compraInputEnvelope
     connect?: detalles_orden_compraWhereUniqueInput | detalles_orden_compraWhereUniqueInput[]
+  }
+
+  export type multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput> | multifactura_detalleCreateWithoutOrdenes_compraInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput | multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_compraInputEnvelope
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
   }
 
   export type recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput = {
@@ -71449,6 +72979,20 @@ export namespace Prisma {
     update?: detalles_orden_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
     updateMany?: detalles_orden_compraUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_compraUpdateManyWithWhereWithoutOrdenes_compraInput[]
     deleteMany?: detalles_orden_compraScalarWhereInput | detalles_orden_compraScalarWhereInput[]
+  }
+
+  export type multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput> | multifactura_detalleCreateWithoutOrdenes_compraInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput | multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput[]
+    upsert?: multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_compraInput | multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_compraInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_compraInputEnvelope
+    set?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    disconnect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    delete?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    update?: multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_compraInput | multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
+    updateMany?: multifactura_detalleUpdateManyWithWhereWithoutOrdenes_compraInput | multifactura_detalleUpdateManyWithWhereWithoutOrdenes_compraInput[]
+    deleteMany?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
   }
 
   export type proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput = {
@@ -71493,6 +73037,20 @@ export namespace Prisma {
     update?: detalles_orden_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
     updateMany?: detalles_orden_compraUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_compraUpdateManyWithWhereWithoutOrdenes_compraInput[]
     deleteMany?: detalles_orden_compraScalarWhereInput | detalles_orden_compraScalarWhereInput[]
+  }
+
+  export type multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput> | multifactura_detalleCreateWithoutOrdenes_compraInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput | multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput[]
+    upsert?: multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_compraInput | multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_compraInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_compraInputEnvelope
+    set?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    disconnect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    delete?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    update?: multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_compraInput | multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
+    updateMany?: multifactura_detalleUpdateManyWithWhereWithoutOrdenes_compraInput | multifactura_detalleUpdateManyWithWhereWithoutOrdenes_compraInput[]
+    deleteMany?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
   }
 
   export type recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput = {
@@ -72442,6 +74000,13 @@ export namespace Prisma {
     connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
   }
 
+  export type multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput> | multifactura_detalleCreateWithoutOrdenes_servicioInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput | multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_servicioInputEnvelope
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+  }
+
   export type proveedoresCreateNestedOneWithoutOrdenes_servicioInput = {
     create?: XOR<proveedoresCreateWithoutOrdenes_servicioInput, proveedoresUncheckedCreateWithoutOrdenes_servicioInput>
     connectOrCreate?: proveedoresCreateOrConnectWithoutOrdenes_servicioInput
@@ -72459,6 +74024,13 @@ export namespace Prisma {
     connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
     createMany?: detalles_orden_servicioCreateManyOrdenes_compraInputEnvelope
     connect?: detalles_orden_servicioWhereUniqueInput | detalles_orden_servicioWhereUniqueInput[]
+  }
+
+  export type multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput> | multifactura_detalleCreateWithoutOrdenes_servicioInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput | multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_servicioInputEnvelope
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
   }
 
   export type NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput = {
@@ -72481,6 +74053,20 @@ export namespace Prisma {
     update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
     updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput[]
     deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
+  }
+
+  export type multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput> | multifactura_detalleCreateWithoutOrdenes_servicioInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput | multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput[]
+    upsert?: multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_servicioInput | multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_servicioInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_servicioInputEnvelope
+    set?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    disconnect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    delete?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    update?: multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_servicioInput | multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_servicioInput[]
+    updateMany?: multifactura_detalleUpdateManyWithWhereWithoutOrdenes_servicioInput | multifactura_detalleUpdateManyWithWhereWithoutOrdenes_servicioInput[]
+    deleteMany?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
   }
 
   export type proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput = {
@@ -72511,6 +74097,20 @@ export namespace Prisma {
     update?: detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput | detalles_orden_servicioUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
     updateMany?: detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput | detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput[]
     deleteMany?: detalles_orden_servicioScalarWhereInput | detalles_orden_servicioScalarWhereInput[]
+  }
+
+  export type multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput = {
+    create?: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput> | multifactura_detalleCreateWithoutOrdenes_servicioInput[] | multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput[]
+    connectOrCreate?: multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput | multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput[]
+    upsert?: multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_servicioInput | multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_servicioInput[]
+    createMany?: multifactura_detalleCreateManyOrdenes_servicioInputEnvelope
+    set?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    disconnect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    delete?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    connect?: multifactura_detalleWhereUniqueInput | multifactura_detalleWhereUniqueInput[]
+    update?: multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_servicioInput | multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_servicioInput[]
+    updateMany?: multifactura_detalleUpdateManyWithWhereWithoutOrdenes_servicioInput | multifactura_detalleUpdateManyWithWhereWithoutOrdenes_servicioInput[]
+    deleteMany?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
   }
 
   export type ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput = {
@@ -72895,6 +74495,38 @@ export namespace Prisma {
 
   export type Enumcamiones_tipoFieldUpdateOperationsInput = {
     set?: $Enums.camiones_tipo
+  }
+
+  export type ordenes_compraCreateNestedOneWithoutMultifactura_detalleInput = {
+    create?: XOR<ordenes_compraCreateWithoutMultifactura_detalleInput, ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput>
+    connectOrCreate?: ordenes_compraCreateOrConnectWithoutMultifactura_detalleInput
+    connect?: ordenes_compraWhereUniqueInput
+  }
+
+  export type ordenes_servicioCreateNestedOneWithoutMultifactura_detalleInput = {
+    create?: XOR<ordenes_servicioCreateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput>
+    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutMultifactura_detalleInput
+    connect?: ordenes_servicioWhereUniqueInput
+  }
+
+  export type ordenes_compraUpdateOneWithoutMultifactura_detalleNestedInput = {
+    create?: XOR<ordenes_compraCreateWithoutMultifactura_detalleInput, ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput>
+    connectOrCreate?: ordenes_compraCreateOrConnectWithoutMultifactura_detalleInput
+    upsert?: ordenes_compraUpsertWithoutMultifactura_detalleInput
+    disconnect?: ordenes_compraWhereInput | boolean
+    delete?: ordenes_compraWhereInput | boolean
+    connect?: ordenes_compraWhereUniqueInput
+    update?: XOR<XOR<ordenes_compraUpdateToOneWithWhereWithoutMultifactura_detalleInput, ordenes_compraUpdateWithoutMultifactura_detalleInput>, ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput>
+  }
+
+  export type ordenes_servicioUpdateOneWithoutMultifactura_detalleNestedInput = {
+    create?: XOR<ordenes_servicioCreateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput>
+    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutMultifactura_detalleInput
+    upsert?: ordenes_servicioUpsertWithoutMultifactura_detalleInput
+    disconnect?: ordenes_servicioWhereInput | boolean
+    delete?: ordenes_servicioWhereInput | boolean
+    connect?: ordenes_servicioWhereUniqueInput
+    update?: XOR<XOR<ordenes_servicioUpdateToOneWithWhereWithoutMultifactura_detalleInput, ordenes_servicioUpdateWithoutMultifactura_detalleInput>, ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -75144,6 +76776,7 @@ export namespace Prisma {
     nro_factura?: string | null
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
@@ -75198,6 +76831,7 @@ export namespace Prisma {
     nro_factura?: string | null
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -75318,6 +76952,7 @@ export namespace Prisma {
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
@@ -75372,6 +77007,7 @@ export namespace Prisma {
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -77220,6 +78856,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type multifactura_detalleCreateWithoutOrdenes_compraInput = {
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+    ordenes_servicio?: ordenes_servicioCreateNestedOneWithoutMultifactura_detalleInput
+  }
+
+  export type multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput = {
+    id_detalle?: number
+    id_orden_servicio?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type multifactura_detalleCreateOrConnectWithoutOrdenes_compraInput = {
+    where: multifactura_detalleWhereUniqueInput
+    create: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleCreateManyOrdenes_compraInputEnvelope = {
+    data: multifactura_detalleCreateManyOrdenes_compraInput | multifactura_detalleCreateManyOrdenes_compraInput[]
+    skipDuplicates?: boolean
+  }
+
   export type proveedoresCreateWithoutOrdenes_compraInput = {
     codigo_proveedor: string
     nombre_proveedor: string
@@ -77359,6 +79028,38 @@ export namespace Prisma {
   export type detalles_orden_compraUpdateManyWithWhereWithoutOrdenes_compraInput = {
     where: detalles_orden_compraScalarWhereInput
     data: XOR<detalles_orden_compraUpdateManyMutationInput, detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_compraInput = {
+    where: multifactura_detalleWhereUniqueInput
+    update: XOR<multifactura_detalleUpdateWithoutOrdenes_compraInput, multifactura_detalleUncheckedUpdateWithoutOrdenes_compraInput>
+    create: XOR<multifactura_detalleCreateWithoutOrdenes_compraInput, multifactura_detalleUncheckedCreateWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_compraInput = {
+    where: multifactura_detalleWhereUniqueInput
+    data: XOR<multifactura_detalleUpdateWithoutOrdenes_compraInput, multifactura_detalleUncheckedUpdateWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleUpdateManyWithWhereWithoutOrdenes_compraInput = {
+    where: multifactura_detalleScalarWhereInput
+    data: XOR<multifactura_detalleUpdateManyMutationInput, multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleScalarWhereInput = {
+    AND?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
+    OR?: multifactura_detalleScalarWhereInput[]
+    NOT?: multifactura_detalleScalarWhereInput | multifactura_detalleScalarWhereInput[]
+    id_detalle?: IntFilter<"multifactura_detalle"> | number
+    id_orden_compra?: IntNullableFilter<"multifactura_detalle"> | number | null
+    id_orden_servicio?: IntNullableFilter<"multifactura_detalle"> | number | null
+    nro_serie?: StringNullableFilter<"multifactura_detalle"> | string | null
+    nro_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    galones?: StringNullableFilter<"multifactura_detalle"> | string | null
+    proyecto?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_factura?: StringNullableFilter<"multifactura_detalle"> | string | null
+    url_guia?: StringNullableFilter<"multifactura_detalle"> | string | null
+    fecha_registro?: DateTimeNullableFilter<"multifactura_detalle"> | Date | string | null
   }
 
   export type proveedoresUpsertWithoutOrdenes_compraInput = {
@@ -77937,6 +79638,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -77990,6 +79692,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -78050,6 +79753,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
 
@@ -78102,6 +79806,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioCreateOrConnectWithoutProveedoresInput = {
@@ -78427,6 +80132,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
   }
@@ -78481,6 +80187,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraCreateOrConnectWithoutRecepciones_compraInput = {
@@ -78606,6 +80313,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
   }
@@ -78660,6 +80368,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
   export type almacenesUpsertWithoutRecepciones_compraInput = {
@@ -79741,6 +81450,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -79794,6 +81504,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -79854,6 +81565,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
   }
 
@@ -79906,6 +81618,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioCreateOrConnectWithoutUsuariosInput = {
@@ -80415,6 +82128,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type multifactura_detalleCreateWithoutOrdenes_servicioInput = {
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+    ordenes_compra?: ordenes_compraCreateNestedOneWithoutMultifactura_detalleInput
+  }
+
+  export type multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput = {
+    id_detalle?: number
+    id_orden_compra?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
+  export type multifactura_detalleCreateOrConnectWithoutOrdenes_servicioInput = {
+    where: multifactura_detalleWhereUniqueInput
+    create: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput>
+  }
+
+  export type multifactura_detalleCreateManyOrdenes_servicioInputEnvelope = {
+    data: multifactura_detalleCreateManyOrdenes_servicioInput | multifactura_detalleCreateManyOrdenes_servicioInput[]
+    skipDuplicates?: boolean
+  }
+
   export type proveedoresCreateWithoutOrdenes_servicioInput = {
     codigo_proveedor: string
     nombre_proveedor: string
@@ -80523,6 +82269,22 @@ export namespace Prisma {
   export type detalles_orden_servicioUpdateManyWithWhereWithoutOrdenes_compraInput = {
     where: detalles_orden_servicioScalarWhereInput
     data: XOR<detalles_orden_servicioUpdateManyMutationInput, detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraInput>
+  }
+
+  export type multifactura_detalleUpsertWithWhereUniqueWithoutOrdenes_servicioInput = {
+    where: multifactura_detalleWhereUniqueInput
+    update: XOR<multifactura_detalleUpdateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedUpdateWithoutOrdenes_servicioInput>
+    create: XOR<multifactura_detalleCreateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedCreateWithoutOrdenes_servicioInput>
+  }
+
+  export type multifactura_detalleUpdateWithWhereUniqueWithoutOrdenes_servicioInput = {
+    where: multifactura_detalleWhereUniqueInput
+    data: XOR<multifactura_detalleUpdateWithoutOrdenes_servicioInput, multifactura_detalleUncheckedUpdateWithoutOrdenes_servicioInput>
+  }
+
+  export type multifactura_detalleUpdateManyWithWhereWithoutOrdenes_servicioInput = {
+    where: multifactura_detalleScalarWhereInput
+    data: XOR<multifactura_detalleUpdateManyMutationInput, multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioInput>
   }
 
   export type proveedoresUpsertWithoutOrdenes_servicioInput = {
@@ -80677,6 +82439,7 @@ export namespace Prisma {
     nro_factura?: string | null
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
+    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
   }
@@ -80730,6 +82493,7 @@ export namespace Prisma {
     nro_factura?: string | null
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
+    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioCreateOrConnectWithoutDetalles_orden_servicioInput = {
@@ -80849,6 +82613,7 @@ export namespace Prisma {
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
@@ -80902,6 +82667,7 @@ export namespace Prisma {
     nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
   export type listado_items_2025UpsertWithoutDetalles_orden_servicioInput = {
@@ -82784,6 +84550,454 @@ export namespace Prisma {
     usuarios?: usuariosUncheckedUpdateManyWithoutAlmacenesNestedInput
   }
 
+  export type ordenes_compraCreateWithoutMultifactura_detalleInput = {
+    numero_orden: string
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_compra_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
+    auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
+    auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
+    jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_compra_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
+    id_camion?: number | null
+    almacen_central?: string | null
+    url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
+    nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
+    detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
+    proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
+    usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
+    recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
+  }
+
+  export type ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput = {
+    id_orden_compra?: number
+    numero_orden: string
+    id_proveedor: number
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_compra_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
+    auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
+    auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
+    jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_compra_estado_firma | null
+    ruta_pdf?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
+    id_camion?: number | null
+    almacen_central?: string | null
+    url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
+    nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
+    detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+    recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
+  }
+
+  export type ordenes_compraCreateOrConnectWithoutMultifactura_detalleInput = {
+    where: ordenes_compraWhereUniqueInput
+    create: XOR<ordenes_compraCreateWithoutMultifactura_detalleInput, ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput>
+  }
+
+  export type ordenes_servicioCreateWithoutMultifactura_detalleInput = {
+    numero_orden: string
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_servicio_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
+    auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
+    jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
+    auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
+    almacen_central?: string | null
+    url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
+    nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
+    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
+    proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
+    usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
+  }
+
+  export type ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput = {
+    id_orden_servicio?: number
+    numero_orden: string
+    id_proveedor: number
+    fecha_orden: Date | string
+    fecha_entrega_prevista?: Date | string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    igv?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    estado?: $Enums.ordenes_servicio_estado | null
+    observaciones?: string | null
+    fecha_registro?: Date | string | null
+    registrado_por: number
+    tiene_anticipo?: string | null
+    procede_pago?: string | null
+    fecha_procede_pago?: Date | string | null
+    auto_administrador?: boolean | null
+    fecha_auto_administrador?: Date | string | null
+    jefe_proyecto?: boolean | null
+    fecha_jefe_proyecto?: Date | string | null
+    auto_contabilidad?: boolean | null
+    fecha_auto_contabilidad?: Date | string | null
+    has_anticipo?: boolean | null
+    direccion?: string | null
+    centro_costo_nivel1?: string | null
+    centro_costo_nivel2?: string | null
+    centro_costo_nivel3?: string | null
+    condicion?: string | null
+    moneda?: string | null
+    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
+    hora_firma?: Date | string | null
+    usuario_firma?: number | null
+    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: string | null
+    detraccion?: string | null
+    porcentaje_valor_detraccion?: string | null
+    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: string | null
+    retencion?: string | null
+    porcentaje_valor_retencion?: string | null
+    valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
+    almacen_central?: string | null
+    url?: string | null
+    url_cotizacion?: string | null
+    url_factura?: string | null
+    nro_factura?: string | null
+    url_comprobante_retencion?: string | null
+    nro_serie?: string | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
+  }
+
+  export type ordenes_servicioCreateOrConnectWithoutMultifactura_detalleInput = {
+    where: ordenes_servicioWhereUniqueInput
+    create: XOR<ordenes_servicioCreateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput>
+  }
+
+  export type ordenes_compraUpsertWithoutMultifactura_detalleInput = {
+    update: XOR<ordenes_compraUpdateWithoutMultifactura_detalleInput, ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput>
+    create: XOR<ordenes_compraCreateWithoutMultifactura_detalleInput, ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput>
+    where?: ordenes_compraWhereInput
+  }
+
+  export type ordenes_compraUpdateToOneWithWhereWithoutMultifactura_detalleInput = {
+    where?: ordenes_compraWhereInput
+    data: XOR<ordenes_compraUpdateWithoutMultifactura_detalleInput, ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput>
+  }
+
+  export type ordenes_compraUpdateWithoutMultifactura_detalleInput = {
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_compra_estadoFieldUpdateOperationsInput | $Enums.ordenes_compra_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
+    proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
+    usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
+    recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
+  }
+
+  export type ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput = {
+    id_orden_compra?: IntFieldUpdateOperationsInput | number
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_compra_estadoFieldUpdateOperationsInput | $Enums.ordenes_compra_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+  }
+
+  export type ordenes_servicioUpsertWithoutMultifactura_detalleInput = {
+    update: XOR<ordenes_servicioUpdateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput>
+    create: XOR<ordenes_servicioCreateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput>
+    where?: ordenes_servicioWhereInput
+  }
+
+  export type ordenes_servicioUpdateToOneWithWhereWithoutMultifactura_detalleInput = {
+    where?: ordenes_servicioWhereInput
+    data: XOR<ordenes_servicioUpdateWithoutMultifactura_detalleInput, ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput>
+  }
+
+  export type ordenes_servicioUpdateWithoutMultifactura_detalleInput = {
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
+    proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
+    usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
+  }
+
+  export type ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput = {
+    id_orden_servicio?: IntFieldUpdateOperationsInput | number
+    numero_orden?: StringFieldUpdateOperationsInput | string
+    id_proveedor?: IntFieldUpdateOperationsInput | number
+    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registrado_por?: IntFieldUpdateOperationsInput | number
+    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
+    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
+    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
+    condicion?: NullableStringFieldUpdateOperationsInput | string | null
+    moneda?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
+    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
+    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
+    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
+    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+  }
+
   export type almacenesCreateManyAlmacenesInput = {
     id_almacen?: number
     codigo_almacen: string
@@ -84001,6 +86215,18 @@ export namespace Prisma {
     subtotal: Decimal | DecimalJsLike | number | string
   }
 
+  export type multifactura_detalleCreateManyOrdenes_compraInput = {
+    id_detalle?: number
+    id_orden_servicio?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
   export type recepciones_compraCreateManyOrdenes_compraInput = {
     id_recepcion?: number
     numero_documento?: string | null
@@ -84038,6 +86264,41 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type multifactura_detalleUpdateWithoutOrdenes_compraInput = {
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ordenes_servicio?: ordenes_servicioUpdateOneWithoutMultifactura_detalleNestedInput
+  }
+
+  export type multifactura_detalleUncheckedUpdateWithoutOrdenes_compraInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_servicio?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type recepciones_compraUpdateWithoutOrdenes_compraInput = {
@@ -84547,6 +86808,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -84600,6 +86862,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -84700,6 +86963,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
 
@@ -84752,6 +87016,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateManyWithoutProveedoresInput = {
@@ -85367,6 +87632,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -85420,6 +87686,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -85520,6 +87787,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
   }
 
@@ -85572,6 +87840,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
+    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateManyWithoutUsuariosInput = {
@@ -85760,6 +88029,18 @@ export namespace Prisma {
     subtotal: Decimal | DecimalJsLike | number | string
   }
 
+  export type multifactura_detalleCreateManyOrdenes_servicioInput = {
+    id_detalle?: number
+    id_orden_compra?: number | null
+    nro_serie?: string | null
+    nro_factura?: string | null
+    galones?: string | null
+    proyecto?: string | null
+    url_factura?: string | null
+    url_guia?: string | null
+    fecha_registro?: Date | string | null
+  }
+
   export type detalles_orden_servicioUpdateWithoutOrdenes_compraInput = {
     descripcion_item?: StringFieldUpdateOperationsInput | string
     cantidad_solicitada?: IntFieldUpdateOperationsInput | number
@@ -85787,6 +88068,41 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type multifactura_detalleUpdateWithoutOrdenes_servicioInput = {
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ordenes_compra?: ordenes_compraUpdateOneWithoutMultifactura_detalleNestedInput
+  }
+
+  export type multifactura_detalleUncheckedUpdateWithoutOrdenes_servicioInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_compra?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioInput = {
+    id_detalle?: IntFieldUpdateOperationsInput | number
+    id_orden_compra?: NullableIntFieldUpdateOperationsInput | number | null
+    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    galones?: NullableStringFieldUpdateOperationsInput | string | null
+    proyecto?: NullableStringFieldUpdateOperationsInput | string | null
+    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
+    url_guia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type factura_guiaCreateManyFacturaInput = {

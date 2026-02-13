@@ -2100,4 +2100,82 @@ export class OrdenCompraService {
       );
     }
   }
+
+  // ─── MULTIFACTURAS ────────────────────────────────────────────────────────
+
+  async getMultifacturaDetalle(detalleId: number) {
+    return this.prismaThird.multifactura_detalle.findUnique({
+      where: { id_detalle: detalleId },
+      select: { url_factura: true, url_guia: true },
+    });
+  }
+
+  async getMultifacturas(ordenId: number) {
+    return this.prismaThird.multifactura_detalle.findMany({
+      where: { id_orden_compra: ordenId },
+      orderBy: { id_detalle: 'asc' },
+    });
+  }
+
+  async saveMultifacturas(
+    ordenId: number,
+    rows: {
+      id_detalle?: number;
+      nro_serie?: string;
+      nro_factura?: string;
+      galones?: string;
+      proyecto?: string;
+    }[],
+  ) {
+    // Eliminar los que ya no están en la lista
+    const existingIds = rows
+      .filter((r) => r.id_detalle)
+      .map((r) => r.id_detalle as number);
+
+    await this.prismaThird.multifactura_detalle.deleteMany({
+      where: {
+        id_orden_compra: ordenId,
+        id_detalle: { notIn: existingIds.length > 0 ? existingIds : [0] },
+      },
+    });
+
+    // Upsert cada fila
+    const results = await Promise.all(
+      rows.map((row) => {
+        if (row.id_detalle) {
+          return this.prismaThird.multifactura_detalle.update({
+            where: { id_detalle: row.id_detalle },
+            data: {
+              nro_serie: row.nro_serie || null,
+              nro_factura: row.nro_factura || null,
+              galones: row.galones || null,
+              proyecto: row.proyecto || null,
+            },
+          });
+        }
+        return this.prismaThird.multifactura_detalle.create({
+          data: {
+            id_orden_compra: ordenId,
+            nro_serie: row.nro_serie || null,
+            nro_factura: row.nro_factura || null,
+            galones: row.galones || null,
+            proyecto: row.proyecto || null,
+          },
+        });
+      }),
+    );
+
+    return results;
+  }
+
+  async updateMultifacturaFileUrl(
+    detalleId: number,
+    tipo: 'factura' | 'guia',
+    url: string,
+  ) {
+    return this.prismaThird.multifactura_detalle.update({
+      where: { id_detalle: detalleId },
+      data: tipo === 'factura' ? { url_factura: url } : { url_guia: url },
+    });
+  }
 }

@@ -766,6 +766,19 @@ exports.Prisma.Subirfasecontrol_copy1ScalarFieldEnum = {
   descripcion: 'descripcion'
 };
 
+exports.Prisma.Multifactura_detalleScalarFieldEnum = {
+  id_detalle: 'id_detalle',
+  id_orden_compra: 'id_orden_compra',
+  id_orden_servicio: 'id_orden_servicio',
+  nro_serie: 'nro_serie',
+  nro_factura: 'nro_factura',
+  galones: 'galones',
+  proyecto: 'proyecto',
+  url_factura: 'url_factura',
+  url_guia: 'url_guia',
+  fecha_registro: 'fecha_registro'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1114,6 +1127,15 @@ exports.Prisma.subirfasecontrol_copy1OrderByRelevanceFieldEnum = {
   codigo: 'codigo',
   descripcion: 'descripcion'
 };
+
+exports.Prisma.multifactura_detalleOrderByRelevanceFieldEnum = {
+  nro_serie: 'nro_serie',
+  nro_factura: 'nro_factura',
+  galones: 'galones',
+  proyecto: 'proyecto',
+  url_factura: 'url_factura',
+  url_guia: 'url_guia'
+};
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
   AUXILIAR: 'AUXILIAR',
@@ -1314,7 +1336,8 @@ exports.Prisma.ModelName = {
   balances_iniciales: 'balances_iniciales',
   camiones: 'camiones',
   oldfasecontrol: 'oldfasecontrol',
-  subirfasecontrol_copy1: 'subirfasecontrol_copy1'
+  subirfasecontrol_copy1: 'subirfasecontrol_copy1',
+  multifactura_detalle: 'multifactura_detalle'
 };
 
 /**

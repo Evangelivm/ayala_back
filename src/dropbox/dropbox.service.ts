@@ -310,6 +310,22 @@ export class DropboxService {
   }
 
   /**
+   * Elimina un archivo de Dropbox dado su enlace compartido
+   * @param sharedUrl - URL compartida del archivo
+   */
+  async deleteFileBySharedUrl(sharedUrl: string): Promise<boolean> {
+    try {
+      const meta = await this.dropboxClient.sharingGetSharedLinkMetadata({ url: sharedUrl });
+      const path = (meta.result as any).path_lower as string | undefined;
+      if (!path) return false;
+      return this.deleteFile(path);
+    } catch (error) {
+      this.logger.warn('No se pudo eliminar el archivo anterior de Dropbox', error);
+      return false;
+    }
+  }
+
+  /**
    * Elimina un archivo de Dropbox
    * @param filePath - Ruta completa del archivo a eliminar
    */
