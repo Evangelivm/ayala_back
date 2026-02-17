@@ -225,6 +225,12 @@ export class ProgramacionController {
     );
   }
 
+  @Delete('tecnica/:id')
+  async removeTecnica(@Param('id', ParseIntPipe) id: number) {
+    this.logger.log(`Eliminando registro técnico con ID: ${id}`);
+    return await this.programacionService.deleteTecnicaById(id);
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     this.logger.log(`Consultando registro con ID: ${id}`);

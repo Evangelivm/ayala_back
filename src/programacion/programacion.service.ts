@@ -246,6 +246,40 @@ export class ProgramacionService {
     }
   }
 
+  async deleteTecnicaById(id: number) {
+    try {
+      // Obtener el registro para conseguir el identificador_unico
+      const tecnica = await this.prisma.programacion_tecnica.findUnique({
+        where: { id },
+        select: { id: true, identificador_unico: true },
+      });
+
+      if (!tecnica) {
+        throw new BadRequestException(`Registro técnico con ID ${id} no encontrado`);
+      }
+
+      // Eliminar de programacion_tecnica
+      await this.prisma.programacion_tecnica.delete({ where: { id } });
+      this.logger.log(`Registro programacion_tecnica ID ${id} eliminado`);
+
+      // Eliminar de programacion por identificador_unico si existe
+      if (tecnica.identificador_unico) {
+        const deleted = await this.prisma.programacion.deleteMany({
+          where: { identificador_unico: tecnica.identificador_unico },
+        });
+        this.logger.log(
+          `Eliminados ${deleted.count} registros de programacion con identificador_unico=${tecnica.identificador_unico}`,
+        );
+      }
+
+      return { message: 'Registro eliminado exitosamente de ambas tablas' };
+    } catch (error) {
+      if (error instanceof BadRequestException) throw error;
+      this.logger.error(`Error al eliminar registro técnico ID ${id}:`, error);
+      throw new InternalServerErrorException('Error al eliminar el registro');
+    }
+  }
+
   async findAllProgramacionTecnica() {
     try {
       // Usar consulta raw SQL para hacer JOINs con camiones, empresas_2025, proyecto y subproyectos

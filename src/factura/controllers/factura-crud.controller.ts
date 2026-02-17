@@ -17,6 +17,7 @@ import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { CreateFacturaSchema } from '../dto/create-factura.dto';
 import { UpdateFacturaSchema } from '../dto/update-factura.dto';
 import { FacturaConsumerService } from '../services/factura-consumer.service';
+import { FacturaDetectorService } from '../services/factura-detector.service';
 import { WebsocketGateway } from '../../websocket/websocket.gateway';
 
 @Controller('facturas')
@@ -26,6 +27,7 @@ export class FacturaCrudController {
   constructor(
     private readonly prisma: PrismaThirdService,
     private readonly facturaConsumer: FacturaConsumerService,
+    private readonly facturaDetector: FacturaDetectorService,
     private readonly websocketGateway: WebsocketGateway,
   ) {}
 
@@ -463,7 +465,19 @@ export class FacturaCrudController {
         `Factura ${factura.serie}-${factura.numero} creada exitosamente con ID ${factura.id_factura}`,
       );
 
-      // Retornar la factura creada con sus relaciones
+      // Llamar a NubeFact sincrónicamenmente (sin esperar al cron de 30s)
+      try {
+        this.logger.log(`Procesando factura ${factura.id_factura} en NubeFact de forma inmediata...`);
+        await this.facturaDetector.forceDetection(factura.id_factura);
+        this.logger.log(`Factura ${factura.id_factura} enviada a NubeFact exitosamente`);
+      } catch (nubefactError) {
+        // No relanzamos el error: la factura ya fue guardada en BD y el cron la reintentará
+        this.logger.warn(
+          `Procesamiento inmediato de NubeFact falló (el cron lo reintentará): ${nubefactError.message}`,
+        );
+      }
+
+      // Retornar la factura creada con sus relaciones (incluye el estado actualizado por NubeFact)
       const facturaCompleta = await this.prisma.factura.findUnique({
         where: { id_factura: factura.id_factura },
         include: {
