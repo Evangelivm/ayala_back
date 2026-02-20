@@ -324,6 +324,7 @@ model ordenes_compra {
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios                    usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
   recepciones_compra          recepciones_compra[]
+  camiones                    camiones?                    @relation(fields: [id_camion], references: [id_camion], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_camion_fk")
 
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")
@@ -533,6 +534,7 @@ model ordenes_servicio {
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
+  camiones                    camiones?                      @relation(fields: [id_camion], references: [id_camion], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_camion_fk")
 
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")
@@ -854,6 +856,8 @@ model camiones {
   numero_licencia               String?       @db.VarChar(255)
   empresa                       String?       @db.VarChar(255)
   tipo                          camiones_tipo
+  ordenes_compra               ordenes_compra[]
+  ordenes_servicio             ordenes_servicio[]
 
   @@index([id_tipo_combustible_preferido], map: "id_tipo_combustible_preferido")
 }

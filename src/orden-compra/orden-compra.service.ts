@@ -119,6 +119,7 @@ export class OrdenCompraService {
         include: {
           proveedores: true,
           detalles_orden_compra: true,
+          camiones: true,
         },
       });
 
@@ -132,6 +133,11 @@ export class OrdenCompraService {
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
         ruc_proveedor: orden.proveedores?.ruc || null,
         items: orden.detalles_orden_compra || [],
+        unidad_id: orden.id_camion || null,
+        placa_unidad: orden.camiones?.placa || null,
+        tipo_unidad: orden.camiones?.tipo || null,
+        nombre_chofer: orden.camiones?.nombre_chofer || null,
+        apellido_chofer: orden.camiones?.apellido_chofer || null,
       }));
     } catch (error) {
       console.error('Error obteniendo órdenes de compra:', error);
