@@ -1238,6 +1238,7 @@ model programacion {
   punto_llegada_ubigeo    String?   @db.VarChar(255)
   punto_llegada_direccion String?   @db.VarChar(255)
   hora_registro           DateTime? @db.DateTime(0)
+  deleted_at              DateTime? @db.Timestamp(0)
 }
 
 model tipo_equipos {
@@ -1515,6 +1516,7 @@ model programacion_tecnica {
   id_subsector                   Int?
   id_subpartida                  Int?
   hora_registro                  DateTime? @db.DateTime(0)
+  deleted_at                     DateTime? @db.Timestamp(0)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

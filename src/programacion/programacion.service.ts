@@ -248,7 +248,6 @@ export class ProgramacionService {
 
   async deleteTecnicaById(id: number) {
     try {
-      // Obtener el registro para conseguir el identificador_unico
       const tecnica = await this.prisma.programacion_tecnica.findUnique({
         where: { id },
         select: { id: true, identificador_unico: true },
@@ -258,25 +257,61 @@ export class ProgramacionService {
         throw new BadRequestException(`Registro técnico con ID ${id} no encontrado`);
       }
 
-      // Eliminar de programacion_tecnica
-      await this.prisma.programacion_tecnica.delete({ where: { id } });
-      this.logger.log(`Registro programacion_tecnica ID ${id} eliminado`);
+      const now = new Date();
 
-      // Eliminar de programacion por identificador_unico si existe
+      await this.prisma.programacion_tecnica.update({
+        where: { id },
+        data: { deleted_at: now },
+      });
+      this.logger.log(`Soft delete aplicado a programacion_tecnica ID ${id}`);
+
       if (tecnica.identificador_unico) {
-        const deleted = await this.prisma.programacion.deleteMany({
+        await this.prisma.programacion.updateMany({
           where: { identificador_unico: tecnica.identificador_unico },
+          data: { deleted_at: now },
         });
-        this.logger.log(
-          `Eliminados ${deleted.count} registros de programacion con identificador_unico=${tecnica.identificador_unico}`,
-        );
       }
 
-      return { message: 'Registro eliminado exitosamente de ambas tablas' };
+      return { message: 'Registro marcado como eliminado exitosamente' };
     } catch (error) {
       if (error instanceof BadRequestException) throw error;
-      this.logger.error(`Error al eliminar registro técnico ID ${id}:`, error);
+      this.logger.error(`Error al hacer soft delete del registro técnico ID ${id}:`, error);
       throw new InternalServerErrorException('Error al eliminar el registro');
+    }
+  }
+
+  async restoreTecnicaById(id: number) {
+    try {
+      const tecnica = await this.prisma.programacion_tecnica.findUnique({
+        where: { id },
+        select: { id: true, identificador_unico: true, deleted_at: true },
+      });
+
+      if (!tecnica) {
+        throw new BadRequestException(`Registro técnico con ID ${id} no encontrado`);
+      }
+
+      if (!tecnica.deleted_at) {
+        throw new BadRequestException(`El registro con ID ${id} no está eliminado`);
+      }
+
+      await this.prisma.programacion_tecnica.update({
+        where: { id },
+        data: { deleted_at: null },
+      });
+
+      if (tecnica.identificador_unico) {
+        await this.prisma.programacion.updateMany({
+          where: { identificador_unico: tecnica.identificador_unico },
+          data: { deleted_at: null },
+        });
+      }
+
+      return { message: 'Registro restaurado exitosamente' };
+    } catch (error) {
+      if (error instanceof BadRequestException) throw error;
+      this.logger.error(`Error al restaurar registro técnico ID ${id}:`, error);
+      throw new InternalServerErrorException('Error al restaurar el registro');
     }
   }
 
@@ -302,6 +337,7 @@ export class ProgramacionService {
         LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci AND gr.estado_gre = 'COMPLETADO'
         LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
         LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        WHERE pt.deleted_at IS NULL
         ORDER BY pt.fecha DESC
       `;
 
@@ -364,12 +400,99 @@ export class ProgramacionService {
           enlace_del_pdf: pt.enlace_del_pdf || null,
           enlace_del_xml: pt.enlace_del_xml || null,
           enlace_del_cdr: pt.enlace_del_cdr || null,
+          deleted_at: pt.deleted_at || null,
         };
       });
 
       return data;
     } catch (error) {
       this.logger.error('Error al obtener registros de programación técnica:', error);
+      throw new InternalServerErrorException('Error al obtener los registros');
+    }
+  }
+
+  async findAllProgramacionTecnicaAdmin() {
+    try {
+      const programacionTecnica = await this.prisma.$queryRaw<any[]>`
+        SELECT
+          pt.*,
+          c.placa as unidad_placa,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          c.capacidad_tanque as camion_capacidad,
+          e.razon_social as empresa_razon_social,
+          gr.enlace_del_pdf,
+          gr.enlace_del_xml,
+          gr.enlace_del_cdr,
+          p.nombre as nombre_proyecto,
+          sp.nombre as nombre_subproyecto
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci AND gr.estado_gre = 'COMPLETADO'
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        ORDER BY pt.fecha DESC
+      `;
+
+      const data = programacionTecnica.map(pt => {
+        const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
+        const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
+        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
+          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+          : null;
+
+        let nombreProyecto: string | null = null;
+        let tipoProyecto: 'proyecto' | 'subproyecto' | null = null;
+
+        if (pt.nombre_subproyecto) {
+          nombreProyecto = pt.nombre_subproyecto;
+          tipoProyecto = 'subproyecto';
+        } else if (pt.nombre_proyecto) {
+          nombreProyecto = pt.nombre_proyecto;
+          tipoProyecto = 'proyecto';
+        }
+
+        let horaPartidaISO: string | null = null;
+        if (pt.fecha && pt.hora_partida) {
+          try {
+            const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
+            const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
+            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
+          } catch (error) {
+            horaPartidaISO = pt.hora_partida;
+          }
+        }
+
+        return {
+          id: pt.id,
+          fecha: pt.fecha,
+          unidad: pt.unidad_placa || null,
+          proveedor: pt.empresa_razon_social || null,
+          apellidos_nombres: nombreCompleto,
+          proyectos: nombreProyecto,
+          tipo_proyecto: tipoProyecto,
+          programacion: pt.programacion,
+          hora_partida: horaPartidaISO,
+          estado_programacion: pt.estado_programacion,
+          comentarios: pt.comentarios,
+          validacion: pt.validacion,
+          identificador_unico: pt.identificador_unico,
+          km_del_dia: pt.km_del_dia,
+          mes: pt.mes,
+          num_semana: pt.num_semana,
+          m3: pt.m3 ? pt.m3.toString() : null,
+          cantidad_viaje: pt.cantidad_viaje,
+          enlace_del_pdf: pt.enlace_del_pdf || null,
+          enlace_del_xml: pt.enlace_del_xml || null,
+          enlace_del_cdr: pt.enlace_del_cdr || null,
+          deleted_at: pt.deleted_at || null,
+        };
+      });
+
+      return data;
+    } catch (error) {
+      this.logger.error('Error al obtener registros admin de programación técnica:', error);
       throw new InternalServerErrorException('Error al obtener los registros');
     }
   }
@@ -594,6 +717,7 @@ export class ProgramacionService {
           AND gr.enlace_del_xml IS NOT NULL
           AND gr.enlace_del_cdr IS NOT NULL
           AND gr.identificador_unico IS NOT NULL
+          AND pt.deleted_at IS NULL
         ORDER BY gr.updated_at DESC
       `;
 

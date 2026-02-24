@@ -113,6 +113,7 @@ export class OrdenServicioService {
   async findAll() {
     try {
       const ordenes = await this.prismaThird.ordenes_servicio.findMany({
+        where: { deleted_at: null },
         orderBy: {
           fecha_registro: 'desc',
         },
@@ -1603,7 +1604,6 @@ export class OrdenServicioService {
    */
   async remove(id: number): Promise<void> {
     try {
-      // Verificar que la orden existe
       const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
         where: { id_orden_servicio: id },
       });
@@ -1614,27 +1614,79 @@ export class OrdenServicioService {
         );
       }
 
-      // Eliminar la orden de servicio y sus detalles en una transacción
-      await this.prismaThird.$transaction(async (tx) => {
-        // Primero eliminar los detalles
-        await tx.detalles_orden_servicio.deleteMany({
-          where: { id_orden_servicio: id },
-        });
-
-        // Luego eliminar la orden
-        await tx.ordenes_servicio.delete({
-          where: { id_orden_servicio: id },
-        });
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { deleted_at: new Date() },
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
       }
 
-      console.error('Error al eliminar orden de servicio:', error);
+      console.error('Error al hacer soft delete de orden de servicio:', error);
       throw new BadRequestException(
         `Error al eliminar orden de servicio: ${error.message}`,
       );
+    }
+  }
+
+  async restore(id: number): Promise<void> {
+    try {
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { deleted_at: null },
+      });
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al restaurar orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al restaurar orden de servicio: ${error.message}`,
+      );
+    }
+  }
+
+  async findAllAdmin() {
+    try {
+      const ordenes = await this.prismaThird.ordenes_servicio.findMany({
+        orderBy: {
+          fecha_registro: 'desc',
+        },
+        include: {
+          proveedores: true,
+          detalles_orden_servicio: true,
+          camiones: true,
+        },
+      });
+
+      return ordenes.map((orden) => ({
+        ...orden,
+        fecha_orden: orden.fecha_orden ? dayjs(orden.fecha_orden).format('YYYY-MM-DD') : null,
+        fecha_registro: orden.fecha_registro ? dayjs(orden.fecha_registro).format('YYYY-MM-DD') : null,
+        nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+        ruc_proveedor: orden.proveedores?.ruc || null,
+        items: orden.detalles_orden_servicio || [],
+        unidad_id: orden.id_camion || null,
+        placa_unidad: orden.camiones?.placa || null,
+        tipo_unidad: orden.camiones?.tipo || null,
+        nombre_chofer: orden.camiones?.nombre_chofer || null,
+        apellido_chofer: orden.camiones?.apellido_chofer || null,
+      }));
+    } catch (error) {
+      console.error('Error obteniendo órdenes de servicio (admin):', error);
+      throw error;
     }
   }
 

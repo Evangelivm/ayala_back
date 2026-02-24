@@ -58,6 +58,18 @@ export class OrdenCompraController {
     }
   }
 
+  @Get('admin')
+  @HttpCode(HttpStatus.OK)
+  async findAllAdmin() {
+    try {
+      const ordenes = await this.ordenCompraService.findAllAdmin();
+      return ordenes;
+    } catch (error) {
+      console.error('Error obteniendo órdenes de compra (admin):', error);
+      throw error;
+    }
+  }
+
   @Get('tipo-cambio')
   @HttpCode(HttpStatus.OK)
   async obtenerTipoCambio() {
@@ -152,6 +164,21 @@ export class OrdenCompraController {
       };
     } catch (error) {
       console.error('Error eliminando orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/restore')
+  @HttpCode(HttpStatus.OK)
+  async restore(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.restore(+id);
+      return {
+        success: true,
+        message: 'Orden de compra restaurada exitosamente',
+      };
+    } catch (error) {
+      console.error('Error restaurando orden de compra:', error);
       throw error;
     }
   }

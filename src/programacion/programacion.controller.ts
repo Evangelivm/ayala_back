@@ -69,6 +69,12 @@ export class ProgramacionController {
     return await this.programacionService.findAll();
   }
 
+  @Get('tecnica/admin')
+  async findAllProgramacionTecnicaAdmin() {
+    this.logger.log('Consultando todos los registros de programación técnica (admin, incluye eliminados)');
+    return await this.programacionService.findAllProgramacionTecnicaAdmin();
+  }
+
   @Get('tecnica/con-guia')
   async getIdentificadoresConGuia() {
     this.logger.log('Consultando identificadores únicos con guía generada');
@@ -227,8 +233,14 @@ export class ProgramacionController {
 
   @Delete('tecnica/:id')
   async removeTecnica(@Param('id', ParseIntPipe) id: number) {
-    this.logger.log(`Eliminando registro técnico con ID: ${id}`);
+    this.logger.log(`Soft delete de registro técnico con ID: ${id}`);
     return await this.programacionService.deleteTecnicaById(id);
+  }
+
+  @Patch('tecnica/:id/restore')
+  async restoreTecnica(@Param('id', ParseIntPipe) id: number) {
+    this.logger.log(`Restaurando registro técnico con ID: ${id}`);
+    return await this.programacionService.restoreTecnicaById(id);
   }
 
   @Get(':id')

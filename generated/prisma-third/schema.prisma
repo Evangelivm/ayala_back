@@ -319,6 +319,7 @@ model ordenes_compra {
   nro_factura                 String?                      @db.VarChar(45)
   url_comprobante_retencion   String?                      @db.VarChar(255)
   nro_serie                   String?                      @db.VarChar(255)
+  deleted_at                  DateTime?                    @db.Timestamp(0)
   detalles_orden_compra       detalles_orden_compra[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
@@ -530,6 +531,7 @@ model ordenes_servicio {
   nro_factura                 String?                        @db.VarChar(45)
   url_comprobante_retencion   String?                        @db.VarChar(255)
   nro_serie                   String?                        @db.VarChar(255)
+  deleted_at                  DateTime?                      @db.Timestamp(0)
   detalles_orden_servicio     detalles_orden_servicio[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")

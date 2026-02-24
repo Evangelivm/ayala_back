@@ -58,6 +58,18 @@ export class OrdenServicioController {
     }
   }
 
+  @Get('admin')
+  @HttpCode(HttpStatus.OK)
+  async findAllAdmin() {
+    try {
+      const ordenes = await this.ordenServicioService.findAllAdmin();
+      return ordenes;
+    } catch (error) {
+      console.error('Error obteniendo órdenes de servicio (admin):', error);
+      throw error;
+    }
+  }
+
   @Get('tipo-cambio')
   @HttpCode(HttpStatus.OK)
   async obtenerTipoCambio() {
@@ -152,6 +164,21 @@ export class OrdenServicioController {
       };
     } catch (error) {
       console.error('Error eliminando orden de servicio:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/restore')
+  @HttpCode(HttpStatus.OK)
+  async restore(@Param('id') id: string) {
+    try {
+      await this.ordenServicioService.restore(+id);
+      return {
+        success: true,
+        message: 'Orden de servicio restaurada exitosamente',
+      };
+    } catch (error) {
+      console.error('Error restaurando orden de servicio:', error);
       throw error;
     }
   }
