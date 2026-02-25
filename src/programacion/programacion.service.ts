@@ -4,6 +4,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
   Inject,
+  Optional,
   forwardRef,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
@@ -15,6 +16,7 @@ import {
 import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 import { GreExtendidoProducerService } from '../gre/services/gre-extendido-producer.service';
+import { SearchService } from '../search/search.service';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
@@ -31,6 +33,7 @@ export class ProgramacionService {
     private prisma: PrismaService,
     @Inject(forwardRef(() => GreExtendidoProducerService))
     private readonly greExtendidoProducer?: GreExtendidoProducerService,
+    @Optional() private readonly searchService?: SearchService,
   ) {}
 
   // Función helper para capitalizar cada palabra
@@ -141,6 +144,34 @@ export class ProgramacionService {
       this.logger.log(
         `Inserción masiva completada en ${processingTime}ms: ${result.count} en programacion, ${result.countTecnica} en programacion_tecnica`,
       );
+
+      // Indexar nuevos registros en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        const newRecords = await this.prisma.programacion_tecnica.findMany({
+          where: {
+            identificador_unico: {
+              in: programacionData
+                .map((p) => p.identificador_unico)
+                .filter(Boolean) as string[],
+            },
+          },
+          select: {
+            id: true,
+            fecha: true,
+            identificador_unico: true,
+            estado_programacion: true,
+          },
+        });
+        for (const r of newRecords) {
+          this.searchService.indexDoc('programacion_tecnica', r.id.toString(), {
+            id: r.id,
+            fecha: r.fecha ? dayjs(r.fecha).format('YYYY-MM-DD') : null,
+            identificador_unico: r.identificador_unico,
+            estado_programacion: r.estado_programacion,
+            deleted_at: null,
+          });
+        }
+      }
 
       return {
         message: 'Registros de programación guardados exitosamente en ambas tablas',
@@ -269,6 +300,13 @@ export class ProgramacionService {
         await this.prisma.programacion.updateMany({
           where: { identificador_unico: tecnica.identificador_unico },
           data: { deleted_at: now },
+        });
+      }
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.indexDoc('programacion_tecnica', id.toString(), {
+          deleted_at: now.toISOString(),
         });
       }
 

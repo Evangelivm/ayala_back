@@ -40,6 +40,7 @@ import { DropboxModule } from './dropbox/dropbox.module';
 import { TipoDetraccionModule } from './tipo-detraccion/tipo-detraccion.module';
 import { LoggerModule } from './utils/logger.module';
 import { LocksModule } from './locks/locks.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { LocksModule } from './locks/locks.module';
     DropboxModule,
     TipoDetraccionModule,
     LocksModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

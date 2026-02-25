@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Optional } from '@nestjs/common';
 import PDFDocument = require('pdfkit');
 import type PDFKit from 'pdfkit';
 import * as path from 'path';
@@ -10,6 +10,7 @@ import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
+import { SearchService } from '../search/search.service';
 
 // Configurar plugins de dayjs
 dayjs.extend(utc);
@@ -21,6 +22,7 @@ export class OrdenServicioService {
     private readonly prismaThird: PrismaThirdService,
     private readonly prisma: PrismaService,
     private readonly websocketGateway: WebsocketGateway,
+    @Optional() private readonly searchService?: SearchService,
   ) {}
 
   /**
@@ -129,8 +131,8 @@ export class OrdenServicioService {
       return ordenes.map((orden) => ({
         ...orden,
         // Formatear fechas DATE a string para evitar conversión de zona horaria en el frontend
-        fecha_orden: orden.fecha_orden ? dayjs(orden.fecha_orden).format('YYYY-MM-DD') : null,
-        fecha_registro: orden.fecha_registro ? dayjs(orden.fecha_registro).format('YYYY-MM-DD') : null,
+        fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
+        fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
         ruc_proveedor: orden.proveedores?.ruc || null,
         items: orden.detalles_orden_servicio || [],
@@ -317,6 +319,24 @@ export class OrdenServicioService {
       const siguienteNumero = await this.obtenerSiguienteNumeroOrden();
       this.websocketGateway.emitSiguienteNumeroOrdenServicio(siguienteNumero);
 
+      // Indexar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        const proveedorCreado = await this.prismaThird.proveedores.findUnique({
+          where: { id_proveedor: createOrdenServicioDto.id_proveedor },
+        });
+        this.searchService.indexDoc('ordenes_servicio', ordenServicio.id_orden_servicio.toString(), {
+          id: ordenServicio.id_orden_servicio,
+          numero_orden: ordenServicio.numero_orden,
+          nombre_proveedor: proveedorCreado?.nombre_proveedor || null,
+          ruc_proveedor: proveedorCreado?.ruc || null,
+          fecha_orden: ordenServicio.fecha_orden
+            ? dayjs.utc(ordenServicio.fecha_orden).format('YYYY-MM-DD')
+            : null,
+          estado: ordenServicio.estado || null,
+          deleted_at: null,
+        });
+      }
+
       return {
         success: true,
         message: 'Orden de servicio creada exitosamente',
@@ -414,10 +434,8 @@ export class OrdenServicioService {
 
     const proveedor = ordenServicio.proveedores;
 
-    // Formatear fecha_orden a DD/MM/YYYY en zona horaria de Lima
-    const fechaEmisionFormateada = dayjs(ordenServicio.fecha_orden)
-      .tz('America/Lima')
-      .format('DD/MM/YYYY');
+    // Formatear fecha_orden a DD/MM/YYYY (campo DATE, leer en UTC para evitar desfase de zona horaria)
+    const fechaEmisionFormateada = dayjs.utc(ordenServicio.fecha_orden).format('DD/MM/YYYY');
 
     // Obtener el tipo de detracción si existe
     let tipoDetraccionTexto = '';
@@ -1581,6 +1599,19 @@ export class OrdenServicioService {
       // Emitir evento WebSocket de actualización
       this.websocketGateway.emitOrdenServicioUpdate();
 
+      // Indexar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.indexDoc('ordenes_servicio', id.toString(), {
+          id,
+          numero_orden: ordenServicioActualizada.numero_orden,
+          nombre_proveedor: ordenServicioActualizada.nombre_proveedor || null,
+          ruc_proveedor: ordenServicioActualizada.ruc_proveedor || null,
+          fecha_orden: ordenServicioActualizada.fecha_orden || null,
+          estado: (ordenServicioActualizada as any).estado || null,
+          deleted_at: null,
+        });
+      }
+
       console.log(
         `✅ Orden de servicio ${ordenServicioActualizada.numero_orden} actualizada exitosamente`,
       );
@@ -1618,6 +1649,13 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { deleted_at: new Date() },
       });
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.indexDoc('ordenes_servicio', id.toString(), {
+          deleted_at: new Date().toISOString(),
+        });
+      }
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1673,8 +1711,8 @@ export class OrdenServicioService {
 
       return ordenes.map((orden) => ({
         ...orden,
-        fecha_orden: orden.fecha_orden ? dayjs(orden.fecha_orden).format('YYYY-MM-DD') : null,
-        fecha_registro: orden.fecha_registro ? dayjs(orden.fecha_registro).format('YYYY-MM-DD') : null,
+        fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
+        fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
         nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
         ruc_proveedor: orden.proveedores?.ruc || null,
         items: orden.detalles_orden_servicio || [],
