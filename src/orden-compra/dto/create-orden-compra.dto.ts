@@ -26,7 +26,7 @@ export const CreateOrdenCompraSchema = z
   .object({
     id_proveedor: z.number().int().positive('El ID del proveedor es requerido'),
     numero_orden: z.string().min(1, 'El número de orden es requerido'),
-    fecha_orden: z.string().datetime('Fecha de orden inválida'),
+    fecha_orden: z.string().date('Fecha de orden inválida'),
     moneda: z.string().min(1, 'La moneda es requerida'),
     fecha_registro: z.string().datetime('Fecha de registro inválida'),
     estado: z.nativeEnum(EstadoOrdenCompra, {
