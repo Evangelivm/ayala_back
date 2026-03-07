@@ -1517,6 +1517,7 @@ model programacion_tecnica {
   id_subpartida                  Int?
   hora_registro                  DateTime? @db.DateTime(0)
   deleted_at                     DateTime? @db.Timestamp(0)
+  backend_logs                   String?   @db.LongText
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

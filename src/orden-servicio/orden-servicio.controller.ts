@@ -25,8 +25,10 @@ import {
 } from './dto/create-orden-servicio.dto';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { DropboxService } from '../dropbox/dropbox.service';
+import { BackendLogsInterceptor } from '../common/interceptors/backend-logs.interceptor';
 
 @Controller('ordenes-servicio')
+@UseInterceptors(BackendLogsInterceptor)
 export class OrdenServicioController {
   constructor(
     private readonly ordenServicioService: OrdenServicioService,
@@ -181,6 +183,16 @@ export class OrdenServicioController {
       console.error('Error restaurando orden de servicio:', error);
       throw error;
     }
+  }
+
+  @Patch(':id/backend-logs')
+  @HttpCode(HttpStatus.OK)
+  async saveBackendLogs(
+    @Param('id') id: string,
+    @Body('logs') logs: string,
+  ) {
+    await this.ordenServicioService.saveBackendLogs(+id, logs);
+    return { success: true };
   }
 
   @Patch(':id/aprobar-contabilidad')

@@ -346,7 +346,8 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   nro_factura: 'nro_factura',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -493,7 +494,8 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   nro_factura: 'nro_factura',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -626,7 +628,8 @@ exports.Prisma.FacturaScalarFieldEnum = {
   created_at: 'created_at',
   updated_at: 'updated_at',
   condiciones_de_pago: 'condiciones_de_pago',
-  medio_de_pago: 'medio_de_pago'
+  medio_de_pago: 'medio_de_pago',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.Factura_guiaScalarFieldEnum = {
@@ -917,7 +920,8 @@ exports.Prisma.ordenes_compraOrderByRelevanceFieldEnum = {
   url_factura: 'url_factura',
   nro_factura: 'nro_factura',
   url_comprobante_retencion: 'url_comprobante_retencion',
-  nro_serie: 'nro_serie'
+  nro_serie: 'nro_serie',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
@@ -988,7 +992,8 @@ exports.Prisma.ordenes_servicioOrderByRelevanceFieldEnum = {
   url_factura: 'url_factura',
   nro_factura: 'nro_factura',
   url_comprobante_retencion: 'url_comprobante_retencion',
-  nro_serie: 'nro_serie'
+  nro_serie: 'nro_serie',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
@@ -1049,7 +1054,8 @@ exports.Prisma.facturaOrderByRelevanceFieldEnum = {
   sunat_responsecode: 'sunat_responsecode',
   sunat_soap_error: 'sunat_soap_error',
   condiciones_de_pago: 'condiciones_de_pago',
-  medio_de_pago: 'medio_de_pago'
+  medio_de_pago: 'medio_de_pago',
+  backend_logs: 'backend_logs'
 };
 
 exports.Prisma.factura_guiaOrderByRelevanceFieldEnum = {

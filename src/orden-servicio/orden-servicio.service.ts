@@ -2323,4 +2323,11 @@ export class OrdenServicioService {
       data: tipo === 'factura' ? { url_factura: url } : { url_guia: url },
     });
   }
+
+  async saveBackendLogs(id: number, logs: string): Promise<void> {
+    await this.prismaThird.ordenes_servicio.update({
+      where: { id_orden_servicio: id },
+      data: { backend_logs: logs },
+    });
+  }
 }

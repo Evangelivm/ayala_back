@@ -25,8 +25,10 @@ import {
 } from './dto/create-orden-compra.dto';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { DropboxService } from '../dropbox/dropbox.service';
+import { BackendLogsInterceptor } from '../common/interceptors/backend-logs.interceptor';
 
 @Controller('ordenes-compra')
+@UseInterceptors(BackendLogsInterceptor)
 export class OrdenCompraController {
   constructor(
     private readonly ordenCompraService: OrdenCompraService,
@@ -181,6 +183,16 @@ export class OrdenCompraController {
       console.error('Error restaurando orden de compra:', error);
       throw error;
     }
+  }
+
+  @Patch(':id/backend-logs')
+  @HttpCode(HttpStatus.OK)
+  async saveBackendLogs(
+    @Param('id') id: string,
+    @Body('logs') logs: string,
+  ) {
+    await this.ordenCompraService.saveBackendLogs(+id, logs);
+    return { success: true };
   }
 
   @Patch(':id/aprobar-contabilidad')

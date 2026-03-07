@@ -2080,4 +2080,11 @@ export class ProgramacionService {
   }
 
   // ========== FIN PROGRAMACIÓN EXTENDIDA ==========
+
+  async saveBackendLogs(id: number, logs: string): Promise<void> {
+    await this.prisma.programacion_tecnica.update({
+      where: { id },
+      data: { backend_logs: logs },
+    });
+  }
 }

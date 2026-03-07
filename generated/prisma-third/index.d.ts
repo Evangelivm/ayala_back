@@ -22044,6 +22044,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -22096,6 +22097,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -22148,6 +22150,7 @@ export namespace Prisma {
     url_comprobante_retencion: number
     nro_serie: number
     deleted_at: number
+    backend_logs: number
     _all: number
   }
 
@@ -22230,6 +22233,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -22282,6 +22286,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -22334,6 +22339,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
     _all?: true
   }
 
@@ -22473,6 +22479,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -22544,6 +22551,7 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     deleted_at?: boolean
+    backend_logs?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -22605,9 +22613,10 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     deleted_at?: boolean
+    backend_logs?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
@@ -22678,6 +22687,7 @@ export namespace Prisma {
       url_comprobante_retencion: string | null
       nro_serie: string | null
       deleted_at: Date | null
+      backend_logs: string | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -23102,6 +23112,7 @@ export namespace Prisma {
     readonly url_comprobante_retencion: FieldRef<"ordenes_compra", 'String'>
     readonly nro_serie: FieldRef<"ordenes_compra", 'String'>
     readonly deleted_at: FieldRef<"ordenes_compra", 'DateTime'>
+    readonly backend_logs: FieldRef<"ordenes_compra", 'String'>
   }
     
 
@@ -32302,6 +32313,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -32354,6 +32366,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -32406,6 +32419,7 @@ export namespace Prisma {
     url_comprobante_retencion: number
     nro_serie: number
     deleted_at: number
+    backend_logs: number
     _all: number
   }
 
@@ -32488,6 +32502,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -32540,6 +32555,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -32592,6 +32608,7 @@ export namespace Prisma {
     url_comprobante_retencion?: true
     nro_serie?: true
     deleted_at?: true
+    backend_logs?: true
     _all?: true
   }
 
@@ -32731,6 +32748,7 @@ export namespace Prisma {
     url_comprobante_retencion: string | null
     nro_serie: string | null
     deleted_at: Date | null
+    backend_logs: string | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -32802,6 +32820,7 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     deleted_at?: boolean
+    backend_logs?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
@@ -32862,9 +32881,10 @@ export namespace Prisma {
     url_comprobante_retencion?: boolean
     nro_serie?: boolean
     deleted_at?: boolean
+    backend_logs?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
@@ -32933,6 +32953,7 @@ export namespace Prisma {
       url_comprobante_retencion: string | null
       nro_serie: string | null
       deleted_at: Date | null
+      backend_logs: string | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -33356,6 +33377,7 @@ export namespace Prisma {
     readonly url_comprobante_retencion: FieldRef<"ordenes_servicio", 'String'>
     readonly nro_serie: FieldRef<"ordenes_servicio", 'String'>
     readonly deleted_at: FieldRef<"ordenes_servicio", 'DateTime'>
+    readonly backend_logs: FieldRef<"ordenes_servicio", 'String'>
   }
     
 
@@ -39550,6 +39572,7 @@ export namespace Prisma {
     updated_at: Date | null
     condiciones_de_pago: string | null
     medio_de_pago: string | null
+    backend_logs: string | null
   }
 
   export type FacturaMaxAggregateOutputType = {
@@ -39632,6 +39655,7 @@ export namespace Prisma {
     updated_at: Date | null
     condiciones_de_pago: string | null
     medio_de_pago: string | null
+    backend_logs: string | null
   }
 
   export type FacturaCountAggregateOutputType = {
@@ -39714,6 +39738,7 @@ export namespace Prisma {
     updated_at: number
     condiciones_de_pago: number
     medio_de_pago: number
+    backend_logs: number
     _all: number
   }
 
@@ -39868,6 +39893,7 @@ export namespace Prisma {
     updated_at?: true
     condiciones_de_pago?: true
     medio_de_pago?: true
+    backend_logs?: true
   }
 
   export type FacturaMaxAggregateInputType = {
@@ -39950,6 +39976,7 @@ export namespace Prisma {
     updated_at?: true
     condiciones_de_pago?: true
     medio_de_pago?: true
+    backend_logs?: true
   }
 
   export type FacturaCountAggregateInputType = {
@@ -40032,6 +40059,7 @@ export namespace Prisma {
     updated_at?: true
     condiciones_de_pago?: true
     medio_de_pago?: true
+    backend_logs?: true
     _all?: true
   }
 
@@ -40201,6 +40229,7 @@ export namespace Prisma {
     updated_at: Date
     condiciones_de_pago: string | null
     medio_de_pago: string | null
+    backend_logs: string | null
     _count: FacturaCountAggregateOutputType | null
     _avg: FacturaAvgAggregateOutputType | null
     _sum: FacturaSumAggregateOutputType | null
@@ -40302,6 +40331,7 @@ export namespace Prisma {
     updated_at?: boolean
     condiciones_de_pago?: boolean
     medio_de_pago?: boolean
+    backend_logs?: boolean
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
     factura_item?: boolean | factura$factura_itemArgs<ExtArgs>
@@ -40391,9 +40421,10 @@ export namespace Prisma {
     updated_at?: boolean
     condiciones_de_pago?: boolean
     medio_de_pago?: boolean
+    backend_logs?: boolean
   }
 
-  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at" | "condiciones_de_pago" | "medio_de_pago", ExtArgs["result"]["factura"]>
+  export type facturaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_factura" | "estado_factura" | "operacion" | "tipo_de_comprobante" | "serie" | "numero" | "sunat_transaction" | "id_proveedor" | "cliente_tipo_documento" | "cliente_numero_documento" | "cliente_denominacion" | "cliente_direccion" | "cliente_email" | "cliente_email_1" | "cliente_email_2" | "fecha_emision" | "fecha_vencimiento" | "fecha_servicio" | "moneda" | "tipo_cambio" | "porcentaje_igv" | "descuento_global" | "total_descuento" | "total_anticipo" | "total_gravada" | "total_inafecta" | "total_exonerada" | "total_igv" | "total_gratuita" | "total_otros_cargos" | "total_isc" | "total" | "aplicar_detraccion" | "detraccion_tipo" | "detraccion_porcentaje" | "detraccion_total" | "medio_pago_detraccion" | "ubigeo_origen" | "direccion_origen" | "ubigeo_destino" | "direccion_destino" | "detalle_viaje" | "percepcion_tipo" | "percepcion_base_imponible" | "total_percepcion" | "total_incluido_percepcion" | "retencion_tipo" | "retencion_base_imponible" | "total_retencion" | "fondo_garantia" | "fondo_garantia_valor" | "orden_compra" | "orden_compra_valor" | "placa_vehiculo" | "orden_compra_servicio" | "centro_costo_nivel1_codigo" | "centro_costo_nivel2_codigo" | "centro_costo_nivel3_codigo" | "unidad" | "unidad_id" | "observaciones" | "enviar_automaticamente_sunat" | "enviar_automaticamente_cliente" | "formato_pdf" | "enlace" | "enlace_del_pdf" | "enlace_del_xml" | "enlace_del_cdr" | "cadena_para_codigo_qr" | "codigo_hash" | "aceptada_por_sunat" | "sunat_description" | "sunat_note" | "sunat_responsecode" | "sunat_soap_error" | "created_at" | "updated_at" | "condiciones_de_pago" | "medio_de_pago" | "backend_logs", ExtArgs["result"]["factura"]>
   export type facturaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     factura_guia?: boolean | factura$factura_guiaArgs<ExtArgs>
@@ -40490,6 +40521,7 @@ export namespace Prisma {
       updated_at: Date
       condiciones_de_pago: string | null
       medio_de_pago: string | null
+      backend_logs: string | null
     }, ExtArgs["result"]["factura"]>
     composites: {}
   }
@@ -40942,6 +40974,7 @@ export namespace Prisma {
     readonly updated_at: FieldRef<"factura", 'DateTime'>
     readonly condiciones_de_pago: FieldRef<"factura", 'String'>
     readonly medio_de_pago: FieldRef<"factura", 'String'>
+    readonly backend_logs: FieldRef<"factura", 'String'>
   }
     
 
@@ -57410,7 +57443,8 @@ export namespace Prisma {
     nro_factura: 'nro_factura',
     url_comprobante_retencion: 'url_comprobante_retencion',
     nro_serie: 'nro_serie',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    backend_logs: 'backend_logs'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -57584,7 +57618,8 @@ export namespace Prisma {
     nro_factura: 'nro_factura',
     url_comprobante_retencion: 'url_comprobante_retencion',
     nro_serie: 'nro_serie',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    backend_logs: 'backend_logs'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -57738,7 +57773,8 @@ export namespace Prisma {
     created_at: 'created_at',
     updated_at: 'updated_at',
     condiciones_de_pago: 'condiciones_de_pago',
-    medio_de_pago: 'medio_de_pago'
+    medio_de_pago: 'medio_de_pago',
+    backend_logs: 'backend_logs'
   };
 
   export type FacturaScalarFieldEnum = (typeof FacturaScalarFieldEnum)[keyof typeof FacturaScalarFieldEnum]
@@ -58140,7 +58176,8 @@ export namespace Prisma {
     url_factura: 'url_factura',
     nro_factura: 'nro_factura',
     url_comprobante_retencion: 'url_comprobante_retencion',
-    nro_serie: 'nro_serie'
+    nro_serie: 'nro_serie',
+    backend_logs: 'backend_logs'
   };
 
   export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -58232,7 +58269,8 @@ export namespace Prisma {
     url_factura: 'url_factura',
     nro_factura: 'nro_factura',
     url_comprobante_retencion: 'url_comprobante_retencion',
-    nro_serie: 'nro_serie'
+    nro_serie: 'nro_serie',
+    backend_logs: 'backend_logs'
   };
 
   export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -58308,7 +58346,8 @@ export namespace Prisma {
     sunat_responsecode: 'sunat_responsecode',
     sunat_soap_error: 'sunat_soap_error',
     condiciones_de_pago: 'condiciones_de_pago',
-    medio_de_pago: 'medio_de_pago'
+    medio_de_pago: 'medio_de_pago',
+    backend_logs: 'backend_logs'
   };
 
   export type facturaOrderByRelevanceFieldEnum = (typeof facturaOrderByRelevanceFieldEnum)[keyof typeof facturaOrderByRelevanceFieldEnum]
@@ -59972,6 +60011,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
@@ -60030,6 +60070,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
@@ -60092,6 +60133,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
@@ -60150,6 +60192,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -60210,6 +60253,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
+    backend_logs?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -60951,6 +60995,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
@@ -61008,6 +61053,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
@@ -61069,6 +61115,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
@@ -61126,6 +61173,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrderInput | SortOrder
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -61186,6 +61234,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
+    backend_logs?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -61620,6 +61669,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"factura"> | Date | string
     condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
     medio_de_pago?: StringNullableFilter<"factura"> | string | null
+    backend_logs?: StringNullableFilter<"factura"> | string | null
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     factura_guia?: Factura_guiaListRelationFilter
     factura_item?: Factura_itemListRelationFilter
@@ -61706,6 +61756,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     condiciones_de_pago?: SortOrderInput | SortOrder
     medio_de_pago?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     proveedores?: proveedoresOrderByWithRelationInput
     factura_guia?: factura_guiaOrderByRelationAggregateInput
     factura_item?: factura_itemOrderByRelationAggregateInput
@@ -61797,6 +61848,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"factura"> | Date | string
     condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
     medio_de_pago?: StringNullableFilter<"factura"> | string | null
+    backend_logs?: StringNullableFilter<"factura"> | string | null
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     factura_guia?: Factura_guiaListRelationFilter
     factura_item?: Factura_itemListRelationFilter
@@ -61883,6 +61935,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     condiciones_de_pago?: SortOrderInput | SortOrder
     medio_de_pago?: SortOrderInput | SortOrder
+    backend_logs?: SortOrderInput | SortOrder
     _count?: facturaCountOrderByAggregateInput
     _avg?: facturaAvgOrderByAggregateInput
     _max?: facturaMaxOrderByAggregateInput
@@ -61973,6 +62026,7 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"factura"> | Date | string
     condiciones_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
     medio_de_pago?: StringNullableWithAggregatesFilter<"factura"> | string | null
+    backend_logs?: StringNullableWithAggregatesFilter<"factura"> | string | null
   }
 
   export type factura_guiaWhereInput = {
@@ -64328,6 +64382,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -64386,6 +64441,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -64437,6 +64493,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -64495,6 +64552,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -64550,6 +64608,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -64598,6 +64657,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -64650,6 +64710,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -65394,6 +65455,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
@@ -65451,6 +65513,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -65501,6 +65564,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -65558,6 +65622,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -65612,6 +65677,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -65660,6 +65726,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -65712,6 +65779,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -66129,6 +66197,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
@@ -66215,6 +66284,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
@@ -66298,6 +66368,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
@@ -66384,6 +66455,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
@@ -66469,6 +66541,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
   }
 
   export type facturaUpdateManyMutationInput = {
@@ -66549,6 +66622,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type facturaUncheckedUpdateManyInput = {
@@ -66631,6 +66705,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type factura_guiaCreateInput = {
@@ -69302,6 +69377,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -69368,6 +69444,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -69420,6 +69497,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -70149,6 +70227,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -70215,6 +70294,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -70267,6 +70347,7 @@ export namespace Prisma {
     url_comprobante_retencion?: SortOrder
     nro_serie?: SortOrder
     deleted_at?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -70688,6 +70769,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     condiciones_de_pago?: SortOrder
     medio_de_pago?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type facturaAvgOrderByAggregateInput = {
@@ -70805,6 +70887,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     condiciones_de_pago?: SortOrder
     medio_de_pago?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type facturaMinOrderByAggregateInput = {
@@ -70887,6 +70970,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     condiciones_de_pago?: SortOrder
     medio_de_pago?: SortOrder
+    backend_logs?: SortOrder
   }
 
   export type facturaSumOrderByAggregateInput = {
@@ -77156,6 +77240,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -77213,6 +77298,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -77334,6 +77420,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -77391,6 +77478,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -79966,6 +80054,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -80050,6 +80139,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
@@ -80111,6 +80201,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -80167,6 +80258,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -80228,6 +80320,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -80283,6 +80376,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -80396,6 +80490,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"factura"> | Date | string
     condiciones_de_pago?: StringNullableFilter<"factura"> | string | null
     medio_de_pago?: StringNullableFilter<"factura"> | string | null
+    backend_logs?: StringNullableFilter<"factura"> | string | null
   }
 
   export type ordenes_compraUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -80467,6 +80562,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_compra"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -80538,6 +80634,7 @@ export namespace Prisma {
     url_comprobante_retencion?: StringNullableFilter<"ordenes_servicio"> | string | null
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
+    backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -80611,6 +80708,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -80668,6 +80766,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -80794,6 +80893,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -80851,6 +80951,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -81933,6 +82034,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -81989,6 +82091,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -82050,6 +82153,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
@@ -82105,6 +82209,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -83017,6 +83122,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -83073,6 +83179,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
@@ -83193,6 +83300,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -83249,6 +83357,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
@@ -83690,6 +83799,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -83775,6 +83885,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -83873,6 +83984,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -83958,6 +84070,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -84040,6 +84153,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoCreateNestedManyWithoutFacturaInput
@@ -84125,6 +84239,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_venta_credito?: factura_venta_creditoUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -84223,6 +84338,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -84308,6 +84424,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -84390,6 +84507,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     proveedores: proveedoresCreateNestedOneWithoutFacturaInput
     factura_guia?: factura_guiaCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemCreateNestedManyWithoutFacturaInput
@@ -84475,6 +84593,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
     factura_guia?: factura_guiaUncheckedCreateNestedManyWithoutFacturaInput
     factura_item?: factura_itemUncheckedCreateNestedManyWithoutFacturaInput
   }
@@ -84573,6 +84692,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     proveedores?: proveedoresUpdateOneRequiredWithoutFacturaNestedInput
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
@@ -84658,6 +84778,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
   }
@@ -85178,6 +85299,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -85234,6 +85356,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -85295,6 +85418,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
@@ -85350,6 +85474,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -85442,6 +85567,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -85499,6 +85625,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -85554,6 +85681,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
@@ -85610,6 +85738,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -85675,6 +85804,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -85732,6 +85862,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -85793,6 +85924,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -85849,6 +85981,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -87265,6 +87398,7 @@ export namespace Prisma {
     updated_at?: Date | string
     condiciones_de_pago?: string | null
     medio_de_pago?: string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_compraCreateManyProveedoresInput = {
@@ -87316,6 +87450,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -87367,6 +87502,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type facturaUpdateWithoutProveedoresInput = {
@@ -87447,6 +87583,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUpdateManyWithoutFacturaNestedInput
@@ -87531,6 +87668,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     factura_guia?: factura_guiaUncheckedUpdateManyWithoutFacturaNestedInput
     factura_item?: factura_itemUncheckedUpdateManyWithoutFacturaNestedInput
     factura_venta_credito?: factura_venta_creditoUncheckedUpdateManyWithoutFacturaNestedInput
@@ -87615,6 +87753,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     condiciones_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
     medio_de_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -87663,6 +87802,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -87719,6 +87859,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -87773,6 +87914,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -87821,6 +87963,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -87876,6 +88019,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -87929,6 +88073,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -88150,6 +88295,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -88201,6 +88347,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -88495,6 +88642,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -88551,6 +88699,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -88605,6 +88754,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -88653,6 +88803,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -88708,6 +88859,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -88761,6 +88913,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
@@ -89219,6 +89372,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_servicioCreateManyCamionesInput = {
@@ -89270,6 +89424,7 @@ export namespace Prisma {
     url_comprobante_retencion?: string | null
     nro_serie?: string | null
     deleted_at?: Date | string | null
+    backend_logs?: string | null
   }
 
   export type ordenes_compraUpdateWithoutCamionesInput = {
@@ -89318,6 +89473,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -89374,6 +89530,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -89428,6 +89585,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ordenes_servicioUpdateWithoutCamionesInput = {
@@ -89476,6 +89634,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
@@ -89531,6 +89690,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -89584,6 +89744,7 @@ export namespace Prisma {
     url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

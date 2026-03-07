@@ -2,6 +2,7 @@ import { Injectable, LoggerService as NestLoggerService } from '@nestjs/common';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { join } from 'path';
+import { LogStore } from '../common/log-store';
 
 @Injectable()
 export class LoggerService implements NestLoggerService {
@@ -114,25 +115,27 @@ export class LoggerService implements NestLoggerService {
 
   log(message: string, context?: string): void {
     this.logger.info(message, { context: context || this.context });
+    LogStore.add('log', message, context || this.context || '');
   }
 
   error(message: string, trace?: string, context?: string): void {
-    this.logger.error(message, {
-      context: context || this.context,
-      trace
-    });
+    this.logger.error(message, { context: context || this.context, trace });
+    LogStore.add('error', trace ? `${message}\n${trace}` : message, context || this.context || '');
   }
 
   warn(message: string, context?: string): void {
     this.logger.warn(message, { context: context || this.context });
+    LogStore.add('warn', message, context || this.context || '');
   }
 
   debug(message: string, context?: string): void {
     this.logger.debug(message, { context: context || this.context });
+    LogStore.add('debug', message, context || this.context || '');
   }
 
   verbose(message: string, context?: string): void {
     this.logger.verbose(message, { context: context || this.context });
+    LogStore.add('verbose', message, context || this.context || '');
   }
 
   // Métodos adicionales para logging estructurado

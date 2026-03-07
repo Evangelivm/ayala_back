@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AdminLogsController } from './common/controllers/admin-logs.controller';
 import { PrismaModule } from './prisma/prisma.module';
 import { PersonalModule } from './personal/personal.module';
 import { ProyectosModule } from './proyectos/proyectos.module';
@@ -88,7 +89,7 @@ import { SearchModule } from './search/search.module';
     LocksModule,
     SearchModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AdminLogsController],
   providers: [AppService],
 })
 export class AppModule {}

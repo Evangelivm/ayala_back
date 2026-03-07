@@ -4,6 +4,7 @@ import {
   Post,
   Put,
   Delete,
+  Patch,
   Body,
   Param,
   Query,
@@ -11,7 +12,10 @@ import {
   HttpStatus,
   Logger,
   UsePipes,
+  UseInterceptors,
+  HttpCode,
 } from '@nestjs/common';
+import { BackendLogsInterceptor } from '../../common/interceptors/backend-logs.interceptor';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { CreateFacturaSchema } from '../dto/create-factura.dto';
@@ -21,6 +25,7 @@ import { FacturaDetectorService } from '../services/factura-detector.service';
 import { WebsocketGateway } from '../../websocket/websocket.gateway';
 
 @Controller('facturas')
+@UseInterceptors(BackendLogsInterceptor)
 export class FacturaCrudController {
   private readonly logger = new Logger(FacturaCrudController.name);
 
@@ -966,5 +971,18 @@ export class FacturaCrudController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  @Patch(':id/backend-logs')
+  @HttpCode(HttpStatus.OK)
+  async saveBackendLogs(
+    @Param('id') id: string,
+    @Body('logs') logs: string,
+  ) {
+    await this.prisma.factura.update({
+      where: { id_factura: parseInt(id) },
+      data: { backend_logs: logs },
+    });
+    return { success: true };
   }
 }

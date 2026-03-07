@@ -2274,4 +2274,11 @@ export class OrdenCompraService {
       data: tipo === 'factura' ? { url_factura: url } : { url_guia: url },
     });
   }
+
+  async saveBackendLogs(id: number, logs: string): Promise<void> {
+    await this.prismaThird.ordenes_compra.update({
+      where: { id_orden_compra: id },
+      data: { backend_logs: logs },
+    });
+  }
 }

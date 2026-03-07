@@ -13,8 +13,10 @@ import {
   Logger,
   StreamableFile,
   Header,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProgramacionService } from './programacion.service';
+import { BackendLogsInterceptor } from '../common/interceptors/backend-logs.interceptor';
 import {
   CreateProgramacionSchema,
   type CreateProgramacionDto,
@@ -23,6 +25,7 @@ import {
 import { PDFDocument } from 'pdf-lib';
 
 @Controller('programacion')
+@UseInterceptors(BackendLogsInterceptor)
 export class ProgramacionController {
   private readonly logger = new Logger(ProgramacionController.name);
 
@@ -241,6 +244,15 @@ export class ProgramacionController {
   async restoreTecnica(@Param('id', ParseIntPipe) id: number) {
     this.logger.log(`Restaurando registro técnico con ID: ${id}`);
     return await this.programacionService.restoreTecnicaById(id);
+  }
+
+  @Patch('tecnica/:id/backend-logs')
+  async saveBackendLogs(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('logs') logs: string,
+  ) {
+    await this.programacionService.saveBackendLogs(id, logs);
+    return { success: true };
   }
 
   @Get(':id')
