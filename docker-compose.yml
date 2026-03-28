@@ -13,6 +13,7 @@ services:
     networks:
       - shared_network
     privileged: true
+    restart: unless-stopped
 
 networks:
   shared_network:
