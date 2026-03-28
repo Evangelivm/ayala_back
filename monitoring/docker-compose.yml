@@ -1,0 +1,20 @@
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: ayala_dozzle
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "9999:8080"
+    environment:
+      # Filtrar solo contenedores con este prefijo (opcional)
+      # DOZZLE_FILTER: "name=ayala"
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300        # Líneas históricas al abrir un log
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true
