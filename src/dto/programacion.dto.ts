@@ -30,6 +30,8 @@ export const ProgramacionItemSchema = z.object({
     .transform((val) => val === '' ? undefined : val),
   id_proyecto: z.number().int().positive('ID de proyecto debe ser un número positivo').optional(),
   id_subproyecto: z.number().int().positive('ID de subproyecto debe ser un número positivo').optional(),
+  numero_orden: z.string().max(100, 'Número de orden no puede exceder 100 caracteres').optional()
+    .transform((val) => val === '' ? undefined : val),
 });
 
 // Schema principal para crear programación masiva

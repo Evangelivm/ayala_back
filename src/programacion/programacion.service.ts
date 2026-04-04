@@ -77,6 +77,7 @@ export class ProgramacionService {
         punto_llegada_direccion: item.punto_llegada_direccion,
         peso: item.peso || null,
         hora_registro: new Date(), // Registrar fecha y hora actual
+        numero_orden: item.numero_orden || null,
       }));
 
       // Usar transacción con nivel de aislamiento SERIALIZABLE para máxima consistencia
@@ -115,6 +116,7 @@ export class ProgramacionService {
             hora_registro: programacionData[index].hora_registro, // Registrar la misma fecha y hora
             id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
             id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
+            numero_orden: item.numero_orden || null,
           }));
 
           // Inserción masiva en tabla programacion_tecnica
@@ -439,6 +441,7 @@ export class ProgramacionService {
           enlace_del_xml: pt.enlace_del_xml || null,
           enlace_del_cdr: pt.enlace_del_cdr || null,
           deleted_at: pt.deleted_at || null,
+          numero_orden: pt.numero_orden || null,
         };
       });
 
@@ -818,6 +821,7 @@ export class ProgramacionService {
           enlace_del_pdf: pt.enlace_del_pdf || null,
           enlace_del_xml: pt.enlace_del_xml || null,
           enlace_del_cdr: pt.enlace_del_cdr || null,
+          numero_orden: pt.numero_orden || null,
         };
       });
 
