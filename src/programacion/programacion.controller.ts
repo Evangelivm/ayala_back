@@ -246,6 +246,15 @@ export class ProgramacionController {
     return await this.programacionService.restoreTecnicaById(id);
   }
 
+  @Patch('tecnica/:id/numero-orden')
+  async updateNumeroOrden(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('numero_orden') numeroOrden: string | null,
+  ) {
+    this.logger.log(`Actualizando numero_orden del registro técnico ID: ${id}`);
+    return await this.programacionService.updateNumeroOrden(id, numeroOrden);
+  }
+
   @Patch('tecnica/:id/backend-logs')
   async saveBackendLogs(
     @Param('id', ParseIntPipe) id: number,

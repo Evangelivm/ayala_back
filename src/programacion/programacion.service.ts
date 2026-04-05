@@ -699,6 +699,14 @@ export class ProgramacionService {
     }
   }
 
+  async updateNumeroOrden(id: number, numeroOrden: string | null) {
+    const updated = await this.prisma.programacion_tecnica.update({
+      where: { id },
+      data: { numero_orden: numeroOrden || null },
+    });
+    return { message: 'numero_orden actualizado', data: updated };
+  }
+
   async getIdentificadoresConGuia(): Promise<string[]> {
     try {
       // Obtener todos los identificadores únicos de guías de remisión
