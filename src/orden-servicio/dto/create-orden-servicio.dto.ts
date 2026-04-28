@@ -54,6 +54,7 @@ export const CreateOrdenServicioSchema = z
     total: z.number().positive('El total debe ser mayor a 0'),
     observaciones: z.string().optional(),
     registrado_por: z.number().int().positive().optional(),
+    editado_por: z.number().int().positive().optional(),
   })
   .strip(); // Ignorar campos adicionales que no están en el schema
 

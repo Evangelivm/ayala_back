@@ -5887,46 +5887,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CamionesCountOutputType
-   */
-
-  export type CamionesCountOutputType = {
-    ordenes_compra: number
-    ordenes_servicio: number
-  }
-
-  export type CamionesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ordenes_compra?: boolean | CamionesCountOutputTypeCountOrdenes_compraArgs
-    ordenes_servicio?: boolean | CamionesCountOutputTypeCountOrdenes_servicioArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * CamionesCountOutputType without action
-   */
-  export type CamionesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CamionesCountOutputType
-     */
-    select?: CamionesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CamionesCountOutputType without action
-   */
-  export type CamionesCountOutputTypeCountOrdenes_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ordenes_compraWhereInput
-  }
-
-  /**
-   * CamionesCountOutputType without action
-   */
-  export type CamionesCountOutputTypeCountOrdenes_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ordenes_servicioWhereInput
-  }
-
-
-  /**
    * Models
    */
 
@@ -21978,6 +21938,7 @@ export namespace Prisma {
     valor_retencion: Decimal | null
     valor_detraccion: Decimal | null
     id_camion: number | null
+    editado_por: number | null
   }
 
   export type Ordenes_compraSumAggregateOutputType = {
@@ -21992,6 +21953,7 @@ export namespace Prisma {
     valor_retencion: Decimal | null
     valor_detraccion: Decimal | null
     id_camion: number | null
+    editado_por: number | null
   }
 
   export type Ordenes_compraMinAggregateOutputType = {
@@ -22045,6 +22007,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
   }
 
   export type Ordenes_compraMaxAggregateOutputType = {
@@ -22098,6 +22062,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
   }
 
   export type Ordenes_compraCountAggregateOutputType = {
@@ -22151,6 +22117,8 @@ export namespace Prisma {
     nro_serie: number
     deleted_at: number
     backend_logs: number
+    editado_por: number
+    fecha_edicion: number
     _all: number
   }
 
@@ -22167,6 +22135,7 @@ export namespace Prisma {
     valor_retencion?: true
     valor_detraccion?: true
     id_camion?: true
+    editado_por?: true
   }
 
   export type Ordenes_compraSumAggregateInputType = {
@@ -22181,6 +22150,7 @@ export namespace Prisma {
     valor_retencion?: true
     valor_detraccion?: true
     id_camion?: true
+    editado_por?: true
   }
 
   export type Ordenes_compraMinAggregateInputType = {
@@ -22234,6 +22204,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
   }
 
   export type Ordenes_compraMaxAggregateInputType = {
@@ -22287,6 +22259,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
   }
 
   export type Ordenes_compraCountAggregateInputType = {
@@ -22340,6 +22314,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
     _all?: true
   }
 
@@ -22480,6 +22456,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
     _count: Ordenes_compraCountAggregateOutputType | null
     _avg: Ordenes_compraAvgAggregateOutputType | null
     _sum: Ordenes_compraSumAggregateOutputType | null
@@ -22552,12 +22530,13 @@ export namespace Prisma {
     nro_serie?: boolean
     deleted_at?: boolean
     backend_logs?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     recepciones_compra?: boolean | ordenes_compra$recepciones_compraArgs<ExtArgs>
-    camiones?: boolean | ordenes_compra$camionesArgs<ExtArgs>
     _count?: boolean | Ordenes_compraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ordenes_compra"]>
 
@@ -22614,16 +22593,17 @@ export namespace Prisma {
     nro_serie?: boolean
     deleted_at?: boolean
     backend_logs?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
   }
 
-  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs", ExtArgs["result"]["ordenes_compra"]>
+  export type ordenes_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs" | "editado_por" | "fecha_edicion", ExtArgs["result"]["ordenes_compra"]>
   export type ordenes_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_compra?: boolean | ordenes_compra$detalles_orden_compraArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_compra$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
     recepciones_compra?: boolean | ordenes_compra$recepciones_compraArgs<ExtArgs>
-    camiones?: boolean | ordenes_compra$camionesArgs<ExtArgs>
     _count?: boolean | Ordenes_compraCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -22635,7 +22615,6 @@ export namespace Prisma {
       proveedores: Prisma.$proveedoresPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
       recepciones_compra: Prisma.$recepciones_compraPayload<ExtArgs>[]
-      camiones: Prisma.$camionesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id_orden_compra: number
@@ -22688,6 +22667,8 @@ export namespace Prisma {
       nro_serie: string | null
       deleted_at: Date | null
       backend_logs: string | null
+      editado_por: number | null
+      fecha_edicion: Date | null
     }, ExtArgs["result"]["ordenes_compra"]>
     composites: {}
   }
@@ -23033,7 +23014,6 @@ export namespace Prisma {
     proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recepciones_compra<T extends ordenes_compra$recepciones_compraArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_compra$recepciones_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recepciones_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    camiones<T extends ordenes_compra$camionesArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_compra$camionesArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23113,6 +23093,8 @@ export namespace Prisma {
     readonly nro_serie: FieldRef<"ordenes_compra", 'String'>
     readonly deleted_at: FieldRef<"ordenes_compra", 'DateTime'>
     readonly backend_logs: FieldRef<"ordenes_compra", 'String'>
+    readonly editado_por: FieldRef<"ordenes_compra", 'Int'>
+    readonly fecha_edicion: FieldRef<"ordenes_compra", 'DateTime'>
   }
     
 
@@ -23525,25 +23507,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Recepciones_compraScalarFieldEnum | Recepciones_compraScalarFieldEnum[]
-  }
-
-  /**
-   * ordenes_compra.camiones
-   */
-  export type ordenes_compra$camionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the camiones
-     */
-    select?: camionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the camiones
-     */
-    omit?: camionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    where?: camionesWhereInput
   }
 
   /**
@@ -32247,6 +32210,7 @@ export namespace Prisma {
     valor_detraccion: Decimal | null
     valor_retencion: Decimal | null
     id_camion: number | null
+    editado_por: number | null
   }
 
   export type Ordenes_servicioSumAggregateOutputType = {
@@ -32261,6 +32225,7 @@ export namespace Prisma {
     valor_detraccion: Decimal | null
     valor_retencion: Decimal | null
     id_camion: number | null
+    editado_por: number | null
   }
 
   export type Ordenes_servicioMinAggregateOutputType = {
@@ -32314,6 +32279,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
   }
 
   export type Ordenes_servicioMaxAggregateOutputType = {
@@ -32367,6 +32334,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
   }
 
   export type Ordenes_servicioCountAggregateOutputType = {
@@ -32420,6 +32389,8 @@ export namespace Prisma {
     nro_serie: number
     deleted_at: number
     backend_logs: number
+    editado_por: number
+    fecha_edicion: number
     _all: number
   }
 
@@ -32436,6 +32407,7 @@ export namespace Prisma {
     valor_detraccion?: true
     valor_retencion?: true
     id_camion?: true
+    editado_por?: true
   }
 
   export type Ordenes_servicioSumAggregateInputType = {
@@ -32450,6 +32422,7 @@ export namespace Prisma {
     valor_detraccion?: true
     valor_retencion?: true
     id_camion?: true
+    editado_por?: true
   }
 
   export type Ordenes_servicioMinAggregateInputType = {
@@ -32503,6 +32476,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
   }
 
   export type Ordenes_servicioMaxAggregateInputType = {
@@ -32556,6 +32531,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
   }
 
   export type Ordenes_servicioCountAggregateInputType = {
@@ -32609,6 +32586,8 @@ export namespace Prisma {
     nro_serie?: true
     deleted_at?: true
     backend_logs?: true
+    editado_por?: true
+    fecha_edicion?: true
     _all?: true
   }
 
@@ -32749,6 +32728,8 @@ export namespace Prisma {
     nro_serie: string | null
     deleted_at: Date | null
     backend_logs: string | null
+    editado_por: number | null
+    fecha_edicion: Date | null
     _count: Ordenes_servicioCountAggregateOutputType | null
     _avg: Ordenes_servicioAvgAggregateOutputType | null
     _sum: Ordenes_servicioSumAggregateOutputType | null
@@ -32821,11 +32802,12 @@ export namespace Prisma {
     nro_serie?: boolean
     deleted_at?: boolean
     backend_logs?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
-    camiones?: boolean | ordenes_servicio$camionesArgs<ExtArgs>
     _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ordenes_servicio"]>
 
@@ -32882,15 +32864,16 @@ export namespace Prisma {
     nro_serie?: boolean
     deleted_at?: boolean
     backend_logs?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
   }
 
-  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs", ExtArgs["result"]["ordenes_servicio"]>
+  export type ordenes_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_orden_servicio" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "jefe_proyecto" | "fecha_jefe_proyecto" | "auto_contabilidad" | "fecha_auto_contabilidad" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs" | "editado_por" | "fecha_edicion", ExtArgs["result"]["ordenes_servicio"]>
   export type ordenes_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalles_orden_servicio?: boolean | ordenes_servicio$detalles_orden_servicioArgs<ExtArgs>
     multifactura_detalle?: boolean | ordenes_servicio$multifactura_detalleArgs<ExtArgs>
     proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     usuarios?: boolean | usuariosDefaultArgs<ExtArgs>
-    camiones?: boolean | ordenes_servicio$camionesArgs<ExtArgs>
     _count?: boolean | Ordenes_servicioCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -32901,7 +32884,6 @@ export namespace Prisma {
       multifactura_detalle: Prisma.$multifactura_detallePayload<ExtArgs>[]
       proveedores: Prisma.$proveedoresPayload<ExtArgs>
       usuarios: Prisma.$usuariosPayload<ExtArgs>
-      camiones: Prisma.$camionesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id_orden_servicio: number
@@ -32954,6 +32936,8 @@ export namespace Prisma {
       nro_serie: string | null
       deleted_at: Date | null
       backend_logs: string | null
+      editado_por: number | null
+      fecha_edicion: Date | null
     }, ExtArgs["result"]["ordenes_servicio"]>
     composites: {}
   }
@@ -33298,7 +33282,6 @@ export namespace Prisma {
     multifactura_detalle<T extends ordenes_servicio$multifactura_detalleArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicio$multifactura_detalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$multifactura_detallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios<T extends usuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuariosDefaultArgs<ExtArgs>>): Prisma__usuariosClient<$Result.GetResult<Prisma.$usuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    camiones<T extends ordenes_servicio$camionesArgs<ExtArgs> = {}>(args?: Subset<T, ordenes_servicio$camionesArgs<ExtArgs>>): Prisma__camionesClient<$Result.GetResult<Prisma.$camionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -33378,6 +33361,8 @@ export namespace Prisma {
     readonly nro_serie: FieldRef<"ordenes_servicio", 'String'>
     readonly deleted_at: FieldRef<"ordenes_servicio", 'DateTime'>
     readonly backend_logs: FieldRef<"ordenes_servicio", 'String'>
+    readonly editado_por: FieldRef<"ordenes_servicio", 'Int'>
+    readonly fecha_edicion: FieldRef<"ordenes_servicio", 'DateTime'>
   }
     
 
@@ -33766,25 +33751,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Multifactura_detalleScalarFieldEnum | Multifactura_detalleScalarFieldEnum[]
-  }
-
-  /**
-   * ordenes_servicio.camiones
-   */
-  export type ordenes_servicio$camionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the camiones
-     */
-    select?: camionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the camiones
-     */
-    omit?: camionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    where?: camionesWhereInput
   }
 
   /**
@@ -53454,9 +53420,6 @@ export namespace Prisma {
     numero_licencia?: boolean
     empresa?: boolean
     tipo?: boolean
-    ordenes_compra?: boolean | camiones$ordenes_compraArgs<ExtArgs>
-    ordenes_servicio?: boolean | camiones$ordenes_servicioArgs<ExtArgs>
-    _count?: boolean | CamionesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["camiones"]>
 
 
@@ -53480,18 +53443,10 @@ export namespace Prisma {
   }
 
   export type camionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_camion" | "placa" | "marca" | "modelo" | "a_o" | "capacidad_tanque" | "id_tipo_combustible_preferido" | "activo" | "fecha_registro" | "dni" | "nombre_chofer" | "apellido_chofer" | "numero_licencia" | "empresa" | "tipo", ExtArgs["result"]["camiones"]>
-  export type camionesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ordenes_compra?: boolean | camiones$ordenes_compraArgs<ExtArgs>
-    ordenes_servicio?: boolean | camiones$ordenes_servicioArgs<ExtArgs>
-    _count?: boolean | CamionesCountOutputTypeDefaultArgs<ExtArgs>
-  }
 
   export type $camionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "camiones"
-    objects: {
-      ordenes_compra: Prisma.$ordenes_compraPayload<ExtArgs>[]
-      ordenes_servicio: Prisma.$ordenes_servicioPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id_camion: number
       placa: string
@@ -53848,8 +53803,6 @@ export namespace Prisma {
    */
   export interface Prisma__camionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    ordenes_compra<T extends camiones$ordenes_compraArgs<ExtArgs> = {}>(args?: Subset<T, camiones$ordenes_compraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordenes_compraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    ordenes_servicio<T extends camiones$ordenes_servicioArgs<ExtArgs> = {}>(args?: Subset<T, camiones$ordenes_servicioArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ordenes_servicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -53911,10 +53864,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * Filter, which camiones to fetch.
      */
     where: camionesWhereUniqueInput
@@ -53933,10 +53882,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * Filter, which camiones to fetch.
      */
     where: camionesWhereUniqueInput
@@ -53954,10 +53899,6 @@ export namespace Prisma {
      * Omit specific fields from the camiones
      */
     omit?: camionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
     /**
      * Filter, which camiones to fetch.
      */
@@ -54007,10 +53948,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * Filter, which camiones to fetch.
      */
     where?: camionesWhereInput
@@ -54059,10 +53996,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * Filter, which camiones to fetch.
      */
     where?: camionesWhereInput
@@ -54106,10 +54039,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * The data needed to create a camiones.
      */
     data: XOR<camionesCreateInput, camionesUncheckedCreateInput>
@@ -54138,10 +54067,6 @@ export namespace Prisma {
      * Omit specific fields from the camiones
      */
     omit?: camionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
     /**
      * The data needed to update a camiones.
      */
@@ -54183,10 +54108,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * The filter to search for the camiones to update in case it exists.
      */
     where: camionesWhereUniqueInput
@@ -54213,10 +54134,6 @@ export namespace Prisma {
      */
     omit?: camionesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
-    /**
      * Filter which camiones to delete.
      */
     where: camionesWhereUniqueInput
@@ -54237,54 +54154,6 @@ export namespace Prisma {
   }
 
   /**
-   * camiones.ordenes_compra
-   */
-  export type camiones$ordenes_compraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ordenes_compra
-     */
-    select?: ordenes_compraSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ordenes_compra
-     */
-    omit?: ordenes_compraOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordenes_compraInclude<ExtArgs> | null
-    where?: ordenes_compraWhereInput
-    orderBy?: ordenes_compraOrderByWithRelationInput | ordenes_compraOrderByWithRelationInput[]
-    cursor?: ordenes_compraWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Ordenes_compraScalarFieldEnum | Ordenes_compraScalarFieldEnum[]
-  }
-
-  /**
-   * camiones.ordenes_servicio
-   */
-  export type camiones$ordenes_servicioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ordenes_servicio
-     */
-    select?: ordenes_servicioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ordenes_servicio
-     */
-    omit?: ordenes_servicioOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ordenes_servicioInclude<ExtArgs> | null
-    where?: ordenes_servicioWhereInput
-    orderBy?: ordenes_servicioOrderByWithRelationInput | ordenes_servicioOrderByWithRelationInput[]
-    cursor?: ordenes_servicioWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Ordenes_servicioScalarFieldEnum | Ordenes_servicioScalarFieldEnum[]
-  }
-
-  /**
    * camiones without action
    */
   export type camionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -54296,10 +54165,6 @@ export namespace Prisma {
      * Omit specific fields from the camiones
      */
     omit?: camionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: camionesInclude<ExtArgs> | null
   }
 
 
@@ -57444,7 +57309,9 @@ export namespace Prisma {
     url_comprobante_retencion: 'url_comprobante_retencion',
     nro_serie: 'nro_serie',
     deleted_at: 'deleted_at',
-    backend_logs: 'backend_logs'
+    backend_logs: 'backend_logs',
+    editado_por: 'editado_por',
+    fecha_edicion: 'fecha_edicion'
   };
 
   export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -57619,7 +57486,9 @@ export namespace Prisma {
     url_comprobante_retencion: 'url_comprobante_retencion',
     nro_serie: 'nro_serie',
     deleted_at: 'deleted_at',
-    backend_logs: 'backend_logs'
+    backend_logs: 'backend_logs',
+    editado_por: 'editado_por',
+    fecha_edicion: 'fecha_edicion'
   };
 
   export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -60012,12 +59881,13 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_compra"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     recepciones_compra?: Recepciones_compraListRelationFilter
-    camiones?: XOR<CamionesNullableScalarRelationFilter, camionesWhereInput> | null
   }
 
   export type ordenes_compraOrderByWithRelationInput = {
@@ -60071,12 +59941,13 @@ export namespace Prisma {
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
     backend_logs?: SortOrderInput | SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
     detalles_orden_compra?: detalles_orden_compraOrderByRelationAggregateInput
     multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
     recepciones_compra?: recepciones_compraOrderByRelationAggregateInput
-    camiones?: camionesOrderByWithRelationInput
     _relevance?: ordenes_compraOrderByRelevanceInput
   }
 
@@ -60134,12 +60005,13 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_compra"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     detalles_orden_compra?: Detalles_orden_compraListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
     recepciones_compra?: Recepciones_compraListRelationFilter
-    camiones?: XOR<CamionesNullableScalarRelationFilter, camionesWhereInput> | null
   }, "id_orden_compra" | "numero_orden">
 
   export type ordenes_compraOrderByWithAggregationInput = {
@@ -60193,6 +60065,8 @@ export namespace Prisma {
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
     backend_logs?: SortOrderInput | SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
     _count?: ordenes_compraCountOrderByAggregateInput
     _avg?: ordenes_compraAvgOrderByAggregateInput
     _max?: ordenes_compraMaxOrderByAggregateInput
@@ -60254,6 +60128,8 @@ export namespace Prisma {
     nro_serie?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
     backend_logs?: StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
+    editado_por?: IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
+    fecha_edicion?: DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
   }
 
   export type permisos_reportesWhereInput = {
@@ -60996,11 +60872,12 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_servicio"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
-    camiones?: XOR<CamionesNullableScalarRelationFilter, camionesWhereInput> | null
   }
 
   export type ordenes_servicioOrderByWithRelationInput = {
@@ -61054,11 +60931,12 @@ export namespace Prisma {
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
     backend_logs?: SortOrderInput | SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
     detalles_orden_servicio?: detalles_orden_servicioOrderByRelationAggregateInput
     multifactura_detalle?: multifactura_detalleOrderByRelationAggregateInput
     proveedores?: proveedoresOrderByWithRelationInput
     usuarios?: usuariosOrderByWithRelationInput
-    camiones?: camionesOrderByWithRelationInput
     _relevance?: ordenes_servicioOrderByRelevanceInput
   }
 
@@ -61116,11 +60994,12 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_servicio"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     detalles_orden_servicio?: Detalles_orden_servicioListRelationFilter
     multifactura_detalle?: Multifactura_detalleListRelationFilter
     proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
     usuarios?: XOR<UsuariosScalarRelationFilter, usuariosWhereInput>
-    camiones?: XOR<CamionesNullableScalarRelationFilter, camionesWhereInput> | null
   }, "id_orden_servicio" | "numero_orden">
 
   export type ordenes_servicioOrderByWithAggregationInput = {
@@ -61174,6 +61053,8 @@ export namespace Prisma {
     nro_serie?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
     backend_logs?: SortOrderInput | SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
     _count?: ordenes_servicioCountOrderByAggregateInput
     _avg?: ordenes_servicioAvgOrderByAggregateInput
     _max?: ordenes_servicioMaxOrderByAggregateInput
@@ -61235,6 +61116,8 @@ export namespace Prisma {
     nro_serie?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
     backend_logs?: StringNullableWithAggregatesFilter<"ordenes_servicio"> | string | null
+    editado_por?: IntNullableWithAggregatesFilter<"ordenes_servicio"> | number | null
+    fecha_edicion?: DateTimeNullableWithAggregatesFilter<"ordenes_servicio"> | Date | string | null
   }
 
   export type tipo_cambioWhereInput = {
@@ -62803,8 +62686,6 @@ export namespace Prisma {
     numero_licencia?: StringNullableFilter<"camiones"> | string | null
     empresa?: StringNullableFilter<"camiones"> | string | null
     tipo?: Enumcamiones_tipoFilter<"camiones"> | $Enums.camiones_tipo
-    ordenes_compra?: Ordenes_compraListRelationFilter
-    ordenes_servicio?: Ordenes_servicioListRelationFilter
   }
 
   export type camionesOrderByWithRelationInput = {
@@ -62823,8 +62704,6 @@ export namespace Prisma {
     numero_licencia?: SortOrderInput | SortOrder
     empresa?: SortOrderInput | SortOrder
     tipo?: SortOrder
-    ordenes_compra?: ordenes_compraOrderByRelationAggregateInput
-    ordenes_servicio?: ordenes_servicioOrderByRelationAggregateInput
     _relevance?: camionesOrderByRelevanceInput
   }
 
@@ -62847,8 +62726,6 @@ export namespace Prisma {
     numero_licencia?: StringNullableFilter<"camiones"> | string | null
     empresa?: StringNullableFilter<"camiones"> | string | null
     tipo?: Enumcamiones_tipoFilter<"camiones"> | $Enums.camiones_tipo
-    ordenes_compra?: Ordenes_compraListRelationFilter
-    ordenes_servicio?: Ordenes_servicioListRelationFilter
   }, "id_camion" | "placa">
 
   export type camionesOrderByWithAggregationInput = {
@@ -64374,6 +64251,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -64383,12 +64261,13 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateInput = {
@@ -64442,6 +64321,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -64485,6 +64366,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64494,12 +64376,13 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateInput = {
@@ -64553,6 +64436,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -64609,6 +64494,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type ordenes_compraUpdateManyMutationInput = {
@@ -64649,6 +64536,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64658,6 +64546,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ordenes_compraUncheckedUpdateManyInput = {
@@ -64711,6 +64601,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type permisos_reportesCreateInput = {
@@ -65447,6 +65339,7 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -65456,11 +65349,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateInput = {
@@ -65514,6 +65408,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -65556,6 +65452,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65565,11 +65462,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateInput = {
@@ -65623,6 +65521,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -65678,6 +65578,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type ordenes_servicioUpdateManyMutationInput = {
@@ -65718,6 +65620,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65727,6 +65630,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ordenes_servicioUncheckedUpdateManyInput = {
@@ -65780,6 +65685,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type tipo_cambioCreateInput = {
@@ -67453,8 +67360,6 @@ export namespace Prisma {
     numero_licencia?: string | null
     empresa?: string | null
     tipo: $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraCreateNestedManyWithoutCamionesInput
-    ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutCamionesInput
   }
 
   export type camionesUncheckedCreateInput = {
@@ -67473,8 +67378,6 @@ export namespace Prisma {
     numero_licencia?: string | null
     empresa?: string | null
     tipo: $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutCamionesInput
-    ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutCamionesInput
   }
 
   export type camionesUpdateInput = {
@@ -67492,8 +67395,6 @@ export namespace Prisma {
     numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUpdateManyWithoutCamionesNestedInput
-    ordenes_servicio?: ordenes_servicioUpdateManyWithoutCamionesNestedInput
   }
 
   export type camionesUncheckedUpdateInput = {
@@ -67512,8 +67413,6 @@ export namespace Prisma {
     numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
     empresa?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutCamionesNestedInput
-    ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutCamionesNestedInput
   }
 
   export type camionesCreateManyInput = {
@@ -69312,11 +69211,6 @@ export namespace Prisma {
     isNot?: proveedoresWhereInput
   }
 
-  export type CamionesNullableScalarRelationFilter = {
-    is?: camionesWhereInput | null
-    isNot?: camionesWhereInput | null
-  }
-
   export type multifactura_detalleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -69378,6 +69272,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_compraAvgOrderByAggregateInput = {
@@ -69392,6 +69288,7 @@ export namespace Prisma {
     valor_retencion?: SortOrder
     valor_detraccion?: SortOrder
     id_camion?: SortOrder
+    editado_por?: SortOrder
   }
 
   export type ordenes_compraMaxOrderByAggregateInput = {
@@ -69445,6 +69342,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_compraMinOrderByAggregateInput = {
@@ -69498,6 +69397,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_compraSumOrderByAggregateInput = {
@@ -69512,6 +69413,7 @@ export namespace Prisma {
     valor_retencion?: SortOrder
     valor_detraccion?: SortOrder
     id_camion?: SortOrder
+    editado_por?: SortOrder
   }
 
   export type Enumordenes_compra_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -70228,6 +70130,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_servicioAvgOrderByAggregateInput = {
@@ -70242,6 +70146,7 @@ export namespace Prisma {
     valor_detraccion?: SortOrder
     valor_retencion?: SortOrder
     id_camion?: SortOrder
+    editado_por?: SortOrder
   }
 
   export type ordenes_servicioMaxOrderByAggregateInput = {
@@ -70295,6 +70200,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_servicioMinOrderByAggregateInput = {
@@ -70348,6 +70255,8 @@ export namespace Prisma {
     nro_serie?: SortOrder
     deleted_at?: SortOrder
     backend_logs?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
   }
 
   export type ordenes_servicioSumOrderByAggregateInput = {
@@ -70362,6 +70271,7 @@ export namespace Prisma {
     valor_detraccion?: SortOrder
     valor_retencion?: SortOrder
     id_camion?: SortOrder
+    editado_por?: SortOrder
   }
 
   export type Enumordenes_servicio_estadoNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -73286,12 +73196,6 @@ export namespace Prisma {
     connect?: recepciones_compraWhereUniqueInput | recepciones_compraWhereUniqueInput[]
   }
 
-  export type camionesCreateNestedOneWithoutOrdenes_compraInput = {
-    create?: XOR<camionesCreateWithoutOrdenes_compraInput, camionesUncheckedCreateWithoutOrdenes_compraInput>
-    connectOrCreate?: camionesCreateOrConnectWithoutOrdenes_compraInput
-    connect?: camionesWhereUniqueInput
-  }
-
   export type detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput = {
     create?: XOR<detalles_orden_compraCreateWithoutOrdenes_compraInput, detalles_orden_compraUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_compraCreateWithoutOrdenes_compraInput[] | detalles_orden_compraUncheckedCreateWithoutOrdenes_compraInput[]
     connectOrCreate?: detalles_orden_compraCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_compraCreateOrConnectWithoutOrdenes_compraInput[]
@@ -73377,16 +73281,6 @@ export namespace Prisma {
     update?: recepciones_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput | recepciones_compraUpdateWithWhereUniqueWithoutOrdenes_compraInput[]
     updateMany?: recepciones_compraUpdateManyWithWhereWithoutOrdenes_compraInput | recepciones_compraUpdateManyWithWhereWithoutOrdenes_compraInput[]
     deleteMany?: recepciones_compraScalarWhereInput | recepciones_compraScalarWhereInput[]
-  }
-
-  export type camionesUpdateOneWithoutOrdenes_compraNestedInput = {
-    create?: XOR<camionesCreateWithoutOrdenes_compraInput, camionesUncheckedCreateWithoutOrdenes_compraInput>
-    connectOrCreate?: camionesCreateOrConnectWithoutOrdenes_compraInput
-    upsert?: camionesUpsertWithoutOrdenes_compraInput
-    disconnect?: camionesWhereInput | boolean
-    delete?: camionesWhereInput | boolean
-    connect?: camionesWhereUniqueInput
-    update?: XOR<XOR<camionesUpdateToOneWithWhereWithoutOrdenes_compraInput, camionesUpdateWithoutOrdenes_compraInput>, camionesUncheckedUpdateWithoutOrdenes_compraInput>
   }
 
   export type detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput = {
@@ -74383,12 +74277,6 @@ export namespace Prisma {
     connect?: usuariosWhereUniqueInput
   }
 
-  export type camionesCreateNestedOneWithoutOrdenes_servicioInput = {
-    create?: XOR<camionesCreateWithoutOrdenes_servicioInput, camionesUncheckedCreateWithoutOrdenes_servicioInput>
-    connectOrCreate?: camionesCreateOrConnectWithoutOrdenes_servicioInput
-    connect?: camionesWhereUniqueInput
-  }
-
   export type detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput = {
     create?: XOR<detalles_orden_servicioCreateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput> | detalles_orden_servicioCreateWithoutOrdenes_compraInput[] | detalles_orden_servicioUncheckedCreateWithoutOrdenes_compraInput[]
     connectOrCreate?: detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput | detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput[]
@@ -74453,16 +74341,6 @@ export namespace Prisma {
     upsert?: usuariosUpsertWithoutOrdenes_servicioInput
     connect?: usuariosWhereUniqueInput
     update?: XOR<XOR<usuariosUpdateToOneWithWhereWithoutOrdenes_servicioInput, usuariosUpdateWithoutOrdenes_servicioInput>, usuariosUncheckedUpdateWithoutOrdenes_servicioInput>
-  }
-
-  export type camionesUpdateOneWithoutOrdenes_servicioNestedInput = {
-    create?: XOR<camionesCreateWithoutOrdenes_servicioInput, camionesUncheckedCreateWithoutOrdenes_servicioInput>
-    connectOrCreate?: camionesCreateOrConnectWithoutOrdenes_servicioInput
-    upsert?: camionesUpsertWithoutOrdenes_servicioInput
-    disconnect?: camionesWhereInput | boolean
-    delete?: camionesWhereInput | boolean
-    connect?: camionesWhereUniqueInput
-    update?: XOR<XOR<camionesUpdateToOneWithWhereWithoutOrdenes_servicioInput, camionesUpdateWithoutOrdenes_servicioInput>, camionesUncheckedUpdateWithoutOrdenes_servicioInput>
   }
 
   export type detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput = {
@@ -74873,92 +74751,8 @@ export namespace Prisma {
     update?: XOR<XOR<almacenesUpdateToOneWithWhereWithoutBalances_inicialesInput, almacenesUpdateWithoutBalances_inicialesInput>, almacenesUncheckedUpdateWithoutBalances_inicialesInput>
   }
 
-  export type ordenes_compraCreateNestedManyWithoutCamionesInput = {
-    create?: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput> | ordenes_compraCreateWithoutCamionesInput[] | ordenes_compraUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_compraCreateOrConnectWithoutCamionesInput | ordenes_compraCreateOrConnectWithoutCamionesInput[]
-    createMany?: ordenes_compraCreateManyCamionesInputEnvelope
-    connect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-  }
-
-  export type ordenes_servicioCreateNestedManyWithoutCamionesInput = {
-    create?: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput> | ordenes_servicioCreateWithoutCamionesInput[] | ordenes_servicioUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutCamionesInput | ordenes_servicioCreateOrConnectWithoutCamionesInput[]
-    createMany?: ordenes_servicioCreateManyCamionesInputEnvelope
-    connect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-  }
-
-  export type ordenes_compraUncheckedCreateNestedManyWithoutCamionesInput = {
-    create?: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput> | ordenes_compraCreateWithoutCamionesInput[] | ordenes_compraUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_compraCreateOrConnectWithoutCamionesInput | ordenes_compraCreateOrConnectWithoutCamionesInput[]
-    createMany?: ordenes_compraCreateManyCamionesInputEnvelope
-    connect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-  }
-
-  export type ordenes_servicioUncheckedCreateNestedManyWithoutCamionesInput = {
-    create?: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput> | ordenes_servicioCreateWithoutCamionesInput[] | ordenes_servicioUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutCamionesInput | ordenes_servicioCreateOrConnectWithoutCamionesInput[]
-    createMany?: ordenes_servicioCreateManyCamionesInputEnvelope
-    connect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-  }
-
   export type Enumcamiones_tipoFieldUpdateOperationsInput = {
     set?: $Enums.camiones_tipo
-  }
-
-  export type ordenes_compraUpdateManyWithoutCamionesNestedInput = {
-    create?: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput> | ordenes_compraCreateWithoutCamionesInput[] | ordenes_compraUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_compraCreateOrConnectWithoutCamionesInput | ordenes_compraCreateOrConnectWithoutCamionesInput[]
-    upsert?: ordenes_compraUpsertWithWhereUniqueWithoutCamionesInput | ordenes_compraUpsertWithWhereUniqueWithoutCamionesInput[]
-    createMany?: ordenes_compraCreateManyCamionesInputEnvelope
-    set?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    disconnect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    delete?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    connect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    update?: ordenes_compraUpdateWithWhereUniqueWithoutCamionesInput | ordenes_compraUpdateWithWhereUniqueWithoutCamionesInput[]
-    updateMany?: ordenes_compraUpdateManyWithWhereWithoutCamionesInput | ordenes_compraUpdateManyWithWhereWithoutCamionesInput[]
-    deleteMany?: ordenes_compraScalarWhereInput | ordenes_compraScalarWhereInput[]
-  }
-
-  export type ordenes_servicioUpdateManyWithoutCamionesNestedInput = {
-    create?: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput> | ordenes_servicioCreateWithoutCamionesInput[] | ordenes_servicioUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutCamionesInput | ordenes_servicioCreateOrConnectWithoutCamionesInput[]
-    upsert?: ordenes_servicioUpsertWithWhereUniqueWithoutCamionesInput | ordenes_servicioUpsertWithWhereUniqueWithoutCamionesInput[]
-    createMany?: ordenes_servicioCreateManyCamionesInputEnvelope
-    set?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    disconnect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    delete?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    connect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    update?: ordenes_servicioUpdateWithWhereUniqueWithoutCamionesInput | ordenes_servicioUpdateWithWhereUniqueWithoutCamionesInput[]
-    updateMany?: ordenes_servicioUpdateManyWithWhereWithoutCamionesInput | ordenes_servicioUpdateManyWithWhereWithoutCamionesInput[]
-    deleteMany?: ordenes_servicioScalarWhereInput | ordenes_servicioScalarWhereInput[]
-  }
-
-  export type ordenes_compraUncheckedUpdateManyWithoutCamionesNestedInput = {
-    create?: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput> | ordenes_compraCreateWithoutCamionesInput[] | ordenes_compraUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_compraCreateOrConnectWithoutCamionesInput | ordenes_compraCreateOrConnectWithoutCamionesInput[]
-    upsert?: ordenes_compraUpsertWithWhereUniqueWithoutCamionesInput | ordenes_compraUpsertWithWhereUniqueWithoutCamionesInput[]
-    createMany?: ordenes_compraCreateManyCamionesInputEnvelope
-    set?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    disconnect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    delete?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    connect?: ordenes_compraWhereUniqueInput | ordenes_compraWhereUniqueInput[]
-    update?: ordenes_compraUpdateWithWhereUniqueWithoutCamionesInput | ordenes_compraUpdateWithWhereUniqueWithoutCamionesInput[]
-    updateMany?: ordenes_compraUpdateManyWithWhereWithoutCamionesInput | ordenes_compraUpdateManyWithWhereWithoutCamionesInput[]
-    deleteMany?: ordenes_compraScalarWhereInput | ordenes_compraScalarWhereInput[]
-  }
-
-  export type ordenes_servicioUncheckedUpdateManyWithoutCamionesNestedInput = {
-    create?: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput> | ordenes_servicioCreateWithoutCamionesInput[] | ordenes_servicioUncheckedCreateWithoutCamionesInput[]
-    connectOrCreate?: ordenes_servicioCreateOrConnectWithoutCamionesInput | ordenes_servicioCreateOrConnectWithoutCamionesInput[]
-    upsert?: ordenes_servicioUpsertWithWhereUniqueWithoutCamionesInput | ordenes_servicioUpsertWithWhereUniqueWithoutCamionesInput[]
-    createMany?: ordenes_servicioCreateManyCamionesInputEnvelope
-    set?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    disconnect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    delete?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    connect?: ordenes_servicioWhereUniqueInput | ordenes_servicioWhereUniqueInput[]
-    update?: ordenes_servicioUpdateWithWhereUniqueWithoutCamionesInput | ordenes_servicioUpdateWithWhereUniqueWithoutCamionesInput[]
-    updateMany?: ordenes_servicioUpdateManyWithWhereWithoutCamionesInput | ordenes_servicioUpdateManyWithWhereWithoutCamionesInput[]
-    deleteMany?: ordenes_servicioScalarWhereInput | ordenes_servicioScalarWhereInput[]
   }
 
   export type ordenes_compraCreateNestedOneWithoutMultifactura_detalleInput = {
@@ -77232,6 +77026,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -77241,11 +77036,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateWithoutDetalles_orden_compraInput = {
@@ -77299,6 +77095,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -77412,6 +77210,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77421,11 +77220,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateWithoutDetalles_orden_compraInput = {
@@ -77479,6 +77279,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -79486,48 +79288,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type camionesCreateWithoutOrdenes_compraInput = {
-    placa: string
-    marca?: string | null
-    modelo?: string | null
-    a_o?: number | null
-    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: number | null
-    activo?: boolean | null
-    fecha_registro?: Date | string | null
-    dni?: string | null
-    nombre_chofer?: string | null
-    apellido_chofer?: string | null
-    numero_licencia?: string | null
-    empresa?: string | null
-    tipo: $Enums.camiones_tipo
-    ordenes_servicio?: ordenes_servicioCreateNestedManyWithoutCamionesInput
-  }
-
-  export type camionesUncheckedCreateWithoutOrdenes_compraInput = {
-    id_camion?: number
-    placa: string
-    marca?: string | null
-    modelo?: string | null
-    a_o?: number | null
-    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: number | null
-    activo?: boolean | null
-    fecha_registro?: Date | string | null
-    dni?: string | null
-    nombre_chofer?: string | null
-    apellido_chofer?: string | null
-    numero_licencia?: string | null
-    empresa?: string | null
-    tipo: $Enums.camiones_tipo
-    ordenes_servicio?: ordenes_servicioUncheckedCreateNestedManyWithoutCamionesInput
-  }
-
-  export type camionesCreateOrConnectWithoutOrdenes_compraInput = {
-    where: camionesWhereUniqueInput
-    create: XOR<camionesCreateWithoutOrdenes_compraInput, camionesUncheckedCreateWithoutOrdenes_compraInput>
-  }
-
   export type detalles_orden_compraUpsertWithWhereUniqueWithoutOrdenes_compraInput = {
     where: detalles_orden_compraWhereUniqueInput
     update: XOR<detalles_orden_compraUpdateWithoutOrdenes_compraInput, detalles_orden_compraUncheckedUpdateWithoutOrdenes_compraInput>
@@ -79696,54 +79456,6 @@ export namespace Prisma {
   export type recepciones_compraUpdateManyWithWhereWithoutOrdenes_compraInput = {
     where: recepciones_compraScalarWhereInput
     data: XOR<recepciones_compraUpdateManyMutationInput, recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraInput>
-  }
-
-  export type camionesUpsertWithoutOrdenes_compraInput = {
-    update: XOR<camionesUpdateWithoutOrdenes_compraInput, camionesUncheckedUpdateWithoutOrdenes_compraInput>
-    create: XOR<camionesCreateWithoutOrdenes_compraInput, camionesUncheckedCreateWithoutOrdenes_compraInput>
-    where?: camionesWhereInput
-  }
-
-  export type camionesUpdateToOneWithWhereWithoutOrdenes_compraInput = {
-    where?: camionesWhereInput
-    data: XOR<camionesUpdateWithoutOrdenes_compraInput, camionesUncheckedUpdateWithoutOrdenes_compraInput>
-  }
-
-  export type camionesUpdateWithoutOrdenes_compraInput = {
-    placa?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    a_o?: NullableIntFieldUpdateOperationsInput | number | null
-    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
-    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dni?: NullableStringFieldUpdateOperationsInput | string | null
-    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
-    empresa?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_servicio?: ordenes_servicioUpdateManyWithoutCamionesNestedInput
-  }
-
-  export type camionesUncheckedUpdateWithoutOrdenes_compraInput = {
-    id_camion?: IntFieldUpdateOperationsInput | number
-    placa?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    a_o?: NullableIntFieldUpdateOperationsInput | number | null
-    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
-    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dni?: NullableStringFieldUpdateOperationsInput | string | null
-    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
-    empresa?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_servicio?: ordenes_servicioUncheckedUpdateManyWithoutCamionesNestedInput
   }
 
   export type configuracion_reportesCreateWithoutPermisos_reportesInput = {
@@ -80193,6 +79905,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -80202,11 +79915,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateWithoutProveedoresInput = {
@@ -80259,6 +79973,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -80312,6 +80028,7 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -80321,10 +80038,11 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutProveedoresInput = {
@@ -80377,6 +80095,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -80563,6 +80283,8 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_compra"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_compra"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_compra"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
   }
 
   export type ordenes_servicioUpsertWithWhereUniqueWithoutProveedoresInput = {
@@ -80635,6 +80357,8 @@ export namespace Prisma {
     nro_serie?: StringNullableFilter<"ordenes_servicio"> | string | null
     deleted_at?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
     backend_logs?: StringNullableFilter<"ordenes_servicio"> | string | null
+    editado_por?: IntNullableFilter<"ordenes_servicio"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"ordenes_servicio"> | Date | string | null
   }
 
   export type detalles_recepcion_compraCreateWithoutRecepciones_compraInput = {
@@ -80700,6 +80424,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -80709,11 +80434,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateWithoutRecepciones_compraInput = {
@@ -80767,6 +80493,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -80885,6 +80613,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80894,11 +80623,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateWithoutRecepciones_compraInput = {
@@ -80952,6 +80682,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -82026,6 +81758,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -82035,11 +81768,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateWithoutUsuariosInput = {
@@ -82092,6 +81826,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -82145,6 +81881,7 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -82154,10 +81891,11 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutUsuariosInput = {
@@ -82210,6 +81948,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
@@ -82848,48 +82588,6 @@ export namespace Prisma {
     create: XOR<usuariosCreateWithoutOrdenes_servicioInput, usuariosUncheckedCreateWithoutOrdenes_servicioInput>
   }
 
-  export type camionesCreateWithoutOrdenes_servicioInput = {
-    placa: string
-    marca?: string | null
-    modelo?: string | null
-    a_o?: number | null
-    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: number | null
-    activo?: boolean | null
-    fecha_registro?: Date | string | null
-    dni?: string | null
-    nombre_chofer?: string | null
-    apellido_chofer?: string | null
-    numero_licencia?: string | null
-    empresa?: string | null
-    tipo: $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraCreateNestedManyWithoutCamionesInput
-  }
-
-  export type camionesUncheckedCreateWithoutOrdenes_servicioInput = {
-    id_camion?: number
-    placa: string
-    marca?: string | null
-    modelo?: string | null
-    a_o?: number | null
-    capacidad_tanque?: Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: number | null
-    activo?: boolean | null
-    fecha_registro?: Date | string | null
-    dni?: string | null
-    nombre_chofer?: string | null
-    apellido_chofer?: string | null
-    numero_licencia?: string | null
-    empresa?: string | null
-    tipo: $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUncheckedCreateNestedManyWithoutCamionesInput
-  }
-
-  export type camionesCreateOrConnectWithoutOrdenes_servicioInput = {
-    where: camionesWhereUniqueInput
-    create: XOR<camionesCreateWithoutOrdenes_servicioInput, camionesUncheckedCreateWithoutOrdenes_servicioInput>
-  }
-
   export type detalles_orden_servicioUpsertWithWhereUniqueWithoutOrdenes_compraInput = {
     where: detalles_orden_servicioWhereUniqueInput
     update: XOR<detalles_orden_servicioUpdateWithoutOrdenes_compraInput, detalles_orden_servicioUncheckedUpdateWithoutOrdenes_compraInput>
@@ -83028,54 +82726,6 @@ export namespace Prisma {
     solicitudes_salida_solicitudes_salida_autorizado_porTousuarios?: solicitudes_salidaUncheckedUpdateManyWithoutUsuarios_solicitudes_salida_autorizado_porTousuariosNestedInput
   }
 
-  export type camionesUpsertWithoutOrdenes_servicioInput = {
-    update: XOR<camionesUpdateWithoutOrdenes_servicioInput, camionesUncheckedUpdateWithoutOrdenes_servicioInput>
-    create: XOR<camionesCreateWithoutOrdenes_servicioInput, camionesUncheckedCreateWithoutOrdenes_servicioInput>
-    where?: camionesWhereInput
-  }
-
-  export type camionesUpdateToOneWithWhereWithoutOrdenes_servicioInput = {
-    where?: camionesWhereInput
-    data: XOR<camionesUpdateWithoutOrdenes_servicioInput, camionesUncheckedUpdateWithoutOrdenes_servicioInput>
-  }
-
-  export type camionesUpdateWithoutOrdenes_servicioInput = {
-    placa?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    a_o?: NullableIntFieldUpdateOperationsInput | number | null
-    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
-    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dni?: NullableStringFieldUpdateOperationsInput | string | null
-    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
-    empresa?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUpdateManyWithoutCamionesNestedInput
-  }
-
-  export type camionesUncheckedUpdateWithoutOrdenes_servicioInput = {
-    id_camion?: IntFieldUpdateOperationsInput | number
-    placa?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    a_o?: NullableIntFieldUpdateOperationsInput | number | null
-    capacidad_tanque?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    id_tipo_combustible_preferido?: NullableIntFieldUpdateOperationsInput | number | null
-    activo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dni?: NullableStringFieldUpdateOperationsInput | string | null
-    nombre_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    apellido_chofer?: NullableStringFieldUpdateOperationsInput | string | null
-    numero_licencia?: NullableStringFieldUpdateOperationsInput | string | null
-    empresa?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: Enumcamiones_tipoFieldUpdateOperationsInput | $Enums.camiones_tipo
-    ordenes_compra?: ordenes_compraUncheckedUpdateManyWithoutCamionesNestedInput
-  }
-
   export type ordenes_servicioCreateWithoutDetalles_orden_servicioInput = {
     numero_orden: string
     fecha_orden: Date | string
@@ -83114,6 +82764,7 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -83123,10 +82774,11 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutDetalles_orden_servicioInput = {
@@ -83180,6 +82832,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
   }
 
@@ -83292,6 +82946,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83301,10 +82956,11 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutDetalles_orden_servicioInput = {
@@ -83358,6 +83014,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
 
@@ -85253,274 +84911,6 @@ export namespace Prisma {
     usuarios?: usuariosUncheckedUpdateManyWithoutAlmacenesNestedInput
   }
 
-  export type ordenes_compraCreateWithoutCamionesInput = {
-    numero_orden: string
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_compra_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-    detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
-    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
-    proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
-    usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
-    recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-  }
-
-  export type ordenes_compraUncheckedCreateWithoutCamionesInput = {
-    id_orden_compra?: number
-    numero_orden: string
-    id_proveedor: number
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_compra_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    registrado_por: number
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-    detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
-    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
-    recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
-  }
-
-  export type ordenes_compraCreateOrConnectWithoutCamionesInput = {
-    where: ordenes_compraWhereUniqueInput
-    create: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput>
-  }
-
-  export type ordenes_compraCreateManyCamionesInputEnvelope = {
-    data: ordenes_compraCreateManyCamionesInput | ordenes_compraCreateManyCamionesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ordenes_servicioCreateWithoutCamionesInput = {
-    numero_orden: string
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_servicio_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-    detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
-    multifactura_detalle?: multifactura_detalleCreateNestedManyWithoutOrdenes_servicioInput
-    proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
-    usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
-  }
-
-  export type ordenes_servicioUncheckedCreateWithoutCamionesInput = {
-    id_orden_servicio?: number
-    numero_orden: string
-    id_proveedor: number
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_servicio_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    registrado_por: number
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-    detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
-    multifactura_detalle?: multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_servicioInput
-  }
-
-  export type ordenes_servicioCreateOrConnectWithoutCamionesInput = {
-    where: ordenes_servicioWhereUniqueInput
-    create: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput>
-  }
-
-  export type ordenes_servicioCreateManyCamionesInputEnvelope = {
-    data: ordenes_servicioCreateManyCamionesInput | ordenes_servicioCreateManyCamionesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ordenes_compraUpsertWithWhereUniqueWithoutCamionesInput = {
-    where: ordenes_compraWhereUniqueInput
-    update: XOR<ordenes_compraUpdateWithoutCamionesInput, ordenes_compraUncheckedUpdateWithoutCamionesInput>
-    create: XOR<ordenes_compraCreateWithoutCamionesInput, ordenes_compraUncheckedCreateWithoutCamionesInput>
-  }
-
-  export type ordenes_compraUpdateWithWhereUniqueWithoutCamionesInput = {
-    where: ordenes_compraWhereUniqueInput
-    data: XOR<ordenes_compraUpdateWithoutCamionesInput, ordenes_compraUncheckedUpdateWithoutCamionesInput>
-  }
-
-  export type ordenes_compraUpdateManyWithWhereWithoutCamionesInput = {
-    where: ordenes_compraScalarWhereInput
-    data: XOR<ordenes_compraUpdateManyMutationInput, ordenes_compraUncheckedUpdateManyWithoutCamionesInput>
-  }
-
-  export type ordenes_servicioUpsertWithWhereUniqueWithoutCamionesInput = {
-    where: ordenes_servicioWhereUniqueInput
-    update: XOR<ordenes_servicioUpdateWithoutCamionesInput, ordenes_servicioUncheckedUpdateWithoutCamionesInput>
-    create: XOR<ordenes_servicioCreateWithoutCamionesInput, ordenes_servicioUncheckedCreateWithoutCamionesInput>
-  }
-
-  export type ordenes_servicioUpdateWithWhereUniqueWithoutCamionesInput = {
-    where: ordenes_servicioWhereUniqueInput
-    data: XOR<ordenes_servicioUpdateWithoutCamionesInput, ordenes_servicioUncheckedUpdateWithoutCamionesInput>
-  }
-
-  export type ordenes_servicioUpdateManyWithWhereWithoutCamionesInput = {
-    where: ordenes_servicioScalarWhereInput
-    data: XOR<ordenes_servicioUpdateManyMutationInput, ordenes_servicioUncheckedUpdateManyWithoutCamionesInput>
-  }
-
   export type ordenes_compraCreateWithoutMultifactura_detalleInput = {
     numero_orden: string
     fecha_orden: Date | string
@@ -85559,6 +84949,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: string | null
     valor_detraccion?: Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -85568,11 +84959,12 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_compraInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraCreateNestedManyWithoutOrdenes_compraInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_compraInput
   }
 
   export type ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput = {
@@ -85626,6 +85018,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
     recepciones_compra?: recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
@@ -85673,6 +85067,7 @@ export namespace Prisma {
     retencion?: string | null
     porcentaje_valor_retencion?: string | null
     valor_retencion?: Decimal | DecimalJsLike | number | string | null
+    id_camion?: number | null
     almacen_central?: string | null
     url?: string | null
     url_cotizacion?: string | null
@@ -85682,10 +85077,11 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioCreateNestedManyWithoutOrdenes_compraInput
     proveedores: proveedoresCreateNestedOneWithoutOrdenes_servicioInput
     usuarios: usuariosCreateNestedOneWithoutOrdenes_servicioInput
-    camiones?: camionesCreateNestedOneWithoutOrdenes_servicioInput
   }
 
   export type ordenes_servicioUncheckedCreateWithoutMultifactura_detalleInput = {
@@ -85739,6 +85135,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedCreateNestedManyWithoutOrdenes_compraInput
   }
 
@@ -85796,6 +85194,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85805,11 +85204,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput = {
@@ -85863,6 +85263,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
@@ -85916,6 +85318,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85925,10 +85328,11 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput = {
@@ -85982,6 +85386,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
@@ -87451,6 +86857,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type ordenes_servicioCreateManyProveedoresInput = {
@@ -87503,6 +86911,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type facturaUpdateWithoutProveedoresInput = {
@@ -87794,6 +87204,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87803,11 +87214,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateWithoutProveedoresInput = {
@@ -87860,6 +87272,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -87915,6 +87329,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ordenes_servicioUpdateWithoutProveedoresInput = {
@@ -87955,6 +87371,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87964,10 +87381,11 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutProveedoresInput = {
@@ -88020,6 +87438,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -88074,6 +87494,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type detalles_recepcion_compraCreateManyRecepciones_compraInput = {
@@ -88296,6 +87718,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type ordenes_servicioCreateManyUsuariosInput = {
@@ -88348,6 +87772,8 @@ export namespace Prisma {
     nro_serie?: string | null
     deleted_at?: Date | string | null
     backend_logs?: string | null
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
   }
 
   export type permisos_reportesCreateManyUsuariosInput = {
@@ -88634,6 +88060,7 @@ export namespace Prisma {
     porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88643,11 +88070,12 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_compraNestedInput
   }
 
   export type ordenes_compraUncheckedUpdateWithoutUsuariosInput = {
@@ -88700,6 +88128,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -88755,6 +88185,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ordenes_servicioUpdateWithoutUsuariosInput = {
@@ -88795,6 +88227,7 @@ export namespace Prisma {
     retencion?: NullableStringFieldUpdateOperationsInput | string | null
     porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
     valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    id_camion?: NullableIntFieldUpdateOperationsInput | number | null
     almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88804,10 +88237,11 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
     proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    camiones?: camionesUpdateOneWithoutOrdenes_servicioNestedInput
   }
 
   export type ordenes_servicioUncheckedUpdateWithoutUsuariosInput = {
@@ -88860,6 +88294,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
     multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
   }
@@ -88914,6 +88350,8 @@ export namespace Prisma {
     nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type permisos_reportesUpdateWithoutUsuariosInput = {
@@ -89321,430 +88759,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     subcodigo?: StringFieldUpdateOperationsInput | string
     subdescripcion?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ordenes_compraCreateManyCamionesInput = {
-    id_orden_compra?: number
-    numero_orden: string
-    id_proveedor: number
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_compra_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    registrado_por: number
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-  }
-
-  export type ordenes_servicioCreateManyCamionesInput = {
-    id_orden_servicio?: number
-    numero_orden: string
-    id_proveedor: number
-    fecha_orden: Date | string
-    fecha_entrega_prevista?: Date | string | null
-    subtotal?: Decimal | DecimalJsLike | number | string | null
-    igv?: Decimal | DecimalJsLike | number | string | null
-    total?: Decimal | DecimalJsLike | number | string | null
-    estado?: $Enums.ordenes_servicio_estado | null
-    observaciones?: string | null
-    fecha_registro?: Date | string | null
-    registrado_por: number
-    tiene_anticipo?: string | null
-    procede_pago?: string | null
-    fecha_procede_pago?: Date | string | null
-    auto_administrador?: boolean | null
-    fecha_auto_administrador?: Date | string | null
-    jefe_proyecto?: boolean | null
-    fecha_jefe_proyecto?: Date | string | null
-    auto_contabilidad?: boolean | null
-    fecha_auto_contabilidad?: Date | string | null
-    has_anticipo?: boolean | null
-    direccion?: string | null
-    centro_costo_nivel1?: string | null
-    centro_costo_nivel2?: string | null
-    centro_costo_nivel3?: string | null
-    condicion?: string | null
-    moneda?: string | null
-    tipo_cambio?: Decimal | DecimalJsLike | number | string | null
-    hora_firma?: Date | string | null
-    usuario_firma?: number | null
-    estado_firma?: $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: string | null
-    detraccion?: string | null
-    porcentaje_valor_detraccion?: string | null
-    valor_detraccion?: Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: string | null
-    retencion?: string | null
-    porcentaje_valor_retencion?: string | null
-    valor_retencion?: Decimal | DecimalJsLike | number | string | null
-    almacen_central?: string | null
-    url?: string | null
-    url_cotizacion?: string | null
-    url_factura?: string | null
-    nro_factura?: string | null
-    url_comprobante_retencion?: string | null
-    nro_serie?: string | null
-    deleted_at?: Date | string | null
-    backend_logs?: string | null
-  }
-
-  export type ordenes_compraUpdateWithoutCamionesInput = {
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_compra_estadoFieldUpdateOperationsInput | $Enums.ordenes_compra_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles_orden_compra?: detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
-    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
-    proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
-    recepciones_compra?: recepciones_compraUpdateManyWithoutOrdenes_compraNestedInput
-  }
-
-  export type ordenes_compraUncheckedUpdateWithoutCamionesInput = {
-    id_orden_compra?: IntFieldUpdateOperationsInput | number
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    id_proveedor?: IntFieldUpdateOperationsInput | number
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_compra_estadoFieldUpdateOperationsInput | $Enums.ordenes_compra_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    registrado_por?: IntFieldUpdateOperationsInput | number
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles_orden_compra?: detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
-    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
-    recepciones_compra?: recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
-  }
-
-  export type ordenes_compraUncheckedUpdateManyWithoutCamionesInput = {
-    id_orden_compra?: IntFieldUpdateOperationsInput | number
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    id_proveedor?: IntFieldUpdateOperationsInput | number
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_compra_estadoFieldUpdateOperationsInput | $Enums.ordenes_compra_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    registrado_por?: IntFieldUpdateOperationsInput | number
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_compra_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_compra_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ordenes_servicioUpdateWithoutCamionesInput = {
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles_orden_servicio?: detalles_orden_servicioUpdateManyWithoutOrdenes_compraNestedInput
-    multifactura_detalle?: multifactura_detalleUpdateManyWithoutOrdenes_servicioNestedInput
-    proveedores?: proveedoresUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-    usuarios?: usuariosUpdateOneRequiredWithoutOrdenes_servicioNestedInput
-  }
-
-  export type ordenes_servicioUncheckedUpdateWithoutCamionesInput = {
-    id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    id_proveedor?: IntFieldUpdateOperationsInput | number
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    registrado_por?: IntFieldUpdateOperationsInput | number
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
-    detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
-    multifactura_detalle?: multifactura_detalleUncheckedUpdateManyWithoutOrdenes_servicioNestedInput
-  }
-
-  export type ordenes_servicioUncheckedUpdateManyWithoutCamionesInput = {
-    id_orden_servicio?: IntFieldUpdateOperationsInput | number
-    numero_orden?: StringFieldUpdateOperationsInput | string
-    id_proveedor?: IntFieldUpdateOperationsInput | number
-    fecha_orden?: DateTimeFieldUpdateOperationsInput | Date | string
-    fecha_entrega_prevista?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    igv?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    estado?: NullableEnumordenes_servicio_estadoFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado | null
-    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    registrado_por?: IntFieldUpdateOperationsInput | number
-    tiene_anticipo?: NullableStringFieldUpdateOperationsInput | string | null
-    procede_pago?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_procede_pago?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_administrador?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_administrador?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jefe_proyecto?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_jefe_proyecto?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_contabilidad?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    fecha_auto_contabilidad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    has_anticipo?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel1?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel2?: NullableStringFieldUpdateOperationsInput | string | null
-    centro_costo_nivel3?: NullableStringFieldUpdateOperationsInput | string | null
-    condicion?: NullableStringFieldUpdateOperationsInput | string | null
-    moneda?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo_cambio?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    hora_firma?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    usuario_firma?: NullableIntFieldUpdateOperationsInput | number | null
-    estado_firma?: NullableEnumordenes_servicio_estado_firmaFieldUpdateOperationsInput | $Enums.ordenes_servicio_estado_firma | null
-    ruta_pdf?: NullableStringFieldUpdateOperationsInput | string | null
-    detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_detraccion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    tipo_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
-    retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    porcentaje_valor_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_retencion?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    almacen_central?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: NullableStringFieldUpdateOperationsInput | string | null
-    url_cotizacion?: NullableStringFieldUpdateOperationsInput | string | null
-    url_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    url_comprobante_retencion?: NullableStringFieldUpdateOperationsInput | string | null
-    nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    backend_logs?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

@@ -633,12 +633,12 @@ export class SearchService implements OnModuleInit {
         include: {
           proveedores: true,
           detalles_orden_compra: true,
-          camiones: true,
         },
       }),
     ]);
 
-    return { data: ordenes.map((o) => this.mapOrdenCompra(o)), total };
+    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    return { data: ordenes.map((o) => this.mapOrdenCompra(o, camionesMap)), total };
   }
 
   private async getOrdenesCompraByIds(ids: number[]): Promise<any[]> {
@@ -648,13 +648,27 @@ export class SearchService implements OnModuleInit {
       include: {
         proveedores: true,
         detalles_orden_compra: true,
-        camiones: true,
       },
     });
-    return ordenes.map((o) => this.mapOrdenCompra(o));
+    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    return ordenes.map((o) => this.mapOrdenCompra(o, camionesMap));
   }
 
-  private mapOrdenCompra(orden: any) {
+  private async buildCamionesMap(ids: (number | null)[]): Promise<Map<number, any>> {
+    const camionIds = [...new Set(ids.filter(Boolean))] as number[];
+    const map = new Map<number, any>();
+    if (camionIds.length > 0) {
+      const camiones = await this.prisma.camiones.findMany({
+        where: { id_camion: { in: camionIds } },
+        select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+      });
+      camiones.forEach(c => map.set(c.id_camion, c));
+    }
+    return map;
+  }
+
+  private mapOrdenCompra(orden: any, camionesMap: Map<number, any> = new Map()) {
+    const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
     return {
       ...orden,
       fecha_orden: orden.fecha_orden
@@ -667,10 +681,10 @@ export class SearchService implements OnModuleInit {
       ruc_proveedor: orden.proveedores?.ruc || null,
       items: orden.detalles_orden_compra || [],
       unidad_id: orden.id_camion || null,
-      placa_unidad: orden.camiones?.placa || null,
-      tipo_unidad: orden.camiones?.tipo || null,
-      nombre_chofer: orden.camiones?.nombre_chofer || null,
-      apellido_chofer: orden.camiones?.apellido_chofer || null,
+      placa_unidad: camion?.placa || null,
+      tipo_unidad: camion?.tipo || null,
+      nombre_chofer: camion?.nombre_chofer || null,
+      apellido_chofer: camion?.apellido_chofer || null,
     };
   }
 
@@ -698,12 +712,12 @@ export class SearchService implements OnModuleInit {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
-          camiones: true,
         },
       }),
     ]);
 
-    return { data: ordenes.map((o) => this.mapOrdenServicio(o)), total };
+    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    return { data: ordenes.map((o) => this.mapOrdenServicio(o, camionesMap)), total };
   }
 
   private async getOrdenesServicioByIds(ids: number[]): Promise<any[]> {
@@ -713,13 +727,14 @@ export class SearchService implements OnModuleInit {
       include: {
         proveedores: true,
         detalles_orden_servicio: true,
-        camiones: true,
       },
     });
-    return ordenes.map((o) => this.mapOrdenServicio(o));
+    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    return ordenes.map((o) => this.mapOrdenServicio(o, camionesMap));
   }
 
-  private mapOrdenServicio(orden: any) {
+  private mapOrdenServicio(orden: any, camionesMap: Map<number, any> = new Map()) {
+    const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
     return {
       ...orden,
       fecha_orden: orden.fecha_orden
@@ -732,10 +747,10 @@ export class SearchService implements OnModuleInit {
       ruc_proveedor: orden.proveedores?.ruc || null,
       items: orden.detalles_orden_servicio || [],
       unidad_id: orden.id_camion || null,
-      placa_unidad: orden.camiones?.placa || null,
-      tipo_unidad: orden.camiones?.tipo || null,
-      nombre_chofer: orden.camiones?.nombre_chofer || null,
-      apellido_chofer: orden.camiones?.apellido_chofer || null,
+      placa_unidad: camion?.placa || null,
+      tipo_unidad: camion?.tipo || null,
+      nombre_chofer: camion?.nombre_chofer || null,
+      apellido_chofer: camion?.apellido_chofer || null,
     };
   }
 }

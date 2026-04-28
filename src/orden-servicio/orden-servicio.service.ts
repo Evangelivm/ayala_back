@@ -122,26 +122,37 @@ export class OrdenServicioService {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
-          camiones: true,
+          usuarios: { select: { nombre: true } },
         },
       });
 
-      // Mapear las órdenes para incluir el nombre_proveedor, ruc y los items al mismo nivel
-      // Formatear fechas DATE como strings YYYY-MM-DD para evitar problemas de zona horaria
-      return ordenes.map((orden) => ({
-        ...orden,
-        // Formatear fechas DATE a string para evitar conversión de zona horaria en el frontend
-        fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
-        fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
-        nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
-        ruc_proveedor: orden.proveedores?.ruc || null,
-        items: orden.detalles_orden_servicio || [],
-        unidad_id: orden.id_camion || null,
-        placa_unidad: orden.camiones?.placa || null,
-        tipo_unidad: orden.camiones?.tipo || null,
-        nombre_chofer: orden.camiones?.nombre_chofer || null,
-        apellido_chofer: orden.camiones?.apellido_chofer || null,
-      }));
+      const camionIds = [...new Set(ordenes.map(o => o.id_camion).filter(Boolean))] as number[];
+      const camionesMap = new Map<number, any>();
+      if (camionIds.length > 0) {
+        const camiones = await this.prisma.camiones.findMany({
+          where: { id_camion: { in: camionIds } },
+          select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+        });
+        camiones.forEach(c => camionesMap.set(c.id_camion, c));
+      }
+
+      return ordenes.map((orden) => {
+        const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
+        return {
+          ...orden,
+          fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
+          fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
+          nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+          ruc_proveedor: orden.proveedores?.ruc || null,
+          nombre_registrador: (orden as any).usuarios?.nombre || null,
+          items: orden.detalles_orden_servicio || [],
+          unidad_id: orden.id_camion || null,
+          placa_unidad: camion?.placa || null,
+          tipo_unidad: camion?.tipo || null,
+          nombre_chofer: camion?.nombre_chofer || null,
+          apellido_chofer: camion?.apellido_chofer || null,
+        };
+      });
     } catch (error) {
       console.error('Error obteniendo órdenes de servicio:', error);
       throw error;
@@ -434,6 +445,31 @@ export class OrdenServicioService {
 
     const proveedor = ordenServicio.proveedores;
 
+    let nombreRegistrador = '';
+    if (ordenServicio.registrado_por) {
+      const usuario = await this.prismaThird.usuarios.findUnique({
+        where: { id: ordenServicio.registrado_por },
+        select: { nombre: true },
+      });
+      nombreRegistrador = usuario?.nombre || '';
+    }
+
+    let nombreEditor = '';
+    if ((ordenServicio as any).editado_por) {
+      const editor = await this.prismaThird.usuarios.findUnique({
+        where: { id: (ordenServicio as any).editado_por },
+        select: { nombre: true },
+      });
+      nombreEditor = editor?.nombre || '';
+    }
+
+    const creadoEn = ordenServicio.fecha_registro
+      ? dayjs(ordenServicio.fecha_registro).format('DD/MM/YYYY HH:mm')
+      : '';
+    const editadoEn = (ordenServicio as any).fecha_edicion
+      ? dayjs((ordenServicio as any).fecha_edicion).format('DD/MM/YYYY HH:mm')
+      : '';
+
     // Formatear fecha_orden a DD/MM/YYYY (campo DATE, leer en UTC para evitar desfase de zona horaria)
     const fechaEmisionFormateada = dayjs.utc(ordenServicio.fecha_orden).format('DD/MM/YYYY');
 
@@ -453,6 +489,10 @@ export class OrdenServicioService {
         og: ordenServicio.numero_orden,
         fechaEmision: fechaEmisionFormateada,
         ruc: '20603739061',
+        creadoPor: nombreRegistrador,
+        creadoEn,
+        editadoPor: nombreEditor || undefined,
+        editadoEn: editadoEn || undefined,
       },
       datosProveedor: {
         empresa: proveedor.nombre_proveedor,
@@ -604,7 +644,9 @@ export class OrdenServicioService {
         const headerBoxY = yPos + 25;
         const headerBoxWidth = 155;
 
-        this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, 60);
+        const hasEdit = !!(ordenData.header.editadoPor);
+        const boxHeight = hasEdit ? 104 : 78;
+        this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, boxHeight);
 
         doc.fontSize(8).font('Helvetica');
         doc.text('OS:', headerBoxX + 5, headerBoxY + 5);
@@ -620,7 +662,21 @@ export class OrdenServicioService {
         doc.text('RUC:', headerBoxX + 5, headerBoxY + 35);
         doc.text(ordenData.header.ruc, headerBoxX + 80, headerBoxY + 35);
 
-        yPos = headerBoxY + 70;
+        doc.text('Creado por:', headerBoxX + 5, headerBoxY + 50);
+        doc.text(ordenData.header.creadoPor || '', headerBoxX + 80, headerBoxY + 50);
+
+        doc.text('F. creación:', headerBoxX + 5, headerBoxY + 63);
+        doc.text(ordenData.header.creadoEn || '', headerBoxX + 80, headerBoxY + 63);
+
+        if (hasEdit) {
+          doc.text('Editado por:', headerBoxX + 5, headerBoxY + 76);
+          doc.text(ordenData.header.editadoPor || '', headerBoxX + 80, headerBoxY + 76);
+
+          doc.text('F. edición:', headerBoxX + 5, headerBoxY + 89);
+          doc.text(ordenData.header.editadoEn || '', headerBoxX + 80, headerBoxY + 89);
+        }
+
+        yPos = headerBoxY + boxHeight + 10;
 
         // ==================== DATOS DEL PROVEEDOR ====================
         this.drawSectionHeader(doc, 40, yPos, 'DATOS DEL PROVEEDOR', 515);
@@ -1545,6 +1601,8 @@ export class OrdenServicioService {
               centro_costo_nivel3: updateOrdenServicioDto.centro_costo_nivel3,
               moneda: updateOrdenServicioDto.moneda,
               id_camion: updateOrdenServicioDto.unidad_id,
+              editado_por: updateOrdenServicioDto.editado_por ?? null,
+              fecha_edicion: updateOrdenServicioDto.editado_por ? new Date() : undefined,
               detraccion: updateOrdenServicioDto.detraccion,
               tipo_detraccion: updateOrdenServicioDto.tipo_detraccion,
               porcentaje_valor_detraccion:
@@ -1705,23 +1763,35 @@ export class OrdenServicioService {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
-          camiones: true,
         },
       });
 
-      return ordenes.map((orden) => ({
-        ...orden,
-        fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
-        fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
-        nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
-        ruc_proveedor: orden.proveedores?.ruc || null,
-        items: orden.detalles_orden_servicio || [],
-        unidad_id: orden.id_camion || null,
-        placa_unidad: orden.camiones?.placa || null,
-        tipo_unidad: orden.camiones?.tipo || null,
-        nombre_chofer: orden.camiones?.nombre_chofer || null,
-        apellido_chofer: orden.camiones?.apellido_chofer || null,
-      }));
+      const camionIds = [...new Set(ordenes.map(o => o.id_camion).filter(Boolean))] as number[];
+      const camionesMap = new Map<number, any>();
+      if (camionIds.length > 0) {
+        const camiones = await this.prisma.camiones.findMany({
+          where: { id_camion: { in: camionIds } },
+          select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+        });
+        camiones.forEach(c => camionesMap.set(c.id_camion, c));
+      }
+
+      return ordenes.map((orden) => {
+        const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
+        return {
+          ...orden,
+          fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
+          fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
+          nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
+          ruc_proveedor: orden.proveedores?.ruc || null,
+          items: orden.detalles_orden_servicio || [],
+          unidad_id: orden.id_camion || null,
+          placa_unidad: camion?.placa || null,
+          tipo_unidad: camion?.tipo || null,
+          nombre_chofer: camion?.nombre_chofer || null,
+          apellido_chofer: camion?.apellido_chofer || null,
+        };
+      });
     } catch (error) {
       console.error('Error obteniendo órdenes de servicio (admin):', error);
       throw error;

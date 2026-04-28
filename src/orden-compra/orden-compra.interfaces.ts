@@ -2,6 +2,10 @@ export interface OrdenCompraHeader {
   og: string;
   fechaEmision: string;
   ruc: string;
+  creadoPor?: string;
+  creadoEn?: string;
+  editadoPor?: string;
+  editadoEn?: string;
 }
 
 export interface DatosProveedor {

@@ -42,6 +42,8 @@ import { TipoDetraccionModule } from './tipo-detraccion/tipo-detraccion.module';
 import { LoggerModule } from './utils/logger.module';
 import { LocksModule } from './locks/locks.module';
 import { SearchModule } from './search/search.module';
+import { AuthModule } from './auth/auth.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -88,6 +90,8 @@ import { SearchModule } from './search/search.module';
     TipoDetraccionModule,
     LocksModule,
     SearchModule,
+    AuthModule,
+    UsuariosModule,
   ],
   controllers: [AppController, AdminLogsController],
   providers: [AppService],

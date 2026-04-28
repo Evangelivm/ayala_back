@@ -347,7 +347,9 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
   deleted_at: 'deleted_at',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  editado_por: 'editado_por',
+  fecha_edicion: 'fecha_edicion'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -495,7 +497,9 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
   deleted_at: 'deleted_at',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  editado_por: 'editado_por',
+  fecha_edicion: 'fecha_edicion'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {

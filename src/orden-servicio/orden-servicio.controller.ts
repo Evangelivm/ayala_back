@@ -95,9 +95,7 @@ export class OrdenServicioController {
     @Request() req: any,
   ) {
     try {
-      // Obtener el usuario del request (asumiendo que está en req.user.id)
-      // Si no tienes autenticación implementada, puedes usar un valor por defecto
-      const usuarioId = req.user?.id || 1;
+      const usuarioId = createOrdenServicioDto.registrado_por || req.user?.id || 1;
 
       const result = await this.ordenServicioService.create(
         createOrdenServicioDto,
@@ -119,7 +117,7 @@ export class OrdenServicioController {
     @Request() req: any,
   ) {
     try {
-      const usuarioId = req.user?.id || 1;
+      const usuarioId = updateOrdenServicioDto.registrado_por || req.user?.id || 1;
 
       const result = await this.ordenServicioService.update(
         +id,
