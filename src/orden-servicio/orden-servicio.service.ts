@@ -464,10 +464,10 @@ export class OrdenServicioService {
     }
 
     const creadoEn = ordenServicio.fecha_registro
-      ? dayjs(ordenServicio.fecha_registro).format('DD/MM/YYYY HH:mm')
+      ? dayjs(ordenServicio.fecha_registro).format('DD/MM/YYYY')
       : '';
     const editadoEn = (ordenServicio as any).fecha_edicion
-      ? dayjs((ordenServicio as any).fecha_edicion).format('DD/MM/YYYY HH:mm')
+      ? dayjs((ordenServicio as any).fecha_edicion).format('DD/MM/YYYY')
       : '';
 
     // Formatear fecha_orden a DD/MM/YYYY (campo DATE, leer en UTC para evitar desfase de zona horaria)

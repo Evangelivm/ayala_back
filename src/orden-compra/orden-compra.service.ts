@@ -459,10 +459,10 @@ export class OrdenCompraService {
     }
 
     const creadoEn = ordenCompra.fecha_registro
-      ? dayjs(ordenCompra.fecha_registro).format('DD/MM/YYYY HH:mm')
+      ? dayjs(ordenCompra.fecha_registro).format('DD/MM/YYYY')
       : '';
     const editadoEn = (ordenCompra as any).fecha_edicion
-      ? dayjs((ordenCompra as any).fecha_edicion).format('DD/MM/YYYY HH:mm')
+      ? dayjs((ordenCompra as any).fecha_edicion).format('DD/MM/YYYY')
       : '';
 
     // Formatear fecha_orden a DD/MM/YYYY (campo DATE, leer en UTC para evitar desfase de zona horaria)

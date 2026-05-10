@@ -7,6 +7,8 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import * as archiver from 'archiver';
 import axios from 'axios';
+import { Prisma } from '@generated/prisma';
+import * as ExcelJS from 'exceljs';
 
 // Extender dayjs con plugins
 dayjs.extend(utc);
@@ -664,6 +666,219 @@ export class GreExtendidoCrudController {
         'Error al generar el archivo ZIP',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
+    }
+  }
+
+  /**
+   * Exportar programación extendida a Excel (una fila por guía)
+   */
+  @Post('exportar-excel')
+  async exportarExcel(
+    @Body() body: { proveedores?: string[] },
+    @Res() res: Response,
+  ) {
+    try {
+      const { proveedores } = body;
+
+      const filterClause =
+        proveedores && proveedores.length > 0
+          ? Prisma.sql`AND e.razon_social IN (${Prisma.join(proveedores)})`
+          : Prisma.empty;
+
+      const rows = await this.prismaService.$queryRaw<any[]>(Prisma.sql`
+        SELECT
+          pt.id,
+          pt.fecha,
+          pt.hora_partida,
+          pt.programacion,
+          pt.estado_programacion,
+          pt.comentarios,
+          pt.m3,
+          pt.cantidad_viaje,
+          pt.identificador_unico,
+          pt.punto_partida_ubigeo,
+          pt.punto_partida_direccion,
+          pt.punto_llegada_ubigeo,
+          pt.punto_llegada_direccion,
+          c.placa AS unidad,
+          c.nombre_chofer,
+          c.apellido_chofer,
+          e.razon_social AS proveedor,
+          COALESCE(sp.nombre, p.nombre) AS proyecto,
+          CASE WHEN sp.id_subproyecto IS NOT NULL THEN 'Subproyecto' ELSE 'Proyecto' END AS tipo_proyecto,
+          gre.serie,
+          gre.numero AS numero_guia,
+          gre.estado_gre,
+          gre.enlace_del_pdf,
+          gre.enlace_del_xml,
+          gre.enlace_del_cdr
+        FROM programacion_tecnica pt
+        LEFT JOIN camiones c ON pt.unidad = c.id_camion
+        LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+        LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+        LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+        LEFT JOIN guia_remision_extendida gre
+          ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gre.identificador_unico COLLATE utf8mb4_unicode_ci
+        WHERE pt.deleted_at IS NULL
+        ${filterClause}
+        ORDER BY pt.fecha DESC, pt.id DESC, gre.numero ASC
+      `);
+
+      const capitalizar = (texto: string | null) => {
+        if (!texto) return '';
+        return texto.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      };
+
+      // ── Colores ─────────────────────────────────────────────────────────
+      const COLOR_HEADER_BG   = 'FFD97706'; // naranja oscuro (brand)
+      const COLOR_HEADER_FG   = 'FFFFFFFF'; // blanco
+      const COLOR_ROW_ALT     = 'FFFFF7ED'; // naranja muy claro (filas pares)
+      const COLOR_ROW_BASE    = 'FFFFFFFF'; // blanco (filas impares)
+      const COLOR_GUIA_BG     = 'FFD1FAE5'; // verde claro (fila con guía completada)
+      const COLOR_PDF_FG      = 'FFB91C1C'; // rojo oscuro
+      const COLOR_XML_FG      = 'FF15803D'; // verde oscuro
+      const COLOR_CDR_FG      = 'FF1D4ED8'; // azul oscuro
+      const COLOR_BORDER      = 'FFD1D5DB'; // gris claro
+
+      const borderThin: Partial<ExcelJS.Borders> = {
+        top:    { style: 'thin', color: { argb: COLOR_BORDER } },
+        left:   { style: 'thin', color: { argb: COLOR_BORDER } },
+        bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
+        right:  { style: 'thin', color: { argb: COLOR_BORDER } },
+      };
+
+      const wb = new ExcelJS.Workbook();
+      wb.creator = 'Ayala Sistema';
+      const ws = wb.addWorksheet('Prog. Extendida', {
+        views: [{ state: 'frozen', ySplit: 1 }], // congelar encabezado
+      });
+
+      // ── Columnas ────────────────────────────────────────────────────────
+      ws.columns = [
+        { header: 'ID',               key: 'id',              width: 8  },
+        { header: 'Fecha',            key: 'fecha',           width: 13 },
+        { header: 'Hora',             key: 'hora',            width: 8  },
+        { header: 'Unidad',           key: 'unidad',          width: 13 },
+        { header: 'Proveedor',        key: 'proveedor',       width: 32 },
+        { header: 'Conductor',        key: 'conductor',       width: 26 },
+        { header: 'Proyecto',         key: 'proyecto',        width: 26 },
+        { header: 'Tipo',             key: 'tipo',            width: 13 },
+        { header: 'Programación',     key: 'programacion',    width: 16 },
+        { header: 'Estado Prog.',     key: 'estado_prog',     width: 14 },
+        { header: 'M3',               key: 'm3',              width: 8  },
+        { header: 'Cant. Viajes',     key: 'cant_viajes',     width: 13 },
+        { header: 'Identificador',    key: 'identificador',   width: 22 },
+        { header: 'P. Partida Ubig.', key: 'partida_ubigeo',  width: 17 },
+        { header: 'P. Partida Dir.',  key: 'partida_dir',     width: 30 },
+        { header: 'P. Llegada Ubig.', key: 'llegada_ubigeo',  width: 17 },
+        { header: 'P. Llegada Dir.',  key: 'llegada_dir',     width: 30 },
+        { header: 'N° Guía',          key: 'nro_guia',        width: 16 },
+        { header: 'Estado Guía',      key: 'estado_guia',     width: 14 },
+        { header: 'PDF',              key: 'pdf',             width: 8  },
+        { header: 'XML',              key: 'xml',             width: 8  },
+        { header: 'CDR',              key: 'cdr',             width: 8  },
+      ];
+
+      // ── Estilo del encabezado ────────────────────────────────────────────
+      const headerRow = ws.getRow(1);
+      headerRow.height = 22;
+      headerRow.eachCell(cell => {
+        cell.fill   = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLOR_HEADER_BG } };
+        cell.font   = { bold: true, color: { argb: COLOR_HEADER_FG }, size: 10 };
+        cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
+        cell.border = borderThin;
+      });
+
+      // ── Filas de datos ───────────────────────────────────────────────────
+      rows.forEach((row, idx) => {
+        const fecha = row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : '';
+        const hora  = row.hora_partida ? dayjs(row.hora_partida).format('HH:mm') : '';
+        const conductor = [capitalizar(row.nombre_chofer), capitalizar(row.apellido_chofer)]
+          .filter(Boolean).join(' ');
+        const numeroGuia = row.serie && row.numero_guia != null
+          ? `${row.serie}-${String(row.numero_guia).padStart(4, '0')}`
+          : '';
+        const completada = row.enlace_del_pdf && row.enlace_del_xml && row.enlace_del_cdr;
+
+        const bgColor = completada
+          ? COLOR_GUIA_BG
+          : idx % 2 === 0 ? COLOR_ROW_BASE : COLOR_ROW_ALT;
+
+        const excelRow = ws.addRow({
+          id:            Number(row.id),
+          fecha,
+          hora,
+          unidad:        row.unidad        || '',
+          proveedor:     row.proveedor     || '',
+          conductor,
+          proyecto:      row.proyecto      || '',
+          tipo:          row.tipo_proyecto  || '',
+          programacion:  row.programacion   || '',
+          estado_prog:   row.estado_programacion || '',
+          m3:            row.m3 != null ? row.m3.toString() : '',
+          cant_viajes:   row.cantidad_viaje != null ? Number(row.cantidad_viaje) : '',
+          identificador: row.identificador_unico || '',
+          partida_ubigeo: row.punto_partida_ubigeo    || '',
+          partida_dir:    row.punto_partida_direccion  || '',
+          llegada_ubigeo: row.punto_llegada_ubigeo     || '',
+          llegada_dir:    row.punto_llegada_direccion  || '',
+          nro_guia:      numeroGuia,
+          estado_guia:   row.estado_gre || '',
+          pdf: '',
+          xml: '',
+          cdr: '',
+        });
+
+        excelRow.height = 18;
+
+        // Estilo base de cada celda
+        excelRow.eachCell({ includeEmpty: true }, cell => {
+          cell.fill   = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgColor } };
+          cell.font   = { size: 9 };
+          cell.alignment = { vertical: 'middle', wrapText: false };
+          cell.border = borderThin;
+        });
+
+        // Estado Prog: color según valor
+        const estadoCell = excelRow.getCell('estado_prog');
+        if (row.estado_programacion === 'OK') {
+          estadoCell.font = { size: 9, bold: true, color: { argb: 'FF15803D' } };
+        } else if (row.estado_programacion === 'NO EJECUTADO') {
+          estadoCell.font = { size: 9, bold: true, color: { argb: 'FFB91C1C' } };
+        }
+
+        // N° Guía: negrita si tiene
+        if (numeroGuia) {
+          excelRow.getCell('nro_guia').font = { size: 9, bold: true, color: { argb: 'FF374151' } };
+        }
+
+        // Hipervínculos con estilo
+        const linkDefs = [
+          { key: 'pdf', url: row.enlace_del_pdf, label: 'PDF', color: COLOR_PDF_FG },
+          { key: 'xml', url: row.enlace_del_xml, label: 'XML', color: COLOR_XML_FG },
+          { key: 'cdr', url: row.enlace_del_cdr, label: 'CDR', color: COLOR_CDR_FG },
+        ] as const;
+
+        for (const { key, url, label, color } of linkDefs) {
+          if (url) {
+            const cell = excelRow.getCell(key);
+            cell.value = { text: label, hyperlink: url };
+            cell.font  = { size: 9, bold: true, underline: true, color: { argb: color } };
+            cell.alignment = { vertical: 'middle', horizontal: 'center' };
+          }
+        }
+      });
+
+      const buffer = await wb.xlsx.writeBuffer() as Buffer;
+      const nombreArchivo = `programacion_extendida_${dayjs().format('YYYY-MM-DD')}.xlsx`;
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="${nombreArchivo}"`);
+      res.send(buffer);
+
+    } catch (error) {
+      this.logger.error('Error exportando a Excel:', error);
+      throw new HttpException('Error al generar el archivo Excel', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
