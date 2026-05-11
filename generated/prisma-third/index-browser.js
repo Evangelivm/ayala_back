@@ -184,7 +184,9 @@ exports.Prisma.Detalles_orden_compraScalarFieldEnum = {
   cantidad_solicitada: 'cantidad_solicitada',
   cantidad_recibida: 'cantidad_recibida',
   precio_unitario: 'precio_unitario',
-  subtotal: 'subtotal'
+  subtotal: 'subtotal',
+  centro_costo: 'centro_costo',
+  prorrateo: 'prorrateo'
 };
 
 exports.Prisma.Detalles_recepcion_compraScalarFieldEnum = {
@@ -526,7 +528,9 @@ exports.Prisma.Detalles_orden_servicioScalarFieldEnum = {
   cantidad_solicitada: 'cantidad_solicitada',
   cantidad_recibida: 'cantidad_recibida',
   precio_unitario: 'precio_unitario',
-  subtotal: 'subtotal'
+  subtotal: 'subtotal',
+  centro_costo: 'centro_costo',
+  prorrateo: 'prorrateo'
 };
 
 exports.Prisma.Email_notificationsScalarFieldEnum = {
@@ -840,7 +844,8 @@ exports.Prisma.detalles_conteo_ciclicoOrderByRelevanceFieldEnum = {
 
 exports.Prisma.detalles_orden_compraOrderByRelevanceFieldEnum = {
   codigo_item: 'codigo_item',
-  descripcion_item: 'descripcion_item'
+  descripcion_item: 'descripcion_item',
+  centro_costo: 'centro_costo'
 };
 
 exports.Prisma.detalles_recepcion_compraOrderByRelevanceFieldEnum = {
@@ -1008,7 +1013,8 @@ exports.Prisma.usuarios_consultaOrderByRelevanceFieldEnum = {
 
 exports.Prisma.detalles_orden_servicioOrderByRelevanceFieldEnum = {
   codigo_item: 'codigo_item',
-  descripcion_item: 'descripcion_item'
+  descripcion_item: 'descripcion_item',
+  centro_costo: 'centro_costo'
 };
 
 exports.Prisma.DROPBOXOrderByRelevanceFieldEnum = {

@@ -18,6 +18,8 @@ export const CreateDetalleOrdenCompraSchema = z
     cantidad_solicitada: z.number().positive('La cantidad debe ser mayor a 0'),
     precio_unitario: z.number().nonnegative('El precio unitario no puede ser negativo'),
     subtotal: z.number().nonnegative('El subtotal no puede ser negativo'),
+    centro_costo: z.string().optional(),
+    prorrateo: z.number().min(0).max(100).optional(),
   })
   .strip(); // Ignorar campos adicionales que no están en el schema
 

@@ -11286,6 +11286,7 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_compraSumAggregateOutputType = {
@@ -11295,6 +11296,7 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_compraMinAggregateOutputType = {
@@ -11306,6 +11308,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    centro_costo: string | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_compraMaxAggregateOutputType = {
@@ -11317,6 +11321,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    centro_costo: string | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_compraCountAggregateOutputType = {
@@ -11328,6 +11334,8 @@ export namespace Prisma {
     cantidad_recibida: number
     precio_unitario: number
     subtotal: number
+    centro_costo: number
+    prorrateo: number
     _all: number
   }
 
@@ -11339,6 +11347,7 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_compraSumAggregateInputType = {
@@ -11348,6 +11357,7 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_compraMinAggregateInputType = {
@@ -11359,6 +11369,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_compraMaxAggregateInputType = {
@@ -11370,6 +11382,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_compraCountAggregateInputType = {
@@ -11381,6 +11395,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
     _all?: true
   }
 
@@ -11479,6 +11495,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal
     subtotal: Decimal
+    centro_costo: string | null
+    prorrateo: Decimal | null
     _count: Detalles_orden_compraCountAggregateOutputType | null
     _avg: Detalles_orden_compraAvgAggregateOutputType | null
     _sum: Detalles_orden_compraSumAggregateOutputType | null
@@ -11509,6 +11527,8 @@ export namespace Prisma {
     cantidad_recibida?: boolean
     precio_unitario?: boolean
     subtotal?: boolean
+    centro_costo?: boolean
+    prorrateo?: boolean
     ordenes_compra?: boolean | ordenes_compraDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
   }, ExtArgs["result"]["detalles_orden_compra"]>
@@ -11524,9 +11544,11 @@ export namespace Prisma {
     cantidad_recibida?: boolean
     precio_unitario?: boolean
     subtotal?: boolean
+    centro_costo?: boolean
+    prorrateo?: boolean
   }
 
-  export type detalles_orden_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_compra" | "codigo_item" | "descripcion_item" | "cantidad_solicitada" | "cantidad_recibida" | "precio_unitario" | "subtotal", ExtArgs["result"]["detalles_orden_compra"]>
+  export type detalles_orden_compraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_compra" | "codigo_item" | "descripcion_item" | "cantidad_solicitada" | "cantidad_recibida" | "precio_unitario" | "subtotal" | "centro_costo" | "prorrateo", ExtArgs["result"]["detalles_orden_compra"]>
   export type detalles_orden_compraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordenes_compra?: boolean | ordenes_compraDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
@@ -11547,6 +11569,8 @@ export namespace Prisma {
       cantidad_recibida: number | null
       precio_unitario: Prisma.Decimal
       subtotal: Prisma.Decimal
+      centro_costo: string | null
+      prorrateo: Prisma.Decimal | null
     }, ExtArgs["result"]["detalles_orden_compra"]>
     composites: {}
   }
@@ -11926,6 +11950,8 @@ export namespace Prisma {
     readonly cantidad_recibida: FieldRef<"detalles_orden_compra", 'Int'>
     readonly precio_unitario: FieldRef<"detalles_orden_compra", 'Decimal'>
     readonly subtotal: FieldRef<"detalles_orden_compra", 'Decimal'>
+    readonly centro_costo: FieldRef<"detalles_orden_compra", 'String'>
+    readonly prorrateo: FieldRef<"detalles_orden_compra", 'Decimal'>
   }
     
 
@@ -35627,6 +35653,7 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_servicioSumAggregateOutputType = {
@@ -35636,6 +35663,7 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_servicioMinAggregateOutputType = {
@@ -35647,6 +35675,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    centro_costo: string | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_servicioMaxAggregateOutputType = {
@@ -35658,6 +35688,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal | null
     subtotal: Decimal | null
+    centro_costo: string | null
+    prorrateo: Decimal | null
   }
 
   export type Detalles_orden_servicioCountAggregateOutputType = {
@@ -35669,6 +35701,8 @@ export namespace Prisma {
     cantidad_recibida: number
     precio_unitario: number
     subtotal: number
+    centro_costo: number
+    prorrateo: number
     _all: number
   }
 
@@ -35680,6 +35714,7 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_servicioSumAggregateInputType = {
@@ -35689,6 +35724,7 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_servicioMinAggregateInputType = {
@@ -35700,6 +35736,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_servicioMaxAggregateInputType = {
@@ -35711,6 +35749,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
   }
 
   export type Detalles_orden_servicioCountAggregateInputType = {
@@ -35722,6 +35762,8 @@ export namespace Prisma {
     cantidad_recibida?: true
     precio_unitario?: true
     subtotal?: true
+    centro_costo?: true
+    prorrateo?: true
     _all?: true
   }
 
@@ -35820,6 +35862,8 @@ export namespace Prisma {
     cantidad_recibida: number | null
     precio_unitario: Decimal
     subtotal: Decimal
+    centro_costo: string | null
+    prorrateo: Decimal | null
     _count: Detalles_orden_servicioCountAggregateOutputType | null
     _avg: Detalles_orden_servicioAvgAggregateOutputType | null
     _sum: Detalles_orden_servicioSumAggregateOutputType | null
@@ -35850,6 +35894,8 @@ export namespace Prisma {
     cantidad_recibida?: boolean
     precio_unitario?: boolean
     subtotal?: boolean
+    centro_costo?: boolean
+    prorrateo?: boolean
     ordenes_compra?: boolean | ordenes_servicioDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
   }, ExtArgs["result"]["detalles_orden_servicio"]>
@@ -35865,9 +35911,11 @@ export namespace Prisma {
     cantidad_recibida?: boolean
     precio_unitario?: boolean
     subtotal?: boolean
+    centro_costo?: boolean
+    prorrateo?: boolean
   }
 
-  export type detalles_orden_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_servicio" | "codigo_item" | "descripcion_item" | "cantidad_solicitada" | "cantidad_recibida" | "precio_unitario" | "subtotal", ExtArgs["result"]["detalles_orden_servicio"]>
+  export type detalles_orden_servicioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_detalle" | "id_orden_servicio" | "codigo_item" | "descripcion_item" | "cantidad_solicitada" | "cantidad_recibida" | "precio_unitario" | "subtotal" | "centro_costo" | "prorrateo", ExtArgs["result"]["detalles_orden_servicio"]>
   export type detalles_orden_servicioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ordenes_compra?: boolean | ordenes_servicioDefaultArgs<ExtArgs>
     listado_items_2025?: boolean | listado_items_2025DefaultArgs<ExtArgs>
@@ -35888,6 +35936,8 @@ export namespace Prisma {
       cantidad_recibida: number | null
       precio_unitario: Prisma.Decimal
       subtotal: Prisma.Decimal
+      centro_costo: string | null
+      prorrateo: Prisma.Decimal | null
     }, ExtArgs["result"]["detalles_orden_servicio"]>
     composites: {}
   }
@@ -36267,6 +36317,8 @@ export namespace Prisma {
     readonly cantidad_recibida: FieldRef<"detalles_orden_servicio", 'Int'>
     readonly precio_unitario: FieldRef<"detalles_orden_servicio", 'Decimal'>
     readonly subtotal: FieldRef<"detalles_orden_servicio", 'Decimal'>
+    readonly centro_costo: FieldRef<"detalles_orden_servicio", 'String'>
+    readonly prorrateo: FieldRef<"detalles_orden_servicio", 'Decimal'>
   }
     
 
@@ -57116,7 +57168,9 @@ export namespace Prisma {
     cantidad_solicitada: 'cantidad_solicitada',
     cantidad_recibida: 'cantidad_recibida',
     precio_unitario: 'precio_unitario',
-    subtotal: 'subtotal'
+    subtotal: 'subtotal',
+    centro_costo: 'centro_costo',
+    prorrateo: 'prorrateo'
   };
 
   export type Detalles_orden_compraScalarFieldEnum = (typeof Detalles_orden_compraScalarFieldEnum)[keyof typeof Detalles_orden_compraScalarFieldEnum]
@@ -57524,7 +57578,9 @@ export namespace Prisma {
     cantidad_solicitada: 'cantidad_solicitada',
     cantidad_recibida: 'cantidad_recibida',
     precio_unitario: 'precio_unitario',
-    subtotal: 'subtotal'
+    subtotal: 'subtotal',
+    centro_costo: 'centro_costo',
+    prorrateo: 'prorrateo'
   };
 
   export type Detalles_orden_servicioScalarFieldEnum = (typeof Detalles_orden_servicioScalarFieldEnum)[keyof typeof Detalles_orden_servicioScalarFieldEnum]
@@ -57931,7 +57987,8 @@ export namespace Prisma {
 
   export const detalles_orden_compraOrderByRelevanceFieldEnum: {
     codigo_item: 'codigo_item',
-    descripcion_item: 'descripcion_item'
+    descripcion_item: 'descripcion_item',
+    centro_costo: 'centro_costo'
   };
 
   export type detalles_orden_compraOrderByRelevanceFieldEnum = (typeof detalles_orden_compraOrderByRelevanceFieldEnum)[keyof typeof detalles_orden_compraOrderByRelevanceFieldEnum]
@@ -58156,7 +58213,8 @@ export namespace Prisma {
 
   export const detalles_orden_servicioOrderByRelevanceFieldEnum: {
     codigo_item: 'codigo_item',
-    descripcion_item: 'descripcion_item'
+    descripcion_item: 'descripcion_item',
+    centro_costo: 'centro_costo'
   };
 
   export type detalles_orden_servicioOrderByRelevanceFieldEnum = (typeof detalles_orden_servicioOrderByRelevanceFieldEnum)[keyof typeof detalles_orden_servicioOrderByRelevanceFieldEnum]
@@ -59006,6 +59064,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_compra"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: XOR<Ordenes_compraScalarRelationFilter, ordenes_compraWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
   }
@@ -59019,6 +59079,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrderInput | SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrderInput | SortOrder
+    prorrateo?: SortOrderInput | SortOrder
     ordenes_compra?: ordenes_compraOrderByWithRelationInput
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
     _relevance?: detalles_orden_compraOrderByRelevanceInput
@@ -59036,6 +59098,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_compra"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: XOR<Ordenes_compraScalarRelationFilter, ordenes_compraWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
   }, "id_detalle">
@@ -59049,6 +59113,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrderInput | SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrderInput | SortOrder
+    prorrateo?: SortOrderInput | SortOrder
     _count?: detalles_orden_compraCountOrderByAggregateInput
     _avg?: detalles_orden_compraAvgOrderByAggregateInput
     _max?: detalles_orden_compraMaxOrderByAggregateInput
@@ -59068,6 +59134,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableWithAggregatesFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableWithAggregatesFilter<"detalles_orden_compra"> | string | null
+    prorrateo?: DecimalNullableWithAggregatesFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_recepcion_compraWhereInput = {
@@ -61241,6 +61309,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_servicio"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: XOR<Ordenes_servicioScalarRelationFilter, ordenes_servicioWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
   }
@@ -61254,6 +61324,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrderInput | SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrderInput | SortOrder
+    prorrateo?: SortOrderInput | SortOrder
     ordenes_compra?: ordenes_servicioOrderByWithRelationInput
     listado_items_2025?: listado_items_2025OrderByWithRelationInput
     _relevance?: detalles_orden_servicioOrderByRelevanceInput
@@ -61271,6 +61343,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_servicio"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: XOR<Ordenes_servicioScalarRelationFilter, ordenes_servicioWhereInput>
     listado_items_2025?: XOR<Listado_items_2025ScalarRelationFilter, listado_items_2025WhereInput>
   }, "id_detalle">
@@ -61284,6 +61358,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrderInput | SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrderInput | SortOrder
+    prorrateo?: SortOrderInput | SortOrder
     _count?: detalles_orden_servicioCountOrderByAggregateInput
     _avg?: detalles_orden_servicioAvgOrderByAggregateInput
     _max?: detalles_orden_servicioMaxOrderByAggregateInput
@@ -61303,6 +61379,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableWithAggregatesFilter<"detalles_orden_servicio"> | number | null
     precio_unitario?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableWithAggregatesFilter<"detalles_orden_servicio"> | string | null
+    prorrateo?: DecimalNullableWithAggregatesFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type email_notificationsWhereInput = {
@@ -63365,6 +63443,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     ordenes_compra: ordenes_compraCreateNestedOneWithoutDetalles_orden_compraInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_compraInput
   }
@@ -63378,6 +63458,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraUpdateInput = {
@@ -63386,6 +63468,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: ordenes_compraUpdateOneRequiredWithoutDetalles_orden_compraNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_compraNestedInput
   }
@@ -63399,6 +63483,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraCreateManyInput = {
@@ -63410,6 +63496,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraUpdateManyMutationInput = {
@@ -63418,6 +63506,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraUncheckedUpdateManyInput = {
@@ -63429,6 +63519,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_recepcion_compraCreateInput = {
@@ -65801,6 +65893,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     ordenes_compra: ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput
     listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_servicioInput
   }
@@ -65814,6 +65908,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUpdateInput = {
@@ -65822,6 +65918,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: ordenes_servicioUpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
   }
@@ -65835,6 +65933,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioCreateManyInput = {
@@ -65846,6 +65946,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUpdateManyMutationInput = {
@@ -65854,6 +65956,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUncheckedUpdateManyInput = {
@@ -65865,6 +65969,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type email_notificationsCreateInput = {
@@ -68419,6 +68525,17 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type Ordenes_compraScalarRelationFilter = {
     is?: ordenes_compraWhereInput
     isNot?: ordenes_compraWhereInput
@@ -68439,6 +68556,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_compraAvgOrderByAggregateInput = {
@@ -68448,6 +68567,7 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_compraMaxOrderByAggregateInput = {
@@ -68459,6 +68579,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_compraMinOrderByAggregateInput = {
@@ -68470,6 +68592,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_compraSumOrderByAggregateInput = {
@@ -68479,6 +68603,7 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -68495,6 +68620,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type Recepciones_compraScalarRelationFilter = {
@@ -68673,17 +68814,6 @@ export namespace Prisma {
     _max?: NestedEnumhistorial_reportes_formato_salidaFilter<$PrismaModel>
   }
 
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
   export type Detalles_orden_compraListRelationFilter = {
     every?: detalles_orden_compraWhereInput
     some?: detalles_orden_compraWhereInput
@@ -68791,22 +68921,6 @@ export namespace Prisma {
     precio_unitario?: SortOrder
     stock_minimo?: SortOrder
     stock_maximo?: SortOrder
-  }
-
-  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type UsuariosNullableScalarRelationFilter = {
@@ -70386,6 +70500,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_servicioAvgOrderByAggregateInput = {
@@ -70395,6 +70511,7 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_servicioMaxOrderByAggregateInput = {
@@ -70406,6 +70523,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_servicioMinOrderByAggregateInput = {
@@ -70417,6 +70536,8 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    centro_costo?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type detalles_orden_servicioSumOrderByAggregateInput = {
@@ -70426,6 +70547,7 @@ export namespace Prisma {
     cantidad_recibida?: SortOrder
     precio_unitario?: SortOrder
     subtotal?: SortOrder
+    prorrateo?: SortOrder
   }
 
   export type email_notificationsCountOrderByAggregateInput = {
@@ -72435,6 +72557,14 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type ordenes_compraUpdateOneRequiredWithoutDetalles_orden_compraNestedInput = {
     create?: XOR<ordenes_compraCreateWithoutDetalles_orden_compraInput, ordenes_compraUncheckedCreateWithoutDetalles_orden_compraInput>
     connectOrCreate?: ordenes_compraCreateOrConnectWithoutDetalles_orden_compraInput
@@ -72671,14 +72801,6 @@ export namespace Prisma {
     connectOrCreate?: stock_almacenesCreateOrConnectWithoutListado_items_2025Input | stock_almacenesCreateOrConnectWithoutListado_items_2025Input[]
     createMany?: stock_almacenesCreateManyListado_items_2025InputEnvelope
     connect?: stock_almacenesWhereUniqueInput | stock_almacenesWhereUniqueInput[]
-  }
-
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string | null
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type balances_inicialesUpdateManyWithoutListado_items_2025NestedInput = {
@@ -75151,6 +75273,17 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[]
@@ -75165,6 +75298,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumhistorial_reportes_formato_salidaFilter<$PrismaModel = never> = {
@@ -75182,33 +75331,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumhistorial_reportes_formato_salidaFilter<$PrismaModel>
     _max?: NestedEnumhistorial_reportes_formato_salidaFilter<$PrismaModel>
-  }
-
-  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedEnummovimientos_inventario_estadoNullableFilter<$PrismaModel = never> = {
@@ -77861,6 +77983,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     ordenes_compra: ordenes_compraCreateNestedOneWithoutDetalles_orden_compraInput
   }
 
@@ -77872,6 +77996,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraCreateOrConnectWithoutListado_items_2025Input = {
@@ -77890,6 +78016,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     ordenes_compra: ordenes_servicioCreateNestedOneWithoutDetalles_orden_servicioInput
   }
 
@@ -77901,6 +78029,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioCreateOrConnectWithoutListado_items_2025Input = {
@@ -78137,6 +78267,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_compra"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_compra"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_compra"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUpsertWithWhereUniqueWithoutListado_items_2025Input = {
@@ -78167,6 +78299,8 @@ export namespace Prisma {
     cantidad_recibida?: IntNullableFilter<"detalles_orden_servicio"> | number | null
     precio_unitario?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string
+    centro_costo?: StringNullableFilter<"detalles_orden_servicio"> | string | null
+    prorrateo?: DecimalNullableFilter<"detalles_orden_servicio"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_recepcion_compraUpsertWithWhereUniqueWithoutListado_items_2025Input = {
@@ -79107,6 +79241,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_compraInput
   }
 
@@ -79118,6 +79254,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraCreateOrConnectWithoutOrdenes_compraInput = {
@@ -82438,6 +82576,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
     listado_items_2025: listado_items_2025CreateNestedOneWithoutDetalles_orden_servicioInput
   }
 
@@ -82449,6 +82589,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioCreateOrConnectWithoutOrdenes_compraInput = {
@@ -86117,6 +86259,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioCreateManyListado_items_2025Input = {
@@ -86127,6 +86271,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_recepcion_compraCreateManyListado_items_2025Input = {
@@ -86255,6 +86401,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: ordenes_compraUpdateOneRequiredWithoutDetalles_orden_compraNestedInput
   }
 
@@ -86266,6 +86414,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraUncheckedUpdateManyWithoutListado_items_2025Input = {
@@ -86276,6 +86426,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUpdateWithoutListado_items_2025Input = {
@@ -86284,6 +86436,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ordenes_compra?: ordenes_servicioUpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
   }
 
@@ -86295,6 +86449,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUncheckedUpdateManyWithoutListado_items_2025Input = {
@@ -86305,6 +86461,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_recepcion_compraUpdateWithoutListado_items_2025Input = {
@@ -86606,6 +86764,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type multifactura_detalleCreateManyOrdenes_compraInput = {
@@ -86636,6 +86796,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_compraNestedInput
   }
 
@@ -86647,6 +86809,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraInput = {
@@ -86657,6 +86821,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type multifactura_detalleUpdateWithoutOrdenes_compraInput = {
@@ -88488,6 +88654,8 @@ export namespace Prisma {
     cantidad_recibida?: number | null
     precio_unitario: Decimal | DecimalJsLike | number | string
     subtotal: Decimal | DecimalJsLike | number | string
+    centro_costo?: string | null
+    prorrateo?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type multifactura_detalleCreateManyOrdenes_servicioInput = {
@@ -88508,6 +88676,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     listado_items_2025?: listado_items_2025UpdateOneRequiredWithoutDetalles_orden_servicioNestedInput
   }
 
@@ -88519,6 +88689,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraInput = {
@@ -88529,6 +88701,8 @@ export namespace Prisma {
     cantidad_recibida?: NullableIntFieldUpdateOperationsInput | number | null
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    centro_costo?: NullableStringFieldUpdateOperationsInput | string | null
+    prorrateo?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type multifactura_detalleUpdateWithoutOrdenes_servicioInput = {
