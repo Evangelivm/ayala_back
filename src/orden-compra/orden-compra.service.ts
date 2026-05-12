@@ -511,6 +511,8 @@ export class OrdenCompraService {
         cantidad: parseFloat(detalle.cantidad_solicitada.toString()),
         valorUnitario: parseFloat(detalle.precio_unitario.toString()),
         subTotal: parseFloat(detalle.subtotal.toString()),
+        centroCosto: detalle.centro_costo || '',
+        prorrateo: detalle.prorrateo ? parseFloat(detalle.prorrateo.toString()) : null,
       })),
       totales: (() => {
         const subtotal = parseFloat(ordenCompra.subtotal?.toString() || '0');
@@ -784,13 +786,15 @@ export class OrdenCompraService {
         const detalleHeaders = [
           'N°',
           'DESCRIPCIÓN',
+          'CENTRO COSTO',
+          'PRORRATEO',
           'CÓDIGO',
           'U/M',
           'CANT.',
           'VALOR UNIT',
           'SUB TOTAL',
         ];
-        const detalleColWidths = [30, 180, 80, 80, 45, 50, 50];
+        const detalleColWidths = [22, 110, 90, 55, 45, 28, 28, 68, 69];
 
         yPos = this.drawDetalleTable(
           doc,
@@ -1118,131 +1122,11 @@ export class OrdenCompraService {
     let currentY = startY;
     const baseRowHeight = 18;
 
-    // Definir el color azul/gris del header (#D9E2F3 es un azul claro similar al de la imagen)
-    const headerColor = '#D9E2F3';
-
-    // Pre-calcular altura de fila 2 para ajustar la celda combinada "Centro de Costos"
-    const nivel1Width = colWidths[1] + colWidths[2];
-    const fontSize = 9;
-    doc.fontSize(fontSize).font('Helvetica');
-
-    const nivel1Lines = this.calculateTextLines(
-      doc,
-      data.nivel1 || '',
-      nivel1Width - 4,
-      fontSize,
-    );
-    const nivel2Lines = this.calculateTextLines(
-      doc,
-      data.nivel2 || '',
-      colWidths[3] - 4,
-      fontSize,
-    );
-    const nivel3Lines = this.calculateTextLines(
-      doc,
-      data.nivel3 || '',
-      colWidths[4] - 4,
-      fontSize,
-    );
-
-    const maxLines = Math.max(nivel1Lines, nivel2Lines, nivel3Lines);
-    const row2Height = Math.max(baseRowHeight, maxLines * 12 + 6);
-
-    // ===== FILA 1 - HEADERS =====
-    // Columna A: "Centro de Costos" (combinada verticalmente con fila 2)
-    const centroCostosHeight = baseRowHeight + row2Height;
-    doc.rect(startX, currentY, colWidths[0], centroCostosHeight).stroke();
-    doc.fontSize(9).font('Helvetica-Bold');
-    doc.text(
-      'Centro de Costos',
-      startX + 2,
-      currentY + centroCostosHeight / 2 - 5,
-      {
-        width: colWidths[0] - 4,
-        align: 'center',
-      },
-    );
-
-    // Columnas B+C: "Nivel 1" (combinadas horizontalmente) con fondo azul
-    doc
-      .fillColor(headerColor)
-      .rect(startX + colWidths[0], currentY, nivel1Width, baseRowHeight)
-      .fill();
-    doc
-      .strokeColor('#000000')
-      .rect(startX + colWidths[0], currentY, nivel1Width, baseRowHeight)
-      .stroke();
-    doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
-    doc.text('Nivel 1', startX + colWidths[0] + 2, currentY + 5, {
-      width: nivel1Width - 4,
-      align: 'center',
-    });
-
-    // Columna D: "Nivel 2" con fondo azul
-    const xNivel2 = startX + colWidths[0] + nivel1Width;
-    doc
-      .fillColor(headerColor)
-      .rect(xNivel2, currentY, colWidths[3], baseRowHeight)
-      .fill();
-    doc
-      .strokeColor('#000000')
-      .rect(xNivel2, currentY, colWidths[3], baseRowHeight)
-      .stroke();
-    doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
-    doc.text('Nivel 2', xNivel2 + 2, currentY + 5, {
-      width: colWidths[3] - 4,
-      align: 'center',
-    });
-
-    // Columna E: "Nivel 3" con fondo azul
+    // Posiciones X reutilizadas en todas las filas
+    const xNivel2 = startX + colWidths[0] + colWidths[1] + colWidths[2];
     const xNivel3 = xNivel2 + colWidths[3];
-    doc
-      .fillColor(headerColor)
-      .rect(xNivel3, currentY, colWidths[4], baseRowHeight)
-      .fill();
-    doc
-      .strokeColor('#000000')
-      .rect(xNivel3, currentY, colWidths[4], baseRowHeight)
-      .stroke();
-    doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold');
-    doc.text('Nivel 3', xNivel3 + 2, currentY + 5, {
-      width: colWidths[4] - 4,
-      align: 'center',
-    });
 
-    currentY += baseRowHeight;
-
-    // ===== FILA 2 - Nivel1 / Nivel2 / Nivel3 =====
-    // (altura ya calculada arriba como row2Height)
-    // (xNivel2 y xNivel3 ya definidas arriba)
-
-    // Columnas B+C: Nivel1 (combinadas horizontalmente)
-    doc.rect(startX + colWidths[0], currentY, nivel1Width, row2Height).stroke();
-    doc.fontSize(fontSize).font('Helvetica');
-    doc.text(data.nivel1 || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: nivel1Width - 4,
-      align: 'center',
-    });
-
-    // Columna D: Nivel2
-    doc.rect(xNivel2, currentY, colWidths[3], row2Height).stroke();
-    doc.fontSize(fontSize).font('Helvetica');
-    doc.text(data.nivel2 || '', xNivel2 + 2, currentY + 5, {
-      width: colWidths[3] - 4,
-      align: 'center',
-    });
-
-    // Columna E: Nivel3
-    doc.rect(xNivel3, currentY, colWidths[4], row2Height).stroke();
-    doc.fontSize(fontSize).font('Helvetica');
-    doc.text(data.nivel3 || '', xNivel3 + 2, currentY + 5, {
-      width: colWidths[4] - 4,
-      align: 'center',
-    });
-
-    currentY += row2Height;
-
-    // ===== FILA 3 - PLACA / NA / MAQUINA / RB-001 =====
+    // ===== FILA - PLACA / MAQUINA =====
     // Columna A: "PLACA" (negrita)
     doc.rect(startX, currentY, colWidths[0], baseRowHeight).stroke();
     doc.fontSize(9).font('Helvetica-Bold');
@@ -1409,6 +1293,8 @@ export class OrdenCompraService {
       const rowData = [
         item.numero.toString(),
         item.descripcion,
+        item.centroCosto || '',
+        item.prorrateo != null ? item.prorrateo.toFixed(2) + '%' : '',
         item.codigo,
         item.unidadMedida,
         item.cantidad.toString(),
@@ -1434,7 +1320,7 @@ export class OrdenCompraService {
         const cellFontSize = index === 1 ? descripcionFontSize : fontSize;
         doc.fontSize(cellFontSize).font('Helvetica');
 
-        const align = index === 1 ? 'left' : index === 0 ? 'center' : 'right';
+        const align = index === 0 ? 'center' : index === 1 || index === 2 ? 'left' : 'right';
 
         // Calcular la posición Y centrada verticalmente para celdas que no son descripción
         const textY = index === 1

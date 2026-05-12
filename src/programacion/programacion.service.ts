@@ -20,6 +20,7 @@ import { SearchService } from '../search/search.service';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import * as ExcelJS from 'exceljs';
 
 // Configurar plugins de dayjs
 dayjs.extend(utc);
@@ -2098,5 +2099,167 @@ export class ProgramacionService {
       where: { id },
       data: { backend_logs: logs },
     });
+  }
+
+  async exportarExcel(filtros: {
+    proveedores?: string[];
+    unidades?: string[];
+    fechaDesde?: string;
+    fechaHasta?: string;
+  }): Promise<Buffer> {
+    const filterProveedores =
+      filtros.proveedores && filtros.proveedores.length > 0
+        ? Prisma.sql`AND e.razon_social IN (${Prisma.join(filtros.proveedores)})`
+        : Prisma.empty;
+
+    const filterUnidades =
+      filtros.unidades && filtros.unidades.length > 0
+        ? Prisma.sql`AND c.placa IN (${Prisma.join(filtros.unidades)})`
+        : Prisma.empty;
+
+    const filterFechaDesde = filtros.fechaDesde
+      ? Prisma.sql`AND pt.fecha >= ${new Date(filtros.fechaDesde)}`
+      : Prisma.empty;
+
+    const filterFechaHasta = filtros.fechaHasta
+      ? Prisma.sql`AND pt.fecha <= ${new Date(filtros.fechaHasta + 'T23:59:59')}`
+      : Prisma.empty;
+
+    const rows = await this.prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
+        pt.id,
+        pt.fecha,
+        pt.hora_partida,
+        pt.programacion,
+        pt.estado_programacion,
+        pt.m3,
+        pt.cantidad_viaje,
+        pt.numero_orden,
+        c.placa AS unidad,
+        c.nombre_chofer,
+        c.apellido_chofer,
+        e.razon_social AS proveedor,
+        COALESCE(sp.nombre, p.nombre) AS proyecto,
+        CASE WHEN sp.id_subproyecto IS NOT NULL THEN 'Subproyecto' ELSE 'Proyecto' END AS tipo_proyecto,
+        gr.enlace_del_pdf
+      FROM programacion_tecnica pt
+      LEFT JOIN camiones c ON pt.unidad = c.id_camion
+      LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+      LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+      LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+      LEFT JOIN guia_remision gr ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+        AND gr.estado_gre = 'COMPLETADO'
+      WHERE pt.deleted_at IS NULL
+      ${filterProveedores}
+      ${filterUnidades}
+      ${filterFechaDesde}
+      ${filterFechaHasta}
+      ORDER BY pt.fecha DESC, pt.id DESC
+    `);
+
+    const capitalizar = (texto: string | null) => {
+      if (!texto) return '';
+      return texto.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    };
+
+    const COLOR_HEADER_BG = 'FFEA580C'; // naranja brand
+    const COLOR_HEADER_FG = 'FFFFFFFF';
+    const COLOR_ROW_ALT   = 'FFFFF7ED'; // naranja muy claro
+    const COLOR_ROW_BASE  = 'FFFFFFFF';
+    const COLOR_OK_FG     = 'FF15803D';
+    const COLOR_NO_FG     = 'FFB91C1C';
+    const COLOR_PDF_FG    = 'FFB91C1C';
+    const COLOR_BORDER    = 'FFD1D5DB';
+
+    const borderThin: Partial<ExcelJS.Borders> = {
+      top:    { style: 'thin', color: { argb: COLOR_BORDER } },
+      left:   { style: 'thin', color: { argb: COLOR_BORDER } },
+      bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
+      right:  { style: 'thin', color: { argb: COLOR_BORDER } },
+    };
+
+    const wb = new ExcelJS.Workbook();
+    wb.creator = 'Ayala Sistema';
+    const ws = wb.addWorksheet('Programación', {
+      views: [{ state: 'frozen', ySplit: 1 }],
+    });
+
+    ws.columns = [
+      { header: 'ID',                key: 'id',           width: 8  },
+      { header: 'Fecha',             key: 'fecha',        width: 13 },
+      { header: 'Unidad',            key: 'unidad',       width: 13 },
+      { header: 'Proveedor',         key: 'proveedor',    width: 32 },
+      { header: 'Apellidos y Nombres', key: 'conductor',  width: 26 },
+      { header: 'Proyectos',         key: 'proyecto',     width: 26 },
+      { header: 'Programación',      key: 'programacion', width: 16 },
+      { header: 'H.P',               key: 'hp',           width: 9  },
+      { header: 'Estado',            key: 'estado',       width: 14 },
+      { header: 'M3',                key: 'm3',           width: 8  },
+      { header: 'Cant. Viaje',       key: 'cant_viaje',   width: 12 },
+      { header: 'Link PDF',          key: 'pdf',          width: 10 },
+      { header: 'Viaje Activado',    key: 'viaje',        width: 14 },
+    ];
+
+    const headerRow = ws.getRow(1);
+    headerRow.height = 22;
+    headerRow.eachCell(cell => {
+      cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLOR_HEADER_BG } };
+      cell.font      = { bold: true, color: { argb: COLOR_HEADER_FG }, size: 10 };
+      cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
+      cell.border    = borderThin;
+    });
+
+    rows.forEach((row, idx) => {
+      const fecha = row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : '';
+      const hora  = row.hora_partida ? dayjs(row.hora_partida).format('HH:mm') : '';
+      const conductor = [capitalizar(row.nombre_chofer), capitalizar(row.apellido_chofer)]
+        .filter(Boolean).join(' ');
+      const viajeActivado = row.numero_orden ? 'Sí' : 'No';
+      const bgColor = idx % 2 === 0 ? COLOR_ROW_BASE : COLOR_ROW_ALT;
+
+      const excelRow = ws.addRow({
+        id:           Number(row.id),
+        fecha,
+        unidad:       row.unidad       || '',
+        proveedor:    row.proveedor    || '',
+        conductor,
+        proyecto:     row.proyecto     || '',
+        programacion: row.programacion || '',
+        hp:           hora,
+        estado:       row.estado_programacion || '',
+        m3:           row.m3 != null ? row.m3.toString() : '',
+        cant_viaje:   row.cantidad_viaje != null ? Number(row.cantidad_viaje) : '',
+        pdf:          '',
+        viaje:        viajeActivado,
+      });
+
+      excelRow.height = 18;
+      excelRow.eachCell({ includeEmpty: true }, cell => {
+        cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgColor } };
+        cell.font      = { size: 9 };
+        cell.alignment = { vertical: 'middle', wrapText: false };
+        cell.border    = borderThin;
+      });
+
+      const estadoCell = excelRow.getCell('estado');
+      if (row.estado_programacion === 'OK') {
+        estadoCell.font = { size: 9, bold: true, color: { argb: COLOR_OK_FG } };
+      } else if (row.estado_programacion === 'NO EJECUTADO') {
+        estadoCell.font = { size: 9, bold: true, color: { argb: COLOR_NO_FG } };
+      }
+
+      const viajeCell = excelRow.getCell('viaje');
+      viajeCell.font = { size: 9, bold: viajeActivado === 'Sí', color: { argb: viajeActivado === 'Sí' ? 'FFEA580C' : 'FF6B7280' } };
+      viajeCell.alignment = { vertical: 'middle', horizontal: 'center' };
+
+      if (row.enlace_del_pdf) {
+        const pdfCell = excelRow.getCell('pdf');
+        pdfCell.value = { text: 'PDF', hyperlink: row.enlace_del_pdf };
+        pdfCell.font  = { size: 9, bold: true, underline: true, color: { argb: COLOR_PDF_FG } };
+        pdfCell.alignment = { vertical: 'middle', horizontal: 'center' };
+      }
+    });
+
+    return wb.xlsx.writeBuffer() as Promise<Buffer>;
   }
 }

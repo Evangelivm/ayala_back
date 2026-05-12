@@ -14,7 +14,9 @@ import {
   StreamableFile,
   Header,
   UseInterceptors,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { ProgramacionService } from './programacion.service';
 import { BackendLogsInterceptor } from '../common/interceptors/backend-logs.interceptor';
 import {
@@ -276,6 +278,23 @@ export class ProgramacionController {
     this.logger.log(`Eliminando registro con ID: ${id}`);
 
     return await this.programacionService.deleteById(id);
+  }
+
+  @Post('exportar-excel')
+  async exportarExcel(
+    @Body() body: { proveedores?: string[]; unidades?: string[]; fechaDesde?: string; fechaHasta?: string },
+    @Res() res: Response,
+  ) {
+    try {
+      const buffer = await this.programacionService.exportarExcel(body);
+      const fecha = new Date().toISOString().split('T')[0];
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="programacion_${fecha}.xlsx"`);
+      res.send(buffer);
+    } catch (error) {
+      this.logger.error('Error exportando Excel:', error);
+      throw new HttpException('Error al generar el archivo Excel', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Post('combinar-pdfs')

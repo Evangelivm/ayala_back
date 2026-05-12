@@ -41,6 +41,8 @@ export interface DetalleItem {
   cantidad: number;
   valorUnitario: number;
   subTotal: number;
+  centroCosto?: string;
+  prorrateo?: number | null;
 }
 
 export interface Totales {
