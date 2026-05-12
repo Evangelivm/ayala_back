@@ -794,7 +794,7 @@ export class OrdenCompraService {
           'VALOR UNIT',
           'SUB TOTAL',
         ];
-        const detalleColWidths = [22, 110, 90, 55, 45, 28, 28, 68, 69];
+        const detalleColWidths = [22, 120, 60, 45, 65, 38, 28, 68, 69];
 
         yPos = this.drawDetalleTable(
           doc,
@@ -1302,7 +1302,7 @@ export class OrdenCompraService {
         item.subTotal.toFixed(4),
       ];
 
-      // Calcular la altura necesaria para la descripción (columna índice 1) con fuente más pequeña
+      // Calcular la altura necesaria para descripción y centro costo
       doc.fontSize(descripcionFontSize).font('Helvetica');
       const descripcionLines = this.calculateTextLines(
         doc,
@@ -1310,7 +1310,14 @@ export class OrdenCompraService {
         colWidths[1] - 4,
         descripcionFontSize,
       );
-      const rowHeight = Math.max(baseRowHeight, descripcionLines * 8 + 6);
+      doc.fontSize(fontSize).font('Helvetica');
+      const centroCostoLines = this.calculateTextLines(
+        doc,
+        item.centroCosto || '',
+        colWidths[2] - 4,
+        fontSize,
+      );
+      const rowHeight = Math.max(baseRowHeight, descripcionLines * 8 + 6, centroCostoLines * 9 + 6);
 
       // Dibujar las celdas con la altura calculada
       rowData.forEach((cell, index) => {
@@ -1323,9 +1330,9 @@ export class OrdenCompraService {
         const align = index === 0 ? 'center' : index === 1 || index === 2 ? 'left' : 'right';
 
         // Calcular la posición Y centrada verticalmente para celdas que no son descripción
-        const textY = index === 1
-          ? currentY + 3  // Para descripción, empezar desde arriba
-          : currentY + (rowHeight / 2) - 3; // Para otras celdas, centrar verticalmente
+        const textY = index === 1 || index === 2
+          ? currentY + 3  // Descripción y Centro Costo: empezar desde arriba
+          : currentY + (rowHeight / 2) - 3; // Otras celdas: centrar verticalmente
 
         doc.text(cell, currentX + 2, textY, {
           width: colWidths[index] - 4,

@@ -812,7 +812,7 @@ export class OrdenServicioService {
           'VALOR UNIT',
           'SUB TOTAL',
         ];
-        const detalleColWidths = [22, 110, 90, 55, 45, 28, 28, 68, 69];
+        const detalleColWidths = [22, 120, 60, 45, 65, 38, 28, 68, 69];
 
         yPos = this.drawDetalleTable(
           doc,
@@ -1349,7 +1349,7 @@ export class OrdenServicioService {
         item.subTotal.toFixed(4),
       ];
 
-      // Calcular la altura de la fila basándose en la descripción (índice 1)
+      // Calcular la altura de la fila basándose en descripción y centro costo
       doc.fontSize(7).font('Helvetica');
       const descripcionLines = this.calculateTextLines(
         doc,
@@ -1357,7 +1357,13 @@ export class OrdenServicioService {
         colWidths[1] - 4,
         7,
       );
-      const rowHeight = Math.max(18, descripcionLines * 10 + 8);
+      const centroCostoLines = this.calculateTextLines(
+        doc,
+        item.centroCosto || '',
+        colWidths[2] - 4,
+        7,
+      );
+      const rowHeight = Math.max(18, descripcionLines * 10 + 8, centroCostoLines * 10 + 8);
 
       // Dibujar las celdas con la altura calculada
       currentX = startX;
@@ -1366,15 +1372,15 @@ export class OrdenServicioService {
         doc.fontSize(7).font('Helvetica');
         const align = index === 0 ? 'center' : index === 1 || index === 2 ? 'left' : 'right';
 
-        // Para la descripción, usar el espacio completo con line breaks
-        if (index === 1) {
+        // Descripción y Centro Costo: empezar desde arriba
+        if (index === 1 || index === 2) {
           doc.text(cell, currentX + 2, currentY + 5, {
             width: colWidths[index] - 4,
             align: align as any,
             lineGap: 0,
           });
         } else {
-          // Para las demás columnas, centrar verticalmente el texto
+          // Otras columnas: centrar verticalmente el texto
           const textY = currentY + (rowHeight - 10) / 2;
           doc.text(cell, currentX + 2, textY, {
             width: colWidths[index] - 4,
