@@ -812,7 +812,7 @@ export class OrdenServicioService {
           'VALOR UNIT',
           'SUB TOTAL',
         ];
-        const detalleColWidths = [22, 120, 60, 45, 65, 38, 28, 68, 69];
+        const detalleColWidths = [22, 120, 60, 55, 55, 38, 28, 68, 69];
 
         yPos = this.drawDetalleTable(
           doc,
