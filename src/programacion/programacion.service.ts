@@ -150,29 +150,48 @@ export class ProgramacionService {
 
       // Indexar nuevos registros en Elasticsearch (fire-and-forget)
       if (this.searchService) {
-        const newRecords = await this.prisma.programacion_tecnica.findMany({
-          where: {
-            identificador_unico: {
-              in: programacionData
-                .map((p) => p.identificador_unico)
-                .filter(Boolean) as string[],
-            },
-          },
-          select: {
-            id: true,
-            fecha: true,
-            identificador_unico: true,
-            estado_programacion: true,
-          },
-        });
-        for (const r of newRecords) {
-          this.searchService.indexDoc('programacion_tecnica', r.id.toString(), {
-            id: r.id,
-            fecha: r.fecha ? dayjs(r.fecha).format('YYYY-MM-DD') : null,
-            identificador_unico: r.identificador_unico,
-            estado_programacion: r.estado_programacion,
-            deleted_at: null,
-          });
+        const identifUnicos = programacionData
+          .map((p) => p.identificador_unico)
+          .filter(Boolean) as string[];
+        if (identifUnicos.length > 0) {
+          const newRecords = await this.prisma.$queryRaw<any[]>(
+            Prisma.sql`
+              SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion,
+                     pt.programacion, pt.m3,
+                     c.placa AS unidad_placa, c.nombre_chofer, c.apellido_chofer,
+                     e.razon_social AS empresa_razon_social,
+                     p.nombre AS nombre_proyecto,
+                     sp.nombre AS nombre_subproyecto
+              FROM programacion_tecnica pt
+              LEFT JOIN camiones c ON pt.unidad = c.id_camion
+              LEFT JOIN empresas_2025 e
+                     ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+              LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+              LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+              WHERE pt.identificador_unico IN (${Prisma.join(identifUnicos)})
+            `,
+          );
+          const capitalize = (s: string | null) =>
+            s ? s.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : null;
+          for (const r of newRecords) {
+            const apellidos_nombres = [capitalize(r.nombre_chofer), capitalize(r.apellido_chofer)]
+              .filter(Boolean).join(' ') || null;
+            const fechaStr = r.fecha ? dayjs(r.fecha).format('YYYY-MM-DD') : null;
+            this.searchService.indexDoc('programacion_tecnica', r.id.toString(), {
+              id: r.id,
+              fecha: fechaStr,
+              fecha_str: fechaStr,
+              proveedor: r.empresa_razon_social || null,
+              apellidos_nombres,
+              proyectos: r.nombre_subproyecto || r.nombre_proyecto || null,
+              unidad: r.unidad_placa || null,
+              programacion: r.programacion || null,
+              m3: r.m3 != null ? r.m3.toString() : null,
+              identificador_unico: r.identificador_unico,
+              estado_programacion: r.estado_programacion,
+              deleted_at: null,
+            });
+          }
         }
       }
 

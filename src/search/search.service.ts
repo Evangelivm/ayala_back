@@ -84,9 +84,13 @@ export class SearchService implements OnModuleInit {
           properties: {
             id: { type: 'integer' },
             fecha: { type: 'date' },
+            fecha_str: { type: 'keyword' },
             proveedor: { type: 'text', analyzer: 'standard' },
             apellidos_nombres: { type: 'text', analyzer: 'standard' },
             proyectos: { type: 'text', analyzer: 'standard' },
+            unidad: { type: 'text', fields: { keyword: { type: 'keyword' } } },
+            programacion: { type: 'keyword' },
+            m3: { type: 'text' },
             identificador_unico: {
               type: 'text',
               fields: { keyword: { type: 'keyword' } },
@@ -140,6 +144,15 @@ export class SearchService implements OnModuleInit {
           mappings: index.mappings,
         });
         this.logger.log(`Índice creado: ${index.name}`);
+      } else {
+        try {
+          await this.client.indices.putMapping({
+            index: index.name,
+            properties: index.mappings.properties,
+          });
+        } catch (e) {
+          this.logger.warn(`putMapping ${index.name}: ${(e as Error).message}`);
+        }
       }
     }
   }
@@ -203,7 +216,8 @@ export class SearchService implements OnModuleInit {
     // ── programacion_tecnica ──────────────────────────────────────────────────
     const ptRows = await this.prisma.$queryRaw<any[]>`
       SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion, pt.deleted_at,
-             c.nombre_chofer, c.apellido_chofer,
+             pt.programacion, pt.m3,
+             c.nombre_chofer, c.apellido_chofer, c.placa AS unidad_placa,
              e.razon_social AS empresa_razon_social,
              p.nombre AS nombre_proyecto,
              sp.nombre AS nombre_subproyecto
@@ -233,9 +247,13 @@ export class SearchService implements OnModuleInit {
         {
           id: pt.id,
           fecha: pt.fecha ? dayjs(pt.fecha).format('YYYY-MM-DD') : null,
+          fecha_str: pt.fecha ? dayjs(pt.fecha).format('YYYY-MM-DD') : null,
           proveedor: pt.empresa_razon_social || null,
           apellidos_nombres: nombreCompleto,
           proyectos: pt.nombre_subproyecto || pt.nombre_proyecto || null,
+          unidad: pt.unidad_placa || null,
+          programacion: pt.programacion || null,
+          m3: pt.m3 != null ? pt.m3.toString() : null,
           identificador_unico: pt.identificador_unico || null,
           estado_programacion: pt.estado_programacion || null,
           deleted_at: pt.deleted_at
@@ -336,6 +354,10 @@ export class SearchService implements OnModuleInit {
         'proveedor',
         'apellidos_nombres',
         'proyectos',
+        'unidad',
+        'programacion',
+        'm3',
+        'fecha_str',
         'identificador_unico',
         'estado_programacion',
       ],
@@ -359,13 +381,26 @@ export class SearchService implements OnModuleInit {
       ordenes_servicio: 'fecha_orden',
     };
 
-    const esQuery: any = q
+    const trimmedQ = q ? q.trim() : '';
+    const isNumericQ = /^\d+$/.test(trimmedQ);
+
+    const esQuery: any = trimmedQ
       ? {
-          multi_match: {
-            query: q,
-            fields: searchFields[index],
-            type: 'best_fields',
-            fuzziness: 'AUTO',
+          bool: {
+            should: [
+              {
+                multi_match: {
+                  query: trimmedQ,
+                  fields: searchFields[index],
+                  type: 'best_fields',
+                  fuzziness: 'AUTO',
+                },
+              },
+              ...(isNumericQ && index === 'programacion_tecnica'
+                ? [{ term: { id: parseInt(trimmedQ) } }]
+                : []),
+            ],
+            minimum_should_match: 1,
           },
         }
       : { match_all: {} };
@@ -449,10 +484,15 @@ export class SearchService implements OnModuleInit {
             WHERE (e.razon_social LIKE ${searchParam}
                 OR c.nombre_chofer LIKE ${searchParam}
                 OR c.apellido_chofer LIKE ${searchParam}
+                OR c.placa LIKE ${searchParam}
                 OR pt.identificador_unico LIKE ${searchParam}
                 OR pt.estado_programacion LIKE ${searchParam}
+                OR pt.programacion LIKE ${searchParam}
+                OR CAST(pt.m3 AS CHAR) LIKE ${searchParam}
+                OR CAST(pt.fecha AS CHAR) LIKE ${searchParam}
                 OR p.nombre LIKE ${searchParam}
-                OR sp.nombre LIKE ${searchParam})`,
+                OR sp.nombre LIKE ${searchParam}
+                OR CAST(pt.id AS CHAR) = ${q})`,
         ),
         this.prisma.$queryRaw<any[]>(
           Prisma.sql`SELECT pt.*,
@@ -473,10 +513,15 @@ export class SearchService implements OnModuleInit {
             WHERE (e.razon_social LIKE ${searchParam}
                 OR c.nombre_chofer LIKE ${searchParam}
                 OR c.apellido_chofer LIKE ${searchParam}
+                OR c.placa LIKE ${searchParam}
                 OR pt.identificador_unico LIKE ${searchParam}
                 OR pt.estado_programacion LIKE ${searchParam}
+                OR pt.programacion LIKE ${searchParam}
+                OR CAST(pt.m3 AS CHAR) LIKE ${searchParam}
+                OR CAST(pt.fecha AS CHAR) LIKE ${searchParam}
                 OR p.nombre LIKE ${searchParam}
-                OR sp.nombre LIKE ${searchParam})
+                OR sp.nombre LIKE ${searchParam}
+                OR CAST(pt.id AS CHAR) = ${q})
             ORDER BY pt.fecha DESC
             LIMIT ${limit} OFFSET ${offset}`,
         ),
