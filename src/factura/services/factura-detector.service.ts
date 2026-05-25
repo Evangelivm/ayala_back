@@ -31,40 +31,42 @@ export class FacturaDetectorService {
    */
   private mapearUnidadMedidaSunat(unidad: string): string {
     const mapeo: Record<string, string> = {
-      'UNIDAD': 'NIU',
-      'UNIDADES': 'NIU',
-      'UND': 'NIU',
-      'SERVICIO': 'ZZ',
-      'SERVICIOS': 'ZZ',
-      'SRV': 'ZZ',
-      'SERV': 'ZZ',
-      'METRO': 'MTR',
-      'METROS': 'MTR',
-      'M': 'MTR',
-      'KILOGRAMO': 'KGM',
-      'KILOGRAMOS': 'KGM',
-      'KG': 'KGM',
-      'LITRO': 'LTR',
-      'LITROS': 'LTR',
-      'L': 'LTR',
+      UNIDAD: 'NIU',
+      UNIDADES: 'NIU',
+      UND: 'NIU',
+      SERVICIO: 'ZZ',
+      SERVICIOS: 'ZZ',
+      SRV: 'ZZ',
+      SERV: 'ZZ',
+      METRO: 'MTR',
+      METROS: 'MTR',
+      M: 'MTR',
+      KILOGRAMO: 'KGM',
+      KILOGRAMOS: 'KGM',
+      KG: 'KGM',
+      LITRO: 'LTR',
+      LITROS: 'LTR',
+      L: 'LTR',
       'METRO CUBICO': 'MTQ',
-      'M3': 'MTQ',
-      'TONELADA': 'TNE',
-      'TONELADAS': 'TNE',
-      'TON': 'TNE',
-      'CAJA': 'BX',
-      'CAJAS': 'BX',
-      'BOLSA': 'BG',
-      'BOLSAS': 'BG',
-      'PAQUETE': 'PK',
-      'PAQUETES': 'PK',
+      M3: 'MTQ',
+      TONELADA: 'TNE',
+      TONELADAS: 'TNE',
+      TON: 'TNE',
+      CAJA: 'BX',
+      CAJAS: 'BX',
+      BOLSA: 'BG',
+      BOLSAS: 'BG',
+      PAQUETE: 'PK',
+      PAQUETES: 'PK',
     };
 
     const unidadUpper = unidad.toUpperCase().trim();
     const unidadMapeada = mapeo[unidadUpper] || unidad;
 
     if (unidadMapeada !== unidad) {
-      this.logger.debug(`Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`);
+      this.logger.debug(
+        `Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`,
+      );
     }
 
     return unidadMapeada;
@@ -146,7 +148,10 @@ export class FacturaDetectorService {
       }
 
       // 2. Validar tipo de comprobante
-      if (!record.tipo_de_comprobante || ![1, 2, 7, 8, 9, 13].includes(record.tipo_de_comprobante)) {
+      if (
+        !record.tipo_de_comprobante ||
+        ![1, 2, 7, 8, 9, 13].includes(record.tipo_de_comprobante)
+      ) {
         errors.push('tipo_de_comprobante inválido');
       }
 
@@ -162,11 +167,20 @@ export class FacturaDetectorService {
       // 4. Validar serie según tipo de comprobante
       if (record.tipo_de_comprobante === 1 && !record.serie.startsWith('F')) {
         errors.push('Factura debe iniciar con F');
-      } else if (record.tipo_de_comprobante === 2 && !record.serie.startsWith('B')) {
+      } else if (
+        record.tipo_de_comprobante === 2 &&
+        !record.serie.startsWith('B')
+      ) {
         errors.push('Boleta debe iniciar con B');
-      } else if (record.tipo_de_comprobante === 7 && !record.serie.startsWith('FC')) {
+      } else if (
+        record.tipo_de_comprobante === 7 &&
+        !record.serie.startsWith('FC')
+      ) {
         errors.push('Nota de Crédito debe iniciar con FC');
-      } else if (record.tipo_de_comprobante === 8 && !record.serie.startsWith('FD')) {
+      } else if (
+        record.tipo_de_comprobante === 8 &&
+        !record.serie.startsWith('FD')
+      ) {
         errors.push('Nota de Débito debe iniciar con FD');
       }
 
@@ -184,9 +198,15 @@ export class FacturaDetectorService {
       }
 
       // Validar tipo de documento cliente
-      if (record.cliente_tipo_documento === 6 && record.cliente_numero_documento?.length !== 11) {
+      if (
+        record.cliente_tipo_documento === 6 &&
+        record.cliente_numero_documento?.length !== 11
+      ) {
         errors.push('RUC debe tener 11 dígitos');
-      } else if (record.cliente_tipo_documento === 1 && record.cliente_numero_documento?.length !== 8) {
+      } else if (
+        record.cliente_tipo_documento === 1 &&
+        record.cliente_numero_documento?.length !== 8
+      ) {
         errors.push('DNI debe tener 8 dígitos');
       }
 
@@ -205,7 +225,10 @@ export class FacturaDetectorService {
         errors.push('total debe ser mayor a 0');
       }
 
-      if (record.porcentaje_igv && (record.porcentaje_igv < 0 || record.porcentaje_igv > 100)) {
+      if (
+        record.porcentaje_igv &&
+        (record.porcentaje_igv < 0 || record.porcentaje_igv > 100)
+      ) {
         errors.push('porcentaje_igv inválido');
       }
 
@@ -238,7 +261,10 @@ export class FacturaDetectorService {
         if (!record.detraccion_tipo) {
           errors.push('detraccion_tipo es requerido cuando aplica detracción');
         }
-        if (!record.detraccion_porcentaje || record.detraccion_porcentaje <= 0) {
+        if (
+          !record.detraccion_porcentaje ||
+          record.detraccion_porcentaje <= 0
+        ) {
           errors.push('detraccion_porcentaje inválido');
         }
         if (!record.detraccion_total || record.detraccion_total <= 0) {
@@ -248,13 +274,16 @@ export class FacturaDetectorService {
 
       // 12. Validar totales coherentes (si están presentes)
       if (record.total_gravada !== null && record.total_gravada !== undefined) {
-        const totalCalculado = this.decimalToNumber(record.total_gravada) +
-                               this.decimalToNumber(record.total_igv || 0);
+        const totalCalculado =
+          this.decimalToNumber(record.total_gravada) +
+          this.decimalToNumber(record.total_igv || 0);
         const totalFactura = this.decimalToNumber(record.total);
 
         // Permitir diferencia de 0.01 por redondeos
         if (Math.abs(totalCalculado - totalFactura) > 0.01) {
-          errors.push(`total inconsistente: calculado ${totalCalculado}, registrado ${totalFactura}`);
+          errors.push(
+            `total inconsistente: calculado ${totalCalculado}, registrado ${totalFactura}`,
+          );
         }
       }
 
@@ -263,10 +292,7 @@ export class FacturaDetectorService {
         errors,
       };
     } catch (error) {
-      this.logger.error(
-        `Error validando factura ${record.id_factura}:`,
-        error,
-      );
+      this.logger.error(`Error validando factura ${record.id_factura}:`, error);
       return {
         isValid: false,
         errors: [`Error en validación: ${error.message}`],
@@ -297,7 +323,8 @@ export class FacturaDetectorService {
       const nubefactData = this.transformRecordToNubefactApi(record);
 
       // Procesar directamente sin Kafka
-      const nubefactResponse = await this.callNubefactGenerarComprobante(nubefactData);
+      const nubefactResponse =
+        await this.callNubefactGenerarComprobante(nubefactData);
 
       if (nubefactResponse.success) {
         this.logger.log(
@@ -336,10 +363,7 @@ export class FacturaDetectorService {
             enlace_cdr: responseData.enlace_del_cdr,
           });
         } catch (wsError) {
-          this.logger.warn(
-            `Error emitiendo WebSocket (no crítico):`,
-            wsError,
-          );
+          this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
         }
       } else {
         this.logger.error(
@@ -394,10 +418,7 @@ export class FacturaDetectorService {
           this.logger.warn(`Error emitiendo WebSocket (no crítico):`, wsError);
         }
       } catch (updateError) {
-        this.logger.error(
-          `Error actualizando estado a FALLADO:`,
-          updateError,
-        );
+        this.logger.error(`Error actualizando estado a FALLADO:`, updateError);
       }
 
       throw error;
@@ -411,9 +432,13 @@ export class FacturaDetectorService {
    */
   private transformRecordToNubefactApi(record: any): any {
     // DEBUG: Log de datos antes de transformar
-    this.logger.debug(`[TRANSFORM] condiciones_de_pago: ${record.condiciones_de_pago}`);
+    this.logger.debug(
+      `[TRANSFORM] condiciones_de_pago: ${record.condiciones_de_pago}`,
+    );
     this.logger.debug(`[TRANSFORM] medio_de_pago: ${record.medio_de_pago}`);
-    this.logger.debug(`[TRANSFORM] factura_venta_credito count: ${record.factura_venta_credito?.length || 0}`);
+    this.logger.debug(
+      `[TRANSFORM] factura_venta_credito count: ${record.factura_venta_credito?.length || 0}`,
+    );
 
     const result = {
       // Datos principales
@@ -554,7 +579,8 @@ export class FacturaDetectorService {
         total: this.decimalToNumber(item.total),
         anticipo_regularizacion: item.anticipo_regularizacion,
         anticipo_comprobante_serie: item.anticipo_documento_serie || undefined,
-        anticipo_comprobante_numero: item.anticipo_documento_numero || undefined,
+        anticipo_comprobante_numero:
+          item.anticipo_documento_numero || undefined,
       })),
 
       // Guías relacionadas
@@ -578,9 +604,15 @@ export class FacturaDetectorService {
     };
 
     // DEBUG: Log de lo que se enviará a NubeFact
-    this.logger.debug(`[TRANSFORM RESULT] condiciones_de_pago: ${result.condiciones_de_pago}`);
-    this.logger.debug(`[TRANSFORM RESULT] medio_de_pago: ${result.medio_de_pago}`);
-    this.logger.debug(`[TRANSFORM RESULT] venta_al_credito: ${JSON.stringify(result.venta_al_credito)}`);
+    this.logger.debug(
+      `[TRANSFORM RESULT] condiciones_de_pago: ${result.condiciones_de_pago}`,
+    );
+    this.logger.debug(
+      `[TRANSFORM RESULT] medio_de_pago: ${result.medio_de_pago}`,
+    );
+    this.logger.debug(
+      `[TRANSFORM RESULT] venta_al_credito: ${JSON.stringify(result.venta_al_credito)}`,
+    );
 
     return result;
   }
@@ -600,7 +632,9 @@ export class FacturaDetectorService {
     const year = dateObj.year();
     const formatted = `${day}-${month}-${year}`;
 
-    this.logger.debug(`Fecha formateada para Nubefact: ${date} -> ${formatted}`);
+    this.logger.debug(
+      `Fecha formateada para Nubefact: ${date} -> ${formatted}`,
+    );
 
     return formatted;
   }
@@ -612,7 +646,8 @@ export class FacturaDetectorService {
    */
   private decimalToString(value: Decimal | number | null | undefined): string {
     if (value === null || value === undefined) return '0.00';
-    const num = typeof value === 'number' ? value : parseFloat(value.toString());
+    const num =
+      typeof value === 'number' ? value : parseFloat(value.toString());
     return num.toFixed(2);
   }
 
@@ -649,7 +684,10 @@ export class FacturaDetectorService {
         throw new Error(`Factura ${id_factura} no encontrada`);
       }
 
-      if (factura.estado_factura !== null && factura.estado_factura !== 'FALLADO') {
+      if (
+        factura.estado_factura !== null &&
+        factura.estado_factura !== 'FALLADO'
+      ) {
         throw new Error(
           `Factura ${id_factura} está en estado ${factura.estado_factura}, solo se puede forzar NULL o FALLADO`,
         );
@@ -668,7 +706,10 @@ export class FacturaDetectorService {
 
       this.logger.log(`Factura ${id_factura} procesada exitosamente`);
     } catch (error) {
-      this.logger.error(`Error en detección forzada de factura ${id_factura}:`, error);
+      this.logger.error(
+        `Error en detección forzada de factura ${id_factura}:`,
+        error,
+      );
       throw error;
     }
   }

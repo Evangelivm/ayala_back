@@ -19,7 +19,10 @@ export type ProveedorDto = z.infer<typeof ProveedorSchema>;
 // DTO para crear un proveedor (sin codigo_proveedor porque se genera automáticamente)
 export const CreateProveedorSchema = z.object({
   nombre_proveedor: z.string().min(1, 'El nombre del proveedor es obligatorio'),
-  ruc: z.string().min(11, 'El RUC debe tener 11 dígitos').max(11, 'El RUC debe tener 11 dígitos'),
+  ruc: z
+    .string()
+    .min(11, 'El RUC debe tener 11 dígitos')
+    .max(11, 'El RUC debe tener 11 dígitos'),
   contacto: z.string().optional().nullable(),
   telefono: z.string().optional().nullable(),
   email: z.string().email('Email inválido').optional().nullable(),

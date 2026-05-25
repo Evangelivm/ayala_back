@@ -12,7 +12,10 @@ export class KardexPdfService {
 
         console.log('=== DEBUG INFO ===');
         console.log('kardexLAR.rows length:', kardexLAR.rows?.length || 0);
-        console.log('metodoPromedioLAR.rows length:', metodoPromedioLAR.rows?.length || 0);
+        console.log(
+          'metodoPromedioLAR.rows length:',
+          metodoPromedioLAR.rows?.length || 0,
+        );
 
         // Crear documento PDF
         const doc = new PDFDocument({
@@ -34,7 +37,10 @@ export class KardexPdfService {
         doc
           .fontSize(11)
           .font('Helvetica-Bold')
-          .text(kardexLAR.header.empresa, 50, 30, { width: 900, align: 'center' });
+          .text(kardexLAR.header.empresa, 50, 30, {
+            width: 900,
+            align: 'center',
+          });
 
         doc.fontSize(9).font('Helvetica');
         let yPos = 50;
@@ -73,7 +79,14 @@ export class KardexPdfService {
         ];
 
         yPos = this.drawTableHeader(doc, 50, yPos, kardexHeaders, 18);
-        yPos = this.drawKardexRows(doc, 50, yPos, kardexLAR.rows, kardexHeaders, 18);
+        yPos = this.drawKardexRows(
+          doc,
+          50,
+          yPos,
+          kardexLAR.rows,
+          kardexHeaders,
+          18,
+        );
 
         // Info de stock
         doc.fontSize(8).font('Helvetica-Bold');
@@ -92,7 +105,10 @@ export class KardexPdfService {
         doc
           .fontSize(11)
           .font('Helvetica-Bold')
-          .text(metodoPromedioLAR.header.empresa, 50, 30, { width: 900, align: 'center' });
+          .text(metodoPromedioLAR.header.empresa, 50, 30, {
+            width: 900,
+            align: 'center',
+          });
 
         yPos = 50;
         doc.fontSize(9).font('Helvetica');
@@ -155,9 +171,10 @@ export class KardexPdfService {
           .rect(50, summaryY, 860, 90)
           .fillAndStroke('#f8f9fa', '#000000');
 
-        doc
-          .fillColor('#000000')
-          .text('Resumen Final', 50, summaryY + 10, { width: 860, align: 'center' });
+        doc.fillColor('#000000').text('Resumen Final', 50, summaryY + 10, {
+          width: 860,
+          align: 'center',
+        });
 
         const summaryItemWidth = 215;
         let summaryX = 50;
@@ -203,10 +220,15 @@ export class KardexPdfService {
           .fontSize(10)
           .font('Helvetica-Bold')
           .fillColor('#22c55e')
-          .text(`$ ${metodoPromedioLAR.summary.compras}`, summaryX + 5, summaryItemY + 18, {
-            width: summaryItemWidth - 10,
-            align: 'left',
-          });
+          .text(
+            `$ ${metodoPromedioLAR.summary.compras}`,
+            summaryX + 5,
+            summaryItemY + 18,
+            {
+              width: summaryItemWidth - 10,
+              align: 'left',
+            },
+          );
 
         // Costo de Ventas
         summaryX += summaryItemWidth;
@@ -225,10 +247,15 @@ export class KardexPdfService {
           .fontSize(10)
           .font('Helvetica-Bold')
           .fillColor('#ef4444')
-          .text(`$ ${metodoPromedioLAR.summary.costoDeVentas}`, summaryX + 5, summaryItemY + 18, {
-            width: summaryItemWidth - 10,
-            align: 'left',
-          });
+          .text(
+            `$ ${metodoPromedioLAR.summary.costoDeVentas}`,
+            summaryX + 5,
+            summaryItemY + 18,
+            {
+              width: summaryItemWidth - 10,
+              align: 'left',
+            },
+          );
 
         // Inventario Final
         summaryX += summaryItemWidth;
@@ -247,10 +274,15 @@ export class KardexPdfService {
           .fontSize(10)
           .font('Helvetica-Bold')
           .fillColor('#a855f7')
-          .text(`$ ${metodoPromedioLAR.summary.inventarioFinal}`, summaryX + 5, summaryItemY + 18, {
-            width: summaryItemWidth - 10,
-            align: 'left',
-          });
+          .text(
+            `$ ${metodoPromedioLAR.summary.inventarioFinal}`,
+            summaryX + 5,
+            summaryItemY + 18,
+            {
+              width: summaryItemWidth - 10,
+              align: 'left',
+            },
+          );
 
         // Verificación
         const verificationY = summaryItemY + 45;
@@ -291,7 +323,10 @@ export class KardexPdfService {
     let currentX = startX;
     headers.forEach((header) => {
       // Dibujar borde de celda
-      doc.strokeColor('#000000').rect(currentX, startY, header.width, rowHeight).stroke();
+      doc
+        .strokeColor('#000000')
+        .rect(currentX, startY, header.width, rowHeight)
+        .stroke();
 
       // Dibujar texto
       doc.fillColor('#000000').fontSize(7).font('Helvetica-Bold');
@@ -333,7 +368,10 @@ export class KardexPdfService {
       const totalWidth = headers.reduce((sum, h) => sum + h.width, 0);
 
       // Dibujar fondo de fila
-      doc.fillColor(bgColor).rect(startX, currentY, totalWidth, rowHeight).fill();
+      doc
+        .fillColor(bgColor)
+        .rect(startX, currentY, totalWidth, rowHeight)
+        .fill();
 
       const rowData = [
         row.ITM,
@@ -354,7 +392,10 @@ export class KardexPdfService {
       let currentX = startX;
       headers.forEach((header, index) => {
         // Dibujar borde
-        doc.strokeColor('#000000').rect(currentX, currentY, header.width, rowHeight).stroke();
+        doc
+          .strokeColor('#000000')
+          .rect(currentX, currentY, header.width, rowHeight)
+          .stroke();
 
         // Dibujar texto
         doc.fillColor('#000000').fontSize(7).font('Helvetica');
@@ -411,13 +452,17 @@ export class KardexPdfService {
     let currentX = startX;
     headers.forEach((header, index) => {
       // Dibujar borde
-      doc.strokeColor('#000000').rect(currentX, startY, header.width, rowHeight).stroke();
+      doc
+        .strokeColor('#000000')
+        .rect(currentX, startY, header.width, rowHeight)
+        .stroke();
 
       // Dibujar texto
       doc.fillColor('#000000').fontSize(6).font('Helvetica');
       const cellValue = rowData[index]?.toString() || '';
       const textY = startY + (rowHeight - 6) / 2 + 2;
-      const align = index >= 5 && index !== 4 ? 'right' : index === 4 ? 'left' : 'center';
+      const align =
+        index >= 5 && index !== 4 ? 'right' : index === 4 ? 'left' : 'center';
 
       doc.text(cellValue, currentX + 3, textY, {
         width: header.width - 6,
@@ -455,7 +500,10 @@ export class KardexPdfService {
       const totalWidth = headers.reduce((sum, h) => sum + h.width, 0);
 
       // Dibujar fondo de fila
-      doc.fillColor('#ffffff').rect(startX, currentY, totalWidth, rowHeight).fill();
+      doc
+        .fillColor('#ffffff')
+        .rect(startX, currentY, totalWidth, rowHeight)
+        .fill();
 
       const rowData = [
         row.Periodo,
@@ -477,7 +525,10 @@ export class KardexPdfService {
       let currentX = startX;
       headers.forEach((header, index) => {
         // Dibujar borde
-        doc.strokeColor('#000000').rect(currentX, currentY, header.width, rowHeight).stroke();
+        doc
+          .strokeColor('#000000')
+          .rect(currentX, currentY, header.width, rowHeight)
+          .stroke();
 
         // Dibujar texto
         doc.fillColor('#000000').fontSize(6).font('Helvetica');

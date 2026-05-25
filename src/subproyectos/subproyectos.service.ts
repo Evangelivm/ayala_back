@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateSubproyectoDto, UpdateSubproyectoDto } from '../dto/subproyectos.dto';
+import {
+  CreateSubproyectoDto,
+  UpdateSubproyectoDto,
+} from '../dto/subproyectos.dto';
 
 @Injectable()
 export class SubproyectosService {
@@ -60,7 +63,7 @@ export class SubproyectosService {
     return this.prisma.subproyectos.findMany({
       where: {
         id_proyecto: idProyecto,
-        activo: true
+        activo: true,
       },
       include: {
         proyecto: true,

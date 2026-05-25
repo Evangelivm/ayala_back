@@ -53,7 +53,7 @@ export class ProveedoresService {
         const match = p.codigo_proveedor?.match(/^PROV(\d{3})$/);
         return match ? parseInt(match[1], 10) : null;
       })
-      .filter((num) => num !== null) as number[];
+      .filter((num) => num !== null);
 
     // Ordenar los números
     numerosUsados.sort((a, b) => a - b);
@@ -70,7 +70,9 @@ export class ProveedoresService {
 
     // Validar que no se exceda el límite
     if (numeroDisponible > 999) {
-      throw new BadRequestException('No hay códigos de proveedor disponibles (límite PROV999 alcanzado)');
+      throw new BadRequestException(
+        'No hay códigos de proveedor disponibles (límite PROV999 alcanzado)',
+      );
     }
 
     // Formatear el número con 3 dígitos (1 -> 001, 2 -> 002, 100 -> 100)
@@ -149,7 +151,8 @@ export class ProveedoresService {
         email: createProveedorDto.email || null,
         direccion: createProveedorDto.direccion || null,
         entidad_bancaria: createProveedorDto.entidad_bancaria || null,
-        numero_cuenta_bancaria: createProveedorDto.numero_cuenta_bancaria || null,
+        numero_cuenta_bancaria:
+          createProveedorDto.numero_cuenta_bancaria || null,
         retencion: createProveedorDto.retencion || null,
         es_agente_retencion: createProveedorDto.es_agente_retencion || null,
         activo: createProveedorDto.activo ?? true,

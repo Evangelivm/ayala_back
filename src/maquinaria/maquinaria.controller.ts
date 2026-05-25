@@ -1,6 +1,22 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { MaquinariaService } from './maquinaria.service';
-import { CreateMaquinariaSchema, UpdateMaquinariaSchema, type CreateMaquinariaDto, type UpdateMaquinariaDto } from '../dto/maquinaria.dto';
+import {
+  CreateMaquinariaSchema,
+  UpdateMaquinariaSchema,
+  type CreateMaquinariaDto,
+  type UpdateMaquinariaDto,
+} from '../dto/maquinaria.dto';
 
 @Controller('maquinaria')
 export class MaquinariaController {
@@ -31,20 +47,23 @@ export class MaquinariaController {
       return this.maquinariaService.create(validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateMaquinariaDto: UpdateMaquinariaDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateMaquinariaDto: UpdateMaquinariaDto,
+  ) {
     try {
       const validatedData = UpdateMaquinariaSchema.parse(updateMaquinariaDto);
       return this.maquinariaService.update(+id, validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }

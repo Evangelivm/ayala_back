@@ -25,7 +25,7 @@ export class AcarreoService {
     return text
       .toLowerCase()
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
@@ -81,24 +81,28 @@ export class AcarreoService {
           );
 
           // Preparar datos para programacion_tecnica (mapear peso a m3 e incluir id_proyecto y id_subproyecto)
-          const acarreoTecnicaData = data.map((item: AcarreoItemDto, index: number) => ({
-            fecha: acarreoData[index].fecha,
-            unidad: acarreoData[index].unidad,
-            proveedor: acarreoData[index].proveedor,
-            programacion: acarreoData[index].programacion,
-            hora_partida: acarreoData[index].hora_partida,
-            estado_programacion: acarreoData[index].estado_programacion,
-            comentarios: acarreoData[index].comentarios,
-            identificador_unico: acarreoData[index].identificador_unico,
-            m3: acarreoData[index].peso, // Mapear peso a m3 (ambos son Decimal)
-            punto_llegada_direccion: acarreoData[index].punto_llegada_direccion,
-            punto_llegada_ubigeo: acarreoData[index].punto_llegada_ubigeo,
-            punto_partida_direccion: acarreoData[index].punto_partida_direccion,
-            punto_partida_ubigeo: acarreoData[index].punto_partida_ubigeo,
-            hora_registro: acarreoData[index].hora_registro, // Registrar la misma fecha y hora
-            id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
-            id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
-          }));
+          const acarreoTecnicaData = data.map(
+            (item: AcarreoItemDto, index: number) => ({
+              fecha: acarreoData[index].fecha,
+              unidad: acarreoData[index].unidad,
+              proveedor: acarreoData[index].proveedor,
+              programacion: acarreoData[index].programacion,
+              hora_partida: acarreoData[index].hora_partida,
+              estado_programacion: acarreoData[index].estado_programacion,
+              comentarios: acarreoData[index].comentarios,
+              identificador_unico: acarreoData[index].identificador_unico,
+              m3: acarreoData[index].peso, // Mapear peso a m3 (ambos son Decimal)
+              punto_llegada_direccion:
+                acarreoData[index].punto_llegada_direccion,
+              punto_llegada_ubigeo: acarreoData[index].punto_llegada_ubigeo,
+              punto_partida_direccion:
+                acarreoData[index].punto_partida_direccion,
+              punto_partida_ubigeo: acarreoData[index].punto_partida_ubigeo,
+              hora_registro: acarreoData[index].hora_registro, // Registrar la misma fecha y hora
+              id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
+              id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
+            }),
+          );
 
           // Inserción masiva en tabla programacion_tecnica
           const insertResultTecnica = await tx.programacion_tecnica.createMany({
@@ -258,13 +262,14 @@ export class AcarreoService {
       `;
 
       // Mapear los resultados al formato esperado por el frontend
-      const data = acarreoTecnica.map(at => {
+      const data = acarreoTecnica.map((at) => {
         // Capitalizar nombre y apellido por separado, luego concatenar
         const nombreCapitalizado = this.capitalizeWords(at.nombre_chofer);
         const apellidoCapitalizado = this.capitalizeWords(at.apellido_chofer);
-        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
-          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
-          : null;
+        const nombreCompleto =
+          nombreCapitalizado && apellidoCapitalizado
+            ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+            : null;
 
         // Determinar el nombre del proyecto y su tipo
         let nombreProyecto: string | null = null;
@@ -305,7 +310,10 @@ export class AcarreoService {
 
       return data;
     } catch (error) {
-      this.logger.error('Error al obtener registros de acarreo técnica:', error);
+      this.logger.error(
+        'Error al obtener registros de acarreo técnica:',
+        error,
+      );
       throw new InternalServerErrorException('Error al obtener los registros');
     }
   }

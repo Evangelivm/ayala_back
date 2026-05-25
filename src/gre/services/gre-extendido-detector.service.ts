@@ -25,20 +25,23 @@ export class GreExtendidoDetectorService {
 
       // ✅ NUEVO FLUJO: Buscar TODOS los registros con estado_gre NULL
       // Ya no se excluyen duplicados, todos se procesan automáticamente
-      const completeRecords = await this.prisma.guia_remision_extendida.findMany({
-        where: {
-          estado_gre: null,
-        },
-        include: {
-          items_extendida: true,
-          documento_relacionado_extendida: true,
-          vehiculos_secundarios_extendida: true,
-          conductores_secundarios_extendida: true,
-        },
-      });
+      const completeRecords =
+        await this.prisma.guia_remision_extendida.findMany({
+          where: {
+            estado_gre: null,
+          },
+          include: {
+            items_extendida: true,
+            documento_relacionado_extendida: true,
+            vehiculos_secundarios_extendida: true,
+            conductores_secundarios_extendida: true,
+          },
+        });
 
       if (completeRecords.length > 0) {
-        this.logger.log(`Encontrados ${completeRecords.length} registros extendidos para validar`);
+        this.logger.log(
+          `Encontrados ${completeRecords.length} registros extendidos para validar`,
+        );
 
         for (const record of completeRecords) {
           try {
@@ -48,17 +51,27 @@ export class GreExtendidoDetectorService {
             if (isValid) {
               await this.processCompleteRecord(record);
             } else {
-              this.logger.warn(`❌ Registro extendido ${record.id_guia} no cumple validaciones, OMITIDO (serie: ${record.serie}, tipo: ${record.tipo_de_comprobante})`);
+              this.logger.warn(
+                `❌ Registro extendido ${record.id_guia} no cumple validaciones, OMITIDO (serie: ${record.serie}, tipo: ${record.tipo_de_comprobante})`,
+              );
             }
           } catch (error) {
-            this.logger.error(`Error procesando registro extendido ${record.id_guia}:`, error);
+            this.logger.error(
+              `Error procesando registro extendido ${record.id_guia}:`,
+              error,
+            );
           }
         }
       } else {
-        this.logger.debug('No se encontraron registros extendidos completos pendientes');
+        this.logger.debug(
+          'No se encontraron registros extendidos completos pendientes',
+        );
       }
     } catch (error) {
-      this.logger.error('Error en detección de registros extendidos completos:', error);
+      this.logger.error(
+        'Error en detección de registros extendidos completos:',
+        error,
+      );
     }
   }
 
@@ -66,23 +79,31 @@ export class GreExtendidoDetectorService {
     try {
       // Validaciones comunes para ambos tipos
       if (!record.operacion || record.operacion !== 'generar_guia') {
-        this.logger.debug(`Registro extendido ${record.id_guia}: operacion inválida`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: operacion inválida`,
+        );
         return false;
       }
 
       if (!record.serie || record.serie.length !== 4) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: serie inválida`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: serie inválida`,
+        );
         return false;
       }
 
       if (!record.numero || record.numero < 1) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: numero inválido`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: numero inválido`,
+        );
         return false;
       }
 
       // Validar tipo de comprobante
       if (![7, 8].includes(record.tipo_de_comprobante)) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: tipo_de_comprobante debe ser 7 u 8`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: tipo_de_comprobante debe ser 7 u 8`,
+        );
         return false;
       }
 
@@ -91,55 +112,89 @@ export class GreExtendidoDetectorService {
       const tipoTransportista = record.tipo_de_comprobante === 8;
 
       if (tipoRemitente && !record.serie.startsWith('T')) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: GRE Remitente debe iniciar con T`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: GRE Remitente debe iniciar con T`,
+        );
         return false;
       }
 
       if (tipoTransportista && !record.serie.startsWith('V')) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: GRE Transportista debe iniciar con V`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: GRE Transportista debe iniciar con V`,
+        );
         return false;
       }
 
       // Validar campos de cliente
-      if (!record.cliente_tipo_de_documento || !record.cliente_numero_de_documento ||
-          !record.cliente_denominacion || !record.cliente_direccion) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: faltan datos de cliente`);
+      if (
+        !record.cliente_tipo_de_documento ||
+        !record.cliente_numero_de_documento ||
+        !record.cliente_denominacion ||
+        !record.cliente_direccion
+      ) {
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: faltan datos de cliente`,
+        );
         return false;
       }
 
       // Validar fechas
       if (!record.fecha_de_emision || !record.fecha_de_inicio_de_traslado) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: faltan fechas`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: faltan fechas`,
+        );
         return false;
       }
 
       // Validar peso
       if (!record.peso_bruto_total || record.peso_bruto_total <= 0) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: peso_bruto_total inválido`);
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: peso_bruto_total inválido`,
+        );
         return false;
       }
 
-      if (!record.peso_bruto_unidad_de_medida || !['KGM', 'TNE'].includes(record.peso_bruto_unidad_de_medida)) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: peso_bruto_unidad_de_medida inválida`);
+      if (
+        !record.peso_bruto_unidad_de_medida ||
+        !['KGM', 'TNE'].includes(record.peso_bruto_unidad_de_medida)
+      ) {
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: peso_bruto_unidad_de_medida inválida`,
+        );
         return false;
       }
 
       // Validar placa
-      if (!record.transportista_placa_numero || record.transportista_placa_numero.length < 6) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: placa inválida`);
+      if (
+        !record.transportista_placa_numero ||
+        record.transportista_placa_numero.length < 6
+      ) {
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: placa inválida`,
+        );
         return false;
       }
 
       // Validar ubicaciones
-      if (!record.punto_de_partida_ubigeo || record.punto_de_partida_ubigeo.length !== 6 ||
-          !record.punto_de_partida_direccion) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: datos de partida incompletos`);
+      if (
+        !record.punto_de_partida_ubigeo ||
+        record.punto_de_partida_ubigeo.length !== 6 ||
+        !record.punto_de_partida_direccion
+      ) {
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: datos de partida incompletos`,
+        );
         return false;
       }
 
-      if (!record.punto_de_llegada_ubigeo || record.punto_de_llegada_ubigeo.length !== 6 ||
-          !record.punto_de_llegada_direccion) {
-        this.logger.debug(`Registro extendido ${record.id_guia}: datos de llegada incompletos`);
+      if (
+        !record.punto_de_llegada_ubigeo ||
+        record.punto_de_llegada_ubigeo.length !== 6 ||
+        !record.punto_de_llegada_direccion
+      ) {
+        this.logger.debug(
+          `Registro extendido ${record.id_guia}: datos de llegada incompletos`,
+        );
         return false;
       }
 
@@ -156,7 +211,10 @@ export class GreExtendidoDetectorService {
 
       return false;
     } catch (error) {
-      this.logger.error(`Error validando registro extendido ${record.id_guia}:`, error);
+      this.logger.error(
+        `Error validando registro extendido ${record.id_guia}:`,
+        error,
+      );
       return false;
     }
   }
@@ -164,83 +222,144 @@ export class GreExtendidoDetectorService {
   private validateGreRemitente(record: any): boolean {
     // GRE Remitente (tipo 7) - Validaciones específicas
 
-    this.logger.log(`🔍 [VALIDACIÓN GRE REMITENTE EXTENDIDO] ID: ${record.id_guia}`);
+    this.logger.log(
+      `🔍 [VALIDACIÓN GRE REMITENTE EXTENDIDO] ID: ${record.id_guia}`,
+    );
     this.logger.log(`   - tipo_de_transporte: ${record.tipo_de_transporte}`);
 
     // 1. Motivo de traslado obligatorio
     if (!record.motivo_de_traslado) {
-      this.logger.warn(`❌ Registro extendido ${record.id_guia}: falta motivo_de_traslado (obligatorio para GRE Remitente)`);
+      this.logger.warn(
+        `❌ Registro extendido ${record.id_guia}: falta motivo_de_traslado (obligatorio para GRE Remitente)`,
+      );
       return false;
     }
 
-    const motivosValidos = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '13', '14', '17', '18'];
+    const motivosValidos = [
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '13',
+      '14',
+      '17',
+      '18',
+    ];
     if (!motivosValidos.includes(record.motivo_de_traslado)) {
-      this.logger.warn(`❌ Registro extendido ${record.id_guia}: motivo_de_traslado inválido`);
+      this.logger.warn(
+        `❌ Registro extendido ${record.id_guia}: motivo_de_traslado inválido`,
+      );
       return false;
     }
 
     // 2. Número de bultos obligatorio
     if (!record.numero_de_bultos || record.numero_de_bultos < 1) {
-      this.logger.warn(`❌ Registro extendido ${record.id_guia}: falta numero_de_bultos (obligatorio para GRE Remitente)`);
+      this.logger.warn(
+        `❌ Registro extendido ${record.id_guia}: falta numero_de_bultos (obligatorio para GRE Remitente)`,
+      );
       return false;
     }
 
     // 3. Tipo de transporte obligatorio
-    if (!record.tipo_de_transporte || !['01', '02'].includes(record.tipo_de_transporte)) {
-      this.logger.warn(`❌ Registro extendido ${record.id_guia}: falta tipo_de_transporte (obligatorio para GRE Remitente)`);
+    if (
+      !record.tipo_de_transporte ||
+      !['01', '02'].includes(record.tipo_de_transporte)
+    ) {
+      this.logger.warn(
+        `❌ Registro extendido ${record.id_guia}: falta tipo_de_transporte (obligatorio para GRE Remitente)`,
+      );
       return false;
     }
 
     // 4. Si tipo_de_transporte = "01" (Público), validar datos de transportista
     if (record.tipo_de_transporte === '01') {
-      this.logger.log(`   🚌 Modo PÚBLICO - Validando datos del transportista...`);
+      this.logger.log(
+        `   🚌 Modo PÚBLICO - Validando datos del transportista...`,
+      );
 
-      if (!record.transportista_documento_tipo || record.transportista_documento_tipo !== 6) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: transportista_documento_tipo debe ser 6 (RUC)`);
+      if (
+        !record.transportista_documento_tipo ||
+        record.transportista_documento_tipo !== 6
+      ) {
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: transportista_documento_tipo debe ser 6 (RUC)`,
+        );
         return false;
       }
 
-      if (!record.transportista_documento_numero || record.transportista_documento_numero.length !== 11) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: transportista_documento_numero inválido (debe ser RUC de 11 dígitos)`);
+      if (
+        !record.transportista_documento_numero ||
+        record.transportista_documento_numero.length !== 11
+      ) {
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: transportista_documento_numero inválido (debe ser RUC de 11 dígitos)`,
+        );
         return false;
       }
 
       if (!record.transportista_denominacion) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: falta transportista_denominacion`);
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: falta transportista_denominacion`,
+        );
         return false;
       }
 
-      this.logger.log(`   ✅ Transportista válido: ${record.transportista_denominacion}`);
+      this.logger.log(
+        `   ✅ Transportista válido: ${record.transportista_denominacion}`,
+      );
     }
 
     // 5. Si tipo_de_transporte = "02" (Privado), validar datos de conductor
     if (record.tipo_de_transporte === '02') {
       this.logger.log(`   🚗 Modo PRIVADO - Validando datos del conductor...`);
 
-      if (!record.conductor_documento_tipo || ![0, 1, 4, 7].includes(record.conductor_documento_tipo)) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: conductor_documento_tipo inválido (actual: ${record.conductor_documento_tipo})`);
+      if (
+        !record.conductor_documento_tipo ||
+        ![0, 1, 4, 7].includes(record.conductor_documento_tipo)
+      ) {
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: conductor_documento_tipo inválido (actual: ${record.conductor_documento_tipo})`,
+        );
         return false;
       }
 
       if (!record.conductor_documento_numero) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: falta conductor_documento_numero`);
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: falta conductor_documento_numero`,
+        );
         return false;
       }
 
       if (!record.conductor_nombre || !record.conductor_apellidos) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: faltan datos del conductor (nombre: ${record.conductor_nombre}, apellidos: ${record.conductor_apellidos})`);
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: faltan datos del conductor (nombre: ${record.conductor_nombre}, apellidos: ${record.conductor_apellidos})`,
+        );
         return false;
       }
 
-      if (!record.conductor_numero_licencia || record.conductor_numero_licencia.length < 9) {
-        this.logger.warn(`❌ Registro extendido ${record.id_guia}: conductor_numero_licencia inválida (actual: ${record.conductor_numero_licencia})`);
+      if (
+        !record.conductor_numero_licencia ||
+        record.conductor_numero_licencia.length < 9
+      ) {
+        this.logger.warn(
+          `❌ Registro extendido ${record.id_guia}: conductor_numero_licencia inválida (actual: ${record.conductor_numero_licencia})`,
+        );
         return false;
       }
 
-      this.logger.log(`   ✅ Conductor válido: ${record.conductor_nombre} ${record.conductor_apellidos}`);
+      this.logger.log(
+        `   ✅ Conductor válido: ${record.conductor_nombre} ${record.conductor_apellidos}`,
+      );
     }
 
-    this.logger.log(`✅ Registro extendido ${record.id_guia}: validación GRE Remitente exitosa`);
+    this.logger.log(
+      `✅ Registro extendido ${record.id_guia}: validación GRE Remitente exitosa`,
+    );
     return true;
   }
 
@@ -248,56 +367,92 @@ export class GreExtendidoDetectorService {
     // GRE Transportista (tipo 8) - Validaciones específicas
 
     // 1. Conductor obligatorio (siempre)
-    if (!record.conductor_documento_tipo || ![0, 1, 4, 7].includes(record.conductor_documento_tipo)) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: conductor_documento_tipo inválido (obligatorio para GRE Transportista)`);
+    if (
+      !record.conductor_documento_tipo ||
+      ![0, 1, 4, 7].includes(record.conductor_documento_tipo)
+    ) {
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: conductor_documento_tipo inválido (obligatorio para GRE Transportista)`,
+      );
       return false;
     }
 
     if (!record.conductor_documento_numero) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: falta conductor_documento_numero (obligatorio para GRE Transportista)`);
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: falta conductor_documento_numero (obligatorio para GRE Transportista)`,
+      );
       return false;
     }
 
-    if (!record.conductor_denominacion || !record.conductor_nombre || !record.conductor_apellidos) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: faltan datos del conductor (obligatorios para GRE Transportista)`);
+    if (
+      !record.conductor_denominacion ||
+      !record.conductor_nombre ||
+      !record.conductor_apellidos
+    ) {
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: faltan datos del conductor (obligatorios para GRE Transportista)`,
+      );
       return false;
     }
 
-    if (!record.conductor_numero_licencia || record.conductor_numero_licencia.length < 9) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: conductor_numero_licencia inválida (obligatoria para GRE Transportista)`);
+    if (
+      !record.conductor_numero_licencia ||
+      record.conductor_numero_licencia.length < 9
+    ) {
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: conductor_numero_licencia inválida (obligatoria para GRE Transportista)`,
+      );
       return false;
     }
 
     // 2. Destinatario obligatorio
-    if (!record.destinatario_documento_tipo || ![0, 1, 4, 6, 7].includes(record.destinatario_documento_tipo)) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: destinatario_documento_tipo inválido (obligatorio para GRE Transportista)`);
+    if (
+      !record.destinatario_documento_tipo ||
+      ![0, 1, 4, 6, 7].includes(record.destinatario_documento_tipo)
+    ) {
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: destinatario_documento_tipo inválido (obligatorio para GRE Transportista)`,
+      );
       return false;
     }
 
     if (!record.destinatario_documento_numero) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: falta destinatario_documento_numero (obligatorio para GRE Transportista)`);
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: falta destinatario_documento_numero (obligatorio para GRE Transportista)`,
+      );
       return false;
     }
 
     if (!record.destinatario_denominacion) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: falta destinatario_denominacion (obligatorio para GRE Transportista)`);
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: falta destinatario_denominacion (obligatorio para GRE Transportista)`,
+      );
       return false;
     }
 
     // 3. Validaciones opcionales pero recomendadas
-    if (record.tuc_vehiculo_principal &&
-        (record.tuc_vehiculo_principal.length < 10 || record.tuc_vehiculo_principal.length > 15)) {
-      this.logger.debug(`Registro extendido ${record.id_guia}: tuc_vehiculo_principal con formato inválido`);
+    if (
+      record.tuc_vehiculo_principal &&
+      (record.tuc_vehiculo_principal.length < 10 ||
+        record.tuc_vehiculo_principal.length > 15)
+    ) {
+      this.logger.debug(
+        `Registro extendido ${record.id_guia}: tuc_vehiculo_principal con formato inválido`,
+      );
       return false;
     }
 
-    this.logger.debug(`Registro extendido ${record.id_guia}: validación GRE Transportista exitosa`);
+    this.logger.debug(
+      `Registro extendido ${record.id_guia}: validación GRE Transportista exitosa`,
+    );
     return true;
   }
 
   private async processCompleteRecord(record: any) {
     try {
-      this.logger.log(`Procesando registro extendido completo ID: ${record.id_guia}`);
+      this.logger.log(
+        `Procesando registro extendido completo ID: ${record.id_guia}`,
+      );
 
       // Transformar datos de guia_remision_extendido a formato API NUBEFACT
       const greData = this.transformRecordToNubefactApi(record);
@@ -309,11 +464,19 @@ export class GreExtendidoDetectorService {
       });
 
       // Enviar a Kafka Producer
-      await this.greExtendidoProducer.sendGreRequest(record.id_guia.toString(), greData);
+      await this.greExtendidoProducer.sendGreRequest(
+        record.id_guia.toString(),
+        greData,
+      );
 
-      this.logger.log(`Registro extendido ${record.id_guia} enviado a Kafka con estado PENDIENTE`);
+      this.logger.log(
+        `Registro extendido ${record.id_guia} enviado a Kafka con estado PENDIENTE`,
+      );
     } catch (error) {
-      this.logger.error(`Error procesando registro extendido ${record.id_guia}:`, error);
+      this.logger.error(
+        `Error procesando registro extendido ${record.id_guia}:`,
+        error,
+      );
 
       // Marcar como FALLADO si hay error
       await this.prisma.guia_remision_extendida.update({
@@ -335,7 +498,9 @@ export class GreExtendidoDetectorService {
 
       const formatted = dateUTC.format('DD-MM-YYYY');
 
-      console.log(`📅 [DETECTOR-EXTENDIDO] formatDate - Input: ${date} → UTC+5: ${dateUTC.format('YYYY-MM-DD')} → Formatted: ${formatted}`);
+      console.log(
+        `📅 [DETECTOR-EXTENDIDO] formatDate - Input: ${date} → UTC+5: ${dateUTC.format('YYYY-MM-DD')} → Formatted: ${formatted}`,
+      );
 
       return formatted;
     };
@@ -352,7 +517,9 @@ export class GreExtendidoDetectorService {
       fecha_de_emision: formatDate(record.fecha_de_emision),
       peso_bruto_total: String(record.peso_bruto_total),
       peso_bruto_unidad_de_medida: record.peso_bruto_unidad_de_medida,
-      fecha_de_inicio_de_traslado: formatDate(record.fecha_de_inicio_de_traslado),
+      fecha_de_inicio_de_traslado: formatDate(
+        record.fecha_de_inicio_de_traslado,
+      ),
       transportista_placa_numero: record.transportista_placa_numero,
       punto_de_partida_ubigeo: record.punto_de_partida_ubigeo,
       punto_de_partida_direccion: record.punto_de_partida_direccion,
@@ -362,15 +529,16 @@ export class GreExtendidoDetectorService {
 
     // Campos opcionales comunes
     if (record.cliente_email) payload.cliente_email = record.cliente_email;
-    payload.cliente_email_1 = record.cliente_email_1 || "";
-    payload.cliente_email_2 = record.cliente_email_2 || "";
+    payload.cliente_email_1 = record.cliente_email_1 || '';
+    payload.cliente_email_2 = record.cliente_email_2 || '';
 
     if (record.observaciones) payload.observaciones = record.observaciones;
     if (record.mtc) payload.mtc = record.mtc;
     if (record.enviar_automaticamente_al_cliente !== null) {
-      payload.enviar_automaticamente_al_cliente = record.enviar_automaticamente_al_cliente;
+      payload.enviar_automaticamente_al_cliente =
+        record.enviar_automaticamente_al_cliente;
     }
-    payload.formato_de_pdf = record.formato_de_pdf || "";
+    payload.formato_de_pdf = record.formato_de_pdf || '';
 
     // Campos específicos de GRE Remitente (tipo 7)
     if (record.tipo_de_comprobante === 7) {
@@ -378,26 +546,36 @@ export class GreExtendidoDetectorService {
       payload.numero_de_bultos = String(record.numero_de_bultos);
       payload.tipo_de_transporte = record.tipo_de_transporte;
 
-      if (record.motivo_de_traslado === '13' && record.motivo_de_traslado_otros_descripcion) {
-        payload.motivo_de_traslado_otros_descripcion = record.motivo_de_traslado_otros_descripcion;
+      if (
+        record.motivo_de_traslado === '13' &&
+        record.motivo_de_traslado_otros_descripcion
+      ) {
+        payload.motivo_de_traslado_otros_descripcion =
+          record.motivo_de_traslado_otros_descripcion;
       }
 
       // Transportista (si tipo_de_transporte = "01")
       if (record.tipo_de_transporte === '01') {
         if (record.transportista_documento_tipo) {
-          payload.transportista_documento_tipo = String(record.transportista_documento_tipo);
+          payload.transportista_documento_tipo = String(
+            record.transportista_documento_tipo,
+          );
         }
         if (record.transportista_documento_numero) {
-          payload.transportista_documento_numero = record.transportista_documento_numero;
+          payload.transportista_documento_numero =
+            record.transportista_documento_numero;
         }
         if (record.transportista_denominacion) {
-          payload.transportista_denominacion = record.transportista_denominacion;
+          payload.transportista_denominacion =
+            record.transportista_denominacion;
         }
       }
 
       // Conductor
       if (record.conductor_documento_tipo) {
-        payload.conductor_documento_tipo = String(record.conductor_documento_tipo);
+        payload.conductor_documento_tipo = String(
+          record.conductor_documento_tipo,
+        );
       }
       if (record.conductor_documento_numero) {
         payload.conductor_documento_numero = record.conductor_documento_numero;
@@ -420,7 +598,9 @@ export class GreExtendidoDetectorService {
     if (record.tipo_de_comprobante === 8) {
       // Conductor obligatorio
       if (record.conductor_documento_tipo) {
-        payload.conductor_documento_tipo = String(record.conductor_documento_tipo);
+        payload.conductor_documento_tipo = String(
+          record.conductor_documento_tipo,
+        );
       }
       if (record.conductor_documento_numero) {
         payload.conductor_documento_numero = record.conductor_documento_numero;
@@ -440,10 +620,13 @@ export class GreExtendidoDetectorService {
 
       // Destinatario obligatorio
       if (record.destinatario_documento_tipo) {
-        payload.destinatario_documento_tipo = String(record.destinatario_documento_tipo);
+        payload.destinatario_documento_tipo = String(
+          record.destinatario_documento_tipo,
+        );
       }
       if (record.destinatario_documento_numero) {
-        payload.destinatario_documento_numero = record.destinatario_documento_numero;
+        payload.destinatario_documento_numero =
+          record.destinatario_documento_numero;
       }
       if (record.destinatario_denominacion) {
         payload.destinatario_denominacion = record.destinatario_denominacion;
@@ -457,94 +640,148 @@ export class GreExtendidoDetectorService {
 
     // Campos condicionales adicionales
     if (record.documento_relacionado_codigo) {
-      payload.documento_relacionado_codigo = record.documento_relacionado_codigo;
+      payload.documento_relacionado_codigo =
+        record.documento_relacionado_codigo;
     }
 
     if (record.sunat_envio_indicador) {
       payload.sunat_envio_indicador = record.sunat_envio_indicador;
 
       if (record.sunat_envio_indicador === '02') {
-        if (record.subcontratador_documento_tipo) payload.subcontratador_documento_tipo = record.subcontratador_documento_tipo;
-        if (record.subcontratador_documento_numero) payload.subcontratador_documento_numero = record.subcontratador_documento_numero;
-        if (record.subcontratador_denominacion) payload.subcontratador_denominacion = record.subcontratador_denominacion;
+        if (record.subcontratador_documento_tipo)
+          payload.subcontratador_documento_tipo =
+            record.subcontratador_documento_tipo;
+        if (record.subcontratador_documento_numero)
+          payload.subcontratador_documento_numero =
+            record.subcontratador_documento_numero;
+        if (record.subcontratador_denominacion)
+          payload.subcontratador_denominacion =
+            record.subcontratador_denominacion;
       }
 
       if (record.sunat_envio_indicador === '03') {
-        if (record.pagador_servicio_documento_tipo_identidad) payload.pagador_servicio_documento_tipo_identidad = record.pagador_servicio_documento_tipo_identidad;
-        if (record.pagador_servicio_documento_numero_identidad) payload.pagador_servicio_documento_numero_identidad = record.pagador_servicio_documento_numero_identidad;
-        if (record.pagador_servicio_denominacion) payload.pagador_servicio_denominacion = record.pagador_servicio_denominacion;
+        if (record.pagador_servicio_documento_tipo_identidad)
+          payload.pagador_servicio_documento_tipo_identidad =
+            record.pagador_servicio_documento_tipo_identidad;
+        if (record.pagador_servicio_documento_numero_identidad)
+          payload.pagador_servicio_documento_numero_identidad =
+            record.pagador_servicio_documento_numero_identidad;
+        if (record.pagador_servicio_denominacion)
+          payload.pagador_servicio_denominacion =
+            record.pagador_servicio_denominacion;
       }
     }
 
     // Códigos de establecimiento
     if (['04', '18'].includes(record.motivo_de_traslado)) {
       if (record.punto_de_partida_codigo_establecimiento_sunat) {
-        payload.punto_de_partida_codigo_establecimiento_sunat = record.punto_de_partida_codigo_establecimiento_sunat;
+        payload.punto_de_partida_codigo_establecimiento_sunat =
+          record.punto_de_partida_codigo_establecimiento_sunat;
       }
       if (record.punto_de_llegada_codigo_establecimiento_sunat) {
-        payload.punto_de_llegada_codigo_establecimiento_sunat = record.punto_de_llegada_codigo_establecimiento_sunat;
+        payload.punto_de_llegada_codigo_establecimiento_sunat =
+          record.punto_de_llegada_codigo_establecimiento_sunat;
       }
     }
 
     // ✅ Cargar items desde la tabla relacional items_extendida
     console.log(`\n🔍 [DETECTOR-TRANSFORM] record.id_guia: ${record.id_guia}`);
-    console.log(`🔍 [DETECTOR-TRANSFORM] record.items_extendida:`, record.items_extendida);
+    console.log(
+      `🔍 [DETECTOR-TRANSFORM] record.items_extendida:`,
+      record.items_extendida,
+    );
 
-    if (record.items_extendida && Array.isArray(record.items_extendida) && record.items_extendida.length > 0) {
+    if (
+      record.items_extendida &&
+      Array.isArray(record.items_extendida) &&
+      record.items_extendida.length > 0
+    ) {
       payload.items = record.items_extendida.map((item: any) => ({
         unidad_de_medida: item.unidad_de_medida,
         codigo: item.codigo || 'PROD001',
         descripcion: item.descripcion,
         cantidad: String(item.cantidad),
       }));
-      console.log('✅ [DETECTOR-EXTENDIDO] Items cargados desde items_extendida:', payload.items);
+      console.log(
+        '✅ [DETECTOR-EXTENDIDO] Items cargados desde items_extendida:',
+        payload.items,
+      );
     } else {
       // Fallback si no hay items
-      console.warn('⚠️ [DETECTOR-EXTENDIDO] No hay items_extendida, usando fallback');
+      console.warn(
+        '⚠️ [DETECTOR-EXTENDIDO] No hay items_extendida, usando fallback',
+      );
       payload.items = [
         {
           unidad_de_medida: 'NIU',
           codigo: 'PROD001',
           descripcion: 'MATERIAL DE CONSTRUCCION',
           cantidad: '1',
-        }
+        },
       ];
     }
 
     // Documentos relacionados
-    if (record.documento_relacionado_extendida && Array.isArray(record.documento_relacionado_extendida) && record.documento_relacionado_extendida.length > 0) {
-      payload.documentos_relacionados = record.documento_relacionado_extendida.map((doc: any) => ({
-        tipo: doc.tipo,
-        serie: doc.serie,
-        numero: String(doc.numero),
-      }));
-      console.log('✅ [DETECTOR-EXTENDIDO] Documentos relacionados cargados:', payload.documentos_relacionados);
+    if (
+      record.documento_relacionado_extendida &&
+      Array.isArray(record.documento_relacionado_extendida) &&
+      record.documento_relacionado_extendida.length > 0
+    ) {
+      payload.documentos_relacionados =
+        record.documento_relacionado_extendida.map((doc: any) => ({
+          tipo: doc.tipo,
+          serie: doc.serie,
+          numero: String(doc.numero),
+        }));
+      console.log(
+        '✅ [DETECTOR-EXTENDIDO] Documentos relacionados cargados:',
+        payload.documentos_relacionados,
+      );
     }
 
     // Vehículos secundarios
-    if (record.vehiculos_secundarios_extendida && Array.isArray(record.vehiculos_secundarios_extendida) && record.vehiculos_secundarios_extendida.length > 0) {
-      payload.vehiculos_secundarios = record.vehiculos_secundarios_extendida.map((vehiculo: any) => ({
-        placa_numero: vehiculo.placa_numero,
-        tuc: vehiculo.tuc,
-      }));
-      console.log('✅ [DETECTOR-EXTENDIDO] Vehículos secundarios cargados:', payload.vehiculos_secundarios);
+    if (
+      record.vehiculos_secundarios_extendida &&
+      Array.isArray(record.vehiculos_secundarios_extendida) &&
+      record.vehiculos_secundarios_extendida.length > 0
+    ) {
+      payload.vehiculos_secundarios =
+        record.vehiculos_secundarios_extendida.map((vehiculo: any) => ({
+          placa_numero: vehiculo.placa_numero,
+          tuc: vehiculo.tuc,
+        }));
+      console.log(
+        '✅ [DETECTOR-EXTENDIDO] Vehículos secundarios cargados:',
+        payload.vehiculos_secundarios,
+      );
     }
 
     // Conductores secundarios
-    if (record.conductores_secundarios_extendida && Array.isArray(record.conductores_secundarios_extendida) && record.conductores_secundarios_extendida.length > 0) {
-      payload.conductores_secundarios = record.conductores_secundarios_extendida.map((conductor: any) => ({
-        documento_tipo: String(conductor.documento_tipo),
-        documento_numero: conductor.documento_numero,
-        nombre: conductor.nombre,
-        apellidos: conductor.apellidos,
-        numero_licencia: conductor.numero_licencia,
-      }));
-      console.log('✅ [DETECTOR-EXTENDIDO] Conductores secundarios cargados:', payload.conductores_secundarios);
+    if (
+      record.conductores_secundarios_extendida &&
+      Array.isArray(record.conductores_secundarios_extendida) &&
+      record.conductores_secundarios_extendida.length > 0
+    ) {
+      payload.conductores_secundarios =
+        record.conductores_secundarios_extendida.map((conductor: any) => ({
+          documento_tipo: String(conductor.documento_tipo),
+          documento_numero: conductor.documento_numero,
+          nombre: conductor.nombre,
+          apellidos: conductor.apellidos,
+          numero_licencia: conductor.numero_licencia,
+        }));
+      console.log(
+        '✅ [DETECTOR-EXTENDIDO] Conductores secundarios cargados:',
+        payload.conductores_secundarios,
+      );
     }
 
     console.log('📤 [DETECTOR-EXTENDIDO] Payload FINAL para Kafka/Nubefact:');
     console.log('   - fecha_de_emision:', payload.fecha_de_emision);
-    console.log('   - fecha_de_inicio_de_traslado:', payload.fecha_de_inicio_de_traslado);
+    console.log(
+      '   - fecha_de_inicio_de_traslado:',
+      payload.fecha_de_inicio_de_traslado,
+    );
     console.log('   - items:', JSON.stringify(payload.items, null, 2));
 
     return payload;
@@ -557,23 +794,23 @@ export class GreExtendidoDetectorService {
 
   async getDetectionStats() {
     const pendientes = await this.prisma.guia_remision_extendida.count({
-      where: { estado_gre: 'PENDIENTE' }
+      where: { estado_gre: 'PENDIENTE' },
     });
 
     const procesando = await this.prisma.guia_remision_extendida.count({
-      where: { estado_gre: 'PROCESANDO' }
+      where: { estado_gre: 'PROCESANDO' },
     });
 
     const completados = await this.prisma.guia_remision_extendida.count({
-      where: { estado_gre: 'COMPLETADO' }
+      where: { estado_gre: 'COMPLETADO' },
     });
 
     const fallados = await this.prisma.guia_remision_extendida.count({
-      where: { estado_gre: 'FALLADO' }
+      where: { estado_gre: 'FALLADO' },
     });
 
     const sinProcesar = await this.prisma.guia_remision_extendida.count({
-      where: { estado_gre: null }
+      where: { estado_gre: null },
     });
 
     return {
@@ -582,7 +819,7 @@ export class GreExtendidoDetectorService {
       completados,
       fallados,
       sinProcesar,
-      total: pendientes + procesando + completados + fallados + sinProcesar
+      total: pendientes + procesando + completados + fallados + sinProcesar,
     };
   }
 }

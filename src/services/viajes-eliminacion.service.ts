@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   ViajesEliminacionDto,
@@ -260,17 +264,29 @@ export class ViajesEliminacionService {
       fecha: viaje.fecha.toISOString().split('T')[0],
       created_at: viaje.created_at?.toISOString() || '',
       updated_at: viaje.updated_at?.toISOString() || '',
-      nombre_responsable: viaje.responsable ? `${viaje.responsable.nombres} ${viaje.responsable.apellidos}` : null,
-      operador: viaje.operador ? `${viaje.operador.nombres} ${viaje.operador.apellidos}` : null,
-      vigia: viaje.vigia ? `${viaje.vigia.nombres} ${viaje.vigia.apellidos}` : null,
-      mantero: viaje.mantero ? `${viaje.mantero.nombres} ${viaje.mantero.apellidos}` : null,
-      controlador: viaje.controlador ? `${viaje.controlador.nombres} ${viaje.controlador.apellidos}` : null,
-      capataz: viaje.capataz ? `${viaje.capataz.nombres} ${viaje.capataz.apellidos}` : null,
-      detalle_viajes: viaje.detalle_viajes.map(detalle => ({
+      nombre_responsable: viaje.responsable
+        ? `${viaje.responsable.nombres} ${viaje.responsable.apellidos}`
+        : null,
+      operador: viaje.operador
+        ? `${viaje.operador.nombres} ${viaje.operador.apellidos}`
+        : null,
+      vigia: viaje.vigia
+        ? `${viaje.vigia.nombres} ${viaje.vigia.apellidos}`
+        : null,
+      mantero: viaje.mantero
+        ? `${viaje.mantero.nombres} ${viaje.mantero.apellidos}`
+        : null,
+      controlador: viaje.controlador
+        ? `${viaje.controlador.nombres} ${viaje.controlador.apellidos}`
+        : null,
+      capataz: viaje.capataz
+        ? `${viaje.capataz.nombres} ${viaje.capataz.apellidos}`
+        : null,
+      detalle_viajes: viaje.detalle_viajes.map((detalle) => ({
         ...detalle,
         m3_tolva: detalle.m3_tolva ? Number(detalle.m3_tolva) : null,
         created_at: undefined,
-        detalle_horarios: detalle.detalle_horarios.map(horario => ({
+        detalle_horarios: detalle.detalle_horarios.map((horario) => ({
           ...horario,
           created_at: undefined,
         })),
@@ -278,7 +294,10 @@ export class ViajesEliminacionService {
     } as ViajesEliminacionResponse;
   }
 
-  async update(id: number, data: UpdateViajesEliminacionDto): Promise<ViajesEliminacionResponse> {
+  async update(
+    id: number,
+    data: UpdateViajesEliminacionDto,
+  ): Promise<ViajesEliminacionResponse> {
     // Verificar que el reporte existe
     const existingViaje = await this.prisma.viajes_eliminacion.findUnique({
       where: { id_viaje: id },
@@ -289,7 +308,10 @@ export class ViajesEliminacionService {
     }
 
     // Validar código de reporte único si se está actualizando
-    if (data.codigo_reporte && data.codigo_reporte !== existingViaje.codigo_reporte) {
+    if (
+      data.codigo_reporte &&
+      data.codigo_reporte !== existingViaje.codigo_reporte
+    ) {
       const duplicateReport = await this.prisma.viajes_eliminacion.findUnique({
         where: { codigo_reporte: data.codigo_reporte },
       });

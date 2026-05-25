@@ -1,4 +1,11 @@
-import { Controller, Get, Param, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  HttpException,
+  HttpStatus,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { RubroService } from './rubro.service';
 
 @Controller('rubro')

@@ -2,13 +2,18 @@ import { z } from 'zod';
 
 export const CreateSubEtapaSchema = z.object({
   id_subproyecto: z.number().min(1, 'El ID del subproyecto es requerido'),
-  nombre: z.string().min(1, 'El nombre es requerido').max(100, 'El nombre no puede exceder 100 caracteres'),
+  nombre: z
+    .string()
+    .min(1, 'El nombre es requerido')
+    .max(100, 'El nombre no puede exceder 100 caracteres'),
   descripcion: z.string().optional(),
   orden: z.number().min(1).optional(),
   activo: z.boolean().default(true),
 });
 
-export const UpdateSubEtapaSchema = CreateSubEtapaSchema.partial().omit({ id_subproyecto: true });
+export const UpdateSubEtapaSchema = CreateSubEtapaSchema.partial().omit({
+  id_subproyecto: true,
+});
 
 export const SubEtapaResponseSchema = z.object({
   id_sub_etapa: z.number(),

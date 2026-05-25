@@ -25,13 +25,17 @@ import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 @Controller('reportes-operadores')
 export class ReportesOperadoresController {
-  constructor(private readonly reportesOperadoresService: ReportesOperadoresService) {}
+  constructor(
+    private readonly reportesOperadoresService: ReportesOperadoresService,
+  ) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(ReportesOperadoresSchema))
   async create(@Body() createReportesOperadoresDto: ReportesOperadoresDto) {
     try {
-      return await this.reportesOperadoresService.create(createReportesOperadoresDto);
+      return await this.reportesOperadoresService.create(
+        createReportesOperadoresDto,
+      );
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -45,8 +49,11 @@ export class ReportesOperadoresController {
         ...query,
         page: query.page ? parseInt(query.page) : 1,
         limit: query.limit ? parseInt(query.limit) : 10,
-        id_proyecto: query.id_proyecto ? parseInt(query.id_proyecto) : undefined,
-        activo: query.activo !== undefined ? query.activo === 'true' : undefined,
+        id_proyecto: query.id_proyecto
+          ? parseInt(query.id_proyecto)
+          : undefined,
+        activo:
+          query.activo !== undefined ? query.activo === 'true' : undefined,
       });
 
       return await this.reportesOperadoresService.findAll(filters);
@@ -67,7 +74,10 @@ export class ReportesOperadoresController {
     @Body() updateReportesOperadoresDto: UpdateReportesOperadoresDto,
   ) {
     try {
-      return await this.reportesOperadoresService.update(id, updateReportesOperadoresDto);
+      return await this.reportesOperadoresService.update(
+        id,
+        updateReportesOperadoresDto,
+      );
     } catch (error) {
       throw new BadRequestException(error.message);
     }

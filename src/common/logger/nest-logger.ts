@@ -19,7 +19,11 @@ export class NestAppLogger extends ConsoleLogger {
 
   error(message: any, stack?: string, context?: string): void {
     super.error(message, stack, context);
-    LogStore.add('error', stack ? `${message}\n${stack}` : String(message), context ?? '');
+    LogStore.add(
+      'error',
+      stack ? `${message}\n${stack}` : String(message),
+      context ?? '',
+    );
   }
 
   debug(message: any, context?: string): void {

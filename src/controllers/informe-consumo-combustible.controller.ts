@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  Query,
-  BadRequestException,
-} from '@nestjs/common';
+import { Controller, Get, Query, BadRequestException } from '@nestjs/common';
 import { InformeConsumoCombustibleService } from '../services/informe-consumo-combustible.service';
 import {
   InformeConsumoCombustibleFilterDto,
@@ -12,7 +7,9 @@ import {
 
 @Controller('informe-consumo-combustible')
 export class InformeConsumoCombustibleController {
-  constructor(private readonly informeConsumoCombustibleService: InformeConsumoCombustibleService) {}
+  constructor(
+    private readonly informeConsumoCombustibleService: InformeConsumoCombustibleService,
+  ) {}
 
   @Get()
   async findAll(@Query() query: any) {

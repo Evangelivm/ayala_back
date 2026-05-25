@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
 import * as dayjs from 'dayjs';
@@ -38,7 +50,7 @@ export class GreCrudController {
 
       const identificadores = guias
         .map((g) => g.identificador_unico)
-        .filter((id) => id !== null) as string[];
+        .filter((id) => id !== null);
 
       return identificadores;
     } catch (error) {
@@ -215,17 +227,37 @@ export class GreCrudController {
       this.validateGreData(data);
 
       // Extraer items y documentos relacionados
-      const { items, documento_relacionado, vehiculos_secundarios, conductores_secundarios, ...greData } = data;
+      const {
+        items,
+        documento_relacionado,
+        vehiculos_secundarios,
+        conductores_secundarios,
+        ...greData
+      } = data;
 
       // Convertir fechas a Date objects en timezone de Perú para evitar desfase de días
       // dayjs.tz() crea la fecha específicamente en timezone de Perú (America/Lima)
-      console.log('📅 [CRUD] Fecha recibida del frontend:', greData.fecha_de_emision, greData.fecha_de_inicio_de_traslado);
+      console.log(
+        '📅 [CRUD] Fecha recibida del frontend:',
+        greData.fecha_de_emision,
+        greData.fecha_de_inicio_de_traslado,
+      );
 
-      const fechaEmisionPeru = dayjs.tz(greData.fecha_de_emision, 'America/Lima').toDate();
-      const fechaInicioPeru = dayjs.tz(greData.fecha_de_inicio_de_traslado, 'America/Lima').toDate();
+      const fechaEmisionPeru = dayjs
+        .tz(greData.fecha_de_emision, 'America/Lima')
+        .toDate();
+      const fechaInicioPeru = dayjs
+        .tz(greData.fecha_de_inicio_de_traslado, 'America/Lima')
+        .toDate();
 
-      console.log('📅 [CRUD] Fecha emision en Perú:', fechaEmisionPeru.toISOString());
-      console.log('📅 [CRUD] Fecha inicio en Perú:', fechaInicioPeru.toISOString());
+      console.log(
+        '📅 [CRUD] Fecha emision en Perú:',
+        fechaEmisionPeru.toISOString(),
+      );
+      console.log(
+        '📅 [CRUD] Fecha inicio en Perú:',
+        fechaInicioPeru.toISOString(),
+      );
 
       const formattedData = {
         ...greData,
@@ -238,37 +270,49 @@ export class GreCrudController {
       const guia = await this.prismaService.guia_remision.create({
         data: {
           ...formattedData,
-          items: items && items.length > 0 ? {
-            create: items.map((item: any, index: number) => ({
-              unidad_de_medida: item.unidad_de_medida,
-              codigo: item.codigo,
-              descripcion: item.descripcion,
-              cantidad: item.cantidad,
-              orden: index + 1,
-            })),
-          } : undefined,
-          documento_relacionado: documento_relacionado && documento_relacionado.length > 0 ? {
-            create: documento_relacionado.map((doc: any) => ({
-              tipo: doc.tipo,
-              serie: doc.serie,
-              numero: parseInt(doc.numero),
-            })),
-          } : undefined,
-          vehiculos_secundarios: vehiculos_secundarios && vehiculos_secundarios.length > 0 ? {
-            create: vehiculos_secundarios.map((vehiculo: any) => ({
-              placa_numero: vehiculo.placa_numero,
-              tuc: vehiculo.tuc,
-            })),
-          } : undefined,
-          conductores_secundarios: conductores_secundarios && conductores_secundarios.length > 0 ? {
-            create: conductores_secundarios.map((conductor: any) => ({
-              documento_tipo: parseInt(conductor.documento_tipo),
-              documento_numero: conductor.documento_numero,
-              nombre: conductor.nombre,
-              apellidos: conductor.apellidos,
-              numero_licencia: conductor.numero_licencia,
-            })),
-          } : undefined,
+          items:
+            items && items.length > 0
+              ? {
+                  create: items.map((item: any, index: number) => ({
+                    unidad_de_medida: item.unidad_de_medida,
+                    codigo: item.codigo,
+                    descripcion: item.descripcion,
+                    cantidad: item.cantidad,
+                    orden: index + 1,
+                  })),
+                }
+              : undefined,
+          documento_relacionado:
+            documento_relacionado && documento_relacionado.length > 0
+              ? {
+                  create: documento_relacionado.map((doc: any) => ({
+                    tipo: doc.tipo,
+                    serie: doc.serie,
+                    numero: parseInt(doc.numero),
+                  })),
+                }
+              : undefined,
+          vehiculos_secundarios:
+            vehiculos_secundarios && vehiculos_secundarios.length > 0
+              ? {
+                  create: vehiculos_secundarios.map((vehiculo: any) => ({
+                    placa_numero: vehiculo.placa_numero,
+                    tuc: vehiculo.tuc,
+                  })),
+                }
+              : undefined,
+          conductores_secundarios:
+            conductores_secundarios && conductores_secundarios.length > 0
+              ? {
+                  create: conductores_secundarios.map((conductor: any) => ({
+                    documento_tipo: parseInt(conductor.documento_tipo),
+                    documento_numero: conductor.documento_numero,
+                    nombre: conductor.nombre,
+                    apellidos: conductor.apellidos,
+                    numero_licencia: conductor.numero_licencia,
+                  })),
+                }
+              : undefined,
         },
         include: {
           items: true,
@@ -285,7 +329,9 @@ export class GreCrudController {
 
       // Obtener el siguiente número de guía disponible y emitirlo a todos los clientes
       const siguienteNumero = await this.getLastNumber();
-      this.websocketGateway.emitSiguienteNumeroGuiaRemision({ numero: siguienteNumero.numero + 1 });
+      this.websocketGateway.emitSiguienteNumeroGuiaRemision({
+        numero: siguienteNumero.numero + 1,
+      });
 
       return {
         success: true,
@@ -328,14 +374,30 @@ export class GreCrudController {
 
       // Convertir fechas a Date objects en timezone de Perú
       if (updateData.fecha_de_emision) {
-        console.log('📅 [CRUD UPDATE] Fecha emision recibida:', updateData.fecha_de_emision);
-        updateData.fecha_de_emision = dayjs.tz(updateData.fecha_de_emision, 'America/Lima').toDate();
-        console.log('📅 [CRUD UPDATE] Fecha emision convertida:', updateData.fecha_de_emision.toISOString());
+        console.log(
+          '📅 [CRUD UPDATE] Fecha emision recibida:',
+          updateData.fecha_de_emision,
+        );
+        updateData.fecha_de_emision = dayjs
+          .tz(updateData.fecha_de_emision, 'America/Lima')
+          .toDate();
+        console.log(
+          '📅 [CRUD UPDATE] Fecha emision convertida:',
+          updateData.fecha_de_emision.toISOString(),
+        );
       }
       if (updateData.fecha_de_inicio_de_traslado) {
-        console.log('📅 [CRUD UPDATE] Fecha inicio traslado recibida:', updateData.fecha_de_inicio_de_traslado);
-        updateData.fecha_de_inicio_de_traslado = dayjs.tz(updateData.fecha_de_inicio_de_traslado, 'America/Lima').toDate();
-        console.log('📅 [CRUD UPDATE] Fecha inicio convertida:', updateData.fecha_de_inicio_de_traslado.toISOString());
+        console.log(
+          '📅 [CRUD UPDATE] Fecha inicio traslado recibida:',
+          updateData.fecha_de_inicio_de_traslado,
+        );
+        updateData.fecha_de_inicio_de_traslado = dayjs
+          .tz(updateData.fecha_de_inicio_de_traslado, 'America/Lima')
+          .toDate();
+        console.log(
+          '📅 [CRUD UPDATE] Fecha inicio convertida:',
+          updateData.fecha_de_inicio_de_traslado.toISOString(),
+        );
       }
 
       const updatedGuia = await this.prismaService.guia_remision.update({
@@ -436,13 +498,22 @@ export class GreCrudController {
     // Validaciones específicas según tipo
     if (data.tipo_de_comprobante === 7) {
       // GRE Remitente
-      if (!data.motivo_de_traslado) throw new Error('motivo_de_traslado es obligatorio para GRE Remitente');
-      if (!data.numero_de_bultos) throw new Error('numero_de_bultos es obligatorio para GRE Remitente');
-      if (!data.tipo_de_transporte) throw new Error('tipo_de_transporte es obligatorio para GRE Remitente');
+      if (!data.motivo_de_traslado)
+        throw new Error('motivo_de_traslado es obligatorio para GRE Remitente');
+      if (!data.numero_de_bultos)
+        throw new Error('numero_de_bultos es obligatorio para GRE Remitente');
+      if (!data.tipo_de_transporte)
+        throw new Error('tipo_de_transporte es obligatorio para GRE Remitente');
     } else if (data.tipo_de_comprobante === 8) {
       // GRE Transportista
-      if (!data.conductor_documento_tipo) throw new Error('conductor_documento_tipo es obligatorio para GRE Transportista');
-      if (!data.destinatario_documento_tipo) throw new Error('destinatario_documento_tipo es obligatorio para GRE Transportista');
+      if (!data.conductor_documento_tipo)
+        throw new Error(
+          'conductor_documento_tipo es obligatorio para GRE Transportista',
+        );
+      if (!data.destinatario_documento_tipo)
+        throw new Error(
+          'destinatario_documento_tipo es obligatorio para GRE Transportista',
+        );
     }
 
     // Validar items

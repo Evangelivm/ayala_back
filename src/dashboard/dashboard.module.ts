@@ -9,11 +9,11 @@ import { EquiposModule } from '../equipos/equipos.module';
 
 @Module({
   imports: [
-    PrismaModule, 
-    ReportesModule, 
-    PersonalModule, 
-    ProyectosModule, 
-    EquiposModule
+    PrismaModule,
+    ReportesModule,
+    PersonalModule,
+    ProyectosModule,
+    EquiposModule,
   ],
   controllers: [DashboardController],
   providers: [DashboardService],

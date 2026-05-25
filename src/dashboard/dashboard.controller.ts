@@ -1,7 +1,17 @@
-import { Controller, Get, Query, HttpException, HttpStatus, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  HttpException,
+  HttpStatus,
+  UsePipes,
+} from '@nestjs/common';
 import { DashboardService, DashboardStats } from './dashboard.service';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
-import { GetActivityQuerySchema, GetRecentReportsQuerySchema } from '../dto/dashboard.dto';
+import {
+  GetActivityQuerySchema,
+  GetRecentReportsQuerySchema,
+} from '../dto/dashboard.dto';
 
 @Controller('dashboard')
 export class DashboardController {
@@ -24,7 +34,10 @@ export class DashboardController {
   @UsePipes(new ZodValidationPipe(GetRecentReportsQuerySchema))
   async getRecentReports(@Query() query: { limit?: string }) {
     try {
-      const limitNumber = Math.max(1, Math.min(50, parseInt(query.limit || '10')));
+      const limitNumber = Math.max(
+        1,
+        Math.min(50, parseInt(query.limit || '10')),
+      );
       return await this.dashboardService.getRecentReports(limitNumber);
     } catch (error) {
       console.error('Recent reports error:', error);
@@ -39,7 +52,9 @@ export class DashboardController {
   @UsePipes(new ZodValidationPipe(GetActivityQuerySchema))
   async getActivity(@Query() query: { period?: 'day' | 'week' | 'month' }) {
     try {
-      return await this.dashboardService.getActivityByPeriod(query.period || 'week');
+      return await this.dashboardService.getActivityByPeriod(
+        query.period || 'week',
+      );
     } catch (error) {
       console.error('Activity error:', error);
       throw new HttpException(

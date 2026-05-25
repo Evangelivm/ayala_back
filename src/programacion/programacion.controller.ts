@@ -54,7 +54,7 @@ export class ProgramacionController {
       );
 
       return result;
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Error && 'issues' in error) {
         // Error de validación de Zod
         throw new HttpException(
@@ -76,7 +76,9 @@ export class ProgramacionController {
 
   @Get('tecnica/admin')
   async findAllProgramacionTecnicaAdmin() {
-    this.logger.log('Consultando todos los registros de programación técnica (admin, incluye eliminados)');
+    this.logger.log(
+      'Consultando todos los registros de programación técnica (admin, incluye eliminados)',
+    );
     return await this.programacionService.findAllProgramacionTecnicaAdmin();
   }
 
@@ -90,7 +92,9 @@ export class ProgramacionController {
   @Get('tecnica/recien-completados')
   async getRecienCompletados(@Query('segundos') segundos?: string) {
     const segundosNum = segundos ? parseInt(segundos, 10) : 30;
-    this.logger.log(`Consultando registros recién completados en los últimos ${segundosNum} segundos`);
+    this.logger.log(
+      `Consultando registros recién completados en los últimos ${segundosNum} segundos`,
+    );
 
     return await this.programacionService.getRecienCompletados(segundosNum);
   }
@@ -111,7 +115,8 @@ export class ProgramacionController {
 
   @Post('tecnica/duplicar')
   async duplicarGuia(
-    @Body() body: {
+    @Body()
+    body: {
       idGuiaOriginal: number;
       cantidad: number;
       modificaciones?: Array<Partial<any>>;
@@ -119,9 +124,7 @@ export class ProgramacionController {
   ) {
     const { idGuiaOriginal, cantidad, modificaciones } = body;
 
-    this.logger.log(
-      `Duplicando guía ${idGuiaOriginal} ${cantidad} veces`,
-    );
+    this.logger.log(`Duplicando guía ${idGuiaOriginal} ${cantidad} veces`);
 
     return await this.programacionService.duplicarGuia(
       idGuiaOriginal,
@@ -131,9 +134,7 @@ export class ProgramacionController {
   }
 
   @Post('tecnica/guardar-duplicados')
-  async guardarDuplicados(
-    @Body() body: { duplicados: Array<any> },
-  ) {
+  async guardarDuplicados(@Body() body: { duplicados: Array<any> }) {
     const { duplicados } = body;
 
     this.logger.log(
@@ -145,7 +146,8 @@ export class ProgramacionController {
 
   @Patch('tecnica/duplicados/actualizar')
   async actualizarDuplicados(
-    @Body() body: {
+    @Body()
+    body: {
       loteId: string;
       modificaciones: {
         peso_bruto_total?: number;
@@ -216,7 +218,8 @@ export class ProgramacionController {
   @Patch('tecnica/:id')
   async updateProgramacionTecnica(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateData: {
+    @Body()
+    updateData: {
       id_proyecto?: number;
       id_etapa?: number;
       id_sector?: number;
@@ -282,24 +285,69 @@ export class ProgramacionController {
 
   @Post('exportar-excel')
   async exportarExcel(
-    @Body() body: { proveedores?: string[]; unidades?: string[]; fechaDesde?: string; fechaHasta?: string },
+    @Body()
+    body: {
+      proveedores?: string[];
+      unidades?: string[];
+      fechaDesde?: string;
+      fechaHasta?: string;
+    },
     @Res() res: Response,
   ) {
     try {
       const buffer = await this.programacionService.exportarExcel(body);
       const fecha = new Date().toISOString().split('T')[0];
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', `attachment; filename="programacion_${fecha}.xlsx"`);
+      res.setHeader(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="programacion_${fecha}.xlsx"`,
+      );
       res.send(buffer);
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error exportando Excel:', error);
-      throw new HttpException('Error al generar el archivo Excel', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Error al generar el archivo Excel',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('exportar-excel-mixto')
+  async exportarExcelMixto(
+    @Body()
+    body: { proveedores?: string[]; fechaDesde?: string; fechaHasta?: string },
+    @Res() res: Response,
+  ) {
+    try {
+      const buffer = await this.programacionService.exportarExcelMixto(body);
+      const fecha = new Date().toISOString().split('T')[0];
+      res.setHeader(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="programacion_mixta_${fecha}.xlsx"`,
+      );
+      res.send(buffer);
+    } catch (error: any) {
+      this.logger.error('Error exportando Excel mixto:', error);
+      throw new HttpException(
+        'Error al generar el archivo Excel mixto',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   @Post('combinar-pdfs')
   @Header('Content-Type', 'application/pdf')
-  @Header('Content-Disposition', 'attachment; filename="programacion_combinado.pdf"')
+  @Header(
+    'Content-Disposition',
+    'attachment; filename="programacion_combinado.pdf"',
+  )
   async combinarPdfs(
     @Body() body: { urls: string[] },
   ): Promise<StreamableFile> {
@@ -347,7 +395,7 @@ export class ProgramacionController {
           });
 
           this.logger.log(`PDF ${i + 1}/${urls.length} procesado exitosamente`);
-        } catch (error) {
+        } catch (error: any) {
           this.logger.error(`Error procesando PDF ${i + 1}: ${error.message}`);
           // Continuar con los demás PDFs
         }
@@ -362,7 +410,7 @@ export class ProgramacionController {
 
       // Devolver el PDF como un archivo descargable
       return new StreamableFile(Buffer.from(mergedPdfBytes));
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(`Error al combinar PDFs: ${error.message}`);
       throw new HttpException(
         'Error al combinar los PDFs',

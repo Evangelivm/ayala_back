@@ -7,8 +7,12 @@ export const CreateFacturaItemSchema = z.object({
   descripcion_item: z.string().min(1, 'La descripción del item es requerida'),
   unidad_medida: z.string().min(1, 'La unidad de medida es requerida'),
   cantidad: z.number().positive('La cantidad debe ser mayor a 0'),
-  valor_unitario: z.number().nonnegative('El valor unitario no puede ser negativo'),
-  precio_unitario: z.number().nonnegative('El precio unitario no puede ser negativo'),
+  valor_unitario: z
+    .number()
+    .nonnegative('El valor unitario no puede ser negativo'),
+  precio_unitario: z
+    .number()
+    .nonnegative('El precio unitario no puede ser negativo'),
   descuento: z.number().nonnegative().optional().nullable(),
   subtotal: z.number().nonnegative('El subtotal no puede ser negativo'),
   tipo_de_igv: z.number().int().positive('El tipo de IGV es requerido'),
@@ -24,7 +28,9 @@ export const CreateFacturaItemSchema = z.object({
 // Schema para guía relacionada (opcional)
 export const CreateFacturaGuiaSchema = z.object({
   guia_tipo: z.number().int().positive('El tipo de guía es requerido'),
-  guia_serie_numero: z.string().min(1, 'La serie y número de guía son requeridos'),
+  guia_serie_numero: z
+    .string()
+    .min(1, 'La serie y número de guía son requeridos'),
 });
 
 // Schema para venta a crédito (opcional)
@@ -38,7 +44,10 @@ export const CreateFacturaVentaCreditoSchema = z.object({
 export const CreateFacturaSchema = z
   .object({
     // Datos principales
-    tipo_de_comprobante: z.number().int().positive('El tipo de comprobante es requerido'),
+    tipo_de_comprobante: z
+      .number()
+      .int()
+      .positive('El tipo de comprobante es requerido'),
     serie: z.string().length(4, 'La serie debe tener 4 caracteres'),
     numero: z.number().int().positive('El número es requerido'),
     sunat_transaction: z.number().int().positive().default(1),
@@ -46,12 +55,25 @@ export const CreateFacturaSchema = z
 
     // Cliente
     cliente_tipo_documento: z.number().int().positive().default(6),
-    cliente_numero_documento: z.string().min(1, 'El número de documento es requerido'),
-    cliente_denominacion: z.string().min(1, 'La denominación del cliente es requerida'),
+    cliente_numero_documento: z
+      .string()
+      .min(1, 'El número de documento es requerido'),
+    cliente_denominacion: z
+      .string()
+      .min(1, 'La denominación del cliente es requerida'),
     cliente_direccion: z.string().optional().nullable(),
-    cliente_email: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
-    cliente_email_1: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
-    cliente_email_2: z.union([z.string().email('Email inválido'), z.literal('')]).optional().nullable(),
+    cliente_email: z
+      .union([z.string().email('Email inválido'), z.literal('')])
+      .optional()
+      .nullable(),
+    cliente_email_1: z
+      .union([z.string().email('Email inválido'), z.literal('')])
+      .optional()
+      .nullable(),
+    cliente_email_2: z
+      .union([z.string().email('Email inválido'), z.literal('')])
+      .optional()
+      .nullable(),
 
     // Fechas
     fecha_emision: z.string().min(1, 'La fecha de emisión es requerida'),

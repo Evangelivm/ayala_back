@@ -87,7 +87,8 @@ export const NubefactErrorMessages: Record<NubefactErrorCode, string> = {
   [NubefactErrorCode.ITEMS_INVALIDOS]: 'Items inválidos',
   [NubefactErrorCode.RECHAZADO_POR_SUNAT]: 'Rechazado por SUNAT',
   [NubefactErrorCode.TIMEOUT_SUNAT]: 'Timeout en SUNAT',
-  [NubefactErrorCode.ERROR_COMUNICACION_SUNAT]: 'Error de comunicación con SUNAT',
+  [NubefactErrorCode.ERROR_COMUNICACION_SUNAT]:
+    'Error de comunicación con SUNAT',
   [NubefactErrorCode.ERROR_INTERNO]: 'Error interno de NUBEFACT',
   [NubefactErrorCode.SERVICIO_NO_DISPONIBLE]: 'Servicio no disponible',
 };

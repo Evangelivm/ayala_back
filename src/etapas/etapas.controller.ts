@@ -10,10 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { EtapasService } from './etapas.service';
-import {
-  CreateEtapaDto,
-  UpdateEtapaDto,
-} from '../dto/etapas.dto';
+import { CreateEtapaDto, UpdateEtapaDto } from '../dto/etapas.dto';
 
 @Controller('etapas')
 export class EtapasController {

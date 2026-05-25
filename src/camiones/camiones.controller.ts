@@ -1,6 +1,22 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CamionesService } from './camiones.service';
-import { CreateCamionSchema, UpdateCamionSchema, type CreateCamionDto, type UpdateCamionDto } from '../dto/camiones.dto';
+import {
+  CreateCamionSchema,
+  UpdateCamionSchema,
+  type CreateCamionDto,
+  type UpdateCamionDto,
+} from '../dto/camiones.dto';
 
 @Controller('camiones')
 export class CamionesController {
@@ -43,20 +59,23 @@ export class CamionesController {
       return this.camionesService.create(validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateCamionDto: UpdateCamionDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateCamionDto: UpdateCamionDto,
+  ) {
     try {
       const validatedData = UpdateCamionSchema.parse(updateCamionDto);
       return this.camionesService.update(+id, validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }

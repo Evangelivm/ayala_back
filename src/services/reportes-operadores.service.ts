@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   ReportesOperadoresDto,
@@ -11,7 +15,9 @@ import {
 export class ReportesOperadoresService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: ReportesOperadoresDto): Promise<ReportesOperadoresResponse> {
+  async create(
+    data: ReportesOperadoresDto,
+  ): Promise<ReportesOperadoresResponse> {
     // Validar que no exista un código de reporte duplicado
     const existingReport = await this.prisma.reportes_operadores.findUnique({
       where: { codigo_reporte: data.codigo_reporte },
@@ -267,25 +273,44 @@ export class ReportesOperadoresService {
       fecha: reporte.fecha.toISOString().split('T')[0],
       created_at: reporte.created_at?.toISOString() || '',
       updated_at: reporte.updated_at?.toISOString() || '',
-      operador: reporte.operador ? `${reporte.operador.nombres} ${reporte.operador.apellidos}` : null,
-      vigia1: reporte.vigia1 ? `${reporte.vigia1.nombres} ${reporte.vigia1.apellidos}` : null,
-      vigia2: reporte.vigia2 ? `${reporte.vigia2.nombres} ${reporte.vigia2.apellidos}` : null,
-      vigia3: reporte.vigia3 ? `${reporte.vigia3.nombres} ${reporte.vigia3.apellidos}` : null,
+      operador: reporte.operador
+        ? `${reporte.operador.nombres} ${reporte.operador.apellidos}`
+        : null,
+      vigia1: reporte.vigia1
+        ? `${reporte.vigia1.nombres} ${reporte.vigia1.apellidos}`
+        : null,
+      vigia2: reporte.vigia2
+        ? `${reporte.vigia2.nombres} ${reporte.vigia2.apellidos}`
+        : null,
+      vigia3: reporte.vigia3
+        ? `${reporte.vigia3.nombres} ${reporte.vigia3.apellidos}`
+        : null,
       etapa: reporte.etapa ? reporte.etapa.nombre : null,
-      equipo: reporte.equipo ? `${reporte.equipo.marca} ${reporte.equipo.modelo}` : null,
-      maquinaria: reporte.maquinaria ? `${reporte.maquinaria.marca} ${reporte.maquinaria.modelo}` : null,
+      equipo: reporte.equipo
+        ? `${reporte.equipo.marca} ${reporte.equipo.modelo}`
+        : null,
+      maquinaria: reporte.maquinaria
+        ? `${reporte.maquinaria.marca} ${reporte.maquinaria.modelo}`
+        : null,
       // Campo legacy para compatibilidad - usar vigia1 como principal
-      vigia: reporte.vigia1 ? `${reporte.vigia1.nombres} ${reporte.vigia1.apellidos}` : null,
-      detalle_produccion: reporte.detalle_produccion.map(detalle => ({
+      vigia: reporte.vigia1
+        ? `${reporte.vigia1.nombres} ${reporte.vigia1.apellidos}`
+        : null,
+      detalle_produccion: reporte.detalle_produccion.map((detalle) => ({
         ...detalle,
         m3: detalle.m3 ? Number(detalle.m3) : null,
-        horas_trabajadas: detalle.horas_trabajadas ? Number(detalle.horas_trabajadas) : null,
+        horas_trabajadas: detalle.horas_trabajadas
+          ? Number(detalle.horas_trabajadas)
+          : null,
         created_at: undefined,
       })),
     } as ReportesOperadoresResponse;
   }
 
-  async update(id: number, data: UpdateReportesOperadoresDto): Promise<ReportesOperadoresResponse> {
+  async update(
+    id: number,
+    data: UpdateReportesOperadoresDto,
+  ): Promise<ReportesOperadoresResponse> {
     // Verificar que el reporte existe
     const existingReporte = await this.prisma.reportes_operadores.findUnique({
       where: { id_reporte: id },
@@ -296,7 +321,10 @@ export class ReportesOperadoresService {
     }
 
     // Validar código de reporte único si se está actualizando
-    if (data.codigo_reporte && data.codigo_reporte !== existingReporte.codigo_reporte) {
+    if (
+      data.codigo_reporte &&
+      data.codigo_reporte !== existingReporte.codigo_reporte
+    ) {
       const duplicateReport = await this.prisma.reportes_operadores.findUnique({
         where: { codigo_reporte: data.codigo_reporte },
       });

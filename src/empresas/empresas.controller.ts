@@ -1,6 +1,22 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { EmpresasService } from './empresas.service';
-import { CreateEmpresaSchema, UpdateEmpresaSchema, type CreateEmpresaDto, type UpdateEmpresaDto } from '../dto/empresas.dto';
+import {
+  CreateEmpresaSchema,
+  UpdateEmpresaSchema,
+  type CreateEmpresaDto,
+  type UpdateEmpresaDto,
+} from '../dto/empresas.dto';
 
 @Controller('empresas')
 export class EmpresasController {
@@ -37,20 +53,23 @@ export class EmpresasController {
       return this.empresasService.create(validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }
   }
 
   @Put(':codigo')
-  async update(@Param('codigo') codigo: string, @Body() updateEmpresaDto: UpdateEmpresaDto) {
+  async update(
+    @Param('codigo') codigo: string,
+    @Body() updateEmpresaDto: UpdateEmpresaDto,
+  ) {
     try {
       const validatedData = UpdateEmpresaSchema.parse(updateEmpresaDto);
       return this.empresasService.update(codigo, validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }

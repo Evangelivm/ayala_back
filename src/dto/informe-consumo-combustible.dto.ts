@@ -6,7 +6,9 @@ export const InformeConsumoCombustibleFilterSchema = z.object({
   id_equipo: z.number().optional(),
 });
 
-export type InformeConsumoCombustibleFilterDto = z.infer<typeof InformeConsumoCombustibleFilterSchema>;
+export type InformeConsumoCombustibleFilterDto = z.infer<
+  typeof InformeConsumoCombustibleFilterSchema
+>;
 
 export interface InformeConsumoCombustibleDetalle {
   codigo_vale: string;

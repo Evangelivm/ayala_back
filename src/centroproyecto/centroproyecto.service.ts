@@ -7,9 +7,7 @@ export class CentroproyectoService {
 
   async findAll() {
     const centros = await this.prisma.centroproyecto.findMany({
-      orderBy: [
-        { codigo: 'asc' }
-      ],
+      orderBy: [{ codigo: 'asc' }],
     });
 
     return centros;

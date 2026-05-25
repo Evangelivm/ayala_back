@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Param, Body, HttpException, HttpStatus, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  HttpException,
+  HttpStatus,
+  Query,
+} from '@nestjs/common';
 import { GreDetectorService } from './services/gre-detector.service';
 import { GreConsumerService } from './services/gre-consumer.service';
 import { GrePollingService } from './services/gre-polling.service';
@@ -8,7 +17,6 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Controller('gre')
 export class GreController {
-
   constructor(
     private readonly greDetector: GreDetectorService,
     private readonly greConsumer: GreConsumerService,
@@ -114,7 +122,7 @@ export class GreController {
   async getPollingStatus(@Param('recordId') recordId: string) {
     try {
       const stats = this.grePolling.getPollingStats();
-      const task = stats.tasks.find(t => t.recordId === recordId);
+      const task = stats.tasks.find((t) => t.recordId === recordId);
 
       if (!task) {
         return {
@@ -179,7 +187,9 @@ export class GreController {
   }
 
   @Post('config/polling')
-  async updatePollingConfig(@Body() config: { interval?: number; maxAttempts?: number }) {
+  async updatePollingConfig(
+    @Body() config: { interval?: number; maxAttempts?: number },
+  ) {
     try {
       this.grePolling.updatePollingConfig(config.interval, config.maxAttempts);
 
@@ -241,7 +251,8 @@ export class GreController {
     return {
       service: 'GRE Kafka Service',
       version: '1.0.0',
-      description: 'Sistema de procesamiento GRE con Kafka y polling persistente',
+      description:
+        'Sistema de procesamiento GRE con Kafka y polling persistente',
       features: [
         'Detección automática de registros completos',
         'Procesamiento asíncrono con Kafka',
@@ -274,7 +285,7 @@ export class GreController {
           documento_relacionado: true,
           vehiculos_secundarios: true,
           conductores_secundarios: true,
-        }
+        },
       });
 
       if (!record) {
@@ -290,9 +301,12 @@ export class GreController {
 
       if (record.tipo_de_comprobante === 7) {
         tipoGre = 'GRE REMITENTE';
-        modoTransporte = record.tipo_de_transporte === '01' ? 'PÚBLICO' :
-                        record.tipo_de_transporte === '02' ? 'PRIVADO' :
-                        'NO DEFINIDO';
+        modoTransporte =
+          record.tipo_de_transporte === '01'
+            ? 'PÚBLICO'
+            : record.tipo_de_transporte === '02'
+              ? 'PRIVADO'
+              : 'NO DEFINIDO';
       } else if (record.tipo_de_comprobante === 8) {
         tipoGre = 'GRE TRANSPORTISTA';
       }
@@ -317,9 +331,11 @@ export class GreController {
             documento_tipo: record.transportista_documento_tipo,
             documento_numero: record.transportista_documento_numero,
             denominacion: record.transportista_denominacion,
-            completo: !!(record.transportista_documento_tipo === 6 &&
-                        record.transportista_documento_numero &&
-                        record.transportista_denominacion)
+            completo: !!(
+              record.transportista_documento_tipo === 6 &&
+              record.transportista_documento_numero &&
+              record.transportista_denominacion
+            ),
           };
         } else if (record.tipo_de_transporte === '02') {
           // Transporte PRIVADO
@@ -329,11 +345,13 @@ export class GreController {
             nombre: record.conductor_nombre,
             apellidos: record.conductor_apellidos,
             licencia: record.conductor_numero_licencia,
-            completo: !!(record.conductor_documento_tipo &&
-                        record.conductor_documento_numero &&
-                        record.conductor_nombre &&
-                        record.conductor_apellidos &&
-                        record.conductor_numero_licencia)
+            completo: !!(
+              record.conductor_documento_tipo &&
+              record.conductor_documento_numero &&
+              record.conductor_nombre &&
+              record.conductor_apellidos &&
+              record.conductor_numero_licencia
+            ),
           };
         }
       } else if (record.tipo_de_comprobante === 8) {
@@ -344,19 +362,23 @@ export class GreController {
           nombre: record.conductor_nombre,
           apellidos: record.conductor_apellidos,
           licencia: record.conductor_numero_licencia,
-          completo: !!(record.conductor_documento_tipo &&
-                      record.conductor_documento_numero &&
-                      record.conductor_nombre &&
-                      record.conductor_apellidos &&
-                      record.conductor_numero_licencia)
+          completo: !!(
+            record.conductor_documento_tipo &&
+            record.conductor_documento_numero &&
+            record.conductor_nombre &&
+            record.conductor_apellidos &&
+            record.conductor_numero_licencia
+          ),
         };
         validaciones.campos_destinatario = {
           documento_tipo: record.destinatario_documento_tipo,
           documento_numero: record.destinatario_documento_numero,
           denominacion: record.destinatario_denominacion,
-          completo: !!(record.destinatario_documento_tipo &&
-                      record.destinatario_documento_numero &&
-                      record.destinatario_denominacion)
+          completo: !!(
+            record.destinatario_documento_tipo &&
+            record.destinatario_documento_numero &&
+            record.destinatario_denominacion
+          ),
         };
       }
 
@@ -369,8 +391,12 @@ export class GreController {
         numero: record.numero,
         validaciones,
         resumen: {
-          puede_procesarse: Object.values(validaciones).every(v =>
-            typeof v === 'boolean' ? v : (typeof v === 'object' && v !== null && 'completo' in v ? v.completo !== false : true)
+          puede_procesarse: Object.values(validaciones).every((v) =>
+            typeof v === 'boolean'
+              ? v
+              : typeof v === 'object' && v !== null && 'completo' in v
+                ? v.completo !== false
+                : true,
           ),
           items_count: record.items?.length || 0,
           documentos_relacionados: record.documento_relacionado?.length || 0,
@@ -400,13 +426,18 @@ export class GreController {
     try {
       const tipoTransporte = tipo || 'privado';
 
-      this.logger.log(`📋 Creando GRE Remitente de prueba (transporte ${tipoTransporte})...`);
+      this.logger.log(
+        `📋 Creando GRE Remitente de prueba (transporte ${tipoTransporte})...`,
+      );
 
       // Crear registro en BD
-      const greRecord = await this.greTest.createTestGreRemitente(tipoTransporte);
+      const greRecord =
+        await this.greTest.createTestGreRemitente(tipoTransporte);
 
       this.logger.log(`✅ GRE creado con ID: ${greRecord.id_guia}`);
-      this.logger.log(`⏳ Esperando detección automática (máximo 30 segundos)...`);
+      this.logger.log(
+        `⏳ Esperando detección automática (máximo 30 segundos)...`,
+      );
 
       return {
         success: true,
@@ -454,7 +485,9 @@ export class GreController {
       const greRecord = await this.greTest.createTestGreTransportista();
 
       this.logger.log(`✅ GRE creado con ID: ${greRecord.id_guia}`);
-      this.logger.log(`⏳ Esperando detección automática (máximo 30 segundos)...`);
+      this.logger.log(
+        `⏳ Esperando detección automática (máximo 30 segundos)...`,
+      );
 
       return {
         success: true,
@@ -500,16 +533,19 @@ export class GreController {
 
       // 1. Buscar el identificador_unico en programacion_tecnica
       const programacion = await this.prisma.programacion_tecnica.findUnique({
-        where: { id: recordId }
+        where: { id: recordId },
       });
 
       if (!programacion || !programacion.identificador_unico) {
-        throw new HttpException('Registro de programación no encontrado o sin identificador único', HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          'Registro de programación no encontrado o sin identificador único',
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       // 2. Buscar guía en BD usando el identificador_unico
       const guia = await this.prisma.guia_remision.findFirst({
-        where: { identificador_unico: programacion.identificador_unico }
+        where: { identificador_unico: programacion.identificador_unico },
       });
 
       if (!guia) {
@@ -517,13 +553,19 @@ export class GreController {
       }
 
       // 2.1. Validar estado de la guía
-      if (!guia.estado_gre || guia.estado_gre === 'PENDIENTE' || guia.estado_gre === 'FALLADO') {
-        this.logger.log(`⚠️ Guía ${guia.serie}-${guia.numero} tiene estado: ${guia.estado_gre || 'NULL'}`);
+      if (
+        !guia.estado_gre ||
+        guia.estado_gre === 'PENDIENTE' ||
+        guia.estado_gre === 'FALLADO'
+      ) {
+        this.logger.log(
+          `⚠️ Guía ${guia.serie}-${guia.numero} tiene estado: ${guia.estado_gre || 'NULL'}`,
+        );
         throw new HttpException(
           `La guía ${guia.serie}-${guia.numero} no ha sido generada exitosamente en Nubefact. ` +
-          `Estado actual: ${guia.estado_gre || 'NO PROCESADO'}. ` +
-          `Por favor, genere la guía primero antes de intentar recuperar archivos.`,
-          HttpStatus.BAD_REQUEST
+            `Estado actual: ${guia.estado_gre || 'NO PROCESADO'}. ` +
+            `Por favor, genere la guía primero antes de intentar recuperar archivos.`,
+          HttpStatus.BAD_REQUEST,
         );
       }
 
@@ -532,10 +574,12 @@ export class GreController {
         operacion: 'consultar_guia',
         tipo_de_comprobante: guia.tipo_de_comprobante,
         serie: guia.serie,
-        numero: guia.numero
+        numero: guia.numero,
       };
 
-      this.logger.log(`📋 Consultando guía manualmente: ${guia.serie}-${guia.numero}`);
+      this.logger.log(
+        `📋 Consultando guía manualmente: ${guia.serie}-${guia.numero}`,
+      );
 
       // 4. Llamar a NUBEFACT consultar_guia
       const NUBEFACT_CONSULTAR_URL = process.env.NUBEFACT_CONSULTAR_URL;
@@ -544,21 +588,29 @@ export class GreController {
       const axios = require('axios');
       const response = await axios.post(NUBEFACT_CONSULTAR_URL, consultaData, {
         headers: {
-          'Authorization': `Token ${NUBEFACT_TOKEN}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Token ${NUBEFACT_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       // 5. Verificar si tenemos enlaces
-      const { enlace_del_pdf, enlace_del_xml, enlace_del_cdr,
-              aceptada_por_sunat, sunat_description } = response.data;
+      const {
+        enlace_del_pdf,
+        enlace_del_xml,
+        enlace_del_cdr,
+        aceptada_por_sunat,
+        sunat_description,
+      } = response.data;
 
       if (!enlace_del_pdf || !enlace_del_xml || !enlace_del_cdr) {
-        this.logger.log(`⚠️ SUNAT aún no ha generado los archivos para ${guia.serie}-${guia.numero}`);
+        this.logger.log(
+          `⚠️ SUNAT aún no ha generado los archivos para ${guia.serie}-${guia.numero}`,
+        );
         return {
           success: false,
-          message: 'SUNAT aún no ha generado los archivos. Intente nuevamente en unos minutos.',
-          data: response.data
+          message:
+            'SUNAT aún no ha generado los archivos. Intente nuevamente en unos minutos.',
+          data: response.data,
         };
       }
 
@@ -571,11 +623,13 @@ export class GreController {
           enlace_del_xml,
           enlace_del_cdr,
           aceptada_por_sunat,
-          sunat_description
-        }
+          sunat_description,
+        },
       });
 
-      this.logger.log(`✅ Enlaces recuperados exitosamente para ${guia.serie}-${guia.numero}`);
+      this.logger.log(
+        `✅ Enlaces recuperados exitosamente para ${guia.serie}-${guia.numero}`,
+      );
 
       return {
         success: true,
@@ -587,32 +641,42 @@ export class GreController {
           estado_gre: guiaActualizada.estado_gre,
           enlace_del_pdf,
           enlace_del_xml,
-          enlace_del_cdr
-        }
+          enlace_del_cdr,
+        },
       };
-
     } catch (error) {
       this.logger.error('Error en consulta manual:', error);
 
       // Manejo específico para error de Nubefact "Documento no existe"
-      if (error.response?.status === 400 && error.response?.data?.errors === 'Documento no existe') {
+      if (
+        error.response?.status === 400 &&
+        error.response?.data?.errors === 'Documento no existe'
+      ) {
         const guia = await this.prisma.guia_remision.findFirst({
-          where: { identificador_unico: (await this.prisma.programacion_tecnica.findUnique({ where: { id: parseInt(id) } }))?.identificador_unico }
+          where: {
+            identificador_unico: (
+              await this.prisma.programacion_tecnica.findUnique({
+                where: { id: parseInt(id) },
+              })
+            )?.identificador_unico,
+          },
         });
 
-        this.logger.log(`⚠️ Guía ${guia?.serie}-${guia?.numero} no existe en Nubefact. Estado actual: ${guia?.estado_gre}`);
+        this.logger.log(
+          `⚠️ Guía ${guia?.serie}-${guia?.numero} no existe en Nubefact. Estado actual: ${guia?.estado_gre}`,
+        );
 
         throw new HttpException(
           `El documento ${guia?.serie}-${guia?.numero} NO EXISTE en Nubefact. ` +
-          `La guía nunca fue enviada correctamente o el proceso falló. ` +
-          `Debe generar la guía nuevamente desde el inicio.`,
-          HttpStatus.NOT_FOUND
+            `La guía nunca fue enviada correctamente o el proceso falló. ` +
+            `Debe generar la guía nuevamente desde el inicio.`,
+          HttpStatus.NOT_FOUND,
         );
       }
 
       throw new HttpException(
         `Error en consulta manual: ${error.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -621,12 +685,14 @@ export class GreController {
   getTestInfo() {
     return {
       title: '🧪 ENDPOINTS DE PRUEBA PARA KAFKA GRE',
-      description: 'Estos endpoints crean GREs de prueba con datos precargados para validar el flujo completo',
+      description:
+        'Estos endpoints crean GREs de prueba con datos precargados para validar el flujo completo',
       endpoints: {
         remitente_privado: {
           method: 'POST',
           url: '/gre/test/remitente?tipo=privado',
-          descripcion: 'Crea GRE Remitente con transporte PRIVADO (tipo_de_transporte=02)',
+          descripcion:
+            'Crea GRE Remitente con transporte PRIVADO (tipo_de_transporte=02)',
           campos_obligatorios: [
             'motivo_de_traslado',
             'numero_de_bultos',
@@ -637,7 +703,8 @@ export class GreController {
         remitente_publico: {
           method: 'POST',
           url: '/gre/test/remitente?tipo=publico',
-          descripcion: 'Crea GRE Remitente con transporte PÚBLICO (tipo_de_transporte=01)',
+          descripcion:
+            'Crea GRE Remitente con transporte PÚBLICO (tipo_de_transporte=01)',
           campos_obligatorios: [
             'motivo_de_traslado',
             'numero_de_bultos',
@@ -657,7 +724,8 @@ export class GreController {
         },
       },
       flujo_automatico: {
-        paso_1: '📝 Endpoint crea registro en guia_remision con estado_gre = NULL',
+        paso_1:
+          '📝 Endpoint crea registro en guia_remision con estado_gre = NULL',
         paso_2: '🔍 Detector encuentra el registro (máximo 30 segundos)',
         paso_3: '✅ Valida campos según tipo_de_comprobante (7 u 8)',
         paso_4: '📤 Envía a Kafka topic: gre-requests',
@@ -669,7 +737,8 @@ export class GreController {
         status: 'GET /gre/status - Estado general del sistema',
         stats: 'GET /gre/stats - Estadísticas detalladas',
         polling: 'GET /gre/polling/:id - Estado de polling específico',
-        force: 'POST /gre/force-detection - Forzar detección inmediata (no esperar 30s)',
+        force:
+          'POST /gre/force-detection - Forzar detección inmediata (no esperar 30s)',
       },
       notas: [
         '⚠️ Los datos son FICTICIOS para pruebas',
@@ -684,25 +753,35 @@ export class GreController {
   @Post('extendido/procesar-pendientes')
   async procesarPendientesExtendidos() {
     try {
-      this.logger.log('🚨 PROCESAMIENTO DE EMERGENCIA - Procesando registros pendientes extendidos');
+      this.logger.log(
+        '🚨 PROCESAMIENTO DE EMERGENCIA - Procesando registros pendientes extendidos',
+      );
 
       // 1. Buscar registros con estado PENDIENTE
       const pendientes = await this.prisma.guia_remision_extendido.findMany({
         where: { estado_gre: 'PENDIENTE' },
-        take: 10 // Procesar máximo 10 a la vez
+        take: 10, // Procesar máximo 10 a la vez
       });
 
       if (pendientes.length === 0) {
         return {
           success: true,
           message: 'No hay registros pendientes para procesar',
-          procesados: 0
+          procesados: 0,
         };
       }
 
-      this.logger.log(`📋 Encontrados ${pendientes.length} registros pendientes`);
+      this.logger.log(
+        `📋 Encontrados ${pendientes.length} registros pendientes`,
+      );
 
-      const resultados: Array<{ id_guia: number; serie?: string; numero?: number; status: string; mensaje: string }> = [];
+      const resultados: Array<{
+        id_guia: number;
+        serie?: string;
+        numero?: number;
+        status: string;
+        mensaje: string;
+      }> = [];
 
       for (const guia of pendientes) {
         try {
@@ -711,7 +790,7 @@ export class GreController {
           // 2. Actualizar a PROCESANDO
           await this.prisma.guia_remision_extendido.update({
             where: { id_guia: guia.id_guia },
-            data: { estado_gre: 'PROCESANDO' }
+            data: { estado_gre: 'PROCESANDO' },
           });
 
           // 3. Preparar datos para NUBEFACT generar_guia
@@ -733,7 +812,8 @@ export class GreController {
               tipo_de_transporte: guia.tipo_de_transporte,
               fecha_de_inicio_de_traslado: guia.fecha_de_inicio_de_traslado,
               transportista_documento_tipo: guia.transportista_documento_tipo,
-              transportista_documento_numero: guia.transportista_documento_numero,
+              transportista_documento_numero:
+                guia.transportista_documento_numero,
               transportista_denominacion: guia.transportista_denominacion,
               conductor_documento_tipo: guia.conductor_documento_tipo,
               conductor_documento_numero: guia.conductor_documento_numero,
@@ -786,23 +866,33 @@ export class GreController {
           }));
 
           // 5. Llamar a NUBEFACT generar_guia
-          const NUBEFACT_API_URL = process.env.NUBEFACT_API_URL || 'https://api.nubefact.com/api/v1/generar_guia';
+          const NUBEFACT_API_URL =
+            process.env.NUBEFACT_API_URL ||
+            'https://api.nubefact.com/api/v1/generar_guia';
           const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
 
           const axios = require('axios');
           const response = await axios.post(NUBEFACT_API_URL, greData, {
             headers: {
-              'Authorization': `Token ${NUBEFACT_TOKEN}`,
-              'Content-Type': 'application/json'
+              Authorization: `Token ${NUBEFACT_TOKEN}`,
+              'Content-Type': 'application/json',
             },
-            timeout: 30000
+            timeout: 30000,
           });
 
-          this.logger.log(`✅ Llamada a generar_guia exitosa para ID: ${guia.id_guia}`);
+          this.logger.log(
+            `✅ Llamada a generar_guia exitosa para ID: ${guia.id_guia}`,
+          );
 
           // 6. Iniciar polling inmediato (intento de consultar_guia después de 5 segundos)
           setTimeout(async () => {
-            await this.consultarYActualizarExtendido(guia.id_guia, guia.identificador_unico, guia.serie, guia.numero, guia.tipo_de_comprobante);
+            await this.consultarYActualizarExtendido(
+              guia.id_guia,
+              guia.identificador_unico,
+              guia.serie,
+              guia.numero,
+              guia.tipo_de_comprobante,
+            );
           }, 5000);
 
           resultados.push({
@@ -810,21 +900,23 @@ export class GreController {
             serie: guia.serie,
             numero: guia.numero,
             status: 'procesado',
-            mensaje: 'Enviado a NUBEFACT, iniciando polling'
+            mensaje: 'Enviado a NUBEFACT, iniciando polling',
           });
-
         } catch (error) {
-          this.logger.error(`Error procesando guía extendida ${guia.id_guia}:`, error);
+          this.logger.error(
+            `Error procesando guía extendida ${guia.id_guia}:`,
+            error,
+          );
 
           await this.prisma.guia_remision_extendido.update({
             where: { id_guia: guia.id_guia },
-            data: { estado_gre: 'FALLADO' }
+            data: { estado_gre: 'FALLADO' },
           });
 
           resultados.push({
             id_guia: guia.id_guia,
             status: 'error',
-            mensaje: error.message
+            mensaje: error.message,
           });
         }
       }
@@ -832,25 +924,30 @@ export class GreController {
       return {
         success: true,
         message: `Procesados ${resultados.length} registros`,
-        resultados
+        resultados,
       };
-
     } catch (error) {
       this.logger.error('Error en procesamiento de emergencia:', error);
       throw new HttpException(
         `Error procesando pendientes: ${error.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  private async consultarYActualizarExtendido(idGuia: number, identificadorUnico: string | null, serie: string, numero: number, tipoComprobante: number) {
+  private async consultarYActualizarExtendido(
+    idGuia: number,
+    identificadorUnico: string | null,
+    serie: string,
+    numero: number,
+    tipoComprobante: number,
+  ) {
     try {
       const consultaData = {
         operacion: 'consultar_guia',
         tipo_de_comprobante: tipoComprobante,
         serie: serie,
-        numero: numero
+        numero: numero,
       };
 
       const NUBEFACT_CONSULTAR_URL = process.env.NUBEFACT_CONSULTAR_URL;
@@ -859,37 +956,55 @@ export class GreController {
       const axios = require('axios');
       const response = await axios.post(NUBEFACT_CONSULTAR_URL, consultaData, {
         headers: {
-          'Authorization': `Token ${NUBEFACT_TOKEN}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Token ${NUBEFACT_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
       });
 
-      const { enlace_del_pdf, enlace_del_xml, enlace_del_cdr, aceptada_por_sunat, sunat_description } = response.data;
+      const {
+        enlace_del_pdf,
+        enlace_del_xml,
+        enlace_del_cdr,
+        aceptada_por_sunat,
+        sunat_description,
+      } = response.data;
 
-      if (enlace_del_pdf && enlace_del_xml && enlace_del_cdr && aceptada_por_sunat === true) {
+      if (
+        enlace_del_pdf &&
+        enlace_del_xml &&
+        enlace_del_cdr &&
+        aceptada_por_sunat === true
+      ) {
         // Actualizar BD
-        const guiaCompletada = await this.prisma.guia_remision_extendido.update({
-          where: { id_guia: idGuia },
-          data: {
-            estado_gre: 'COMPLETADO',
-            enlace_del_pdf,
-            enlace_del_xml,
-            enlace_del_cdr
-          }
-        });
+        const guiaCompletada = await this.prisma.guia_remision_extendido.update(
+          {
+            where: { id_guia: idGuia },
+            data: {
+              estado_gre: 'COMPLETADO',
+              enlace_del_pdf,
+              enlace_del_xml,
+              enlace_del_cdr,
+            },
+          },
+        );
 
-        this.logger.log(`✅ Guía extendida ${serie}-${numero} COMPLETADA con archivos`);
+        this.logger.log(
+          `✅ Guía extendida ${serie}-${numero} COMPLETADA con archivos`,
+        );
 
         // Emitir WebSocket si tiene identificador
         if (identificadorUnico) {
-          const programacionTecnica = await this.prisma.programacion_tecnica.findFirst({
-            where: { identificador_unico: identificadorUnico },
-            select: { id: true }
-          });
+          const programacionTecnica =
+            await this.prisma.programacion_tecnica.findFirst({
+              where: { identificador_unico: identificadorUnico },
+              select: { id: true },
+            });
 
           if (programacionTecnica) {
             // Importar WebsocketGateway
-            const { WebsocketGateway } = require('../websocket/websocket.gateway');
+            const {
+              WebsocketGateway,
+            } = require('../websocket/websocket.gateway');
             const websocketGateway = new WebsocketGateway();
 
             websocketGateway.emitProgTecnicaCompletada({
@@ -897,25 +1012,43 @@ export class GreController {
               identificador_unico: identificadorUnico,
               pdf_link: enlace_del_pdf,
               xml_link: enlace_del_xml,
-              cdr_link: enlace_del_cdr
+              cdr_link: enlace_del_cdr,
             });
 
-            this.logger.log(`📡 WebSocket emitido para identificador: ${identificadorUnico}`);
+            this.logger.log(
+              `📡 WebSocket emitido para identificador: ${identificadorUnico}`,
+            );
           }
         }
       } else {
-        this.logger.log(`⏳ Archivos aún no disponibles para ${serie}-${numero}, reintentando en 30s...`);
+        this.logger.log(
+          `⏳ Archivos aún no disponibles para ${serie}-${numero}, reintentando en 30s...`,
+        );
         // Reintentar después de 30 segundos
         setTimeout(async () => {
-          await this.consultarYActualizarExtendido(idGuia, identificadorUnico, serie, numero, tipoComprobante);
+          await this.consultarYActualizarExtendido(
+            idGuia,
+            identificadorUnico,
+            serie,
+            numero,
+            tipoComprobante,
+          );
         }, 30000);
       }
-
     } catch (error) {
-      this.logger.error(`Error consultando guía extendida ${serie}-${numero}:`, error);
+      this.logger.error(
+        `Error consultando guía extendida ${serie}-${numero}:`,
+        error,
+      );
       // Reintentar después de 30 segundos si falla
       setTimeout(async () => {
-        await this.consultarYActualizarExtendido(idGuia, identificadorUnico, serie, numero, tipoComprobante);
+        await this.consultarYActualizarExtendido(
+          idGuia,
+          identificadorUnico,
+          serie,
+          numero,
+          tipoComprobante,
+        );
       }, 30000);
     }
   }

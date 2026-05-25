@@ -3,14 +3,19 @@ import { z } from 'zod';
 // Schema para creación de etapa
 export const CreateEtapaSchema = z.object({
   id_proyecto: z.number().min(1, 'El ID del proyecto es requerido'),
-  nombre: z.string().min(1, 'El nombre es requerido').max(100, 'El nombre no puede exceder 100 caracteres'),
+  nombre: z
+    .string()
+    .min(1, 'El nombre es requerido')
+    .max(100, 'El nombre no puede exceder 100 caracteres'),
   descripcion: z.string().optional(),
   orden: z.number().min(1).optional(),
   activo: z.boolean().default(true),
 });
 
 // Schema para actualización de etapa
-export const UpdateEtapaSchema = CreateEtapaSchema.partial().omit({ id_proyecto: true });
+export const UpdateEtapaSchema = CreateEtapaSchema.partial().omit({
+  id_proyecto: true,
+});
 
 // Schema para respuesta de etapa
 export const EtapaResponseSchema = z.object({

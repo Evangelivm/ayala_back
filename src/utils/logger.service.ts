@@ -21,23 +21,25 @@ export class LoggerService implements NestLoggerService {
       winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
       winston.format.errors({ stack: true }),
       winston.format.splat(),
-      winston.format.json()
+      winston.format.json(),
     );
 
     // Formato para consola (desarrollo)
     const consoleFormat = winston.format.combine(
       winston.format.colorize(),
       winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-      winston.format.printf(({ timestamp, level, message, context, trace, ...metadata }) => {
-        let msg = `${timestamp} [${level}]`;
-        if (context) msg += ` [${context}]`;
-        msg += `: ${message}`;
-        if (trace) msg += `\n${trace}`;
-        if (Object.keys(metadata).length > 0) {
-          msg += `\n${JSON.stringify(metadata, null, 2)}`;
-        }
-        return msg;
-      })
+      winston.format.printf(
+        ({ timestamp, level, message, context, trace, ...metadata }) => {
+          let msg = `${timestamp} [${level}]`;
+          if (context) msg += ` [${context}]`;
+          msg += `: ${message}`;
+          if (trace) msg += `\n${trace}`;
+          if (Object.keys(metadata).length > 0) {
+            msg += `\n${JSON.stringify(metadata, null, 2)}`;
+          }
+          return msg;
+        },
+      ),
     );
 
     // Transports
@@ -45,12 +47,15 @@ export class LoggerService implements NestLoggerService {
       // Consola (solo en desarrollo)
       new winston.transports.Console({
         format: consoleFormat,
-        level: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
-      })
+        level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      }),
     ];
 
     // Solo agregar archivos en producción o si se especifica
-    if (process.env.NODE_ENV === 'production' || process.env.ENABLE_FILE_LOGGING === 'true') {
+    if (
+      process.env.NODE_ENV === 'production' ||
+      process.env.ENABLE_FILE_LOGGING === 'true'
+    ) {
       // Archivo de errores
       transports.push(
         new DailyRotateFile({
@@ -60,8 +65,8 @@ export class LoggerService implements NestLoggerService {
           format: customFormat,
           maxSize: '20m',
           maxFiles: '30d',
-          zippedArchive: true
-        })
+          zippedArchive: true,
+        }),
       );
 
       // Archivo combinado (todos los niveles)
@@ -72,8 +77,8 @@ export class LoggerService implements NestLoggerService {
           format: customFormat,
           maxSize: '20m',
           maxFiles: '30d',
-          zippedArchive: true
-        })
+          zippedArchive: true,
+        }),
       );
 
       // Archivo de warnings
@@ -85,8 +90,8 @@ export class LoggerService implements NestLoggerService {
           format: customFormat,
           maxSize: '20m',
           maxFiles: '30d',
-          zippedArchive: true
-        })
+          zippedArchive: true,
+        }),
       );
     }
 
@@ -97,15 +102,15 @@ export class LoggerService implements NestLoggerService {
       exceptionHandlers: [
         new winston.transports.File({
           filename: join(logDir, 'exceptions.log'),
-          format: customFormat
-        })
+          format: customFormat,
+        }),
       ],
       rejectionHandlers: [
         new winston.transports.File({
           filename: join(logDir, 'rejections.log'),
-          format: customFormat
-        })
-      ]
+          format: customFormat,
+        }),
+      ],
     });
   }
 
@@ -120,7 +125,11 @@ export class LoggerService implements NestLoggerService {
 
   error(message: string, trace?: string, context?: string): void {
     this.logger.error(message, { context: context || this.context, trace });
-    LogStore.add('error', trace ? `${message}\n${trace}` : message, context || this.context || '');
+    LogStore.add(
+      'error',
+      trace ? `${message}\n${trace}` : message,
+      context || this.context || '',
+    );
   }
 
   warn(message: string, context?: string): void {
@@ -139,58 +148,91 @@ export class LoggerService implements NestLoggerService {
   }
 
   // Métodos adicionales para logging estructurado
-  logWithMetadata(level: string, message: string, metadata: Record<string, any>, context?: string): void {
+  logWithMetadata(
+    level: string,
+    message: string,
+    metadata: Record<string, any>,
+    context?: string,
+  ): void {
     this.logger.log(level, message, {
       context: context || this.context,
-      ...metadata
+      ...metadata,
     });
   }
 
   // Para Factura específicamente
-  logFacturaEvent(event: string, facturaId: number, data?: Record<string, any>): void {
+  logFacturaEvent(
+    event: string,
+    facturaId: number,
+    data?: Record<string, any>,
+  ): void {
     this.logger.info(`Factura Event: ${event}`, {
       context: 'FacturaModule',
       facturaId,
       event,
-      ...data
+      ...data,
     });
   }
 
-  logNubefactRequest(method: string, endpoint: string, data?: Record<string, any>): void {
+  logNubefactRequest(
+    method: string,
+    endpoint: string,
+    data?: Record<string, any>,
+  ): void {
     this.logger.debug(`NUBEFACT Request: ${method} ${endpoint}`, {
       context: 'NubefactService',
       method,
       endpoint,
-      ...data
+      ...data,
     });
   }
 
-  logNubefactResponse(endpoint: string, status: number, data?: Record<string, any>): void {
+  logNubefactResponse(
+    endpoint: string,
+    status: number,
+    data?: Record<string, any>,
+  ): void {
     const level = status >= 400 ? 'error' : 'debug';
-    this.logger.log(level, `NUBEFACT Response: ${endpoint} - Status ${status}`, {
-      context: 'NubefactService',
-      endpoint,
-      status,
-      ...data
-    });
+    this.logger.log(
+      level,
+      `NUBEFACT Response: ${endpoint} - Status ${status}`,
+      {
+        context: 'NubefactService',
+        endpoint,
+        status,
+        ...data,
+      },
+    );
   }
 
-  logKafkaEvent(event: string, topic: string, data?: Record<string, any>): void {
+  logKafkaEvent(
+    event: string,
+    topic: string,
+    data?: Record<string, any>,
+  ): void {
     this.logger.debug(`Kafka Event: ${event} - Topic: ${topic}`, {
       context: 'KafkaService',
       event,
       topic,
-      ...data
+      ...data,
     });
   }
 
-  logPollingEvent(facturaId: number, attempt: number, status: string, data?: Record<string, any>): void {
-    this.logger.debug(`Polling Attempt #${attempt} for Factura ${facturaId}: ${status}`, {
-      context: 'PollingService',
-      facturaId,
-      attempt,
-      status,
-      ...data
-    });
+  logPollingEvent(
+    facturaId: number,
+    attempt: number,
+    status: string,
+    data?: Record<string, any>,
+  ): void {
+    this.logger.debug(
+      `Polling Attempt #${attempt} for Factura ${facturaId}: ${status}`,
+      {
+        context: 'PollingService',
+        facturaId,
+        attempt,
+        status,
+        ...data,
+      },
+    );
   }
 }

@@ -7,9 +7,7 @@ export class RubroService {
 
   async findAll() {
     const rubros = await this.prisma.rubro.findMany({
-      orderBy: [
-        { codigo: 'asc' }
-      ],
+      orderBy: [{ codigo: 'asc' }],
     });
 
     return rubros;

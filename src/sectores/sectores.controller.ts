@@ -10,10 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { SectoresService } from './sectores.service';
-import {
-  CreateSectorDto,
-  UpdateSectorDto,
-} from '../dto/sectores.dto';
+import { CreateSectorDto, UpdateSectorDto } from '../dto/sectores.dto';
 
 @Controller('sectores')
 export class SectoresController {

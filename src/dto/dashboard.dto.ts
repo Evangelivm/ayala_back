@@ -15,7 +15,9 @@ export const GetRecentReportsQuerySchema = z.object({
 
 // Tipos TypeScript basados en los schemas
 export type GetActivityQueryDto = z.infer<typeof GetActivityQuerySchema>;
-export type GetRecentReportsQueryDto = z.infer<typeof GetRecentReportsQuerySchema>;
+export type GetRecentReportsQueryDto = z.infer<
+  typeof GetRecentReportsQuerySchema
+>;
 
 // Schema para la respuesta de estadísticas del dashboard
 export const DashboardStatsSchema = z.object({

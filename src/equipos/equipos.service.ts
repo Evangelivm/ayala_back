@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { CreateEquipoDto, UpdateEquipoDto, EquipoFilterDto } from '../dto/equipos.dto';
+import type {
+  CreateEquipoDto,
+  UpdateEquipoDto,
+  EquipoFilterDto,
+} from '../dto/equipos.dto';
 
 @Injectable()
 export class EquiposService {
@@ -8,25 +12,25 @@ export class EquiposService {
 
   async findAll(filters?: EquipoFilterDto) {
     const where: any = {};
-    
+
     if (filters?.activo !== undefined) {
       where.activo = filters.activo;
     } else {
       where.activo = true; // Por defecto solo mostrar activos
     }
-    
+
     if (filters?.tipo_equipo) {
       where.tipo_equipo = filters.tipo_equipo;
     }
-    
+
     if (filters?.marca) {
       where.marca = { contains: filters.marca };
     }
-    
+
     if (filters?.modelo) {
       where.modelo = { contains: filters.modelo };
     }
-    
+
     if (filters?.unidad) {
       where.unidad = { contains: filters.unidad };
     }
@@ -37,18 +41,14 @@ export class EquiposService {
     const [equipos, total] = await Promise.all([
       this.prisma.equipos.findMany({
         where,
-        orderBy: [
-          { tipo_equipo: 'asc' },
-          { marca: 'asc' },
-          { modelo: 'asc' }
-        ],
+        orderBy: [{ tipo_equipo: 'asc' }, { marca: 'asc' }, { modelo: 'asc' }],
         skip,
         take,
       }),
       this.prisma.equipos.count({ where }),
     ]);
 
-    const data = equipos.map(e => ({
+    const data = equipos.map((e) => ({
       ...e,
       precio_referencial: Number(e.precio_referencial),
       created_at: e.created_at?.toISOString() || null,
@@ -73,13 +73,10 @@ export class EquiposService {
         tipo_equipo: tipo_equipo as any,
         activo: true,
       },
-      orderBy: [
-        { marca: 'asc' },
-        { modelo: 'asc' }
-      ],
+      orderBy: [{ marca: 'asc' }, { modelo: 'asc' }],
     });
 
-    return equipos.map(e => ({
+    return equipos.map((e) => ({
       id: e.id_equipo,
       tipo_equipo: e.tipo_equipo,
       marca: e.marca,
@@ -157,7 +154,7 @@ export class EquiposService {
   async remove(id: number) {
     await this.prisma.equipos.update({
       where: { id_equipo: id },
-      data: { 
+      data: {
         activo: false,
         updated_at: new Date(),
       },

@@ -7,9 +7,7 @@ export class FasecontrolService {
 
   async findAll() {
     const fases = await this.prisma.fasecontrol.findMany({
-      orderBy: [
-        { codigo: 'asc' }
-      ],
+      orderBy: [{ codigo: 'asc' }],
     });
 
     return fases;

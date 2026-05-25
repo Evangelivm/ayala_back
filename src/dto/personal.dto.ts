@@ -3,12 +3,33 @@ import { z } from 'zod';
 // Schema principal para personal (sin campo cargo - roles se determinan por contexto)
 export const PersonalSchema = z.object({
   id_personal: z.number().optional(),
-  nombres: z.string().min(1, 'Los nombres son requeridos').max(100, 'Los nombres no pueden exceder 100 caracteres'),
-  apellidos: z.string().min(1, 'Los apellidos son requeridos').max(100, 'Los apellidos no pueden exceder 100 caracteres'),
-  dni: z.string().min(8, 'DNI debe tener al menos 8 caracteres').max(20, 'DNI no puede exceder 20 caracteres'),
-  telefono: z.string().max(20, 'El teléfono no puede exceder 20 caracteres').optional(),
-  correo: z.string().email('Formato de correo inválido').max(100, 'El correo no puede exceder 100 caracteres').optional(),
-  fecha_ingreso: z.string().refine((date) => !isNaN(Date.parse(date)), 'Fecha de ingreso debe ser válida'),
+  nombres: z
+    .string()
+    .min(1, 'Los nombres son requeridos')
+    .max(100, 'Los nombres no pueden exceder 100 caracteres'),
+  apellidos: z
+    .string()
+    .min(1, 'Los apellidos son requeridos')
+    .max(100, 'Los apellidos no pueden exceder 100 caracteres'),
+  dni: z
+    .string()
+    .min(8, 'DNI debe tener al menos 8 caracteres')
+    .max(20, 'DNI no puede exceder 20 caracteres'),
+  telefono: z
+    .string()
+    .max(20, 'El teléfono no puede exceder 20 caracteres')
+    .optional(),
+  correo: z
+    .string()
+    .email('Formato de correo inválido')
+    .max(100, 'El correo no puede exceder 100 caracteres')
+    .optional(),
+  fecha_ingreso: z
+    .string()
+    .refine(
+      (date) => !isNaN(Date.parse(date)),
+      'Fecha de ingreso debe ser válida',
+    ),
   activo: z.boolean().default(true),
   observaciones: z.string().optional(),
   created_at: z.string().optional(),
@@ -16,17 +37,17 @@ export const PersonalSchema = z.object({
 });
 
 // Schema para creación de personal
-export const CreatePersonalSchema = PersonalSchema.omit({ 
-  id_personal: true, 
-  created_at: true, 
-  updated_at: true 
+export const CreatePersonalSchema = PersonalSchema.omit({
+  id_personal: true,
+  created_at: true,
+  updated_at: true,
 });
 
 // Schema para actualización de personal
-export const UpdatePersonalSchema = PersonalSchema.partial().omit({ 
-  id_personal: true, 
-  created_at: true, 
-  updated_at: true 
+export const UpdatePersonalSchema = PersonalSchema.partial().omit({
+  id_personal: true,
+  created_at: true,
+  updated_at: true,
 });
 
 // Schema para respuesta de personal
@@ -62,25 +83,34 @@ export const AsignacionPersonalSchema = z.object({
   id_asignacion: z.number().optional(),
   id_personal: z.number().positive('ID de personal es requerido'),
   id_proyecto: z.number().positive('ID de proyecto es requerido'),
-  fecha_asignacion: z.string().refine((date) => !isNaN(Date.parse(date)), 'Fecha de asignación debe ser válida'),
-  fecha_fin: z.string().refine((date) => !isNaN(Date.parse(date)), 'Fecha de fin debe ser válida').optional(),
+  fecha_asignacion: z
+    .string()
+    .refine(
+      (date) => !isNaN(Date.parse(date)),
+      'Fecha de asignación debe ser válida',
+    ),
+  fecha_fin: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), 'Fecha de fin debe ser válida')
+    .optional(),
   activo: z.boolean().default(true),
   observaciones: z.string().optional(),
   created_at: z.string().optional(),
   updated_at: z.string().optional(),
 });
 
-export const CreateAsignacionPersonalSchema = AsignacionPersonalSchema.omit({ 
-  id_asignacion: true, 
-  created_at: true, 
-  updated_at: true 
+export const CreateAsignacionPersonalSchema = AsignacionPersonalSchema.omit({
+  id_asignacion: true,
+  created_at: true,
+  updated_at: true,
 });
 
-export const UpdateAsignacionPersonalSchema = AsignacionPersonalSchema.partial().omit({ 
-  id_asignacion: true, 
-  created_at: true, 
-  updated_at: true 
-});
+export const UpdateAsignacionPersonalSchema =
+  AsignacionPersonalSchema.partial().omit({
+    id_asignacion: true,
+    created_at: true,
+    updated_at: true,
+  });
 
 // Schema para respuesta de asignación con datos relacionados
 export const AsignacionPersonalResponseSchema = z.object({
@@ -109,6 +139,12 @@ export type PersonalResponseDto = z.infer<typeof PersonalResponseSchema>;
 export type PersonalFilterDto = z.infer<typeof PersonalFilterSchema>;
 
 export type AsignacionPersonalDto = z.infer<typeof AsignacionPersonalSchema>;
-export type CreateAsignacionPersonalDto = z.infer<typeof CreateAsignacionPersonalSchema>;
-export type UpdateAsignacionPersonalDto = z.infer<typeof UpdateAsignacionPersonalSchema>;
-export type AsignacionPersonalResponseDto = z.infer<typeof AsignacionPersonalResponseSchema>;
+export type CreateAsignacionPersonalDto = z.infer<
+  typeof CreateAsignacionPersonalSchema
+>;
+export type UpdateAsignacionPersonalDto = z.infer<
+  typeof UpdateAsignacionPersonalSchema
+>;
+export type AsignacionPersonalResponseDto = z.infer<
+  typeof AsignacionPersonalResponseSchema
+>;

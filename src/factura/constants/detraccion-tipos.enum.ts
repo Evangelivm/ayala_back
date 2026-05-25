@@ -30,7 +30,10 @@ export const DetraccionConfig: Record<
   { nombre: string; porcentaje: number }
 > = {
   [DetraccionTipo.AZUCAR]: { nombre: 'Azúcar', porcentaje: 10 },
-  [DetraccionTipo.ALCOHOL_ETILICO]: { nombre: 'Alcohol etílico', porcentaje: 10 },
+  [DetraccionTipo.ALCOHOL_ETILICO]: {
+    nombre: 'Alcohol etílico',
+    porcentaje: 10,
+  },
   [DetraccionTipo.RECURSOS_HIDROBIOLOGICOS]: {
     nombre: 'Recursos hidrobiológicos',
     porcentaje: 4,
@@ -63,7 +66,10 @@ export const DetraccionConfig: Record<
     nombre: 'Mantenimiento y reparación',
     porcentaje: 10,
   },
-  [DetraccionTipo.MOVIMIENTO_CARGA]: { nombre: 'Movimiento de carga', porcentaje: 10 },
+  [DetraccionTipo.MOVIMIENTO_CARGA]: {
+    nombre: 'Movimiento de carga',
+    porcentaje: 10,
+  },
   [DetraccionTipo.OTROS_SERVICIOS_EMPRESARIALES]: {
     nombre: 'Otros servicios empresariales',
     porcentaje: 10,

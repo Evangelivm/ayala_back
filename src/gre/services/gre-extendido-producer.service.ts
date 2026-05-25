@@ -10,7 +10,9 @@ export class GreExtendidoProducerService {
 
   async sendGreRequest(recordId: string, greData: any): Promise<void> {
     try {
-      this.logger.log(`Enviando GRE Extendido request para registro ${recordId}`);
+      this.logger.log(
+        `Enviando GRE Extendido request para registro ${recordId}`,
+      );
 
       const validatedData = greData;
 
@@ -19,10 +21,13 @@ export class GreExtendidoProducerService {
         id: uuidv4(),
         timestamp: new Date().toISOString(),
         recordId: recordId,
-        data: validatedData
+        data: validatedData,
       };
 
-      console.log('🚀 [KAFKA-PRODUCER-EXTENDIDO] Mensaje completo a enviar a Kafka:', JSON.stringify(message, null, 2));
+      console.log(
+        '🚀 [KAFKA-PRODUCER-EXTENDIDO] Mensaje completo a enviar a Kafka:',
+        JSON.stringify(message, null, 2),
+      );
 
       // Enviar a topic gre-extendido-requests
       await this.kafkaService.sendMessage({
@@ -31,21 +36,30 @@ export class GreExtendidoProducerService {
         value: JSON.stringify(message),
       });
 
-      this.logger.log(`GRE Extendido request enviado exitosamente para registro ${recordId}, mensaje ID: ${message.id}`);
+      this.logger.log(
+        `GRE Extendido request enviado exitosamente para registro ${recordId}, mensaje ID: ${message.id}`,
+      );
     } catch (error) {
-      this.logger.error(`Error enviando GRE Extendido request para registro ${recordId}:`, error);
+      this.logger.error(
+        `Error enviando GRE Extendido request para registro ${recordId}:`,
+        error,
+      );
       throw error;
     }
   }
 
-  async sendToProcessing(messageId: string, recordId: string, greData: any): Promise<void> {
+  async sendToProcessing(
+    messageId: string,
+    recordId: string,
+    greData: any,
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
         recordId: recordId,
         timestamp: new Date().toISOString(),
         data: greData,
-        status: 'processing'
+        status: 'processing',
       };
 
       await this.kafkaService.sendMessage({
@@ -61,7 +75,12 @@ export class GreExtendidoProducerService {
     }
   }
 
-  async sendResponse(messageId: string, recordId: string, response: any, status: 'success' | 'error'): Promise<void> {
+  async sendResponse(
+    messageId: string,
+    recordId: string,
+    response: any,
+    status: 'success' | 'error',
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
@@ -69,7 +88,10 @@ export class GreExtendidoProducerService {
         timestamp: new Date().toISOString(),
         status: status,
         nubefact_response: status === 'success' ? response : null,
-        error: status === 'error' ? response.error || response.message || 'Error desconocido' : null
+        error:
+          status === 'error'
+            ? response.error || response.message || 'Error desconocido'
+            : null,
       };
 
       await this.kafkaService.sendMessage({
@@ -78,14 +100,21 @@ export class GreExtendidoProducerService {
         value: JSON.stringify(message),
       });
 
-      this.logger.log(`Respuesta enviada para mensaje ${messageId}, estado: ${status}`);
+      this.logger.log(
+        `Respuesta enviada para mensaje ${messageId}, estado: ${status}`,
+      );
     } catch (error) {
       this.logger.error(`Error enviando respuesta:`, error);
       throw error;
     }
   }
 
-  async sendToFailed(messageId: string, recordId: string, error: any, originalData?: any): Promise<void> {
+  async sendToFailed(
+    messageId: string,
+    recordId: string,
+    error: any,
+    originalData?: any,
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
@@ -94,7 +123,7 @@ export class GreExtendidoProducerService {
         error: error.message || error.toString(),
         errorStack: error.stack,
         originalData: originalData,
-        retryCount: 0
+        retryCount: 0,
       };
 
       await this.kafkaService.sendMessage({
@@ -110,9 +139,13 @@ export class GreExtendidoProducerService {
     }
   }
 
-  async sendBatchGreRequests(requests: Array<{ recordId: string, greData: any }>): Promise<void> {
+  async sendBatchGreRequests(
+    requests: Array<{ recordId: string; greData: any }>,
+  ): Promise<void> {
     try {
-      this.logger.log(`Enviando lote de ${requests.length} GRE Extendido requests`);
+      this.logger.log(
+        `Enviando lote de ${requests.length} GRE Extendido requests`,
+      );
 
       const messages = requests.map(({ recordId, greData }) => {
         return {
@@ -122,16 +155,21 @@ export class GreExtendidoProducerService {
             id: uuidv4(),
             timestamp: new Date().toISOString(),
             recordId: recordId,
-            data: greData
-          })
+            data: greData,
+          }),
         };
       });
 
       await this.kafkaService.sendMessages(messages);
 
-      this.logger.log(`Lote de ${requests.length} GRE Extendido requests enviado exitosamente`);
+      this.logger.log(
+        `Lote de ${requests.length} GRE Extendido requests enviado exitosamente`,
+      );
     } catch (error) {
-      this.logger.error('Error enviando lote de GRE Extendido requests:', error);
+      this.logger.error(
+        'Error enviando lote de GRE Extendido requests:',
+        error,
+      );
       throw error;
     }
   }

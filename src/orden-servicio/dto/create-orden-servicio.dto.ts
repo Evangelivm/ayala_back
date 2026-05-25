@@ -16,7 +16,9 @@ export const CreateDetalleOrdenServicioSchema = z
     codigo_item: z.string().min(1, 'El código del item es requerido'),
     descripcion_item: z.string().min(1, 'La descripción del item es requerida'),
     cantidad_solicitada: z.number().positive('La cantidad debe ser mayor a 0'),
-    precio_unitario: z.number().nonnegative('El precio unitario no puede ser negativo'),
+    precio_unitario: z
+      .number()
+      .nonnegative('El precio unitario no puede ser negativo'),
     subtotal: z.number().nonnegative('El subtotal no puede ser negativo'),
     centro_costo: z.string().optional(),
     prorrateo: z.number().min(0).max(100).optional(),
@@ -41,10 +43,16 @@ export const CreateOrdenServicioSchema = z
     detraccion: z.string().optional(),
     tipo_detraccion: z.string().optional(),
     porcentaje_valor_detraccion: z.string().optional(),
-    valor_detraccion: z.number().nonnegative('El valor de detracción no puede ser negativo').optional(),
+    valor_detraccion: z
+      .number()
+      .nonnegative('El valor de detracción no puede ser negativo')
+      .optional(),
     retencion: z.string().optional(),
     porcentaje_valor_retencion: z.string().optional(),
-    valor_retencion: z.number().nonnegative('El valor de retención no puede ser negativo').optional(),
+    valor_retencion: z
+      .number()
+      .nonnegative('El valor de retención no puede ser negativo')
+      .optional(),
     almacen_central: z.string().optional(),
     has_anticipo: z.number().int().min(0).max(1).optional(),
     tiene_anticipo: z.string().optional(),

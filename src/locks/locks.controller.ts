@@ -1,4 +1,14 @@
-import { Controller, Post, Get, Body, HttpCode, HttpStatus, Logger, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Logger,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { LocksService, AcquireLockDto, ReleaseLockDto } from './locks.service';
 
 @Controller('locks')
@@ -14,14 +24,18 @@ export class LocksController {
   @Post('acquire')
   @HttpCode(HttpStatus.OK)
   async acquire(@Body() dto: AcquireLockDto) {
-    this.logger.log(`Solicitud de lock para recurso: ${dto.resource} por cliente: ${dto.clientId}`);
+    this.logger.log(
+      `Solicitud de lock para recurso: ${dto.resource} por cliente: ${dto.clientId}`,
+    );
 
     const result = await this.locksService.acquire(dto);
 
     if (result.acquired) {
       this.logger.log(`✅ Lock adquirido exitosamente para: ${dto.resource}`);
     } else {
-      this.logger.warn(`❌ No se pudo adquirir lock para: ${dto.resource} - ${result.error}`);
+      this.logger.warn(
+        `❌ No se pudo adquirir lock para: ${dto.resource} - ${result.error}`,
+      );
     }
 
     return result;
@@ -41,7 +55,9 @@ export class LocksController {
     if (result.released) {
       this.logger.log(`✅ Lock liberado exitosamente para: ${dto.resource}`);
     } else {
-      this.logger.warn(`❌ No se pudo liberar lock para: ${dto.resource} - ${result.error}`);
+      this.logger.warn(
+        `❌ No se pudo liberar lock para: ${dto.resource} - ${result.error}`,
+      );
     }
 
     return result;
@@ -83,7 +99,7 @@ export class LocksController {
 
     return {
       count: locks.length,
-      locks: locks.map(lock => ({
+      locks: locks.map((lock) => ({
         resource: lock.resource,
         clientId: lock.clientId,
         acquiredAt: new Date(lock.acquiredAt).toISOString(),

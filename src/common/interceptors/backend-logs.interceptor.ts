@@ -20,7 +20,13 @@ const MAX_LOGS = 15;
 const MAX_RESPONSE_LENGTH = 4000;
 
 // Rutas a ignorar (lectura o endpoints de logs propios)
-const SKIP_SUFFIXES = ['backend-logs', 'upload-pdf', 'upload-cotizacion', 'upload-factura', 'upload-comprobante-retencion'];
+const SKIP_SUFFIXES = [
+  'backend-logs',
+  'upload-pdf',
+  'upload-cotizacion',
+  'upload-factura',
+  'upload-comprobante-retencion',
+];
 
 function getActionName(method: string, url: string): string {
   const path = url.split('?')[0];
@@ -50,7 +56,11 @@ function getActionName(method: string, url: string): string {
   return methodMap[method] ?? method;
 }
 
-function buildLogEntry(accion: string, status: 'ok' | 'error', data: unknown): BackendLog {
+function buildLogEntry(
+  accion: string,
+  status: 'ok' | 'error',
+  data: unknown,
+): BackendLog {
   let respuesta: string;
   try {
     respuesta = JSON.stringify(data, null, 2);
@@ -71,7 +81,11 @@ function buildLogEntry(accion: string, status: 'ok' | 'error', data: unknown): B
 function mergeLog(existing: string | null, newLog: BackendLog): string {
   let logs: BackendLog[] = [];
   if (existing) {
-    try { logs = JSON.parse(existing); } catch { logs = []; }
+    try {
+      logs = JSON.parse(existing);
+    } catch {
+      logs = [];
+    }
   }
   return JSON.stringify([newLog, ...logs].slice(0, MAX_LOGS));
 }
@@ -103,8 +117,13 @@ export class BackendLogsInterceptor implements NestInterceptor {
           this.persistLog(url, params, data, accion, 'ok').catch(() => {});
         },
         error: (err) => {
-          const errData = { error: err?.message ?? String(err), statusCode: err?.status };
-          this.persistLog(url, params, errData, accion, 'error').catch(() => {});
+          const errData = {
+            error: err?.message ?? String(err),
+            statusCode: err?.status,
+          };
+          this.persistLog(url, params, errData, accion, 'error').catch(
+            () => {},
+          );
         },
       }),
     );
@@ -124,7 +143,12 @@ export class BackendLogsInterceptor implements NestInterceptor {
     if (path.includes('/ordenes-compra')) {
       // ID desde params o desde body de respuesta (al crear)
       let id = params?.id ? parseInt(params.id) : null;
-      if (!id && data && typeof data === 'object' && 'id_orden_compra' in data) {
+      if (
+        !id &&
+        data &&
+        typeof data === 'object' &&
+        'id_orden_compra' in data
+      ) {
         id = (data as any).id_orden_compra;
       }
       if (!id || isNaN(id)) return;
@@ -145,7 +169,12 @@ export class BackendLogsInterceptor implements NestInterceptor {
     // ─── Órdenes de Servicio ─────────────────────────────────────────────────
     if (path.includes('/ordenes-servicio')) {
       let id = params?.id ? parseInt(params.id) : null;
-      if (!id && data && typeof data === 'object' && 'id_orden_servicio' in data) {
+      if (
+        !id &&
+        data &&
+        typeof data === 'object' &&
+        'id_orden_servicio' in data
+      ) {
         id = (data as any).id_orden_servicio;
       }
       if (!id || isNaN(id)) return;
@@ -185,7 +214,10 @@ export class BackendLogsInterceptor implements NestInterceptor {
     }
 
     // ─── Programación Técnica ────────────────────────────────────────────────
-    if (path.includes('/programacion/tecnica') || path.includes('/programacion')) {
+    if (
+      path.includes('/programacion/tecnica') ||
+      path.includes('/programacion')
+    ) {
       let id = params?.id ? parseInt(params.id) : null;
       if (!id && data && typeof data === 'object' && 'id' in data) {
         id = (data as any).id;

@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   ReportesPlantillerosDto,
@@ -11,7 +15,9 @@ import {
 export class ReportesPlantillerosService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: ReportesPlantillerosDto): Promise<ReportesPlantillerosResponse> {
+  async create(
+    data: ReportesPlantillerosDto,
+  ): Promise<ReportesPlantillerosResponse> {
     // Validar que no exista un código de reporte duplicado
     const existingReport = await this.prisma.reportes_plantilleros.findUnique({
       where: { codigo_reporte: data.codigo_reporte },
@@ -143,7 +149,10 @@ export class ReportesPlantillerosService {
     } as ReportesPlantillerosResponse;
   }
 
-  async update(id: number, data: UpdateReportesPlantillerosDto): Promise<ReportesPlantillerosResponse> {
+  async update(
+    id: number,
+    data: UpdateReportesPlantillerosDto,
+  ): Promise<ReportesPlantillerosResponse> {
     // Verificar que el reporte existe
     const existingReporte = await this.prisma.reportes_plantilleros.findUnique({
       where: { id_reporte: id },
@@ -154,10 +163,14 @@ export class ReportesPlantillerosService {
     }
 
     // Validar código de reporte único si se está actualizando
-    if (data.codigo_reporte && data.codigo_reporte !== existingReporte.codigo_reporte) {
-      const duplicateReport = await this.prisma.reportes_plantilleros.findUnique({
-        where: { codigo_reporte: data.codigo_reporte },
-      });
+    if (
+      data.codigo_reporte &&
+      data.codigo_reporte !== existingReporte.codigo_reporte
+    ) {
+      const duplicateReport =
+        await this.prisma.reportes_plantilleros.findUnique({
+          where: { codigo_reporte: data.codigo_reporte },
+        });
       if (duplicateReport) {
         throw new ConflictException('Ya existe un reporte con este código');
       }

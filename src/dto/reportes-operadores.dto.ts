@@ -15,10 +15,16 @@ export const DetalleProduccionSchema = z.object({
 // Schema principal para reportes de operadores
 export const ReportesOperadoresSchema = z.object({
   codigo_reporte: z.string().min(1, 'Código de reporte es requerido').max(50),
-  id_proyecto: z.number().positive('ID de proyecto debe ser positivo').optional(),
+  id_proyecto: z
+    .number()
+    .positive('ID de proyecto debe ser positivo')
+    .optional(),
   fecha: z.string().datetime('Fecha debe ser válida'),
   // IDs de personal (foreign keys) - ACTUALIZADOS
-  id_operador: z.number().positive('ID de operador debe ser positivo').optional(),
+  id_operador: z
+    .number()
+    .positive('ID de operador debe ser positivo')
+    .optional(),
   id_vigia1: z.number().positive('ID de vigía 1 debe ser positivo').optional(),
   id_vigia2: z.number().positive('ID de vigía 2 debe ser positivo').optional(),
   id_vigia3: z.number().positive('ID de vigía 3 debe ser positivo').optional(),
@@ -31,7 +37,10 @@ export const ReportesOperadoresSchema = z.object({
   horometro_inicial: z.number().min(0).optional(),
   horometro_final: z.number().min(0).optional(),
   // NUEVO CAMPO AGREGADO
-  id_maquinaria: z.number().positive('ID de maquinaria debe ser positivo').optional(),
+  id_maquinaria: z
+    .number()
+    .positive('ID de maquinaria debe ser positivo')
+    .optional(),
   // Campos legacy (mantenidos por compatibilidad)
   operador: z.string().max(100).optional(),
   proyecto: z.string().max(100).optional(),
@@ -40,9 +49,10 @@ export const ReportesOperadoresSchema = z.object({
 });
 
 // Schema para actualización
-export const UpdateReportesOperadoresSchema = ReportesOperadoresSchema.partial().extend({
-  id_reporte: z.number().positive('ID de reporte es requerido'),
-});
+export const UpdateReportesOperadoresSchema =
+  ReportesOperadoresSchema.partial().extend({
+    id_reporte: z.number().positive('ID de reporte es requerido'),
+  });
 
 // Schema para búsqueda/filtros
 export const ReportesOperadoresFilterSchema = z.object({
@@ -58,8 +68,12 @@ export const ReportesOperadoresFilterSchema = z.object({
 
 // Tipos TypeScript derivados de los schemas
 export type ReportesOperadoresDto = z.infer<typeof ReportesOperadoresSchema>;
-export type UpdateReportesOperadoresDto = z.infer<typeof UpdateReportesOperadoresSchema>;
-export type ReportesOperadoresFilterDto = z.infer<typeof ReportesOperadoresFilterSchema>;
+export type UpdateReportesOperadoresDto = z.infer<
+  typeof UpdateReportesOperadoresSchema
+>;
+export type ReportesOperadoresFilterDto = z.infer<
+  typeof ReportesOperadoresFilterSchema
+>;
 export type DetalleProduccionDto = z.infer<typeof DetalleProduccionSchema>;
 
 // Schema para respuesta de API
@@ -88,21 +102,27 @@ export const ReportesOperadoresResponseSchema = z.object({
   activo: z.boolean(),
   created_at: z.string(),
   updated_at: z.string(),
-  proyecto: z.object({
-    id_proyecto: z.number(),
-    nombre: z.string(),
-  }).nullable(),
-  detalle_produccion: z.array(z.object({
-    id_detalle: z.number(),
-    item: z.number(),
-    sector: z.string().nullable(),
-    frente: z.string().nullable(),
-    descripcion: z.string().nullable(),
-    material: z.string().nullable(),
-    m3: z.number().nullable(),
-    viajes: z.number().int().nullable(),
-    horas_trabajadas: z.number().nullable(),
-  })),
+  proyecto: z
+    .object({
+      id_proyecto: z.number(),
+      nombre: z.string(),
+    })
+    .nullable(),
+  detalle_produccion: z.array(
+    z.object({
+      id_detalle: z.number(),
+      item: z.number(),
+      sector: z.string().nullable(),
+      frente: z.string().nullable(),
+      descripcion: z.string().nullable(),
+      material: z.string().nullable(),
+      m3: z.number().nullable(),
+      viajes: z.number().int().nullable(),
+      horas_trabajadas: z.number().nullable(),
+    }),
+  ),
 });
 
-export type ReportesOperadoresResponse = z.infer<typeof ReportesOperadoresResponseSchema>;
+export type ReportesOperadoresResponse = z.infer<
+  typeof ReportesOperadoresResponseSchema
+>;

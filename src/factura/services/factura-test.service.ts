@@ -186,9 +186,7 @@ export class FacturaTestService {
         'COMPLETADO',
         'FALLADO',
       ];
-      resultado.estado_valido = estadosValidos.includes(
-        resultado.estado_final,
-      );
+      resultado.estado_valido = estadosValidos.includes(resultado.estado_final);
 
       this.logger.log('Prueba de flujo completada');
       this.logger.log(JSON.stringify(resultado, null, 2));
@@ -293,7 +291,9 @@ export class FacturaTestService {
       facturaData.tipo_de_comprobante === 1 &&
       facturaData.cliente_tipo_documento !== 6
     ) {
-      errors.push('Las facturas requieren cliente con RUC (tipo_documento = 6)');
+      errors.push(
+        'Las facturas requieren cliente con RUC (tipo_documento = 6)',
+      );
     }
 
     // Validar moneda

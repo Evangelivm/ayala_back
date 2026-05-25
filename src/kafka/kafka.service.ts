@@ -43,9 +43,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(KafkaService.name);
   private consumers: Map<string, Consumer> = new Map();
 
-  constructor(
-    @Inject('KAFKA_SERVICE') private kafkaClient: ClientKafka,
-  ) {}
+  constructor(@Inject('KAFKA_SERVICE') private kafkaClient: ClientKafka) {}
 
   async onModuleInit() {
     await this.connectWithRetry();
@@ -56,7 +54,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
     while (retries < maxRetries) {
       try {
-        this.logger.log(`Attempting to connect to Kafka (attempt ${retries + 1}/${maxRetries})`);
+        this.logger.log(
+          `Attempting to connect to Kafka (attempt ${retries + 1}/${maxRetries})`,
+        );
 
         // Conectar primero
         await this.kafkaClient.connect();
@@ -71,14 +71,20 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
         this.logger.log('Kafka initialization completed successfully');
         return;
-
       } catch (error) {
         retries++;
-        this.logger.error(`Failed to connect to Kafka (attempt ${retries}/${maxRetries})`, error);
+        this.logger.error(
+          `Failed to connect to Kafka (attempt ${retries}/${maxRetries})`,
+          error,
+        );
 
         if (retries >= maxRetries) {
-          this.logger.error('Max connection retries reached. Kafka connection failed permanently.');
-          throw new Error(`Failed to connect to Kafka after ${maxRetries} attempts: ${error.message}`);
+          this.logger.error(
+            'Max connection retries reached. Kafka connection failed permanently.',
+          );
+          throw new Error(
+            `Failed to connect to Kafka after ${maxRetries} attempts: ${error.message}`,
+          );
         }
 
         const delay = Math.min(1000 * Math.pow(2, retries), 10000); // Exponential backoff, max 10 seconds
@@ -89,7 +95,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   }
 
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async onModuleDestroy() {
@@ -128,30 +134,36 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
       // Verificar qué topics ya existen
       const existingTopics = await admin.listTopics();
-      const topicsToCreate = greTopics.filter(topic => !existingTopics.includes(topic));
+      const topicsToCreate = greTopics.filter(
+        (topic) => !existingTopics.includes(topic),
+      );
 
       if (topicsToCreate.length > 0) {
-        this.logger.log(`Creating missing topics: ${topicsToCreate.join(', ')}`);
+        this.logger.log(
+          `Creating missing topics: ${topicsToCreate.join(', ')}`,
+        );
 
         await admin.createTopics({
-          topics: topicsToCreate.map(topic => ({
+          topics: topicsToCreate.map((topic) => ({
             topic,
             numPartitions: 3,
             replicationFactor: 1,
             configEntries: [
               {
                 name: 'cleanup.policy',
-                value: 'delete'
+                value: 'delete',
               },
               {
                 name: 'retention.ms',
-                value: '604800000' // 7 days
-              }
-            ]
-          }))
+                value: '604800000', // 7 days
+              },
+            ],
+          })),
         });
 
-        this.logger.log(`Successfully created topics: ${topicsToCreate.join(', ')}`);
+        this.logger.log(
+          `Successfully created topics: ${topicsToCreate.join(', ')}`,
+        );
       } else {
         this.logger.log('All GRE topics already exist');
       }
@@ -189,7 +201,10 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
       this.kafkaClient.emit('gre-responses', responseData);
       this.logger.log(`GRE response sent: ${responseData.id}`);
     } catch (error) {
-      this.logger.error(`Failed to send GRE response: ${responseData.id}`, error);
+      this.logger.error(
+        `Failed to send GRE response: ${responseData.id}`,
+        error,
+      );
       throw error;
     }
   }
@@ -210,7 +225,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
       // El value ya viene como string JSON desde el producer
       // emit() de NestJS se encarga de la serialización automáticamente
       this.kafkaClient.emit(message.topic, message.value);
-      this.logger.log(`Message sent to topic ${message.topic} with key ${message.key}`);
+      this.logger.log(
+        `Message sent to topic ${message.topic} with key ${message.key}`,
+      );
     } catch (error) {
       this.logger.error(
         `Failed to send message to topic ${message.topic}`,
@@ -252,12 +269,14 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   async createConsumer(
     groupId: string,
     topics: string[],
-    messageHandler: (payload: any) => Promise<void>
+    messageHandler: (payload: any) => Promise<void>,
   ): Promise<void> {
     try {
       // Para NestJS ClientKafka, usamos decoradores en lugar de crear consumers manualmente
       // Este método mantiene compatibilidad pero usa el patrón de NestJS
-      this.logger.log(`Consumer ${groupId} configured for topics: ${topics.join(', ')}`);
+      this.logger.log(
+        `Consumer ${groupId} configured for topics: ${topics.join(', ')}`,
+      );
 
       // Los consumers en NestJS se manejan mediante decoradores @MessagePattern
       // Esta implementación es para compatibilidad con el código existente

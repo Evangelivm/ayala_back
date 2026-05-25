@@ -3,16 +3,25 @@ import { z } from 'zod';
 // Schema principal para reportes de plantilleros
 export const ReportesPlantillerosSchema = z.object({
   codigo_reporte: z.string().min(1, 'Código de reporte es requerido').max(50),
-  id_proyecto: z.number().positive('ID de proyecto debe ser positivo').optional(),
+  id_proyecto: z
+    .number()
+    .positive('ID de proyecto debe ser positivo')
+    .optional(),
   fecha: z.string().datetime('Fecha debe ser válida'),
   comentarios: z.string().optional(),
-  
+
   // Campos con IDs
-  id_personal: z.number().positive('ID de personal debe ser positivo').optional(),
+  id_personal: z
+    .number()
+    .positive('ID de personal debe ser positivo')
+    .optional(),
   id_etapa: z.number().positive('ID de etapa debe ser positivo').optional(),
   id_frente: z.number().positive('ID de frente debe ser positivo').optional(),
-  id_maquinaria: z.number().positive('ID de maquinaria debe ser positivo').optional(),
-  
+  id_maquinaria: z
+    .number()
+    .positive('ID de maquinaria debe ser positivo')
+    .optional(),
+
   // Campos de texto
   cargo: z.string().max(100).optional(),
   sector: z.string().max(100).optional(),
@@ -23,9 +32,10 @@ export const ReportesPlantillerosSchema = z.object({
 });
 
 // Schema para actualización
-export const UpdateReportesPlantillerosSchema = ReportesPlantillerosSchema.partial().extend({
-  id_reporte: z.number().positive('ID de reporte es requerido'),
-});
+export const UpdateReportesPlantillerosSchema =
+  ReportesPlantillerosSchema.partial().extend({
+    id_reporte: z.number().positive('ID de reporte es requerido'),
+  });
 
 // Schema para búsqueda/filtros
 export const ReportesPlantillerosFilterSchema = z.object({
@@ -40,9 +50,15 @@ export const ReportesPlantillerosFilterSchema = z.object({
 });
 
 // Tipos TypeScript derivados de los schemas
-export type ReportesPlantillerosDto = z.infer<typeof ReportesPlantillerosSchema>;
-export type UpdateReportesPlantillerosDto = z.infer<typeof UpdateReportesPlantillerosSchema>;
-export type ReportesPlantillerosFilterDto = z.infer<typeof ReportesPlantillerosFilterSchema>;
+export type ReportesPlantillerosDto = z.infer<
+  typeof ReportesPlantillerosSchema
+>;
+export type UpdateReportesPlantillerosDto = z.infer<
+  typeof UpdateReportesPlantillerosSchema
+>;
+export type ReportesPlantillerosFilterDto = z.infer<
+  typeof ReportesPlantillerosFilterSchema
+>;
 
 // Schema para respuesta de API
 export const ReportesPlantillerosResponseSchema = z.object({
@@ -54,13 +70,13 @@ export const ReportesPlantillerosResponseSchema = z.object({
   activo: z.boolean(),
   created_at: z.string(),
   updated_at: z.string(),
-  
+
   // Campos con IDs
   id_personal: z.number().nullable(),
   id_etapa: z.number().nullable(),
   id_frente: z.number().nullable(),
   id_maquinaria: z.number().nullable(),
-  
+
   // Campos de texto
   cargo: z.string().nullable(),
   sector: z.string().nullable(),
@@ -68,11 +84,15 @@ export const ReportesPlantillerosResponseSchema = z.object({
   hora_fin: z.string().nullable(),
   material: z.string().nullable(),
   partida: z.string().nullable(),
-  
-  proyecto: z.object({
-    id_proyecto: z.number(),
-    nombre: z.string(),
-  }).nullable(),
+
+  proyecto: z
+    .object({
+      id_proyecto: z.number(),
+      nombre: z.string(),
+    })
+    .nullable(),
 });
 
-export type ReportesPlantillerosResponse = z.infer<typeof ReportesPlantillerosResponseSchema>;
+export type ReportesPlantillerosResponse = z.infer<
+  typeof ReportesPlantillerosResponseSchema
+>;

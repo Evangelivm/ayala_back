@@ -111,7 +111,10 @@ export class FacturaController {
         message: `Verificación forzada iniciada para factura ${id_factura}`,
       };
     } catch (error) {
-      this.logger.error(`Error en verificación forzada de factura ${id}:`, error);
+      this.logger.error(
+        `Error en verificación forzada de factura ${id}:`,
+        error,
+      );
       throw new HttpException(
         'Error en verificación forzada',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -186,9 +189,7 @@ export class FacturaController {
    * Crea una factura de prueba
    */
   @Post('test/create')
-  async createTestFactura(
-    @Body() body: { tipo?: number } = {},
-  ) {
+  async createTestFactura(@Body() body: { tipo?: number } = {}) {
     try {
       const { tipo = 1 } = body;
       const id_factura = await this.testService.createTestFactura(tipo);
@@ -253,7 +254,8 @@ export class FacturaController {
   @Post('test/validate')
   async validateStructure(@Body() facturaData: any) {
     try {
-      const result = await this.testService.validateFacturaStructure(facturaData);
+      const result =
+        await this.testService.validateFacturaStructure(facturaData);
       return result;
     } catch (error) {
       this.logger.error('Error validando estructura de factura:', error);
@@ -436,7 +438,10 @@ export class FacturaController {
         ...taskInfo,
       };
     } catch (error) {
-      this.logger.error(`Error obteniendo info de polling de factura ${id}:`, error);
+      this.logger.error(
+        `Error obteniendo info de polling de factura ${id}:`,
+        error,
+      );
       throw new HttpException(
         'Error obteniendo información de polling',
         HttpStatus.INTERNAL_SERVER_ERROR,

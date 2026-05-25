@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { CreateMaquinariaDto, UpdateMaquinariaDto } from '../dto/maquinaria.dto';
+import type {
+  CreateMaquinariaDto,
+  UpdateMaquinariaDto,
+} from '../dto/maquinaria.dto';
 
 @Injectable()
 export class MaquinariaService {
@@ -19,7 +22,7 @@ export class MaquinariaService {
       },
     });
 
-    return maquinarias.map(maq => ({
+    return maquinarias.map((maq) => ({
       id: maq.id_maquinaria,
       nombre: `${maq.marca} ${maq.modelo}`,
       tipo: this.getTipoFromMarca(maq.marca || ''),
@@ -46,7 +49,7 @@ export class MaquinariaService {
     if (marca?.includes('Volvo')) return 'Volquete';
     if (marca?.includes('Liebherr')) return 'Grúa Móvil';
     if (marca?.includes('Bobcat')) return 'Minicargadora';
-    
+
     return 'Maquinaria';
   }
 
@@ -78,7 +81,9 @@ export class MaquinariaService {
 
   async findByNombre(nombre: string) {
     const maquinarias = await this.findAll();
-    return maquinarias.find(maq => maq.nombre === nombre && maq.activo) || null;
+    return (
+      maquinarias.find((maq) => maq.nombre === nombre && maq.activo) || null
+    );
   }
 
   async create(data: CreateMaquinariaDto) {

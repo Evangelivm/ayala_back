@@ -29,9 +29,7 @@ export class AcarreoController {
   ): Promise<AcarreoResponseDto> {
     try {
       // Validar datos con Zod
-      const validatedData = CreateAcarreoSchema.parse(
-        createAcarreoDto,
-      );
+      const validatedData = CreateAcarreoSchema.parse(createAcarreoDto);
 
       this.logger.log(
         `Recibida solicitud de inserción masiva con ${validatedData.data.length} registros`,

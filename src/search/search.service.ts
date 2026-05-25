@@ -169,9 +169,7 @@ export class SearchService implements OnModuleInit {
       await this.client.index({ index, id, document: body });
       this.esIndexReady[index] = true;
     } catch (error) {
-      this.logger.warn(
-        `ES indexDoc error (${index}/${id}): ${error.message}`,
-      );
+      this.logger.warn(`ES indexDoc error (${index}/${id}): ${error.message}`);
     }
   }
 
@@ -180,9 +178,7 @@ export class SearchService implements OnModuleInit {
     try {
       await this.client.delete({ index, id });
     } catch (error) {
-      this.logger.warn(
-        `ES deleteDoc error (${index}/${id}): ${error.message}`,
-      );
+      this.logger.warn(`ES deleteDoc error (${index}/${id}): ${error.message}`);
     }
   }
 
@@ -230,12 +226,13 @@ export class SearchService implements OnModuleInit {
     `;
 
     const ptOps = ptRows.flatMap((pt) => {
-      const nombreCompleto = [
-        this.capitalizeWords(pt.nombre_chofer),
-        this.capitalizeWords(pt.apellido_chofer),
-      ]
-        .filter(Boolean)
-        .join(' ') || null;
+      const nombreCompleto =
+        [
+          this.capitalizeWords(pt.nombre_chofer),
+          this.capitalizeWords(pt.apellido_chofer),
+        ]
+          .filter(Boolean)
+          .join(' ') || null;
 
       return [
         {
@@ -256,9 +253,7 @@ export class SearchService implements OnModuleInit {
           m3: pt.m3 != null ? pt.m3.toString() : null,
           identificador_unico: pt.identificador_unico || null,
           estado_programacion: pt.estado_programacion || null,
-          deleted_at: pt.deleted_at
-            ? dayjs(pt.deleted_at).toISOString()
-            : null,
+          deleted_at: pt.deleted_at ? dayjs(pt.deleted_at).toISOString() : null,
         },
       ];
     });
@@ -417,7 +412,7 @@ export class SearchService implements OnModuleInit {
     const total =
       typeof result.hits.total === 'number'
         ? result.hits.total
-        : (result.hits.total as any)?.value ?? 0;
+        : ((result.hits.total as any)?.value ?? 0);
 
     if (hits.length === 0) {
       return { data: [], total };
@@ -528,7 +523,10 @@ export class SearchService implements OnModuleInit {
       ]);
 
       const total = Number(countResult[0]?.total ?? 0);
-      return { data: rows.map((r) => this.mapProgramacionTecnicaRow(r)), total };
+      return {
+        data: rows.map((r) => this.mapProgramacionTecnicaRow(r)),
+        total,
+      };
     } else {
       // Sin búsqueda: count + datos paginados
       const [countResult, rows] = await Promise.all([
@@ -557,7 +555,10 @@ export class SearchService implements OnModuleInit {
       ]);
 
       const total = Number(countResult[0]?.total ?? 0);
-      return { data: rows.map((r) => this.mapProgramacionTecnicaRow(r)), total };
+      return {
+        data: rows.map((r) => this.mapProgramacionTecnicaRow(r)),
+        total,
+      };
     }
   }
 
@@ -617,11 +618,7 @@ export class SearchService implements OnModuleInit {
         const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
         const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
         hora_partida = dayjs
-          .tz(
-            `${fechaStr} ${horaStr}`,
-            'YYYY-MM-DD HH:mm:ss',
-            'America/Lima',
-          )
+          .tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima')
           .toISOString();
       } catch {
         hora_partida = pt.hora_partida;
@@ -682,8 +679,13 @@ export class SearchService implements OnModuleInit {
       }),
     ]);
 
-    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
-    return { data: ordenes.map((o) => this.mapOrdenCompra(o, camionesMap)), total };
+    const camionesMap = await this.buildCamionesMap(
+      ordenes.map((o) => o.id_camion),
+    );
+    return {
+      data: ordenes.map((o) => this.mapOrdenCompra(o, camionesMap)),
+      total,
+    };
   }
 
   private async getOrdenesCompraByIds(ids: number[]): Promise<any[]> {
@@ -695,24 +697,37 @@ export class SearchService implements OnModuleInit {
         detalles_orden_compra: true,
       },
     });
-    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    const camionesMap = await this.buildCamionesMap(
+      ordenes.map((o) => o.id_camion),
+    );
     return ordenes.map((o) => this.mapOrdenCompra(o, camionesMap));
   }
 
-  private async buildCamionesMap(ids: (number | null)[]): Promise<Map<number, any>> {
+  private async buildCamionesMap(
+    ids: (number | null)[],
+  ): Promise<Map<number, any>> {
     const camionIds = [...new Set(ids.filter(Boolean))] as number[];
     const map = new Map<number, any>();
     if (camionIds.length > 0) {
       const camiones = await this.prisma.camiones.findMany({
         where: { id_camion: { in: camionIds } },
-        select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+        select: {
+          id_camion: true,
+          placa: true,
+          tipo: true,
+          nombre_chofer: true,
+          apellido_chofer: true,
+        },
       });
-      camiones.forEach(c => map.set(c.id_camion, c));
+      camiones.forEach((c) => map.set(c.id_camion, c));
     }
     return map;
   }
 
-  private mapOrdenCompra(orden: any, camionesMap: Map<number, any> = new Map()) {
+  private mapOrdenCompra(
+    orden: any,
+    camionesMap: Map<number, any> = new Map(),
+  ) {
     const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
     return {
       ...orden,
@@ -761,8 +776,13 @@ export class SearchService implements OnModuleInit {
       }),
     ]);
 
-    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
-    return { data: ordenes.map((o) => this.mapOrdenServicio(o, camionesMap)), total };
+    const camionesMap = await this.buildCamionesMap(
+      ordenes.map((o) => o.id_camion),
+    );
+    return {
+      data: ordenes.map((o) => this.mapOrdenServicio(o, camionesMap)),
+      total,
+    };
   }
 
   private async getOrdenesServicioByIds(ids: number[]): Promise<any[]> {
@@ -774,11 +794,16 @@ export class SearchService implements OnModuleInit {
         detalles_orden_servicio: true,
       },
     });
-    const camionesMap = await this.buildCamionesMap(ordenes.map(o => o.id_camion));
+    const camionesMap = await this.buildCamionesMap(
+      ordenes.map((o) => o.id_camion),
+    );
     return ordenes.map((o) => this.mapOrdenServicio(o, camionesMap));
   }
 
-  private mapOrdenServicio(orden: any, camionesMap: Map<number, any> = new Map()) {
+  private mapOrdenServicio(
+    orden: any,
+    camionesMap: Map<number, any> = new Map(),
+  ) {
     const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
     return {
       ...orden,

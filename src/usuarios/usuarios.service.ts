@@ -101,7 +101,13 @@ export class UsuariosService {
     return this.prismaThird.usuarios.update({
       where: { id },
       data: { activo: false },
-      select: { id: true, usuario: true, nombre: true, rol: true, activo: true },
+      select: {
+        id: true,
+        usuario: true,
+        nombre: true,
+        rol: true,
+        activo: true,
+      },
     });
   }
 }

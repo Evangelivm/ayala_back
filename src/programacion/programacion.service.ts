@@ -17,9 +17,9 @@ import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 import { GreExtendidoProducerService } from '../gre/services/gre-extendido-producer.service';
 import { SearchService } from '../search/search.service';
-import * as dayjs from 'dayjs';
-import * as utc from 'dayjs/plugin/utc';
-import * as timezone from 'dayjs/plugin/timezone';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import * as ExcelJS from 'exceljs';
 
 // Configurar plugins de dayjs
@@ -43,7 +43,7 @@ export class ProgramacionService {
     return text
       .toLowerCase()
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
@@ -100,25 +100,31 @@ export class ProgramacionService {
           );
 
           // Preparar datos para programacion_tecnica (mapear peso a m3 e incluir id_proyecto y id_subproyecto)
-          const programacionTecnicaData = data.map((item: ProgramacionItemDto, index: number) => ({
-            fecha: programacionData[index].fecha,
-            unidad: programacionData[index].unidad,
-            proveedor: programacionData[index].proveedor,
-            programacion: programacionData[index].programacion,
-            hora_partida: programacionData[index].hora_partida,
-            estado_programacion: programacionData[index].estado_programacion,
-            comentarios: programacionData[index].comentarios,
-            identificador_unico: programacionData[index].identificador_unico,
-            m3: programacionData[index].peso, // Mapear peso a m3 (ambos son Decimal)
-            punto_llegada_direccion: programacionData[index].punto_llegada_direccion,
-            punto_llegada_ubigeo: programacionData[index].punto_llegada_ubigeo,
-            punto_partida_direccion: programacionData[index].punto_partida_direccion,
-            punto_partida_ubigeo: programacionData[index].punto_partida_ubigeo,
-            hora_registro: programacionData[index].hora_registro, // Registrar la misma fecha y hora
-            id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
-            id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
-            numero_orden: item.numero_orden || null,
-          }));
+          const programacionTecnicaData = data.map(
+            (item: ProgramacionItemDto, index: number) => ({
+              fecha: programacionData[index].fecha,
+              unidad: programacionData[index].unidad,
+              proveedor: programacionData[index].proveedor,
+              programacion: programacionData[index].programacion,
+              hora_partida: programacionData[index].hora_partida,
+              estado_programacion: programacionData[index].estado_programacion,
+              comentarios: programacionData[index].comentarios,
+              identificador_unico: programacionData[index].identificador_unico,
+              m3: programacionData[index].peso, // Mapear peso a m3 (ambos son Decimal)
+              punto_llegada_direccion:
+                programacionData[index].punto_llegada_direccion,
+              punto_llegada_ubigeo:
+                programacionData[index].punto_llegada_ubigeo,
+              punto_partida_direccion:
+                programacionData[index].punto_partida_direccion,
+              punto_partida_ubigeo:
+                programacionData[index].punto_partida_ubigeo,
+              hora_registro: programacionData[index].hora_registro, // Registrar la misma fecha y hora
+              id_proyecto: item.id_proyecto || null, // Incluir id_proyecto si está presente
+              id_subproyecto: item.id_subproyecto || null, // Incluir id_subproyecto si está presente
+              numero_orden: item.numero_orden || null,
+            }),
+          );
 
           // Inserción masiva en tabla programacion_tecnica
           const insertResultTecnica = await tx.programacion_tecnica.createMany({
@@ -152,7 +158,7 @@ export class ProgramacionService {
       if (this.searchService) {
         const identifUnicos = programacionData
           .map((p) => p.identificador_unico)
-          .filter(Boolean) as string[];
+          .filter(Boolean);
         if (identifUnicos.length > 0) {
           const newRecords = await this.prisma.$queryRaw<any[]>(
             Prisma.sql`
@@ -172,37 +178,52 @@ export class ProgramacionService {
             `,
           );
           const capitalize = (s: string | null) =>
-            s ? s.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : null;
+            s
+              ? s
+                  .toLowerCase()
+                  .split(' ')
+                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                  .join(' ')
+              : null;
           for (const r of newRecords) {
-            const apellidos_nombres = [capitalize(r.nombre_chofer), capitalize(r.apellido_chofer)]
-              .filter(Boolean).join(' ') || null;
-            const fechaStr = r.fecha ? dayjs(r.fecha).format('YYYY-MM-DD') : null;
-            this.searchService.indexDoc('programacion_tecnica', r.id.toString(), {
-              id: r.id,
-              fecha: fechaStr,
-              fecha_str: fechaStr,
-              proveedor: r.empresa_razon_social || null,
-              apellidos_nombres,
-              proyectos: r.nombre_subproyecto || r.nombre_proyecto || null,
-              unidad: r.unidad_placa || null,
-              programacion: r.programacion || null,
-              m3: r.m3 != null ? r.m3.toString() : null,
-              identificador_unico: r.identificador_unico,
-              estado_programacion: r.estado_programacion,
-              deleted_at: null,
-            });
+            const apellidos_nombres =
+              [capitalize(r.nombre_chofer), capitalize(r.apellido_chofer)]
+                .filter(Boolean)
+                .join(' ') || null;
+            const fechaStr = r.fecha
+              ? dayjs(r.fecha).format('YYYY-MM-DD')
+              : null;
+            this.searchService.indexDoc(
+              'programacion_tecnica',
+              r.id.toString(),
+              {
+                id: r.id,
+                fecha: fechaStr,
+                fecha_str: fechaStr,
+                proveedor: r.empresa_razon_social || null,
+                apellidos_nombres,
+                proyectos: r.nombre_subproyecto || r.nombre_proyecto || null,
+                unidad: r.unidad_placa || null,
+                programacion: r.programacion || null,
+                m3: r.m3 != null ? r.m3.toString() : null,
+                identificador_unico: r.identificador_unico,
+                estado_programacion: r.estado_programacion,
+                deleted_at: null,
+              },
+            );
           }
         }
       }
 
       return {
-        message: 'Registros de programación guardados exitosamente en ambas tablas',
+        message:
+          'Registros de programación guardados exitosamente en ambas tablas',
         totalRecords: data.length,
         successCount: result.count,
         successCountTecnica: result.countTecnica,
         processingTime,
       };
-    } catch (error) {
+    } catch (error: any) {
       const processingTime = Date.now() - startTime;
 
       this.logger.error(
@@ -252,7 +273,7 @@ export class ProgramacionService {
       });
 
       return data;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al obtener registros de programación:', error);
       throw new InternalServerErrorException('Error al obtener los registros');
     }
@@ -269,7 +290,7 @@ export class ProgramacionService {
       }
 
       return programacion;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(`Error al obtener registro con ID ${id}:`, error);
       throw new InternalServerErrorException('Error al obtener el registro');
     }
@@ -286,7 +307,7 @@ export class ProgramacionService {
       return {
         message: 'Registro eliminado exitosamente',
       };
-    } catch (error) {
+    } catch (error: any) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -307,7 +328,9 @@ export class ProgramacionService {
       });
 
       if (!tecnica) {
-        throw new BadRequestException(`Registro técnico con ID ${id} no encontrado`);
+        throw new BadRequestException(
+          `Registro técnico con ID ${id} no encontrado`,
+        );
       }
 
       const now = new Date();
@@ -333,9 +356,12 @@ export class ProgramacionService {
       }
 
       return { message: 'Registro marcado como eliminado exitosamente' };
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof BadRequestException) throw error;
-      this.logger.error(`Error al hacer soft delete del registro técnico ID ${id}:`, error);
+      this.logger.error(
+        `Error al hacer soft delete del registro técnico ID ${id}:`,
+        error,
+      );
       throw new InternalServerErrorException('Error al eliminar el registro');
     }
   }
@@ -348,11 +374,15 @@ export class ProgramacionService {
       });
 
       if (!tecnica) {
-        throw new BadRequestException(`Registro técnico con ID ${id} no encontrado`);
+        throw new BadRequestException(
+          `Registro técnico con ID ${id} no encontrado`,
+        );
       }
 
       if (!tecnica.deleted_at) {
-        throw new BadRequestException(`El registro con ID ${id} no está eliminado`);
+        throw new BadRequestException(
+          `El registro con ID ${id} no está eliminado`,
+        );
       }
 
       await this.prisma.programacion_tecnica.update({
@@ -368,7 +398,7 @@ export class ProgramacionService {
       }
 
       return { message: 'Registro restaurado exitosamente' };
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof BadRequestException) throw error;
       this.logger.error(`Error al restaurar registro técnico ID ${id}:`, error);
       throw new InternalServerErrorException('Error al restaurar el registro');
@@ -402,13 +432,14 @@ export class ProgramacionService {
       `;
 
       // Mapear los resultados al formato esperado por el frontend
-      const data = programacionTecnica.map(pt => {
+      const data = programacionTecnica.map((pt) => {
         // Capitalizar nombre y apellido por separado, luego concatenar
         const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
         const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
-        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
-          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
-          : null;
+        const nombreCompleto =
+          nombreCapitalizado && apellidoCapitalizado
+            ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+            : null;
 
         // Determinar el nombre del proyecto y su tipo
         let nombreProyecto: string | null = null;
@@ -431,9 +462,18 @@ export class ProgramacionService {
             const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
 
             // Combinar en formato ISO, interpretando la hora como hora de Perú (America/Lima)
-            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
-          } catch (error) {
-            this.logger.warn(`Error al combinar fecha y hora para registro ${pt.id}:`, error);
+            horaPartidaISO = dayjs
+              .tz(
+                `${fechaStr} ${horaStr}`,
+                'YYYY-MM-DD HH:mm:ss',
+                'America/Lima',
+              )
+              .toISOString();
+          } catch (error: any) {
+            this.logger.warn(
+              `Error al combinar fecha y hora para registro ${pt.id}:`,
+              error,
+            );
             horaPartidaISO = pt.hora_partida;
           }
         }
@@ -466,8 +506,11 @@ export class ProgramacionService {
       });
 
       return data;
-    } catch (error) {
-      this.logger.error('Error al obtener registros de programación técnica:', error);
+    } catch (error: any) {
+      this.logger.error(
+        'Error al obtener registros de programación técnica:',
+        error,
+      );
       throw new InternalServerErrorException('Error al obtener los registros');
     }
   }
@@ -496,12 +539,13 @@ export class ProgramacionService {
         ORDER BY pt.fecha DESC
       `;
 
-      const data = programacionTecnica.map(pt => {
+      const data = programacionTecnica.map((pt) => {
         const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
         const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
-        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
-          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
-          : null;
+        const nombreCompleto =
+          nombreCapitalizado && apellidoCapitalizado
+            ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+            : null;
 
         let nombreProyecto: string | null = null;
         let tipoProyecto: 'proyecto' | 'subproyecto' | null = null;
@@ -519,8 +563,14 @@ export class ProgramacionService {
           try {
             const fechaStr = dayjs(pt.fecha).format('YYYY-MM-DD');
             const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
-            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
-          } catch (error) {
+            horaPartidaISO = dayjs
+              .tz(
+                `${fechaStr} ${horaStr}`,
+                'YYYY-MM-DD HH:mm:ss',
+                'America/Lima',
+              )
+              .toISOString();
+          } catch (error: any) {
             horaPartidaISO = pt.hora_partida;
           }
         }
@@ -552,8 +602,11 @@ export class ProgramacionService {
       });
 
       return data;
-    } catch (error) {
-      this.logger.error('Error al obtener registros admin de programación técnica:', error);
+    } catch (error: any) {
+      this.logger.error(
+        'Error al obtener registros admin de programación técnica:',
+        error,
+      );
       throw new InternalServerErrorException('Error al obtener los registros');
     }
   }
@@ -596,14 +649,19 @@ export class ProgramacionService {
         id: programacionTecnica.id,
         identificador_unico: programacionTecnica.identificador_unico,
         guia_numero_documento: programacionTecnica.guia_numero_documento,
-        guia_destinatario_denominacion: programacionTecnica.guia_destinatario_denominacion,
-        guia_destinatario_direccion: programacionTecnica.guia_destinatario_direccion,
+        guia_destinatario_denominacion:
+          programacionTecnica.guia_destinatario_denominacion,
+        guia_destinatario_direccion:
+          programacionTecnica.guia_destinatario_direccion,
         guia_traslado_peso_bruto: programacionTecnica.guia_traslado_peso_bruto,
-        guia_traslado_vehiculo_placa: programacionTecnica.guia_traslado_vehiculo_placa,
-        guia_conductor_dni_numero: programacionTecnica.guia_conductor_dni_numero,
+        guia_traslado_vehiculo_placa:
+          programacionTecnica.guia_traslado_vehiculo_placa,
+        guia_conductor_dni_numero:
+          programacionTecnica.guia_conductor_dni_numero,
         guia_conductor_nombres: programacionTecnica.guia_conductor_nombres,
         guia_conductor_apellidos: programacionTecnica.guia_conductor_apellidos,
-        guia_conductor_num_licencia: programacionTecnica.guia_conductor_num_licencia,
+        guia_conductor_num_licencia:
+          programacionTecnica.guia_conductor_num_licencia,
         punto_partida_ubigeo: programacionTecnica.punto_partida_ubigeo,
         punto_partida_direccion: programacionTecnica.punto_partida_direccion,
         punto_llegada_ubigeo: programacionTecnica.punto_llegada_ubigeo,
@@ -612,11 +670,14 @@ export class ProgramacionService {
         camion_placa: programacionTecnica.camion_placa || null,
         camion_dni: programacionTecnica.camion_dni || null,
         camion_nombre_chofer: programacionTecnica.camion_nombre_chofer || null,
-        camion_apellido_chofer: programacionTecnica.camion_apellido_chofer || null,
-        camion_numero_licencia: programacionTecnica.camion_numero_licencia || null,
+        camion_apellido_chofer:
+          programacionTecnica.camion_apellido_chofer || null,
+        camion_numero_licencia:
+          programacionTecnica.camion_numero_licencia || null,
         // Datos del proveedor (empresa)
         empresa_razon_social: programacionTecnica.empresa_razon_social || null,
-        empresa_nro_documento: programacionTecnica.empresa_nro_documento || null,
+        empresa_nro_documento:
+          programacionTecnica.empresa_nro_documento || null,
         empresa_direccion: programacionTecnica.empresa_direccion || null,
         // Datos del proyecto/subproyecto
         id_proyecto: programacionTecnica.id_proyecto || null,
@@ -626,7 +687,7 @@ export class ProgramacionService {
         enlace_del_xml: programacionTecnica.enlace_del_xml || null,
         enlace_del_cdr: programacionTecnica.enlace_del_cdr || null,
       };
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof BadRequestException) {
         throw error;
       }
@@ -695,7 +756,7 @@ export class ProgramacionService {
         message: 'Programación técnica actualizada exitosamente',
         data: updatedRecord,
       };
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof BadRequestException) {
         throw error;
       }
@@ -744,15 +805,22 @@ export class ProgramacionService {
 
       // Filtrar nulos y retornar solo los identificadores
       const identificadores = guias
-        .map(guia => guia.identificador_unico)
+        .map((guia) => guia.identificador_unico)
         .filter((id): id is string => id !== null);
 
-      this.logger.log(`Encontrados ${identificadores.length} identificadores únicos con guía generada`);
+      this.logger.log(
+        `Encontrados ${identificadores.length} identificadores únicos con guía generada`,
+      );
 
       return identificadores;
-    } catch (error) {
-      this.logger.error('Error al obtener identificadores únicos con guía:', error);
-      throw new InternalServerErrorException('Error al obtener los identificadores');
+    } catch (error: any) {
+      this.logger.error(
+        'Error al obtener identificadores únicos con guía:',
+        error,
+      );
+      throw new InternalServerErrorException(
+        'Error al obtener los identificadores',
+      );
     }
   }
 
@@ -791,13 +859,14 @@ export class ProgramacionService {
       `;
 
       // Mapear los resultados al formato esperado por el frontend
-      const data = datosCompletos.map(pt => {
+      const data = datosCompletos.map((pt) => {
         // Capitalizar nombre y apellido por separado, luego concatenar
         const nombreCapitalizado = this.capitalizeWords(pt.nombre_chofer);
         const apellidoCapitalizado = this.capitalizeWords(pt.apellido_chofer);
-        const nombreCompleto = nombreCapitalizado && apellidoCapitalizado
-          ? `${nombreCapitalizado} ${apellidoCapitalizado}`
-          : null;
+        const nombreCompleto =
+          nombreCapitalizado && apellidoCapitalizado
+            ? `${nombreCapitalizado} ${apellidoCapitalizado}`
+            : null;
 
         // Determinar el nombre del proyecto y su tipo
         let nombreProyecto: string | null = null;
@@ -820,9 +889,18 @@ export class ProgramacionService {
             const horaStr = dayjs(pt.hora_partida).format('HH:mm:ss');
 
             // Combinar en formato ISO, interpretando la hora como hora de Perú (America/Lima)
-            horaPartidaISO = dayjs.tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima').toISOString();
-          } catch (error) {
-            this.logger.warn(`Error al combinar fecha y hora para registro ${pt.id}:`, error);
+            horaPartidaISO = dayjs
+              .tz(
+                `${fechaStr} ${horaStr}`,
+                'YYYY-MM-DD HH:mm:ss',
+                'America/Lima',
+              )
+              .toISOString();
+          } catch (error: any) {
+            this.logger.warn(
+              `Error al combinar fecha y hora para registro ${pt.id}:`,
+              error,
+            );
             horaPartidaISO = pt.hora_partida;
           }
         }
@@ -853,12 +931,19 @@ export class ProgramacionService {
         };
       });
 
-      this.logger.log(`Encontrados ${data.length} registros recién completados en los últimos ${segundos} segundos`);
+      this.logger.log(
+        `Encontrados ${data.length} registros recién completados en los últimos ${segundos} segundos`,
+      );
 
       return data;
-    } catch (error) {
-      this.logger.error('Error al obtener registros recién completados:', error);
-      throw new InternalServerErrorException('Error al obtener los registros recién completados');
+    } catch (error: any) {
+      this.logger.error(
+        'Error al obtener registros recién completados:',
+        error,
+      );
+      throw new InternalServerErrorException(
+        'Error al obtener los registros recién completados',
+      );
     }
   }
 
@@ -924,13 +1009,17 @@ export class ProgramacionService {
       `;
 
       // Mapear resultados al formato esperado
-      const data = programacionTecnica.map(pt => this.mapProgramacionTecnicaData(pt));
+      const data = programacionTecnica.map((pt) =>
+        this.mapProgramacionTecnicaData(pt),
+      );
 
       this.logger.log(`Encontradas ${data.length} guías originales`);
       return data;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al obtener guías originales:', error);
-      throw new InternalServerErrorException('Error al obtener guías originales');
+      throw new InternalServerErrorException(
+        'Error al obtener guías originales',
+      );
     }
   }
 
@@ -964,13 +1053,17 @@ export class ProgramacionService {
       `;
 
       // Mapear resultados al formato esperado
-      const data = programacionTecnica.map(pt => this.mapProgramacionTecnicaData(pt));
+      const data = programacionTecnica.map((pt) =>
+        this.mapProgramacionTecnicaData(pt),
+      );
 
       this.logger.log(`Encontradas ${data.length} guías duplicadas`);
       return data;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al obtener guías duplicadas:', error);
-      throw new InternalServerErrorException('Error al obtener guías duplicadas');
+      throw new InternalServerErrorException(
+        'Error al obtener guías duplicadas',
+      );
     }
   }
 
@@ -1015,9 +1108,10 @@ export class ProgramacionService {
       const guiaOriginal = guiaOriginalData[0];
 
       // Verificar si tiene guía de remisión en tabla extendida
-      const guiaRemisionOriginal = await this.prisma.guia_remision_extendido.findFirst({
-        where: { identificador_unico: guiaOriginal.identificador_unico },
-      });
+      const guiaRemisionOriginal =
+        await this.prisma.guia_remision_extendido.findFirst({
+          where: { identificador_unico: guiaOriginal.identificador_unico },
+        });
 
       // Validar que no tenga archivos generados
       if (guiaRemisionOriginal) {
@@ -1034,31 +1128,47 @@ export class ProgramacionService {
 
       // Validar datos obligatorios
       const camposVacios: string[] = [];
-      if (!guiaOriginal.empresa_nro_documento) camposVacios.push('Número de documento de la empresa');
-      if (!guiaOriginal.empresa_razon_social) camposVacios.push('Razón social de la empresa');
-      if (!guiaOriginal.empresa_direccion) camposVacios.push('Dirección de la empresa');
+      if (!guiaOriginal.empresa_nro_documento)
+        camposVacios.push('Número de documento de la empresa');
+      if (!guiaOriginal.empresa_razon_social)
+        camposVacios.push('Razón social de la empresa');
+      if (!guiaOriginal.empresa_direccion)
+        camposVacios.push('Dirección de la empresa');
       if (!guiaOriginal.camion_placa) camposVacios.push('Placa del vehículo');
       if (!guiaOriginal.camion_dni) camposVacios.push('DNI del conductor');
-      if (!guiaOriginal.camion_nombre_chofer) camposVacios.push('Nombre del conductor');
-      if (!guiaOriginal.camion_apellido_chofer) camposVacios.push('Apellidos del conductor');
-      if (!guiaOriginal.camion_numero_licencia) camposVacios.push('Número de licencia del conductor');
-      if (!guiaOriginal.punto_partida_ubigeo || guiaOriginal.punto_partida_ubigeo.length !== 6) {
+      if (!guiaOriginal.camion_nombre_chofer)
+        camposVacios.push('Nombre del conductor');
+      if (!guiaOriginal.camion_apellido_chofer)
+        camposVacios.push('Apellidos del conductor');
+      if (!guiaOriginal.camion_numero_licencia)
+        camposVacios.push('Número de licencia del conductor');
+      if (
+        !guiaOriginal.punto_partida_ubigeo ||
+        guiaOriginal.punto_partida_ubigeo.length !== 6
+      ) {
         camposVacios.push('Ubigeo de partida (debe tener 6 dígitos)');
       }
-      if (!guiaOriginal.punto_partida_direccion) camposVacios.push('Dirección de partida');
-      if (!guiaOriginal.punto_llegada_ubigeo || guiaOriginal.punto_llegada_ubigeo.length !== 6) {
+      if (!guiaOriginal.punto_partida_direccion)
+        camposVacios.push('Dirección de partida');
+      if (
+        !guiaOriginal.punto_llegada_ubigeo ||
+        guiaOriginal.punto_llegada_ubigeo.length !== 6
+      ) {
         camposVacios.push('Ubigeo de llegada (debe tener 6 dígitos)');
       }
-      if (!guiaOriginal.punto_llegada_direccion) camposVacios.push('Dirección de llegada');
+      if (!guiaOriginal.punto_llegada_direccion)
+        camposVacios.push('Dirección de llegada');
 
       if (camposVacios.length > 0) {
         throw new BadRequestException(
           `No se puede duplicar. La guía original tiene campos incompletos: ${camposVacios.join(', ')}. ` +
-          `Por favor, complete estos datos en la guía original antes de duplicar.`
+            `Por favor, complete estos datos en la guía original antes de duplicar.`,
         );
       }
 
-      this.logger.log(`🎫 Preparando ${cantidad} duplicados (estructura en memoria, NO se guardan en BD todavía)`);
+      this.logger.log(
+        `🎫 Preparando ${cantidad} duplicados (estructura en memoria, NO se guardan en BD todavía)`,
+      );
 
       // Preparar estructuras de datos para el frontend (sin guardar en BD)
       const duplicadosPreparados: any[] = [];
@@ -1068,7 +1178,8 @@ export class ProgramacionService {
         const tempIdentificadorUnico = `TEMP-${Date.now()}-${i}-${Math.random().toString(36).substring(2, 8)}`;
 
         // Aplicar modificaciones si las hay
-        const modificacion = modificaciones && modificaciones[i] ? modificaciones[i] : {};
+        const modificacion =
+          modificaciones && modificaciones[i] ? modificaciones[i] : {};
 
         // Preparar datos del duplicado
         const duplicadoData = {
@@ -1080,11 +1191,20 @@ export class ProgramacionService {
           fecha: guiaOriginal.fecha,
           unidad: guiaOriginal.camion_placa || null,
           proveedor: guiaOriginal.empresa_razon_social || null,
-          apellidos_nombres: this.capitalizeWords(guiaOriginal.camion_nombre_chofer) && this.capitalizeWords(guiaOriginal.camion_apellido_chofer)
-            ? `${this.capitalizeWords(guiaOriginal.camion_nombre_chofer)} ${this.capitalizeWords(guiaOriginal.camion_apellido_chofer)}`
-            : null,
-          proyectos: guiaOriginal.nombre_subproyecto || guiaOriginal.nombre_proyecto || null,
-          tipo_proyecto: guiaOriginal.nombre_subproyecto ? 'subproyecto' : guiaOriginal.nombre_proyecto ? 'proyecto' : null,
+          apellidos_nombres:
+            this.capitalizeWords(guiaOriginal.camion_nombre_chofer) &&
+            this.capitalizeWords(guiaOriginal.camion_apellido_chofer)
+              ? `${this.capitalizeWords(guiaOriginal.camion_nombre_chofer)} ${this.capitalizeWords(guiaOriginal.camion_apellido_chofer)}`
+              : null,
+          proyectos:
+            guiaOriginal.nombre_subproyecto ||
+            guiaOriginal.nombre_proyecto ||
+            null,
+          tipo_proyecto: guiaOriginal.nombre_subproyecto
+            ? 'subproyecto'
+            : guiaOriginal.nombre_proyecto
+              ? 'proyecto'
+              : null,
           programacion: guiaOriginal.programacion,
           hora_partida: guiaOriginal.hora_partida,
           estado_programacion: guiaOriginal.estado_programacion,
@@ -1094,24 +1214,55 @@ export class ProgramacionService {
           mes: guiaOriginal.mes,
           num_semana: guiaOriginal.num_semana,
           m3: guiaOriginal.m3 ? guiaOriginal.m3.toString() : null,
-          cantidad_viaje: "1",
+          cantidad_viaje: '1',
 
           // Campos editables
-          peso_bruto_total: modificacion.peso_bruto_total !== undefined
-            ? modificacion.peso_bruto_total
-            : (guiaRemisionOriginal?.peso_bruto_total || 0),
+          peso_bruto_total:
+            modificacion.peso_bruto_total !== undefined
+              ? modificacion.peso_bruto_total
+              : guiaRemisionOriginal?.peso_bruto_total || 0,
 
           // IDs de proyecto
-          id_proyecto: modificacion.id_proyecto !== undefined ? modificacion.id_proyecto : guiaOriginal.id_proyecto,
-          id_etapa: modificacion.id_etapa !== undefined ? modificacion.id_etapa : guiaOriginal.id_etapa,
-          id_sector: modificacion.id_sector !== undefined ? modificacion.id_sector : guiaOriginal.id_sector,
-          id_frente: modificacion.id_frente !== undefined ? modificacion.id_frente : guiaOriginal.id_frente,
-          id_partida: modificacion.id_partida !== undefined ? modificacion.id_partida : guiaOriginal.id_partida,
-          id_subproyecto: modificacion.id_subproyecto !== undefined ? modificacion.id_subproyecto : guiaOriginal.id_subproyecto,
-          id_subetapa: modificacion.id_subetapa !== undefined ? modificacion.id_subetapa : guiaOriginal.id_subetapa,
-          id_subsector: modificacion.id_subsector !== undefined ? modificacion.id_subsector : guiaOriginal.id_subsector,
-          id_subfrente: modificacion.id_subfrente !== undefined ? modificacion.id_subfrente : guiaOriginal.id_subfrente,
-          id_subpartida: modificacion.id_subpartida !== undefined ? modificacion.id_subpartida : guiaOriginal.id_subpartida,
+          id_proyecto:
+            modificacion.id_proyecto !== undefined
+              ? modificacion.id_proyecto
+              : guiaOriginal.id_proyecto,
+          id_etapa:
+            modificacion.id_etapa !== undefined
+              ? modificacion.id_etapa
+              : guiaOriginal.id_etapa,
+          id_sector:
+            modificacion.id_sector !== undefined
+              ? modificacion.id_sector
+              : guiaOriginal.id_sector,
+          id_frente:
+            modificacion.id_frente !== undefined
+              ? modificacion.id_frente
+              : guiaOriginal.id_frente,
+          id_partida:
+            modificacion.id_partida !== undefined
+              ? modificacion.id_partida
+              : guiaOriginal.id_partida,
+          id_subproyecto:
+            modificacion.id_subproyecto !== undefined
+              ? modificacion.id_subproyecto
+              : guiaOriginal.id_subproyecto,
+          id_subetapa:
+            modificacion.id_subetapa !== undefined
+              ? modificacion.id_subetapa
+              : guiaOriginal.id_subetapa,
+          id_subsector:
+            modificacion.id_subsector !== undefined
+              ? modificacion.id_subsector
+              : guiaOriginal.id_subsector,
+          id_subfrente:
+            modificacion.id_subfrente !== undefined
+              ? modificacion.id_subfrente
+              : guiaOriginal.id_subfrente,
+          id_subpartida:
+            modificacion.id_subpartida !== undefined
+              ? modificacion.id_subpartida
+              : guiaOriginal.id_subpartida,
 
           // Datos completos de la guía para guardar después
           _datosCompletos: {
@@ -1142,54 +1293,79 @@ export class ProgramacionService {
               num_semana: guiaOriginal.num_semana,
               m3: guiaOriginal.m3,
             },
-            guiaRemisionOriginal: guiaRemisionOriginal ? {
-              operacion: guiaRemisionOriginal.operacion,
-              tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
-              cliente_tipo_de_documento: guiaRemisionOriginal.cliente_tipo_de_documento,
-              cliente_numero_de_documento: guiaRemisionOriginal.cliente_numero_de_documento,
-              cliente_denominacion: guiaRemisionOriginal.cliente_denominacion,
-              cliente_direccion: guiaRemisionOriginal.cliente_direccion,
-              fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
-              peso_bruto_unidad_de_medida: guiaRemisionOriginal.peso_bruto_unidad_de_medida,
-              numero_de_bultos: guiaRemisionOriginal.numero_de_bultos,
-              tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
-              fecha_de_inicio_de_traslado: guiaRemisionOriginal.fecha_de_inicio_de_traslado,
-              transportista_placa_numero: guiaRemisionOriginal.transportista_placa_numero,
-              transportista_documento_tipo: guiaRemisionOriginal.transportista_documento_tipo,
-              transportista_documento_numero: guiaRemisionOriginal.transportista_documento_numero,
-              transportista_denominacion: guiaRemisionOriginal.transportista_denominacion,
-              conductor_documento_tipo: guiaRemisionOriginal.conductor_documento_tipo,
-              conductor_documento_numero: guiaRemisionOriginal.conductor_documento_numero,
-              conductor_numero_licencia: guiaRemisionOriginal.conductor_numero_licencia,
-              conductor_nombre: guiaRemisionOriginal.conductor_nombre,
-              conductor_apellidos: guiaRemisionOriginal.conductor_apellidos,
-              conductor_denominacion: guiaRemisionOriginal.conductor_denominacion,
-              destinatario_documento_tipo: guiaRemisionOriginal.destinatario_documento_tipo,
-              destinatario_documento_numero: guiaRemisionOriginal.destinatario_documento_numero,
-              destinatario_denominacion: guiaRemisionOriginal.destinatario_denominacion,
-              mtc: guiaRemisionOriginal.mtc,
-              punto_de_partida_ubigeo: guiaRemisionOriginal.punto_de_partida_ubigeo,
-              punto_de_partida_direccion: guiaRemisionOriginal.punto_de_partida_direccion,
-              punto_de_llegada_ubigeo: guiaRemisionOriginal.punto_de_llegada_ubigeo,
-              punto_de_llegada_direccion: guiaRemisionOriginal.punto_de_llegada_direccion,
-              motivo_de_traslado: guiaRemisionOriginal.motivo_de_traslado,
-              motivo_de_traslado_otros_descripcion: guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
-              observaciones: guiaRemisionOriginal.observaciones,
-            } : null,
+            guiaRemisionOriginal: guiaRemisionOriginal
+              ? {
+                  operacion: guiaRemisionOriginal.operacion,
+                  tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
+                  cliente_tipo_de_documento:
+                    guiaRemisionOriginal.cliente_tipo_de_documento,
+                  cliente_numero_de_documento:
+                    guiaRemisionOriginal.cliente_numero_de_documento,
+                  cliente_denominacion:
+                    guiaRemisionOriginal.cliente_denominacion,
+                  cliente_direccion: guiaRemisionOriginal.cliente_direccion,
+                  fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
+                  peso_bruto_unidad_de_medida:
+                    guiaRemisionOriginal.peso_bruto_unidad_de_medida,
+                  numero_de_bultos: guiaRemisionOriginal.numero_de_bultos,
+                  tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
+                  fecha_de_inicio_de_traslado:
+                    guiaRemisionOriginal.fecha_de_inicio_de_traslado,
+                  transportista_placa_numero:
+                    guiaRemisionOriginal.transportista_placa_numero,
+                  transportista_documento_tipo:
+                    guiaRemisionOriginal.transportista_documento_tipo,
+                  transportista_documento_numero:
+                    guiaRemisionOriginal.transportista_documento_numero,
+                  transportista_denominacion:
+                    guiaRemisionOriginal.transportista_denominacion,
+                  conductor_documento_tipo:
+                    guiaRemisionOriginal.conductor_documento_tipo,
+                  conductor_documento_numero:
+                    guiaRemisionOriginal.conductor_documento_numero,
+                  conductor_numero_licencia:
+                    guiaRemisionOriginal.conductor_numero_licencia,
+                  conductor_nombre: guiaRemisionOriginal.conductor_nombre,
+                  conductor_apellidos: guiaRemisionOriginal.conductor_apellidos,
+                  conductor_denominacion:
+                    guiaRemisionOriginal.conductor_denominacion,
+                  destinatario_documento_tipo:
+                    guiaRemisionOriginal.destinatario_documento_tipo,
+                  destinatario_documento_numero:
+                    guiaRemisionOriginal.destinatario_documento_numero,
+                  destinatario_denominacion:
+                    guiaRemisionOriginal.destinatario_denominacion,
+                  mtc: guiaRemisionOriginal.mtc,
+                  punto_de_partida_ubigeo:
+                    guiaRemisionOriginal.punto_de_partida_ubigeo,
+                  punto_de_partida_direccion:
+                    guiaRemisionOriginal.punto_de_partida_direccion,
+                  punto_de_llegada_ubigeo:
+                    guiaRemisionOriginal.punto_de_llegada_ubigeo,
+                  punto_de_llegada_direccion:
+                    guiaRemisionOriginal.punto_de_llegada_direccion,
+                  motivo_de_traslado: guiaRemisionOriginal.motivo_de_traslado,
+                  motivo_de_traslado_otros_descripcion:
+                    guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
+                  observaciones: guiaRemisionOriginal.observaciones,
+                }
+              : null,
           },
         };
 
         duplicadosPreparados.push(duplicadoData);
       }
 
-      this.logger.log(`✅ Preparados ${cantidad} duplicados en memoria (listos para editar en frontend)`);
+      this.logger.log(
+        `✅ Preparados ${cantidad} duplicados en memoria (listos para editar en frontend)`,
+      );
 
       return {
         success: true,
         message: `Se prepararon ${cantidad} duplicados para edición`,
         duplicados: duplicadosPreparados,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al preparar duplicados:', error);
       if (error instanceof BadRequestException) {
         throw error;
@@ -1202,14 +1378,16 @@ export class ProgramacionService {
   // El detector los procesará automáticamente
   async guardarDuplicados(duplicados: Array<any>) {
     try {
-      this.logger.log(`📝 Guardando ${duplicados.length} duplicados en la base de datos...`);
+      this.logger.log(
+        `📝 Guardando ${duplicados.length} duplicados en la base de datos...`,
+      );
 
       // 🔍 DEBUG: Ver qué items vienen desde el frontend
       duplicados.forEach((dup, index) => {
         console.log(`\n🔍 [GUARDAR-DUPLICADOS] Duplicado ${index + 1}:`, {
           peso_bruto_total: dup.peso_bruto_total,
           items_raw: dup.items,
-          items_parsed: dup.items ? JSON.parse(dup.items) : null
+          items_parsed: dup.items ? JSON.parse(dup.items) : null,
         });
       });
 
@@ -1220,11 +1398,13 @@ export class ProgramacionService {
         const ultimoNumero = await tx.guia_remision_extendido.findFirst({
           where: { serie: 'TTT2' },
           orderBy: { numero: 'desc' },
-          select: { numero: true }
+          select: { numero: true },
         });
 
         let numeroActual = ultimoNumero ? ultimoNumero.numero : 0;
-        this.logger.log(`   📝 Último número en serie TTT2: ${numeroActual}, iniciando desde ${numeroActual + 1}`);
+        this.logger.log(
+          `   📝 Último número en serie TTT2: ${numeroActual}, iniciando desde ${numeroActual + 1}`,
+        );
 
         for (const duplicado of duplicados) {
           numeroActual++;
@@ -1248,36 +1428,56 @@ export class ProgramacionService {
                 tipo_de_comprobante: guiaRemisionOriginal.tipo_de_comprobante,
                 serie: 'TTT2',
                 numero: numeroActual,
-                cliente_tipo_de_documento: guiaRemisionOriginal.cliente_tipo_de_documento,
-                cliente_numero_de_documento: guiaRemisionOriginal.cliente_numero_de_documento,
+                cliente_tipo_de_documento:
+                  guiaRemisionOriginal.cliente_tipo_de_documento,
+                cliente_numero_de_documento:
+                  guiaRemisionOriginal.cliente_numero_de_documento,
                 cliente_denominacion: guiaRemisionOriginal.cliente_denominacion,
                 cliente_direccion: guiaRemisionOriginal.cliente_direccion,
                 fecha_de_emision: guiaRemisionOriginal.fecha_de_emision,
                 peso_bruto_total: duplicado.peso_bruto_total, // Valor editado
-                peso_bruto_unidad_de_medida: guiaRemisionOriginal.peso_bruto_unidad_de_medida,
+                peso_bruto_unidad_de_medida:
+                  guiaRemisionOriginal.peso_bruto_unidad_de_medida,
                 numero_de_bultos: guiaRemisionOriginal.numero_de_bultos,
                 tipo_de_transporte: guiaRemisionOriginal.tipo_de_transporte,
-                fecha_de_inicio_de_traslado: guiaRemisionOriginal.fecha_de_inicio_de_traslado,
-                transportista_placa_numero: guiaRemisionOriginal.transportista_placa_numero,
-                transportista_documento_tipo: guiaRemisionOriginal.transportista_documento_tipo,
-                transportista_documento_numero: guiaRemisionOriginal.transportista_documento_numero,
-                transportista_denominacion: guiaRemisionOriginal.transportista_denominacion,
-                conductor_documento_tipo: guiaRemisionOriginal.conductor_documento_tipo,
-                conductor_documento_numero: guiaRemisionOriginal.conductor_documento_numero,
-                conductor_numero_licencia: guiaRemisionOriginal.conductor_numero_licencia,
+                fecha_de_inicio_de_traslado:
+                  guiaRemisionOriginal.fecha_de_inicio_de_traslado,
+                transportista_placa_numero:
+                  guiaRemisionOriginal.transportista_placa_numero,
+                transportista_documento_tipo:
+                  guiaRemisionOriginal.transportista_documento_tipo,
+                transportista_documento_numero:
+                  guiaRemisionOriginal.transportista_documento_numero,
+                transportista_denominacion:
+                  guiaRemisionOriginal.transportista_denominacion,
+                conductor_documento_tipo:
+                  guiaRemisionOriginal.conductor_documento_tipo,
+                conductor_documento_numero:
+                  guiaRemisionOriginal.conductor_documento_numero,
+                conductor_numero_licencia:
+                  guiaRemisionOriginal.conductor_numero_licencia,
                 conductor_nombre: guiaRemisionOriginal.conductor_nombre,
                 conductor_apellidos: guiaRemisionOriginal.conductor_apellidos,
-                conductor_denominacion: guiaRemisionOriginal.conductor_denominacion,
-                destinatario_documento_tipo: guiaRemisionOriginal.destinatario_documento_tipo,
-                destinatario_documento_numero: guiaRemisionOriginal.destinatario_documento_numero,
-                destinatario_denominacion: guiaRemisionOriginal.destinatario_denominacion,
+                conductor_denominacion:
+                  guiaRemisionOriginal.conductor_denominacion,
+                destinatario_documento_tipo:
+                  guiaRemisionOriginal.destinatario_documento_tipo,
+                destinatario_documento_numero:
+                  guiaRemisionOriginal.destinatario_documento_numero,
+                destinatario_denominacion:
+                  guiaRemisionOriginal.destinatario_denominacion,
                 mtc: guiaRemisionOriginal.mtc,
-                punto_de_partida_ubigeo: guiaRemisionOriginal.punto_de_partida_ubigeo,
-                punto_de_partida_direccion: guiaRemisionOriginal.punto_de_partida_direccion,
-                punto_de_llegada_ubigeo: guiaRemisionOriginal.punto_de_llegada_ubigeo,
-                punto_de_llegada_direccion: guiaRemisionOriginal.punto_de_llegada_direccion,
+                punto_de_partida_ubigeo:
+                  guiaRemisionOriginal.punto_de_partida_ubigeo,
+                punto_de_partida_direccion:
+                  guiaRemisionOriginal.punto_de_partida_direccion,
+                punto_de_llegada_ubigeo:
+                  guiaRemisionOriginal.punto_de_llegada_ubigeo,
+                punto_de_llegada_direccion:
+                  guiaRemisionOriginal.punto_de_llegada_direccion,
                 motivo_de_traslado: guiaRemisionOriginal.motivo_de_traslado,
-                motivo_de_traslado_otros_descripcion: guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
+                motivo_de_traslado_otros_descripcion:
+                  guiaRemisionOriginal.motivo_de_traslado_otros_descripcion,
                 observaciones: guiaRemisionOriginal.observaciones,
                 identificador_unico: nuevoIdentificadorUnico,
                 // ✅ Sin duplicado_lote_id y con estado_gre: null para que el detector lo procese
@@ -1319,7 +1519,8 @@ export class ProgramacionService {
                 fecha_de_inicio_de_traslado: guiaOriginal.fecha,
                 transportista_placa_numero: guiaOriginal.camion_placa,
                 transportista_documento_tipo: 6,
-                transportista_documento_numero: guiaOriginal.empresa_nro_documento,
+                transportista_documento_numero:
+                  guiaOriginal.empresa_nro_documento,
                 transportista_denominacion: guiaOriginal.empresa_razon_social,
                 conductor_documento_tipo: 1,
                 conductor_documento_numero: guiaOriginal.camion_dni,
@@ -1327,13 +1528,16 @@ export class ProgramacionService {
                 conductor_apellidos: guiaOriginal.camion_apellido_chofer,
                 conductor_numero_licencia: guiaOriginal.camion_numero_licencia,
                 destinatario_documento_tipo: 6,
-                destinatario_documento_numero: guiaOriginal.empresa_nro_documento,
+                destinatario_documento_numero:
+                  guiaOriginal.empresa_nro_documento,
                 destinatario_denominacion: guiaOriginal.empresa_razon_social,
                 mtc: null,
                 punto_de_partida_ubigeo: guiaOriginal.punto_partida_ubigeo,
-                punto_de_partida_direccion: guiaOriginal.punto_partida_direccion,
+                punto_de_partida_direccion:
+                  guiaOriginal.punto_partida_direccion,
                 punto_de_llegada_ubigeo: guiaOriginal.punto_llegada_ubigeo,
-                punto_de_llegada_direccion: guiaOriginal.punto_llegada_direccion,
+                punto_de_llegada_direccion:
+                  guiaOriginal.punto_llegada_direccion,
                 motivo_de_traslado: '01',
                 motivo_de_traslado_otros_descripcion: null,
                 observaciones: null,
@@ -1359,8 +1563,13 @@ export class ProgramacionService {
             });
           }
 
-          this.logger.log(`   ✅ Guardado duplicado TTT2-${numeroActual} (id: ${nuevoRegistroGre.id_guia})`);
-          console.log(`   🔍 [DB-SAVED] Items guardados en BD:`, nuevoRegistroGre.items);
+          this.logger.log(
+            `   ✅ Guardado duplicado TTT2-${numeroActual} (id: ${nuevoRegistroGre.id_guia})`,
+          );
+          console.log(
+            `   🔍 [DB-SAVED] Items guardados en BD:`,
+            nuevoRegistroGre.items,
+          );
 
           guiasCreadas.push({
             id_guia: nuevoRegistroGre.id_guia,
@@ -1373,15 +1582,19 @@ export class ProgramacionService {
         return guiasCreadas;
       });
 
-      this.logger.log(`✅ Se guardaron ${resultados.length} duplicados exitosamente`);
-      this.logger.log(`🤖 El detector los procesará automáticamente en los próximos 30 segundos`);
+      this.logger.log(
+        `✅ Se guardaron ${resultados.length} duplicados exitosamente`,
+      );
+      this.logger.log(
+        `🤖 El detector los procesará automáticamente en los próximos 30 segundos`,
+      );
 
       return {
         success: true,
         message: `Se guardaron ${resultados.length} duplicados exitosamente. El sistema los procesará automáticamente.`,
         guiasCreadas: resultados,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al guardar duplicados:', error);
       throw new InternalServerErrorException('Error al guardar duplicados');
     }
@@ -1415,18 +1628,22 @@ export class ProgramacionService {
         select: {
           id_guia: true,
           duplicado_lote_id: true,
-        }
+        },
       });
 
-      this.logger.log(`🔍 Encontrados ${existentes.length} registros con loteId: ${loteId}`);
+      this.logger.log(
+        `🔍 Encontrados ${existentes.length} registros con loteId: ${loteId}`,
+      );
       if (existentes.length > 0) {
-        this.logger.log(`   IDs: ${existentes.map(e => e.id_guia).join(', ')}`);
+        this.logger.log(
+          `   IDs: ${existentes.map((e) => e.id_guia).join(', ')}`,
+        );
       }
 
       // Si no hay registros, lanzar error
       if (existentes.length === 0) {
         throw new BadRequestException(
-          `No se encontraron duplicados con el lote ${loteId}. El lote puede haber sido eliminado o no existe.`
+          `No se encontraron duplicados con el lote ${loteId}. El lote puede haber sido eliminado o no existe.`,
         );
       }
 
@@ -1438,18 +1655,22 @@ export class ProgramacionService {
         data: modificaciones,
       });
 
-      this.logger.log(`✏️  Actualizados ${result.count} registros en guia_remision_extendido`);
+      this.logger.log(
+        `✏️  Actualizados ${result.count} registros en guia_remision_extendido`,
+      );
 
       // ✅ NO actualizar programacion_tecnica porque esos registros aún no existen
       // Se crearán cuando se envíe a Kafka con los datos actualizados de guia_remision_extendido
-      this.logger.log(`📌 Los registros en programacion_tecnica se crearán al enviar a Kafka`);
+      this.logger.log(
+        `📌 Los registros en programacion_tecnica se crearán al enviar a Kafka`,
+      );
 
       return {
         success: true,
         message: `Se actualizaron ${result.count} duplicados del lote ${loteId}`,
         registrosActualizados: result.count,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al actualizar duplicados:', error);
       throw new InternalServerErrorException('Error al actualizar duplicados');
     }
@@ -1458,7 +1679,7 @@ export class ProgramacionService {
   private validarCamposObligatoriosParaNubefact(
     guia: any,
     guiaRemision: any,
-    index: number
+    index: number,
   ): { valido: boolean; camposFaltantes: string[] } {
     const camposFaltantes: string[] = [];
 
@@ -1468,8 +1689,10 @@ export class ProgramacionService {
     }
 
     // Validar proyecto o subproyecto
-    const tieneProyecto = guiaRemision.id_proyecto && guiaRemision.id_proyecto > 0;
-    const tieneSubproyecto = guiaRemision.id_subproyecto && guiaRemision.id_subproyecto > 0;
+    const tieneProyecto =
+      guiaRemision.id_proyecto && guiaRemision.id_proyecto > 0;
+    const tieneSubproyecto =
+      guiaRemision.id_subproyecto && guiaRemision.id_subproyecto > 0;
 
     if (!tieneProyecto && !tieneSubproyecto) {
       camposFaltantes.push('id_proyecto o id_subproyecto');
@@ -1486,34 +1709,49 @@ export class ProgramacionService {
     }
 
     // Campos básicos de guia_remision_extendido
-    if (!guiaRemision.cliente_denominacion) camposFaltantes.push('cliente_denominacion');
-    if (!guiaRemision.cliente_numero_de_documento) camposFaltantes.push('cliente_numero_de_documento');
-    if (!guiaRemision.fecha_de_emision) camposFaltantes.push('fecha_de_emision');
+    if (!guiaRemision.cliente_denominacion)
+      camposFaltantes.push('cliente_denominacion');
+    if (!guiaRemision.cliente_numero_de_documento)
+      camposFaltantes.push('cliente_numero_de_documento');
+    if (!guiaRemision.fecha_de_emision)
+      camposFaltantes.push('fecha_de_emision');
 
     // Campos necesarios para GRE (transporte)
-    if (!guiaRemision.transportista_placa_numero) camposFaltantes.push('transportista_placa_numero');
-    if (!guiaRemision.conductor_documento_numero) camposFaltantes.push('conductor_documento_numero');
-    if (!guiaRemision.conductor_numero_licencia) camposFaltantes.push('conductor_numero_licencia');
-    if (!guiaRemision.conductor_nombre) camposFaltantes.push('conductor_nombre');
-    if (!guiaRemision.conductor_apellidos) camposFaltantes.push('conductor_apellidos');
+    if (!guiaRemision.transportista_placa_numero)
+      camposFaltantes.push('transportista_placa_numero');
+    if (!guiaRemision.conductor_documento_numero)
+      camposFaltantes.push('conductor_documento_numero');
+    if (!guiaRemision.conductor_numero_licencia)
+      camposFaltantes.push('conductor_numero_licencia');
+    if (!guiaRemision.conductor_nombre)
+      camposFaltantes.push('conductor_nombre');
+    if (!guiaRemision.conductor_apellidos)
+      camposFaltantes.push('conductor_apellidos');
 
     // Puntos de partida y llegada
-    if (!guiaRemision.punto_de_partida_direccion) camposFaltantes.push('punto_de_partida_direccion');
-    if (!guiaRemision.punto_de_partida_ubigeo) camposFaltantes.push('punto_de_partida_ubigeo');
-    if (!guiaRemision.punto_de_llegada_direccion) camposFaltantes.push('punto_de_llegada_direccion');
-    if (!guiaRemision.punto_de_llegada_ubigeo) camposFaltantes.push('punto_de_llegada_ubigeo');
+    if (!guiaRemision.punto_de_partida_direccion)
+      camposFaltantes.push('punto_de_partida_direccion');
+    if (!guiaRemision.punto_de_partida_ubigeo)
+      camposFaltantes.push('punto_de_partida_ubigeo');
+    if (!guiaRemision.punto_de_llegada_direccion)
+      camposFaltantes.push('punto_de_llegada_direccion');
+    if (!guiaRemision.punto_de_llegada_ubigeo)
+      camposFaltantes.push('punto_de_llegada_ubigeo');
 
     // Datos del transportista
-    if (!guiaRemision.transportista_documento_numero) camposFaltantes.push('transportista_documento_numero');
-    if (!guiaRemision.transportista_denominacion) camposFaltantes.push('transportista_denominacion');
+    if (!guiaRemision.transportista_documento_numero)
+      camposFaltantes.push('transportista_documento_numero');
+    if (!guiaRemision.transportista_denominacion)
+      camposFaltantes.push('transportista_denominacion');
 
     // Validar campos de programacion_tecnica (opcionales pero útiles para logs)
     if (!guia.unidad) camposFaltantes.push('unidad (programacion_tecnica)');
-    if (!guia.proveedor) camposFaltantes.push('proveedor (programacion_tecnica)');
+    if (!guia.proveedor)
+      camposFaltantes.push('proveedor (programacion_tecnica)');
 
     return {
       valido: camposFaltantes.length === 0,
-      camposFaltantes
+      camposFaltantes,
     };
   }
 
@@ -1527,13 +1765,13 @@ export class ProgramacionService {
 
       // Validar que el lote existe antes de procesar
       const loteExiste = await this.prisma.guia_remision_extendido.count({
-        where: { duplicado_lote_id: loteId }
+        where: { duplicado_lote_id: loteId },
       });
 
       if (loteExiste === 0) {
         this.logger.error(`❌ El lote ${loteId} no existe en la base de datos`);
         throw new BadRequestException(
-          `El lote ${loteId} no existe. Los duplicados pueden haber sido eliminados o el lote es inválido. Por favor, recargue la página y verifique los datos.`
+          `El lote ${loteId} no existe. Los duplicados pueden haber sido eliminados o el lote es inválido. Por favor, recargue la página y verifique los datos.`,
         );
       }
 
@@ -1541,7 +1779,11 @@ export class ProgramacionService {
 
       let procesados = 0;
       const errores: Array<{ id: number; error: string }> = [];
-      const validacionesDetalladas: Array<{ id: number; valido: boolean; camposFaltantes: string[] }> = [];
+      const validacionesDetalladas: Array<{
+        id: number;
+        valido: boolean;
+        camposFaltantes: string[];
+      }> = [];
 
       for (const idGuia of idsGuias) {
         try {
@@ -1553,7 +1795,9 @@ export class ProgramacionService {
           });
 
           if (!guia) {
-            this.logger.error(`❌ Guía ${idGuia} no encontrada en la base de datos`);
+            this.logger.error(
+              `❌ Guía ${idGuia} no encontrada en la base de datos`,
+            );
             errores.push({
               id: idGuia,
               error: 'Guía no encontrada',
@@ -1561,39 +1805,45 @@ export class ProgramacionService {
             validacionesDetalladas.push({
               id: idGuia,
               valido: false,
-              camposFaltantes: ['guia_no_existe']
+              camposFaltantes: ['guia_no_existe'],
             });
             continue;
           }
 
           // Verificar que pertenezca al lote
-          const guiaRemision = await this.prisma.guia_remision_extendido.findFirst({
-            where: {
-              identificador_unico: guia.identificador_unico,
-              duplicado_lote_id: loteId,
-            },
-          });
+          const guiaRemision =
+            await this.prisma.guia_remision_extendido.findFirst({
+              where: {
+                identificador_unico: guia.identificador_unico,
+                duplicado_lote_id: loteId,
+              },
+            });
 
           if (!guiaRemision) {
             // Verificar si la guía existe pero en otro lote
-            const guiaEnOtroLote = await this.prisma.guia_remision_extendido.findFirst({
-              where: {
-                identificador_unico: guia.identificador_unico,
-              },
-              select: {
-                duplicado_lote_id: true,
-                id_guia: true,
-              }
-            });
+            const guiaEnOtroLote =
+              await this.prisma.guia_remision_extendido.findFirst({
+                where: {
+                  identificador_unico: guia.identificador_unico,
+                },
+                select: {
+                  duplicado_lote_id: true,
+                  id_guia: true,
+                },
+              });
 
             if (guiaEnOtroLote) {
-              this.logger.error(`❌ Guía ${idGuia} pertenece a otro lote: ${guiaEnOtroLote.duplicado_lote_id}`);
+              this.logger.error(
+                `❌ Guía ${idGuia} pertenece a otro lote: ${guiaEnOtroLote.duplicado_lote_id}`,
+              );
               errores.push({
                 id: idGuia,
                 error: `Guía pertenece al lote ${guiaEnOtroLote.duplicado_lote_id}, no al lote ${loteId}`,
               });
             } else {
-              this.logger.error(`❌ Guía ${idGuia} no tiene registro en guia_remision_extendido`);
+              this.logger.error(
+                `❌ Guía ${idGuia} no tiene registro en guia_remision_extendido`,
+              );
               errores.push({
                 id: idGuia,
                 error: 'Guía no encontrada en tabla de duplicados',
@@ -1603,39 +1853,75 @@ export class ProgramacionService {
             validacionesDetalladas.push({
               id: idGuia,
               valido: false,
-              camposFaltantes: ['no_pertenece_al_lote']
+              camposFaltantes: ['no_pertenece_al_lote'],
             });
             continue;
           }
 
           // Validar campos obligatorios para Nubefact
-          const validacion = this.validarCamposObligatoriosParaNubefact(guia, guiaRemision, procesados);
+          const validacion = this.validarCamposObligatoriosParaNubefact(
+            guia,
+            guiaRemision,
+            procesados,
+          );
           validacionesDetalladas.push({
             id: idGuia,
             valido: validacion.valido,
-            camposFaltantes: validacion.camposFaltantes
+            camposFaltantes: validacion.camposFaltantes,
           });
 
           if (!validacion.valido) {
             const mensajeError = `Campos faltantes: ${validacion.camposFaltantes.join(', ')}`;
-            this.logger.error(`❌ Guía ${idGuia} NO VÁLIDA para envío a Nubefact`);
+            this.logger.error(
+              `❌ Guía ${idGuia} NO VÁLIDA para envío a Nubefact`,
+            );
             this.logger.error(`   ${mensajeError}`);
             this.logger.error(`   Datos actuales de guia_remision_extendido:`);
-            this.logger.error(`     - peso_bruto_total: ${guiaRemision.peso_bruto_total || 'NULL'}`);
-            this.logger.error(`     - id_proyecto: ${guiaRemision.id_proyecto || 'NULL'}`);
-            this.logger.error(`     - id_subproyecto: ${guiaRemision.id_subproyecto || 'NULL'}`);
-            this.logger.error(`     - id_etapa: ${guiaRemision.id_etapa || 'NULL'}`);
-            this.logger.error(`     - id_sector: ${guiaRemision.id_sector || 'NULL'}`);
-            this.logger.error(`     - id_frente: ${guiaRemision.id_frente || 'NULL'}`);
-            this.logger.error(`     - id_partida: ${guiaRemision.id_partida || 'NULL'}`);
-            this.logger.error(`     - cliente_denominacion: ${guiaRemision.cliente_denominacion || 'NULL'}`);
-            this.logger.error(`     - transportista_placa_numero: ${guiaRemision.transportista_placa_numero || 'NULL'}`);
-            this.logger.error(`     - conductor_documento_numero: ${guiaRemision.conductor_documento_numero || 'NULL'}`);
-            this.logger.error(`     - conductor_numero_licencia: ${guiaRemision.conductor_numero_licencia || 'NULL'}`);
-            this.logger.error(`     - conductor_nombre: ${guiaRemision.conductor_nombre || 'NULL'}`);
-            this.logger.error(`     - conductor_apellidos: ${guiaRemision.conductor_apellidos || 'NULL'}`);
-            this.logger.error(`     - punto_de_partida_direccion: ${guiaRemision.punto_de_partida_direccion || 'NULL'}`);
-            this.logger.error(`     - punto_de_llegada_direccion: ${guiaRemision.punto_de_llegada_direccion || 'NULL'}`);
+            this.logger.error(
+              `     - peso_bruto_total: ${guiaRemision.peso_bruto_total || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_proyecto: ${guiaRemision.id_proyecto || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_subproyecto: ${guiaRemision.id_subproyecto || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_etapa: ${guiaRemision.id_etapa || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_sector: ${guiaRemision.id_sector || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_frente: ${guiaRemision.id_frente || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - id_partida: ${guiaRemision.id_partida || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - cliente_denominacion: ${guiaRemision.cliente_denominacion || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - transportista_placa_numero: ${guiaRemision.transportista_placa_numero || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - conductor_documento_numero: ${guiaRemision.conductor_documento_numero || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - conductor_numero_licencia: ${guiaRemision.conductor_numero_licencia || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - conductor_nombre: ${guiaRemision.conductor_nombre || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - conductor_apellidos: ${guiaRemision.conductor_apellidos || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - punto_de_partida_direccion: ${guiaRemision.punto_de_partida_direccion || 'NULL'}`,
+            );
+            this.logger.error(
+              `     - punto_de_llegada_direccion: ${guiaRemision.punto_de_llegada_direccion || 'NULL'}`,
+            );
             this.logger.error(`   Datos de programacion_tecnica:`);
             this.logger.error(`     - unidad: ${guia.unidad || 'NULL'}`);
             this.logger.error(`     - proveedor: ${guia.proveedor || 'NULL'}`);
@@ -1647,15 +1933,29 @@ export class ProgramacionService {
             continue;
           }
 
-          this.logger.log(`✅ Guía ${idGuia} VÁLIDA - Todos los campos obligatorios presentes`);
-          this.logger.log(`   - peso_bruto_total: ${guiaRemision.peso_bruto_total}`);
-          this.logger.log(`   - proyecto/subproyecto: ${guiaRemision.id_proyecto ? `Proyecto ${guiaRemision.id_proyecto}` : `Subproyecto ${guiaRemision.id_subproyecto}`}`);
-          this.logger.log(`   - placa: ${guiaRemision.transportista_placa_numero}`);
-          this.logger.log(`   - conductor: ${guiaRemision.conductor_nombre} ${guiaRemision.conductor_apellidos} (DNI: ${guiaRemision.conductor_documento_numero})`);
-          this.logger.log(`   - transportista: ${guiaRemision.transportista_denominacion} (RUC: ${guiaRemision.transportista_documento_numero})`);
+          this.logger.log(
+            `✅ Guía ${idGuia} VÁLIDA - Todos los campos obligatorios presentes`,
+          );
+          this.logger.log(
+            `   - peso_bruto_total: ${guiaRemision.peso_bruto_total}`,
+          );
+          this.logger.log(
+            `   - proyecto/subproyecto: ${guiaRemision.id_proyecto ? `Proyecto ${guiaRemision.id_proyecto}` : `Subproyecto ${guiaRemision.id_subproyecto}`}`,
+          );
+          this.logger.log(
+            `   - placa: ${guiaRemision.transportista_placa_numero}`,
+          );
+          this.logger.log(
+            `   - conductor: ${guiaRemision.conductor_nombre} ${guiaRemision.conductor_apellidos} (DNI: ${guiaRemision.conductor_documento_numero})`,
+          );
+          this.logger.log(
+            `   - transportista: ${guiaRemision.transportista_denominacion} (RUC: ${guiaRemision.transportista_documento_numero})`,
+          );
 
           // ✅ PASO 1: Crear registro en programacion_tecnica ANTES de enviar a Kafka
-          this.logger.log(`📝 Creando registro en programacion_tecnica para guía ${idGuia}...`);
+          this.logger.log(
+            `📝 Creando registro en programacion_tecnica para guía ${idGuia}...`,
+          );
           try {
             await this.prisma.programacion_tecnica.create({
               data: {
@@ -1672,11 +1972,13 @@ export class ProgramacionService {
                 mes: guia.mes,
                 num_semana: guia.num_semana,
                 m3: guia.m3,
-                cantidad_viaje: "1", // Siempre 1 viaje por duplicado
+                cantidad_viaje: '1', // Siempre 1 viaje por duplicado
                 peso_bruto_total: guiaRemision.peso_bruto_total,
-                punto_llegada_direccion: guiaRemision.punto_de_llegada_direccion,
+                punto_llegada_direccion:
+                  guiaRemision.punto_de_llegada_direccion,
                 punto_llegada_ubigeo: guiaRemision.punto_de_llegada_ubigeo,
-                punto_partida_direccion: guiaRemision.punto_de_partida_direccion,
+                punto_partida_direccion:
+                  guiaRemision.punto_de_partida_direccion,
                 punto_partida_ubigeo: guiaRemision.punto_de_partida_ubigeo,
                 id_proyecto: guiaRemision.id_proyecto,
                 id_subproyecto: guiaRemision.id_subproyecto,
@@ -1691,9 +1993,14 @@ export class ProgramacionService {
                 hora_registro: new Date(),
               },
             });
-            this.logger.log(`✅ Registro creado en programacion_tecnica para guía ${idGuia}`);
-          } catch (error) {
-            this.logger.error(`❌ Error creando registro en programacion_tecnica para guía ${idGuia}:`, error.message);
+            this.logger.log(
+              `✅ Registro creado en programacion_tecnica para guía ${idGuia}`,
+            );
+          } catch (error: any) {
+            this.logger.error(
+              `❌ Error creando registro en programacion_tecnica para guía ${idGuia}:`,
+              error.message,
+            );
             errores.push({
               id: idGuia,
               error: `Error creando en programacion_tecnica: ${error.message}`,
@@ -1702,7 +2009,9 @@ export class ProgramacionService {
           }
 
           // ✅ PASO 2: Actualizar estado a PENDIENTE en guia_remision_extendido
-          this.logger.log(`📝 Actualizando estado a PENDIENTE para guía ${idGuia}...`);
+          this.logger.log(
+            `📝 Actualizando estado a PENDIENTE para guía ${idGuia}...`,
+          );
           await this.prisma.guia_remision_extendido.update({
             where: { id_guia: guiaRemision.id_guia },
             data: {
@@ -1710,7 +2019,9 @@ export class ProgramacionService {
               duplicado_lote_id: null, // Limpiar loteId para que no sea filtrado por el detector
             },
           });
-          this.logger.log(`✅ Estado actualizado a PENDIENTE para guía ${idGuia}`);
+          this.logger.log(
+            `✅ Estado actualizado a PENDIENTE para guía ${idGuia}`,
+          );
 
           // ✅ PASO 3: Transformar datos al formato de Nubefact y enviar a Kafka
           const greData = this.transformRecordToNubefactApi(guiaRemision);
@@ -1718,16 +2029,21 @@ export class ProgramacionService {
           if (this.greExtendidoProducer) {
             await this.greExtendidoProducer.sendGreRequest(
               guiaRemision.id_guia.toString(),
-              greData
+              greData,
             );
             this.logger.log(`📤 Guía ${idGuia} enviada a Kafka exitosamente`);
           } else {
-            this.logger.warn(`⚠️  GreExtendidoProducer no disponible, solo se actualizó el estado`);
+            this.logger.warn(
+              `⚠️  GreExtendidoProducer no disponible, solo se actualizó el estado`,
+            );
           }
 
           procesados++;
-        } catch (error) {
-          this.logger.error(`❌ Error procesando guía ${idGuia}:`, error.message);
+        } catch (error: any) {
+          this.logger.error(
+            `❌ Error procesando guía ${idGuia}:`,
+            error.message,
+          );
           errores.push({
             id: idGuia,
             error: error.message,
@@ -1744,9 +2060,13 @@ export class ProgramacionService {
 
       if (errores.length > 0) {
         this.logger.error(`\n⚠️  GUÍAS CON ERRORES:`);
-        validacionesDetalladas.filter(v => !v.valido).forEach((v) => {
-          this.logger.error(`   Guía ${v.id}: ${v.camposFaltantes.join(', ')}`);
-        });
+        validacionesDetalladas
+          .filter((v) => !v.valido)
+          .forEach((v) => {
+            this.logger.error(
+              `   Guía ${v.id}: ${v.camposFaltantes.join(', ')}`,
+            );
+          });
       }
 
       this.logger.log(`${'='.repeat(80)}\n`);
@@ -1757,9 +2077,11 @@ export class ProgramacionService {
         procesados,
         errores,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al enviar duplicados a Kafka:', error);
-      throw new InternalServerErrorException('Error al enviar duplicados a Kafka');
+      throw new InternalServerErrorException(
+        'Error al enviar duplicados a Kafka',
+      );
     }
   }
 
@@ -1792,13 +2114,15 @@ export class ProgramacionService {
       this.logger.log(
         `Se eliminaron ${result.count} duplicados del lote ${loteId} de guia_remision_extendido`,
       );
-      this.logger.log(`📌 No se eliminó de programacion_tecnica porque esos registros aún no existen`);
+      this.logger.log(
+        `📌 No se eliminó de programacion_tecnica porque esos registros aún no existen`,
+      );
 
       return {
         success: true,
         message: `Se eliminaron ${result.count} duplicados del lote ${loteId}`,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al eliminar duplicados:', error);
       if (error instanceof BadRequestException) {
         throw error;
@@ -1835,7 +2159,7 @@ export class ProgramacionService {
         horaPartidaISO = dayjs
           .tz(`${fechaStr} ${horaStr}`, 'YYYY-MM-DD HH:mm:ss', 'America/Lima')
           .toISOString();
-      } catch (error) {
+      } catch (error: any) {
         this.logger.warn(
           `Error al combinar fecha y hora para registro ${pt.id}:`,
           error,
@@ -1903,7 +2227,9 @@ export class ProgramacionService {
 
       const formatted = dateUTC.format('DD-MM-YYYY');
 
-      console.log(`📅 [PROGRAMACION-SERVICE] formatDate - Input: ${date} → UTC+5: ${dateUTC.format('YYYY-MM-DD')} → Formatted: ${formatted}`);
+      console.log(
+        `📅 [PROGRAMACION-SERVICE] formatDate - Input: ${date} → UTC+5: ${dateUTC.format('YYYY-MM-DD')} → Formatted: ${formatted}`,
+      );
 
       return formatted;
     };
@@ -1920,7 +2246,9 @@ export class ProgramacionService {
       fecha_de_emision: formatDate(record.fecha_de_emision),
       peso_bruto_total: String(record.peso_bruto_total),
       peso_bruto_unidad_de_medida: record.peso_bruto_unidad_de_medida,
-      fecha_de_inicio_de_traslado: formatDate(record.fecha_de_inicio_de_traslado),
+      fecha_de_inicio_de_traslado: formatDate(
+        record.fecha_de_inicio_de_traslado,
+      ),
       transportista_placa_numero: record.transportista_placa_numero,
       punto_de_partida_ubigeo: record.punto_de_partida_ubigeo,
       punto_de_partida_direccion: record.punto_de_partida_direccion,
@@ -1930,15 +2258,16 @@ export class ProgramacionService {
 
     // Campos opcionales comunes
     if (record.cliente_email) payload.cliente_email = record.cliente_email;
-    payload.cliente_email_1 = record.cliente_email_1 || "";
-    payload.cliente_email_2 = record.cliente_email_2 || "";
+    payload.cliente_email_1 = record.cliente_email_1 || '';
+    payload.cliente_email_2 = record.cliente_email_2 || '';
 
     if (record.observaciones) payload.observaciones = record.observaciones;
     if (record.mtc) payload.mtc = record.mtc;
     if (record.enviar_automaticamente_al_cliente !== null) {
-      payload.enviar_automaticamente_al_cliente = record.enviar_automaticamente_al_cliente;
+      payload.enviar_automaticamente_al_cliente =
+        record.enviar_automaticamente_al_cliente;
     }
-    payload.formato_de_pdf = record.formato_de_pdf || "";
+    payload.formato_de_pdf = record.formato_de_pdf || '';
 
     // Campos específicos de GRE Remitente (tipo 7)
     if (record.tipo_de_comprobante === 7) {
@@ -1946,26 +2275,36 @@ export class ProgramacionService {
       payload.numero_de_bultos = String(record.numero_de_bultos);
       payload.tipo_de_transporte = record.tipo_de_transporte;
 
-      if (record.motivo_de_traslado === '13' && record.motivo_de_traslado_otros_descripcion) {
-        payload.motivo_de_traslado_otros_descripcion = record.motivo_de_traslado_otros_descripcion;
+      if (
+        record.motivo_de_traslado === '13' &&
+        record.motivo_de_traslado_otros_descripcion
+      ) {
+        payload.motivo_de_traslado_otros_descripcion =
+          record.motivo_de_traslado_otros_descripcion;
       }
 
       // Transportista (si tipo_de_transporte = "01")
       if (record.tipo_de_transporte === '01') {
         if (record.transportista_documento_tipo) {
-          payload.transportista_documento_tipo = String(record.transportista_documento_tipo);
+          payload.transportista_documento_tipo = String(
+            record.transportista_documento_tipo,
+          );
         }
         if (record.transportista_documento_numero) {
-          payload.transportista_documento_numero = record.transportista_documento_numero;
+          payload.transportista_documento_numero =
+            record.transportista_documento_numero;
         }
         if (record.transportista_denominacion) {
-          payload.transportista_denominacion = record.transportista_denominacion;
+          payload.transportista_denominacion =
+            record.transportista_denominacion;
         }
       }
 
       // Conductor
       if (record.conductor_documento_tipo) {
-        payload.conductor_documento_tipo = String(record.conductor_documento_tipo);
+        payload.conductor_documento_tipo = String(
+          record.conductor_documento_tipo,
+        );
       }
       if (record.conductor_documento_numero) {
         payload.conductor_documento_numero = record.conductor_documento_numero;
@@ -1988,7 +2327,9 @@ export class ProgramacionService {
     if (record.tipo_de_comprobante === 8) {
       // Conductor obligatorio
       if (record.conductor_documento_tipo) {
-        payload.conductor_documento_tipo = String(record.conductor_documento_tipo);
+        payload.conductor_documento_tipo = String(
+          record.conductor_documento_tipo,
+        );
       }
       if (record.conductor_documento_numero) {
         payload.conductor_documento_numero = record.conductor_documento_numero;
@@ -2008,10 +2349,13 @@ export class ProgramacionService {
 
       // Destinatario obligatorio
       if (record.destinatario_documento_tipo) {
-        payload.destinatario_documento_tipo = String(record.destinatario_documento_tipo);
+        payload.destinatario_documento_tipo = String(
+          record.destinatario_documento_tipo,
+        );
       }
       if (record.destinatario_documento_numero) {
-        payload.destinatario_documento_numero = record.destinatario_documento_numero;
+        payload.destinatario_documento_numero =
+          record.destinatario_documento_numero;
       }
       if (record.destinatario_denominacion) {
         payload.destinatario_denominacion = record.destinatario_denominacion;
@@ -2025,32 +2369,47 @@ export class ProgramacionService {
 
     // Campos condicionales adicionales
     if (record.documento_relacionado_codigo) {
-      payload.documento_relacionado_codigo = record.documento_relacionado_codigo;
+      payload.documento_relacionado_codigo =
+        record.documento_relacionado_codigo;
     }
 
     if (record.sunat_envio_indicador) {
       payload.sunat_envio_indicador = record.sunat_envio_indicador;
 
       if (record.sunat_envio_indicador === '02') {
-        if (record.subcontratador_documento_tipo) payload.subcontratador_documento_tipo = record.subcontratador_documento_tipo;
-        if (record.subcontratador_documento_numero) payload.subcontratador_documento_numero = record.subcontratador_documento_numero;
-        if (record.subcontratador_denominacion) payload.subcontratador_denominacion = record.subcontratador_denominacion;
+        if (record.subcontratador_documento_tipo)
+          payload.subcontratador_documento_tipo =
+            record.subcontratador_documento_tipo;
+        if (record.subcontratador_documento_numero)
+          payload.subcontratador_documento_numero =
+            record.subcontratador_documento_numero;
+        if (record.subcontratador_denominacion)
+          payload.subcontratador_denominacion =
+            record.subcontratador_denominacion;
       }
 
       if (record.sunat_envio_indicador === '03') {
-        if (record.pagador_servicio_documento_tipo_identidad) payload.pagador_servicio_documento_tipo_identidad = record.pagador_servicio_documento_tipo_identidad;
-        if (record.pagador_servicio_documento_numero_identidad) payload.pagador_servicio_documento_numero_identidad = record.pagador_servicio_documento_numero_identidad;
-        if (record.pagador_servicio_denominacion) payload.pagador_servicio_denominacion = record.pagador_servicio_denominacion;
+        if (record.pagador_servicio_documento_tipo_identidad)
+          payload.pagador_servicio_documento_tipo_identidad =
+            record.pagador_servicio_documento_tipo_identidad;
+        if (record.pagador_servicio_documento_numero_identidad)
+          payload.pagador_servicio_documento_numero_identidad =
+            record.pagador_servicio_documento_numero_identidad;
+        if (record.pagador_servicio_denominacion)
+          payload.pagador_servicio_denominacion =
+            record.pagador_servicio_denominacion;
       }
     }
 
     // Códigos de establecimiento
     if (['04', '18'].includes(record.motivo_de_traslado)) {
       if (record.punto_de_partida_codigo_establecimiento_sunat) {
-        payload.punto_de_partida_codigo_establecimiento_sunat = record.punto_de_partida_codigo_establecimiento_sunat;
+        payload.punto_de_partida_codigo_establecimiento_sunat =
+          record.punto_de_partida_codigo_establecimiento_sunat;
       }
       if (record.punto_de_llegada_codigo_establecimiento_sunat) {
-        payload.punto_de_llegada_codigo_establecimiento_sunat = record.punto_de_llegada_codigo_establecimiento_sunat;
+        payload.punto_de_llegada_codigo_establecimiento_sunat =
+          record.punto_de_llegada_codigo_establecimiento_sunat;
       }
     }
 
@@ -2065,17 +2424,22 @@ export class ProgramacionService {
 
         if (Array.isArray(itemsArray) && itemsArray.length > 0) {
           payload.items = itemsArray;
-          console.log('✅ [PROGRAMACION-SERVICE] Items con código cargados:', itemsArray);
+          console.log(
+            '✅ [PROGRAMACION-SERVICE] Items con código cargados:',
+            itemsArray,
+          );
         } else {
           // Fallback si no hay items válidos
-          console.warn('⚠️ [PROGRAMACION-SERVICE] Items vacío o inválido, usando fallback');
+          console.warn(
+            '⚠️ [PROGRAMACION-SERVICE] Items vacío o inválido, usando fallback',
+          );
           payload.items = [
             {
               unidad_de_medida: 'NIU',
               descripcion: 'MATERIAL DE CONSTRUCCION',
               cantidad: '1',
-              codigo: 'PROD001' // Código por defecto
-            }
+              codigo: 'PROD001', // Código por defecto
+            },
           ];
         }
       } catch (e) {
@@ -2086,26 +2450,31 @@ export class ProgramacionService {
             unidad_de_medida: 'NIU',
             descripcion: 'MATERIAL DE CONSTRUCCION',
             cantidad: '1',
-            codigo: 'PROD001' // Código por defecto
-          }
+            codigo: 'PROD001', // Código por defecto
+          },
         ];
       }
     } else {
       // Fallback si no existe el campo items
-      console.warn('⚠️ [PROGRAMACION-SERVICE] Campo items no existe en el registro, usando fallback');
+      console.warn(
+        '⚠️ [PROGRAMACION-SERVICE] Campo items no existe en el registro, usando fallback',
+      );
       payload.items = [
         {
           unidad_de_medida: 'NIU',
           descripcion: 'MATERIAL DE CONSTRUCCION',
           cantidad: '1',
-          codigo: 'PROD001' // Código por defecto
-        }
+          codigo: 'PROD001', // Código por defecto
+        },
       ];
     }
 
     console.log('📤 [PROGRAMACION-SERVICE] Payload FINAL para Kafka/Nubefact:');
     console.log('   - fecha_de_emision:', payload.fecha_de_emision);
-    console.log('   - fecha_de_inicio_de_traslado:', payload.fecha_de_inicio_de_traslado);
+    console.log(
+      '   - fecha_de_inicio_de_traslado:',
+      payload.fecha_de_inicio_de_traslado,
+    );
     console.log('   - items:', JSON.stringify(payload.items, null, 2));
 
     return payload;
@@ -2178,23 +2547,27 @@ export class ProgramacionService {
 
     const capitalizar = (texto: string | null) => {
       if (!texto) return '';
-      return texto.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      return texto
+        .toLowerCase()
+        .split(' ')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
     };
 
     const COLOR_HEADER_BG = 'FFEA580C'; // naranja brand
     const COLOR_HEADER_FG = 'FFFFFFFF';
-    const COLOR_ROW_ALT   = 'FFFFF7ED'; // naranja muy claro
-    const COLOR_ROW_BASE  = 'FFFFFFFF';
-    const COLOR_OK_FG     = 'FF15803D';
-    const COLOR_NO_FG     = 'FFB91C1C';
-    const COLOR_PDF_FG    = 'FFB91C1C';
-    const COLOR_BORDER    = 'FFD1D5DB';
+    const COLOR_ROW_ALT = 'FFFFF7ED'; // naranja muy claro
+    const COLOR_ROW_BASE = 'FFFFFFFF';
+    const COLOR_OK_FG = 'FF15803D';
+    const COLOR_NO_FG = 'FFB91C1C';
+    const COLOR_PDF_FG = 'FFB91C1C';
+    const COLOR_BORDER = 'FFD1D5DB';
 
     const borderThin: Partial<ExcelJS.Borders> = {
-      top:    { style: 'thin', color: { argb: COLOR_BORDER } },
-      left:   { style: 'thin', color: { argb: COLOR_BORDER } },
+      top: { style: 'thin', color: { argb: COLOR_BORDER } },
+      left: { style: 'thin', color: { argb: COLOR_BORDER } },
       bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
-      right:  { style: 'thin', color: { argb: COLOR_BORDER } },
+      right: { style: 'thin', color: { argb: COLOR_BORDER } },
     };
 
     const wb = new ExcelJS.Workbook();
@@ -2204,60 +2577,79 @@ export class ProgramacionService {
     });
 
     ws.columns = [
-      { header: 'ID',                key: 'id',           width: 8  },
-      { header: 'Fecha',             key: 'fecha',        width: 13 },
-      { header: 'Unidad',            key: 'unidad',       width: 13 },
-      { header: 'Proveedor',         key: 'proveedor',    width: 32 },
-      { header: 'Apellidos y Nombres', key: 'conductor',  width: 26 },
-      { header: 'Proyectos',         key: 'proyecto',     width: 26 },
-      { header: 'Programación',      key: 'programacion', width: 16 },
-      { header: 'H.P',               key: 'hp',           width: 9  },
-      { header: 'Estado',            key: 'estado',       width: 14 },
-      { header: 'M3',                key: 'm3',           width: 8  },
-      { header: 'Cant. Viaje',       key: 'cant_viaje',   width: 12 },
-      { header: 'Link PDF',          key: 'pdf',          width: 10 },
-      { header: 'Viaje Activado',    key: 'viaje',        width: 14 },
+      { header: 'ID', key: 'id', width: 8 },
+      { header: 'Fecha', key: 'fecha', width: 13 },
+      { header: 'Unidad', key: 'unidad', width: 13 },
+      { header: 'Proveedor', key: 'proveedor', width: 32 },
+      { header: 'Apellidos y Nombres', key: 'conductor', width: 26 },
+      { header: 'Proyectos', key: 'proyecto', width: 26 },
+      { header: 'Programación', key: 'programacion', width: 16 },
+      { header: 'H.P', key: 'hp', width: 9 },
+      { header: 'Estado', key: 'estado', width: 14 },
+      { header: 'M3', key: 'm3', width: 8 },
+      { header: 'Cant. Viaje', key: 'cant_viaje', width: 12 },
+      { header: 'Link PDF', key: 'pdf', width: 10 },
+      { header: 'Viaje Activado', key: 'viaje', width: 14 },
     ];
 
     const headerRow = ws.getRow(1);
     headerRow.height = 22;
-    headerRow.eachCell(cell => {
-      cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLOR_HEADER_BG } };
-      cell.font      = { bold: true, color: { argb: COLOR_HEADER_FG }, size: 10 };
-      cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
-      cell.border    = borderThin;
+    headerRow.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: COLOR_HEADER_BG },
+      };
+      cell.font = { bold: true, color: { argb: COLOR_HEADER_FG }, size: 10 };
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+        wrapText: false,
+      };
+      cell.border = borderThin;
     });
 
     rows.forEach((row, idx) => {
       const fecha = row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : '';
-      const hora  = row.hora_partida ? dayjs(row.hora_partida).format('HH:mm') : '';
-      const conductor = [capitalizar(row.nombre_chofer), capitalizar(row.apellido_chofer)]
-        .filter(Boolean).join(' ');
+      const hora = row.hora_partida
+        ? dayjs(row.hora_partida).format('HH:mm')
+        : '';
+      const conductor = [
+        capitalizar(row.nombre_chofer),
+        capitalizar(row.apellido_chofer),
+      ]
+        .filter(Boolean)
+        .join(' ');
       const viajeActivado = row.numero_orden ? 'Sí' : 'No';
       const bgColor = idx % 2 === 0 ? COLOR_ROW_BASE : COLOR_ROW_ALT;
 
       const excelRow = ws.addRow({
-        id:           Number(row.id),
+        id: Number(row.id),
         fecha,
-        unidad:       row.unidad       || '',
-        proveedor:    row.proveedor    || '',
+        unidad: row.unidad || '',
+        proveedor: row.proveedor || '',
         conductor,
-        proyecto:     row.proyecto     || '',
+        proyecto: row.proyecto || '',
         programacion: row.programacion || '',
-        hp:           hora,
-        estado:       row.estado_programacion || '',
-        m3:           row.m3 != null ? row.m3.toString() : '',
-        cant_viaje:   row.cantidad_viaje != null ? Number(row.cantidad_viaje) : '',
-        pdf:          '',
-        viaje:        viajeActivado,
+        hp: hora,
+        estado: row.estado_programacion || '',
+        m3: row.m3 != null ? row.m3.toString() : '',
+        cant_viaje:
+          row.cantidad_viaje != null ? Number(row.cantidad_viaje) : '',
+        pdf: '',
+        viaje: viajeActivado,
       });
 
       excelRow.height = 18;
-      excelRow.eachCell({ includeEmpty: true }, cell => {
-        cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgColor } };
-        cell.font      = { size: 9 };
+      excelRow.eachCell({ includeEmpty: true }, (cell) => {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: bgColor },
+        };
+        cell.font = { size: 9 };
         cell.alignment = { vertical: 'middle', wrapText: false };
-        cell.border    = borderThin;
+        cell.border = borderThin;
       });
 
       const estadoCell = excelRow.getCell('estado');
@@ -2268,17 +2660,318 @@ export class ProgramacionService {
       }
 
       const viajeCell = excelRow.getCell('viaje');
-      viajeCell.font = { size: 9, bold: viajeActivado === 'Sí', color: { argb: viajeActivado === 'Sí' ? 'FFEA580C' : 'FF6B7280' } };
+      viajeCell.font = {
+        size: 9,
+        bold: viajeActivado === 'Sí',
+        color: { argb: viajeActivado === 'Sí' ? 'FFEA580C' : 'FF6B7280' },
+      };
       viajeCell.alignment = { vertical: 'middle', horizontal: 'center' };
 
       if (row.enlace_del_pdf) {
         const pdfCell = excelRow.getCell('pdf');
         pdfCell.value = { text: 'PDF', hyperlink: row.enlace_del_pdf };
-        pdfCell.font  = { size: 9, bold: true, underline: true, color: { argb: COLOR_PDF_FG } };
+        pdfCell.font = {
+          size: 9,
+          bold: true,
+          underline: true,
+          color: { argb: COLOR_PDF_FG },
+        };
         pdfCell.alignment = { vertical: 'middle', horizontal: 'center' };
       }
     });
 
-    return wb.xlsx.writeBuffer() as Promise<Buffer>;
+    return wb.xlsx.writeBuffer() as unknown as Promise<Buffer>;
+  }
+
+  async exportarExcelMixto(filtros: {
+    proveedores?: string[];
+    fechaDesde?: string;
+    fechaHasta?: string;
+  }): Promise<Buffer> {
+    const filterProveedores =
+      filtros.proveedores && filtros.proveedores.length > 0
+        ? Prisma.sql`AND e.razon_social IN (${Prisma.join(filtros.proveedores)})`
+        : Prisma.empty;
+
+    const filterFechaDesde = filtros.fechaDesde
+      ? Prisma.sql`AND pt.fecha >= ${new Date(filtros.fechaDesde)}`
+      : Prisma.empty;
+
+    const filterFechaHasta = filtros.fechaHasta
+      ? Prisma.sql`AND pt.fecha <= ${new Date(filtros.fechaHasta + 'T23:59:59')}`
+      : Prisma.empty;
+
+    // Hoja única: une ambas tablas de guías (TTT1 y TTT2) en una sola consulta
+    const rows = await this.prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
+        pt.id,
+        pt.fecha,
+        pt.hora_partida,
+        pt.programacion,
+        pt.estado_programacion,
+        pt.m3,
+        pt.cantidad_viaje,
+        pt.numero_orden,
+        pt.identificador_unico,
+        pt.punto_partida_ubigeo,
+        pt.punto_partida_direccion,
+        pt.punto_llegada_ubigeo,
+        pt.punto_llegada_direccion,
+        c.placa AS unidad,
+        c.nombre_chofer,
+        c.apellido_chofer,
+        e.razon_social AS proveedor,
+        COALESCE(sp.nombre, p.nombre) AS proyecto,
+        CASE WHEN sp.id_subproyecto IS NOT NULL THEN 'Subproyecto' ELSE 'Proyecto' END AS tipo_proyecto,
+        gr.serie AS serie_ttt1,
+        gr.numero AS numero_ttt1,
+        gr.estado_gre AS estado_ttt1,
+        gr.enlace_del_pdf AS pdf_ttt1,
+        gre.serie AS serie_ttt2,
+        gre.numero AS numero_ttt2,
+        gre.estado_gre,
+        gre.enlace_del_pdf AS pdf_ttt2,
+        gre.enlace_del_xml,
+        gre.enlace_del_cdr
+      FROM programacion_tecnica pt
+      LEFT JOIN camiones c ON pt.unidad = c.id_camion
+      LEFT JOIN empresas_2025 e ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+      LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+      LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+      LEFT JOIN guia_remision gr
+        ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gr.identificador_unico COLLATE utf8mb4_unicode_ci
+        AND gr.estado_gre = 'COMPLETADO'
+      LEFT JOIN guia_remision_extendida gre
+        ON pt.identificador_unico COLLATE utf8mb4_unicode_ci = gre.identificador_unico COLLATE utf8mb4_unicode_ci
+      WHERE pt.deleted_at IS NULL
+      ${filterProveedores}
+      ${filterFechaDesde}
+      ${filterFechaHasta}
+      ORDER BY pt.fecha DESC, pt.id DESC, gre.numero ASC
+    `);
+
+    const capitalizar = (texto: string | null) => {
+      if (!texto) return '';
+      return texto
+        .toLowerCase()
+        .split(' ')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    };
+
+    const COLOR_BORDER = 'FFD1D5DB';
+    const borderThin: Partial<ExcelJS.Borders> = {
+      top: { style: 'thin', color: { argb: COLOR_BORDER } },
+      left: { style: 'thin', color: { argb: COLOR_BORDER } },
+      bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
+      right: { style: 'thin', color: { argb: COLOR_BORDER } },
+    };
+
+    const COLOR_HDR_BG = 'FFEA580C';
+    const COLOR_HDR_FG = 'FFFFFFFF';
+    const COLOR_ROW_BASE = 'FFFFFFFF';
+    const COLOR_ROW_ALT = 'FFFFF7ED';
+    const COLOR_GUIA_BG = 'FFD1FAE5';
+    const COLOR_OK_FG = 'FF15803D';
+    const COLOR_NO_FG = 'FFB91C1C';
+    const COLOR_PDF_FG = 'FFB91C1C';
+    const COLOR_XML_FG = 'FF15803D';
+    const COLOR_CDR_FG = 'FF1D4ED8';
+
+    const wb = new ExcelJS.Workbook();
+    wb.creator = 'Ayala Sistema';
+
+    const ws = wb.addWorksheet('Programación Mixta', {
+      views: [{ state: 'frozen', ySplit: 1 }],
+    });
+
+    ws.columns = [
+      { header: 'ID', key: 'id', width: 8 },
+      { header: 'Fecha', key: 'fecha', width: 13 },
+      { header: 'Hora', key: 'hora', width: 8 },
+      { header: 'Unidad', key: 'unidad', width: 13 },
+      { header: 'Proveedor', key: 'proveedor', width: 32 },
+      { header: 'Conductor', key: 'conductor', width: 26 },
+      { header: 'Proyecto', key: 'proyecto', width: 26 },
+      { header: 'Tipo', key: 'tipo', width: 13 },
+      { header: 'Programación', key: 'programacion', width: 16 },
+      { header: 'Estado', key: 'estado', width: 14 },
+      { header: 'M3', key: 'm3', width: 8 },
+      { header: 'Cant. Viaje', key: 'cant_viaje', width: 12 },
+      { header: 'Identificador', key: 'identificador', width: 22 },
+      { header: 'P. Partida Ubig.', key: 'partida_ubigeo', width: 17 },
+      { header: 'P. Partida Dir.', key: 'partida_dir', width: 30 },
+      { header: 'P. Llegada Ubig.', key: 'llegada_ubigeo', width: 17 },
+      { header: 'P. Llegada Dir.', key: 'llegada_dir', width: 30 },
+      { header: 'PDF Técnica', key: 'pdf_tec', width: 12 },
+      { header: 'N° Guía', key: 'nro_guia', width: 20 },
+      { header: 'Estado Guía', key: 'estado_guia', width: 28 },
+      { header: 'PDF Ext.', key: 'pdf_ext', width: 10 },
+      { header: 'XML Ext.', key: 'xml_ext', width: 10 },
+      { header: 'CDR Ext.', key: 'cdr_ext', width: 10 },
+      { header: 'Viaje Activado', key: 'viaje', width: 14 },
+    ];
+
+    const hRow = ws.getRow(1);
+    hRow.height = 22;
+    hRow.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: COLOR_HDR_BG },
+      };
+      cell.font = { bold: true, color: { argb: COLOR_HDR_FG }, size: 10 };
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+        wrapText: false,
+      };
+      cell.border = borderThin;
+    });
+
+    rows.forEach((row, idx) => {
+      const fecha = row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : '';
+      const hora = row.hora_partida
+        ? dayjs(row.hora_partida).format('HH:mm')
+        : '';
+      const conductor = [
+        capitalizar(row.nombre_chofer),
+        capitalizar(row.apellido_chofer),
+      ]
+        .filter(Boolean)
+        .join(' ');
+      const viajeActivado = row.numero_orden ? 'Sí' : 'No';
+      const nroTtt1 =
+        row.serie_ttt1 && row.numero_ttt1 != null
+          ? `${row.serie_ttt1}-${String(row.numero_ttt1).padStart(4, '0')}`
+          : '';
+      const nroTtt2 =
+        row.serie_ttt2 && row.numero_ttt2 != null
+          ? `${row.serie_ttt2}-${String(row.numero_ttt2).padStart(4, '0')}`
+          : '';
+      const numeroGuia = [nroTtt1, nroTtt2].filter(Boolean).join(' / ');
+      const estadoTtt1 = row.estado_ttt1 ? `TTT1: ${row.estado_ttt1}` : '';
+      const estadoTtt2 = row.estado_gre ? `TTT2: ${row.estado_gre}` : '';
+      const estadoGuia = [estadoTtt1, estadoTtt2].filter(Boolean).join(' / ');
+      const completada =
+        row.pdf_ttt2 && row.enlace_del_xml && row.enlace_del_cdr;
+      const bgColor = completada
+        ? COLOR_GUIA_BG
+        : idx % 2 === 0
+          ? COLOR_ROW_BASE
+          : COLOR_ROW_ALT;
+
+      const excelRow = ws.addRow({
+        id: Number(row.id),
+        fecha,
+        hora,
+        unidad: row.unidad || '',
+        proveedor: row.proveedor || '',
+        conductor,
+        proyecto: row.proyecto || '',
+        tipo: row.tipo_proyecto || '',
+        programacion: row.programacion || '',
+        estado: row.estado_programacion || '',
+        m3: row.m3 != null ? row.m3.toString() : '',
+        cant_viaje:
+          row.cantidad_viaje != null ? Number(row.cantidad_viaje) : '',
+        identificador: row.identificador_unico || '',
+        partida_ubigeo: row.punto_partida_ubigeo || '',
+        partida_dir: row.punto_partida_direccion || '',
+        llegada_ubigeo: row.punto_llegada_ubigeo || '',
+        llegada_dir: row.punto_llegada_direccion || '',
+        pdf_tec: '',
+        nro_guia: numeroGuia,
+        estado_guia: estadoGuia,
+        pdf_ext: '',
+        xml_ext: '',
+        cdr_ext: '',
+        viaje: viajeActivado,
+      });
+
+      excelRow.height = 18;
+      excelRow.eachCell({ includeEmpty: true }, (cell) => {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: bgColor },
+        };
+        cell.font = { size: 9 };
+        cell.alignment = { vertical: 'middle', wrapText: false };
+        cell.border = borderThin;
+      });
+
+      const estadoCell = excelRow.getCell('estado');
+      if (row.estado_programacion === 'OK') {
+        estadoCell.font = { size: 9, bold: true, color: { argb: COLOR_OK_FG } };
+      } else if (row.estado_programacion === 'NO EJECUTADO') {
+        estadoCell.font = { size: 9, bold: true, color: { argb: COLOR_NO_FG } };
+      }
+
+      const viajeCell = excelRow.getCell('viaje');
+      viajeCell.font = {
+        size: 9,
+        bold: viajeActivado === 'Sí',
+        color: { argb: viajeActivado === 'Sí' ? 'FFEA580C' : 'FF6B7280' },
+      };
+      viajeCell.alignment = { vertical: 'middle', horizontal: 'center' };
+
+      if (numeroGuia) {
+        excelRow.getCell('nro_guia').font = {
+          size: 9,
+          bold: true,
+          color: { argb: 'FF374151' },
+        };
+      }
+
+      if (row.pdf_ttt1) {
+        const cell = excelRow.getCell('pdf_tec');
+        cell.value = { text: 'PDF', hyperlink: row.pdf_ttt1 };
+        cell.font = {
+          size: 9,
+          bold: true,
+          underline: true,
+          color: { argb: COLOR_PDF_FG },
+        };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      }
+
+      const linkDefs = [
+        {
+          key: 'pdf_ext',
+          url: row.pdf_ttt2,
+          label: 'PDF',
+          color: COLOR_PDF_FG,
+        },
+        {
+          key: 'xml_ext',
+          url: row.enlace_del_xml,
+          label: 'XML',
+          color: COLOR_XML_FG,
+        },
+        {
+          key: 'cdr_ext',
+          url: row.enlace_del_cdr,
+          label: 'CDR',
+          color: COLOR_CDR_FG,
+        },
+      ] as const;
+
+      for (const { key, url, label, color } of linkDefs) {
+        if (url) {
+          const cell = excelRow.getCell(key);
+          cell.value = { text: label, hyperlink: url };
+          cell.font = {
+            size: 9,
+            bold: true,
+            underline: true,
+            color: { argb: color },
+          };
+          cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        }
+      }
+    });
+
+    return wb.xlsx.writeBuffer() as unknown as Promise<Buffer>;
   }
 }

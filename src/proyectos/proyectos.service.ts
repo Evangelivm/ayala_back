@@ -1,6 +1,13 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { CreateProyectoDto, UpdateProyectoDto } from '../dto/proyectos.dto';
+import type {
+  CreateProyectoDto,
+  UpdateProyectoDto,
+} from '../dto/proyectos.dto';
 
 @Injectable()
 export class ProyectosService {
@@ -28,44 +35,48 @@ export class ProyectosService {
       orderBy: { created_at: 'desc' },
     });
 
-    return proyectos.map(proyecto => ({
+    return proyectos.map((proyecto) => ({
       id: proyecto.id_proyecto,
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
-      empresas_2025: proyecto.empresas_2025 ? {
-        codigo: proyecto.empresas_2025.codigo,
-        razon_social: proyecto.empresas_2025.razon_social,
-        nro_documento: proyecto.empresas_2025.nro_documento,
-        tipo: proyecto.empresas_2025.tipo,
-        direccion: proyecto.empresas_2025.direccion,
-      } : null,
+      empresas_2025: proyecto.empresas_2025
+        ? {
+            codigo: proyecto.empresas_2025.codigo,
+            razon_social: proyecto.empresas_2025.razon_social,
+            nro_documento: proyecto.empresas_2025.nro_documento,
+            tipo: proyecto.empresas_2025.tipo,
+            direccion: proyecto.empresas_2025.direccion,
+          }
+        : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
       activo: proyecto.estado === 'activo',
-      etapas: proyecto.etapas.map(etapa => ({
+      etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        sectores: etapa.sector.map(sector => ({
+        sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
           ubicacion: sector.ubicacion,
-          frentes: sector.frente.map(frente => ({
+          frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,
             responsable: frente.responsable,
-            partidas: frente.partida.map(partida => ({
+            partidas: frente.partida.map((partida) => ({
               id: partida.id_partida,
               codigo: partida.codigo,
               descripcion: partida.descripcion,
               unidad_medida: partida.unidad_medida,
               cantidad: Number(partida.cantidad),
-              precio_unitario: partida.precio_unitario ? Number(partida.precio_unitario) : null,
+              precio_unitario: partida.precio_unitario
+                ? Number(partida.precio_unitario)
+                : null,
               total: partida.total ? Number(partida.total) : null,
             })),
           })),
@@ -106,39 +117,43 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
-      empresas_2025: proyecto.empresas_2025 ? {
-        codigo: proyecto.empresas_2025.codigo,
-        razon_social: proyecto.empresas_2025.razon_social,
-        nro_documento: proyecto.empresas_2025.nro_documento,
-        tipo: proyecto.empresas_2025.tipo,
-        direccion: proyecto.empresas_2025.direccion,
-      } : null,
+      empresas_2025: proyecto.empresas_2025
+        ? {
+            codigo: proyecto.empresas_2025.codigo,
+            razon_social: proyecto.empresas_2025.razon_social,
+            nro_documento: proyecto.empresas_2025.nro_documento,
+            tipo: proyecto.empresas_2025.tipo,
+            direccion: proyecto.empresas_2025.direccion,
+          }
+        : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
       activo: proyecto.estado === 'activo',
-      etapas: proyecto.etapas.map(etapa => ({
+      etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        sectores: etapa.sector.map(sector => ({
+        sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
           ubicacion: sector.ubicacion,
-          frentes: sector.frente.map(frente => ({
+          frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,
             responsable: frente.responsable,
-            partidas: frente.partida.map(partida => ({
+            partidas: frente.partida.map((partida) => ({
               id: partida.id_partida,
               codigo: partida.codigo,
               descripcion: partida.descripcion,
               unidad_medida: partida.unidad_medida,
               cantidad: Number(partida.cantidad),
-              precio_unitario: partida.precio_unitario ? Number(partida.precio_unitario) : null,
+              precio_unitario: partida.precio_unitario
+                ? Number(partida.precio_unitario)
+                : null,
               total: partida.total ? Number(partida.total) : null,
             })),
           })),
@@ -178,28 +193,30 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
-      empresas_2025: proyecto.empresas_2025 ? {
-        codigo: proyecto.empresas_2025.codigo,
-        razon_social: proyecto.empresas_2025.razon_social,
-        nro_documento: proyecto.empresas_2025.nro_documento,
-        tipo: proyecto.empresas_2025.tipo,
-        direccion: proyecto.empresas_2025.direccion,
-      } : null,
+      empresas_2025: proyecto.empresas_2025
+        ? {
+            codigo: proyecto.empresas_2025.codigo,
+            razon_social: proyecto.empresas_2025.razon_social,
+            nro_documento: proyecto.empresas_2025.nro_documento,
+            tipo: proyecto.empresas_2025.tipo,
+            direccion: proyecto.empresas_2025.direccion,
+          }
+        : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
       activo: proyecto.estado === 'activo',
-      etapas: proyecto.etapas.map(etapa => ({
+      etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        sectores: etapa.sector.map(sector => ({
+        sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
           ubicacion: sector.ubicacion,
-          frentes: sector.frente.map(frente => ({
+          frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,
@@ -241,13 +258,15 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
-      empresas_2025: proyecto.empresas_2025 ? {
-        codigo: proyecto.empresas_2025.codigo,
-        razon_social: proyecto.empresas_2025.razon_social,
-        nro_documento: proyecto.empresas_2025.nro_documento,
-        tipo: proyecto.empresas_2025.tipo,
-        direccion: proyecto.empresas_2025.direccion,
-      } : null,
+      empresas_2025: proyecto.empresas_2025
+        ? {
+            codigo: proyecto.empresas_2025.codigo,
+            razon_social: proyecto.empresas_2025.razon_social,
+            nro_documento: proyecto.empresas_2025.nro_documento,
+            tipo: proyecto.empresas_2025.tipo,
+            direccion: proyecto.empresas_2025.direccion,
+          }
+        : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
@@ -286,9 +305,16 @@ export class ProyectosService {
         descripcion: data.descripcion,
         cliente: data.cliente,
         ubicacion: data.ubicacion,
-        fecha_inicio: data.fecha_inicio ? new Date(data.fecha_inicio) : undefined,
+        fecha_inicio: data.fecha_inicio
+          ? new Date(data.fecha_inicio)
+          : undefined,
         fecha_fin: data.fecha_fin ? new Date(data.fecha_fin) : undefined,
-        estado: data.activo !== undefined ? (data.activo ? 'activo' : 'inactivo') : undefined,
+        estado:
+          data.activo !== undefined
+            ? data.activo
+              ? 'activo'
+              : 'inactivo'
+            : undefined,
         updated_at: new Date(),
       },
       include: {
@@ -310,28 +336,30 @@ export class ProyectosService {
       nombre: proyecto.nombre,
       descripcion: proyecto.descripcion,
       cliente: proyecto.cliente,
-      empresas_2025: proyecto.empresas_2025 ? {
-        codigo: proyecto.empresas_2025.codigo,
-        razon_social: proyecto.empresas_2025.razon_social,
-        nro_documento: proyecto.empresas_2025.nro_documento,
-        tipo: proyecto.empresas_2025.tipo,
-        direccion: proyecto.empresas_2025.direccion,
-      } : null,
+      empresas_2025: proyecto.empresas_2025
+        ? {
+            codigo: proyecto.empresas_2025.codigo,
+            razon_social: proyecto.empresas_2025.razon_social,
+            nro_documento: proyecto.empresas_2025.nro_documento,
+            tipo: proyecto.empresas_2025.tipo,
+            direccion: proyecto.empresas_2025.direccion,
+          }
+        : null,
       ubicacion: proyecto.ubicacion,
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
       activo: proyecto.estado === 'activo',
-      etapas: proyecto.etapas.map(etapa => ({
+      etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        sectores: etapa.sector.map(sector => ({
+        sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
           ubicacion: sector.ubicacion,
-          frentes: sector.frente.map(frente => ({
+          frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,

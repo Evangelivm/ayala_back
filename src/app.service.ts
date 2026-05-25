@@ -6,7 +6,8 @@ export class AppService {
     return {
       nombre: 'Ayala Backend API',
       version: '2.0.0',
-      descripcion: 'API para el sistema de reportes de Maquinarias Ayala con arquitectura normalizada',
+      descripcion:
+        'API para el sistema de reportes de Maquinarias Ayala con arquitectura normalizada',
       rutas: {
         personal: '/api/personal',
         proyectos: '/api/proyectos',
@@ -27,9 +28,9 @@ export class AppService {
         reportes: {
           operadores: '/api/reportes-operadores',
           plantilleros: '/api/reportes-plantilleros',
-          consumoCombustible: '/api/informe-consumo-combustible'
+          consumoCombustible: '/api/informe-consumo-combustible',
         },
-        viajes: '/api/viajes-eliminacion'
+        viajes: '/api/viajes-eliminacion',
       },
       caracteristicas: [
         'Sistema de personal normalizado con roles contextuales',
@@ -42,7 +43,7 @@ export class AppService {
         'Base de datos MySQL con Prisma ORM',
         'Sistema de eventos GRE con Kafka',
         'Programación y dashboard de control',
-        'Polling y detección automática de eventos'
+        'Polling y detección automática de eventos',
       ],
       tecnologias: {
         framework: 'NestJS',
@@ -52,10 +53,10 @@ export class AppService {
         modules: 'ES6',
         messaging: 'Apache Kafka',
         scheduling: '@nestjs/schedule',
-        microservices: '@nestjs/microservices'
+        microservices: '@nestjs/microservices',
       },
       estado: 'activo',
-      fecha: new Date().toISOString()
+      fecha: new Date().toISOString(),
     };
   }
 
@@ -65,7 +66,7 @@ export class AppService {
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
       version: process.version,
-      memoria: process.memoryUsage()
+      memoria: process.memoryUsage(),
     };
   }
 }

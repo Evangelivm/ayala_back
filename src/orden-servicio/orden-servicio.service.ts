@@ -126,22 +126,36 @@ export class OrdenServicioService {
         },
       });
 
-      const camionIds = [...new Set(ordenes.map(o => o.id_camion).filter(Boolean))] as number[];
+      const camionIds = [
+        ...new Set(ordenes.map((o) => o.id_camion).filter(Boolean)),
+      ] as number[];
       const camionesMap = new Map<number, any>();
       if (camionIds.length > 0) {
         const camiones = await this.prisma.camiones.findMany({
           where: { id_camion: { in: camionIds } },
-          select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+          select: {
+            id_camion: true,
+            placa: true,
+            tipo: true,
+            nombre_chofer: true,
+            apellido_chofer: true,
+          },
         });
-        camiones.forEach(c => camionesMap.set(c.id_camion, c));
+        camiones.forEach((c) => camionesMap.set(c.id_camion, c));
       }
 
       return ordenes.map((orden) => {
-        const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
+        const camion = orden.id_camion
+          ? camionesMap.get(orden.id_camion)
+          : null;
         return {
           ...orden,
-          fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
-          fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
+          fecha_orden: orden.fecha_orden
+            ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
+            : null,
+          fecha_registro: orden.fecha_registro
+            ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD')
+            : null,
           nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
           ruc_proveedor: orden.proveedores?.ruc || null,
           nombre_registrador: (orden as any).usuarios?.nombre || null,
@@ -337,17 +351,21 @@ export class OrdenServicioService {
         const proveedorCreado = await this.prismaThird.proveedores.findUnique({
           where: { id_proveedor: createOrdenServicioDto.id_proveedor },
         });
-        this.searchService.indexDoc('ordenes_servicio', ordenServicio.id_orden_servicio.toString(), {
-          id: ordenServicio.id_orden_servicio,
-          numero_orden: ordenServicio.numero_orden,
-          nombre_proveedor: proveedorCreado?.nombre_proveedor || null,
-          ruc_proveedor: proveedorCreado?.ruc || null,
-          fecha_orden: ordenServicio.fecha_orden
-            ? dayjs.utc(ordenServicio.fecha_orden).format('YYYY-MM-DD')
-            : null,
-          estado: ordenServicio.estado || null,
-          deleted_at: null,
-        });
+        this.searchService.indexDoc(
+          'ordenes_servicio',
+          ordenServicio.id_orden_servicio.toString(),
+          {
+            id: ordenServicio.id_orden_servicio,
+            numero_orden: ordenServicio.numero_orden,
+            nombre_proveedor: proveedorCreado?.nombre_proveedor || null,
+            ruc_proveedor: proveedorCreado?.ruc || null,
+            fecha_orden: ordenServicio.fecha_orden
+              ? dayjs.utc(ordenServicio.fecha_orden).format('YYYY-MM-DD')
+              : null,
+            estado: ordenServicio.estado || null,
+            deleted_at: null,
+          },
+        );
       }
 
       return {
@@ -473,7 +491,9 @@ export class OrdenServicioService {
       : '';
 
     // Formatear fecha_orden a DD/MM/YYYY (campo DATE, leer en UTC para evitar desfase de zona horaria)
-    const fechaEmisionFormateada = dayjs.utc(ordenServicio.fecha_orden).format('DD/MM/YYYY');
+    const fechaEmisionFormateada = dayjs
+      .utc(ordenServicio.fecha_orden)
+      .format('DD/MM/YYYY');
 
     // Obtener el tipo de detracción si existe
     let tipoDetraccionTexto = '';
@@ -528,7 +548,9 @@ export class OrdenServicioService {
           valorUnitario: parseFloat(detalle.precio_unitario.toString()),
           subTotal: parseFloat(detalle.subtotal.toString()),
           centroCosto: detalle.centro_costo || '',
-          prorrateo: detalle.prorrateo ? parseFloat(detalle.prorrateo.toString()) : null,
+          prorrateo: detalle.prorrateo
+            ? parseFloat(detalle.prorrateo.toString())
+            : null,
         }),
       ),
       totales: (() => {
@@ -648,7 +670,7 @@ export class OrdenServicioService {
         const headerBoxY = yPos + 25;
         const headerBoxWidth = 155;
 
-        const hasEdit = !!(ordenData.header.editadoPor);
+        const hasEdit = !!ordenData.header.editadoPor;
         const boxHeight = hasEdit ? 104 : 78;
         this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, boxHeight);
 
@@ -667,17 +689,33 @@ export class OrdenServicioService {
         doc.text(ordenData.header.ruc, headerBoxX + 80, headerBoxY + 35);
 
         doc.text('Creado por:', headerBoxX + 5, headerBoxY + 50);
-        doc.text(ordenData.header.creadoPor || '', headerBoxX + 80, headerBoxY + 50);
+        doc.text(
+          ordenData.header.creadoPor || '',
+          headerBoxX + 80,
+          headerBoxY + 50,
+        );
 
         doc.text('F. creación:', headerBoxX + 5, headerBoxY + 63);
-        doc.text(ordenData.header.creadoEn || '', headerBoxX + 80, headerBoxY + 63);
+        doc.text(
+          ordenData.header.creadoEn || '',
+          headerBoxX + 80,
+          headerBoxY + 63,
+        );
 
         if (hasEdit) {
           doc.text('Editado por:', headerBoxX + 5, headerBoxY + 76);
-          doc.text(ordenData.header.editadoPor || '', headerBoxX + 80, headerBoxY + 76);
+          doc.text(
+            ordenData.header.editadoPor || '',
+            headerBoxX + 80,
+            headerBoxY + 76,
+          );
 
           doc.text('F. edición:', headerBoxX + 5, headerBoxY + 89);
-          doc.text(ordenData.header.editadoEn || '', headerBoxX + 80, headerBoxY + 89);
+          doc.text(
+            ordenData.header.editadoEn || '',
+            headerBoxX + 80,
+            headerBoxY + 89,
+          );
         }
 
         yPos = headerBoxY + boxHeight + 10;
@@ -838,8 +876,12 @@ export class OrdenServicioService {
         console.log(`   yPos actual: ${yPos}`);
         console.log(`   Espacio necesario total: ${espacioTotal}`);
         console.log(`   yPos + espacioTotal: ${yPos + espacioTotal}`);
-        console.log(`   Límite (alturaPagina - margenInferior): ${alturaPagina - margenInferior}`);
-        console.log(`   ¿Necesita nueva página?: ${yPos + espacioTotal > alturaPagina - margenInferior}`);
+        console.log(
+          `   Límite (alturaPagina - margenInferior): ${alturaPagina - margenInferior}`,
+        );
+        console.log(
+          `   ¿Necesita nueva página?: ${yPos + espacioTotal > alturaPagina - margenInferior}`,
+        );
 
         // Si no hay suficiente espacio, agregar nueva página
         if (yPos + espacioTotal > alturaPagina - margenInferior) {
@@ -948,12 +990,10 @@ export class OrdenServicioService {
             totalesX,
             yPos,
           );
-          doc.text(
-            montoDescuento.toFixed(2),
-            totalesX + 80,
-            yPos,
-            { align: 'right', width: 50 },
-          );
+          doc.text(montoDescuento.toFixed(2), totalesX + 80, yPos, {
+            align: 'right',
+            width: 50,
+          });
 
           doc.text('Neto a pagar:', totalesX, yPos + 12);
           this.drawHighlightBox(
@@ -1091,7 +1131,12 @@ export class OrdenServicioService {
 
         consideraciones.forEach((consideracion) => {
           // Calcular altura necesaria para esta consideración (ultra compacta)
-          const lines = this.calculateTextLines(doc, consideracion, 515 - 6, 3.5);
+          const lines = this.calculateTextLines(
+            doc,
+            consideracion,
+            515 - 6,
+            3.5,
+          );
           const textHeight = Math.max(4, lines * 4 + 0.5); // Más compacto
 
           // Dibujar celda
@@ -1363,14 +1408,23 @@ export class OrdenServicioService {
         colWidths[2] - 4,
         7,
       );
-      const rowHeight = Math.max(18, descripcionLines * 10 + 8, centroCostoLines * 10 + 8);
+      const rowHeight = Math.max(
+        18,
+        descripcionLines * 10 + 8,
+        centroCostoLines * 10 + 8,
+      );
 
       // Dibujar las celdas con la altura calculada
       currentX = startX;
       rowData.forEach((cell, index) => {
         doc.rect(currentX, currentY, colWidths[index], rowHeight).stroke();
         doc.fontSize(7).font('Helvetica');
-        const align = index === 0 ? 'center' : index === 1 || index === 2 ? 'left' : 'right';
+        const align =
+          index === 0
+            ? 'center'
+            : index === 1 || index === 2
+              ? 'left'
+              : 'right';
 
         // Descripción y Centro Costo: empezar desde arriba
         if (index === 1 || index === 2) {
@@ -1496,7 +1550,9 @@ export class OrdenServicioService {
               moneda: updateOrdenServicioDto.moneda,
               id_camion: updateOrdenServicioDto.unidad_id,
               editado_por: updateOrdenServicioDto.editado_por ?? null,
-              fecha_edicion: updateOrdenServicioDto.editado_por ? new Date() : undefined,
+              fecha_edicion: updateOrdenServicioDto.editado_por
+                ? new Date()
+                : undefined,
               detraccion: updateOrdenServicioDto.detraccion,
               tipo_detraccion: updateOrdenServicioDto.tipo_detraccion,
               porcentaje_valor_detraccion:
@@ -1662,22 +1718,36 @@ export class OrdenServicioService {
         },
       });
 
-      const camionIds = [...new Set(ordenes.map(o => o.id_camion).filter(Boolean))] as number[];
+      const camionIds = [
+        ...new Set(ordenes.map((o) => o.id_camion).filter(Boolean)),
+      ] as number[];
       const camionesMap = new Map<number, any>();
       if (camionIds.length > 0) {
         const camiones = await this.prisma.camiones.findMany({
           where: { id_camion: { in: camionIds } },
-          select: { id_camion: true, placa: true, tipo: true, nombre_chofer: true, apellido_chofer: true },
+          select: {
+            id_camion: true,
+            placa: true,
+            tipo: true,
+            nombre_chofer: true,
+            apellido_chofer: true,
+          },
         });
-        camiones.forEach(c => camionesMap.set(c.id_camion, c));
+        camiones.forEach((c) => camionesMap.set(c.id_camion, c));
       }
 
       return ordenes.map((orden) => {
-        const camion = orden.id_camion ? camionesMap.get(orden.id_camion) : null;
+        const camion = orden.id_camion
+          ? camionesMap.get(orden.id_camion)
+          : null;
         return {
           ...orden,
-          fecha_orden: orden.fecha_orden ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD') : null,
-          fecha_registro: orden.fecha_registro ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD') : null,
+          fecha_orden: orden.fecha_orden
+            ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
+            : null,
+          fecha_registro: orden.fecha_registro
+            ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD')
+            : null,
           nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
           ruc_proveedor: orden.proveedores?.ruc || null,
           items: orden.detalles_orden_servicio || [],

@@ -1,5 +1,10 @@
 import { Injectable, Logger, Controller } from '@nestjs/common';
-import { MessagePattern, Payload, Ctx, KafkaContext } from '@nestjs/microservices';
+import {
+  MessagePattern,
+  Payload,
+  Ctx,
+  KafkaContext,
+} from '@nestjs/microservices';
 import { KafkaService } from '../../kafka/kafka.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import { GreProducerService } from './gre-producer.service';
@@ -23,17 +28,24 @@ export class GreConsumerService {
   }
 
   @MessagePattern('gre-requests')
-  async handleGreRequest(@Payload() message: any, @Ctx() context: KafkaContext): Promise<void> {
+  async handleGreRequest(
+    @Payload() message: any,
+    @Ctx() context: KafkaContext,
+  ): Promise<void> {
     try {
-      this.logger.log(`📥 Mensaje recibido de gre-requests: ${JSON.stringify(message).substring(0, 100)}...`);
+      this.logger.log(
+        `📥 Mensaje recibido de gre-requests: ${JSON.stringify(message).substring(0, 100)}...`,
+      );
 
       const { id, recordId, data } = message;
 
-      this.logger.log(`Procesando GRE request: ${id} para registro ${recordId}`);
+      this.logger.log(
+        `Procesando GRE request: ${id} para registro ${recordId}`,
+      );
 
       // ✅ VERIFICAR ESTADO ANTES DE PROCESAR (deduplicación)
       const currentRecord = await this.prismaService.guia_remision.findUnique({
-        where: { id_guia: parseInt(recordId) }
+        where: { id_guia: parseInt(recordId) },
       });
 
       if (!currentRecord) {
@@ -43,14 +55,16 @@ export class GreConsumerService {
 
       // Si ya está en PROCESANDO, COMPLETADO o FALLADO, ignorar (ya fue procesado)
       if (currentRecord.estado_gre !== 'PENDIENTE') {
-        this.logger.warn(`⚠️ Registro ${recordId} ya fue procesado (estado: ${currentRecord.estado_gre}), ignorando mensaje duplicado`);
+        this.logger.warn(
+          `⚠️ Registro ${recordId} ya fue procesado (estado: ${currentRecord.estado_gre}), ignorando mensaje duplicado`,
+        );
         return;
       }
 
       // Actualizar estado en BD a PROCESANDO
       await this.prismaService.guia_remision.update({
         where: { id_guia: parseInt(recordId) },
-        data: { estado_gre: 'PROCESANDO' }
+        data: { estado_gre: 'PROCESANDO' },
       });
 
       // Llamar API generar_guia de NUBEFACT
@@ -63,25 +77,31 @@ export class GreConsumerService {
         await this.greProducer.sendToProcessing(id, recordId, {
           ...message,
           nubefactResponse: nubefactResponse.data,
-          pollStartTime: new Date().toISOString()
+          pollStartTime: new Date().toISOString(),
         });
 
         // Iniciar polling persistente
         await this.grePolling.startPolling(recordId, id, nubefactResponse.data);
-
       } else {
-        this.logger.error(`Error en API generar_guia para registro ${recordId}:`, nubefactResponse.error);
+        this.logger.error(
+          `Error en API generar_guia para registro ${recordId}:`,
+          nubefactResponse.error,
+        );
 
         // Actualizar a FALLADO
         await this.prismaService.guia_remision.update({
           where: { id_guia: parseInt(recordId) },
-          data: { estado_gre: 'FALLADO' }
+          data: { estado_gre: 'FALLADO' },
         });
 
         // Enviar a topic failed
-        await this.greProducer.sendToFailed(id, recordId, nubefactResponse.error, data);
+        await this.greProducer.sendToFailed(
+          id,
+          recordId,
+          nubefactResponse.error,
+          data,
+        );
       }
-
     } catch (error) {
       this.logger.error('Error procesando GRE request:', error);
 
@@ -90,7 +110,7 @@ export class GreConsumerService {
         if (message?.recordId) {
           await this.prismaService.guia_remision.update({
             where: { id_guia: parseInt(message.recordId) },
-            data: { estado_gre: 'FALLADO' }
+            data: { estado_gre: 'FALLADO' },
           });
         }
       } catch (updateError) {
@@ -100,36 +120,47 @@ export class GreConsumerService {
   }
 
   @MessagePattern('gre-processing')
-  async handleGreProcessing(@Payload() message: any, @Ctx() context: KafkaContext): Promise<void> {
+  async handleGreProcessing(
+    @Payload() message: any,
+    @Ctx() context: KafkaContext,
+  ): Promise<void> {
     try {
       const { id, recordId } = message;
 
-      this.logger.debug(`Procesando mensaje en processing: ${id} para registro ${recordId}`);
+      this.logger.debug(
+        `Procesando mensaje en processing: ${id} para registro ${recordId}`,
+      );
 
       // Este consumer principalmente monitoreará el estado del polling
       // El polling real se maneja en GrePollingService
 
       // Verificar si el registro ya está COMPLETADO
       const record = await this.prismaService.guia_remision.findUnique({
-        where: { id_guia: parseInt(recordId) }
+        where: { id_guia: parseInt(recordId) },
       });
 
       if (record?.estado_gre === 'COMPLETADO') {
-        this.logger.log(`Registro ${recordId} ya completado, deteniendo procesamiento`);
+        this.logger.log(
+          `Registro ${recordId} ya completado, deteniendo procesamiento`,
+        );
         await this.grePolling.stopPolling(recordId);
       }
-
     } catch (error) {
       this.logger.error('Error procesando mensaje de processing:', error);
     }
   }
 
   @MessagePattern('gre-responses')
-  async handleGreResponse(@Payload() message: any, @Ctx() context: KafkaContext): Promise<void> {
+  async handleGreResponse(
+    @Payload() message: any,
+    @Ctx() context: KafkaContext,
+  ): Promise<void> {
     try {
       const { id, recordId, status, nubefact_response, error } = message;
 
-      this.logger.log(`Procesando respuesta: ${id} para registro ${recordId}, estado: ${status}`);
+      this.logger.log(
+        `Procesando respuesta: ${id} para registro ${recordId}, estado: ${status}`,
+      );
 
       if (status === 'success' && nubefact_response) {
         // Verificar si tenemos todos los enlaces
@@ -137,12 +168,15 @@ export class GreConsumerService {
 
         if (pdf_url && xml_url && cdr_url) {
           // ✅ VERIFICAR PRIMERO si el registro ya fue completado por el polling
-          const currentRecord = await this.prismaService.guia_remision.findUnique({
-            where: { id_guia: parseInt(recordId) }
-          });
+          const currentRecord =
+            await this.prismaService.guia_remision.findUnique({
+              where: { id_guia: parseInt(recordId) },
+            });
 
           if (currentRecord?.estado_gre === 'COMPLETADO') {
-            this.logger.log(`✅ Registro ${recordId} ya fue completado por polling, omitiendo actualización duplicada`);
+            this.logger.log(
+              `✅ Registro ${recordId} ya fue completado por polling, omitiendo actualización duplicada`,
+            );
             await this.grePolling.stopPolling(recordId);
             return;
           }
@@ -154,50 +188,62 @@ export class GreConsumerService {
               estado_gre: 'COMPLETADO',
               enlace_del_pdf: pdf_url,
               enlace_del_xml: xml_url,
-              enlace_del_cdr: cdr_url
-            }
+              enlace_del_cdr: cdr_url,
+            },
           });
 
           // Detener polling para este registro
           await this.grePolling.stopPolling(recordId);
 
-          this.logger.log(`Registro ${recordId} completado con todos los enlaces (vía consumer)`);
+          this.logger.log(
+            `Registro ${recordId} completado con todos los enlaces (vía consumer)`,
+          );
 
           // 📡 Emitir evento WebSocket para notificar al frontend (respaldo)
           if (guiaCompletada.identificador_unico) {
             // Buscar el ID de programacion_tecnica correspondiente
-            const programacionTecnica = await this.prismaService.programacion_tecnica.findFirst({
-              where: { identificador_unico: guiaCompletada.identificador_unico },
-              select: { id: true }
-            });
+            const programacionTecnica =
+              await this.prismaService.programacion_tecnica.findFirst({
+                where: {
+                  identificador_unico: guiaCompletada.identificador_unico,
+                },
+                select: { id: true },
+              });
 
             if (programacionTecnica) {
               this.websocketGateway.emitProgTecnicaCompletada({
                 id: programacionTecnica.id,
-                identificador_unico: guiaCompletada.identificador_unico
+                identificador_unico: guiaCompletada.identificador_unico,
               });
-              this.logger.log(`📡 WebSocket emitido para prog-tecnica desde consumer: ${guiaCompletada.identificador_unico} (ID prog_tecnica: ${programacionTecnica.id})`);
+              this.logger.log(
+                `📡 WebSocket emitido para prog-tecnica desde consumer: ${guiaCompletada.identificador_unico} (ID prog_tecnica: ${programacionTecnica.id})`,
+              );
             } else {
-              this.logger.warn(`⚠️ No se encontró programacion_tecnica con identificador_unico: ${guiaCompletada.identificador_unico}`);
+              this.logger.warn(
+                `⚠️ No se encontró programacion_tecnica con identificador_unico: ${guiaCompletada.identificador_unico}`,
+              );
             }
           }
         } else {
-          this.logger.debug(`Registro ${recordId} aún sin todos los enlaces, continuando polling`);
+          this.logger.debug(
+            `Registro ${recordId} aún sin todos los enlaces, continuando polling`,
+          );
         }
-
       } else if (status === 'error') {
-        this.logger.error(`Error en respuesta para registro ${recordId}:`, error);
+        this.logger.error(
+          `Error en respuesta para registro ${recordId}:`,
+          error,
+        );
 
         // Actualizar a FALLADO
         await this.prismaService.guia_remision.update({
           where: { id_guia: parseInt(recordId) },
-          data: { estado_gre: 'FALLADO' }
+          data: { estado_gre: 'FALLADO' },
         });
 
         // Detener polling
         await this.grePolling.stopPolling(recordId);
       }
-
     } catch (error) {
       this.logger.error('Error procesando respuesta GRE:', error);
     }
@@ -205,7 +251,9 @@ export class GreConsumerService {
 
   private async callNubefactGenerarGuia(greData: any) {
     try {
-      const NUBEFACT_API_URL = process.env.NUBEFACT_API_URL || 'https://api.nubefact.com/api/v1/generar_guia';
+      const NUBEFACT_API_URL =
+        process.env.NUBEFACT_API_URL ||
+        'https://api.nubefact.com/api/v1/generar_guia';
       const NUBEFACT_TOKEN = process.env.NUBEFACT_TOKEN;
 
       if (!NUBEFACT_TOKEN) {
@@ -216,17 +264,16 @@ export class GreConsumerService {
 
       const response = await axios.post(NUBEFACT_API_URL, greData, {
         headers: {
-          'Authorization': `Token ${NUBEFACT_TOKEN}`,
-          'Content-Type': 'application/json'
+          Authorization: `Token ${NUBEFACT_TOKEN}`,
+          'Content-Type': 'application/json',
         },
-        timeout: 30000 // 30 segundos
+        timeout: 30000, // 30 segundos
       });
 
       return {
         success: true,
-        data: response.data
+        data: response.data,
       };
-
     } catch (error) {
       this.logger.error('Error en llamada a NUBEFACT:', error);
 
@@ -235,8 +282,8 @@ export class GreConsumerService {
         error: {
           message: error.message,
           status: error.response?.status,
-          data: error.response?.data
-        }
+          data: error.response?.data,
+        },
       };
     }
   }
@@ -245,19 +292,19 @@ export class GreConsumerService {
   async getConsumerStats() {
     try {
       const pendientes = await this.prismaService.guia_remision.count({
-        where: { estado_gre: 'PENDIENTE' }
+        where: { estado_gre: 'PENDIENTE' },
       });
 
       const procesando = await this.prismaService.guia_remision.count({
-        where: { estado_gre: 'PROCESANDO' }
+        where: { estado_gre: 'PROCESANDO' },
       });
 
       const completados = await this.prismaService.guia_remision.count({
-        where: { estado_gre: 'COMPLETADO' }
+        where: { estado_gre: 'COMPLETADO' },
       });
 
       const fallados = await this.prismaService.guia_remision.count({
-        where: { estado_gre: 'FALLADO' }
+        where: { estado_gre: 'FALLADO' },
       });
 
       const pollingActivos = await this.grePolling.getActivePollingCount();
@@ -268,9 +315,8 @@ export class GreConsumerService {
         completados,
         fallados,
         pollingActivos,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
-
     } catch (error) {
       this.logger.error('Error obteniendo estadísticas del consumer:', error);
       throw error;
@@ -282,25 +328,31 @@ export class GreConsumerService {
     try {
       const failedRecords = await this.prismaService.guia_remision.findMany({
         where: { estado_gre: 'FALLADO' },
-        take: 10 // Procesar de a 10
+        take: 10, // Procesar de a 10
       });
 
-      this.logger.log(`Reintentando ${failedRecords.length} registros fallidos`);
+      this.logger.log(
+        `Reintentando ${failedRecords.length} registros fallidos`,
+      );
 
       for (const record of failedRecords) {
         try {
           // Resetear estado a null para que sea detectado nuevamente
           await this.prismaService.guia_remision.update({
             where: { id_guia: record.id_guia },
-            data: { estado_gre: null }
+            data: { estado_gre: null },
           });
 
-          this.logger.log(`Registro ${record.id_guia} reseteado para reintento`);
+          this.logger.log(
+            `Registro ${record.id_guia} reseteado para reintento`,
+          );
         } catch (error) {
-          this.logger.error(`Error reseteando registro ${record.id_guia}:`, error);
+          this.logger.error(
+            `Error reseteando registro ${record.id_guia}:`,
+            error,
+          );
         }
       }
-
     } catch (error) {
       this.logger.error('Error en retry de registros fallidos:', error);
       throw error;

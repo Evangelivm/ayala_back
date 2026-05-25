@@ -37,12 +37,20 @@ export class WebsocketGateway
   }
 
   // Emitir el siguiente número de orden de compra disponible
-  emitSiguienteNumeroOrdenCompra(data: { serie: string; nroDoc: string; numero_orden_completo: string }) {
+  emitSiguienteNumeroOrdenCompra(data: {
+    serie: string;
+    nroDoc: string;
+    numero_orden_completo: string;
+  }) {
     this.server.emit('siguienteNumeroOrdenCompra', data);
   }
 
   // Emitir el siguiente número de orden de servicio disponible
-  emitSiguienteNumeroOrdenServicio(data: { serie: string; nroDoc: string; numero_orden_completo: string }) {
+  emitSiguienteNumeroOrdenServicio(data: {
+    serie: string;
+    nroDoc: string;
+    numero_orden_completo: string;
+  }) {
     this.server.emit('siguienteNumeroOrdenServicio', data);
   }
 
@@ -74,11 +82,14 @@ export class WebsocketGateway
 
       this.server.emit('prog-tecnica-completada', {
         event: 'prog-tecnica-completada',
-        ...data
+        ...data,
       });
       console.log(`✅ Evento prog-tecnica-completada emitido exitosamente`);
     } catch (error) {
-      console.error('❌ Error emitiendo evento prog-tecnica-completada:', error);
+      console.error(
+        '❌ Error emitiendo evento prog-tecnica-completada:',
+        error,
+      );
       // No lanzar el error para no interrumpir el flujo
     }
   }

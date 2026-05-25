@@ -10,7 +10,9 @@ export const MaquinariaSchema = z.object({
 
 export const CreateMaquinariaSchema = MaquinariaSchema.omit({ id: true });
 
-export const UpdateMaquinariaSchema = MaquinariaSchema.partial().omit({ id: true });
+export const UpdateMaquinariaSchema = MaquinariaSchema.partial().omit({
+  id: true,
+});
 
 export type MaquinariaDto = z.infer<typeof MaquinariaSchema>;
 export type CreateMaquinariaDto = z.infer<typeof CreateMaquinariaSchema>;

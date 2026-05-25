@@ -67,7 +67,7 @@ export class LocksService {
         // Lock activo por otro cliente
         const timeRemaining = existingLock.expiresAt - now;
         this.logger.warn(
-          `Lock no disponible para ${resource}. Cliente ${existingLock.clientId} lo tiene por ${timeRemaining}ms más.`
+          `Lock no disponible para ${resource}. Cliente ${existingLock.clientId} lo tiene por ${timeRemaining}ms más.`,
         );
 
         return {
@@ -100,7 +100,7 @@ export class LocksService {
     this.locks.set(resource, lock);
 
     this.logger.log(
-      `✅ Lock adquirido: ${resource} por cliente ${clientId} (token: ${token.substring(0, 8)}..., TTL: ${validTtl}ms)`
+      `✅ Lock adquirido: ${resource} por cliente ${clientId} (token: ${token.substring(0, 8)}..., TTL: ${validTtl}ms)`,
     );
 
     return {
@@ -113,7 +113,9 @@ export class LocksService {
   /**
    * Libera un lock previamente adquirido
    */
-  async release(dto: ReleaseLockDto): Promise<{ released: boolean; error?: string }> {
+  async release(
+    dto: ReleaseLockDto,
+  ): Promise<{ released: boolean; error?: string }> {
     const { resource, token } = dto;
 
     const lock = this.locks.get(resource);
@@ -126,14 +128,16 @@ export class LocksService {
     // Verificar que el token coincida
     if (lock.token !== token) {
       this.logger.error(
-        `Token inválido al intentar liberar ${resource}. Esperado: ${lock.token.substring(0, 8)}..., Recibido: ${token.substring(0, 8)}...`
+        `Token inválido al intentar liberar ${resource}. Esperado: ${lock.token.substring(0, 8)}..., Recibido: ${token.substring(0, 8)}...`,
       );
       return { released: false, error: 'Token inválido' };
     }
 
     this.releaseLock(resource, lock);
 
-    this.logger.log(`✅ Lock liberado: ${resource} (token: ${token.substring(0, 8)}...)`);
+    this.logger.log(
+      `✅ Lock liberado: ${resource} (token: ${token.substring(0, 8)}...)`,
+    );
 
     return { released: true };
   }
@@ -192,7 +196,9 @@ export class LocksService {
     }
 
     if (releasedCount > 0) {
-      this.logger.log(`🧹 Liberados ${releasedCount} locks del cliente ${clientId}`);
+      this.logger.log(
+        `🧹 Liberados ${releasedCount} locks del cliente ${clientId}`,
+      );
     }
 
     return releasedCount;
@@ -245,12 +251,15 @@ export class LocksService {
 
     return {
       totalLocks: locks.length,
-      activeLocks: locks.filter(l => now < l.expiresAt).length,
-      expiredLocks: locks.filter(l => now >= l.expiresAt).length,
-      locksByClient: locks.reduce((acc, lock) => {
-        acc[lock.clientId] = (acc[lock.clientId] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>),
+      activeLocks: locks.filter((l) => now < l.expiresAt).length,
+      expiredLocks: locks.filter((l) => now >= l.expiresAt).length,
+      locksByClient: locks.reduce(
+        (acc, lock) => {
+          acc[lock.clientId] = (acc[lock.clientId] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      ),
     };
   }
 }

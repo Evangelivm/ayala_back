@@ -122,8 +122,6 @@ export class InformeConsumoCombustibleService {
 
     // Convertir el objeto agrupado en array
     const finalGroupedData = await groupedData;
-    return Object.values(
-      finalGroupedData,
-    ) as InformeConsumoCombustibleResponse[];
+    return Object.values(finalGroupedData);
   }
 }

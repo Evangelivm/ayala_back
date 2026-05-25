@@ -9,7 +9,13 @@ export class AuthService {
   async login(usuario: string, password: string) {
     const user = await this.prismaThird.usuarios.findUnique({
       where: { usuario },
-      select: { id: true, nombre: true, rol: true, activo: true, password: true },
+      select: {
+        id: true,
+        nombre: true,
+        rol: true,
+        activo: true,
+        password: true,
+      },
     });
 
     if (!user || !user.activo) {

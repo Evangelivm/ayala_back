@@ -1,6 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientKafka } from '@nestjs/microservices';
-import { KafkaService, GreRequestMessage, GreResponseMessage } from '../kafka/kafka.service';
+import {
+  KafkaService,
+  GreRequestMessage,
+  GreResponseMessage,
+} from '../kafka/kafka.service';
 
 describe('GRE Kafka Integration Test (No Database)', () => {
   let kafkaService: KafkaService;
@@ -23,10 +27,10 @@ describe('GRE Kafka Integration Test (No Database)', () => {
       cliente_direccion: 'AV. TEST 123',
       fecha_de_emision: '26-09-2025',
       moneda: 'PEN',
-      porcentaje_de_igv: 18.00,
-      total_gravada: 100.00,
-      total_igv: 18.00,
-      total: 118.00,
+      porcentaje_de_igv: 18.0,
+      total_gravada: 100.0,
+      total_igv: 18.0,
+      total: 118.0,
       enviar_automaticamente_a_la_sunat: true,
       enviar_automaticamente_al_cliente: false,
       placa_vehiculo: 'ABC-123',
@@ -36,14 +40,14 @@ describe('GRE Kafka Integration Test (No Database)', () => {
           codigo: '001',
           descripcion: 'PRODUCTO TEST',
           cantidad: 1,
-          valor_unitario: 100.00,
-          precio_unitario: 118.00,
-          subtotal: 100.00,
+          valor_unitario: 100.0,
+          precio_unitario: 118.0,
+          subtotal: 100.0,
           tipo_de_igv: 1,
-          igv: 18.00,
-          total: 118.00,
-          anticipo_regularizacion: false
-        }
+          igv: 18.0,
+          total: 118.0,
+          anticipo_regularizacion: false,
+        },
       ],
       parametros_adicionales: {
         UBIGEO_PARTIDA: '150101',
@@ -58,9 +62,9 @@ describe('GRE Kafka Integration Test (No Database)', () => {
         NUMERO_DOCUMENTO_TRANSPORTE: '20123456789',
         TIPO_DOCUMENTO_TRANSPORTE: '6',
         RAZON_SOCIAL_TRANSPORTE: 'TRANSPORTES TEST SAC',
-        NUMERO_MTCVC: '123456789'
-      }
-    }
+        NUMERO_MTCVC: '123456789',
+      },
+    },
   };
 
   const mockNubefactResponse: GreResponseMessage = {
@@ -69,16 +73,20 @@ describe('GRE Kafka Integration Test (No Database)', () => {
     nubefact_response: {
       pdf_url: 'https://nubefact.com/pdf/test123.pdf',
       xml_url: 'https://nubefact.com/xml/test123.xml',
-      cdr_url: 'https://nubefact.com/cdr/test123.zip'
+      cdr_url: 'https://nubefact.com/cdr/test123.zip',
     },
-    error: undefined
+    error: undefined,
   };
 
   beforeEach(async () => {
     // Mock del cliente Kafka
     mockKafkaClient = {
-      emit: jest.fn().mockReturnValue({ toPromise: jest.fn().mockResolvedValue(true) }),
-      send: jest.fn().mockReturnValue({ toPromise: jest.fn().mockResolvedValue(mockNubefactResponse) }),
+      emit: jest
+        .fn()
+        .mockReturnValue({ toPromise: jest.fn().mockResolvedValue(true) }),
+      send: jest.fn().mockReturnValue({
+        toPromise: jest.fn().mockResolvedValue(mockNubefactResponse),
+      }),
       subscribeToResponseOf: jest.fn(),
       close: jest.fn(),
       connect: jest.fn().mockResolvedValue(undefined),
@@ -113,7 +121,7 @@ describe('GRE Kafka Integration Test (No Database)', () => {
     it('should reject invalid RUC format', () => {
       const invalidRequest = {
         ...mockGreRequest.data,
-        cliente_numero_de_documento: '12345' // RUC inválido
+        cliente_numero_de_documento: '12345', // RUC inválido
       };
 
       const validation = validateGreRequest(invalidRequest);
@@ -126,8 +134,8 @@ describe('GRE Kafka Integration Test (No Database)', () => {
         ...mockGreRequest.data,
         parametros_adicionales: {
           ...mockGreRequest.data.parametros_adicionales,
-          UBIGEO_PARTIDA: '123' // UBIGEO inválido
-        }
+          UBIGEO_PARTIDA: '123', // UBIGEO inválido
+        },
       };
 
       const validation = validateGreRequest(invalidRequest);
@@ -140,13 +148,15 @@ describe('GRE Kafka Integration Test (No Database)', () => {
         ...mockGreRequest.data,
         parametros_adicionales: {
           ...mockGreRequest.data.parametros_adicionales,
-          NUMERO_DOCUMENTO_CONDUCTOR: '' // Campo obligatorio vacío
-        }
+          NUMERO_DOCUMENTO_CONDUCTOR: '', // Campo obligatorio vacío
+        },
       };
 
       const validation = validateGreRequest(invalidRequest);
       expect(validation.isValid).toBe(false);
-      expect(validation.errors).toContain('Número de documento del conductor es obligatorio');
+      expect(validation.errors).toContain(
+        'Número de documento del conductor es obligatorio',
+      );
     });
   });
 
@@ -154,7 +164,10 @@ describe('GRE Kafka Integration Test (No Database)', () => {
     it('should send message to gre-requests topic', async () => {
       await kafkaService.sendGreRequest(mockGreRequest);
 
-      expect(mockKafkaClient.emit).toHaveBeenCalledWith('gre-requests', mockGreRequest);
+      expect(mockKafkaClient.emit).toHaveBeenCalledWith(
+        'gre-requests',
+        mockGreRequest,
+      );
     });
 
     it('should process message from gre-requests and send to gre-processing', async () => {
@@ -162,18 +175,24 @@ describe('GRE Kafka Integration Test (No Database)', () => {
       const processingMessage = {
         ...mockGreRequest,
         status: 'PROCESANDO',
-        nubefact_request_sent: true
+        nubefact_request_sent: true,
       };
 
       await kafkaService.sendGreProcessing(processingMessage);
 
-      expect(mockKafkaClient.emit).toHaveBeenCalledWith('gre-processing', processingMessage);
+      expect(mockKafkaClient.emit).toHaveBeenCalledWith(
+        'gre-processing',
+        processingMessage,
+      );
     });
 
     it('should handle successful response in gre-responses topic', async () => {
       await kafkaService.sendGreResponse(mockNubefactResponse);
 
-      expect(mockKafkaClient.emit).toHaveBeenCalledWith('gre-responses', mockNubefactResponse);
+      expect(mockKafkaClient.emit).toHaveBeenCalledWith(
+        'gre-responses',
+        mockNubefactResponse,
+      );
     });
 
     it('should handle failed requests in gre-failed topic', async () => {
@@ -181,12 +200,15 @@ describe('GRE Kafka Integration Test (No Database)', () => {
         id: 'test-uuid-123',
         status: 'error',
         error: 'API NUBEFACT no disponible',
-        nubefact_response: null
+        nubefact_response: null,
       };
 
       await kafkaService.sendGreFailed(failedResponse);
 
-      expect(mockKafkaClient.emit).toHaveBeenCalledWith('gre-failed', failedResponse);
+      expect(mockKafkaClient.emit).toHaveBeenCalledWith(
+        'gre-failed',
+        failedResponse,
+      );
     });
   });
 
@@ -195,13 +217,17 @@ describe('GRE Kafka Integration Test (No Database)', () => {
       const statusMachine = new GreStatusMachine();
 
       expect(statusMachine.canTransition('PENDIENTE', 'PROCESANDO')).toBe(true);
-      expect(statusMachine.canTransition('PENDIENTE', 'COMPLETADO')).toBe(false);
+      expect(statusMachine.canTransition('PENDIENTE', 'COMPLETADO')).toBe(
+        false,
+      );
     });
 
     it('should transition from PROCESANDO to COMPLETADO when all URLs received', () => {
       const statusMachine = new GreStatusMachine();
 
-      expect(statusMachine.canTransition('PROCESANDO', 'COMPLETADO')).toBe(true);
+      expect(statusMachine.canTransition('PROCESANDO', 'COMPLETADO')).toBe(
+        true,
+      );
     });
 
     it('should transition to FALLADO from any state on error', () => {
@@ -220,7 +246,7 @@ describe('GRE Kafka Integration Test (No Database)', () => {
       const responses = [
         { pdf_url: null, xml_url: null, cdr_url: null },
         { pdf_url: null, xml_url: null, cdr_url: null },
-        { pdf_url: 'url1', xml_url: 'url2', cdr_url: 'url3' } // Finalmente completo
+        { pdf_url: 'url1', xml_url: 'url2', cdr_url: 'url3' }, // Finalmente completo
       ];
 
       pollingSim.setMockResponses(responses);
@@ -238,7 +264,7 @@ describe('GRE Kafka Integration Test (No Database)', () => {
       const responses = [
         { pdf_url: null, xml_url: null, cdr_url: null },
         { pdf_url: null, xml_url: null, cdr_url: null },
-        { pdf_url: null, xml_url: null, cdr_url: null }
+        { pdf_url: null, xml_url: null, cdr_url: null },
       ];
 
       pollingSim.setMockResponses(responses);
@@ -285,10 +311,10 @@ describe('GRE Kafka Integration Test (No Database)', () => {
 
 class GreStatusMachine {
   private validTransitions = {
-    'PENDIENTE': ['PROCESANDO', 'FALLADO'],
-    'PROCESANDO': ['COMPLETADO', 'FALLADO'],
-    'COMPLETADO': [],
-    'FALLADO': []
+    PENDIENTE: ['PROCESANDO', 'FALLADO'],
+    PROCESANDO: ['COMPLETADO', 'FALLADO'],
+    COMPLETADO: [],
+    FALLADO: [],
   };
 
   canTransition(from: string, to: string): boolean {
@@ -312,25 +338,33 @@ class PollingServiceSimulator {
 
   async pollUntilComplete(id: string): Promise<any> {
     for (let attempt = 1; attempt <= this.maxAttempts; attempt++) {
-      const responseIndex = Math.min(attempt - 1, this.mockResponses.length - 1);
+      const responseIndex = Math.min(
+        attempt - 1,
+        this.mockResponses.length - 1,
+      );
       const response = this.mockResponses[responseIndex];
 
-      if (response && response.pdf_url && response.xml_url && response.cdr_url) {
+      if (
+        response &&
+        response.pdf_url &&
+        response.xml_url &&
+        response.cdr_url
+      ) {
         return {
           attempts: attempt,
           success: true,
-          finalResponse: response
+          finalResponse: response,
         };
       }
 
       // Simular delay entre intentos
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
 
     return {
       attempts: this.maxAttempts,
       success: false,
-      error: 'Polling timeout - URLs not available after max attempts'
+      error: 'Polling timeout - URLs not available after max attempts',
     };
   }
 }
@@ -343,7 +377,7 @@ class NubefactApiMock {
     if (!data.operacion || data.operacion !== 'generar_guia') {
       return {
         success: false,
-        error: 'Operación inválida'
+        error: 'Operación inválida',
       };
     }
 
@@ -355,8 +389,8 @@ class NubefactApiMock {
         enlace_del_pdf: null, // Inicialmente null como en la realidad
         enlace_del_xml: null,
         enlace_del_cdr: null,
-        id: id
-      }
+        id: id,
+      },
     };
   }
 
@@ -367,8 +401,8 @@ class NubefactApiMock {
         data: {
           enlace_del_pdf: `https://nubefact.com/pdf/${id}.pdf`,
           enlace_del_xml: `https://nubefact.com/xml/${id}.xml`,
-          enlace_del_cdr: `https://nubefact.com/cdr/${id}.zip`
-        }
+          enlace_del_cdr: `https://nubefact.com/cdr/${id}.zip`,
+        },
       };
     }
 
@@ -377,8 +411,8 @@ class NubefactApiMock {
       data: {
         enlace_del_pdf: null,
         enlace_del_xml: null,
-        enlace_del_cdr: null
-      }
+        enlace_del_cdr: null,
+      },
     };
   }
 
@@ -399,7 +433,11 @@ function validateGreRequest(data: any): { isValid: boolean; errors: string[] } {
   }
 
   // Validación DNI conductor
-  if (!/^\d{8}$/.test(data.parametros_adicionales?.NUMERO_DOCUMENTO_CONDUCTOR || '')) {
+  if (
+    !/^\d{8}$/.test(
+      data.parametros_adicionales?.NUMERO_DOCUMENTO_CONDUCTOR || '',
+    )
+  ) {
     errors.push('Número de documento del conductor es obligatorio');
   }
 
@@ -423,6 +461,6 @@ function validateGreRequest(data: any): { isValid: boolean; errors: string[] } {
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 }

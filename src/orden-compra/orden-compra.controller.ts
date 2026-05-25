@@ -91,11 +91,13 @@ export class OrdenCompraController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(
-    @Body(new ZodValidationPipe(CreateOrdenCompraSchema)) createOrdenCompraDto: CreateOrdenCompraDto,
+    @Body(new ZodValidationPipe(CreateOrdenCompraSchema))
+    createOrdenCompraDto: CreateOrdenCompraDto,
     @Request() req: any,
   ) {
     try {
-      const usuarioId = createOrdenCompraDto.registrado_por || req.user?.id || 1;
+      const usuarioId =
+        createOrdenCompraDto.registrado_por || req.user?.id || 1;
 
       const result = await this.ordenCompraService.create(
         createOrdenCompraDto,
@@ -113,11 +115,13 @@ export class OrdenCompraController {
   @HttpCode(HttpStatus.OK)
   async update(
     @Param('id') id: string,
-    @Body(new ZodValidationPipe(CreateOrdenCompraSchema)) updateOrdenCompraDto: CreateOrdenCompraDto,
+    @Body(new ZodValidationPipe(CreateOrdenCompraSchema))
+    updateOrdenCompraDto: CreateOrdenCompraDto,
     @Request() req: any,
   ) {
     try {
-      const usuarioId = updateOrdenCompraDto.registrado_por || req.user?.id || 1;
+      const usuarioId =
+        updateOrdenCompraDto.registrado_por || req.user?.id || 1;
 
       const result = await this.ordenCompraService.update(
         +id,
@@ -185,10 +189,7 @@ export class OrdenCompraController {
 
   @Patch(':id/backend-logs')
   @HttpCode(HttpStatus.OK)
-  async saveBackendLogs(
-    @Param('id') id: string,
-    @Body('logs') logs: string,
-  ) {
+  async saveBackendLogs(@Param('id') id: string, @Body('logs') logs: string) {
     await this.ordenCompraService.saveBackendLogs(+id, logs);
     return { success: true };
   }
@@ -203,7 +204,10 @@ export class OrdenCompraController {
         message: 'Orden de compra aprobada para contabilidad exitosamente',
       };
     } catch (error) {
-      console.error('Error aprobando orden de compra para contabilidad:', error);
+      console.error(
+        'Error aprobando orden de compra para contabilidad:',
+        error,
+      );
       throw error;
     }
   }
@@ -218,7 +222,10 @@ export class OrdenCompraController {
         message: 'Orden de compra aprobada para administración exitosamente',
       };
     } catch (error) {
-      console.error('Error aprobando orden de compra para administración:', error);
+      console.error(
+        'Error aprobando orden de compra para administración:',
+        error,
+      );
       throw error;
     }
   }
@@ -233,7 +240,10 @@ export class OrdenCompraController {
         message: 'Orden de compra aprobada por jefe de proyecto exitosamente',
       };
     } catch (error) {
-      console.error('Error aprobando orden de compra para jefe de proyecto:', error);
+      console.error(
+        'Error aprobando orden de compra para jefe de proyecto:',
+        error,
+      );
       throw error;
     }
   }
@@ -275,7 +285,10 @@ export class OrdenCompraController {
     @Body() body: { nro_factura: string },
   ) {
     try {
-      await this.ordenCompraService.actualizarNumeroFactura(+id, body.nro_factura);
+      await this.ordenCompraService.actualizarNumeroFactura(
+        +id,
+        body.nro_factura,
+      );
       return {
         success: true,
         message: 'Número de factura actualizado exitosamente',
@@ -290,7 +303,8 @@ export class OrdenCompraController {
   @HttpCode(HttpStatus.OK)
   async migrarEstados() {
     try {
-      const resultado = await this.ordenCompraService.migrarOrdenesACompletada();
+      const resultado =
+        await this.ordenCompraService.migrarOrdenesACompletada();
       return {
         success: true,
         message: `Migración completada. ${resultado.actualizadas} órdenes actualizadas a COMPLETADA`,
@@ -312,7 +326,9 @@ export class OrdenCompraController {
     let uploadedFilePath: string | null = null;
 
     try {
-      console.log(`📤 Iniciando subida de archivo para orden de compra ID: ${id}`);
+      console.log(
+        `📤 Iniciando subida de archivo para orden de compra ID: ${id}`,
+      );
 
       // Validar que se haya subido un archivo
       if (!file) {
@@ -337,17 +353,21 @@ export class OrdenCompraController {
         );
       }
 
-      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+      console.log(
+        `📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`,
+      );
 
       // Validar tamaño máximo (30 MB) ANTES de cualquier procesamiento
       const maxSize = 30 * 1024 * 1024; // 30 MB en bytes
       const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
 
       if (file.size > maxSize) {
-        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        console.error(
+          `❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`,
+        );
         throw new BadRequestException(
           `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
-          `Por favor, comprime el archivo antes de subirlo.`,
+            `Por favor, comprime el archivo antes de subirlo.`,
         );
       }
 
@@ -385,17 +405,21 @@ export class OrdenCompraController {
           await this.dropboxService.deleteFile(uploadedFilePath);
           console.log(`✅ Rollback completado: archivo eliminado de Dropbox`);
         } catch (rollbackError) {
-          console.error('❌ Error durante rollback al eliminar archivo:', rollbackError);
+          console.error(
+            '❌ Error durante rollback al eliminar archivo:',
+            rollbackError,
+          );
           throw new BadRequestException(
             'Error crítico: El archivo se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
-            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
-            'Ruta del archivo: ' + uploadedFilePath
+              'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+              'Ruta del archivo: ' +
+              uploadedFilePath,
           );
         }
 
         throw new BadRequestException(
           'El archivo se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
-          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+            'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.',
         );
       }
 
@@ -421,7 +445,9 @@ export class OrdenCompraController {
     let uploadedFilePath: string | null = null;
 
     try {
-      console.log(`📤 Iniciando subida de cotización para orden de compra ID: ${id}`);
+      console.log(
+        `📤 Iniciando subida de cotización para orden de compra ID: ${id}`,
+      );
 
       // Validar que se haya subido un archivo
       if (!file) {
@@ -446,17 +472,21 @@ export class OrdenCompraController {
         );
       }
 
-      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+      console.log(
+        `📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`,
+      );
 
       // Validar tamaño máximo (30 MB) ANTES de cualquier procesamiento
       const maxSize = 30 * 1024 * 1024; // 30 MB en bytes
       const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
 
       if (file.size > maxSize) {
-        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        console.error(
+          `❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`,
+        );
         throw new BadRequestException(
           `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
-          `Por favor, comprime el archivo antes de subirlo.`,
+            `Por favor, comprime el archivo antes de subirlo.`,
         );
       }
 
@@ -484,27 +514,40 @@ export class OrdenCompraController {
       console.log(`💾 Guardando URL de cotización en base de datos...`);
       try {
         await this.ordenCompraService.updateCotizacionUrl(+id, result.fileUrl);
-        console.log(`✅ URL de cotización guardada exitosamente en la base de datos`);
+        console.log(
+          `✅ URL de cotización guardada exitosamente en la base de datos`,
+        );
       } catch (dbError) {
-        console.error('❌ Error al guardar URL de cotización en base de datos:', dbError);
+        console.error(
+          '❌ Error al guardar URL de cotización en base de datos:',
+          dbError,
+        );
 
         // ROLLBACK: Eliminar el archivo de Dropbox si falla guardar en BD
-        console.log(`🔄 Iniciando rollback: eliminando cotización de Dropbox...`);
+        console.log(
+          `🔄 Iniciando rollback: eliminando cotización de Dropbox...`,
+        );
         try {
           await this.dropboxService.deleteFile(uploadedFilePath);
-          console.log(`✅ Rollback completado: cotización eliminada de Dropbox`);
+          console.log(
+            `✅ Rollback completado: cotización eliminada de Dropbox`,
+          );
         } catch (rollbackError) {
-          console.error('❌ Error durante rollback al eliminar cotización:', rollbackError);
+          console.error(
+            '❌ Error durante rollback al eliminar cotización:',
+            rollbackError,
+          );
           throw new BadRequestException(
             'Error crítico: La cotización se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
-            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
-            'Ruta del archivo: ' + uploadedFilePath
+              'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+              'Ruta del archivo: ' +
+              uploadedFilePath,
           );
         }
 
         throw new BadRequestException(
           'La cotización se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
-          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+            'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.',
         );
       }
 
@@ -515,7 +558,10 @@ export class OrdenCompraController {
         message: `Cotización subida exitosamente como: ${result.fileName || 'archivo'}`,
       };
     } catch (error) {
-      console.error('❌ Error al subir cotización para orden de compra:', error);
+      console.error(
+        '❌ Error al subir cotización para orden de compra:',
+        error,
+      );
       throw error;
     }
   }
@@ -530,7 +576,9 @@ export class OrdenCompraController {
     let uploadedFilePath: string | null = null;
 
     try {
-      console.log(`📤 Iniciando subida de factura para orden de compra ID: ${id}`);
+      console.log(
+        `📤 Iniciando subida de factura para orden de compra ID: ${id}`,
+      );
 
       // Validar que se haya subido un archivo
       if (!file) {
@@ -555,17 +603,21 @@ export class OrdenCompraController {
         );
       }
 
-      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+      console.log(
+        `📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`,
+      );
 
       // Validar tamaño máximo (30 MB) ANTES de cualquier procesamiento
       const maxSize = 30 * 1024 * 1024; // 30 MB en bytes
       const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
 
       if (file.size > maxSize) {
-        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        console.error(
+          `❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`,
+        );
         throw new BadRequestException(
           `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
-          `Por favor, comprime el archivo antes de subirlo.`,
+            `Por favor, comprime el archivo antes de subirlo.`,
         );
       }
 
@@ -593,9 +645,14 @@ export class OrdenCompraController {
       console.log(`💾 Guardando URL de factura en base de datos...`);
       try {
         await this.ordenCompraService.updateFacturaUrl(+id, result.fileUrl);
-        console.log(`✅ URL de factura guardada exitosamente en la base de datos`);
+        console.log(
+          `✅ URL de factura guardada exitosamente en la base de datos`,
+        );
       } catch (dbError) {
-        console.error('❌ Error al guardar URL de factura en base de datos:', dbError);
+        console.error(
+          '❌ Error al guardar URL de factura en base de datos:',
+          dbError,
+        );
 
         // ROLLBACK: Eliminar el archivo de Dropbox si falla guardar en BD
         console.log(`🔄 Iniciando rollback: eliminando factura de Dropbox...`);
@@ -603,17 +660,21 @@ export class OrdenCompraController {
           await this.dropboxService.deleteFile(uploadedFilePath);
           console.log(`✅ Rollback completado: factura eliminada de Dropbox`);
         } catch (rollbackError) {
-          console.error('❌ Error durante rollback al eliminar factura:', rollbackError);
+          console.error(
+            '❌ Error durante rollback al eliminar factura:',
+            rollbackError,
+          );
           throw new BadRequestException(
             'Error crítico: La factura se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
-            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
-            'Ruta del archivo: ' + uploadedFilePath
+              'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+              'Ruta del archivo: ' +
+              uploadedFilePath,
           );
         }
 
         throw new BadRequestException(
           'La factura se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
-          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+            'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.',
         );
       }
 
@@ -640,7 +701,9 @@ export class OrdenCompraController {
     let uploadedFilePath: string | null = null;
 
     try {
-      console.log(`📤 Iniciando subida de comprobante de retención para orden de compra ID: ${id}`);
+      console.log(
+        `📤 Iniciando subida de comprobante de retención para orden de compra ID: ${id}`,
+      );
 
       // Validar que se haya subido un archivo
       if (!file) {
@@ -666,7 +729,9 @@ export class OrdenCompraController {
         );
       }
 
-      console.log(`📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+      console.log(
+        `📋 Archivo recibido: ${file.originalname} (${(file.size / 1024 / 1024).toFixed(2)} MB)`,
+      );
       console.log(`🔢 Número de serie: ${nroSerie}`);
 
       // Validar tamaño máximo (30 MB)
@@ -674,10 +739,12 @@ export class OrdenCompraController {
       const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
 
       if (file.size > maxSize) {
-        console.error(`❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`);
+        console.error(
+          `❌ Archivo demasiado grande: ${fileSizeMB} MB (máximo: 30 MB)`,
+        );
         throw new BadRequestException(
           `El archivo es demasiado grande. Tamaño actual: ${fileSizeMB} MB. Tamaño máximo permitido: 30 MB. ` +
-          `Por favor, comprime el archivo antes de subirlo.`,
+            `Por favor, comprime el archivo antes de subirlo.`,
         );
       }
 
@@ -699,33 +766,54 @@ export class OrdenCompraController {
       );
 
       uploadedFilePath = result.filePath;
-      console.log(`✅ Comprobante de retención subido exitosamente a: ${result.filePath}`);
+      console.log(
+        `✅ Comprobante de retención subido exitosamente a: ${result.filePath}`,
+      );
 
       // Guardar la URL del comprobante y el número de serie en la base de datos
-      console.log(`💾 Guardando URL de comprobante de retención y número de serie en base de datos...`);
+      console.log(
+        `💾 Guardando URL de comprobante de retención y número de serie en base de datos...`,
+      );
       try {
-        await this.ordenCompraService.updateComprobanteRetencionUrl(+id, result.fileUrl, nroSerie.trim());
-        console.log(`✅ URL de comprobante de retención y número de serie guardados exitosamente en la base de datos`);
+        await this.ordenCompraService.updateComprobanteRetencionUrl(
+          +id,
+          result.fileUrl,
+          nroSerie.trim(),
+        );
+        console.log(
+          `✅ URL de comprobante de retención y número de serie guardados exitosamente en la base de datos`,
+        );
       } catch (dbError) {
-        console.error('❌ Error al guardar URL de comprobante de retención en base de datos:', dbError);
+        console.error(
+          '❌ Error al guardar URL de comprobante de retención en base de datos:',
+          dbError,
+        );
 
         // ROLLBACK: Eliminar el archivo de Dropbox si falla guardar en BD
-        console.log(`🔄 Iniciando rollback: eliminando comprobante de retención de Dropbox...`);
+        console.log(
+          `🔄 Iniciando rollback: eliminando comprobante de retención de Dropbox...`,
+        );
         try {
           await this.dropboxService.deleteFile(uploadedFilePath);
-          console.log(`✅ Rollback completado: comprobante de retención eliminado de Dropbox`);
+          console.log(
+            `✅ Rollback completado: comprobante de retención eliminado de Dropbox`,
+          );
         } catch (rollbackError) {
-          console.error('❌ Error durante rollback al eliminar comprobante de retención:', rollbackError);
+          console.error(
+            '❌ Error durante rollback al eliminar comprobante de retención:',
+            rollbackError,
+          );
           throw new BadRequestException(
             'Error crítico: El comprobante de retención se subió a Dropbox pero no se pudo guardar en la base de datos, ' +
-            'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
-            'Ruta del archivo: ' + uploadedFilePath
+              'y tampoco se pudo eliminar de Dropbox. Contacte al administrador. ' +
+              'Ruta del archivo: ' +
+              uploadedFilePath,
           );
         }
 
         throw new BadRequestException(
           'El comprobante de retención se subió a Dropbox pero no se pudo guardar la URL en la base de datos. ' +
-          'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.'
+            'El archivo fue eliminado automáticamente. Por favor, intente nuevamente.',
         );
       }
 
@@ -736,7 +824,10 @@ export class OrdenCompraController {
         message: `Comprobante de retención subido exitosamente como: ${result.fileName || 'archivo'}`,
       };
     } catch (error) {
-      console.error('❌ Error al subir comprobante de retención para orden de compra:', error);
+      console.error(
+        '❌ Error al subir comprobante de retención para orden de compra:',
+        error,
+      );
       throw error;
     }
   }
@@ -753,7 +844,16 @@ export class OrdenCompraController {
   @HttpCode(HttpStatus.OK)
   async saveMultifacturas(
     @Param('id') id: string,
-    @Body() body: { rows: { id_detalle?: number; nro_serie?: string; nro_factura?: string; galones?: string; proyecto?: string }[] },
+    @Body()
+    body: {
+      rows: {
+        id_detalle?: number;
+        nro_serie?: string;
+        nro_factura?: string;
+        galones?: string;
+        proyecto?: string;
+      }[];
+    },
   ) {
     return this.ordenCompraService.saveMultifacturas(+id, body.rows || []);
   }
@@ -766,10 +866,12 @@ export class OrdenCompraController {
     @Param('detalleId') detalleId: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    if (!file) throw new BadRequestException('No se ha proporcionado ningún archivo');
+    if (!file)
+      throw new BadRequestException('No se ha proporcionado ningún archivo');
 
     // Eliminar archivo anterior si existe
-    const detalle = await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
+    const detalle =
+      await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
     if (detalle?.url_factura) {
       await this.dropboxService.deleteFileBySharedUrl(detalle.url_factura);
     }
@@ -784,7 +886,11 @@ export class OrdenCompraController {
       file.originalname,
     );
 
-    await this.ordenCompraService.updateMultifacturaFileUrl(+detalleId, 'factura', result.fileUrl);
+    await this.ordenCompraService.updateMultifacturaFileUrl(
+      +detalleId,
+      'factura',
+      result.fileUrl,
+    );
     return { message: 'Factura subida exitosamente', fileUrl: result.fileUrl };
   }
 
@@ -796,10 +902,12 @@ export class OrdenCompraController {
     @Param('detalleId') detalleId: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    if (!file) throw new BadRequestException('No se ha proporcionado ningún archivo');
+    if (!file)
+      throw new BadRequestException('No se ha proporcionado ningún archivo');
 
     // Eliminar archivo anterior si existe
-    const detalle = await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
+    const detalle =
+      await this.ordenCompraService.getMultifacturaDetalle(+detalleId);
     if (detalle?.url_guia) {
       await this.dropboxService.deleteFileBySharedUrl(detalle.url_guia);
     }
@@ -814,7 +922,11 @@ export class OrdenCompraController {
       file.originalname,
     );
 
-    await this.ordenCompraService.updateMultifacturaFileUrl(+detalleId, 'guia', result.fileUrl);
+    await this.ordenCompraService.updateMultifacturaFileUrl(
+      +detalleId,
+      'guia',
+      result.fileUrl,
+    );
     return { message: 'Guía subida exitosamente', fileUrl: result.fileUrl };
   }
 }

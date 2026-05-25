@@ -3,7 +3,7 @@ import { z } from 'zod';
 // Schema para el enum de tipo de equipo
 export const TipoEquipoSchema = z.enum([
   'EXCAVADORA',
-  'CARGADOR', 
+  'CARGADOR',
   'MINICARGADOR',
   'MOTONIVELADORA',
   'PAVIMENTADORA',
@@ -23,10 +23,22 @@ export const TipoEquipoSchema = z.enum([
 export const EquipoSchema = z.object({
   id_equipo: z.number().optional(),
   tipo_equipo: TipoEquipoSchema,
-  marca: z.string().min(1, 'La marca es requerida').max(100, 'La marca no puede exceder 100 caracteres'),
-  modelo: z.string().min(1, 'El modelo es requerido').max(100, 'El modelo no puede exceder 100 caracteres'),
-  descripcion: z.string().max(500, 'La descripción no puede exceder 500 caracteres').optional(),
-  unidad: z.string().min(1, 'La unidad es requerida').max(50, 'La unidad no puede exceder 50 caracteres'),
+  marca: z
+    .string()
+    .min(1, 'La marca es requerida')
+    .max(100, 'La marca no puede exceder 100 caracteres'),
+  modelo: z
+    .string()
+    .min(1, 'El modelo es requerido')
+    .max(100, 'El modelo no puede exceder 100 caracteres'),
+  descripcion: z
+    .string()
+    .max(500, 'La descripción no puede exceder 500 caracteres')
+    .optional(),
+  unidad: z
+    .string()
+    .min(1, 'La unidad es requerida')
+    .max(50, 'La unidad no puede exceder 50 caracteres'),
   precio_referencial: z.number().positive('El precio debe ser mayor a 0'),
   activo: z.boolean().default(true),
   created_at: z.string().optional(),
@@ -34,17 +46,17 @@ export const EquipoSchema = z.object({
 });
 
 // Schema para creación de equipos
-export const CreateEquipoSchema = EquipoSchema.omit({ 
-  id_equipo: true, 
-  created_at: true, 
-  updated_at: true 
+export const CreateEquipoSchema = EquipoSchema.omit({
+  id_equipo: true,
+  created_at: true,
+  updated_at: true,
 });
 
 // Schema para actualización de equipos
-export const UpdateEquipoSchema = EquipoSchema.partial().omit({ 
-  id_equipo: true, 
-  created_at: true, 
-  updated_at: true 
+export const UpdateEquipoSchema = EquipoSchema.partial().omit({
+  id_equipo: true,
+  created_at: true,
+  updated_at: true,
 });
 
 // Schema para respuesta de equipos

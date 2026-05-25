@@ -42,7 +42,7 @@ export class SubsectoresService {
     return this.prisma.subsector.findMany({
       where: {
         id_sub_etapa: idSubEtapa,
-        activo: true
+        activo: true,
       },
       include: {
         sub_etapa: true,

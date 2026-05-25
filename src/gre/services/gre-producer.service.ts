@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { KafkaService } from '../../kafka/kafka.service';
-import { GreValidationSchema, type GreValidationData } from '../schemas/gre-validation.schema';
+import {
+  GreValidationSchema,
+  type GreValidationData,
+} from '../schemas/gre-validation.schema';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -9,7 +12,10 @@ export class GreProducerService {
 
   constructor(private readonly kafkaService: KafkaService) {}
 
-  async sendGreRequest(recordId: string, greData: GreValidationData): Promise<void> {
+  async sendGreRequest(
+    recordId: string,
+    greData: GreValidationData,
+  ): Promise<void> {
     try {
       this.logger.log(`Enviando GRE request para registro ${recordId}`);
 
@@ -23,11 +29,17 @@ export class GreProducerService {
         id: uuidv4(),
         timestamp: new Date().toISOString(),
         recordId: recordId,
-        data: validatedData
+        data: validatedData,
       };
 
-      console.log('🚀 [KAFKA-PRODUCER] Mensaje completo a enviar a Kafka:', JSON.stringify(message, null, 2));
-      console.log('🚀 [KAFKA-PRODUCER] Data validada:', JSON.stringify(validatedData, null, 2));
+      console.log(
+        '🚀 [KAFKA-PRODUCER] Mensaje completo a enviar a Kafka:',
+        JSON.stringify(message, null, 2),
+      );
+      console.log(
+        '🚀 [KAFKA-PRODUCER] Data validada:',
+        JSON.stringify(validatedData, null, 2),
+      );
 
       // Enviar a topic gre-requests
       await this.kafkaService.sendMessage({
@@ -36,9 +48,14 @@ export class GreProducerService {
         value: JSON.stringify(message),
       });
 
-      this.logger.log(`GRE request enviado exitosamente para registro ${recordId}, mensaje ID: ${message.id}`);
+      this.logger.log(
+        `GRE request enviado exitosamente para registro ${recordId}, mensaje ID: ${message.id}`,
+      );
     } catch (error) {
-      this.logger.error(`Error enviando GRE request para registro ${recordId}:`, error);
+      this.logger.error(
+        `Error enviando GRE request para registro ${recordId}:`,
+        error,
+      );
 
       if (error.name === 'ZodError') {
         this.logger.error('Errores de validación:', error.errors);
@@ -48,14 +65,18 @@ export class GreProducerService {
     }
   }
 
-  async sendToProcessing(messageId: string, recordId: string, greData: any): Promise<void> {
+  async sendToProcessing(
+    messageId: string,
+    recordId: string,
+    greData: any,
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
         recordId: recordId,
         timestamp: new Date().toISOString(),
         data: greData,
-        status: 'processing'
+        status: 'processing',
       };
 
       await this.kafkaService.sendMessage({
@@ -71,7 +92,12 @@ export class GreProducerService {
     }
   }
 
-  async sendResponse(messageId: string, recordId: string, response: any, status: 'success' | 'error'): Promise<void> {
+  async sendResponse(
+    messageId: string,
+    recordId: string,
+    response: any,
+    status: 'success' | 'error',
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
@@ -79,7 +105,10 @@ export class GreProducerService {
         timestamp: new Date().toISOString(),
         status: status,
         nubefact_response: status === 'success' ? response : null,
-        error: status === 'error' ? response.error || response.message || 'Error desconocido' : null
+        error:
+          status === 'error'
+            ? response.error || response.message || 'Error desconocido'
+            : null,
       };
 
       await this.kafkaService.sendMessage({
@@ -88,14 +117,21 @@ export class GreProducerService {
         value: JSON.stringify(message),
       });
 
-      this.logger.log(`Respuesta enviada para mensaje ${messageId}, estado: ${status}`);
+      this.logger.log(
+        `Respuesta enviada para mensaje ${messageId}, estado: ${status}`,
+      );
     } catch (error) {
       this.logger.error(`Error enviando respuesta:`, error);
       throw error;
     }
   }
 
-  async sendToFailed(messageId: string, recordId: string, error: any, originalData?: any): Promise<void> {
+  async sendToFailed(
+    messageId: string,
+    recordId: string,
+    error: any,
+    originalData?: any,
+  ): Promise<void> {
     try {
       const message = {
         id: messageId,
@@ -104,7 +140,7 @@ export class GreProducerService {
         error: error.message || error.toString(),
         errorStack: error.stack,
         originalData: originalData,
-        retryCount: 0
+        retryCount: 0,
       };
 
       await this.kafkaService.sendMessage({
@@ -120,9 +156,15 @@ export class GreProducerService {
     }
   }
 
-  async retryFailedMessage(messageId: string, recordId: string, greData: any): Promise<void> {
+  async retryFailedMessage(
+    messageId: string,
+    recordId: string,
+    greData: any,
+  ): Promise<void> {
     try {
-      this.logger.log(`Reintentando mensaje fallido ${messageId} para registro ${recordId}`);
+      this.logger.log(
+        `Reintentando mensaje fallido ${messageId} para registro ${recordId}`,
+      );
 
       const retryMessage = {
         id: uuidv4(), // Nuevo ID para el retry
@@ -130,7 +172,7 @@ export class GreProducerService {
         recordId: recordId,
         timestamp: new Date().toISOString(),
         data: greData,
-        isRetry: true
+        isRetry: true,
       };
 
       await this.kafkaService.sendMessage({
@@ -153,7 +195,7 @@ export class GreProducerService {
     return {
       messagesProduced: 0, // Implementar contadores reales
       errors: 0,
-      lastMessageTime: new Date().toISOString()
+      lastMessageTime: new Date().toISOString(),
     };
   }
 
@@ -168,7 +210,9 @@ export class GreProducerService {
   }
 
   // Método para envío en lote (útil para múltiples registros)
-  async sendBatchGreRequests(requests: Array<{ recordId: string, greData: GreValidationData }>): Promise<void> {
+  async sendBatchGreRequests(
+    requests: Array<{ recordId: string; greData: GreValidationData }>,
+  ): Promise<void> {
     try {
       this.logger.log(`Enviando lote de ${requests.length} GRE requests`);
 
@@ -182,14 +226,16 @@ export class GreProducerService {
             id: uuidv4(),
             timestamp: new Date().toISOString(),
             recordId: recordId,
-            data: validatedData
-          })
+            data: validatedData,
+          }),
         };
       });
 
       await this.kafkaService.sendMessages(messages);
 
-      this.logger.log(`Lote de ${requests.length} GRE requests enviado exitosamente`);
+      this.logger.log(
+        `Lote de ${requests.length} GRE requests enviado exitosamente`,
+      );
     } catch (error) {
       this.logger.error('Error enviando lote de GRE requests:', error);
       throw error;

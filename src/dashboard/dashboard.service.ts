@@ -35,7 +35,11 @@ export class DashboardService {
   async getStats(): Promise<DashboardStats> {
     try {
       const ahora = new Date();
-      const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+      const hoy = new Date(
+        ahora.getFullYear(),
+        ahora.getMonth(),
+        ahora.getDate(),
+      );
       const ultimaSemana = new Date(ahora.getTime() - 7 * 24 * 60 * 60 * 1000);
       const ultimoMes = new Date(ahora.getTime() - 30 * 24 * 60 * 60 * 1000);
 
@@ -63,15 +67,30 @@ export class DashboardService {
       ]);
 
       return {
-        reportesViajes: viajesStats.status === 'fulfilled' ? viajesStats.value : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
-        reportesPlantilleros: plantillerosStats.status === 'fulfilled' ? plantillerosStats.value : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
-        reportesOperadores: operadoresStats.status === 'fulfilled' ? operadoresStats.value : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
-        proyectosActivos: proyectosActivos.status === 'fulfilled' ? proyectosActivos.value : 0,
-        personalActivo: personalActivo.status === 'fulfilled' ? personalActivo.value : 0,
-        equiposDisponibles: equiposDisponibles.status === 'fulfilled' ? equiposDisponibles.value : 0,
+        reportesViajes:
+          viajesStats.status === 'fulfilled'
+            ? viajesStats.value
+            : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
+        reportesPlantilleros:
+          plantillerosStats.status === 'fulfilled'
+            ? plantillerosStats.value
+            : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
+        reportesOperadores:
+          operadoresStats.status === 'fulfilled'
+            ? operadoresStats.value
+            : { total: 0, hoy: 0, ultimaSemana: 0, ultimoMes: 0 },
+        proyectosActivos:
+          proyectosActivos.status === 'fulfilled' ? proyectosActivos.value : 0,
+        personalActivo:
+          personalActivo.status === 'fulfilled' ? personalActivo.value : 0,
+        equiposDisponibles:
+          equiposDisponibles.status === 'fulfilled'
+            ? equiposDisponibles.value
+            : 0,
         totalViajes: totalViajes.status === 'fulfilled' ? totalViajes.value : 0,
         totalM3: totalM3.status === 'fulfilled' ? totalM3.value : 0,
-        totalHorasOperacion: totalHoras.status === 'fulfilled' ? totalHoras.value : 0,
+        totalHorasOperacion:
+          totalHoras.status === 'fulfilled' ? totalHoras.value : 0,
       };
     } catch (error) {
       console.error('Error getting dashboard stats:', error);
@@ -80,99 +99,125 @@ export class DashboardService {
   }
 
   private async getViajesStats(hoy: Date, ultimaSemana: Date, ultimoMes: Date) {
-    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] = await Promise.all([
-      this.prisma.viajes_eliminacion.count({ where: { activo: true } }),
-      this.prisma.viajes_eliminacion.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: hoy,
+    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] =
+      await Promise.all([
+        this.prisma.viajes_eliminacion.count({ where: { activo: true } }),
+        this.prisma.viajes_eliminacion.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: hoy,
+            },
           },
-        },
-      }),
-      this.prisma.viajes_eliminacion.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimaSemana,
+        }),
+        this.prisma.viajes_eliminacion.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimaSemana,
+            },
           },
-        },
-      }),
-      this.prisma.viajes_eliminacion.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimoMes,
+        }),
+        this.prisma.viajes_eliminacion.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimoMes,
+            },
           },
-        },
-      }),
-    ]);
+        }),
+      ]);
 
-    return { total, hoy: reportesHoy, ultimaSemana: reportesUltimaSemana, ultimoMes: reportesUltimoMes };
+    return {
+      total,
+      hoy: reportesHoy,
+      ultimaSemana: reportesUltimaSemana,
+      ultimoMes: reportesUltimoMes,
+    };
   }
 
-  private async getPlantillerosStats(hoy: Date, ultimaSemana: Date, ultimoMes: Date) {
-    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] = await Promise.all([
-      this.prisma.reportes_plantilleros.count({ where: { activo: true } }),
-      this.prisma.reportes_plantilleros.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: hoy,
+  private async getPlantillerosStats(
+    hoy: Date,
+    ultimaSemana: Date,
+    ultimoMes: Date,
+  ) {
+    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] =
+      await Promise.all([
+        this.prisma.reportes_plantilleros.count({ where: { activo: true } }),
+        this.prisma.reportes_plantilleros.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: hoy,
+            },
           },
-        },
-      }),
-      this.prisma.reportes_plantilleros.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimaSemana,
+        }),
+        this.prisma.reportes_plantilleros.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimaSemana,
+            },
           },
-        },
-      }),
-      this.prisma.reportes_plantilleros.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimoMes,
+        }),
+        this.prisma.reportes_plantilleros.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimoMes,
+            },
           },
-        },
-      }),
-    ]);
+        }),
+      ]);
 
-    return { total, hoy: reportesHoy, ultimaSemana: reportesUltimaSemana, ultimoMes: reportesUltimoMes };
+    return {
+      total,
+      hoy: reportesHoy,
+      ultimaSemana: reportesUltimaSemana,
+      ultimoMes: reportesUltimoMes,
+    };
   }
 
-  private async getOperadoresStats(hoy: Date, ultimaSemana: Date, ultimoMes: Date) {
-    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] = await Promise.all([
-      this.prisma.reportes_operadores.count({ where: { activo: true } }),
-      this.prisma.reportes_operadores.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: hoy,
+  private async getOperadoresStats(
+    hoy: Date,
+    ultimaSemana: Date,
+    ultimoMes: Date,
+  ) {
+    const [total, reportesHoy, reportesUltimaSemana, reportesUltimoMes] =
+      await Promise.all([
+        this.prisma.reportes_operadores.count({ where: { activo: true } }),
+        this.prisma.reportes_operadores.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: hoy,
+            },
           },
-        },
-      }),
-      this.prisma.reportes_operadores.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimaSemana,
+        }),
+        this.prisma.reportes_operadores.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimaSemana,
+            },
           },
-        },
-      }),
-      this.prisma.reportes_operadores.count({
-        where: {
-          activo: true,
-          fecha: {
-            gte: ultimoMes,
+        }),
+        this.prisma.reportes_operadores.count({
+          where: {
+            activo: true,
+            fecha: {
+              gte: ultimoMes,
+            },
           },
-        },
-      }),
-    ]);
+        }),
+      ]);
 
-    return { total, hoy: reportesHoy, ultimaSemana: reportesUltimaSemana, ultimoMes: reportesUltimoMes };
+    return {
+      total,
+      hoy: reportesHoy,
+      ultimaSemana: reportesUltimaSemana,
+      ultimoMes: reportesUltimoMes,
+    };
   }
 
   private async getProyectosActivos(): Promise<number> {
@@ -243,65 +288,66 @@ export class DashboardService {
   async getRecentReports(limit: number = 10) {
     try {
       // Obtener reportes recientes de todos los tipos
-      const [viajesRecientes, plantillerosRecientes, operadoresRecientes] = await Promise.all([
-        this.prisma.viajes_eliminacion.findMany({
-          take: Math.ceil(limit / 3),
-          orderBy: { created_at: 'desc' },
-          where: { activo: true },
-          select: {
-            id_viaje: true,
-            codigo_reporte: true,
-            fecha: true,
-            proyecto: {
-              select: {
-                nombre: true,
+      const [viajesRecientes, plantillerosRecientes, operadoresRecientes] =
+        await Promise.all([
+          this.prisma.viajes_eliminacion.findMany({
+            take: Math.ceil(limit / 3),
+            orderBy: { created_at: 'desc' },
+            where: { activo: true },
+            select: {
+              id_viaje: true,
+              codigo_reporte: true,
+              fecha: true,
+              proyecto: {
+                select: {
+                  nombre: true,
+                },
+              },
+              responsable: {
+                select: {
+                  nombres: true,
+                  apellidos: true,
+                },
               },
             },
-            responsable: {
-              select: {
-                nombres: true,
-                apellidos: true,
+          }),
+          this.prisma.reportes_plantilleros.findMany({
+            take: Math.ceil(limit / 3),
+            orderBy: { created_at: 'desc' },
+            where: { activo: true },
+            select: {
+              id_reporte: true,
+              codigo_reporte: true,
+              fecha: true,
+              proyecto: {
+                select: {
+                  nombre: true,
+                },
               },
             },
-          },
-        }),
-        this.prisma.reportes_plantilleros.findMany({
-          take: Math.ceil(limit / 3),
-          orderBy: { created_at: 'desc' },
-          where: { activo: true },
-          select: {
-            id_reporte: true,
-            codigo_reporte: true,
-            fecha: true,
-            proyecto: {
-              select: {
-                nombre: true,
+          }),
+          this.prisma.reportes_operadores.findMany({
+            take: Math.ceil(limit / 3),
+            orderBy: { created_at: 'desc' },
+            where: { activo: true },
+            select: {
+              id_reporte: true,
+              codigo_reporte: true,
+              fecha: true,
+              proyecto: {
+                select: {
+                  nombre: true,
+                },
+              },
+              operador: {
+                select: {
+                  nombres: true,
+                  apellidos: true,
+                },
               },
             },
-          },
-        }),
-        this.prisma.reportes_operadores.findMany({
-          take: Math.ceil(limit / 3),
-          orderBy: { created_at: 'desc' },
-          where: { activo: true },
-          select: {
-            id_reporte: true,
-            codigo_reporte: true,
-            fecha: true,
-            proyecto: {
-              select: {
-                nombre: true,
-              },
-            },
-            operador: {
-              select: {
-                nombres: true,
-                apellidos: true,
-              },
-            },
-          },
-        }),
-      ]);
+          }),
+        ]);
 
       // Transformar y combinar reportes
       const reportesCombi = [
@@ -311,7 +357,9 @@ export class DashboardService {
           tipo: 'viajes' as const,
           fecha: r.fecha.toISOString(),
           proyecto: r.proyecto?.nombre,
-          responsable: r.responsable ? `${r.responsable.nombres} ${r.responsable.apellidos}` : 'N/A',
+          responsable: r.responsable
+            ? `${r.responsable.nombres} ${r.responsable.apellidos}`
+            : 'N/A',
         })),
         ...plantillerosRecientes.map((r) => ({
           id: r.id_reporte,
@@ -327,13 +375,17 @@ export class DashboardService {
           tipo: 'operadores' as const,
           fecha: r.fecha.toISOString(),
           proyecto: r.proyecto?.nombre,
-          responsable: r.operador ? `${r.operador.nombres} ${r.operador.apellidos}` : 'N/A',
+          responsable: r.operador
+            ? `${r.operador.nombres} ${r.operador.apellidos}`
+            : 'N/A',
         })),
       ];
 
       // Ordenar por fecha y limitar
       return reportesCombi
-        .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
+        .sort(
+          (a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime(),
+        )
         .slice(0, limit);
     } catch (error) {
       console.error('Error getting recent reports:', error);

@@ -33,7 +33,7 @@ export class SubfrentesService {
     return this.prisma.subfrente.findMany({
       where: {
         id_subsector: idSubsector,
-        activo: true
+        activo: true,
       },
       include: {
         subsector: true,

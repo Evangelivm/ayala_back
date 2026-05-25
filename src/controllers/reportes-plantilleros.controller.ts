@@ -25,13 +25,17 @@ import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 @Controller('reportes-plantilleros')
 export class ReportesPlantillerosController {
-  constructor(private readonly reportesPlantillerosService: ReportesPlantillerosService) {}
+  constructor(
+    private readonly reportesPlantillerosService: ReportesPlantillerosService,
+  ) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(ReportesPlantillerosSchema))
   async create(@Body() createReportesPlantillerosDto: ReportesPlantillerosDto) {
     try {
-      return await this.reportesPlantillerosService.create(createReportesPlantillerosDto);
+      return await this.reportesPlantillerosService.create(
+        createReportesPlantillerosDto,
+      );
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -45,8 +49,11 @@ export class ReportesPlantillerosController {
         ...query,
         page: query.page ? parseInt(query.page) : 1,
         limit: query.limit ? parseInt(query.limit) : 10,
-        id_proyecto: query.id_proyecto ? parseInt(query.id_proyecto) : undefined,
-        activo: query.activo !== undefined ? query.activo === 'true' : undefined,
+        id_proyecto: query.id_proyecto
+          ? parseInt(query.id_proyecto)
+          : undefined,
+        activo:
+          query.activo !== undefined ? query.activo === 'true' : undefined,
       });
 
       return await this.reportesPlantillerosService.findAll(filters);
@@ -67,7 +74,10 @@ export class ReportesPlantillerosController {
     @Body() updateReportesPlantillerosDto: UpdateReportesPlantillerosDto,
   ) {
     try {
-      return await this.reportesPlantillerosService.update(id, updateReportesPlantillerosDto);
+      return await this.reportesPlantillerosService.update(
+        id,
+        updateReportesPlantillerosDto,
+      );
     } catch (error) {
       throw new BadRequestException(error.message);
     }

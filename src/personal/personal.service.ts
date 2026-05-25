@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { CreatePersonalDto, UpdatePersonalDto, PersonalFilterDto } from '../dto/personal.dto';
+import type {
+  CreatePersonalDto,
+  UpdatePersonalDto,
+  PersonalFilterDto,
+} from '../dto/personal.dto';
 
 @Injectable()
 export class PersonalService {
@@ -8,25 +12,25 @@ export class PersonalService {
 
   async findAll(filters?: PersonalFilterDto) {
     const where: any = {};
-    
+
     if (filters?.activo !== undefined) {
       where.activo = filters.activo;
     } else {
       where.activo = true; // Por defecto solo mostrar activos
     }
-    
+
     if (filters?.nombres) {
       where.nombres = { contains: filters.nombres };
     }
-    
+
     if (filters?.apellidos) {
       where.apellidos = { contains: filters.apellidos };
     }
-    
+
     if (filters?.dni) {
       where.dni = { contains: filters.dni };
     }
-    
+
     if (filters?.fecha_ingreso_desde && filters?.fecha_ingreso_hasta) {
       where.fecha_ingreso = {
         gte: new Date(filters.fecha_ingreso_desde),
@@ -47,7 +51,7 @@ export class PersonalService {
       this.prisma.personal.count({ where }),
     ]);
 
-    const data = personal.map(p => ({
+    const data = personal.map((p) => ({
       ...p,
       fecha_ingreso: p.fecha_ingreso.toISOString().split('T')[0],
       created_at: p.created_at?.toISOString() || null,
@@ -120,7 +124,9 @@ export class PersonalService {
         dni: data.dni,
         telefono: data.telefono,
         correo: data.correo,
-        fecha_ingreso: data.fecha_ingreso ? new Date(data.fecha_ingreso) : undefined,
+        fecha_ingreso: data.fecha_ingreso
+          ? new Date(data.fecha_ingreso)
+          : undefined,
         activo: data.activo,
         observaciones: data.observaciones,
         updated_at: new Date(),
@@ -139,7 +145,7 @@ export class PersonalService {
   async remove(id: number) {
     await this.prisma.personal.update({
       where: { id_personal: id },
-      data: { 
+      data: {
         activo: false,
         updated_at: new Date(),
       },

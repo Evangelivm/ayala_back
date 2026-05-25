@@ -10,10 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { SubfrentesService } from './subfrentes.service';
-import {
-  CreateSubfrenteDto,
-  UpdateSubfrenteDto,
-} from '../dto/subfrentes.dto';
+import { CreateSubfrenteDto, UpdateSubfrenteDto } from '../dto/subfrentes.dto';
 
 @Controller('subfrentes')
 export class SubfrentesController {

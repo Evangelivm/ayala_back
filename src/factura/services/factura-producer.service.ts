@@ -31,10 +31,7 @@ export class FacturaProducerService {
         `Factura ${recordId} enviada a Kafka (msgId: ${messageId})`,
       );
     } catch (error) {
-      this.logger.error(
-        `Error enviando factura ${recordId} a Kafka:`,
-        error,
-      );
+      this.logger.error(`Error enviando factura ${recordId} a Kafka:`, error);
       throw error;
     }
   }
@@ -92,7 +89,9 @@ export class FacturaProducerService {
         }),
       });
 
-      this.logger.log(`Respuesta de factura ${recordId} enviada a topic (status: ${status})`);
+      this.logger.log(
+        `Respuesta de factura ${recordId} enviada a topic (status: ${status})`,
+      );
     } catch (error) {
       this.logger.error(
         `Error enviando respuesta de factura ${recordId}:`,
@@ -127,10 +126,7 @@ export class FacturaProducerService {
 
       this.logger.log(`Factura ${recordId} marcada como fallida`);
     } catch (error) {
-      this.logger.error(
-        `Error enviando factura ${recordId} a failed:`,
-        error,
-      );
+      this.logger.error(`Error enviando factura ${recordId} a failed:`, error);
     }
   }
 

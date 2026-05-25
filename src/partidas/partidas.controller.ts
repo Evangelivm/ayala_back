@@ -10,10 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PartidasService } from './partidas.service';
-import {
-  CreatePartidaDto,
-  UpdatePartidaDto,
-} from '../dto/partidas.dto';
+import { CreatePartidaDto, UpdatePartidaDto } from '../dto/partidas.dto';
 
 @Controller('partidas')
 export class PartidasController {

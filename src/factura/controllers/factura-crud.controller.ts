@@ -81,39 +81,41 @@ export class FacturaCrudController {
 
   private mapearUnidadMedidaSunat(unidad: string): string {
     const mapeo: Record<string, string> = {
-      'UNIDAD': 'NIU',
-      'UNIDADES': 'NIU',
-      'UND': 'NIU',
-      'SERVICIO': 'ZZ',
-      'SERVICIOS': 'ZZ',
-      'SRV': 'ZZ',
-      'METRO': 'MTR',
-      'METROS': 'MTR',
-      'M': 'MTR',
-      'KILOGRAMO': 'KGM',
-      'KILOGRAMOS': 'KGM',
-      'KG': 'KGM',
-      'LITRO': 'LTR',
-      'LITROS': 'LTR',
-      'L': 'LTR',
+      UNIDAD: 'NIU',
+      UNIDADES: 'NIU',
+      UND: 'NIU',
+      SERVICIO: 'ZZ',
+      SERVICIOS: 'ZZ',
+      SRV: 'ZZ',
+      METRO: 'MTR',
+      METROS: 'MTR',
+      M: 'MTR',
+      KILOGRAMO: 'KGM',
+      KILOGRAMOS: 'KGM',
+      KG: 'KGM',
+      LITRO: 'LTR',
+      LITROS: 'LTR',
+      L: 'LTR',
       'METRO CUBICO': 'MTQ',
-      'M3': 'MTQ',
-      'TONELADA': 'TNE',
-      'TONELADAS': 'TNE',
-      'TON': 'TNE',
-      'CAJA': 'BX',
-      'CAJAS': 'BX',
-      'BOLSA': 'BG',
-      'BOLSAS': 'BG',
-      'PAQUETE': 'PK',
-      'PAQUETES': 'PK',
+      M3: 'MTQ',
+      TONELADA: 'TNE',
+      TONELADAS: 'TNE',
+      TON: 'TNE',
+      CAJA: 'BX',
+      CAJAS: 'BX',
+      BOLSA: 'BG',
+      BOLSAS: 'BG',
+      PAQUETE: 'PK',
+      PAQUETES: 'PK',
     };
 
     const unidadUpper = unidad.toUpperCase().trim();
     const unidadMapeada = mapeo[unidadUpper] || unidad;
 
     if (unidadMapeada !== unidad) {
-      this.logger.debug(`Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`);
+      this.logger.debug(
+        `Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`,
+      );
     }
 
     return unidadMapeada;
@@ -296,10 +298,16 @@ export class FacturaCrudController {
       }
 
       // DEBUG: Log de datos recibidos para forma de pago
-      this.logger.debug(`[FORMA DE PAGO] condiciones_de_pago: ${data.condiciones_de_pago}`);
+      this.logger.debug(
+        `[FORMA DE PAGO] condiciones_de_pago: ${data.condiciones_de_pago}`,
+      );
       this.logger.debug(`[FORMA DE PAGO] medio_de_pago: ${data.medio_de_pago}`);
-      this.logger.debug(`[FORMA DE PAGO] venta_al_credito: ${JSON.stringify(data.venta_al_credito)}`);
-      this.logger.debug(`[FORMA DE PAGO] cuotas_credito: ${JSON.stringify(data.cuotas_credito)}`);
+      this.logger.debug(
+        `[FORMA DE PAGO] venta_al_credito: ${JSON.stringify(data.venta_al_credito)}`,
+      );
+      this.logger.debug(
+        `[FORMA DE PAGO] cuotas_credito: ${JSON.stringify(data.cuotas_credito)}`,
+      );
 
       // 3. Crear factura con items, guías y cuotas en una transacción
       const factura = await this.prisma.$transaction(async (tx) => {
@@ -395,8 +403,10 @@ export class FacturaCrudController {
             observaciones: data.observaciones,
 
             // Configuración de envío
-            enviar_automaticamente_sunat: data.enviar_automaticamente_sunat !== false,
-            enviar_automaticamente_cliente: data.enviar_automaticamente_cliente || false,
+            enviar_automaticamente_sunat:
+              data.enviar_automaticamente_sunat !== false,
+            enviar_automaticamente_cliente:
+              data.enviar_automaticamente_cliente || false,
             formato_pdf: data.formato_pdf || 'A4',
           },
         });
@@ -411,7 +421,9 @@ export class FacturaCrudController {
                   codigo_item: item.codigo_item,
                   codigo_producto_sunat: item.codigo_producto_sunat,
                   descripcion_item: item.descripcion_item,
-                  unidad_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
+                  unidad_medida: this.mapearUnidadMedidaSunat(
+                    item.unidad_medida,
+                  ),
                   cantidad: item.cantidad,
                   valor_unitario: item.valor_unitario,
                   precio_unitario: item.precio_unitario,
@@ -422,7 +434,8 @@ export class FacturaCrudController {
                   tipo_de_isc: item.tipo_de_isc,
                   isc: item.isc,
                   total: item.total,
-                  anticipo_regularizacion: item.anticipo_regularizacion || false,
+                  anticipo_regularizacion:
+                    item.anticipo_regularizacion || false,
                   anticipo_documento_serie: item.anticipo_documento_serie,
                   anticipo_documento_numero: item.anticipo_documento_numero,
                 },
@@ -455,7 +468,9 @@ export class FacturaCrudController {
                 data: {
                   id_factura: nuevaFactura.id_factura,
                   cuota: cuota.cuota,
-                  fecha_pago: this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) || new Date(),
+                  fecha_pago:
+                    this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) ||
+                    new Date(),
                   importe: cuota.importe,
                 },
               }),
@@ -472,9 +487,13 @@ export class FacturaCrudController {
 
       // Llamar a NubeFact sincrónicamenmente (sin esperar al cron de 30s)
       try {
-        this.logger.log(`Procesando factura ${factura.id_factura} en NubeFact de forma inmediata...`);
+        this.logger.log(
+          `Procesando factura ${factura.id_factura} en NubeFact de forma inmediata...`,
+        );
         await this.facturaDetector.forceDetection(factura.id_factura);
-        this.logger.log(`Factura ${factura.id_factura} enviada a NubeFact exitosamente`);
+        this.logger.log(
+          `Factura ${factura.id_factura} enviada a NubeFact exitosamente`,
+        );
       } catch (nubefactError) {
         // No relanzamos el error: la factura ya fue guardada en BD y el cron la reintentará
         this.logger.warn(
@@ -522,7 +541,7 @@ export class FacturaCrudController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body(new ZodValidationPipe(UpdateFacturaSchema)) data: any
+    @Body(new ZodValidationPipe(UpdateFacturaSchema)) data: any,
   ) {
     try {
       const id_factura = parseInt(id);
@@ -619,9 +638,12 @@ export class FacturaCrudController {
 
         // Fechas (soporta DD-MM-YYYY y YYYY-MM-DD)
         if (data.fecha_emision !== undefined)
-          facturaData.fecha_emision = this.parseDate(data.fecha_emision) || new Date();
+          facturaData.fecha_emision =
+            this.parseDate(data.fecha_emision) || new Date();
         if (data.fecha_vencimiento !== undefined)
-          facturaData.fecha_vencimiento = this.parseDate(data.fecha_vencimiento);
+          facturaData.fecha_vencimiento = this.parseDate(
+            data.fecha_vencimiento,
+          );
         if (data.fecha_servicio !== undefined)
           facturaData.fecha_servicio = this.parseDate(data.fecha_servicio);
 
@@ -681,7 +703,9 @@ export class FacturaCrudController {
                     codigo_item: item.codigo_item,
                     codigo_producto_sunat: item.codigo_producto_sunat,
                     descripcion_item: item.descripcion_item,
-                    unidad_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
+                    unidad_medida: this.mapearUnidadMedidaSunat(
+                      item.unidad_medida,
+                    ),
                     cantidad: item.cantidad,
                     valor_unitario: item.valor_unitario,
                     precio_unitario: item.precio_unitario,
@@ -725,7 +749,8 @@ export class FacturaCrudController {
         }
 
         // Si se proporcionaron cuotas, reemplazarlas (soporta ambos nombres)
-        const cuotasCreditoUpdate = data.venta_al_credito || data.cuotas_credito;
+        const cuotasCreditoUpdate =
+          data.venta_al_credito || data.cuotas_credito;
         if (cuotasCreditoUpdate) {
           await tx.factura_venta_credito.deleteMany({
             where: { id_factura },
@@ -738,7 +763,9 @@ export class FacturaCrudController {
                   data: {
                     id_factura,
                     cuota: cuota.cuota,
-                    fecha_pago: this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) || new Date(),
+                    fecha_pago:
+                      this.parseDate(cuota.fecha_de_pago || cuota.fecha_pago) ||
+                      new Date(),
                     importe: cuota.importe,
                   },
                 }),
@@ -855,11 +882,12 @@ export class FacturaCrudController {
       }
 
       // 2. Llamar a NubeFact para consultar el comprobante
-      const resultado = await this.facturaConsumer.callNubefactConsultarComprobante(
-        factura.tipo_de_comprobante,
-        factura.serie,
-        factura.numero,
-      );
+      const resultado =
+        await this.facturaConsumer.callNubefactConsultarComprobante(
+          factura.tipo_de_comprobante,
+          factura.serie,
+          factura.numero,
+        );
 
       if (!resultado.success) {
         this.logger.error('Error consultando en NubeFact:', resultado.error);
@@ -869,7 +897,8 @@ export class FacturaCrudController {
           where: { id_factura },
           data: {
             estado_factura: 'ERROR',
-            sunat_description: resultado.error?.data?.errors || 'Error al consultar en NubeFact',
+            sunat_description:
+              resultado.error?.data?.errors || 'Error al consultar en NubeFact',
           },
         });
 
@@ -975,10 +1004,7 @@ export class FacturaCrudController {
 
   @Patch(':id/backend-logs')
   @HttpCode(HttpStatus.OK)
-  async saveBackendLogs(
-    @Param('id') id: string,
-    @Body('logs') logs: string,
-  ) {
+  async saveBackendLogs(@Param('id') id: string, @Body('logs') logs: string) {
     await this.prisma.factura.update({
       where: { id_factura: parseInt(id) },
       data: { backend_logs: logs },

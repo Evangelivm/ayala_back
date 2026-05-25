@@ -51,7 +51,7 @@ export class SubEtapasService {
     return this.prisma.sub_etapas.findMany({
       where: {
         id_subproyecto: idSubproyecto,
-        activo: true
+        activo: true,
       },
       include: {
         subproyecto: true,

@@ -1,4 +1,8 @@
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Dropbox } from 'dropbox';
 import { ConfigService } from '@nestjs/config';
 
@@ -9,10 +13,13 @@ export class DropboxService {
   private rootFolder: string;
 
   constructor(private configService: ConfigService) {
-    this.rootFolder = this.configService.get<string>('DROPBOX_ROOT_FOLDER') || '/ayala-ordenes';
+    this.rootFolder =
+      this.configService.get<string>('DROPBOX_ROOT_FOLDER') || '/ayala-ordenes';
 
     // Soporte para refresh tokens (recomendado) o access tokens (legacy)
-    const refreshToken = this.configService.get<string>('DROPBOX_REFRESH_TOKEN');
+    const refreshToken = this.configService.get<string>(
+      'DROPBOX_REFRESH_TOKEN',
+    );
     const appKey = this.configService.get<string>('DROPBOX_APP_KEY');
     const appSecret = this.configService.get<string>('DROPBOX_APP_SECRET');
     const accessToken = this.configService.get<string>('DROPBOX_ACCESS_TOKEN');
@@ -29,8 +36,8 @@ export class DropboxService {
       // Modo legacy: Usar access token directo (expira en 4 horas)
       this.logger.warn(
         'Dropbox configurado con access token directo. ' +
-        'Este token expira cada 4 horas. ' +
-        'Se recomienda migrar a refresh tokens para evitar expiración.'
+          'Este token expira cada 4 horas. ' +
+          'Se recomienda migrar a refresh tokens para evitar expiración.',
       );
       this.dropboxClient = new Dropbox({
         accessToken: accessToken,
@@ -38,8 +45,8 @@ export class DropboxService {
     } else {
       this.logger.error(
         'Dropbox no está configurado correctamente. ' +
-        'Debes configurar DROPBOX_REFRESH_TOKEN, DROPBOX_APP_KEY y DROPBOX_APP_SECRET ' +
-        'o usar DROPBOX_ACCESS_TOKEN (no recomendado) en el archivo .env'
+          'Debes configurar DROPBOX_REFRESH_TOKEN, DROPBOX_APP_KEY y DROPBOX_APP_SECRET ' +
+          'o usar DROPBOX_ACCESS_TOKEN (no recomendado) en el archivo .env',
       );
       // Crear cliente con configuración mínima para evitar errores
       this.dropboxClient = new Dropbox({
@@ -55,8 +62,18 @@ export class DropboxService {
    */
   private getMonthName(monthNumber: number): string {
     const meses = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
     ];
     return meses[monthNumber];
   }
@@ -96,11 +113,13 @@ export class DropboxService {
         const response = await this.dropboxClient.filesListFolder({
           path: fullFolderPath,
         });
-        existingFiles = response.result.entries.map(entry => entry.name);
+        existingFiles = response.result.entries.map((entry) => entry.name);
       } catch (error: any) {
         // Si la carpeta no existe, no hay archivos existentes
-        if (error?.error?.error?.['.tag'] === 'path' &&
-            error?.error?.error?.path?.['.tag'] === 'not_found') {
+        if (
+          error?.error?.error?.['.tag'] === 'path' &&
+          error?.error?.error?.path?.['.tag'] === 'not_found'
+        ) {
           return `${baseFileName}${extension}`;
         }
         throw error;
@@ -113,16 +132,22 @@ export class DropboxService {
       }
 
       // Buscar archivos con el mismo nombre base y sufijos numéricos
-      const pattern = new RegExp(`^${baseFileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(-\\d+)?\\${extension}$`);
-      const matchingFiles = existingFiles.filter(file => pattern.test(file));
+      const pattern = new RegExp(
+        `^${baseFileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(-\\d+)?\\${extension}$`,
+      );
+      const matchingFiles = existingFiles.filter((file) => pattern.test(file));
 
       // Extraer los sufijos numéricos existentes
       const suffixes = matchingFiles
-        .map(file => {
-          const match = file.match(new RegExp(`^${baseFileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}-(\\d+)\\${extension}$`));
+        .map((file) => {
+          const match = file.match(
+            new RegExp(
+              `^${baseFileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}-(\\d+)\\${extension}$`,
+            ),
+          );
           return match ? parseInt(match[1], 10) : 0;
         })
-        .filter(num => num > 0);
+        .filter((num) => num > 0);
 
       // Encontrar el siguiente sufijo disponible
       const nextSuffix = suffixes.length > 0 ? Math.max(...suffixes) + 1 : 1;
@@ -175,22 +200,27 @@ export class DropboxService {
       // Crear un enlace compartido para acceder al archivo (SOLO LECTURA)
       let sharedLink: string;
       try {
-        const linkResponse = await this.dropboxClient.sharingCreateSharedLinkWithSettings({
-          path: fullPath,
-          settings: {
-            requested_visibility: { '.tag': 'public' },
-            // Configurar como SOLO LECTURA - los usuarios pueden ver y descargar, pero NO editar
-            access: { '.tag': 'viewer' },
-            allow_download: true,
-          },
-        });
+        const linkResponse =
+          await this.dropboxClient.sharingCreateSharedLinkWithSettings({
+            path: fullPath,
+            settings: {
+              requested_visibility: { '.tag': 'public' },
+              // Configurar como SOLO LECTURA - los usuarios pueden ver y descargar, pero NO editar
+              access: { '.tag': 'viewer' },
+              allow_download: true,
+            },
+          });
         sharedLink = linkResponse.result.url;
       } catch (linkError: any) {
         // Si el enlace ya existe, obtenerlo
-        if (linkError?.error?.error?.['.tag'] === 'shared_link_already_exists') {
-          const existingLinks = await this.dropboxClient.sharingListSharedLinks({
-            path: fullPath,
-          });
+        if (
+          linkError?.error?.error?.['.tag'] === 'shared_link_already_exists'
+        ) {
+          const existingLinks = await this.dropboxClient.sharingListSharedLinks(
+            {
+              path: fullPath,
+            },
+          );
           sharedLink = existingLinks.result.links[0]?.url || '';
         } else {
           this.logger.warn('No se pudo crear enlace compartido', linkError);
@@ -209,7 +239,7 @@ export class DropboxService {
       this.logger.error('Error al subir archivo a Dropbox', error);
       throw new InternalServerErrorException(
         'Error al subir el archivo a Dropbox: ' +
-        (error instanceof Error ? error.message : 'Error desconocido')
+          (error instanceof Error ? error.message : 'Error desconocido'),
       );
     }
   }
@@ -250,14 +280,20 @@ export class DropboxService {
       }
 
       // Obtener la extensión del archivo original
-      const extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+      const extension = originalFileName.substring(
+        originalFileName.lastIndexOf('.'),
+      );
 
       // Generar la ruta de la carpeta basada en año/mes
       const folderPath = this.getFolderPath(fechaRegistro, tipoOrden);
       this.logger.log(`Ruta de carpeta generada: ${folderPath}`);
 
       // Obtener el nombre de archivo disponible (con sufijo si es necesario)
-      const fileName = await this.getAvailableFileName(folderPath, numeroOrden, extension);
+      const fileName = await this.getAvailableFileName(
+        folderPath,
+        numeroOrden,
+        extension,
+      );
       this.logger.log(`Nombre de archivo determinado: ${fileName}`);
 
       // Subir el archivo
@@ -265,21 +301,30 @@ export class DropboxService {
       uploadedFilePath = result.filePath;
 
       // Validar que el archivo realmente se subió verificando su existencia
-      this.logger.log(`Verificando que el archivo se subió correctamente: ${uploadedFilePath}`);
+      this.logger.log(
+        `Verificando que el archivo se subió correctamente: ${uploadedFilePath}`,
+      );
 
       try {
         await this.getFileMetadata(uploadedFilePath);
-        this.logger.log(`✅ Archivo verificado exitosamente en Dropbox: ${uploadedFilePath}`);
+        this.logger.log(
+          `✅ Archivo verificado exitosamente en Dropbox: ${uploadedFilePath}`,
+        );
       } catch (verifyError) {
-        this.logger.error('❌ Error: El archivo no se encontró después de subirlo', verifyError);
+        this.logger.error(
+          '❌ Error: El archivo no se encontró después de subirlo',
+          verifyError,
+        );
         throw new InternalServerErrorException(
-          'El archivo se subió pero no se pudo verificar su existencia en Dropbox'
+          'El archivo se subió pero no se pudo verificar su existencia en Dropbox',
         );
       }
 
       // Validar que la URL compartida existe
       if (!result.fileUrl || result.fileUrl === uploadedFilePath) {
-        this.logger.warn('⚠️ No se pudo generar enlace compartido, usando ruta del archivo');
+        this.logger.warn(
+          '⚠️ No se pudo generar enlace compartido, usando ruta del archivo',
+        );
       } else {
         this.logger.log(`✅ Enlace compartido generado: ${result.fileUrl}`);
       }
@@ -293,18 +338,25 @@ export class DropboxService {
 
       // Si el archivo se subió pero hubo un error posterior, intentar limpieza (opcional)
       if (uploadedFilePath) {
-        this.logger.warn(`⚠️ Intentando eliminar archivo parcialmente subido: ${uploadedFilePath}`);
+        this.logger.warn(
+          `⚠️ Intentando eliminar archivo parcialmente subido: ${uploadedFilePath}`,
+        );
         try {
           await this.deleteFile(uploadedFilePath);
-          this.logger.log(`🗑️ Archivo eliminado por rollback: ${uploadedFilePath}`);
+          this.logger.log(
+            `🗑️ Archivo eliminado por rollback: ${uploadedFilePath}`,
+          );
         } catch (deleteError) {
-          this.logger.error('❌ No se pudo eliminar el archivo durante rollback', deleteError);
+          this.logger.error(
+            '❌ No se pudo eliminar el archivo durante rollback',
+            deleteError,
+          );
         }
       }
 
       throw new InternalServerErrorException(
         'Error al subir el archivo de orden a Dropbox: ' +
-        (error instanceof Error ? error.message : 'Error desconocido')
+          (error instanceof Error ? error.message : 'Error desconocido'),
       );
     }
   }
@@ -315,12 +367,17 @@ export class DropboxService {
    */
   async deleteFileBySharedUrl(sharedUrl: string): Promise<boolean> {
     try {
-      const meta = await this.dropboxClient.sharingGetSharedLinkMetadata({ url: sharedUrl });
+      const meta = await this.dropboxClient.sharingGetSharedLinkMetadata({
+        url: sharedUrl,
+      });
       const path = (meta.result as any).path_lower as string | undefined;
       if (!path) return false;
       return this.deleteFile(path);
     } catch (error) {
-      this.logger.warn('No se pudo eliminar el archivo anterior de Dropbox', error);
+      this.logger.warn(
+        'No se pudo eliminar el archivo anterior de Dropbox',
+        error,
+      );
       return false;
     }
   }
@@ -354,7 +411,9 @@ export class DropboxService {
       return response.result;
     } catch (error) {
       this.logger.error('Error al obtener metadata del archivo', error);
-      throw new InternalServerErrorException('Error al obtener información del archivo');
+      throw new InternalServerErrorException(
+        'Error al obtener información del archivo',
+      );
     }
   }
 
@@ -379,7 +438,10 @@ export class DropboxService {
   generateUniqueFileName(originalName: string): string {
     const timestamp = Date.now();
     const extension = originalName.substring(originalName.lastIndexOf('.'));
-    const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.'));
+    const nameWithoutExt = originalName.substring(
+      0,
+      originalName.lastIndexOf('.'),
+    );
     return `${this.sanitizeFileName(nameWithoutExt)}_${timestamp}${extension}`;
   }
 }

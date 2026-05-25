@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import type { CreateEmpresaDto, UpdateEmpresaDto, EmpresaFilterDto } from '../dto/empresas.dto';
+import type {
+  CreateEmpresaDto,
+  UpdateEmpresaDto,
+  EmpresaFilterDto,
+} from '../dto/empresas.dto';
 
 @Injectable()
 export class EmpresasService {
@@ -23,13 +27,11 @@ export class EmpresasService {
 
     const empresas = await this.prisma.empresas_2025.findMany({
       where,
-      orderBy: [
-        { razon_social: 'asc' }
-      ],
+      orderBy: [{ razon_social: 'asc' }],
     });
 
     // Convertir a mayúsculas
-    return empresas.map(e => ({
+    return empresas.map((e) => ({
       ...e,
       razon_social: e.razon_social?.toUpperCase() || null,
       direccion: e.direccion?.toUpperCase() || null,
@@ -68,8 +70,10 @@ export class EmpresasService {
   async update(codigo: string, data: UpdateEmpresaDto) {
     const updateData: any = {};
 
-    if (data.Raz_n_social !== undefined) updateData.razon_social = data.Raz_n_social;
-    if (data.N__documento !== undefined) updateData.nro_documento = data.N__documento;
+    if (data.Raz_n_social !== undefined)
+      updateData.razon_social = data.Raz_n_social;
+    if (data.N__documento !== undefined)
+      updateData.nro_documento = data.N__documento;
     if (data.Tipo !== undefined) updateData.tipo = data.Tipo;
     if (data.Direcci_n !== undefined) updateData.direccion = data.Direcci_n;
 

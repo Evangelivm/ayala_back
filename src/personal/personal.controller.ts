@@ -1,6 +1,22 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { PersonalService } from './personal.service';
-import { CreatePersonalSchema, UpdatePersonalSchema, type CreatePersonalDto, type UpdatePersonalDto } from '../dto/personal.dto';
+import {
+  CreatePersonalSchema,
+  UpdatePersonalSchema,
+  type CreatePersonalDto,
+  type UpdatePersonalDto,
+} from '../dto/personal.dto';
 
 @Controller('personal')
 export class PersonalController {
@@ -30,20 +46,23 @@ export class PersonalController {
       return this.personalService.create(validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updatePersonalDto: UpdatePersonalDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updatePersonalDto: UpdatePersonalDto,
+  ) {
     try {
       const validatedData = UpdatePersonalSchema.parse(updatePersonalDto);
       return this.personalService.update(+id, validatedData);
     } catch (error) {
       throw new HttpException(
-        'Datos inválidos: ' + (error as any).message,
+        'Datos inválidos: ' + error.message,
         HttpStatus.BAD_REQUEST,
       );
     }

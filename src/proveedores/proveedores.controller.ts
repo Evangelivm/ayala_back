@@ -1,6 +1,17 @@
-import { Controller, Get, Post, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { ProveedoresService } from './proveedores.service';
-import { CreateProveedorDto, CreateProveedorSchema } from '../dto/proveedores.dto';
+import {
+  CreateProveedorDto,
+  CreateProveedorSchema,
+} from '../dto/proveedores.dto';
 
 @Controller('proveedores')
 export class ProveedoresController {
@@ -22,7 +33,8 @@ export class ProveedoresController {
 
   @Get('documento/:nro_documento')
   async findByDocumento(@Param('nro_documento') nro_documento: string) {
-    const proveedor = await this.proveedoresService.findByDocumento(nro_documento);
+    const proveedor =
+      await this.proveedoresService.findByDocumento(nro_documento);
     if (!proveedor) {
       throw new HttpException('Proveedor no encontrado', HttpStatus.NOT_FOUND);
     }
@@ -42,7 +54,7 @@ export class ProveedoresController {
             message: 'Datos de entrada inválidos',
             errors: error.errors,
           },
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       }
       throw error;
