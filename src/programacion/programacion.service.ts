@@ -17,14 +17,14 @@ import { Prisma } from '@generated/prisma';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 import { GreExtendidoProducerService } from '../gre/services/gre-extendido-producer.service';
 import { SearchService } from '../search/search.service';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
 import * as ExcelJS from 'exceljs';
 
 // Configurar plugins de dayjs
-dayjs.extend(utc);
-dayjs.extend(timezone);
+dayjs.extend(utc as any);
+dayjs.extend(timezone as any);
 
 @Injectable()
 export class ProgramacionService {
