@@ -237,6 +237,7 @@ export class ProgramacionController {
       proveedor?: string | null;
       fecha?: string | null;
       hora_partida?: string | null;
+      unidad?: number | null;
     },
   ) {
     this.logger.log(
