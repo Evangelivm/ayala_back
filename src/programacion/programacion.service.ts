@@ -716,6 +716,12 @@ export class ProgramacionService {
       id_subfrente?: number;
       id_subpartida?: number;
       m3?: string;
+      estado_programacion?: string | null;
+      comentarios?: string | null;
+      cantidad_viaje?: string | null;
+      proveedor?: string | null;
+      fecha?: string | null;
+      hora_partida?: string | null;
     },
   ) {
     try {
@@ -730,22 +736,40 @@ export class ProgramacionService {
         );
       }
 
+      // Construir objeto de actualización con campos opcionales
+      const dataToUpdate: Record<string, unknown> = {
+        id_proyecto: updateData.id_proyecto ?? null,
+        id_etapa: updateData.id_etapa ?? null,
+        id_sector: updateData.id_sector ?? null,
+        id_frente: updateData.id_frente ?? null,
+        id_partida: updateData.id_partida ?? null,
+        id_subproyecto: updateData.id_subproyecto ?? null,
+        id_subetapa: updateData.id_subetapa ?? null,
+        id_subsector: updateData.id_subsector ?? null,
+        id_subfrente: updateData.id_subfrente ?? null,
+        id_subpartida: updateData.id_subpartida ?? null,
+        m3: updateData.m3 ?? null,
+      };
+
+      if ('estado_programacion' in updateData)
+        dataToUpdate.estado_programacion = updateData.estado_programacion ?? null;
+      if ('comentarios' in updateData)
+        dataToUpdate.comentarios = updateData.comentarios ?? null;
+      if ('cantidad_viaje' in updateData)
+        dataToUpdate.cantidad_viaje = updateData.cantidad_viaje ?? null;
+      if ('proveedor' in updateData)
+        dataToUpdate.proveedor = updateData.proveedor ?? null;
+      if ('fecha' in updateData)
+        dataToUpdate.fecha = updateData.fecha ? new Date(updateData.fecha) : null;
+      if ('hora_partida' in updateData)
+        dataToUpdate.hora_partida = updateData.hora_partida
+          ? new Date(`1970-01-01T${updateData.hora_partida}:00Z`)
+          : null;
+
       // Actualizar el registro con los nuevos valores
       const updatedRecord = await this.prisma.programacion_tecnica.update({
         where: { id },
-        data: {
-          id_proyecto: updateData.id_proyecto ?? null,
-          id_etapa: updateData.id_etapa ?? null,
-          id_sector: updateData.id_sector ?? null,
-          id_frente: updateData.id_frente ?? null,
-          id_partida: updateData.id_partida ?? null,
-          id_subproyecto: updateData.id_subproyecto ?? null,
-          id_subetapa: updateData.id_subetapa ?? null,
-          id_subsector: updateData.id_subsector ?? null,
-          id_subfrente: updateData.id_subfrente ?? null,
-          id_subpartida: updateData.id_subpartida ?? null,
-          m3: updateData.m3 ?? null,
-        },
+        data: dataToUpdate as any,
       });
 
       this.logger.log(

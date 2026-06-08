@@ -225,7 +225,18 @@ export class ProgramacionController {
       id_sector?: number;
       id_frente?: number;
       id_partida?: number;
+      id_subproyecto?: number;
+      id_subetapa?: number;
+      id_subsector?: number;
+      id_subfrente?: number;
+      id_subpartida?: number;
       m3?: string;
+      estado_programacion?: string | null;
+      comentarios?: string | null;
+      cantidad_viaje?: string | null;
+      proveedor?: string | null;
+      fecha?: string | null;
+      hora_partida?: string | null;
     },
   ) {
     this.logger.log(
