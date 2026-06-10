@@ -238,6 +238,7 @@ export class ProgramacionController {
       fecha?: string | null;
       hora_partida?: string | null;
       unidad?: number | null;
+      programacion?: string | null;
     },
   ) {
     this.logger.log(

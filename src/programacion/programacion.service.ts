@@ -723,6 +723,7 @@ export class ProgramacionService {
       fecha?: string | null;
       hora_partida?: string | null;
       unidad?: number | null;
+      programacion?: string | null;
     },
   ) {
     try {
@@ -779,6 +780,8 @@ export class ProgramacionService {
       }
       if ('unidad' in updateData)
         dataToUpdate.unidad = updateData.unidad ?? null;
+      if ('programacion' in updateData)
+        dataToUpdate.programacion = updateData.programacion ?? null;
 
       // Actualizar el registro con los nuevos valores
       const updatedRecord = await this.prisma.programacion_tecnica.update({
