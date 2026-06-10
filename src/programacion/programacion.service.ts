@@ -762,10 +762,21 @@ export class ProgramacionService {
         dataToUpdate.proveedor = updateData.proveedor ?? null;
       if ('fecha' in updateData)
         dataToUpdate.fecha = updateData.fecha ? new Date(updateData.fecha) : null;
-      if ('hora_partida' in updateData)
-        dataToUpdate.hora_partida = updateData.hora_partida
-          ? new Date(`1970-01-01T${updateData.hora_partida}:00Z`)
-          : null;
+      if ('hora_partida' in updateData) {
+        const hp = updateData.hora_partida;
+        if (!hp) {
+          dataToUpdate.hora_partida = null;
+        } else {
+          // Acepta "HH:MM" o "HH:MM:SS"; descarta ISO completos u otros formatos inválidos
+          const match = hp.match(/^(\d{2}):(\d{2})(?::\d{2})?$/);
+          if (match) {
+            dataToUpdate.hora_partida = new Date(`1970-01-01T${match[1]}:${match[2]}:00Z`);
+          } else {
+            this.logger.warn(`hora_partida inválida recibida (ID ${id}): "${hp}" — se ignora`);
+            dataToUpdate.hora_partida = null;
+          }
+        }
+      }
       if ('unidad' in updateData)
         dataToUpdate.unidad = updateData.unidad ?? null;
 
