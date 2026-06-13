@@ -1721,7 +1721,7 @@ export class OrdenServicioService {
         );
       }
 
-      const bajarEstado = orden.estado === 'COMPLETADA' ? { estado: 'PENDIENTE' } : {};
+      const bajarEstado = orden.estado === 'COMPLETADA' ? { estado: 'PENDIENTE' as const } : {};
 
       if (tipo === 'operacion') {
         await this.prismaThird.ordenes_servicio.update({
