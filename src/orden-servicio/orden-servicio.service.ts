@@ -1706,6 +1706,67 @@ export class OrdenServicioService {
     }
   }
 
+  async removeDocumento(
+    id: number,
+    tipo: 'operacion' | 'cotizacion' | 'factura' | 'retencion',
+  ): Promise<void> {
+    try {
+      const orden = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!orden) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      const bajarEstado = orden.estado === 'COMPLETADA' ? { estado: 'PENDIENTE' } : {};
+
+      if (tipo === 'operacion') {
+        await this.prismaThird.ordenes_servicio.update({
+          where: { id_orden_servicio: id },
+          data: { url: null, ...bajarEstado },
+        });
+      } else if (tipo === 'cotizacion') {
+        await this.prismaThird.ordenes_servicio.update({
+          where: { id_orden_servicio: id },
+          data: { url_cotizacion: null, ...bajarEstado },
+        });
+      } else if (tipo === 'factura') {
+        await this.prismaThird.ordenes_servicio.update({
+          where: { id_orden_servicio: id },
+          data: { url_factura: null, nro_factura: null, nro_serie: null, ...bajarEstado },
+        });
+      } else if (tipo === 'retencion') {
+        await this.prismaThird.ordenes_servicio.update({
+          where: { id_orden_servicio: id },
+          data: { url_comprobante_retencion: null, ...bajarEstado },
+        });
+      }
+
+      this.websocketGateway.emitOrdenServicioUpdate();
+
+      if (this.searchService) {
+        const indexData: Record<string, null | string> = {};
+        if (tipo === 'operacion') indexData['url'] = null;
+        else if (tipo === 'cotizacion') indexData['url_cotizacion'] = null;
+        else if (tipo === 'factura') { indexData['url_factura'] = null; indexData['nro_factura'] = null; }
+        else indexData['url_comprobante_retencion'] = null;
+        this.searchService.indexDoc('ordenes_servicio', id.toString(), indexData);
+      }
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al eliminar documento de orden de servicio:', error);
+      throw new BadRequestException(
+        `Error al eliminar documento: ${error.message}`,
+      );
+    }
+  }
+
   async findAllAdmin() {
     try {
       const ordenes = await this.prismaThird.ordenes_servicio.findMany({

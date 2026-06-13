@@ -187,6 +187,54 @@ export class OrdenCompraController {
     }
   }
 
+  @Patch(':id/remove-operacion')
+  @HttpCode(HttpStatus.OK)
+  async removeOperacion(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.removeDocumento(+id, 'operacion');
+      return { success: true, message: 'Operación eliminada exitosamente' };
+    } catch (error) {
+      console.error('Error eliminando operación de orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/remove-cotizacion')
+  @HttpCode(HttpStatus.OK)
+  async removeCotizacion(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.removeDocumento(+id, 'cotizacion');
+      return { success: true, message: 'Cotización eliminada exitosamente' };
+    } catch (error) {
+      console.error('Error eliminando cotización de orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/remove-factura')
+  @HttpCode(HttpStatus.OK)
+  async removeFactura(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.removeDocumento(+id, 'factura');
+      return { success: true, message: 'Factura eliminada exitosamente' };
+    } catch (error) {
+      console.error('Error eliminando factura de orden de compra:', error);
+      throw error;
+    }
+  }
+
+  @Patch(':id/remove-retencion')
+  @HttpCode(HttpStatus.OK)
+  async removeRetencion(@Param('id') id: string) {
+    try {
+      await this.ordenCompraService.removeDocumento(+id, 'retencion');
+      return { success: true, message: 'Comprobante de retención eliminado exitosamente' };
+    } catch (error) {
+      console.error('Error eliminando comprobante de retención de orden de compra:', error);
+      throw error;
+    }
+  }
+
   @Patch(':id/backend-logs')
   @HttpCode(HttpStatus.OK)
   async saveBackendLogs(@Param('id') id: string, @Body('logs') logs: string) {
