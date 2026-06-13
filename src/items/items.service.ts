@@ -5,6 +5,27 @@ import { PrismaThirdService } from '../prisma/prisma-third.service';
 export class ItemsService {
   constructor(private prismaThird: PrismaThirdService) {}
 
+  /**
+   * Corrige Mojibake: bytes UTF-8 almacenados en columna latin1.
+   * mysql2 los devuelve como si fueran latin1, cada byte se convierte
+   * en un char U+00xx. Esta función revierte eso decodificando como UTF-8.
+   */
+  private fixMojibake(str: string | null | undefined): string | null | undefined {
+    if (!str) return str;
+    try {
+      const bytes: number[] = [];
+      for (let i = 0; i < str.length; i++) {
+        const cp = str.charCodeAt(i);
+        if (cp > 0xFF) return str; // ya es unicode real, no mojibake
+        bytes.push(cp);
+      }
+      const decoded = Buffer.from(bytes).toString('utf8');
+      return decoded.includes('�') ? str : decoded;
+    } catch {
+      return str;
+    }
+  }
+
   async findAll() {
     const items = await this.prismaThird.listado_items_2025.findMany({
       where: {
@@ -25,17 +46,29 @@ export class ItemsService {
       },
     });
 
-    return items;
+    return items.map((item) => ({
+      ...item,
+      descripcion: this.fixMojibake(item.descripcion) ?? item.descripcion,
+      marca: this.fixMojibake(item.marca),
+      modelo: this.fixMojibake(item.modelo),
+    }));
   }
 
   async findOne(codigo: string) {
-    return this.prismaThird.listado_items_2025.findUnique({
+    const item = await this.prismaThird.listado_items_2025.findUnique({
       where: { codigo },
     });
+    if (!item) return null;
+    return {
+      ...item,
+      descripcion: this.fixMojibake(item.descripcion) ?? item.descripcion,
+      marca: this.fixMojibake(item.marca),
+      modelo: this.fixMojibake(item.modelo),
+    };
   }
 
   async search(query: string) {
-    return this.prismaThird.listado_items_2025.findMany({
+    const items = await this.prismaThird.listado_items_2025.findMany({
       where: {
         activo: true,
         OR: [
@@ -66,5 +99,12 @@ export class ItemsService {
       },
       take: 50,
     });
+
+    return items.map((item) => ({
+      ...item,
+      descripcion: this.fixMojibake(item.descripcion) ?? item.descripcion,
+      marca: this.fixMojibake(item.marca),
+      modelo: this.fixMojibake(item.modelo),
+    }));
   }
 }

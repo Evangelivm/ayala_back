@@ -220,6 +220,11 @@ export class FacturaDetectorService {
         errors.push('moneda debe ser 1 (PEN) o 2 (USD)');
       }
 
+      // 8b. Tipo de cambio obligatorio cuando moneda es USD
+      if (record.moneda === 2 && (!record.tipo_cambio || this.decimalToNumber(record.tipo_cambio) <= 0)) {
+        errors.push('tipo_cambio es requerido cuando la moneda es USD');
+      }
+
       // 9. Validar totales
       if (!record.total || record.total <= 0) {
         errors.push('total debe ser mayor a 0');
@@ -564,7 +569,7 @@ export class FacturaDetectorService {
         unidad_de_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
         codigo: item.codigo_item || undefined,
         codigo_producto_sunat: item.codigo_producto_sunat || undefined,
-        descripcion: item.descripcion_item,
+        descripcion: this.fixMojibake(item.descripcion_item) ?? item.descripcion_item,
         cantidad: this.decimalToNumber(item.cantidad),
         valor_unitario: this.decimalToNumber(item.valor_unitario),
         precio_unitario: this.decimalToNumber(item.precio_unitario),
@@ -659,6 +664,26 @@ export class FacturaDetectorService {
   private decimalToNumber(value: Decimal | number | null | undefined): number {
     if (value === null || value === undefined) return 0;
     return typeof value === 'number' ? value : parseFloat(value.toString());
+  }
+
+  /**
+   * Corrige Mojibake: bytes UTF-8 guardados en columna latin1.
+   * Revierte la decodificación incorrecta reinterpretando los bytes como UTF-8.
+   */
+  private fixMojibake(str: string | null | undefined): string | null | undefined {
+    if (!str) return str;
+    try {
+      const bytes: number[] = [];
+      for (let i = 0; i < str.length; i++) {
+        const cp = str.charCodeAt(i);
+        if (cp > 0xFF) return str;
+        bytes.push(cp);
+      }
+      const decoded = Buffer.from(bytes).toString('utf8');
+      return decoded.includes('�') ? str : decoded;
+    } catch {
+      return str;
+    }
   }
 
   /**
