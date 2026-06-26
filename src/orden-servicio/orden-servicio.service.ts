@@ -122,6 +122,7 @@ export class OrdenServicioService {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
+          multifactura_detalle: { select: { nro_serie: true, nro_factura: true } },
           usuarios: { select: { nombre: true } },
         },
       });
@@ -165,6 +166,10 @@ export class OrdenServicioService {
           tipo_unidad: camion?.tipo || null,
           nombre_chofer: camion?.nombre_chofer || null,
           apellido_chofer: camion?.apellido_chofer || null,
+          multifacturas_nros: ((orden as any).multifactura_detalle || [])
+            .map((m: any) => [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '))
+            .filter(Boolean)
+            .join(', ') || null,
         };
       });
     } catch (error) {
@@ -1776,6 +1781,7 @@ export class OrdenServicioService {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
+          multifactura_detalle: { select: { nro_serie: true, nro_factura: true } },
         },
       });
 
@@ -1817,6 +1823,10 @@ export class OrdenServicioService {
           tipo_unidad: camion?.tipo || null,
           nombre_chofer: camion?.nombre_chofer || null,
           apellido_chofer: camion?.apellido_chofer || null,
+          multifacturas_nros: ((orden as any).multifactura_detalle || [])
+            .map((m: any) => [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '))
+            .filter(Boolean)
+            .join(', ') || null,
         };
       });
     } catch (error) {
