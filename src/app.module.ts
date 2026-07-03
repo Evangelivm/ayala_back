@@ -44,6 +44,7 @@ import { LocksModule } from './locks/locks.module';
 import { SearchModule } from './search/search.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { OpcionesProgramacionModule } from './opciones-programacion/opciones-programacion.module';
 
 @Module({
   imports: [
@@ -92,6 +93,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
     SearchModule,
     AuthModule,
     UsuariosModule,
+    OpcionesProgramacionModule,
   ],
   controllers: [AppController, AdminLogsController],
   providers: [AppService],

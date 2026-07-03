@@ -1252,6 +1252,12 @@ model tipo_programacion {
   estado String? @db.VarChar(45)
 }
 
+model opciones_programacion {
+  id         Int      @id @default(autoincrement())
+  nombre     String   @db.VarChar(100)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+}
+
 model tipo_transporte {
   id              Int     @id @default(autoincrement())
   tipo_transporte String? @db.VarChar(255)
