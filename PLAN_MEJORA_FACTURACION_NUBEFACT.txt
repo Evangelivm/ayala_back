@@ -1,0 +1,255 @@
+================================================================================
+PLAN DE EVOLUCION: PROCESO DE FACTURACION ELECTRONICA (NUBEFACT)
+================================================================================
+Fecha de elaboracion: 2026-07-17
+Alcance: modulo src/factura/* (backend) y app/factura/page.tsx (frontend)
+Fuera de alcance: GRE, Guias de Remision, Flink (evaluado y descartado para
+                  este problema puntual)
+
+--------------------------------------------------------------------------------
+1. RESUMEN EJECUTIVO
+--------------------------------------------------------------------------------
+
+El problema reportado ("el sistema demora y a veces no se sabe por que falla")
+NO es un problema de volumen ni de procesamiento paralelo. Es la combinacion
+de 5 fallas concretas de diseno, encontradas revisando el codigo real:
+
+ 1. POST /facturas llama a Nubefact de forma SINCRONA dentro del mismo
+    request HTTP (timeout de hasta 30s), bloqueando al usuario.
+ 2. El lock distribuido de creacion (por serie) se mantiene activo durante
+    toda esa espera, serializando la creacion de facturas de la misma serie.
+ 3. Existen DOS implementaciones paralelas para el mismo trabajo: el pipeline
+    Kafka (correcto, pero nunca invocado) y el detector/cron directo (el que
+    realmente corre, pero incompleto).
+ 4. El camino que realmente corre marca una factura como COMPLETADO sin
+    verificar que los enlaces (PDF/XML/CDR) hayan llegado.
+ 5. El error real de Nubefact/SUNAT se guarda como JSON crudo, visible solo
+    entrando a "Ver Detalles" - no hay mensaje claro para el usuario.
+
+Este plan corrige las 5 causas, en fases pequenas y verificables, sin parar
+la operacion (cada fase es reversible y no requiere infraestructura nueva:
+se reutiliza el Kafka y el WebSocket que ya existen).
+
+--------------------------------------------------------------------------------
+2. ARQUITECTURA OBJETIVO (resumen)
+--------------------------------------------------------------------------------
+
+ANTES (actual, real):
+  Frontend --POST--> Controller --await-- Detector --await-- Nubefact
+                         |                                       |
+                    (bloqueado hasta 30s)                (sin validar enlaces)
+                         |
+                    Kafka Producer/Consumer/Polling  <-- código muerto,
+                                                          nadie lo invoca
+
+DESPUES (objetivo):
+  Frontend --POST--> Controller --crea registro (rapido)--> responde 202
+                         |
+                         +--> Kafka topic factura-requests (unico productor)
+                                        |
+                              Consumer (unico consumidor real)
+                                 |-> llama Nubefact
+                                 |-> valida enlaces completos
+                                 |-> si falta info -> Polling persistido en BD
+                                 |-> clasifica error -> mensaje humano
+                                 |-> emite WebSocket -> frontend actualiza
+                                        |
+  Cron Detector = SOLO red de seguridad: reencola (a Kafka) facturas
+                  que quedaron en NULL/PENDIENTE mas de N minutos
+                  (ej. porque Kafka estuvo caido). Ya NO llama a Nubefact
+                  directamente.
+
+Con esto queda UN solo camino end-to-end, el request HTTP no espera a
+Nubefact, y el lock solo protege la escritura en BD (milisegundos).
+
+--------------------------------------------------------------------------------
+3. FASES DEL PLAN
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FASE 0 - Instrumentacion previa (medio dia)
+--------------------------------------------------------------------------------
+Objetivo: tener metricas ANTES de cambiar nada, para poder comparar.
+
+Acciones:
+ - Loggear (Winston, ya existe) tiempo total de POST /facturas end-to-end.
+ - Loggear tiempo de respuesta de cada llamada a Nubefact
+   (generar_comprobante y consultar_comprobante).
+ - Contar cuantas facturas terminan en COMPLETADO con enlace_del_pdf o
+   enlace_del_xml nulos (query directa a BD) - esto cuantifica el bug #4.
+ - Contar cuantas facturas quedan mas de 2 minutos en PROCESANDO.
+
+Archivos: factura-crud.controller.ts, factura-detector.service.ts
+Criterio de exito: reporte con numeros base (P50/P95 de tiempo de creacion,
+% de facturas con enlaces incompletos, promedio de reintentos).
+
+--------------------------------------------------------------------------------
+FASE 1 - Dejar de bloquear el request HTTP (alto impacto, bajo riesgo)
+--------------------------------------------------------------------------------
+Objetivo: que POST /facturas responda en milisegundos, no en segundos.
+
+Cambios:
+ - factura-crud.controller.ts (metodo create): quitar el
+   `await this.facturaDetector.forceDetection(...)` de dentro del request.
+ - En su lugar, tras crear el registro en BD, publicar a Kafka
+   (facturaProducer.sendFacturaRequest) y responder de inmediato con el
+   registro en estado PENDIENTE/NULL.
+ - El frontend ya esta preparado para esto (factura/page.tsx ya tiene
+   manejo de "facturaEstadoInicial" no completado + polling de respaldo +
+   WebSocket "facturaUpdated"): no requiere cambios grandes, solo confirmar
+   que siempre entra por la rama de "no completado todavia".
+
+Criterio de exito: P95 de POST /facturas baja de ~varios segundos a
+< 300ms. La factura sigue procesandose y se ve completada por WebSocket
+segundos despues, sin que el usuario espere el modal abierto.
+
+Riesgo: bajo. Es reversible (volver al await) si algo no cuadra.
+
+--------------------------------------------------------------------------------
+FASE 2 - Achicar el alcance del lock distribuido (alto impacto, bajo riesgo)
+--------------------------------------------------------------------------------
+Objetivo: que el lock de "no duplicar numero de serie" no dependa de cuanto
+tarde Nubefact.
+
+Cambios:
+ - factura/page.tsx: el `withLock(LockResource.facturaCreate(serie), ...)`
+   debe envolver SOLO la llamada a `facturaApi.create()` (que tras la Fase 1
+   ya sera rapida), nunca una espera de Nubefact.
+ - Como consecuencia directa de la Fase 1, esto se resuelve casi solo: al
+   quitar la espera sincrona del backend, el lock se libera en milisegundos.
+ - Verificar el TTL del lock (30s) sigue siendo prudente como margen de
+   seguridad, pero ya no sera el camino critico.
+
+Criterio de exito: crear 5 facturas seguidas de la misma serie no debe
+tardar mas que crear 1 sola (hoy se serializan hasta 30s cada una).
+
+--------------------------------------------------------------------------------
+FASE 3 - Un solo camino de procesamiento (impacto alto, riesgo medio)
+--------------------------------------------------------------------------------
+Objetivo: eliminar la duplicidad Kafka (correcto pero muerto) vs.
+Detector directo (vivo pero incompleto).
+
+Decision: usar Kafka como camino principal, porque:
+ - La infraestructura ya esta corriendo (se usa para GRE).
+ - Ya tiene la logica correcta de validacion de enlaces y polling
+   (FacturaPollingService), solo estaba desconectada.
+ - Da durabilidad real: si el servidor se cae a mitad de proceso, el
+   mensaje sigue en el topico y se puede reprocesar (un cron directo no
+   tiene esa garantia).
+
+Cambios:
+ - factura-crud.controller.ts: reemplazar la llamada a
+   `facturaDetector.forceDetection()` por
+   `facturaProducer.sendFacturaRequest(id_factura, nubefactData)`.
+ - FacturaConsumerService pasa a ser el UNICO lugar que llama a
+   `generar_comprobante`.
+ - FacturaDetectorService cambia de rol: dejar de llamar a Nubefact
+   directamente. Su cron (cada 30s o 2-3 min, evaluar) solo debe:
+     a) detectar facturas en NULL que nunca se publicaron a Kafka
+        (por caida de Kafka, etc.) y publicarlas (no llamarlas).
+     b) detectar facturas en PROCESANDO estancadas mas de X minutos sin
+        polling activo (huerfanas) y reencolarlas.
+ - Retirar (o dejar documentado como deprecated) el codigo que hoy hace
+   el llamado directo en `processCompleteRecord`.
+
+Criterio de exito: `grep` de llamadas directas a
+`callNubefactGenerarComprobante` fuera de FacturaConsumerService devuelve
+0 resultados. Todas las facturas pasan por el consumer.
+
+Riesgo: medio - es el cambio de mayor superficie. Mitigacion: hacerlo
+detras de una bandera de entorno (ej. `FACTURA_USAR_KAFKA=true`) y
+correrlo en paralelo con logs comparativos antes de retirar el codigo viejo.
+
+--------------------------------------------------------------------------------
+FASE 4 - Corregir el bug de "COMPLETADO sin enlaces" (alto impacto, bajo riesgo)
+--------------------------------------------------------------------------------
+Objetivo: nunca marcar una factura como COMPLETADO si faltan PDF/XML/CDR.
+
+Cambios:
+ - Si la Fase 3 ya esta hecha, este problema se resuelve solo (el consumer
+   real ya usa `hasValidLinks()` antes de marcar COMPLETADO).
+ - Si se decide NO hacer la Fase 3 todavia, aplicar el mismo chequeo
+   `hasValidLinks()` dentro de `processCompleteRecord()` en
+   factura-detector.service.ts como parche minimo independiente.
+ - Ademas: persistir el estado de polling en la tabla `factura` (no solo
+   en memoria del proceso) agregando columnas:
+     - `polling_intentos` (int, default 0)
+     - `polling_proximo_intento` (datetime, nullable)
+   Esto permite que si el servidor se reinicia a mitad de un polling, se
+   recupere el conteo real de intentos en vez de reiniciar desde 0
+   (hoy `recoverPendingPollings()` reconstruye el polling pero pierde
+   el progreso previo).
+
+Criterio de exito: query de "facturas COMPLETADO con enlace_del_pdf nulo"
+(la metrica base de la Fase 0) da 0 desde el deploy en adelante.
+
+--------------------------------------------------------------------------------
+FASE 5 - Errores claros para el usuario (impacto alto, bajo riesgo)
+--------------------------------------------------------------------------------
+Objetivo: que "por que fallo" se entienda sin abrir "Ver Detalles" ni logs.
+
+Cambios:
+ - Crear un mapeo de errores conocidos -> mensaje humano, por ejemplo:
+     - timeout de axios -> "Nubefact no respondio a tiempo, se reintentara
+       automaticamente"
+     - `aceptada_por_sunat=false` -> mostrar `sunat_description` tal cual
+       (ya es humano, viene de SUNAT) de forma destacada, no solo en modal
+     - error 4xx de validacion Nubefact -> mostrar el campo especifico que
+       fallo (`error.response.data`)
+     - error de red/conexion -> "No se pudo contactar a Nubefact, revisar
+       conectividad"
+ - Guardar este mensaje clasificado en un campo nuevo `error_mensaje`
+   (ademas del crudo `sunat_soap_error`, que se mantiene para debug).
+ - Frontend (factura/page.tsx): mostrar `error_mensaje` como badge/tooltip
+   directamente en la fila de la tabla para estado FALLADO, sin requerir
+   abrir el modal de detalles.
+ - Eliminar el parche actual de "esperar 3s y adivinar si en realidad si
+   funciono" (linea ~1359-1378 de factura/page.tsx) - ya no hace falta
+   una vez que la Fase 1 elimina la ambiguedad de timeout en el propio
+   POST.
+
+Criterio de exito: un usuario que ve una factura FALLADA entiende la causa
+sin pedir ayuda a soporte/backend.
+
+--------------------------------------------------------------------------------
+FASE 6 - Verificacion y cierre (medio dia)
+--------------------------------------------------------------------------------
+ - Repetir las mediciones de la Fase 0 y comparar antes/despues.
+ - Correr la coleccion Postman E2E existente (postman/) contra el flujo
+   completo.
+ - Prueba manual: crear 5 facturas seguidas de la misma serie y confirmar
+   que no se serializan.
+ - Prueba manual: forzar un error de Nubefact (dato invalido) y confirmar
+   que el mensaje mostrado es claro.
+ - Actualizar README.md de src/factura/ (esta desactualizado respecto al
+   flujo real) para que refleje la arquitectura final.
+
+--------------------------------------------------------------------------------
+4. RESUMEN DE PRIORIDAD / ESFUERZO
+--------------------------------------------------------------------------------
+
+ Fase                                   Impacto   Esfuerzo   Riesgo
+ ------------------------------------   -------   --------   ------
+ 0. Instrumentacion                     -         0.5 dia    ninguno
+ 1. Quitar await sincrono               ALTO      0.5 dia    bajo
+ 2. Achicar alcance del lock            ALTO      0.5 dia    bajo
+ 3. Unificar en Kafka                   ALTO      2-3 dias   medio
+ 4. Fix bug enlaces + polling en BD     ALTO      1 dia      bajo
+ 5. Errores claros al usuario           ALTO      1 dia      bajo
+ 6. Verificacion y cierre               -         0.5 dia    -
+
+Total estimado: ~6-7 dias de desarrollo (1 persona), en fases
+independientes y desplegables por separado.
+
+--------------------------------------------------------------------------------
+5. FUERA DE ALCANCE (explicitamente descartado en esta ronda)
+--------------------------------------------------------------------------------
+
+ - Apache Flink: evaluado, descartado. El cuello de botella no es de
+   computo/paralelismo, por lo que no resuelve ninguno de los 5 problemas
+   listados.
+ - Migracion Kafka -> Pulsar: no relacionado con este problema, no se toca.
+ - Webhook de Nubefact: pendiente de investigar si el proveedor lo ofrece
+   (eliminaria el polling por completo). Se deja como mejora futura, a
+   evaluar con soporte de Nubefact, fuera de este plan.
+================================================================================

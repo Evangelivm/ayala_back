@@ -108,6 +108,7 @@ model detalles_orden_compra {
   subtotal            Decimal            @db.Decimal(10, 2)
   centro_costo        String?            @db.VarChar(255)
   prorrateo           Decimal?           @db.Decimal(5, 2)
+  id_camion           Int?
   ordenes_compra      ordenes_compra     @relation(fields: [id_orden_compra], references: [id_orden_compra], onDelete: Cascade, onUpdate: NoAction, map: "detalles_orden_compra_ibfk_1")
   listado_items_2025  listado_items_2025 @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "detalles_orden_compra_ibfk_2")
 
@@ -325,6 +326,7 @@ model ordenes_compra {
   backend_logs                String?                      @db.LongText
   editado_por                 Int?
   fecha_edicion               DateTime?                    @db.Timestamp(0)
+  formato_pdf_version         Int                          @default(1)
   detalles_orden_compra       detalles_orden_compra[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
@@ -539,6 +541,7 @@ model ordenes_servicio {
   backend_logs                String?                        @db.LongText
   editado_por                 Int?
   fecha_edicion               DateTime?                      @db.Timestamp(0)
+  formato_pdf_version         Int                            @default(1)
   detalles_orden_servicio     detalles_orden_servicio[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
@@ -578,6 +581,7 @@ model detalles_orden_servicio {
   subtotal            Decimal            @db.Decimal(10, 2)
   centro_costo        String?            @db.VarChar(255)
   prorrateo           Decimal?           @db.Decimal(5, 2)
+  id_camion           Int?
   ordenes_compra      ordenes_servicio   @relation(fields: [id_orden_servicio], references: [id_orden_servicio], onDelete: Cascade, onUpdate: NoAction, map: "detalles_orden_servicio_ibfk_1")
   listado_items_2025  listado_items_2025 @relation(fields: [codigo_item], references: [codigo], onDelete: NoAction, onUpdate: NoAction, map: "detalles_orden_servicio_ibfk_2")
 

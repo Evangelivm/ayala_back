@@ -27,6 +27,19 @@ export class GreExtendidoConsumerService {
     this.logger.log('GreExtendidoConsumerService initialized');
   }
 
+  /**
+   * Extrae un mensaje de error legible para mostrar en el frontend, a partir
+   * del error crudo de Nubefact/SUNAT (que trae distintas formas según el punto de falla).
+   */
+  private extraerMensajeError(error: any): string {
+    if (!error) return 'Error desconocido';
+    if (typeof error === 'string') return error;
+    // Forma típica de Nubefact: { message, status, data: { errors, codigo } }
+    const desdeData = error.data?.errors || error.data?.error;
+    if (typeof desdeData === 'string') return desdeData;
+    return error.message || error.error || 'Error desconocido';
+  }
+
   @MessagePattern('gre-extendido-requests')
   async handleGreRequest(
     @Payload() message: any,
@@ -64,10 +77,10 @@ export class GreExtendidoConsumerService {
         return;
       }
 
-      // Actualizar estado a PROCESANDO
+      // Actualizar estado a PROCESANDO (limpiando el error de un intento anterior, si lo hubo)
       await this.prismaService.guia_remision_extendida.update({
         where: { id_guia: parseInt(recordId) },
-        data: { estado_gre: 'PROCESANDO' },
+        data: { estado_gre: 'PROCESANDO', ultimo_error: null },
       });
 
       // Llamar API generar_guia de NUBEFACT
@@ -97,10 +110,13 @@ export class GreExtendidoConsumerService {
           nubefactResponse.error,
         );
 
-        // Actualizar a FALLADO
+        // Actualizar a FALLADO, guardando el motivo para que se pueda ver en el frontend
         await this.prismaService.guia_remision_extendida.update({
           where: { id_guia: parseInt(recordId) },
-          data: { estado_gre: 'FALLADO' },
+          data: {
+            estado_gre: 'FALLADO',
+            ultimo_error: this.extraerMensajeError(nubefactResponse.error),
+          },
         });
 
         // Enviar a topic failed
@@ -118,7 +134,10 @@ export class GreExtendidoConsumerService {
         if (message?.recordId) {
           await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: parseInt(message.recordId) },
-            data: { estado_gre: 'FALLADO' },
+            data: {
+              estado_gre: 'FALLADO',
+              ultimo_error: this.extraerMensajeError(error),
+            },
           });
         }
       } catch (updateError) {
@@ -249,10 +268,13 @@ export class GreExtendidoConsumerService {
           error,
         );
 
-        // Actualizar a FALLADO
+        // Actualizar a FALLADO, guardando el motivo (incluye rechazos de SUNAT detectados por polling)
         await this.prismaService.guia_remision_extendida.update({
           where: { id_guia: parseInt(recordId) },
-          data: { estado_gre: 'FALLADO' },
+          data: {
+            estado_gre: 'FALLADO',
+            ultimo_error: this.extraerMensajeError(error),
+          },
         });
 
         // Detener polling
@@ -367,7 +389,7 @@ export class GreExtendidoConsumerService {
         try {
           await this.prismaService.guia_remision_extendida.update({
             where: { id_guia: record.id_guia },
-            data: { estado_gre: null },
+            data: { estado_gre: null, ultimo_error: null },
           });
 
           this.logger.log(

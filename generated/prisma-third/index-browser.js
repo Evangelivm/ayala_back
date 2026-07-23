@@ -186,7 +186,8 @@ exports.Prisma.Detalles_orden_compraScalarFieldEnum = {
   precio_unitario: 'precio_unitario',
   subtotal: 'subtotal',
   centro_costo: 'centro_costo',
-  prorrateo: 'prorrateo'
+  prorrateo: 'prorrateo',
+  id_camion: 'id_camion'
 };
 
 exports.Prisma.Detalles_recepcion_compraScalarFieldEnum = {
@@ -351,7 +352,8 @@ exports.Prisma.Ordenes_compraScalarFieldEnum = {
   deleted_at: 'deleted_at',
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
-  fecha_edicion: 'fecha_edicion'
+  fecha_edicion: 'fecha_edicion',
+  formato_pdf_version: 'formato_pdf_version'
 };
 
 exports.Prisma.Permisos_reportesScalarFieldEnum = {
@@ -501,7 +503,8 @@ exports.Prisma.Ordenes_servicioScalarFieldEnum = {
   deleted_at: 'deleted_at',
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
-  fecha_edicion: 'fecha_edicion'
+  fecha_edicion: 'fecha_edicion',
+  formato_pdf_version: 'formato_pdf_version'
 };
 
 exports.Prisma.Tipo_cambioScalarFieldEnum = {
@@ -530,7 +533,8 @@ exports.Prisma.Detalles_orden_servicioScalarFieldEnum = {
   precio_unitario: 'precio_unitario',
   subtotal: 'subtotal',
   centro_costo: 'centro_costo',
-  prorrateo: 'prorrateo'
+  prorrateo: 'prorrateo',
+  id_camion: 'id_camion'
 };
 
 exports.Prisma.Email_notificationsScalarFieldEnum = {

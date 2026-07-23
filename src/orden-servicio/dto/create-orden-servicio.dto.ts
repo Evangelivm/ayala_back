@@ -22,6 +22,7 @@ export const CreateDetalleOrdenServicioSchema = z
     subtotal: z.number().nonnegative('El subtotal no puede ser negativo'),
     centro_costo: z.string().optional(),
     prorrateo: z.number().min(0).max(100).optional(),
+    unidad_id: z.union([z.number().int().positive(), z.null()]).optional(),
   })
   .strip(); // Ignorar campos adicionales que no están en el schema
 

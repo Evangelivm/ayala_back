@@ -97,6 +97,58 @@ export class GreExtendidoCrudController {
   }
 
   /**
+   * Obtener guías para múltiples identificadores únicos en una sola consulta
+   * (evita disparar un request HTTP por cada fila cuando se refresca una tabla completa)
+   */
+  @Post('by-identificadores')
+  async getByIdentificadores(@Body('identificadores') identificadores: string[]) {
+    try {
+      if (!Array.isArray(identificadores) || identificadores.length === 0) {
+        return {};
+      }
+
+      const guias = await this.prismaService.guia_remision_extendida.findMany({
+        where: {
+          identificador_unico: { in: identificadores },
+        },
+        select: {
+          id_guia: true,
+          serie: true,
+          numero: true,
+          enlace_del_pdf: true,
+          enlace_del_xml: true,
+          enlace_del_cdr: true,
+          created_at: true,
+          estado_gre: true,
+          ultimo_error: true,
+          identificador_unico: true,
+        },
+        orderBy: {
+          numero: 'asc',
+        },
+      });
+
+      const agrupadas: Record<string, typeof guias> = {};
+      for (const guia of guias) {
+        const key = guia.identificador_unico as string;
+        if (!agrupadas[key]) agrupadas[key] = [];
+        agrupadas[key].push(guia);
+      }
+
+      return agrupadas;
+    } catch (error) {
+      this.logger.error(
+        'Error obteniendo guías por múltiples identificadores:',
+        error,
+      );
+      throw new HttpException(
+        'Error obteniendo guías extendidas por identificadores',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
    * Obtener guías por identificador único (para mostrar todas las duplicaciones de un registro)
    */
   @Get('by-identificador/:identificador')
@@ -116,6 +168,7 @@ export class GreExtendidoCrudController {
           enlace_del_cdr: true,
           created_at: true,
           estado_gre: true,
+          ultimo_error: true,
         },
         orderBy: {
           numero: 'asc', // Ordenar por número de guía
@@ -789,6 +842,89 @@ export class GreExtendidoCrudController {
       }
       throw new HttpException(
         'Error al generar el archivo ZIP',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Descargar PDF + XML + CDR de UNA guía extendida puntual como ZIP
+   * Actúa como proxy para evitar problemas de CORS
+   */
+  @Post('descargar-zip-guia/:id_guia')
+  async descargarZipGuia(
+    @Param('id_guia') id_guia: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const guiaId = parseInt(id_guia);
+
+      const guia = await this.prismaService.guia_remision_extendida.findUnique({
+        where: { id_guia: guiaId },
+        select: {
+          id_guia: true,
+          serie: true,
+          numero: true,
+          enlace_del_pdf: true,
+          enlace_del_xml: true,
+          enlace_del_cdr: true,
+        },
+      });
+
+      if (!guia) {
+        throw new HttpException(
+          'Guía extendida no encontrada',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      if (!guia.enlace_del_pdf || !guia.enlace_del_xml || !guia.enlace_del_cdr) {
+        throw new HttpException(
+          'Esta guía no tiene todos los archivos disponibles todavía',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const nombreGuia = `${guia.serie}-${String(guia.numero).padStart(4, '0')}`;
+
+      this.logger.log(`📦 Generando ZIP puntual para guía ${nombreGuia}`);
+
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="guia_${nombreGuia}.zip"`,
+      );
+
+      const archive = archiver('zip', {
+        zlib: { level: 9 },
+      });
+
+      archive.on('error', (err) => {
+        this.logger.error('Error creando ZIP de guía:', err);
+        throw err;
+      });
+
+      archive.pipe(res);
+
+      const [pdfResponse, xmlResponse, cdrResponse] = await Promise.all([
+        axios.get(guia.enlace_del_pdf, { responseType: 'arraybuffer' }),
+        axios.get(guia.enlace_del_xml, { responseType: 'arraybuffer' }),
+        axios.get(guia.enlace_del_cdr, { responseType: 'arraybuffer' }),
+      ]);
+
+      archive.append(Buffer.from(pdfResponse.data), { name: `${nombreGuia}.pdf` });
+      archive.append(Buffer.from(xmlResponse.data), { name: `${nombreGuia}.xml` });
+      archive.append(Buffer.from(cdrResponse.data), { name: `${nombreGuia}_CDR.zip` });
+
+      await archive.finalize();
+      this.logger.log(`✅ ZIP de guía ${nombreGuia} generado exitosamente`);
+    } catch (error) {
+      this.logger.error('Error generando ZIP de guía:', error);
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Error al generar el archivo ZIP de la guía',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

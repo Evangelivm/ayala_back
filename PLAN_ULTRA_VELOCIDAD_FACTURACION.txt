@@ -1,0 +1,295 @@
+================================================================================
+PLAN DE ULTRA-VELOCIDAD Y PRECISION: FACTURACION ELECTRONICA (NUBEFACT)
+================================================================================
+Fecha de elaboracion: 2026-07-17
+Requisito previo: haber aplicado (al menos) las Fases 1-4 de
+PLAN_MEJORA_FACTURACION_NUBEFACT.txt. Optimizar velocidad sobre un flujo
+que todavia bloquea el request o duplica logica solo hace que los bugs
+ocurran mas rapido, no los arregla.
+
+--------------------------------------------------------------------------------
+0. ADVERTENCIA HONESTA - QUE SI Y QUE NO PUEDE SER "MICROSEGUNDOS"
+--------------------------------------------------------------------------------
+
+Este flujo tiene DOS tipos de tramos, con fisica distinta:
+
+ A) Tramos INTERNOS (nuestro backend, nuestra BD, nuestro cache, nuestro
+    WebSocket). Aqui SI es realista hablar de microsegundos / bajos
+    milisegundos, porque todo corre en la misma red local / mismo proceso.
+
+ B) El tramo EXTERNO: llamar a la API de Nubefact, y la confirmacion de
+    SUNAT detras de ella. Esto es una llamada HTTPS a un tercero fuera de
+    nuestra infraestructura. Tiene un piso fisico real de red + procesamiento
+    del lado de ellos que hoy en el mercado son, en el mejor de los casos,
+    decenas de milisegundos, y en el caso de SUNAT (validacion async del
+    comprobante), puede ser segundos o minutos. Ningun cambio de
+    arquitectura de nuestro lado baja ese numero. Prometer "microsegundos"
+    ahi seria enganar al usuario del sistema.
+
+Por eso el objetivo real de este plan es:
+ 1. Que TODO lo que depende de nosotros (crear el registro, mostrar la
+    lista, buscar, ver el estado, notificar el cambio) corra en
+    microsegundos/bajos milisegundos.
+ 2. Que la espera de Nubefact/SUNAT sea invisible para el usuario (no
+    bloquea nada, se percibe como "instantaneo" aunque el trabajo real siga
+    en curso atras, con feedback optimista y notificacion push cuando
+    termina).
+ 3. Que sea precisa: cero facturas duplicadas, cero estados inconsistentes,
+    y que cualquier discrepancia entre lo que decimos localmente y lo que
+    confirma SUNAT se detecte sola.
+
+--------------------------------------------------------------------------------
+1. MAPA DE LATENCIA POR TRAMO (objetivo realista)
+--------------------------------------------------------------------------------
+
+ Operacion                                Hoy (aprox)     Objetivo
+ ---------------------------------------  --------------  --------------------
+ POST /facturas (crear registro)          2-30s           < 5 ms  (p99)
+ GET /facturas (listado)                  100-500ms       < 1 ms  (cache hit)
+ GET /facturas/:id                        50-100ms        < 1 ms  (cache hit)
+ GET /factura/stats (dashboard)           300-1000ms      < 1 ms  (precalculado)
+ Busqueda por serie/cliente/RUC           200ms+          5-15 ms (Elasticsearch)
+ Notificacion de cambio de estado (WS)    variable        < 10 ms desde que
+                                                            el consumer termina
+ Llamada real a Nubefact (generar)        1-5s (o mas)    sin cambio posible
+                                                            (tramo externo)
+ Confirmacion SUNAT (via Nubefact)        segundos-horas  sin cambio posible
+                                                            (tramo externo,
+                                                            depende de SUNAT)
+
+La fila clave es la primera: hoy el usuario percibe "2-30s" porque ESO es
+lo que bloquea. Tras este plan, percibe "< 5ms" porque ve su factura
+creada al instante (estado PENDIENTE) y la notificacion de completado le
+llega despues, sin que haya tenido que esperar mirando una pantalla.
+
+--------------------------------------------------------------------------------
+2. FASES
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FASE A - Cache de lectura real con Redis (nueva infraestructura)
+--------------------------------------------------------------------------------
+Nota: hoy NO existe Redis en el proyecto (no esta en package.json ni hay
+RedisService). El documento antiguo flink/RESUMEN_VELOCIDAD.txt lo daba
+por hecho ("ya estan corriendo") pero no es asi: hay que instalarlo.
+
+Objetivo: que toda lectura repetida (listado, detalle, stats) se sirva
+desde memoria, no desde MySQL.
+
+Acciones:
+ - Agregar `ioredis` y un `RedisService` (@Global, mismo patron que
+   PrismaModule).
+ - Cachear:
+     - `GET /facturas/:id`        -> key `factura:{id}`           TTL 60s
+     - `GET /facturas` (listado)  -> key `facturas:list:{filtros}` TTL 15s
+     - `GET /factura/stats`       -> key `factura:stats`           TTL 10s
+ - Invalidacion: al crear/actualizar una factura o al recibir el evento
+   de "COMPLETADO/FALLADO" en el consumer, borrar (`DEL`) las keys
+   afectadas en vez de esperar a que expire el TTL. Esto evita servir
+   datos viejos (precision).
+ - Los `stats` del dashboard, en vez de recalcularse en cada GET,
+   se actualizan de forma incremental (INCR/HINCRBY en Redis) cada vez
+   que una factura cambia de estado, disparado desde el mismo lugar que
+   ya emite el WebSocket.
+
+Criterio de exito: `GET /facturas` con cache hit responde en < 1ms medido
+con `console.time`/APM; cache hit ratio > 90% en horario laboral.
+
+--------------------------------------------------------------------------------
+FASE B - Escritura optimizada en BD (sin infraestructura nueva)
+--------------------------------------------------------------------------------
+Objetivo: que crear el registro (lo unico que debe bloquear el request)
+sea lo mas rapido posible.
+
+Acciones:
+ - factura-crud.controller.ts (create): los items/guias/cuotas hoy se
+   insertan con `Promise.all(map(... tx.create ...))` (N queries
+   individuales dentro de la transaccion). Cambiar a `createMany` de
+   Prisma (una sola query por tabla) cuando no se necesite el ID de
+   retorno de cada fila.
+ - Confirmar que los indices ya documentados en README.md
+   (idx_estado_factura, idx_estado_created, idx_proveedor_fecha) existen
+   realmente en la BD (verificar con `SHOW INDEX FROM factura` o
+   `prisma db pull` y comparar con schema.prisma) - un indice
+   "documentado" no siempre esta aplicado.
+ - Mover el `findUnique` de validacion de serie/numero duplicado a un
+   constraint UNIQUE de BD (aparenta existir - `serie_numero` - confirmar
+   que el error de violacion se capture y traduzca a 400, en vez de
+   depender solo del `findUnique` previo, que tiene una ventana de
+   condicion de carrera entre el check y el insert).
+
+Criterio de exito: insercion de una factura con 10 items baja de N+1
+queries a 2-3 queries totales dentro de la transaccion.
+
+--------------------------------------------------------------------------------
+FASE C - WebSocket de baja latencia y bajo overhead
+--------------------------------------------------------------------------------
+Objetivo: que la notificacion de "tu factura ya esta lista" llegue al
+frontend en milisegundos y sin trabajo extra de red.
+
+Acciones:
+ - Confirmar que `emitFacturaUpdate` manda solo el diff (id, estado,
+   enlaces) y no el objeto completo con todas las relaciones - ya es asi
+   hoy, mantenerlo.
+ - Frontend: dejar de hacer `loadFacturas()` (recarga TODA la lista via
+   HTTP) cada vez que llega un evento WebSocket. En su lugar, actualizar
+   solo la fila afectada en el estado local de React con el payload que
+   ya trae el evento. Esto elimina un round-trip HTTP completo por cada
+   notificacion.
+ - Namespace/room dedicado por sesion de "vista de facturas" en el
+   WebSocket Gateway para no rebroadcastear a clientes que no estan
+   mirando esa pantalla.
+
+Criterio de exito: al completarse una factura, la fila de la tabla se
+actualiza sin ver ninguna llamada nueva a `GET /facturas` en la pestana
+de Network del navegador.
+
+--------------------------------------------------------------------------------
+FASE D - Reducir overhead de la llamada externa (lo unico que SI podemos
+          afectar del tramo B)
+--------------------------------------------------------------------------------
+Objetivo: no eliminar la latencia de red de Nubefact (imposible), pero si
+eliminar el overhead que nosotros mismos le agregamos encima.
+
+Acciones:
+ - Usar una instancia de axios con `httpAgent`/`httpsAgent` con
+   `keepAlive: true` y `maxSockets` configurado, reutilizada como
+   singleton (hoy cada llamada crea conexion nueva). Esto evita repetir
+   el handshake TCP/TLS en cada request a Nubefact, que puede representar
+   100-300ms de los cuales hoy se pagan en cada llamada.
+ - Reducir el timeout de 30s a algo mas realista para el caso feliz
+   (ej. 8-10s) con reintento inmediato en vez de esperar el timeout
+   completo cuando Nubefact esta respondiendo lento mas no caido.
+ - Procesar facturas en paralelo (varios consumers/particiones de Kafka,
+   ver Fase E) en vez de una por una - la latencia por factura no baja,
+   pero el throughput del sistema si sube notablemente.
+
+Criterio de exito: tiempo de conexion (no de respuesta) a Nubefact medido
+por separado del tiempo de respuesta baja a ~0 despues de la primera
+llamada (por reuso de socket).
+
+--------------------------------------------------------------------------------
+FASE E - Concurrencia real en el consumo de Kafka
+--------------------------------------------------------------------------------
+Objetivo: procesar varias facturas en paralelo sin perder el orden donde
+importa (misma factura = mismo orden).
+
+Acciones:
+ - Usar la `key` del mensaje Kafka = `id_factura` (ya se hace) para
+   garantizar que los mensajes de UNA factura se procesan en orden, pero
+   permitir que facturas DISTINTAS se procesen en paralelo aumentando
+   particiones del topico `factura-requests` (hoy Kafka las crea con
+   `numPartitions: 3` para topicos GRE - revisar y ajustar para
+   facturas) y el `concurrency` del consumer group.
+ - Evitar que el polling (setTimeout en memoria) compita por CPU/event
+   loop con las llamadas nuevas - si el volumen crece, considerar mover
+   el polling a un cron con `findMany` batch en vez de un timer por
+   factura.
+
+Criterio de exito: crear 20 facturas simultaneas no aumenta linealmente
+el tiempo total (hoy, si el path fuera secuencial, si lo haria).
+
+--------------------------------------------------------------------------------
+FASE F - Busqueda instantanea (reusar el SearchModule ya existente)
+--------------------------------------------------------------------------------
+Objetivo: que buscar una factura por serie/numero/cliente/RUC sea tan
+rapido como ya lo es en el modulo de programacion-tecnica/ordenes (que ya
+usa Elasticsearch con fallback a Prisma, segun el patron ya implementado
+en `search.service.ts`).
+
+Acciones:
+ - Agregar un indice `facturas` al `SearchModule` existente, con los mismos
+   hooks fire-and-forget en create/update que ya usan otros modulos
+   (`indexDoc` / `deleteDoc`).
+ - Endpoint `GET /search/facturas?q=...` siguiendo el mismo contrato que
+   `GET /search/ordenes-compra`.
+ - Frontend: reemplazar el filtro en memoria/por HTTP actual de
+   `factura/page.tsx` por `searchApi.facturas(...)` con debounce (ya es
+   el patron usado en programacion-admin).
+
+Criterio de exito: busqueda por RUC/serie responde en 5-15ms igual que ya
+sucede en ordenes de compra/servicio.
+
+--------------------------------------------------------------------------------
+FASE G - Precision: idempotencia y reconciliacion automatica
+--------------------------------------------------------------------------------
+Objetivo: "super preciso" no es solo rapido, es que el dato nunca mienta.
+
+Acciones:
+ - Idempotencia end-to-end: el `messageId` de Kafka + el constraint UNIQUE
+   de `serie_numero` en BD ya evitan duplicar la factura en si. Agregar
+   ademas una verificacion antes de llamar a Nubefact: si
+   `estado_factura` ya no es NULL/PENDIENTE al momento de procesar el
+   mensaje, descartar el mensaje (evita doble envio a Nubefact si el
+   mismo mensaje se reprocesa por un rebalanceo de Kafka). Esto ya existe
+   parcialmente en `FacturaConsumerService.handleFacturaRequest` -
+   extenderlo tambien al camino unificado de la Fase 3 del otro plan.
+ - Reconciliacion automatica (cron, ej. cada 1 hora): para toda factura
+   COMPLETADO, volver a consultar a Nubefact (`consultar_comprobante`) y
+   comparar `total`, `aceptada_por_sunat` y los tres enlaces contra lo que
+   tenemos guardado. Si hay discrepancia, marcar la factura con un flag
+   `requiere_revision = true` y notificar. Esto detecta silenciosamente
+   los casos donde el bug de "COMPLETADO sin enlaces" (ya corregido en el
+   otro plan) hubiera dejado algo mal ANTES de la correccion, y sirve como
+   red de seguridad permanente hacia adelante.
+ - Checksum de totales: validar que `total_gravada + total_igv = total`
+   (ya existe esta validacion en `factura-detector.service.ts`, linea
+   ~280-293) - extenderla para que corra tambien en la reconciliacion
+   contra los valores que devuelve SUNAT, no solo contra los que nosotros
+   mismos calculamos.
+
+Criterio de exito: 0 facturas con `requiere_revision = true` sostenido en
+el tiempo; si aparece alguna, se detecta y notifica en menos de 1 hora en
+vez de nunca.
+
+--------------------------------------------------------------------------------
+FASE H - Medicion de alta resolucion (para no enganarse)
+--------------------------------------------------------------------------------
+Objetivo: medir en microsegundos las partes internas para comprobar de
+verdad las mejoras, sin que el tiempo de red externo tape el resultado.
+
+Acciones:
+ - Usar `process.hrtime.bigint()` (resolucion de nanosegundos) para medir
+   por separado:
+     a) tiempo de creacion del registro en BD
+     b) tiempo de publicacion a Kafka
+     c) tiempo de respuesta de Nubefact (aislado, para saber que ESE
+        numero no es responsabilidad nuestra)
+     d) tiempo desde que el consumer termina hasta que el WebSocket llega
+        al frontend
+ - Loggear estos 4 numeros por separado (no un solo "tiempo total") en
+   cada factura procesada, para poder decir con datos "nuestra parte tarda
+   3ms, la de Nubefact tarda 1.8s" en vez de un numero mezclado.
+
+Criterio de exito: dashboard/log que separa claramente latencia propia
+vs. latencia de terceros.
+
+--------------------------------------------------------------------------------
+3. RESUMEN DE ESFUERZO
+--------------------------------------------------------------------------------
+
+ Fase                                      Impacto        Esfuerzo   Infra nueva
+ ----------------------------------------  -------------  ---------  -----------
+ A. Cache Redis                            Muy alto       2-3 dias   Si (Redis)
+ B. Escritura optimizada BD                 Medio          1 dia      No
+ C. WebSocket sin recarga completa          Alto           1 dia      No
+ D. Keep-alive hacia Nubefact               Medio          0.5 dia    No
+ E. Concurrencia Kafka                      Medio-alto     1-2 dias   No
+ F. Busqueda con Elasticsearch              Alto           1-2 dias   No (ya existe)
+ G. Idempotencia + reconciliacion           Alto (precision) 1-2 dias No
+ H. Medicion de alta resolucion             Base para medir  0.5 dia  No
+
+Total estimado: ~9-12 dias, todo desplegable en fases independientes,
+sobre la base ya corregida en PLAN_MEJORA_FACTURACION_NUBEFACT.txt.
+
+--------------------------------------------------------------------------------
+4. LO QUE NO VA A PASAR (para manejar expectativas)
+--------------------------------------------------------------------------------
+
+ - La llamada a Nubefact NO va a tomar microsegundos. Va a seguir tomando
+   lo que tome su infraestructura + la de SUNAT.
+ - La confirmacion de SUNAT puede seguir tomando minutos/horas en
+   contingencia - eso no depende de nuestro codigo. Lo que si cambia es
+   que el usuario ya no lo espera mirando la pantalla: crea la factura al
+   instante y se entera despues, con precision, de que paso.
+================================================================================

@@ -128,7 +128,12 @@ export class OrdenServicioService {
       });
 
       const camionIds = [
-        ...new Set(ordenes.map((o) => o.id_camion).filter(Boolean)),
+        ...new Set([
+          ...ordenes.map((o) => o.id_camion).filter(Boolean),
+          ...ordenes.flatMap((o) =>
+            o.detalles_orden_servicio.map((d) => d.id_camion),
+          ).filter(Boolean),
+        ]),
       ] as number[];
       const camionesMap = new Map<number, any>();
       if (camionIds.length > 0) {
@@ -160,7 +165,12 @@ export class OrdenServicioService {
           nombre_proveedor: orden.proveedores?.nombre_proveedor || null,
           ruc_proveedor: orden.proveedores?.ruc || null,
           nombre_registrador: (orden as any).usuarios?.nombre || null,
-          items: orden.detalles_orden_servicio || [],
+          items: (orden.detalles_orden_servicio || []).map((detalle) => ({
+            ...detalle,
+            placa_vehiculo: detalle.id_camion
+              ? camionesMap.get(detalle.id_camion)?.placa || null
+              : null,
+          })),
           unidad_id: orden.id_camion || null,
           placa_unidad: camion?.placa || null,
           tipo_unidad: camion?.tipo || null,
@@ -317,6 +327,7 @@ export class OrdenServicioService {
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
             tipo_cambio: tipoCambio,
+            formato_pdf_version: 2,
           },
         });
 
@@ -333,6 +344,7 @@ export class OrdenServicioService {
                 subtotal: item.subtotal,
                 centro_costo: item.centro_costo || null,
                 prorrateo: item.prorrateo != null ? item.prorrateo : null,
+                id_camion: item.unidad_id || null,
               },
             }),
           ),
@@ -468,6 +480,23 @@ export class OrdenServicioService {
       }
     }
 
+    // Obtener las placas de los vehículos asignados a cada ítem (formato v2)
+    const idsCamionItems = [
+      ...new Set(
+        ordenServicio.detalles_orden_servicio
+          .map((detalle) => detalle.id_camion)
+          .filter((id): id is number => !!id),
+      ),
+    ];
+    const camionesItems = idsCamionItems.length
+      ? await this.prisma.camiones.findMany({
+          where: { id_camion: { in: idsCamionItems } },
+        })
+      : [];
+    const placaPorIdCamion = new Map(
+      camionesItems.map((camion) => [camion.id_camion, camion.placa]),
+    );
+
     const proveedor = ordenServicio.proveedores;
 
     let nombreRegistrador = '';
@@ -556,6 +585,9 @@ export class OrdenServicioService {
           prorrateo: detalle.prorrateo
             ? parseFloat(detalle.prorrateo.toString())
             : null,
+          placaVehiculo: detalle.id_camion
+            ? placaPorIdCamion.get(detalle.id_camion) || ''
+            : '',
         }),
       ),
       totales: (() => {
@@ -612,6 +644,7 @@ export class OrdenServicioService {
         gerencia: '',
         jefeProyectos: '',
       },
+      formatoVersion: ordenServicio.formato_pdf_version,
     };
   }
 
@@ -813,6 +846,9 @@ export class OrdenServicioService {
         this.drawSectionHeader(doc, 40, yPos, 'OBSERVACIÓN', 515);
         yPos += 20;
 
+        // Formato v1 (legado): placa/máquina en cabecera. Formato v2: vehículo por ítem.
+        const esFormatoV2 = ordenData.formatoVersion === 2;
+
         // Tabla de niveles (5 columnas: A=Centro de Costos, B+C=Nivel 1, D=Nivel 2, E=Nivel 3)
         const nivelTableHeaders = [
           'Centro de Costos',
@@ -830,6 +866,7 @@ export class OrdenServicioService {
           nivelTableHeaders,
           nivelColWidths,
           ordenData.observacion,
+          !esFormatoV2, // v1: mostrar fila PLACA/MAQUINA; v2: se omite (ahora es por ítem)
         );
 
         yPos += 10;
@@ -844,18 +881,33 @@ export class OrdenServicioService {
         );
         yPos += 20;
 
-        const detalleHeaders = [
-          'N°',
-          'DESCRIPCIÓN',
-          'CENTRO COSTO',
-          'PRORRATEO',
-          'CÓDIGO',
-          'U/M',
-          'CANT.',
-          'VALOR UNIT',
-          'SUB TOTAL',
-        ];
-        const detalleColWidths = [22, 120, 60, 55, 55, 38, 28, 68, 69];
+        const detalleHeaders = esFormatoV2
+          ? [
+              'N°',
+              'DESCRIPCIÓN',
+              'CENTRO COSTO',
+              'VEHICULO',
+              'PRORRATEO',
+              'CÓDIGO',
+              'U/M',
+              'CANT.',
+              'VALOR UNIT',
+              'SUB TOTAL',
+            ]
+          : [
+              'N°',
+              'DESCRIPCIÓN',
+              'CENTRO COSTO',
+              'PRORRATEO',
+              'CÓDIGO',
+              'U/M',
+              'CANT.',
+              'VALOR UNIT',
+              'SUB TOTAL',
+            ];
+        const detalleColWidths = esFormatoV2
+          ? [22, 105, 60, 45, 55, 45, 38, 28, 58, 59]
+          : [22, 120, 60, 55, 55, 38, 28, 68, 69];
 
         yPos = this.drawDetalleTable(
           doc,
@@ -864,6 +916,7 @@ export class OrdenServicioService {
           detalleHeaders,
           detalleColWidths,
           ordenData.detalleItems,
+          esFormatoV2,
         );
 
         yPos += 3; // Mínimo espacio
@@ -1207,6 +1260,7 @@ export class OrdenServicioService {
     headers: string[],
     colWidths: number[],
     data: any,
+    mostrarPlacaMaquina: boolean = true,
   ): number {
     let currentY = startY;
     const baseRowHeight = 18;
@@ -1215,43 +1269,50 @@ export class OrdenServicioService {
     const xNivel2 = startX + colWidths[0] + colWidths[1] + colWidths[2];
     const xNivel3 = xNivel2 + colWidths[3];
 
-    // ===== FILA - PLACA / MAQUINA =====
-    // Columna A: "PLACA" (negrita)
-    doc.rect(startX, currentY, colWidths[0], baseRowHeight).stroke();
-    doc.fontSize(9).font('Helvetica-Bold');
-    doc.text('PLACA', startX + 2, currentY + 5, {
-      width: colWidths[0] - 4,
-      align: 'center',
-    });
+    // ===== FILA - PLACA / MAQUINA (solo formato v1: en v2 la unidad va por ítem) =====
+    if (mostrarPlacaMaquina) {
+      // Columna A: "PLACA" (negrita)
+      doc.rect(startX, currentY, colWidths[0], baseRowHeight).stroke();
+      doc.fontSize(9).font('Helvetica-Bold');
+      doc.text('PLACA', startX + 2, currentY + 5, {
+        width: colWidths[0] - 4,
+        align: 'center',
+      });
 
-    // Columnas B+C: Placa del camión (combinadas horizontalmente)
-    const placaWidth = colWidths[1] + colWidths[2];
-    doc
-      .rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight)
-      .stroke();
-    doc.fontSize(9).font('Helvetica');
-    doc.text(data.placaCamion || '', startX + colWidths[0] + 2, currentY + 5, {
-      width: placaWidth - 4,
-      align: 'center',
-    });
+      // Columnas B+C: Placa del camión (combinadas horizontalmente)
+      const placaWidth = colWidths[1] + colWidths[2];
+      doc
+        .rect(startX + colWidths[0], currentY, placaWidth, baseRowHeight)
+        .stroke();
+      doc.fontSize(9).font('Helvetica');
+      doc.text(
+        data.placaCamion || '',
+        startX + colWidths[0] + 2,
+        currentY + 5,
+        {
+          width: placaWidth - 4,
+          align: 'center',
+        },
+      );
 
-    // Columna D: "MAQUINA" (negrita sin fondo de color)
-    doc.rect(xNivel2, currentY, colWidths[3], baseRowHeight).stroke();
-    doc.fontSize(9).font('Helvetica-Bold');
-    doc.text('MAQUINA', xNivel2 + 2, currentY + 5, {
-      width: colWidths[3] - 4,
-      align: 'center',
-    });
+      // Columna D: "MAQUINA" (negrita sin fondo de color)
+      doc.rect(xNivel2, currentY, colWidths[3], baseRowHeight).stroke();
+      doc.fontSize(9).font('Helvetica-Bold');
+      doc.text('MAQUINA', xNivel2 + 2, currentY + 5, {
+        width: colWidths[3] - 4,
+        align: 'center',
+      });
 
-    // Columna E: Placa de la maquinaria
-    doc.rect(xNivel3, currentY, colWidths[4], baseRowHeight).stroke();
-    doc.fontSize(9).font('Helvetica');
-    doc.text(data.placaMaquinaria || '', xNivel3 + 2, currentY + 5, {
-      width: colWidths[4] - 4,
-      align: 'center',
-    });
+      // Columna E: Placa de la maquinaria
+      doc.rect(xNivel3, currentY, colWidths[4], baseRowHeight).stroke();
+      doc.fontSize(9).font('Helvetica');
+      doc.text(data.placaMaquinaria || '', xNivel3 + 2, currentY + 5, {
+        width: colWidths[4] - 4,
+        align: 'center',
+      });
 
-    currentY += baseRowHeight;
+      currentY += baseRowHeight;
+    }
 
     // ===== FILA 4 - CTA BCP: =====
     // Columna A: "CTA BCP:"
@@ -1368,6 +1429,7 @@ export class OrdenServicioService {
     headers: string[],
     colWidths: number[],
     items: DetalleItem[],
+    mostrarVehiculo: boolean = false,
   ): number {
     let currentY = startY;
 
@@ -1387,17 +1449,30 @@ export class OrdenServicioService {
 
     // Data rows
     items.forEach((item) => {
-      const rowData = [
-        item.numero.toString(),
-        item.descripcion,
-        item.centroCosto || '',
-        item.prorrateo != null ? item.prorrateo.toFixed(2) + '%' : '',
-        item.codigo,
-        item.unidadMedida,
-        item.cantidad.toString(),
-        item.valorUnitario.toFixed(4),
-        item.subTotal.toFixed(4),
-      ];
+      const rowData = mostrarVehiculo
+        ? [
+            item.numero.toString(),
+            item.descripcion,
+            item.centroCosto || '',
+            item.placaVehiculo || '',
+            item.prorrateo != null ? item.prorrateo.toFixed(2) + '%' : '',
+            item.codigo,
+            item.unidadMedida,
+            item.cantidad.toString(),
+            item.valorUnitario.toFixed(4),
+            item.subTotal.toFixed(4),
+          ]
+        : [
+            item.numero.toString(),
+            item.descripcion,
+            item.centroCosto || '',
+            item.prorrateo != null ? item.prorrateo.toFixed(2) + '%' : '',
+            item.codigo,
+            item.unidadMedida,
+            item.cantidad.toString(),
+            item.valorUnitario.toFixed(4),
+            item.subTotal.toFixed(4),
+          ];
 
       // Calcular la altura de la fila basándose en descripción y centro costo
       doc.fontSize(7).font('Helvetica');
@@ -1595,6 +1670,7 @@ export class OrdenServicioService {
                   subtotal: item.subtotal,
                   centro_costo: item.centro_costo || null,
                   prorrateo: item.prorrateo != null ? item.prorrateo : null,
+                  id_camion: item.unidad_id || null,
                 },
               }),
             ),

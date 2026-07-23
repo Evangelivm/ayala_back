@@ -43,6 +43,7 @@ export interface DetalleItem {
   subTotal: number;
   centroCosto?: string;
   prorrateo?: number | null;
+  placaVehiculo?: string;
 }
 
 export interface Totales {
@@ -75,4 +76,6 @@ export interface OrdenServicioData {
   detalleItems: DetalleItem[];
   totales: Totales;
   firmas: Firmas;
+  /** 1 = formato legado (placa/máquina en cabecera), 2 = formato nuevo (vehículo por ítem) */
+  formatoVersion: number;
 }
