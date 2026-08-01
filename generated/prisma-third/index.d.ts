@@ -184,6 +184,11 @@ export type factura_guia = $Result.DefaultSelection<Prisma.$factura_guiaPayload>
  */
 export type factura_item = $Result.DefaultSelection<Prisma.$factura_itemPayload>
 /**
+ * Model factura_unidad_medida
+ * 
+ */
+export type factura_unidad_medida = $Result.DefaultSelection<Prisma.$factura_unidad_medidaPayload>
+/**
  * Model factura_venta_credito
  * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
  */
@@ -1039,6 +1044,16 @@ export class PrismaClient<
   get factura_item(): Prisma.factura_itemDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.factura_unidad_medida`: Exposes CRUD operations for the **factura_unidad_medida** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Factura_unidad_medidas
+    * const factura_unidad_medidas = await prisma.factura_unidad_medida.findMany()
+    * ```
+    */
+  get factura_unidad_medida(): Prisma.factura_unidad_medidaDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.factura_venta_credito`: Exposes CRUD operations for the **factura_venta_credito** model.
     * Example usage:
     * ```ts
@@ -1652,6 +1667,7 @@ export namespace Prisma {
     factura: 'factura',
     factura_guia: 'factura_guia',
     factura_item: 'factura_item',
+    factura_unidad_medida: 'factura_unidad_medida',
     factura_venta_credito: 'factura_venta_credito',
     movimientos_adicionales: 'movimientos_adicionales',
     tipo_detraccion: 'tipo_detraccion',
@@ -1684,7 +1700,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3932,6 +3948,72 @@ export namespace Prisma {
           }
         }
       }
+      factura_unidad_medida: {
+        payload: Prisma.$factura_unidad_medidaPayload<ExtArgs>
+        fields: Prisma.factura_unidad_medidaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.factura_unidad_medidaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.factura_unidad_medidaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          findFirst: {
+            args: Prisma.factura_unidad_medidaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.factura_unidad_medidaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          findMany: {
+            args: Prisma.factura_unidad_medidaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>[]
+          }
+          create: {
+            args: Prisma.factura_unidad_medidaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          createMany: {
+            args: Prisma.factura_unidad_medidaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.factura_unidad_medidaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          update: {
+            args: Prisma.factura_unidad_medidaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          deleteMany: {
+            args: Prisma.factura_unidad_medidaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.factura_unidad_medidaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.factura_unidad_medidaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$factura_unidad_medidaPayload>
+          }
+          aggregate: {
+            args: Prisma.Factura_unidad_medidaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFactura_unidad_medida>
+          }
+          groupBy: {
+            args: Prisma.factura_unidad_medidaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Factura_unidad_medidaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.factura_unidad_medidaCountArgs<ExtArgs>
+            result: $Utils.Optional<Factura_unidad_medidaCountAggregateOutputType> | number
+          }
+        }
+      }
       factura_venta_credito: {
         payload: Prisma.$factura_venta_creditoPayload<ExtArgs>
         fields: Prisma.factura_venta_creditoFieldRefs
@@ -4986,6 +5068,7 @@ export namespace Prisma {
     factura?: facturaOmit
     factura_guia?: factura_guiaOmit
     factura_item?: factura_itemOmit
+    factura_unidad_medida?: factura_unidad_medidaOmit
     factura_venta_credito?: factura_venta_creditoOmit
     movimientos_adicionales?: movimientos_adicionalesOmit
     tipo_detraccion?: tipo_detraccionOmit
@@ -43645,6 +43728,933 @@ export namespace Prisma {
 
 
   /**
+   * Model factura_unidad_medida
+   */
+
+  export type AggregateFactura_unidad_medida = {
+    _count: Factura_unidad_medidaCountAggregateOutputType | null
+    _avg: Factura_unidad_medidaAvgAggregateOutputType | null
+    _sum: Factura_unidad_medidaSumAggregateOutputType | null
+    _min: Factura_unidad_medidaMinAggregateOutputType | null
+    _max: Factura_unidad_medidaMaxAggregateOutputType | null
+  }
+
+  export type Factura_unidad_medidaAvgAggregateOutputType = {
+    orden: number | null
+  }
+
+  export type Factura_unidad_medidaSumAggregateOutputType = {
+    orden: number | null
+  }
+
+  export type Factura_unidad_medidaMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+    orden: number | null
+    activo: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Factura_unidad_medidaMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+    orden: number | null
+    activo: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Factura_unidad_medidaCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    orden: number
+    activo: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Factura_unidad_medidaAvgAggregateInputType = {
+    orden?: true
+  }
+
+  export type Factura_unidad_medidaSumAggregateInputType = {
+    orden?: true
+  }
+
+  export type Factura_unidad_medidaMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    orden?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Factura_unidad_medidaMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    orden?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Factura_unidad_medidaCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    orden?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Factura_unidad_medidaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_unidad_medida to aggregate.
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_unidad_medidas to fetch.
+     */
+    orderBy?: factura_unidad_medidaOrderByWithRelationInput | factura_unidad_medidaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: factura_unidad_medidaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_unidad_medidas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_unidad_medidas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned factura_unidad_medidas
+    **/
+    _count?: true | Factura_unidad_medidaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Factura_unidad_medidaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Factura_unidad_medidaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Factura_unidad_medidaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Factura_unidad_medidaMaxAggregateInputType
+  }
+
+  export type GetFactura_unidad_medidaAggregateType<T extends Factura_unidad_medidaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFactura_unidad_medida]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFactura_unidad_medida[P]>
+      : GetScalarType<T[P], AggregateFactura_unidad_medida[P]>
+  }
+
+
+
+
+  export type factura_unidad_medidaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factura_unidad_medidaWhereInput
+    orderBy?: factura_unidad_medidaOrderByWithAggregationInput | factura_unidad_medidaOrderByWithAggregationInput[]
+    by: Factura_unidad_medidaScalarFieldEnum[] | Factura_unidad_medidaScalarFieldEnum
+    having?: factura_unidad_medidaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Factura_unidad_medidaCountAggregateInputType | true
+    _avg?: Factura_unidad_medidaAvgAggregateInputType
+    _sum?: Factura_unidad_medidaSumAggregateInputType
+    _min?: Factura_unidad_medidaMinAggregateInputType
+    _max?: Factura_unidad_medidaMaxAggregateInputType
+  }
+
+  export type Factura_unidad_medidaGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    orden: number
+    activo: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Factura_unidad_medidaCountAggregateOutputType | null
+    _avg: Factura_unidad_medidaAvgAggregateOutputType | null
+    _sum: Factura_unidad_medidaSumAggregateOutputType | null
+    _min: Factura_unidad_medidaMinAggregateOutputType | null
+    _max: Factura_unidad_medidaMaxAggregateOutputType | null
+  }
+
+  type GetFactura_unidad_medidaGroupByPayload<T extends factura_unidad_medidaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Factura_unidad_medidaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Factura_unidad_medidaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Factura_unidad_medidaGroupByOutputType[P]>
+            : GetScalarType<T[P], Factura_unidad_medidaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type factura_unidad_medidaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+    orden?: boolean
+    activo?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["factura_unidad_medida"]>
+
+
+
+  export type factura_unidad_medidaSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+    orden?: boolean
+    activo?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type factura_unidad_medidaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion" | "orden" | "activo" | "created_at" | "updated_at", ExtArgs["result"]["factura_unidad_medida"]>
+
+  export type $factura_unidad_medidaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "factura_unidad_medida"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+      orden: number
+      activo: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["factura_unidad_medida"]>
+    composites: {}
+  }
+
+  type factura_unidad_medidaGetPayload<S extends boolean | null | undefined | factura_unidad_medidaDefaultArgs> = $Result.GetResult<Prisma.$factura_unidad_medidaPayload, S>
+
+  type factura_unidad_medidaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<factura_unidad_medidaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Factura_unidad_medidaCountAggregateInputType | true
+    }
+
+  export interface factura_unidad_medidaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['factura_unidad_medida'], meta: { name: 'factura_unidad_medida' } }
+    /**
+     * Find zero or one Factura_unidad_medida that matches the filter.
+     * @param {factura_unidad_medidaFindUniqueArgs} args - Arguments to find a Factura_unidad_medida
+     * @example
+     * // Get one Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends factura_unidad_medidaFindUniqueArgs>(args: SelectSubset<T, factura_unidad_medidaFindUniqueArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Factura_unidad_medida that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {factura_unidad_medidaFindUniqueOrThrowArgs} args - Arguments to find a Factura_unidad_medida
+     * @example
+     * // Get one Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends factura_unidad_medidaFindUniqueOrThrowArgs>(args: SelectSubset<T, factura_unidad_medidaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_unidad_medida that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaFindFirstArgs} args - Arguments to find a Factura_unidad_medida
+     * @example
+     * // Get one Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends factura_unidad_medidaFindFirstArgs>(args?: SelectSubset<T, factura_unidad_medidaFindFirstArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Factura_unidad_medida that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaFindFirstOrThrowArgs} args - Arguments to find a Factura_unidad_medida
+     * @example
+     * // Get one Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends factura_unidad_medidaFindFirstOrThrowArgs>(args?: SelectSubset<T, factura_unidad_medidaFindFirstOrThrowArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Factura_unidad_medidas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Factura_unidad_medidas
+     * const factura_unidad_medidas = await prisma.factura_unidad_medida.findMany()
+     * 
+     * // Get first 10 Factura_unidad_medidas
+     * const factura_unidad_medidas = await prisma.factura_unidad_medida.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const factura_unidad_medidaWithCodigoOnly = await prisma.factura_unidad_medida.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends factura_unidad_medidaFindManyArgs>(args?: SelectSubset<T, factura_unidad_medidaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Factura_unidad_medida.
+     * @param {factura_unidad_medidaCreateArgs} args - Arguments to create a Factura_unidad_medida.
+     * @example
+     * // Create one Factura_unidad_medida
+     * const Factura_unidad_medida = await prisma.factura_unidad_medida.create({
+     *   data: {
+     *     // ... data to create a Factura_unidad_medida
+     *   }
+     * })
+     * 
+     */
+    create<T extends factura_unidad_medidaCreateArgs>(args: SelectSubset<T, factura_unidad_medidaCreateArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Factura_unidad_medidas.
+     * @param {factura_unidad_medidaCreateManyArgs} args - Arguments to create many Factura_unidad_medidas.
+     * @example
+     * // Create many Factura_unidad_medidas
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends factura_unidad_medidaCreateManyArgs>(args?: SelectSubset<T, factura_unidad_medidaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Factura_unidad_medida.
+     * @param {factura_unidad_medidaDeleteArgs} args - Arguments to delete one Factura_unidad_medida.
+     * @example
+     * // Delete one Factura_unidad_medida
+     * const Factura_unidad_medida = await prisma.factura_unidad_medida.delete({
+     *   where: {
+     *     // ... filter to delete one Factura_unidad_medida
+     *   }
+     * })
+     * 
+     */
+    delete<T extends factura_unidad_medidaDeleteArgs>(args: SelectSubset<T, factura_unidad_medidaDeleteArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Factura_unidad_medida.
+     * @param {factura_unidad_medidaUpdateArgs} args - Arguments to update one Factura_unidad_medida.
+     * @example
+     * // Update one Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends factura_unidad_medidaUpdateArgs>(args: SelectSubset<T, factura_unidad_medidaUpdateArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Factura_unidad_medidas.
+     * @param {factura_unidad_medidaDeleteManyArgs} args - Arguments to filter Factura_unidad_medidas to delete.
+     * @example
+     * // Delete a few Factura_unidad_medidas
+     * const { count } = await prisma.factura_unidad_medida.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends factura_unidad_medidaDeleteManyArgs>(args?: SelectSubset<T, factura_unidad_medidaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factura_unidad_medidas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Factura_unidad_medidas
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends factura_unidad_medidaUpdateManyArgs>(args: SelectSubset<T, factura_unidad_medidaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Factura_unidad_medida.
+     * @param {factura_unidad_medidaUpsertArgs} args - Arguments to update or create a Factura_unidad_medida.
+     * @example
+     * // Update or create a Factura_unidad_medida
+     * const factura_unidad_medida = await prisma.factura_unidad_medida.upsert({
+     *   create: {
+     *     // ... data to create a Factura_unidad_medida
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Factura_unidad_medida we want to update
+     *   }
+     * })
+     */
+    upsert<T extends factura_unidad_medidaUpsertArgs>(args: SelectSubset<T, factura_unidad_medidaUpsertArgs<ExtArgs>>): Prisma__factura_unidad_medidaClient<$Result.GetResult<Prisma.$factura_unidad_medidaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Factura_unidad_medidas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaCountArgs} args - Arguments to filter Factura_unidad_medidas to count.
+     * @example
+     * // Count the number of Factura_unidad_medidas
+     * const count = await prisma.factura_unidad_medida.count({
+     *   where: {
+     *     // ... the filter for the Factura_unidad_medidas we want to count
+     *   }
+     * })
+    **/
+    count<T extends factura_unidad_medidaCountArgs>(
+      args?: Subset<T, factura_unidad_medidaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Factura_unidad_medidaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Factura_unidad_medida.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Factura_unidad_medidaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Factura_unidad_medidaAggregateArgs>(args: Subset<T, Factura_unidad_medidaAggregateArgs>): Prisma.PrismaPromise<GetFactura_unidad_medidaAggregateType<T>>
+
+    /**
+     * Group by Factura_unidad_medida.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factura_unidad_medidaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends factura_unidad_medidaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: factura_unidad_medidaGroupByArgs['orderBy'] }
+        : { orderBy?: factura_unidad_medidaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, factura_unidad_medidaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFactura_unidad_medidaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the factura_unidad_medida model
+   */
+  readonly fields: factura_unidad_medidaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for factura_unidad_medida.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__factura_unidad_medidaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the factura_unidad_medida model
+   */
+  interface factura_unidad_medidaFieldRefs {
+    readonly codigo: FieldRef<"factura_unidad_medida", 'String'>
+    readonly descripcion: FieldRef<"factura_unidad_medida", 'String'>
+    readonly orden: FieldRef<"factura_unidad_medida", 'Int'>
+    readonly activo: FieldRef<"factura_unidad_medida", 'Boolean'>
+    readonly created_at: FieldRef<"factura_unidad_medida", 'DateTime'>
+    readonly updated_at: FieldRef<"factura_unidad_medida", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * factura_unidad_medida findUnique
+   */
+  export type factura_unidad_medidaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter, which factura_unidad_medida to fetch.
+     */
+    where: factura_unidad_medidaWhereUniqueInput
+  }
+
+  /**
+   * factura_unidad_medida findUniqueOrThrow
+   */
+  export type factura_unidad_medidaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter, which factura_unidad_medida to fetch.
+     */
+    where: factura_unidad_medidaWhereUniqueInput
+  }
+
+  /**
+   * factura_unidad_medida findFirst
+   */
+  export type factura_unidad_medidaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter, which factura_unidad_medida to fetch.
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_unidad_medidas to fetch.
+     */
+    orderBy?: factura_unidad_medidaOrderByWithRelationInput | factura_unidad_medidaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_unidad_medidas.
+     */
+    cursor?: factura_unidad_medidaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_unidad_medidas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_unidad_medidas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_unidad_medidas.
+     */
+    distinct?: Factura_unidad_medidaScalarFieldEnum | Factura_unidad_medidaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_unidad_medida findFirstOrThrow
+   */
+  export type factura_unidad_medidaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter, which factura_unidad_medida to fetch.
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_unidad_medidas to fetch.
+     */
+    orderBy?: factura_unidad_medidaOrderByWithRelationInput | factura_unidad_medidaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factura_unidad_medidas.
+     */
+    cursor?: factura_unidad_medidaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_unidad_medidas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_unidad_medidas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factura_unidad_medidas.
+     */
+    distinct?: Factura_unidad_medidaScalarFieldEnum | Factura_unidad_medidaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_unidad_medida findMany
+   */
+  export type factura_unidad_medidaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter, which factura_unidad_medidas to fetch.
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factura_unidad_medidas to fetch.
+     */
+    orderBy?: factura_unidad_medidaOrderByWithRelationInput | factura_unidad_medidaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing factura_unidad_medidas.
+     */
+    cursor?: factura_unidad_medidaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factura_unidad_medidas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factura_unidad_medidas.
+     */
+    skip?: number
+    distinct?: Factura_unidad_medidaScalarFieldEnum | Factura_unidad_medidaScalarFieldEnum[]
+  }
+
+  /**
+   * factura_unidad_medida create
+   */
+  export type factura_unidad_medidaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a factura_unidad_medida.
+     */
+    data: XOR<factura_unidad_medidaCreateInput, factura_unidad_medidaUncheckedCreateInput>
+  }
+
+  /**
+   * factura_unidad_medida createMany
+   */
+  export type factura_unidad_medidaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many factura_unidad_medidas.
+     */
+    data: factura_unidad_medidaCreateManyInput | factura_unidad_medidaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * factura_unidad_medida update
+   */
+  export type factura_unidad_medidaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a factura_unidad_medida.
+     */
+    data: XOR<factura_unidad_medidaUpdateInput, factura_unidad_medidaUncheckedUpdateInput>
+    /**
+     * Choose, which factura_unidad_medida to update.
+     */
+    where: factura_unidad_medidaWhereUniqueInput
+  }
+
+  /**
+   * factura_unidad_medida updateMany
+   */
+  export type factura_unidad_medidaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update factura_unidad_medidas.
+     */
+    data: XOR<factura_unidad_medidaUpdateManyMutationInput, factura_unidad_medidaUncheckedUpdateManyInput>
+    /**
+     * Filter which factura_unidad_medidas to update
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * Limit how many factura_unidad_medidas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_unidad_medida upsert
+   */
+  export type factura_unidad_medidaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the factura_unidad_medida to update in case it exists.
+     */
+    where: factura_unidad_medidaWhereUniqueInput
+    /**
+     * In case the factura_unidad_medida found by the `where` argument doesn't exist, create a new factura_unidad_medida with this data.
+     */
+    create: XOR<factura_unidad_medidaCreateInput, factura_unidad_medidaUncheckedCreateInput>
+    /**
+     * In case the factura_unidad_medida was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<factura_unidad_medidaUpdateInput, factura_unidad_medidaUncheckedUpdateInput>
+  }
+
+  /**
+   * factura_unidad_medida delete
+   */
+  export type factura_unidad_medidaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+    /**
+     * Filter which factura_unidad_medida to delete.
+     */
+    where: factura_unidad_medidaWhereUniqueInput
+  }
+
+  /**
+   * factura_unidad_medida deleteMany
+   */
+  export type factura_unidad_medidaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factura_unidad_medidas to delete
+     */
+    where?: factura_unidad_medidaWhereInput
+    /**
+     * Limit how many factura_unidad_medidas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * factura_unidad_medida without action
+   */
+  export type factura_unidad_medidaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the factura_unidad_medida
+     */
+    select?: factura_unidad_medidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the factura_unidad_medida
+     */
+    omit?: factura_unidad_medidaOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model factura_venta_credito
    */
 
@@ -57807,6 +58817,18 @@ export namespace Prisma {
   export type Factura_itemScalarFieldEnum = (typeof Factura_itemScalarFieldEnum)[keyof typeof Factura_itemScalarFieldEnum]
 
 
+  export const Factura_unidad_medidaScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion',
+    orden: 'orden',
+    activo: 'activo',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Factura_unidad_medidaScalarFieldEnum = (typeof Factura_unidad_medidaScalarFieldEnum)[keyof typeof Factura_unidad_medidaScalarFieldEnum]
+
+
   export const Factura_venta_creditoScalarFieldEnum: {
     id_venta_credito: 'id_venta_credito',
     id_factura: 'id_factura',
@@ -58360,6 +59382,14 @@ export namespace Prisma {
   };
 
   export type factura_itemOrderByRelevanceFieldEnum = (typeof factura_itemOrderByRelevanceFieldEnum)[keyof typeof factura_itemOrderByRelevanceFieldEnum]
+
+
+  export const factura_unidad_medidaOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type factura_unidad_medidaOrderByRelevanceFieldEnum = (typeof factura_unidad_medidaOrderByRelevanceFieldEnum)[keyof typeof factura_unidad_medidaOrderByRelevanceFieldEnum]
 
 
   export const movimientos_adicionalesOrderByRelevanceFieldEnum: {
@@ -62268,6 +63298,66 @@ export namespace Prisma {
     anticipo_documento_numero?: IntNullableWithAggregatesFilter<"factura_item"> | number | null
     created_at?: DateTimeWithAggregatesFilter<"factura_item"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"factura_item"> | Date | string
+  }
+
+  export type factura_unidad_medidaWhereInput = {
+    AND?: factura_unidad_medidaWhereInput | factura_unidad_medidaWhereInput[]
+    OR?: factura_unidad_medidaWhereInput[]
+    NOT?: factura_unidad_medidaWhereInput | factura_unidad_medidaWhereInput[]
+    codigo?: StringFilter<"factura_unidad_medida"> | string
+    descripcion?: StringFilter<"factura_unidad_medida"> | string
+    orden?: IntFilter<"factura_unidad_medida"> | number
+    activo?: BoolFilter<"factura_unidad_medida"> | boolean
+    created_at?: DateTimeFilter<"factura_unidad_medida"> | Date | string
+    updated_at?: DateTimeFilter<"factura_unidad_medida"> | Date | string
+  }
+
+  export type factura_unidad_medidaOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    orden?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _relevance?: factura_unidad_medidaOrderByRelevanceInput
+  }
+
+  export type factura_unidad_medidaWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: factura_unidad_medidaWhereInput | factura_unidad_medidaWhereInput[]
+    OR?: factura_unidad_medidaWhereInput[]
+    NOT?: factura_unidad_medidaWhereInput | factura_unidad_medidaWhereInput[]
+    descripcion?: StringFilter<"factura_unidad_medida"> | string
+    orden?: IntFilter<"factura_unidad_medida"> | number
+    activo?: BoolFilter<"factura_unidad_medida"> | boolean
+    created_at?: DateTimeFilter<"factura_unidad_medida"> | Date | string
+    updated_at?: DateTimeFilter<"factura_unidad_medida"> | Date | string
+  }, "codigo">
+
+  export type factura_unidad_medidaOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    orden?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: factura_unidad_medidaCountOrderByAggregateInput
+    _avg?: factura_unidad_medidaAvgOrderByAggregateInput
+    _max?: factura_unidad_medidaMaxOrderByAggregateInput
+    _min?: factura_unidad_medidaMinOrderByAggregateInput
+    _sum?: factura_unidad_medidaSumOrderByAggregateInput
+  }
+
+  export type factura_unidad_medidaScalarWhereWithAggregatesInput = {
+    AND?: factura_unidad_medidaScalarWhereWithAggregatesInput | factura_unidad_medidaScalarWhereWithAggregatesInput[]
+    OR?: factura_unidad_medidaScalarWhereWithAggregatesInput[]
+    NOT?: factura_unidad_medidaScalarWhereWithAggregatesInput | factura_unidad_medidaScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"factura_unidad_medida"> | string
+    descripcion?: StringWithAggregatesFilter<"factura_unidad_medida"> | string
+    orden?: IntWithAggregatesFilter<"factura_unidad_medida"> | number
+    activo?: BoolWithAggregatesFilter<"factura_unidad_medida"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"factura_unidad_medida"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"factura_unidad_medida"> | Date | string
   }
 
   export type factura_venta_creditoWhereInput = {
@@ -67049,6 +68139,69 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type factura_unidad_medidaCreateInput = {
+    codigo: string
+    descripcion: string
+    orden?: number
+    activo?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_unidad_medidaUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+    orden?: number
+    activo?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_unidad_medidaUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_unidad_medidaUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_unidad_medidaCreateManyInput = {
+    codigo: string
+    descripcion: string
+    orden?: number
+    activo?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type factura_unidad_medidaUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type factura_unidad_medidaUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type factura_venta_creditoCreateInput = {
     cuota: number
     fecha_pago: Date | string
@@ -71335,6 +72488,47 @@ export namespace Prisma {
     isc?: SortOrder
     total?: SortOrder
     anticipo_documento_numero?: SortOrder
+  }
+
+  export type factura_unidad_medidaOrderByRelevanceInput = {
+    fields: factura_unidad_medidaOrderByRelevanceFieldEnum | factura_unidad_medidaOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type factura_unidad_medidaCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    orden?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_unidad_medidaAvgOrderByAggregateInput = {
+    orden?: SortOrder
+  }
+
+  export type factura_unidad_medidaMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    orden?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_unidad_medidaMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    orden?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type factura_unidad_medidaSumOrderByAggregateInput = {
+    orden?: SortOrder
   }
 
   export type factura_venta_creditoCountOrderByAggregateInput = {

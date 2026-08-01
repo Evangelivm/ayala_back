@@ -107,6 +107,31 @@ export class FacturaCrudController {
   }
 
   /**
+   * GET /facturas/unidades-medida
+   * Catálogo de unidades de medida seleccionables al armar el detalle
+   * de una factura (codigo = lo que se manda a NUBEFACT, descripcion =
+   * lo que se muestra en el select del frontend)
+   */
+  @Get('unidades-medida')
+  async getUnidadesMedida() {
+    try {
+      const unidades = await this.prisma.factura_unidad_medida.findMany({
+        where: { activo: true },
+        orderBy: { orden: 'asc' },
+        select: { codigo: true, descripcion: true },
+      });
+
+      return unidades;
+    } catch (error) {
+      this.logger.error('Error obteniendo unidades de medida:', error);
+      throw new HttpException(
+        'Error obteniendo unidades de medida',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
    * GET /facturas
    * Obtiene todas las facturas con paginación y filtros
    */

@@ -676,6 +676,15 @@ exports.Prisma.Factura_itemScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Factura_unidad_medidaScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion',
+  orden: 'orden',
+  activo: 'activo',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.Factura_venta_creditoScalarFieldEnum = {
   id_venta_credito: 'id_venta_credito',
   id_factura: 'id_factura',
@@ -1084,6 +1093,11 @@ exports.Prisma.factura_itemOrderByRelevanceFieldEnum = {
   anticipo_documento_serie: 'anticipo_documento_serie'
 };
 
+exports.Prisma.factura_unidad_medidaOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
 exports.Prisma.movimientos_adicionalesOrderByRelevanceFieldEnum = {
   numero_factura: 'numero_factura',
   numero_guia_remision: 'numero_guia_remision'
@@ -1346,6 +1360,7 @@ exports.Prisma.ModelName = {
   factura: 'factura',
   factura_guia: 'factura_guia',
   factura_item: 'factura_item',
+  factura_unidad_medida: 'factura_unidad_medida',
   factura_venta_credito: 'factura_venta_credito',
   movimientos_adicionales: 'movimientos_adicionales',
   tipo_detraccion: 'tipo_detraccion',

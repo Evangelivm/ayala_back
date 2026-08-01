@@ -756,6 +756,15 @@ model factura_item {
   @@index([id_factura], map: "idx_id_factura")
 }
 
+model factura_unidad_medida {
+  codigo      String   @id @db.VarChar(5)
+  descripcion String   @db.VarChar(50)
+  orden       Int      @default(0)
+  activo      Boolean  @default(true)
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model factura_venta_credito {
   id_venta_credito Int      @id @default(autoincrement())
