@@ -7,6 +7,7 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import axios from 'axios';
 import { WebsocketGateway } from '../../websocket/websocket.gateway';
+import { mapearUnidadMedidaSunat } from '../constants/unidad-medida-sunat.util';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -25,52 +26,6 @@ export class FacturaDetectorService {
     private readonly prisma: PrismaThirdService,
     private readonly websocketGateway: WebsocketGateway,
   ) {}
-
-  /**
-   * Mapea unidades de medida comunes a códigos SUNAT válidos
-   */
-  private mapearUnidadMedidaSunat(unidad: string): string {
-    const mapeo: Record<string, string> = {
-      UNIDAD: 'NIU',
-      UNIDADES: 'NIU',
-      UND: 'NIU',
-      SERVICIO: 'ZZ',
-      SERVICIOS: 'ZZ',
-      SRV: 'ZZ',
-      SERV: 'ZZ',
-      METRO: 'MTR',
-      METROS: 'MTR',
-      M: 'MTR',
-      KILOGRAMO: 'KGM',
-      KILOGRAMOS: 'KGM',
-      KG: 'KGM',
-      LITRO: 'LTR',
-      LITROS: 'LTR',
-      L: 'LTR',
-      'METRO CUBICO': 'MTQ',
-      M3: 'MTQ',
-      TONELADA: 'TNE',
-      TONELADAS: 'TNE',
-      TON: 'TNE',
-      CAJA: 'BX',
-      CAJAS: 'BX',
-      BOLSA: 'BG',
-      BOLSAS: 'BG',
-      PAQUETE: 'PK',
-      PAQUETES: 'PK',
-    };
-
-    const unidadUpper = unidad.toUpperCase().trim();
-    const unidadMapeada = mapeo[unidadUpper] || unidad;
-
-    if (unidadMapeada !== unidad) {
-      this.logger.debug(
-        `Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`,
-      );
-    }
-
-    return unidadMapeada;
-  }
 
   /**
    * Cron job que se ejecuta cada 30 segundos para detectar facturas
@@ -566,7 +521,7 @@ export class FacturaDetectorService {
 
       // Items
       items: record.factura_item.map((item: any) => ({
-        unidad_de_medida: this.mapearUnidadMedidaSunat(item.unidad_medida),
+        unidad_de_medida: mapearUnidadMedidaSunat(item.unidad_medida),
         codigo: item.codigo_item || undefined,
         codigo_producto_sunat: item.codigo_producto_sunat || undefined,
         descripcion: this.fixMojibake(item.descripcion_item) ?? item.descripcion_item,

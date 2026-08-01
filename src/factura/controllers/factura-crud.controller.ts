@@ -23,6 +23,7 @@ import { UpdateFacturaSchema } from '../dto/update-factura.dto';
 import { FacturaConsumerService } from '../services/factura-consumer.service';
 import { FacturaDetectorService } from '../services/factura-detector.service';
 import { WebsocketGateway } from '../../websocket/websocket.gateway';
+import { mapearUnidadMedidaSunat } from '../constants/unidad-medida-sunat.util';
 
 @Controller('facturas')
 @UseInterceptors(BackendLogsInterceptor)
@@ -77,48 +78,6 @@ export class FacturaCrudController {
     }
 
     return date;
-  }
-
-  private mapearUnidadMedidaSunat(unidad: string): string {
-    const mapeo: Record<string, string> = {
-      UNIDAD: 'NIU',
-      UNIDADES: 'NIU',
-      UND: 'NIU',
-      SERVICIO: 'ZZ',
-      SERVICIOS: 'ZZ',
-      SRV: 'ZZ',
-      METRO: 'MTR',
-      METROS: 'MTR',
-      M: 'MTR',
-      KILOGRAMO: 'KGM',
-      KILOGRAMOS: 'KGM',
-      KG: 'KGM',
-      LITRO: 'LTR',
-      LITROS: 'LTR',
-      L: 'LTR',
-      'METRO CUBICO': 'MTQ',
-      M3: 'MTQ',
-      TONELADA: 'TNE',
-      TONELADAS: 'TNE',
-      TON: 'TNE',
-      CAJA: 'BX',
-      CAJAS: 'BX',
-      BOLSA: 'BG',
-      BOLSAS: 'BG',
-      PAQUETE: 'PK',
-      PAQUETES: 'PK',
-    };
-
-    const unidadUpper = unidad.toUpperCase().trim();
-    const unidadMapeada = mapeo[unidadUpper] || unidad;
-
-    if (unidadMapeada !== unidad) {
-      this.logger.debug(
-        `Unidad de medida mapeada: "${unidad}" -> "${unidadMapeada}"`,
-      );
-    }
-
-    return unidadMapeada;
   }
 
   /**
@@ -421,7 +380,7 @@ export class FacturaCrudController {
                   codigo_item: item.codigo_item,
                   codigo_producto_sunat: item.codigo_producto_sunat,
                   descripcion_item: item.descripcion_item,
-                  unidad_medida: this.mapearUnidadMedidaSunat(
+                  unidad_medida: mapearUnidadMedidaSunat(
                     item.unidad_medida,
                   ),
                   cantidad: item.cantidad,
@@ -703,7 +662,7 @@ export class FacturaCrudController {
                     codigo_item: item.codigo_item,
                     codigo_producto_sunat: item.codigo_producto_sunat,
                     descripcion_item: item.descripcion_item,
-                    unidad_medida: this.mapearUnidadMedidaSunat(
+                    unidad_medida: mapearUnidadMedidaSunat(
                       item.unidad_medida,
                     ),
                     cantidad: item.cantidad,
