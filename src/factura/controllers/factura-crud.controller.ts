@@ -38,8 +38,18 @@ export class FacturaCrudController {
   ) {}
 
   /**
-   * Mapea unidades de medida comunes a códigos SUNAT válidos
+   * Trunca un texto libre al largo máximo que soporta la columna de
+   * destino (ej. factura.cliente_denominacion es VARCHAR(255)), para
+   * no romper el insert/update con P2000.
    */
+  private truncar(
+    valor: string | null | undefined,
+    maxLength: number,
+  ): string | null | undefined {
+    if (!valor) return valor;
+    return valor.length > maxLength ? valor.slice(0, maxLength) : valor;
+  }
+
   /**
    * Convierte una fecha en formato DD-MM-YYYY o YYYY-MM-DD a objeto Date
    * @param dateString - Fecha en formato DD-MM-YYYY o YYYY-MM-DD
@@ -126,6 +136,67 @@ export class FacturaCrudController {
       this.logger.error('Error obteniendo unidades de medida:', error);
       throw new HttpException(
         'Error obteniendo unidades de medida',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * POST /facturas/unidades-medida
+   * Agrega una nueva unidad de medida al catálogo seleccionable
+   */
+  @Post('unidades-medida')
+  async createUnidadMedida(
+    @Body() body: { codigo?: string; descripcion?: string },
+  ) {
+    try {
+      const codigo = (body.codigo || '').trim().toUpperCase();
+      const descripcion = (body.descripcion || '').trim().toUpperCase();
+
+      if (!codigo || !descripcion) {
+        throw new HttpException(
+          'Código y descripción son obligatorios',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if (codigo.length > 5) {
+        throw new HttpException(
+          'El código no puede tener más de 5 caracteres',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const existente = await this.prisma.factura_unidad_medida.findUnique({
+        where: { codigo },
+      });
+
+      if (existente) {
+        throw new HttpException(
+          `El código "${codigo}" ya existe en el catálogo`,
+          HttpStatus.CONFLICT,
+        );
+      }
+
+      const maxOrden = await this.prisma.factura_unidad_medida.aggregate({
+        _max: { orden: true },
+      });
+
+      const unidad = await this.prisma.factura_unidad_medida.create({
+        data: {
+          codigo,
+          descripcion,
+          orden: (maxOrden._max.orden ?? 0) + 1,
+        },
+      });
+
+      return unidad;
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+
+      this.logger.error('Error creando unidad de medida:', error);
+      throw new HttpException(
+        'Error creando unidad de medida',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -312,7 +383,10 @@ export class FacturaCrudController {
             // Cliente
             cliente_tipo_documento: data.cliente_tipo_documento || 6,
             cliente_numero_documento: data.cliente_numero_documento,
-            cliente_denominacion: data.cliente_denominacion,
+            cliente_denominacion: (data.cliente_denominacion as string).slice(
+              0,
+              255,
+            ),
             cliente_direccion: data.cliente_direccion,
             cliente_email: data.cliente_email,
             cliente_email_1: data.cliente_email_1,
@@ -610,7 +684,10 @@ export class FacturaCrudController {
         if (data.cliente_numero_documento !== undefined)
           facturaData.cliente_numero_documento = data.cliente_numero_documento;
         if (data.cliente_denominacion !== undefined)
-          facturaData.cliente_denominacion = data.cliente_denominacion;
+          facturaData.cliente_denominacion = this.truncar(
+            data.cliente_denominacion,
+            255,
+          );
         if (data.cliente_direccion !== undefined)
           facturaData.cliente_direccion = data.cliente_direccion;
         if (data.cliente_email !== undefined)

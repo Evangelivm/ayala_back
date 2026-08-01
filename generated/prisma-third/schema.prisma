@@ -627,8 +627,8 @@ model factura {
   id_proveedor                   Int
   cliente_tipo_documento         Int                     @default(6)
   cliente_numero_documento       String                  @db.VarChar(15)
-  cliente_denominacion           String                  @db.VarChar(100)
-  cliente_direccion              String?                 @db.VarChar(100)
+  cliente_denominacion           String                  @db.VarChar(255)
+  cliente_direccion              String?                 @db.Text
   cliente_email                  String?                 @db.VarChar(250)
   cliente_email_1                String?                 @db.VarChar(250)
   cliente_email_2                String?                 @db.VarChar(250)
