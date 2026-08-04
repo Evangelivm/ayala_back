@@ -112,7 +112,17 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
+            fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
+            placa_unidad: { type: 'keyword' },
+            tipo_unidad: { type: 'keyword' },
+            nombre_chofer: { type: 'text' },
+            apellido_chofer: { type: 'text' },
+            chofer: { type: 'keyword' },
+            auto_administrador: { type: 'boolean' },
+            auto_contabilidad: { type: 'boolean' },
+            jefe_proyecto: { type: 'boolean' },
+            procede_pago: { type: 'keyword' },
             deleted_at: { type: 'date' },
           },
         },
@@ -129,7 +139,17 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
+            fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
+            placa_unidad: { type: 'keyword' },
+            tipo_unidad: { type: 'keyword' },
+            nombre_chofer: { type: 'text' },
+            apellido_chofer: { type: 'text' },
+            chofer: { type: 'keyword' },
+            auto_administrador: { type: 'boolean' },
+            auto_contabilidad: { type: 'boolean' },
+            jefe_proyecto: { type: 'boolean' },
+            procede_pago: { type: 'keyword' },
             deleted_at: { type: 'date' },
           },
         },
@@ -182,22 +202,201 @@ export class SearchService implements OnModuleInit {
     }
   }
 
+  /**
+   * Reindexa un único documento leyendo su estado actual y completo desde
+   * Prisma. A diferencia de llamar a indexDoc() con un payload parcial —
+   * client.index() reemplaza el documento entero, no hace merge, así que
+   * un payload parcial borraba el resto de campos del doc — este método
+   * siempre escribe el documento completo y consistente.
+   */
+  async reindexOne(index: SearchIndex, id: number): Promise<void> {
+    if (!this.esAvailable) return;
+    try {
+      const doc = await this.buildDocument(index, id);
+      if (!doc) {
+        await this.deleteDoc(index, id.toString());
+        return;
+      }
+      await this.client.index({ index, id: id.toString(), document: doc });
+      this.esIndexReady[index] = true;
+    } catch (error) {
+      this.logger.warn(
+        `ES reindexOne error (${index}/${id}): ${error.message}`,
+      );
+    }
+  }
+
+  private async buildDocument(
+    index: SearchIndex,
+    id: number,
+  ): Promise<Record<string, any> | null> {
+    switch (index) {
+      case 'programacion_tecnica':
+        return this.buildProgramacionTecnicaDoc(id);
+      case 'ordenes_compra':
+        return this.buildOrdenCompraDoc(id);
+      case 'ordenes_servicio':
+        return this.buildOrdenServicioDoc(id);
+    }
+  }
+
+  private async buildProgramacionTecnicaDoc(id: number) {
+    const rows = await this.prisma.$queryRaw<any[]>`
+      SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion, pt.deleted_at,
+             pt.programacion, pt.m3,
+             c.nombre_chofer, c.apellido_chofer, c.placa AS unidad_placa,
+             e.razon_social AS empresa_razon_social,
+             p.nombre AS nombre_proyecto,
+             sp.nombre AS nombre_subproyecto
+      FROM programacion_tecnica pt
+      LEFT JOIN camiones c ON pt.unidad = c.id_camion
+      LEFT JOIN empresas_2025 e
+             ON pt.proveedor COLLATE utf8mb4_unicode_ci = e.codigo COLLATE utf8mb4_unicode_ci
+      LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
+      LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+      WHERE pt.id = ${id}
+    `;
+    const pt = rows[0];
+    if (!pt) return null;
+
+    const nombreCompleto =
+      [
+        this.capitalizeWords(pt.nombre_chofer),
+        this.capitalizeWords(pt.apellido_chofer),
+      ]
+        .filter(Boolean)
+        .join(' ') || null;
+
+    return {
+      id: pt.id,
+      fecha: pt.fecha ? dayjs(pt.fecha).format('YYYY-MM-DD') : null,
+      fecha_str: pt.fecha ? dayjs(pt.fecha).format('YYYY-MM-DD') : null,
+      proveedor: pt.empresa_razon_social || null,
+      apellidos_nombres: nombreCompleto,
+      proyectos: pt.nombre_subproyecto || pt.nombre_proyecto || null,
+      unidad: pt.unidad_placa || null,
+      programacion: pt.programacion || null,
+      m3: pt.m3 != null ? pt.m3.toString() : null,
+      identificador_unico: pt.identificador_unico || null,
+      estado_programacion: pt.estado_programacion || null,
+      deleted_at: pt.deleted_at ? dayjs(pt.deleted_at).toISOString() : null,
+    };
+  }
+
+  private async buildOrdenCompraDoc(id: number) {
+    const orden = await this.prismaThird.ordenes_compra.findUnique({
+      where: { id_orden_compra: id },
+      include: { proveedores: true },
+    });
+    if (!orden) return null;
+    const camion = await this.getCamionResumen(orden.id_camion);
+
+    return {
+      id: orden.id_orden_compra,
+      numero_orden: orden.numero_orden,
+      nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
+      ruc_proveedor: (orden as any).proveedores?.ruc || null,
+      fecha_orden: orden.fecha_orden
+        ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
+        : null,
+      fecha_registro: orden.fecha_registro
+        ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD')
+        : null,
+      estado: orden.estado || null,
+      placa_unidad: camion?.placa || null,
+      tipo_unidad: camion?.tipo || null,
+      nombre_chofer: camion?.nombre_chofer || null,
+      apellido_chofer: camion?.apellido_chofer || null,
+      chofer: this.nombreCompletoChofer(camion),
+      auto_administrador: orden.auto_administrador === true,
+      auto_contabilidad: orden.auto_contabilidad === true,
+      jefe_proyecto: orden.jefe_proyecto === true,
+      procede_pago: orden.procede_pago || null,
+      deleted_at: orden.deleted_at
+        ? dayjs(orden.deleted_at).toISOString()
+        : null,
+    };
+  }
+
+  private async buildOrdenServicioDoc(id: number) {
+    const orden = await this.prismaThird.ordenes_servicio.findUnique({
+      where: { id_orden_servicio: id },
+      include: { proveedores: true },
+    });
+    if (!orden) return null;
+    const camion = await this.getCamionResumen((orden as any).id_camion);
+
+    return {
+      id: (orden as any).id_orden_servicio,
+      numero_orden: (orden as any).numero_orden,
+      nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
+      ruc_proveedor: (orden as any).proveedores?.ruc || null,
+      fecha_orden: (orden as any).fecha_orden
+        ? dayjs.utc((orden as any).fecha_orden).format('YYYY-MM-DD')
+        : null,
+      fecha_registro: (orden as any).fecha_registro
+        ? dayjs.utc((orden as any).fecha_registro).format('YYYY-MM-DD')
+        : null,
+      estado: (orden as any).estado || null,
+      placa_unidad: camion?.placa || null,
+      tipo_unidad: camion?.tipo || null,
+      nombre_chofer: camion?.nombre_chofer || null,
+      apellido_chofer: camion?.apellido_chofer || null,
+      chofer: this.nombreCompletoChofer(camion),
+      auto_administrador: (orden as any).auto_administrador === true,
+      auto_contabilidad: (orden as any).auto_contabilidad === true,
+      jefe_proyecto: (orden as any).jefe_proyecto === true,
+      procede_pago: (orden as any).procede_pago || null,
+      deleted_at: (orden as any).deleted_at
+        ? dayjs((orden as any).deleted_at).toISOString()
+        : null,
+    };
+  }
+
+  private async getCamionResumen(idCamion: number | null | undefined) {
+    if (!idCamion) return null;
+    return this.prisma.camiones.findUnique({
+      where: { id_camion: idCamion },
+      select: {
+        placa: true,
+        tipo: true,
+        nombre_chofer: true,
+        apellido_chofer: true,
+      },
+    });
+  }
+
+  private nombreCompletoChofer(
+    camion: {
+      nombre_chofer?: string | null;
+      apellido_chofer?: string | null;
+    } | null,
+  ): string | null {
+    if (!camion) return null;
+    return (
+      [camion.nombre_chofer, camion.apellido_chofer]
+        .filter(Boolean)
+        .join(' ') || null
+    );
+  }
+
   async search(
     index: SearchIndex,
     q: string,
     page: number,
     limit: number,
+    filtros: Record<string, string | boolean> = {},
   ): Promise<{ data: any[]; total: number }> {
     if (this.esAvailable && this.esIndexReady[index]) {
       try {
-        return await this.esSearch(index, q, page, limit);
+        return await this.esSearch(index, q, page, limit, filtros);
       } catch (error) {
         this.logger.warn(
           `ES search falló (${index}): ${error.message}. Usando Prisma.`,
         );
       }
     }
-    return this.prismaSearch(index, q, page, limit);
+    return this.prismaSearch(index, q, page, limit, filtros);
   }
 
   async reindexAll(): Promise<{
@@ -266,26 +465,44 @@ export class SearchService implements OnModuleInit {
     const ordCompra = await this.prismaThird.ordenes_compra.findMany({
       include: { proveedores: true },
     });
+    const camionesMapOC = await this.buildCamionesMap(
+      ordCompra.map((o) => o.id_camion),
+    );
 
-    const ocOps = ordCompra.flatMap((o) => [
-      {
-        index: {
-          _index: 'ordenes_compra',
-          _id: o.id_orden_compra.toString(),
+    const ocOps = ordCompra.flatMap((o) => {
+      const camion = o.id_camion ? camionesMapOC.get(o.id_camion) : null;
+      return [
+        {
+          index: {
+            _index: 'ordenes_compra',
+            _id: o.id_orden_compra.toString(),
+          },
         },
-      },
-      {
-        id: o.id_orden_compra,
-        numero_orden: o.numero_orden,
-        nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
-        ruc_proveedor: (o as any).proveedores?.ruc || null,
-        fecha_orden: o.fecha_orden
-          ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
-          : null,
-        estado: o.estado || null,
-        deleted_at: o.deleted_at ? dayjs(o.deleted_at).toISOString() : null,
-      },
-    ]);
+        {
+          id: o.id_orden_compra,
+          numero_orden: o.numero_orden,
+          nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
+          ruc_proveedor: (o as any).proveedores?.ruc || null,
+          fecha_orden: o.fecha_orden
+            ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
+            : null,
+          fecha_registro: o.fecha_registro
+            ? dayjs.utc(o.fecha_registro).format('YYYY-MM-DD')
+            : null,
+          estado: o.estado || null,
+          placa_unidad: camion?.placa || null,
+          tipo_unidad: camion?.tipo || null,
+          nombre_chofer: camion?.nombre_chofer || null,
+          apellido_chofer: camion?.apellido_chofer || null,
+          chofer: this.nombreCompletoChofer(camion),
+          auto_administrador: o.auto_administrador === true,
+          auto_contabilidad: o.auto_contabilidad === true,
+          jefe_proyecto: o.jefe_proyecto === true,
+          procede_pago: o.procede_pago || null,
+          deleted_at: o.deleted_at ? dayjs(o.deleted_at).toISOString() : null,
+        },
+      ];
+    });
 
     if (ocOps.length > 0) {
       await this.client.bulk({ operations: ocOps, refresh: true });
@@ -295,28 +512,47 @@ export class SearchService implements OnModuleInit {
     const ordServicio = await this.prismaThird.ordenes_servicio.findMany({
       include: { proveedores: true },
     });
+    const camionesMapOS = await this.buildCamionesMap(
+      ordServicio.map((o) => (o as any).id_camion),
+    );
 
-    const osOps = ordServicio.flatMap((o) => [
-      {
-        index: {
-          _index: 'ordenes_servicio',
-          _id: (o as any).id_orden_servicio.toString(),
+    const osOps = ordServicio.flatMap((o) => {
+      const idCamion = (o as any).id_camion;
+      const camion = idCamion ? camionesMapOS.get(idCamion) : null;
+      return [
+        {
+          index: {
+            _index: 'ordenes_servicio',
+            _id: (o as any).id_orden_servicio.toString(),
+          },
         },
-      },
-      {
-        id: (o as any).id_orden_servicio,
-        numero_orden: (o as any).numero_orden,
-        nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
-        ruc_proveedor: (o as any).proveedores?.ruc || null,
-        fecha_orden: (o as any).fecha_orden
-          ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
-          : null,
-        estado: (o as any).estado || null,
-        deleted_at: (o as any).deleted_at
-          ? dayjs((o as any).deleted_at).toISOString()
-          : null,
-      },
-    ]);
+        {
+          id: (o as any).id_orden_servicio,
+          numero_orden: (o as any).numero_orden,
+          nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
+          ruc_proveedor: (o as any).proveedores?.ruc || null,
+          fecha_orden: (o as any).fecha_orden
+            ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
+            : null,
+          fecha_registro: (o as any).fecha_registro
+            ? dayjs.utc((o as any).fecha_registro).format('YYYY-MM-DD')
+            : null,
+          estado: (o as any).estado || null,
+          placa_unidad: camion?.placa || null,
+          tipo_unidad: camion?.tipo || null,
+          nombre_chofer: camion?.nombre_chofer || null,
+          apellido_chofer: camion?.apellido_chofer || null,
+          chofer: this.nombreCompletoChofer(camion),
+          auto_administrador: (o as any).auto_administrador === true,
+          auto_contabilidad: (o as any).auto_contabilidad === true,
+          jefe_proyecto: (o as any).jefe_proyecto === true,
+          procede_pago: (o as any).procede_pago || null,
+          deleted_at: (o as any).deleted_at
+            ? dayjs((o as any).deleted_at).toISOString()
+            : null,
+        },
+      ];
+    });
 
     if (osOps.length > 0) {
       await this.client.bulk({ operations: osOps, refresh: true });
@@ -341,6 +577,7 @@ export class SearchService implements OnModuleInit {
     q: string,
     page: number,
     limit: number,
+    filtros: Record<string, string | boolean> = {},
   ): Promise<{ data: any[]; total: number }> {
     const from = (page - 1) * limit;
 
@@ -361,12 +598,18 @@ export class SearchService implements OnModuleInit {
         'nombre_proveedor',
         'ruc_proveedor',
         'estado',
+        'placa_unidad',
+        'nombre_chofer',
+        'apellido_chofer',
       ],
       ordenes_servicio: [
         'numero_orden',
         'nombre_proveedor',
         'ruc_proveedor',
         'estado',
+        'placa_unidad',
+        'nombre_chofer',
+        'apellido_chofer',
       ],
     };
 
@@ -386,6 +629,12 @@ export class SearchService implements OnModuleInit {
       bool: { must_not: { exists: { field: 'deleted_at' } } },
     };
 
+    const filterClauses: any[] = [notDeletedFilter];
+    for (const [campo, valor] of Object.entries(filtros)) {
+      if (valor === undefined || valor === null || valor === '') continue;
+      filterClauses.push({ term: { [campo]: valor } });
+    }
+
     const esQuery: any = trimmedQ
       ? {
           bool: {
@@ -403,10 +652,10 @@ export class SearchService implements OnModuleInit {
                 : []),
             ],
             minimum_should_match: 1,
-            filter: [notDeletedFilter],
+            filter: filterClauses,
           },
         }
-      : notDeletedFilter;
+      : { bool: { filter: filterClauses } };
 
     const result = await this.client.search({
       index,
@@ -438,14 +687,15 @@ export class SearchService implements OnModuleInit {
     q: string,
     page: number,
     limit: number,
+    filtros: Record<string, string | boolean> = {},
   ): Promise<{ data: any[]; total: number }> {
     switch (index) {
       case 'programacion_tecnica':
-        return this.searchProgramacionTecnica(q, page, limit);
+        return this.searchProgramacionTecnica(q, page, limit, filtros);
       case 'ordenes_compra':
-        return this.searchOrdenesCompra(q, page, limit);
+        return this.searchOrdenesCompra(q, page, limit, filtros);
       case 'ordenes_servicio':
-        return this.searchOrdenesServicio(q, page, limit);
+        return this.searchOrdenesServicio(q, page, limit, filtros);
     }
   }
 
@@ -465,12 +715,31 @@ export class SearchService implements OnModuleInit {
 
   // ─── Programación Técnica ──────────────────────────────────────────────────
 
+  private programacionTecnicaFiltrosSql(
+    filtros: Record<string, string | boolean>,
+  ): Prisma.Sql {
+    const fragments: Prisma.Sql[] = [];
+    if (filtros.programacion) {
+      fragments.push(Prisma.sql`pt.programacion = ${filtros.programacion}`);
+    }
+    if (filtros.estado_programacion) {
+      fragments.push(
+        Prisma.sql`pt.estado_programacion = ${filtros.estado_programacion}`,
+      );
+    }
+    return fragments.length > 0
+      ? Prisma.sql`AND ${Prisma.join(fragments, ' AND ')}`
+      : Prisma.sql``;
+  }
+
   private async searchProgramacionTecnica(
     q: string,
     page: number,
     limit: number,
+    filtros: Record<string, string | boolean> = {},
   ) {
     const offset = (page - 1) * limit;
+    const filtrosSql = this.programacionTecnicaFiltrosSql(filtros);
 
     if (q) {
       const searchParam = `%${q}%`;
@@ -495,7 +764,8 @@ export class SearchService implements OnModuleInit {
                 OR CAST(pt.fecha AS CHAR) LIKE ${searchParam}
                 OR p.nombre LIKE ${searchParam}
                 OR sp.nombre LIKE ${searchParam}
-                OR CAST(pt.id AS CHAR) = ${q})`,
+                OR CAST(pt.id AS CHAR) = ${q})
+            ${filtrosSql}`,
         ),
         this.prisma.$queryRaw<any[]>(
           Prisma.sql`SELECT pt.*,
@@ -525,6 +795,7 @@ export class SearchService implements OnModuleInit {
                 OR p.nombre LIKE ${searchParam}
                 OR sp.nombre LIKE ${searchParam}
                 OR CAST(pt.id AS CHAR) = ${q})
+            ${filtrosSql}
             ORDER BY pt.fecha DESC
             LIMIT ${limit} OFFSET ${offset}`,
         ),
@@ -539,7 +810,8 @@ export class SearchService implements OnModuleInit {
       // Sin búsqueda: count + datos paginados
       const [countResult, rows] = await Promise.all([
         this.prisma.$queryRaw<[{ total: bigint }]>(
-          Prisma.sql`SELECT COUNT(*) AS total FROM programacion_tecnica`,
+          Prisma.sql`SELECT COUNT(*) AS total FROM programacion_tecnica pt
+            WHERE 1=1 ${filtrosSql}`,
         ),
         this.prisma.$queryRaw<any[]>(
           Prisma.sql`SELECT pt.*,
@@ -557,6 +829,7 @@ export class SearchService implements OnModuleInit {
                   AND gr.estado_gre = 'COMPLETADO'
             LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
             LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
+            WHERE 1=1 ${filtrosSql}
             ORDER BY pt.fecha DESC
             LIMIT ${limit} OFFSET ${offset}`,
         ),
@@ -659,11 +932,66 @@ export class SearchService implements OnModuleInit {
     };
   }
 
+  /**
+   * Filtros exactos compartidos por ordenes_compra/ordenes_servicio en el
+   * fallback Prisma (cuando ES no está disponible). placa_unidad/tipo_unidad
+   * requieren resolver primero los id_camion correspondientes, ya que no hay
+   * relación Prisma directa entre las órdenes y camiones.
+   */
+  private async ordenesFiltrosWhere(
+    filtros: Record<string, string | boolean>,
+  ): Promise<Record<string, any>> {
+    const where: Record<string, any> = {};
+
+    if (filtros.estado) where.estado = filtros.estado;
+    if (filtros.fecha_registro) {
+      const dia = String(filtros.fecha_registro);
+      where.fecha_registro = {
+        gte: new Date(`${dia}T00:00:00.000Z`),
+        lte: new Date(`${dia}T23:59:59.999Z`),
+      };
+    }
+    if (filtros.auto_administrador !== undefined) {
+      where.auto_administrador =
+        filtros.auto_administrador === true ||
+        filtros.auto_administrador === 'true';
+    }
+    if (filtros.auto_contabilidad !== undefined) {
+      where.auto_contabilidad =
+        filtros.auto_contabilidad === true ||
+        filtros.auto_contabilidad === 'true';
+    }
+    if (filtros.jefe_proyecto !== undefined) {
+      where.jefe_proyecto =
+        filtros.jefe_proyecto === true || filtros.jefe_proyecto === 'true';
+    }
+    if (filtros.procede_pago) where.procede_pago = filtros.procede_pago;
+
+    if (filtros.placa_unidad || filtros.tipo_unidad) {
+      const camionWhere: Record<string, any> = {};
+      if (filtros.placa_unidad) camionWhere.placa = filtros.placa_unidad;
+      if (filtros.tipo_unidad) camionWhere.tipo = filtros.tipo_unidad;
+      const camiones = await this.prisma.camiones.findMany({
+        where: camionWhere,
+        select: { id_camion: true },
+      });
+      where.id_camion = { in: camiones.map((c) => c.id_camion) };
+    }
+
+    return where;
+  }
+
   // ─── Órdenes de Compra ─────────────────────────────────────────────────────
 
-  private async searchOrdenesCompra(q: string, page: number, limit: number) {
+  private async searchOrdenesCompra(
+    q: string,
+    page: number,
+    limit: number,
+    filtros: Record<string, string | boolean> = {},
+  ) {
     const where: any = {
       deleted_at: null,
+      ...(await this.ordenesFiltrosWhere(filtros)),
       ...(q
         ? {
             OR: [
@@ -761,9 +1089,15 @@ export class SearchService implements OnModuleInit {
 
   // ─── Órdenes de Servicio ───────────────────────────────────────────────────
 
-  private async searchOrdenesServicio(q: string, page: number, limit: number) {
+  private async searchOrdenesServicio(
+    q: string,
+    page: number,
+    limit: number,
+    filtros: Record<string, string | boolean> = {},
+  ) {
     const where: any = {
       deleted_at: null,
+      ...(await this.ordenesFiltrosWhere(filtros)),
       ...(q
         ? {
             OR: [

@@ -345,9 +345,7 @@ export class ProgramacionService {
 
       // Actualizar en Elasticsearch (fire-and-forget)
       if (this.searchService) {
-        this.searchService.indexDoc('programacion_tecnica', id.toString(), {
-          deleted_at: now.toISOString(),
-        });
+        this.searchService.reindexOne('programacion_tecnica', id);
       }
 
       return { message: 'Registro marcado como eliminado exitosamente' };
@@ -390,6 +388,11 @@ export class ProgramacionService {
           where: { identificador_unico: tecnica.identificador_unico },
           data: { deleted_at: null },
         });
+      }
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('programacion_tecnica', id);
       }
 
       return { message: 'Registro restaurado exitosamente' };
@@ -749,7 +752,8 @@ export class ProgramacionService {
       };
 
       if ('estado_programacion' in updateData)
-        dataToUpdate.estado_programacion = updateData.estado_programacion ?? null;
+        dataToUpdate.estado_programacion =
+          updateData.estado_programacion ?? null;
       if ('comentarios' in updateData)
         dataToUpdate.comentarios = updateData.comentarios ?? null;
       if ('cantidad_viaje' in updateData)
@@ -757,7 +761,9 @@ export class ProgramacionService {
       if ('proveedor' in updateData)
         dataToUpdate.proveedor = updateData.proveedor ?? null;
       if ('fecha' in updateData)
-        dataToUpdate.fecha = updateData.fecha ? new Date(updateData.fecha) : null;
+        dataToUpdate.fecha = updateData.fecha
+          ? new Date(updateData.fecha)
+          : null;
       if ('hora_partida' in updateData) {
         const hp = updateData.hora_partida;
         if (!hp) {
@@ -766,9 +772,13 @@ export class ProgramacionService {
           // Acepta "HH:MM" o "HH:MM:SS"; descarta ISO completos u otros formatos inválidos
           const match = hp.match(/^(\d{2}):(\d{2})(?::\d{2})?$/);
           if (match) {
-            dataToUpdate.hora_partida = new Date(`1970-01-01T${match[1]}:${match[2]}:00Z`);
+            dataToUpdate.hora_partida = new Date(
+              `1970-01-01T${match[1]}:${match[2]}:00Z`,
+            );
           } else {
-            this.logger.warn(`hora_partida inválida recibida (ID ${id}): "${hp}" — se ignora`);
+            this.logger.warn(
+              `hora_partida inválida recibida (ID ${id}): "${hp}" — se ignora`,
+            );
             dataToUpdate.hora_partida = null;
           }
         }
@@ -982,7 +992,6 @@ export class ProgramacionService {
       );
     }
   }
-
 
   async saveBackendLogs(id: number, logs: string): Promise<void> {
     await this.prisma.programacion_tecnica.update({

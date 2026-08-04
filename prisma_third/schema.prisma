@@ -1067,3 +1067,161 @@ enum camiones_tipo {
   CAMION
   MAQUINARIA
 }
+
+// ─── IMPORTACIÓN DE CONTABILIDAD ─────────────────────────────────────────
+// Modela el layout de la hoja "CONTABILIDAD" del archivo
+// F_Importacion_ModImportacion_ModContabilidad_Contabilidad.xlsm (ver
+// ESPECIFICACION_IMPORTACION_CONTABILIDAD.txt, sección 3). Cada fila del
+// Excel = un asiento (línea debe/haber). "correlativo" agrupa las líneas
+// que pertenecen a un mismo comprobante (ver comentario original D7/D8:
+// "Número que corresponde a cada compra (cabecera), nos ayudará asociar
+// el detalle con la compra").
+
+model lotes_importacion_contable {
+  id                 Int                  @id @default(autoincrement())
+  nombre_archivo     String?              @db.VarChar(255)
+  total_filas        Int
+  filas_validas      Int
+  filas_error        Int
+  creado_por         Int?
+  creado_en          DateTime             @default(now()) @db.Timestamp(0)
+  asientos_contables asientos_contables[]
+}
+
+model asientos_contables {
+  id       Int                         @id @default(autoincrement())
+  id_lote  Int
+  lote     lotes_importacion_contable  @relation(fields: [id_lote], references: [id])
+
+  // Información general
+  correlativo                  Int
+  relacionado                  Int
+  codigo_tipo_medio_pago       String?   @db.VarChar(3)
+  ejercicio                    String    @db.VarChar(4)
+  periodo                      String    @db.VarChar(2)
+  cod_modulo                   String    @db.VarChar(2)
+  modulo                       String    @db.VarChar(4)
+  fuente                       String    @db.VarChar(2)
+  numero_cuenta                String    @db.VarChar(50)
+  codigo_tipo_documento        String?   @db.VarChar(2)
+  numero_serie                 String?   @db.VarChar(20)
+  numero_documento              String?   @db.VarChar(20)
+  concepto_fec                 Int?
+  glosa                        String?   @db.VarChar(500)
+  codigo_moneda_origen         String    @db.VarChar(2)
+  codigo_moneda_registro       String    @db.VarChar(2)
+  codigo_centro_costo          String    @db.VarChar(8)
+  codigo_sub_centro_costo      String    @db.VarChar(8)
+  codigo_sub_sub_centro_costo  String    @db.VarChar(8)
+  codigo_forma_provision       String?   @db.VarChar(2)
+  codigo_forma_pago_cobro      String?   @db.VarChar(2)
+  codigo_area                  String    @db.VarChar(6)
+  identificador_ctr_mda        String?   @db.VarChar(1)
+  identificador_tip_afecto     String?   @db.VarChar(1)
+  nro_cheque                   String?   @db.VarChar(30)
+  grdo                         String?   @db.VarChar(100)
+
+  // Fechas
+  fecha_emision_doc     DateTime? @db.Date
+  fecha_vencimiento_doc DateTime? @db.Date
+  fecha_movimiento      DateTime? @db.Date
+  fecha_cbr             DateTime? @db.Date
+  fecha_registro        DateTime? @db.Date
+  fecha_conc            DateTime? @db.Date
+  fecha_dif             DateTime? @db.Date
+
+  // Auxiliares: Cliente / Proveedor / Trabajador
+  cod_tip_doc_ident_clt  String? @db.VarChar(2)
+  nro_doc_clt            String? @db.VarChar(10)
+  razon_social_1         String? @db.VarChar(800)
+  cod_tip_doc_ident_prov String? @db.VarChar(2)
+  nro_doc_prov           String? @db.VarChar(10)
+  razon_social_2         String? @db.VarChar(800)
+  cod_tip_doc_ident_trab String? @db.VarChar(2)
+  nro_doc_trab           String? @db.VarChar(10)
+  razon_social_3         String? @db.VarChar(800)
+
+  // Cantidades
+  monto_debe     Decimal @db.Decimal(13, 2)
+  monto_haber    Decimal @db.Decimal(13, 2)
+  monto_debe_me  Decimal? @db.Decimal(13, 2)
+  monto_haber_me Decimal? @db.Decimal(13, 2)
+  cambio_moneda  Decimal @db.Decimal(13, 2)
+
+  // Indicadores
+  es_cancelado  Boolean? @default(false)
+  es_conciliado Boolean? @default(false)
+  es_provision  Boolean? @default(false)
+  es_anulado    Boolean? @default(false)
+  es_destino    Boolean? @default(false)
+
+  // Documento de referencia
+  doc_ref_fecha_emision DateTime? @db.Date
+  doc_ref_cod_tip_doc   String?   @db.VarChar(2)
+  doc_ref_nro_serie     String?   @db.VarChar(4)
+  doc_ref_nro_doc       String?   @db.VarChar(8)
+  numero_detraccion     String?   @db.VarChar(8)
+  fecha_pago_detraccion String?   @db.VarChar(8)
+
+  // Campos adicionales de uso libre (CA01..CA15 del Excel original)
+  campos_adicionales Json?
+
+  // Auditoría / soft delete
+  creado_por    Int?
+  creado_en     DateTime  @default(now()) @db.Timestamp(0)
+  editado_por   Int?
+  fecha_edicion DateTime? @db.Timestamp(0)
+  deleted_at    DateTime?
+
+  @@index([id_lote])
+  @@index([ejercicio, periodo])
+  @@index([numero_cuenta])
+  @@index([correlativo])
+  @@index([deleted_at])
+}
+
+// Catálogos de referencia (hoja "TABLAS" del Excel original, sección 5 del
+// spec). Tablas propias en vez de enums para poder administrarlas a futuro
+// sin requerir un deploy de backend.
+
+model cat_modulo {
+  codigo      String @id @db.VarChar(2)
+  descripcion String @db.VarChar(100)
+}
+
+model cat_fuente {
+  codigo      String @id @db.VarChar(2)
+  descripcion String @db.VarChar(100)
+}
+
+model cat_moneda {
+  codigo      String @id @db.VarChar(2)
+  descripcion String @db.VarChar(100)
+}
+
+model cat_tipo_doc_identidad {
+  codigo      String @id @db.VarChar(2)
+  descripcion String @db.VarChar(100)
+}
+
+// Rotulada "(FUENTE)" en el Excel original pero contiene datos de FORMA DE
+// PAGO (ver sección 6.5 del spec). Renombrada acá para evitar confusión.
+model cat_forma_pago {
+  codigo      String @id @db.VarChar(2)
+  descripcion String @db.VarChar(100)
+}
+
+model cat_medio_pago {
+  codigo      String @id @db.VarChar(3)
+  descripcion String @db.VarChar(255)
+}
+
+model cat_indicador_afecto {
+  codigo      String @id @db.VarChar(1)
+  descripcion String @db.VarChar(150)
+}
+
+model cat_concepto_flujo_efectivo {
+  codigo      String @id @db.VarChar(1)
+  descripcion String @db.VarChar(50)
+}

@@ -805,6 +805,125 @@ exports.Prisma.Multifactura_detalleScalarFieldEnum = {
   fecha_registro: 'fecha_registro'
 };
 
+exports.Prisma.Lotes_importacion_contableScalarFieldEnum = {
+  id: 'id',
+  nombre_archivo: 'nombre_archivo',
+  total_filas: 'total_filas',
+  filas_validas: 'filas_validas',
+  filas_error: 'filas_error',
+  creado_por: 'creado_por',
+  creado_en: 'creado_en'
+};
+
+exports.Prisma.Asientos_contablesScalarFieldEnum = {
+  id: 'id',
+  id_lote: 'id_lote',
+  correlativo: 'correlativo',
+  relacionado: 'relacionado',
+  codigo_tipo_medio_pago: 'codigo_tipo_medio_pago',
+  ejercicio: 'ejercicio',
+  periodo: 'periodo',
+  cod_modulo: 'cod_modulo',
+  modulo: 'modulo',
+  fuente: 'fuente',
+  numero_cuenta: 'numero_cuenta',
+  codigo_tipo_documento: 'codigo_tipo_documento',
+  numero_serie: 'numero_serie',
+  numero_documento: 'numero_documento',
+  concepto_fec: 'concepto_fec',
+  glosa: 'glosa',
+  codigo_moneda_origen: 'codigo_moneda_origen',
+  codigo_moneda_registro: 'codigo_moneda_registro',
+  codigo_centro_costo: 'codigo_centro_costo',
+  codigo_sub_centro_costo: 'codigo_sub_centro_costo',
+  codigo_sub_sub_centro_costo: 'codigo_sub_sub_centro_costo',
+  codigo_forma_provision: 'codigo_forma_provision',
+  codigo_forma_pago_cobro: 'codigo_forma_pago_cobro',
+  codigo_area: 'codigo_area',
+  identificador_ctr_mda: 'identificador_ctr_mda',
+  identificador_tip_afecto: 'identificador_tip_afecto',
+  nro_cheque: 'nro_cheque',
+  grdo: 'grdo',
+  fecha_emision_doc: 'fecha_emision_doc',
+  fecha_vencimiento_doc: 'fecha_vencimiento_doc',
+  fecha_movimiento: 'fecha_movimiento',
+  fecha_cbr: 'fecha_cbr',
+  fecha_registro: 'fecha_registro',
+  fecha_conc: 'fecha_conc',
+  fecha_dif: 'fecha_dif',
+  cod_tip_doc_ident_clt: 'cod_tip_doc_ident_clt',
+  nro_doc_clt: 'nro_doc_clt',
+  razon_social_1: 'razon_social_1',
+  cod_tip_doc_ident_prov: 'cod_tip_doc_ident_prov',
+  nro_doc_prov: 'nro_doc_prov',
+  razon_social_2: 'razon_social_2',
+  cod_tip_doc_ident_trab: 'cod_tip_doc_ident_trab',
+  nro_doc_trab: 'nro_doc_trab',
+  razon_social_3: 'razon_social_3',
+  monto_debe: 'monto_debe',
+  monto_haber: 'monto_haber',
+  monto_debe_me: 'monto_debe_me',
+  monto_haber_me: 'monto_haber_me',
+  cambio_moneda: 'cambio_moneda',
+  es_cancelado: 'es_cancelado',
+  es_conciliado: 'es_conciliado',
+  es_provision: 'es_provision',
+  es_anulado: 'es_anulado',
+  es_destino: 'es_destino',
+  doc_ref_fecha_emision: 'doc_ref_fecha_emision',
+  doc_ref_cod_tip_doc: 'doc_ref_cod_tip_doc',
+  doc_ref_nro_serie: 'doc_ref_nro_serie',
+  doc_ref_nro_doc: 'doc_ref_nro_doc',
+  numero_detraccion: 'numero_detraccion',
+  fecha_pago_detraccion: 'fecha_pago_detraccion',
+  campos_adicionales: 'campos_adicionales',
+  creado_por: 'creado_por',
+  creado_en: 'creado_en',
+  editado_por: 'editado_por',
+  fecha_edicion: 'fecha_edicion',
+  deleted_at: 'deleted_at'
+};
+
+exports.Prisma.Cat_moduloScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_fuenteScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_monedaScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_tipo_doc_identidadScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_forma_pagoScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_medio_pagoScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_indicador_afectoScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.Cat_concepto_flujo_efectivoScalarFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1172,6 +1291,90 @@ exports.Prisma.multifactura_detalleOrderByRelevanceFieldEnum = {
   url_factura: 'url_factura',
   url_guia: 'url_guia'
 };
+
+exports.Prisma.lotes_importacion_contableOrderByRelevanceFieldEnum = {
+  nombre_archivo: 'nombre_archivo'
+};
+
+exports.Prisma.asientos_contablesOrderByRelevanceFieldEnum = {
+  codigo_tipo_medio_pago: 'codigo_tipo_medio_pago',
+  ejercicio: 'ejercicio',
+  periodo: 'periodo',
+  cod_modulo: 'cod_modulo',
+  modulo: 'modulo',
+  fuente: 'fuente',
+  numero_cuenta: 'numero_cuenta',
+  codigo_tipo_documento: 'codigo_tipo_documento',
+  numero_serie: 'numero_serie',
+  numero_documento: 'numero_documento',
+  glosa: 'glosa',
+  codigo_moneda_origen: 'codigo_moneda_origen',
+  codigo_moneda_registro: 'codigo_moneda_registro',
+  codigo_centro_costo: 'codigo_centro_costo',
+  codigo_sub_centro_costo: 'codigo_sub_centro_costo',
+  codigo_sub_sub_centro_costo: 'codigo_sub_sub_centro_costo',
+  codigo_forma_provision: 'codigo_forma_provision',
+  codigo_forma_pago_cobro: 'codigo_forma_pago_cobro',
+  codigo_area: 'codigo_area',
+  identificador_ctr_mda: 'identificador_ctr_mda',
+  identificador_tip_afecto: 'identificador_tip_afecto',
+  nro_cheque: 'nro_cheque',
+  grdo: 'grdo',
+  cod_tip_doc_ident_clt: 'cod_tip_doc_ident_clt',
+  nro_doc_clt: 'nro_doc_clt',
+  razon_social_1: 'razon_social_1',
+  cod_tip_doc_ident_prov: 'cod_tip_doc_ident_prov',
+  nro_doc_prov: 'nro_doc_prov',
+  razon_social_2: 'razon_social_2',
+  cod_tip_doc_ident_trab: 'cod_tip_doc_ident_trab',
+  nro_doc_trab: 'nro_doc_trab',
+  razon_social_3: 'razon_social_3',
+  doc_ref_cod_tip_doc: 'doc_ref_cod_tip_doc',
+  doc_ref_nro_serie: 'doc_ref_nro_serie',
+  doc_ref_nro_doc: 'doc_ref_nro_doc',
+  numero_detraccion: 'numero_detraccion',
+  fecha_pago_detraccion: 'fecha_pago_detraccion'
+};
+
+exports.Prisma.cat_moduloOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_fuenteOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_monedaOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_tipo_doc_identidadOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_forma_pagoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_medio_pagoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_indicador_afectoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
+
+exports.Prisma.cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion'
+};
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
   AUXILIAR: 'AUXILIAR',
@@ -1374,7 +1577,17 @@ exports.Prisma.ModelName = {
   camiones: 'camiones',
   oldfasecontrol: 'oldfasecontrol',
   subirfasecontrol_copy1: 'subirfasecontrol_copy1',
-  multifactura_detalle: 'multifactura_detalle'
+  multifactura_detalle: 'multifactura_detalle',
+  lotes_importacion_contable: 'lotes_importacion_contable',
+  asientos_contables: 'asientos_contables',
+  cat_modulo: 'cat_modulo',
+  cat_fuente: 'cat_fuente',
+  cat_moneda: 'cat_moneda',
+  cat_tipo_doc_identidad: 'cat_tipo_doc_identidad',
+  cat_forma_pago: 'cat_forma_pago',
+  cat_medio_pago: 'cat_medio_pago',
+  cat_indicador_afecto: 'cat_indicador_afecto',
+  cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo'
 };
 
 /**

@@ -126,7 +126,9 @@ export class OrdenServicioService {
         include: {
           proveedores: { select: { nombre_proveedor: true, ruc: true } },
           detalles_orden_servicio: true,
-          multifactura_detalle: { select: { nro_serie: true, nro_factura: true } },
+          multifactura_detalle: {
+            select: { nro_serie: true, nro_factura: true },
+          },
           usuarios: { select: { nombre: true } },
         },
       });
@@ -134,9 +136,9 @@ export class OrdenServicioService {
       const camionIds = [
         ...new Set([
           ...ordenes.map((o) => o.id_camion).filter(Boolean),
-          ...ordenes.flatMap((o) =>
-            o.detalles_orden_servicio.map((d) => d.id_camion),
-          ).filter(Boolean),
+          ...ordenes
+            .flatMap((o) => o.detalles_orden_servicio.map((d) => d.id_camion))
+            .filter(Boolean),
         ]),
       ] as number[];
       const camionesMap = new Map<number, any>();
@@ -180,10 +182,13 @@ export class OrdenServicioService {
           tipo_unidad: camion?.tipo || null,
           nombre_chofer: camion?.nombre_chofer || null,
           apellido_chofer: camion?.apellido_chofer || null,
-          multifacturas_nros: ((orden as any).multifactura_detalle || [])
-            .map((m: any) => [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '))
-            .filter(Boolean)
-            .join(', ') || null,
+          multifacturas_nros:
+            ((orden as any).multifactura_detalle || [])
+              .map((m: any) =>
+                [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '),
+              )
+              .filter(Boolean)
+              .join(', ') || null,
         };
       });
     } catch (error) {
@@ -372,20 +377,9 @@ export class OrdenServicioService {
         const proveedorCreado = await this.prismaThird.proveedores.findUnique({
           where: { id_proveedor: createOrdenServicioDto.id_proveedor },
         });
-        this.searchService.indexDoc(
+        this.searchService.reindexOne(
           'ordenes_servicio',
-          ordenServicio.id_orden_servicio.toString(),
-          {
-            id: ordenServicio.id_orden_servicio,
-            numero_orden: ordenServicio.numero_orden,
-            nombre_proveedor: proveedorCreado?.nombre_proveedor || null,
-            ruc_proveedor: proveedorCreado?.ruc || null,
-            fecha_orden: ordenServicio.fecha_orden
-              ? dayjs.utc(ordenServicio.fecha_orden).format('YYYY-MM-DD')
-              : null,
-            estado: ordenServicio.estado || null,
-            deleted_at: null,
-          },
+          ordenServicio.id_orden_servicio,
         );
       }
 
@@ -1697,15 +1691,7 @@ export class OrdenServicioService {
 
       // Indexar en Elasticsearch (fire-and-forget)
       if (this.searchService) {
-        this.searchService.indexDoc('ordenes_servicio', id.toString(), {
-          id,
-          numero_orden: ordenServicioActualizada.numero_orden,
-          nombre_proveedor: ordenServicioActualizada.nombre_proveedor || null,
-          ruc_proveedor: ordenServicioActualizada.ruc_proveedor || null,
-          fecha_orden: ordenServicioActualizada.fecha_orden || null,
-          estado: (ordenServicioActualizada as any).estado || null,
-          deleted_at: null,
-        });
+        this.searchService.reindexOne('ordenes_servicio', id);
       }
 
       console.log(
@@ -1748,9 +1734,7 @@ export class OrdenServicioService {
 
       // Actualizar en Elasticsearch (fire-and-forget)
       if (this.searchService) {
-        this.searchService.indexDoc('ordenes_servicio', id.toString(), {
-          deleted_at: new Date().toISOString(),
-        });
+        this.searchService.reindexOne('ordenes_servicio', id);
       }
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -1780,6 +1764,11 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { deleted_at: null },
       });
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -1807,7 +1796,8 @@ export class OrdenServicioService {
         );
       }
 
-      const bajarEstado = orden.estado === 'COMPLETADA' ? { estado: 'PENDIENTE' as const } : {};
+      const bajarEstado =
+        orden.estado === 'COMPLETADA' ? { estado: 'PENDIENTE' as const } : {};
 
       if (tipo === 'operacion') {
         await this.prismaThird.ordenes_servicio.update({
@@ -1822,7 +1812,12 @@ export class OrdenServicioService {
       } else if (tipo === 'factura') {
         await this.prismaThird.ordenes_servicio.update({
           where: { id_orden_servicio: id },
-          data: { url_factura: null, nro_factura: null, nro_serie: null, ...bajarEstado },
+          data: {
+            url_factura: null,
+            nro_factura: null,
+            nro_serie: null,
+            ...bajarEstado,
+          },
         });
       } else if (tipo === 'retencion') {
         await this.prismaThird.ordenes_servicio.update({
@@ -1834,12 +1829,7 @@ export class OrdenServicioService {
       this.websocketGateway.emitOrdenServicioUpdate();
 
       if (this.searchService) {
-        const indexData: Record<string, null | string> = {};
-        if (tipo === 'operacion') indexData['url'] = null;
-        else if (tipo === 'cotizacion') indexData['url_cotizacion'] = null;
-        else if (tipo === 'factura') { indexData['url_factura'] = null; indexData['nro_factura'] = null; }
-        else indexData['url_comprobante_retencion'] = null;
-        this.searchService.indexDoc('ordenes_servicio', id.toString(), indexData);
+        this.searchService.reindexOne('ordenes_servicio', id);
       }
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -1862,7 +1852,9 @@ export class OrdenServicioService {
         include: {
           proveedores: true,
           detalles_orden_servicio: true,
-          multifactura_detalle: { select: { nro_serie: true, nro_factura: true } },
+          multifactura_detalle: {
+            select: { nro_serie: true, nro_factura: true },
+          },
         },
       });
 
@@ -1904,10 +1896,13 @@ export class OrdenServicioService {
           tipo_unidad: camion?.tipo || null,
           nombre_chofer: camion?.nombre_chofer || null,
           apellido_chofer: camion?.apellido_chofer || null,
-          multifacturas_nros: ((orden as any).multifactura_detalle || [])
-            .map((m: any) => [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '))
-            .filter(Boolean)
-            .join(', ') || null,
+          multifacturas_nros:
+            ((orden as any).multifactura_detalle || [])
+              .map((m: any) =>
+                [m.nro_serie, m.nro_factura].filter(Boolean).join(' - '),
+              )
+              .filter(Boolean)
+              .join(', ') || null,
         };
       });
     } catch (error) {
@@ -2053,6 +2048,11 @@ export class OrdenServicioService {
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
 
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -2098,6 +2098,11 @@ export class OrdenServicioService {
 
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
@@ -2145,6 +2150,11 @@ export class OrdenServicioService {
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
 
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -2191,6 +2201,11 @@ export class OrdenServicioService {
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
 
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -2227,6 +2242,11 @@ export class OrdenServicioService {
         where: { id_orden_servicio: id },
         data: { procede_pago: 'PAGAR' },
       });
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
@@ -2336,6 +2356,11 @@ export class OrdenServicioService {
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
 
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
+
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
     } catch (error) {
@@ -2360,6 +2385,11 @@ export class OrdenServicioService {
 
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
@@ -2388,6 +2418,11 @@ export class OrdenServicioService {
 
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();
@@ -2424,6 +2459,11 @@ export class OrdenServicioService {
 
       // Verificar si debe cambiar a COMPLETADA
       await this.verificarYActualizarEstadoCompletada(id);
+
+      // Actualizar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne('ordenes_servicio', id);
+      }
 
       // Emitir evento WebSocket para actualizar los clientes en tiempo real
       this.websocketGateway.emitOrdenServicioUpdate();

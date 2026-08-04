@@ -258,6 +258,56 @@ export type subirfasecontrol_copy1 = $Result.DefaultSelection<Prisma.$subirfasec
  * 
  */
 export type multifactura_detalle = $Result.DefaultSelection<Prisma.$multifactura_detallePayload>
+/**
+ * Model lotes_importacion_contable
+ * 
+ */
+export type lotes_importacion_contable = $Result.DefaultSelection<Prisma.$lotes_importacion_contablePayload>
+/**
+ * Model asientos_contables
+ * 
+ */
+export type asientos_contables = $Result.DefaultSelection<Prisma.$asientos_contablesPayload>
+/**
+ * Model cat_modulo
+ * 
+ */
+export type cat_modulo = $Result.DefaultSelection<Prisma.$cat_moduloPayload>
+/**
+ * Model cat_fuente
+ * 
+ */
+export type cat_fuente = $Result.DefaultSelection<Prisma.$cat_fuentePayload>
+/**
+ * Model cat_moneda
+ * 
+ */
+export type cat_moneda = $Result.DefaultSelection<Prisma.$cat_monedaPayload>
+/**
+ * Model cat_tipo_doc_identidad
+ * 
+ */
+export type cat_tipo_doc_identidad = $Result.DefaultSelection<Prisma.$cat_tipo_doc_identidadPayload>
+/**
+ * Model cat_forma_pago
+ * 
+ */
+export type cat_forma_pago = $Result.DefaultSelection<Prisma.$cat_forma_pagoPayload>
+/**
+ * Model cat_medio_pago
+ * 
+ */
+export type cat_medio_pago = $Result.DefaultSelection<Prisma.$cat_medio_pagoPayload>
+/**
+ * Model cat_indicador_afecto
+ * 
+ */
+export type cat_indicador_afecto = $Result.DefaultSelection<Prisma.$cat_indicador_afectoPayload>
+/**
+ * Model cat_concepto_flujo_efectivo
+ * 
+ */
+export type cat_concepto_flujo_efectivo = $Result.DefaultSelection<Prisma.$cat_concepto_flujo_efectivoPayload>
 
 /**
  * Enums
@@ -1192,6 +1242,106 @@ export class PrismaClient<
     * ```
     */
   get multifactura_detalle(): Prisma.multifactura_detalleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lotes_importacion_contable`: Exposes CRUD operations for the **lotes_importacion_contable** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lotes_importacion_contables
+    * const lotes_importacion_contables = await prisma.lotes_importacion_contable.findMany()
+    * ```
+    */
+  get lotes_importacion_contable(): Prisma.lotes_importacion_contableDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.asientos_contables`: Exposes CRUD operations for the **asientos_contables** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Asientos_contables
+    * const asientos_contables = await prisma.asientos_contables.findMany()
+    * ```
+    */
+  get asientos_contables(): Prisma.asientos_contablesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_modulo`: Exposes CRUD operations for the **cat_modulo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_modulos
+    * const cat_modulos = await prisma.cat_modulo.findMany()
+    * ```
+    */
+  get cat_modulo(): Prisma.cat_moduloDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_fuente`: Exposes CRUD operations for the **cat_fuente** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_fuentes
+    * const cat_fuentes = await prisma.cat_fuente.findMany()
+    * ```
+    */
+  get cat_fuente(): Prisma.cat_fuenteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_moneda`: Exposes CRUD operations for the **cat_moneda** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_monedas
+    * const cat_monedas = await prisma.cat_moneda.findMany()
+    * ```
+    */
+  get cat_moneda(): Prisma.cat_monedaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_tipo_doc_identidad`: Exposes CRUD operations for the **cat_tipo_doc_identidad** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_tipo_doc_identidads
+    * const cat_tipo_doc_identidads = await prisma.cat_tipo_doc_identidad.findMany()
+    * ```
+    */
+  get cat_tipo_doc_identidad(): Prisma.cat_tipo_doc_identidadDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_forma_pago`: Exposes CRUD operations for the **cat_forma_pago** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_forma_pagos
+    * const cat_forma_pagos = await prisma.cat_forma_pago.findMany()
+    * ```
+    */
+  get cat_forma_pago(): Prisma.cat_forma_pagoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_medio_pago`: Exposes CRUD operations for the **cat_medio_pago** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_medio_pagos
+    * const cat_medio_pagos = await prisma.cat_medio_pago.findMany()
+    * ```
+    */
+  get cat_medio_pago(): Prisma.cat_medio_pagoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_indicador_afecto`: Exposes CRUD operations for the **cat_indicador_afecto** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_indicador_afectos
+    * const cat_indicador_afectos = await prisma.cat_indicador_afecto.findMany()
+    * ```
+    */
+  get cat_indicador_afecto(): Prisma.cat_indicador_afectoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cat_concepto_flujo_efectivo`: Exposes CRUD operations for the **cat_concepto_flujo_efectivo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cat_concepto_flujo_efectivos
+    * const cat_concepto_flujo_efectivos = await prisma.cat_concepto_flujo_efectivo.findMany()
+    * ```
+    */
+  get cat_concepto_flujo_efectivo(): Prisma.cat_concepto_flujo_efectivoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1681,7 +1831,17 @@ export namespace Prisma {
     camiones: 'camiones',
     oldfasecontrol: 'oldfasecontrol',
     subirfasecontrol_copy1: 'subirfasecontrol_copy1',
-    multifactura_detalle: 'multifactura_detalle'
+    multifactura_detalle: 'multifactura_detalle',
+    lotes_importacion_contable: 'lotes_importacion_contable',
+    asientos_contables: 'asientos_contables',
+    cat_modulo: 'cat_modulo',
+    cat_fuente: 'cat_fuente',
+    cat_moneda: 'cat_moneda',
+    cat_tipo_doc_identidad: 'cat_tipo_doc_identidad',
+    cat_forma_pago: 'cat_forma_pago',
+    cat_medio_pago: 'cat_medio_pago',
+    cat_indicador_afecto: 'cat_indicador_afecto',
+    cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1700,7 +1860,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4938,6 +5098,666 @@ export namespace Prisma {
           }
         }
       }
+      lotes_importacion_contable: {
+        payload: Prisma.$lotes_importacion_contablePayload<ExtArgs>
+        fields: Prisma.lotes_importacion_contableFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.lotes_importacion_contableFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.lotes_importacion_contableFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          findFirst: {
+            args: Prisma.lotes_importacion_contableFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.lotes_importacion_contableFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          findMany: {
+            args: Prisma.lotes_importacion_contableFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>[]
+          }
+          create: {
+            args: Prisma.lotes_importacion_contableCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          createMany: {
+            args: Prisma.lotes_importacion_contableCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.lotes_importacion_contableDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          update: {
+            args: Prisma.lotes_importacion_contableUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          deleteMany: {
+            args: Prisma.lotes_importacion_contableDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.lotes_importacion_contableUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.lotes_importacion_contableUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$lotes_importacion_contablePayload>
+          }
+          aggregate: {
+            args: Prisma.Lotes_importacion_contableAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLotes_importacion_contable>
+          }
+          groupBy: {
+            args: Prisma.lotes_importacion_contableGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Lotes_importacion_contableGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.lotes_importacion_contableCountArgs<ExtArgs>
+            result: $Utils.Optional<Lotes_importacion_contableCountAggregateOutputType> | number
+          }
+        }
+      }
+      asientos_contables: {
+        payload: Prisma.$asientos_contablesPayload<ExtArgs>
+        fields: Prisma.asientos_contablesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.asientos_contablesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.asientos_contablesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          findFirst: {
+            args: Prisma.asientos_contablesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.asientos_contablesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          findMany: {
+            args: Prisma.asientos_contablesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>[]
+          }
+          create: {
+            args: Prisma.asientos_contablesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          createMany: {
+            args: Prisma.asientos_contablesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.asientos_contablesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          update: {
+            args: Prisma.asientos_contablesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          deleteMany: {
+            args: Prisma.asientos_contablesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.asientos_contablesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.asientos_contablesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$asientos_contablesPayload>
+          }
+          aggregate: {
+            args: Prisma.Asientos_contablesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAsientos_contables>
+          }
+          groupBy: {
+            args: Prisma.asientos_contablesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Asientos_contablesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.asientos_contablesCountArgs<ExtArgs>
+            result: $Utils.Optional<Asientos_contablesCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_modulo: {
+        payload: Prisma.$cat_moduloPayload<ExtArgs>
+        fields: Prisma.cat_moduloFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_moduloFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_moduloFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_moduloFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_moduloFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          findMany: {
+            args: Prisma.cat_moduloFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>[]
+          }
+          create: {
+            args: Prisma.cat_moduloCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          createMany: {
+            args: Prisma.cat_moduloCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_moduloDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          update: {
+            args: Prisma.cat_moduloUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_moduloDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_moduloUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_moduloUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_moduloPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_moduloAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_modulo>
+          }
+          groupBy: {
+            args: Prisma.cat_moduloGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_moduloGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_moduloCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_moduloCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_fuente: {
+        payload: Prisma.$cat_fuentePayload<ExtArgs>
+        fields: Prisma.cat_fuenteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_fuenteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_fuenteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          findFirst: {
+            args: Prisma.cat_fuenteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_fuenteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          findMany: {
+            args: Prisma.cat_fuenteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>[]
+          }
+          create: {
+            args: Prisma.cat_fuenteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          createMany: {
+            args: Prisma.cat_fuenteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_fuenteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          update: {
+            args: Prisma.cat_fuenteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_fuenteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_fuenteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_fuenteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_fuentePayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_fuenteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_fuente>
+          }
+          groupBy: {
+            args: Prisma.cat_fuenteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_fuenteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_fuenteCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_fuenteCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_moneda: {
+        payload: Prisma.$cat_monedaPayload<ExtArgs>
+        fields: Prisma.cat_monedaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_monedaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_monedaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_monedaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_monedaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          findMany: {
+            args: Prisma.cat_monedaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>[]
+          }
+          create: {
+            args: Prisma.cat_monedaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          createMany: {
+            args: Prisma.cat_monedaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_monedaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          update: {
+            args: Prisma.cat_monedaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_monedaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_monedaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_monedaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_monedaPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_monedaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_moneda>
+          }
+          groupBy: {
+            args: Prisma.cat_monedaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_monedaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_monedaCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_monedaCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_tipo_doc_identidad: {
+        payload: Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>
+        fields: Prisma.cat_tipo_doc_identidadFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_tipo_doc_identidadFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_tipo_doc_identidadFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_tipo_doc_identidadFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_tipo_doc_identidadFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          findMany: {
+            args: Prisma.cat_tipo_doc_identidadFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>[]
+          }
+          create: {
+            args: Prisma.cat_tipo_doc_identidadCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          createMany: {
+            args: Prisma.cat_tipo_doc_identidadCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_tipo_doc_identidadDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          update: {
+            args: Prisma.cat_tipo_doc_identidadUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_tipo_doc_identidadDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_tipo_doc_identidadUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_tipo_doc_identidadUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_tipo_doc_identidadPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_tipo_doc_identidadAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_tipo_doc_identidad>
+          }
+          groupBy: {
+            args: Prisma.cat_tipo_doc_identidadGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_tipo_doc_identidadGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_tipo_doc_identidadCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_tipo_doc_identidadCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_forma_pago: {
+        payload: Prisma.$cat_forma_pagoPayload<ExtArgs>
+        fields: Prisma.cat_forma_pagoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_forma_pagoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_forma_pagoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_forma_pagoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_forma_pagoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          findMany: {
+            args: Prisma.cat_forma_pagoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>[]
+          }
+          create: {
+            args: Prisma.cat_forma_pagoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          createMany: {
+            args: Prisma.cat_forma_pagoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_forma_pagoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          update: {
+            args: Prisma.cat_forma_pagoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_forma_pagoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_forma_pagoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_forma_pagoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_forma_pagoPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_forma_pagoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_forma_pago>
+          }
+          groupBy: {
+            args: Prisma.cat_forma_pagoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_forma_pagoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_forma_pagoCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_forma_pagoCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_medio_pago: {
+        payload: Prisma.$cat_medio_pagoPayload<ExtArgs>
+        fields: Prisma.cat_medio_pagoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_medio_pagoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_medio_pagoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_medio_pagoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_medio_pagoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          findMany: {
+            args: Prisma.cat_medio_pagoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>[]
+          }
+          create: {
+            args: Prisma.cat_medio_pagoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          createMany: {
+            args: Prisma.cat_medio_pagoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_medio_pagoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          update: {
+            args: Prisma.cat_medio_pagoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_medio_pagoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_medio_pagoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_medio_pagoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_medio_pagoPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_medio_pagoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_medio_pago>
+          }
+          groupBy: {
+            args: Prisma.cat_medio_pagoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_medio_pagoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_medio_pagoCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_medio_pagoCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_indicador_afecto: {
+        payload: Prisma.$cat_indicador_afectoPayload<ExtArgs>
+        fields: Prisma.cat_indicador_afectoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_indicador_afectoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_indicador_afectoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_indicador_afectoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_indicador_afectoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          findMany: {
+            args: Prisma.cat_indicador_afectoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>[]
+          }
+          create: {
+            args: Prisma.cat_indicador_afectoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          createMany: {
+            args: Prisma.cat_indicador_afectoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_indicador_afectoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          update: {
+            args: Prisma.cat_indicador_afectoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_indicador_afectoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_indicador_afectoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_indicador_afectoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_indicador_afectoPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_indicador_afectoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_indicador_afecto>
+          }
+          groupBy: {
+            args: Prisma.cat_indicador_afectoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_indicador_afectoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_indicador_afectoCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_indicador_afectoCountAggregateOutputType> | number
+          }
+        }
+      }
+      cat_concepto_flujo_efectivo: {
+        payload: Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>
+        fields: Prisma.cat_concepto_flujo_efectivoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cat_concepto_flujo_efectivoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cat_concepto_flujo_efectivoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          findFirst: {
+            args: Prisma.cat_concepto_flujo_efectivoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cat_concepto_flujo_efectivoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          findMany: {
+            args: Prisma.cat_concepto_flujo_efectivoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>[]
+          }
+          create: {
+            args: Prisma.cat_concepto_flujo_efectivoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          createMany: {
+            args: Prisma.cat_concepto_flujo_efectivoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.cat_concepto_flujo_efectivoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          update: {
+            args: Prisma.cat_concepto_flujo_efectivoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          deleteMany: {
+            args: Prisma.cat_concepto_flujo_efectivoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cat_concepto_flujo_efectivoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.cat_concepto_flujo_efectivoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cat_concepto_flujo_efectivoPayload>
+          }
+          aggregate: {
+            args: Prisma.Cat_concepto_flujo_efectivoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCat_concepto_flujo_efectivo>
+          }
+          groupBy: {
+            args: Prisma.cat_concepto_flujo_efectivoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Cat_concepto_flujo_efectivoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cat_concepto_flujo_efectivoCountArgs<ExtArgs>
+            result: $Utils.Optional<Cat_concepto_flujo_efectivoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5083,6 +5903,16 @@ export namespace Prisma {
     oldfasecontrol?: oldfasecontrolOmit
     subirfasecontrol_copy1?: subirfasecontrol_copy1Omit
     multifactura_detalle?: multifactura_detalleOmit
+    lotes_importacion_contable?: lotes_importacion_contableOmit
+    asientos_contables?: asientos_contablesOmit
+    cat_modulo?: cat_moduloOmit
+    cat_fuente?: cat_fuenteOmit
+    cat_moneda?: cat_monedaOmit
+    cat_tipo_doc_identidad?: cat_tipo_doc_identidadOmit
+    cat_forma_pago?: cat_forma_pagoOmit
+    cat_medio_pago?: cat_medio_pagoOmit
+    cat_indicador_afecto?: cat_indicador_afectoOmit
+    cat_concepto_flujo_efectivo?: cat_concepto_flujo_efectivoOmit
   }
 
   /* Types for Logging */
@@ -5966,6 +6796,37 @@ export namespace Prisma {
    */
   export type RubroCountOutputTypeCountSubrubroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: subrubroWhereInput
+  }
+
+
+  /**
+   * Count Type Lotes_importacion_contableCountOutputType
+   */
+
+  export type Lotes_importacion_contableCountOutputType = {
+    asientos_contables: number
+  }
+
+  export type Lotes_importacion_contableCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asientos_contables?: boolean | Lotes_importacion_contableCountOutputTypeCountAsientos_contablesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Lotes_importacion_contableCountOutputType without action
+   */
+  export type Lotes_importacion_contableCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lotes_importacion_contableCountOutputType
+     */
+    select?: Lotes_importacion_contableCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Lotes_importacion_contableCountOutputType without action
+   */
+  export type Lotes_importacion_contableCountOutputTypeCountAsientos_contablesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: asientos_contablesWhereInput
   }
 
 
@@ -58147,6 +59008,9499 @@ export namespace Prisma {
 
 
   /**
+   * Model lotes_importacion_contable
+   */
+
+  export type AggregateLotes_importacion_contable = {
+    _count: Lotes_importacion_contableCountAggregateOutputType | null
+    _avg: Lotes_importacion_contableAvgAggregateOutputType | null
+    _sum: Lotes_importacion_contableSumAggregateOutputType | null
+    _min: Lotes_importacion_contableMinAggregateOutputType | null
+    _max: Lotes_importacion_contableMaxAggregateOutputType | null
+  }
+
+  export type Lotes_importacion_contableAvgAggregateOutputType = {
+    id: number | null
+    total_filas: number | null
+    filas_validas: number | null
+    filas_error: number | null
+    creado_por: number | null
+  }
+
+  export type Lotes_importacion_contableSumAggregateOutputType = {
+    id: number | null
+    total_filas: number | null
+    filas_validas: number | null
+    filas_error: number | null
+    creado_por: number | null
+  }
+
+  export type Lotes_importacion_contableMinAggregateOutputType = {
+    id: number | null
+    nombre_archivo: string | null
+    total_filas: number | null
+    filas_validas: number | null
+    filas_error: number | null
+    creado_por: number | null
+    creado_en: Date | null
+  }
+
+  export type Lotes_importacion_contableMaxAggregateOutputType = {
+    id: number | null
+    nombre_archivo: string | null
+    total_filas: number | null
+    filas_validas: number | null
+    filas_error: number | null
+    creado_por: number | null
+    creado_en: Date | null
+  }
+
+  export type Lotes_importacion_contableCountAggregateOutputType = {
+    id: number
+    nombre_archivo: number
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por: number
+    creado_en: number
+    _all: number
+  }
+
+
+  export type Lotes_importacion_contableAvgAggregateInputType = {
+    id?: true
+    total_filas?: true
+    filas_validas?: true
+    filas_error?: true
+    creado_por?: true
+  }
+
+  export type Lotes_importacion_contableSumAggregateInputType = {
+    id?: true
+    total_filas?: true
+    filas_validas?: true
+    filas_error?: true
+    creado_por?: true
+  }
+
+  export type Lotes_importacion_contableMinAggregateInputType = {
+    id?: true
+    nombre_archivo?: true
+    total_filas?: true
+    filas_validas?: true
+    filas_error?: true
+    creado_por?: true
+    creado_en?: true
+  }
+
+  export type Lotes_importacion_contableMaxAggregateInputType = {
+    id?: true
+    nombre_archivo?: true
+    total_filas?: true
+    filas_validas?: true
+    filas_error?: true
+    creado_por?: true
+    creado_en?: true
+  }
+
+  export type Lotes_importacion_contableCountAggregateInputType = {
+    id?: true
+    nombre_archivo?: true
+    total_filas?: true
+    filas_validas?: true
+    filas_error?: true
+    creado_por?: true
+    creado_en?: true
+    _all?: true
+  }
+
+  export type Lotes_importacion_contableAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which lotes_importacion_contable to aggregate.
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of lotes_importacion_contables to fetch.
+     */
+    orderBy?: lotes_importacion_contableOrderByWithRelationInput | lotes_importacion_contableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: lotes_importacion_contableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` lotes_importacion_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` lotes_importacion_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned lotes_importacion_contables
+    **/
+    _count?: true | Lotes_importacion_contableCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Lotes_importacion_contableAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Lotes_importacion_contableSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Lotes_importacion_contableMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Lotes_importacion_contableMaxAggregateInputType
+  }
+
+  export type GetLotes_importacion_contableAggregateType<T extends Lotes_importacion_contableAggregateArgs> = {
+        [P in keyof T & keyof AggregateLotes_importacion_contable]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLotes_importacion_contable[P]>
+      : GetScalarType<T[P], AggregateLotes_importacion_contable[P]>
+  }
+
+
+
+
+  export type lotes_importacion_contableGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: lotes_importacion_contableWhereInput
+    orderBy?: lotes_importacion_contableOrderByWithAggregationInput | lotes_importacion_contableOrderByWithAggregationInput[]
+    by: Lotes_importacion_contableScalarFieldEnum[] | Lotes_importacion_contableScalarFieldEnum
+    having?: lotes_importacion_contableScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Lotes_importacion_contableCountAggregateInputType | true
+    _avg?: Lotes_importacion_contableAvgAggregateInputType
+    _sum?: Lotes_importacion_contableSumAggregateInputType
+    _min?: Lotes_importacion_contableMinAggregateInputType
+    _max?: Lotes_importacion_contableMaxAggregateInputType
+  }
+
+  export type Lotes_importacion_contableGroupByOutputType = {
+    id: number
+    nombre_archivo: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por: number | null
+    creado_en: Date
+    _count: Lotes_importacion_contableCountAggregateOutputType | null
+    _avg: Lotes_importacion_contableAvgAggregateOutputType | null
+    _sum: Lotes_importacion_contableSumAggregateOutputType | null
+    _min: Lotes_importacion_contableMinAggregateOutputType | null
+    _max: Lotes_importacion_contableMaxAggregateOutputType | null
+  }
+
+  type GetLotes_importacion_contableGroupByPayload<T extends lotes_importacion_contableGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Lotes_importacion_contableGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Lotes_importacion_contableGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Lotes_importacion_contableGroupByOutputType[P]>
+            : GetScalarType<T[P], Lotes_importacion_contableGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type lotes_importacion_contableSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre_archivo?: boolean
+    total_filas?: boolean
+    filas_validas?: boolean
+    filas_error?: boolean
+    creado_por?: boolean
+    creado_en?: boolean
+    asientos_contables?: boolean | lotes_importacion_contable$asientos_contablesArgs<ExtArgs>
+    _count?: boolean | Lotes_importacion_contableCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lotes_importacion_contable"]>
+
+
+
+  export type lotes_importacion_contableSelectScalar = {
+    id?: boolean
+    nombre_archivo?: boolean
+    total_filas?: boolean
+    filas_validas?: boolean
+    filas_error?: boolean
+    creado_por?: boolean
+    creado_en?: boolean
+  }
+
+  export type lotes_importacion_contableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre_archivo" | "total_filas" | "filas_validas" | "filas_error" | "creado_por" | "creado_en", ExtArgs["result"]["lotes_importacion_contable"]>
+  export type lotes_importacion_contableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asientos_contables?: boolean | lotes_importacion_contable$asientos_contablesArgs<ExtArgs>
+    _count?: boolean | Lotes_importacion_contableCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $lotes_importacion_contablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "lotes_importacion_contable"
+    objects: {
+      asientos_contables: Prisma.$asientos_contablesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nombre_archivo: string | null
+      total_filas: number
+      filas_validas: number
+      filas_error: number
+      creado_por: number | null
+      creado_en: Date
+    }, ExtArgs["result"]["lotes_importacion_contable"]>
+    composites: {}
+  }
+
+  type lotes_importacion_contableGetPayload<S extends boolean | null | undefined | lotes_importacion_contableDefaultArgs> = $Result.GetResult<Prisma.$lotes_importacion_contablePayload, S>
+
+  type lotes_importacion_contableCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<lotes_importacion_contableFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Lotes_importacion_contableCountAggregateInputType | true
+    }
+
+  export interface lotes_importacion_contableDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['lotes_importacion_contable'], meta: { name: 'lotes_importacion_contable' } }
+    /**
+     * Find zero or one Lotes_importacion_contable that matches the filter.
+     * @param {lotes_importacion_contableFindUniqueArgs} args - Arguments to find a Lotes_importacion_contable
+     * @example
+     * // Get one Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends lotes_importacion_contableFindUniqueArgs>(args: SelectSubset<T, lotes_importacion_contableFindUniqueArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lotes_importacion_contable that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {lotes_importacion_contableFindUniqueOrThrowArgs} args - Arguments to find a Lotes_importacion_contable
+     * @example
+     * // Get one Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends lotes_importacion_contableFindUniqueOrThrowArgs>(args: SelectSubset<T, lotes_importacion_contableFindUniqueOrThrowArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lotes_importacion_contable that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableFindFirstArgs} args - Arguments to find a Lotes_importacion_contable
+     * @example
+     * // Get one Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends lotes_importacion_contableFindFirstArgs>(args?: SelectSubset<T, lotes_importacion_contableFindFirstArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lotes_importacion_contable that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableFindFirstOrThrowArgs} args - Arguments to find a Lotes_importacion_contable
+     * @example
+     * // Get one Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends lotes_importacion_contableFindFirstOrThrowArgs>(args?: SelectSubset<T, lotes_importacion_contableFindFirstOrThrowArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lotes_importacion_contables that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lotes_importacion_contables
+     * const lotes_importacion_contables = await prisma.lotes_importacion_contable.findMany()
+     * 
+     * // Get first 10 Lotes_importacion_contables
+     * const lotes_importacion_contables = await prisma.lotes_importacion_contable.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lotes_importacion_contableWithIdOnly = await prisma.lotes_importacion_contable.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends lotes_importacion_contableFindManyArgs>(args?: SelectSubset<T, lotes_importacion_contableFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lotes_importacion_contable.
+     * @param {lotes_importacion_contableCreateArgs} args - Arguments to create a Lotes_importacion_contable.
+     * @example
+     * // Create one Lotes_importacion_contable
+     * const Lotes_importacion_contable = await prisma.lotes_importacion_contable.create({
+     *   data: {
+     *     // ... data to create a Lotes_importacion_contable
+     *   }
+     * })
+     * 
+     */
+    create<T extends lotes_importacion_contableCreateArgs>(args: SelectSubset<T, lotes_importacion_contableCreateArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lotes_importacion_contables.
+     * @param {lotes_importacion_contableCreateManyArgs} args - Arguments to create many Lotes_importacion_contables.
+     * @example
+     * // Create many Lotes_importacion_contables
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends lotes_importacion_contableCreateManyArgs>(args?: SelectSubset<T, lotes_importacion_contableCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Lotes_importacion_contable.
+     * @param {lotes_importacion_contableDeleteArgs} args - Arguments to delete one Lotes_importacion_contable.
+     * @example
+     * // Delete one Lotes_importacion_contable
+     * const Lotes_importacion_contable = await prisma.lotes_importacion_contable.delete({
+     *   where: {
+     *     // ... filter to delete one Lotes_importacion_contable
+     *   }
+     * })
+     * 
+     */
+    delete<T extends lotes_importacion_contableDeleteArgs>(args: SelectSubset<T, lotes_importacion_contableDeleteArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lotes_importacion_contable.
+     * @param {lotes_importacion_contableUpdateArgs} args - Arguments to update one Lotes_importacion_contable.
+     * @example
+     * // Update one Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends lotes_importacion_contableUpdateArgs>(args: SelectSubset<T, lotes_importacion_contableUpdateArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lotes_importacion_contables.
+     * @param {lotes_importacion_contableDeleteManyArgs} args - Arguments to filter Lotes_importacion_contables to delete.
+     * @example
+     * // Delete a few Lotes_importacion_contables
+     * const { count } = await prisma.lotes_importacion_contable.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends lotes_importacion_contableDeleteManyArgs>(args?: SelectSubset<T, lotes_importacion_contableDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lotes_importacion_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lotes_importacion_contables
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends lotes_importacion_contableUpdateManyArgs>(args: SelectSubset<T, lotes_importacion_contableUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Lotes_importacion_contable.
+     * @param {lotes_importacion_contableUpsertArgs} args - Arguments to update or create a Lotes_importacion_contable.
+     * @example
+     * // Update or create a Lotes_importacion_contable
+     * const lotes_importacion_contable = await prisma.lotes_importacion_contable.upsert({
+     *   create: {
+     *     // ... data to create a Lotes_importacion_contable
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lotes_importacion_contable we want to update
+     *   }
+     * })
+     */
+    upsert<T extends lotes_importacion_contableUpsertArgs>(args: SelectSubset<T, lotes_importacion_contableUpsertArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lotes_importacion_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableCountArgs} args - Arguments to filter Lotes_importacion_contables to count.
+     * @example
+     * // Count the number of Lotes_importacion_contables
+     * const count = await prisma.lotes_importacion_contable.count({
+     *   where: {
+     *     // ... the filter for the Lotes_importacion_contables we want to count
+     *   }
+     * })
+    **/
+    count<T extends lotes_importacion_contableCountArgs>(
+      args?: Subset<T, lotes_importacion_contableCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Lotes_importacion_contableCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lotes_importacion_contable.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Lotes_importacion_contableAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Lotes_importacion_contableAggregateArgs>(args: Subset<T, Lotes_importacion_contableAggregateArgs>): Prisma.PrismaPromise<GetLotes_importacion_contableAggregateType<T>>
+
+    /**
+     * Group by Lotes_importacion_contable.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {lotes_importacion_contableGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends lotes_importacion_contableGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: lotes_importacion_contableGroupByArgs['orderBy'] }
+        : { orderBy?: lotes_importacion_contableGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, lotes_importacion_contableGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLotes_importacion_contableGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the lotes_importacion_contable model
+   */
+  readonly fields: lotes_importacion_contableFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for lotes_importacion_contable.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__lotes_importacion_contableClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    asientos_contables<T extends lotes_importacion_contable$asientos_contablesArgs<ExtArgs> = {}>(args?: Subset<T, lotes_importacion_contable$asientos_contablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the lotes_importacion_contable model
+   */
+  interface lotes_importacion_contableFieldRefs {
+    readonly id: FieldRef<"lotes_importacion_contable", 'Int'>
+    readonly nombre_archivo: FieldRef<"lotes_importacion_contable", 'String'>
+    readonly total_filas: FieldRef<"lotes_importacion_contable", 'Int'>
+    readonly filas_validas: FieldRef<"lotes_importacion_contable", 'Int'>
+    readonly filas_error: FieldRef<"lotes_importacion_contable", 'Int'>
+    readonly creado_por: FieldRef<"lotes_importacion_contable", 'Int'>
+    readonly creado_en: FieldRef<"lotes_importacion_contable", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * lotes_importacion_contable findUnique
+   */
+  export type lotes_importacion_contableFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter, which lotes_importacion_contable to fetch.
+     */
+    where: lotes_importacion_contableWhereUniqueInput
+  }
+
+  /**
+   * lotes_importacion_contable findUniqueOrThrow
+   */
+  export type lotes_importacion_contableFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter, which lotes_importacion_contable to fetch.
+     */
+    where: lotes_importacion_contableWhereUniqueInput
+  }
+
+  /**
+   * lotes_importacion_contable findFirst
+   */
+  export type lotes_importacion_contableFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter, which lotes_importacion_contable to fetch.
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of lotes_importacion_contables to fetch.
+     */
+    orderBy?: lotes_importacion_contableOrderByWithRelationInput | lotes_importacion_contableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for lotes_importacion_contables.
+     */
+    cursor?: lotes_importacion_contableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` lotes_importacion_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` lotes_importacion_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of lotes_importacion_contables.
+     */
+    distinct?: Lotes_importacion_contableScalarFieldEnum | Lotes_importacion_contableScalarFieldEnum[]
+  }
+
+  /**
+   * lotes_importacion_contable findFirstOrThrow
+   */
+  export type lotes_importacion_contableFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter, which lotes_importacion_contable to fetch.
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of lotes_importacion_contables to fetch.
+     */
+    orderBy?: lotes_importacion_contableOrderByWithRelationInput | lotes_importacion_contableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for lotes_importacion_contables.
+     */
+    cursor?: lotes_importacion_contableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` lotes_importacion_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` lotes_importacion_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of lotes_importacion_contables.
+     */
+    distinct?: Lotes_importacion_contableScalarFieldEnum | Lotes_importacion_contableScalarFieldEnum[]
+  }
+
+  /**
+   * lotes_importacion_contable findMany
+   */
+  export type lotes_importacion_contableFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter, which lotes_importacion_contables to fetch.
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of lotes_importacion_contables to fetch.
+     */
+    orderBy?: lotes_importacion_contableOrderByWithRelationInput | lotes_importacion_contableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing lotes_importacion_contables.
+     */
+    cursor?: lotes_importacion_contableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` lotes_importacion_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` lotes_importacion_contables.
+     */
+    skip?: number
+    distinct?: Lotes_importacion_contableScalarFieldEnum | Lotes_importacion_contableScalarFieldEnum[]
+  }
+
+  /**
+   * lotes_importacion_contable create
+   */
+  export type lotes_importacion_contableCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * The data needed to create a lotes_importacion_contable.
+     */
+    data: XOR<lotes_importacion_contableCreateInput, lotes_importacion_contableUncheckedCreateInput>
+  }
+
+  /**
+   * lotes_importacion_contable createMany
+   */
+  export type lotes_importacion_contableCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many lotes_importacion_contables.
+     */
+    data: lotes_importacion_contableCreateManyInput | lotes_importacion_contableCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * lotes_importacion_contable update
+   */
+  export type lotes_importacion_contableUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * The data needed to update a lotes_importacion_contable.
+     */
+    data: XOR<lotes_importacion_contableUpdateInput, lotes_importacion_contableUncheckedUpdateInput>
+    /**
+     * Choose, which lotes_importacion_contable to update.
+     */
+    where: lotes_importacion_contableWhereUniqueInput
+  }
+
+  /**
+   * lotes_importacion_contable updateMany
+   */
+  export type lotes_importacion_contableUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update lotes_importacion_contables.
+     */
+    data: XOR<lotes_importacion_contableUpdateManyMutationInput, lotes_importacion_contableUncheckedUpdateManyInput>
+    /**
+     * Filter which lotes_importacion_contables to update
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * Limit how many lotes_importacion_contables to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * lotes_importacion_contable upsert
+   */
+  export type lotes_importacion_contableUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * The filter to search for the lotes_importacion_contable to update in case it exists.
+     */
+    where: lotes_importacion_contableWhereUniqueInput
+    /**
+     * In case the lotes_importacion_contable found by the `where` argument doesn't exist, create a new lotes_importacion_contable with this data.
+     */
+    create: XOR<lotes_importacion_contableCreateInput, lotes_importacion_contableUncheckedCreateInput>
+    /**
+     * In case the lotes_importacion_contable was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<lotes_importacion_contableUpdateInput, lotes_importacion_contableUncheckedUpdateInput>
+  }
+
+  /**
+   * lotes_importacion_contable delete
+   */
+  export type lotes_importacion_contableDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+    /**
+     * Filter which lotes_importacion_contable to delete.
+     */
+    where: lotes_importacion_contableWhereUniqueInput
+  }
+
+  /**
+   * lotes_importacion_contable deleteMany
+   */
+  export type lotes_importacion_contableDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which lotes_importacion_contables to delete
+     */
+    where?: lotes_importacion_contableWhereInput
+    /**
+     * Limit how many lotes_importacion_contables to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * lotes_importacion_contable.asientos_contables
+   */
+  export type lotes_importacion_contable$asientos_contablesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    where?: asientos_contablesWhereInput
+    orderBy?: asientos_contablesOrderByWithRelationInput | asientos_contablesOrderByWithRelationInput[]
+    cursor?: asientos_contablesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Asientos_contablesScalarFieldEnum | Asientos_contablesScalarFieldEnum[]
+  }
+
+  /**
+   * lotes_importacion_contable without action
+   */
+  export type lotes_importacion_contableDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the lotes_importacion_contable
+     */
+    select?: lotes_importacion_contableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the lotes_importacion_contable
+     */
+    omit?: lotes_importacion_contableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: lotes_importacion_contableInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model asientos_contables
+   */
+
+  export type AggregateAsientos_contables = {
+    _count: Asientos_contablesCountAggregateOutputType | null
+    _avg: Asientos_contablesAvgAggregateOutputType | null
+    _sum: Asientos_contablesSumAggregateOutputType | null
+    _min: Asientos_contablesMinAggregateOutputType | null
+    _max: Asientos_contablesMaxAggregateOutputType | null
+  }
+
+  export type Asientos_contablesAvgAggregateOutputType = {
+    id: number | null
+    id_lote: number | null
+    correlativo: number | null
+    relacionado: number | null
+    concepto_fec: number | null
+    monto_debe: Decimal | null
+    monto_haber: Decimal | null
+    monto_debe_me: Decimal | null
+    monto_haber_me: Decimal | null
+    cambio_moneda: Decimal | null
+    creado_por: number | null
+    editado_por: number | null
+  }
+
+  export type Asientos_contablesSumAggregateOutputType = {
+    id: number | null
+    id_lote: number | null
+    correlativo: number | null
+    relacionado: number | null
+    concepto_fec: number | null
+    monto_debe: Decimal | null
+    monto_haber: Decimal | null
+    monto_debe_me: Decimal | null
+    monto_haber_me: Decimal | null
+    cambio_moneda: Decimal | null
+    creado_por: number | null
+    editado_por: number | null
+  }
+
+  export type Asientos_contablesMinAggregateOutputType = {
+    id: number | null
+    id_lote: number | null
+    correlativo: number | null
+    relacionado: number | null
+    codigo_tipo_medio_pago: string | null
+    ejercicio: string | null
+    periodo: string | null
+    cod_modulo: string | null
+    modulo: string | null
+    fuente: string | null
+    numero_cuenta: string | null
+    codigo_tipo_documento: string | null
+    numero_serie: string | null
+    numero_documento: string | null
+    concepto_fec: number | null
+    glosa: string | null
+    codigo_moneda_origen: string | null
+    codigo_moneda_registro: string | null
+    codigo_centro_costo: string | null
+    codigo_sub_centro_costo: string | null
+    codigo_sub_sub_centro_costo: string | null
+    codigo_forma_provision: string | null
+    codigo_forma_pago_cobro: string | null
+    codigo_area: string | null
+    identificador_ctr_mda: string | null
+    identificador_tip_afecto: string | null
+    nro_cheque: string | null
+    grdo: string | null
+    fecha_emision_doc: Date | null
+    fecha_vencimiento_doc: Date | null
+    fecha_movimiento: Date | null
+    fecha_cbr: Date | null
+    fecha_registro: Date | null
+    fecha_conc: Date | null
+    fecha_dif: Date | null
+    cod_tip_doc_ident_clt: string | null
+    nro_doc_clt: string | null
+    razon_social_1: string | null
+    cod_tip_doc_ident_prov: string | null
+    nro_doc_prov: string | null
+    razon_social_2: string | null
+    cod_tip_doc_ident_trab: string | null
+    nro_doc_trab: string | null
+    razon_social_3: string | null
+    monto_debe: Decimal | null
+    monto_haber: Decimal | null
+    monto_debe_me: Decimal | null
+    monto_haber_me: Decimal | null
+    cambio_moneda: Decimal | null
+    es_cancelado: boolean | null
+    es_conciliado: boolean | null
+    es_provision: boolean | null
+    es_anulado: boolean | null
+    es_destino: boolean | null
+    doc_ref_fecha_emision: Date | null
+    doc_ref_cod_tip_doc: string | null
+    doc_ref_nro_serie: string | null
+    doc_ref_nro_doc: string | null
+    numero_detraccion: string | null
+    fecha_pago_detraccion: string | null
+    creado_por: number | null
+    creado_en: Date | null
+    editado_por: number | null
+    fecha_edicion: Date | null
+    deleted_at: Date | null
+  }
+
+  export type Asientos_contablesMaxAggregateOutputType = {
+    id: number | null
+    id_lote: number | null
+    correlativo: number | null
+    relacionado: number | null
+    codigo_tipo_medio_pago: string | null
+    ejercicio: string | null
+    periodo: string | null
+    cod_modulo: string | null
+    modulo: string | null
+    fuente: string | null
+    numero_cuenta: string | null
+    codigo_tipo_documento: string | null
+    numero_serie: string | null
+    numero_documento: string | null
+    concepto_fec: number | null
+    glosa: string | null
+    codigo_moneda_origen: string | null
+    codigo_moneda_registro: string | null
+    codigo_centro_costo: string | null
+    codigo_sub_centro_costo: string | null
+    codigo_sub_sub_centro_costo: string | null
+    codigo_forma_provision: string | null
+    codigo_forma_pago_cobro: string | null
+    codigo_area: string | null
+    identificador_ctr_mda: string | null
+    identificador_tip_afecto: string | null
+    nro_cheque: string | null
+    grdo: string | null
+    fecha_emision_doc: Date | null
+    fecha_vencimiento_doc: Date | null
+    fecha_movimiento: Date | null
+    fecha_cbr: Date | null
+    fecha_registro: Date | null
+    fecha_conc: Date | null
+    fecha_dif: Date | null
+    cod_tip_doc_ident_clt: string | null
+    nro_doc_clt: string | null
+    razon_social_1: string | null
+    cod_tip_doc_ident_prov: string | null
+    nro_doc_prov: string | null
+    razon_social_2: string | null
+    cod_tip_doc_ident_trab: string | null
+    nro_doc_trab: string | null
+    razon_social_3: string | null
+    monto_debe: Decimal | null
+    monto_haber: Decimal | null
+    monto_debe_me: Decimal | null
+    monto_haber_me: Decimal | null
+    cambio_moneda: Decimal | null
+    es_cancelado: boolean | null
+    es_conciliado: boolean | null
+    es_provision: boolean | null
+    es_anulado: boolean | null
+    es_destino: boolean | null
+    doc_ref_fecha_emision: Date | null
+    doc_ref_cod_tip_doc: string | null
+    doc_ref_nro_serie: string | null
+    doc_ref_nro_doc: string | null
+    numero_detraccion: string | null
+    fecha_pago_detraccion: string | null
+    creado_por: number | null
+    creado_en: Date | null
+    editado_por: number | null
+    fecha_edicion: Date | null
+    deleted_at: Date | null
+  }
+
+  export type Asientos_contablesCountAggregateOutputType = {
+    id: number
+    id_lote: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago: number
+    ejercicio: number
+    periodo: number
+    cod_modulo: number
+    modulo: number
+    fuente: number
+    numero_cuenta: number
+    codigo_tipo_documento: number
+    numero_serie: number
+    numero_documento: number
+    concepto_fec: number
+    glosa: number
+    codigo_moneda_origen: number
+    codigo_moneda_registro: number
+    codigo_centro_costo: number
+    codigo_sub_centro_costo: number
+    codigo_sub_sub_centro_costo: number
+    codigo_forma_provision: number
+    codigo_forma_pago_cobro: number
+    codigo_area: number
+    identificador_ctr_mda: number
+    identificador_tip_afecto: number
+    nro_cheque: number
+    grdo: number
+    fecha_emision_doc: number
+    fecha_vencimiento_doc: number
+    fecha_movimiento: number
+    fecha_cbr: number
+    fecha_registro: number
+    fecha_conc: number
+    fecha_dif: number
+    cod_tip_doc_ident_clt: number
+    nro_doc_clt: number
+    razon_social_1: number
+    cod_tip_doc_ident_prov: number
+    nro_doc_prov: number
+    razon_social_2: number
+    cod_tip_doc_ident_trab: number
+    nro_doc_trab: number
+    razon_social_3: number
+    monto_debe: number
+    monto_haber: number
+    monto_debe_me: number
+    monto_haber_me: number
+    cambio_moneda: number
+    es_cancelado: number
+    es_conciliado: number
+    es_provision: number
+    es_anulado: number
+    es_destino: number
+    doc_ref_fecha_emision: number
+    doc_ref_cod_tip_doc: number
+    doc_ref_nro_serie: number
+    doc_ref_nro_doc: number
+    numero_detraccion: number
+    fecha_pago_detraccion: number
+    campos_adicionales: number
+    creado_por: number
+    creado_en: number
+    editado_por: number
+    fecha_edicion: number
+    deleted_at: number
+    _all: number
+  }
+
+
+  export type Asientos_contablesAvgAggregateInputType = {
+    id?: true
+    id_lote?: true
+    correlativo?: true
+    relacionado?: true
+    concepto_fec?: true
+    monto_debe?: true
+    monto_haber?: true
+    monto_debe_me?: true
+    monto_haber_me?: true
+    cambio_moneda?: true
+    creado_por?: true
+    editado_por?: true
+  }
+
+  export type Asientos_contablesSumAggregateInputType = {
+    id?: true
+    id_lote?: true
+    correlativo?: true
+    relacionado?: true
+    concepto_fec?: true
+    monto_debe?: true
+    monto_haber?: true
+    monto_debe_me?: true
+    monto_haber_me?: true
+    cambio_moneda?: true
+    creado_por?: true
+    editado_por?: true
+  }
+
+  export type Asientos_contablesMinAggregateInputType = {
+    id?: true
+    id_lote?: true
+    correlativo?: true
+    relacionado?: true
+    codigo_tipo_medio_pago?: true
+    ejercicio?: true
+    periodo?: true
+    cod_modulo?: true
+    modulo?: true
+    fuente?: true
+    numero_cuenta?: true
+    codigo_tipo_documento?: true
+    numero_serie?: true
+    numero_documento?: true
+    concepto_fec?: true
+    glosa?: true
+    codigo_moneda_origen?: true
+    codigo_moneda_registro?: true
+    codigo_centro_costo?: true
+    codigo_sub_centro_costo?: true
+    codigo_sub_sub_centro_costo?: true
+    codigo_forma_provision?: true
+    codigo_forma_pago_cobro?: true
+    codigo_area?: true
+    identificador_ctr_mda?: true
+    identificador_tip_afecto?: true
+    nro_cheque?: true
+    grdo?: true
+    fecha_emision_doc?: true
+    fecha_vencimiento_doc?: true
+    fecha_movimiento?: true
+    fecha_cbr?: true
+    fecha_registro?: true
+    fecha_conc?: true
+    fecha_dif?: true
+    cod_tip_doc_ident_clt?: true
+    nro_doc_clt?: true
+    razon_social_1?: true
+    cod_tip_doc_ident_prov?: true
+    nro_doc_prov?: true
+    razon_social_2?: true
+    cod_tip_doc_ident_trab?: true
+    nro_doc_trab?: true
+    razon_social_3?: true
+    monto_debe?: true
+    monto_haber?: true
+    monto_debe_me?: true
+    monto_haber_me?: true
+    cambio_moneda?: true
+    es_cancelado?: true
+    es_conciliado?: true
+    es_provision?: true
+    es_anulado?: true
+    es_destino?: true
+    doc_ref_fecha_emision?: true
+    doc_ref_cod_tip_doc?: true
+    doc_ref_nro_serie?: true
+    doc_ref_nro_doc?: true
+    numero_detraccion?: true
+    fecha_pago_detraccion?: true
+    creado_por?: true
+    creado_en?: true
+    editado_por?: true
+    fecha_edicion?: true
+    deleted_at?: true
+  }
+
+  export type Asientos_contablesMaxAggregateInputType = {
+    id?: true
+    id_lote?: true
+    correlativo?: true
+    relacionado?: true
+    codigo_tipo_medio_pago?: true
+    ejercicio?: true
+    periodo?: true
+    cod_modulo?: true
+    modulo?: true
+    fuente?: true
+    numero_cuenta?: true
+    codigo_tipo_documento?: true
+    numero_serie?: true
+    numero_documento?: true
+    concepto_fec?: true
+    glosa?: true
+    codigo_moneda_origen?: true
+    codigo_moneda_registro?: true
+    codigo_centro_costo?: true
+    codigo_sub_centro_costo?: true
+    codigo_sub_sub_centro_costo?: true
+    codigo_forma_provision?: true
+    codigo_forma_pago_cobro?: true
+    codigo_area?: true
+    identificador_ctr_mda?: true
+    identificador_tip_afecto?: true
+    nro_cheque?: true
+    grdo?: true
+    fecha_emision_doc?: true
+    fecha_vencimiento_doc?: true
+    fecha_movimiento?: true
+    fecha_cbr?: true
+    fecha_registro?: true
+    fecha_conc?: true
+    fecha_dif?: true
+    cod_tip_doc_ident_clt?: true
+    nro_doc_clt?: true
+    razon_social_1?: true
+    cod_tip_doc_ident_prov?: true
+    nro_doc_prov?: true
+    razon_social_2?: true
+    cod_tip_doc_ident_trab?: true
+    nro_doc_trab?: true
+    razon_social_3?: true
+    monto_debe?: true
+    monto_haber?: true
+    monto_debe_me?: true
+    monto_haber_me?: true
+    cambio_moneda?: true
+    es_cancelado?: true
+    es_conciliado?: true
+    es_provision?: true
+    es_anulado?: true
+    es_destino?: true
+    doc_ref_fecha_emision?: true
+    doc_ref_cod_tip_doc?: true
+    doc_ref_nro_serie?: true
+    doc_ref_nro_doc?: true
+    numero_detraccion?: true
+    fecha_pago_detraccion?: true
+    creado_por?: true
+    creado_en?: true
+    editado_por?: true
+    fecha_edicion?: true
+    deleted_at?: true
+  }
+
+  export type Asientos_contablesCountAggregateInputType = {
+    id?: true
+    id_lote?: true
+    correlativo?: true
+    relacionado?: true
+    codigo_tipo_medio_pago?: true
+    ejercicio?: true
+    periodo?: true
+    cod_modulo?: true
+    modulo?: true
+    fuente?: true
+    numero_cuenta?: true
+    codigo_tipo_documento?: true
+    numero_serie?: true
+    numero_documento?: true
+    concepto_fec?: true
+    glosa?: true
+    codigo_moneda_origen?: true
+    codigo_moneda_registro?: true
+    codigo_centro_costo?: true
+    codigo_sub_centro_costo?: true
+    codigo_sub_sub_centro_costo?: true
+    codigo_forma_provision?: true
+    codigo_forma_pago_cobro?: true
+    codigo_area?: true
+    identificador_ctr_mda?: true
+    identificador_tip_afecto?: true
+    nro_cheque?: true
+    grdo?: true
+    fecha_emision_doc?: true
+    fecha_vencimiento_doc?: true
+    fecha_movimiento?: true
+    fecha_cbr?: true
+    fecha_registro?: true
+    fecha_conc?: true
+    fecha_dif?: true
+    cod_tip_doc_ident_clt?: true
+    nro_doc_clt?: true
+    razon_social_1?: true
+    cod_tip_doc_ident_prov?: true
+    nro_doc_prov?: true
+    razon_social_2?: true
+    cod_tip_doc_ident_trab?: true
+    nro_doc_trab?: true
+    razon_social_3?: true
+    monto_debe?: true
+    monto_haber?: true
+    monto_debe_me?: true
+    monto_haber_me?: true
+    cambio_moneda?: true
+    es_cancelado?: true
+    es_conciliado?: true
+    es_provision?: true
+    es_anulado?: true
+    es_destino?: true
+    doc_ref_fecha_emision?: true
+    doc_ref_cod_tip_doc?: true
+    doc_ref_nro_serie?: true
+    doc_ref_nro_doc?: true
+    numero_detraccion?: true
+    fecha_pago_detraccion?: true
+    campos_adicionales?: true
+    creado_por?: true
+    creado_en?: true
+    editado_por?: true
+    fecha_edicion?: true
+    deleted_at?: true
+    _all?: true
+  }
+
+  export type Asientos_contablesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which asientos_contables to aggregate.
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of asientos_contables to fetch.
+     */
+    orderBy?: asientos_contablesOrderByWithRelationInput | asientos_contablesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: asientos_contablesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` asientos_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` asientos_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned asientos_contables
+    **/
+    _count?: true | Asientos_contablesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Asientos_contablesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Asientos_contablesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Asientos_contablesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Asientos_contablesMaxAggregateInputType
+  }
+
+  export type GetAsientos_contablesAggregateType<T extends Asientos_contablesAggregateArgs> = {
+        [P in keyof T & keyof AggregateAsientos_contables]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAsientos_contables[P]>
+      : GetScalarType<T[P], AggregateAsientos_contables[P]>
+  }
+
+
+
+
+  export type asientos_contablesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: asientos_contablesWhereInput
+    orderBy?: asientos_contablesOrderByWithAggregationInput | asientos_contablesOrderByWithAggregationInput[]
+    by: Asientos_contablesScalarFieldEnum[] | Asientos_contablesScalarFieldEnum
+    having?: asientos_contablesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Asientos_contablesCountAggregateInputType | true
+    _avg?: Asientos_contablesAvgAggregateInputType
+    _sum?: Asientos_contablesSumAggregateInputType
+    _min?: Asientos_contablesMinAggregateInputType
+    _max?: Asientos_contablesMaxAggregateInputType
+  }
+
+  export type Asientos_contablesGroupByOutputType = {
+    id: number
+    id_lote: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento: string | null
+    numero_serie: string | null
+    numero_documento: string | null
+    concepto_fec: number | null
+    glosa: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision: string | null
+    codigo_forma_pago_cobro: string | null
+    codigo_area: string
+    identificador_ctr_mda: string | null
+    identificador_tip_afecto: string | null
+    nro_cheque: string | null
+    grdo: string | null
+    fecha_emision_doc: Date | null
+    fecha_vencimiento_doc: Date | null
+    fecha_movimiento: Date | null
+    fecha_cbr: Date | null
+    fecha_registro: Date | null
+    fecha_conc: Date | null
+    fecha_dif: Date | null
+    cod_tip_doc_ident_clt: string | null
+    nro_doc_clt: string | null
+    razon_social_1: string | null
+    cod_tip_doc_ident_prov: string | null
+    nro_doc_prov: string | null
+    razon_social_2: string | null
+    cod_tip_doc_ident_trab: string | null
+    nro_doc_trab: string | null
+    razon_social_3: string | null
+    monto_debe: Decimal
+    monto_haber: Decimal
+    monto_debe_me: Decimal | null
+    monto_haber_me: Decimal | null
+    cambio_moneda: Decimal
+    es_cancelado: boolean | null
+    es_conciliado: boolean | null
+    es_provision: boolean | null
+    es_anulado: boolean | null
+    es_destino: boolean | null
+    doc_ref_fecha_emision: Date | null
+    doc_ref_cod_tip_doc: string | null
+    doc_ref_nro_serie: string | null
+    doc_ref_nro_doc: string | null
+    numero_detraccion: string | null
+    fecha_pago_detraccion: string | null
+    campos_adicionales: JsonValue | null
+    creado_por: number | null
+    creado_en: Date
+    editado_por: number | null
+    fecha_edicion: Date | null
+    deleted_at: Date | null
+    _count: Asientos_contablesCountAggregateOutputType | null
+    _avg: Asientos_contablesAvgAggregateOutputType | null
+    _sum: Asientos_contablesSumAggregateOutputType | null
+    _min: Asientos_contablesMinAggregateOutputType | null
+    _max: Asientos_contablesMaxAggregateOutputType | null
+  }
+
+  type GetAsientos_contablesGroupByPayload<T extends asientos_contablesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Asientos_contablesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Asientos_contablesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Asientos_contablesGroupByOutputType[P]>
+            : GetScalarType<T[P], Asientos_contablesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type asientos_contablesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_lote?: boolean
+    correlativo?: boolean
+    relacionado?: boolean
+    codigo_tipo_medio_pago?: boolean
+    ejercicio?: boolean
+    periodo?: boolean
+    cod_modulo?: boolean
+    modulo?: boolean
+    fuente?: boolean
+    numero_cuenta?: boolean
+    codigo_tipo_documento?: boolean
+    numero_serie?: boolean
+    numero_documento?: boolean
+    concepto_fec?: boolean
+    glosa?: boolean
+    codigo_moneda_origen?: boolean
+    codigo_moneda_registro?: boolean
+    codigo_centro_costo?: boolean
+    codigo_sub_centro_costo?: boolean
+    codigo_sub_sub_centro_costo?: boolean
+    codigo_forma_provision?: boolean
+    codigo_forma_pago_cobro?: boolean
+    codigo_area?: boolean
+    identificador_ctr_mda?: boolean
+    identificador_tip_afecto?: boolean
+    nro_cheque?: boolean
+    grdo?: boolean
+    fecha_emision_doc?: boolean
+    fecha_vencimiento_doc?: boolean
+    fecha_movimiento?: boolean
+    fecha_cbr?: boolean
+    fecha_registro?: boolean
+    fecha_conc?: boolean
+    fecha_dif?: boolean
+    cod_tip_doc_ident_clt?: boolean
+    nro_doc_clt?: boolean
+    razon_social_1?: boolean
+    cod_tip_doc_ident_prov?: boolean
+    nro_doc_prov?: boolean
+    razon_social_2?: boolean
+    cod_tip_doc_ident_trab?: boolean
+    nro_doc_trab?: boolean
+    razon_social_3?: boolean
+    monto_debe?: boolean
+    monto_haber?: boolean
+    monto_debe_me?: boolean
+    monto_haber_me?: boolean
+    cambio_moneda?: boolean
+    es_cancelado?: boolean
+    es_conciliado?: boolean
+    es_provision?: boolean
+    es_anulado?: boolean
+    es_destino?: boolean
+    doc_ref_fecha_emision?: boolean
+    doc_ref_cod_tip_doc?: boolean
+    doc_ref_nro_serie?: boolean
+    doc_ref_nro_doc?: boolean
+    numero_detraccion?: boolean
+    fecha_pago_detraccion?: boolean
+    campos_adicionales?: boolean
+    creado_por?: boolean
+    creado_en?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
+    deleted_at?: boolean
+    lote?: boolean | lotes_importacion_contableDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["asientos_contables"]>
+
+
+
+  export type asientos_contablesSelectScalar = {
+    id?: boolean
+    id_lote?: boolean
+    correlativo?: boolean
+    relacionado?: boolean
+    codigo_tipo_medio_pago?: boolean
+    ejercicio?: boolean
+    periodo?: boolean
+    cod_modulo?: boolean
+    modulo?: boolean
+    fuente?: boolean
+    numero_cuenta?: boolean
+    codigo_tipo_documento?: boolean
+    numero_serie?: boolean
+    numero_documento?: boolean
+    concepto_fec?: boolean
+    glosa?: boolean
+    codigo_moneda_origen?: boolean
+    codigo_moneda_registro?: boolean
+    codigo_centro_costo?: boolean
+    codigo_sub_centro_costo?: boolean
+    codigo_sub_sub_centro_costo?: boolean
+    codigo_forma_provision?: boolean
+    codigo_forma_pago_cobro?: boolean
+    codigo_area?: boolean
+    identificador_ctr_mda?: boolean
+    identificador_tip_afecto?: boolean
+    nro_cheque?: boolean
+    grdo?: boolean
+    fecha_emision_doc?: boolean
+    fecha_vencimiento_doc?: boolean
+    fecha_movimiento?: boolean
+    fecha_cbr?: boolean
+    fecha_registro?: boolean
+    fecha_conc?: boolean
+    fecha_dif?: boolean
+    cod_tip_doc_ident_clt?: boolean
+    nro_doc_clt?: boolean
+    razon_social_1?: boolean
+    cod_tip_doc_ident_prov?: boolean
+    nro_doc_prov?: boolean
+    razon_social_2?: boolean
+    cod_tip_doc_ident_trab?: boolean
+    nro_doc_trab?: boolean
+    razon_social_3?: boolean
+    monto_debe?: boolean
+    monto_haber?: boolean
+    monto_debe_me?: boolean
+    monto_haber_me?: boolean
+    cambio_moneda?: boolean
+    es_cancelado?: boolean
+    es_conciliado?: boolean
+    es_provision?: boolean
+    es_anulado?: boolean
+    es_destino?: boolean
+    doc_ref_fecha_emision?: boolean
+    doc_ref_cod_tip_doc?: boolean
+    doc_ref_nro_serie?: boolean
+    doc_ref_nro_doc?: boolean
+    numero_detraccion?: boolean
+    fecha_pago_detraccion?: boolean
+    campos_adicionales?: boolean
+    creado_por?: boolean
+    creado_en?: boolean
+    editado_por?: boolean
+    fecha_edicion?: boolean
+    deleted_at?: boolean
+  }
+
+  export type asientos_contablesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_lote" | "correlativo" | "relacionado" | "codigo_tipo_medio_pago" | "ejercicio" | "periodo" | "cod_modulo" | "modulo" | "fuente" | "numero_cuenta" | "codigo_tipo_documento" | "numero_serie" | "numero_documento" | "concepto_fec" | "glosa" | "codigo_moneda_origen" | "codigo_moneda_registro" | "codigo_centro_costo" | "codigo_sub_centro_costo" | "codigo_sub_sub_centro_costo" | "codigo_forma_provision" | "codigo_forma_pago_cobro" | "codigo_area" | "identificador_ctr_mda" | "identificador_tip_afecto" | "nro_cheque" | "grdo" | "fecha_emision_doc" | "fecha_vencimiento_doc" | "fecha_movimiento" | "fecha_cbr" | "fecha_registro" | "fecha_conc" | "fecha_dif" | "cod_tip_doc_ident_clt" | "nro_doc_clt" | "razon_social_1" | "cod_tip_doc_ident_prov" | "nro_doc_prov" | "razon_social_2" | "cod_tip_doc_ident_trab" | "nro_doc_trab" | "razon_social_3" | "monto_debe" | "monto_haber" | "monto_debe_me" | "monto_haber_me" | "cambio_moneda" | "es_cancelado" | "es_conciliado" | "es_provision" | "es_anulado" | "es_destino" | "doc_ref_fecha_emision" | "doc_ref_cod_tip_doc" | "doc_ref_nro_serie" | "doc_ref_nro_doc" | "numero_detraccion" | "fecha_pago_detraccion" | "campos_adicionales" | "creado_por" | "creado_en" | "editado_por" | "fecha_edicion" | "deleted_at", ExtArgs["result"]["asientos_contables"]>
+  export type asientos_contablesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lote?: boolean | lotes_importacion_contableDefaultArgs<ExtArgs>
+  }
+
+  export type $asientos_contablesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "asientos_contables"
+    objects: {
+      lote: Prisma.$lotes_importacion_contablePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      id_lote: number
+      correlativo: number
+      relacionado: number
+      codigo_tipo_medio_pago: string | null
+      ejercicio: string
+      periodo: string
+      cod_modulo: string
+      modulo: string
+      fuente: string
+      numero_cuenta: string
+      codigo_tipo_documento: string | null
+      numero_serie: string | null
+      numero_documento: string | null
+      concepto_fec: number | null
+      glosa: string | null
+      codigo_moneda_origen: string
+      codigo_moneda_registro: string
+      codigo_centro_costo: string
+      codigo_sub_centro_costo: string
+      codigo_sub_sub_centro_costo: string
+      codigo_forma_provision: string | null
+      codigo_forma_pago_cobro: string | null
+      codigo_area: string
+      identificador_ctr_mda: string | null
+      identificador_tip_afecto: string | null
+      nro_cheque: string | null
+      grdo: string | null
+      fecha_emision_doc: Date | null
+      fecha_vencimiento_doc: Date | null
+      fecha_movimiento: Date | null
+      fecha_cbr: Date | null
+      fecha_registro: Date | null
+      fecha_conc: Date | null
+      fecha_dif: Date | null
+      cod_tip_doc_ident_clt: string | null
+      nro_doc_clt: string | null
+      razon_social_1: string | null
+      cod_tip_doc_ident_prov: string | null
+      nro_doc_prov: string | null
+      razon_social_2: string | null
+      cod_tip_doc_ident_trab: string | null
+      nro_doc_trab: string | null
+      razon_social_3: string | null
+      monto_debe: Prisma.Decimal
+      monto_haber: Prisma.Decimal
+      monto_debe_me: Prisma.Decimal | null
+      monto_haber_me: Prisma.Decimal | null
+      cambio_moneda: Prisma.Decimal
+      es_cancelado: boolean | null
+      es_conciliado: boolean | null
+      es_provision: boolean | null
+      es_anulado: boolean | null
+      es_destino: boolean | null
+      doc_ref_fecha_emision: Date | null
+      doc_ref_cod_tip_doc: string | null
+      doc_ref_nro_serie: string | null
+      doc_ref_nro_doc: string | null
+      numero_detraccion: string | null
+      fecha_pago_detraccion: string | null
+      campos_adicionales: Prisma.JsonValue | null
+      creado_por: number | null
+      creado_en: Date
+      editado_por: number | null
+      fecha_edicion: Date | null
+      deleted_at: Date | null
+    }, ExtArgs["result"]["asientos_contables"]>
+    composites: {}
+  }
+
+  type asientos_contablesGetPayload<S extends boolean | null | undefined | asientos_contablesDefaultArgs> = $Result.GetResult<Prisma.$asientos_contablesPayload, S>
+
+  type asientos_contablesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<asientos_contablesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Asientos_contablesCountAggregateInputType | true
+    }
+
+  export interface asientos_contablesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['asientos_contables'], meta: { name: 'asientos_contables' } }
+    /**
+     * Find zero or one Asientos_contables that matches the filter.
+     * @param {asientos_contablesFindUniqueArgs} args - Arguments to find a Asientos_contables
+     * @example
+     * // Get one Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends asientos_contablesFindUniqueArgs>(args: SelectSubset<T, asientos_contablesFindUniqueArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Asientos_contables that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {asientos_contablesFindUniqueOrThrowArgs} args - Arguments to find a Asientos_contables
+     * @example
+     * // Get one Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends asientos_contablesFindUniqueOrThrowArgs>(args: SelectSubset<T, asientos_contablesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Asientos_contables that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesFindFirstArgs} args - Arguments to find a Asientos_contables
+     * @example
+     * // Get one Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends asientos_contablesFindFirstArgs>(args?: SelectSubset<T, asientos_contablesFindFirstArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Asientos_contables that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesFindFirstOrThrowArgs} args - Arguments to find a Asientos_contables
+     * @example
+     * // Get one Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends asientos_contablesFindFirstOrThrowArgs>(args?: SelectSubset<T, asientos_contablesFindFirstOrThrowArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Asientos_contables that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findMany()
+     * 
+     * // Get first 10 Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const asientos_contablesWithIdOnly = await prisma.asientos_contables.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends asientos_contablesFindManyArgs>(args?: SelectSubset<T, asientos_contablesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Asientos_contables.
+     * @param {asientos_contablesCreateArgs} args - Arguments to create a Asientos_contables.
+     * @example
+     * // Create one Asientos_contables
+     * const Asientos_contables = await prisma.asientos_contables.create({
+     *   data: {
+     *     // ... data to create a Asientos_contables
+     *   }
+     * })
+     * 
+     */
+    create<T extends asientos_contablesCreateArgs>(args: SelectSubset<T, asientos_contablesCreateArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Asientos_contables.
+     * @param {asientos_contablesCreateManyArgs} args - Arguments to create many Asientos_contables.
+     * @example
+     * // Create many Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends asientos_contablesCreateManyArgs>(args?: SelectSubset<T, asientos_contablesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Asientos_contables.
+     * @param {asientos_contablesDeleteArgs} args - Arguments to delete one Asientos_contables.
+     * @example
+     * // Delete one Asientos_contables
+     * const Asientos_contables = await prisma.asientos_contables.delete({
+     *   where: {
+     *     // ... filter to delete one Asientos_contables
+     *   }
+     * })
+     * 
+     */
+    delete<T extends asientos_contablesDeleteArgs>(args: SelectSubset<T, asientos_contablesDeleteArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Asientos_contables.
+     * @param {asientos_contablesUpdateArgs} args - Arguments to update one Asientos_contables.
+     * @example
+     * // Update one Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends asientos_contablesUpdateArgs>(args: SelectSubset<T, asientos_contablesUpdateArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Asientos_contables.
+     * @param {asientos_contablesDeleteManyArgs} args - Arguments to filter Asientos_contables to delete.
+     * @example
+     * // Delete a few Asientos_contables
+     * const { count } = await prisma.asientos_contables.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends asientos_contablesDeleteManyArgs>(args?: SelectSubset<T, asientos_contablesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Asientos_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends asientos_contablesUpdateManyArgs>(args: SelectSubset<T, asientos_contablesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Asientos_contables.
+     * @param {asientos_contablesUpsertArgs} args - Arguments to update or create a Asientos_contables.
+     * @example
+     * // Update or create a Asientos_contables
+     * const asientos_contables = await prisma.asientos_contables.upsert({
+     *   create: {
+     *     // ... data to create a Asientos_contables
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Asientos_contables we want to update
+     *   }
+     * })
+     */
+    upsert<T extends asientos_contablesUpsertArgs>(args: SelectSubset<T, asientos_contablesUpsertArgs<ExtArgs>>): Prisma__asientos_contablesClient<$Result.GetResult<Prisma.$asientos_contablesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Asientos_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesCountArgs} args - Arguments to filter Asientos_contables to count.
+     * @example
+     * // Count the number of Asientos_contables
+     * const count = await prisma.asientos_contables.count({
+     *   where: {
+     *     // ... the filter for the Asientos_contables we want to count
+     *   }
+     * })
+    **/
+    count<T extends asientos_contablesCountArgs>(
+      args?: Subset<T, asientos_contablesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Asientos_contablesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Asientos_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Asientos_contablesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Asientos_contablesAggregateArgs>(args: Subset<T, Asientos_contablesAggregateArgs>): Prisma.PrismaPromise<GetAsientos_contablesAggregateType<T>>
+
+    /**
+     * Group by Asientos_contables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {asientos_contablesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends asientos_contablesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: asientos_contablesGroupByArgs['orderBy'] }
+        : { orderBy?: asientos_contablesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, asientos_contablesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAsientos_contablesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the asientos_contables model
+   */
+  readonly fields: asientos_contablesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for asientos_contables.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__asientos_contablesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lote<T extends lotes_importacion_contableDefaultArgs<ExtArgs> = {}>(args?: Subset<T, lotes_importacion_contableDefaultArgs<ExtArgs>>): Prisma__lotes_importacion_contableClient<$Result.GetResult<Prisma.$lotes_importacion_contablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the asientos_contables model
+   */
+  interface asientos_contablesFieldRefs {
+    readonly id: FieldRef<"asientos_contables", 'Int'>
+    readonly id_lote: FieldRef<"asientos_contables", 'Int'>
+    readonly correlativo: FieldRef<"asientos_contables", 'Int'>
+    readonly relacionado: FieldRef<"asientos_contables", 'Int'>
+    readonly codigo_tipo_medio_pago: FieldRef<"asientos_contables", 'String'>
+    readonly ejercicio: FieldRef<"asientos_contables", 'String'>
+    readonly periodo: FieldRef<"asientos_contables", 'String'>
+    readonly cod_modulo: FieldRef<"asientos_contables", 'String'>
+    readonly modulo: FieldRef<"asientos_contables", 'String'>
+    readonly fuente: FieldRef<"asientos_contables", 'String'>
+    readonly numero_cuenta: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_tipo_documento: FieldRef<"asientos_contables", 'String'>
+    readonly numero_serie: FieldRef<"asientos_contables", 'String'>
+    readonly numero_documento: FieldRef<"asientos_contables", 'String'>
+    readonly concepto_fec: FieldRef<"asientos_contables", 'Int'>
+    readonly glosa: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_moneda_origen: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_moneda_registro: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_centro_costo: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_sub_centro_costo: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_sub_sub_centro_costo: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_forma_provision: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_forma_pago_cobro: FieldRef<"asientos_contables", 'String'>
+    readonly codigo_area: FieldRef<"asientos_contables", 'String'>
+    readonly identificador_ctr_mda: FieldRef<"asientos_contables", 'String'>
+    readonly identificador_tip_afecto: FieldRef<"asientos_contables", 'String'>
+    readonly nro_cheque: FieldRef<"asientos_contables", 'String'>
+    readonly grdo: FieldRef<"asientos_contables", 'String'>
+    readonly fecha_emision_doc: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_vencimiento_doc: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_movimiento: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_cbr: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_registro: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_conc: FieldRef<"asientos_contables", 'DateTime'>
+    readonly fecha_dif: FieldRef<"asientos_contables", 'DateTime'>
+    readonly cod_tip_doc_ident_clt: FieldRef<"asientos_contables", 'String'>
+    readonly nro_doc_clt: FieldRef<"asientos_contables", 'String'>
+    readonly razon_social_1: FieldRef<"asientos_contables", 'String'>
+    readonly cod_tip_doc_ident_prov: FieldRef<"asientos_contables", 'String'>
+    readonly nro_doc_prov: FieldRef<"asientos_contables", 'String'>
+    readonly razon_social_2: FieldRef<"asientos_contables", 'String'>
+    readonly cod_tip_doc_ident_trab: FieldRef<"asientos_contables", 'String'>
+    readonly nro_doc_trab: FieldRef<"asientos_contables", 'String'>
+    readonly razon_social_3: FieldRef<"asientos_contables", 'String'>
+    readonly monto_debe: FieldRef<"asientos_contables", 'Decimal'>
+    readonly monto_haber: FieldRef<"asientos_contables", 'Decimal'>
+    readonly monto_debe_me: FieldRef<"asientos_contables", 'Decimal'>
+    readonly monto_haber_me: FieldRef<"asientos_contables", 'Decimal'>
+    readonly cambio_moneda: FieldRef<"asientos_contables", 'Decimal'>
+    readonly es_cancelado: FieldRef<"asientos_contables", 'Boolean'>
+    readonly es_conciliado: FieldRef<"asientos_contables", 'Boolean'>
+    readonly es_provision: FieldRef<"asientos_contables", 'Boolean'>
+    readonly es_anulado: FieldRef<"asientos_contables", 'Boolean'>
+    readonly es_destino: FieldRef<"asientos_contables", 'Boolean'>
+    readonly doc_ref_fecha_emision: FieldRef<"asientos_contables", 'DateTime'>
+    readonly doc_ref_cod_tip_doc: FieldRef<"asientos_contables", 'String'>
+    readonly doc_ref_nro_serie: FieldRef<"asientos_contables", 'String'>
+    readonly doc_ref_nro_doc: FieldRef<"asientos_contables", 'String'>
+    readonly numero_detraccion: FieldRef<"asientos_contables", 'String'>
+    readonly fecha_pago_detraccion: FieldRef<"asientos_contables", 'String'>
+    readonly campos_adicionales: FieldRef<"asientos_contables", 'Json'>
+    readonly creado_por: FieldRef<"asientos_contables", 'Int'>
+    readonly creado_en: FieldRef<"asientos_contables", 'DateTime'>
+    readonly editado_por: FieldRef<"asientos_contables", 'Int'>
+    readonly fecha_edicion: FieldRef<"asientos_contables", 'DateTime'>
+    readonly deleted_at: FieldRef<"asientos_contables", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * asientos_contables findUnique
+   */
+  export type asientos_contablesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter, which asientos_contables to fetch.
+     */
+    where: asientos_contablesWhereUniqueInput
+  }
+
+  /**
+   * asientos_contables findUniqueOrThrow
+   */
+  export type asientos_contablesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter, which asientos_contables to fetch.
+     */
+    where: asientos_contablesWhereUniqueInput
+  }
+
+  /**
+   * asientos_contables findFirst
+   */
+  export type asientos_contablesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter, which asientos_contables to fetch.
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of asientos_contables to fetch.
+     */
+    orderBy?: asientos_contablesOrderByWithRelationInput | asientos_contablesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for asientos_contables.
+     */
+    cursor?: asientos_contablesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` asientos_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` asientos_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of asientos_contables.
+     */
+    distinct?: Asientos_contablesScalarFieldEnum | Asientos_contablesScalarFieldEnum[]
+  }
+
+  /**
+   * asientos_contables findFirstOrThrow
+   */
+  export type asientos_contablesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter, which asientos_contables to fetch.
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of asientos_contables to fetch.
+     */
+    orderBy?: asientos_contablesOrderByWithRelationInput | asientos_contablesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for asientos_contables.
+     */
+    cursor?: asientos_contablesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` asientos_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` asientos_contables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of asientos_contables.
+     */
+    distinct?: Asientos_contablesScalarFieldEnum | Asientos_contablesScalarFieldEnum[]
+  }
+
+  /**
+   * asientos_contables findMany
+   */
+  export type asientos_contablesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter, which asientos_contables to fetch.
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of asientos_contables to fetch.
+     */
+    orderBy?: asientos_contablesOrderByWithRelationInput | asientos_contablesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing asientos_contables.
+     */
+    cursor?: asientos_contablesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` asientos_contables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` asientos_contables.
+     */
+    skip?: number
+    distinct?: Asientos_contablesScalarFieldEnum | Asientos_contablesScalarFieldEnum[]
+  }
+
+  /**
+   * asientos_contables create
+   */
+  export type asientos_contablesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a asientos_contables.
+     */
+    data: XOR<asientos_contablesCreateInput, asientos_contablesUncheckedCreateInput>
+  }
+
+  /**
+   * asientos_contables createMany
+   */
+  export type asientos_contablesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many asientos_contables.
+     */
+    data: asientos_contablesCreateManyInput | asientos_contablesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * asientos_contables update
+   */
+  export type asientos_contablesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a asientos_contables.
+     */
+    data: XOR<asientos_contablesUpdateInput, asientos_contablesUncheckedUpdateInput>
+    /**
+     * Choose, which asientos_contables to update.
+     */
+    where: asientos_contablesWhereUniqueInput
+  }
+
+  /**
+   * asientos_contables updateMany
+   */
+  export type asientos_contablesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update asientos_contables.
+     */
+    data: XOR<asientos_contablesUpdateManyMutationInput, asientos_contablesUncheckedUpdateManyInput>
+    /**
+     * Filter which asientos_contables to update
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * Limit how many asientos_contables to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * asientos_contables upsert
+   */
+  export type asientos_contablesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the asientos_contables to update in case it exists.
+     */
+    where: asientos_contablesWhereUniqueInput
+    /**
+     * In case the asientos_contables found by the `where` argument doesn't exist, create a new asientos_contables with this data.
+     */
+    create: XOR<asientos_contablesCreateInput, asientos_contablesUncheckedCreateInput>
+    /**
+     * In case the asientos_contables was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<asientos_contablesUpdateInput, asientos_contablesUncheckedUpdateInput>
+  }
+
+  /**
+   * asientos_contables delete
+   */
+  export type asientos_contablesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+    /**
+     * Filter which asientos_contables to delete.
+     */
+    where: asientos_contablesWhereUniqueInput
+  }
+
+  /**
+   * asientos_contables deleteMany
+   */
+  export type asientos_contablesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which asientos_contables to delete
+     */
+    where?: asientos_contablesWhereInput
+    /**
+     * Limit how many asientos_contables to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * asientos_contables without action
+   */
+  export type asientos_contablesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the asientos_contables
+     */
+    select?: asientos_contablesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the asientos_contables
+     */
+    omit?: asientos_contablesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: asientos_contablesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_modulo
+   */
+
+  export type AggregateCat_modulo = {
+    _count: Cat_moduloCountAggregateOutputType | null
+    _min: Cat_moduloMinAggregateOutputType | null
+    _max: Cat_moduloMaxAggregateOutputType | null
+  }
+
+  export type Cat_moduloMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_moduloMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_moduloCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_moduloMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_moduloMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_moduloCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_moduloAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_modulo to aggregate.
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_modulos to fetch.
+     */
+    orderBy?: cat_moduloOrderByWithRelationInput | cat_moduloOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_moduloWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_modulos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_modulos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_modulos
+    **/
+    _count?: true | Cat_moduloCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_moduloMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_moduloMaxAggregateInputType
+  }
+
+  export type GetCat_moduloAggregateType<T extends Cat_moduloAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_modulo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_modulo[P]>
+      : GetScalarType<T[P], AggregateCat_modulo[P]>
+  }
+
+
+
+
+  export type cat_moduloGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_moduloWhereInput
+    orderBy?: cat_moduloOrderByWithAggregationInput | cat_moduloOrderByWithAggregationInput[]
+    by: Cat_moduloScalarFieldEnum[] | Cat_moduloScalarFieldEnum
+    having?: cat_moduloScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_moduloCountAggregateInputType | true
+    _min?: Cat_moduloMinAggregateInputType
+    _max?: Cat_moduloMaxAggregateInputType
+  }
+
+  export type Cat_moduloGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_moduloCountAggregateOutputType | null
+    _min: Cat_moduloMinAggregateOutputType | null
+    _max: Cat_moduloMaxAggregateOutputType | null
+  }
+
+  type GetCat_moduloGroupByPayload<T extends cat_moduloGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_moduloGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_moduloGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_moduloGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_moduloGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_moduloSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_modulo"]>
+
+
+
+  export type cat_moduloSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_moduloOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_modulo"]>
+
+  export type $cat_moduloPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_modulo"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_modulo"]>
+    composites: {}
+  }
+
+  type cat_moduloGetPayload<S extends boolean | null | undefined | cat_moduloDefaultArgs> = $Result.GetResult<Prisma.$cat_moduloPayload, S>
+
+  type cat_moduloCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_moduloFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_moduloCountAggregateInputType | true
+    }
+
+  export interface cat_moduloDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_modulo'], meta: { name: 'cat_modulo' } }
+    /**
+     * Find zero or one Cat_modulo that matches the filter.
+     * @param {cat_moduloFindUniqueArgs} args - Arguments to find a Cat_modulo
+     * @example
+     * // Get one Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_moduloFindUniqueArgs>(args: SelectSubset<T, cat_moduloFindUniqueArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_modulo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_moduloFindUniqueOrThrowArgs} args - Arguments to find a Cat_modulo
+     * @example
+     * // Get one Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_moduloFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_moduloFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_modulo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloFindFirstArgs} args - Arguments to find a Cat_modulo
+     * @example
+     * // Get one Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_moduloFindFirstArgs>(args?: SelectSubset<T, cat_moduloFindFirstArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_modulo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloFindFirstOrThrowArgs} args - Arguments to find a Cat_modulo
+     * @example
+     * // Get one Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_moduloFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_moduloFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_modulos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_modulos
+     * const cat_modulos = await prisma.cat_modulo.findMany()
+     * 
+     * // Get first 10 Cat_modulos
+     * const cat_modulos = await prisma.cat_modulo.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_moduloWithCodigoOnly = await prisma.cat_modulo.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_moduloFindManyArgs>(args?: SelectSubset<T, cat_moduloFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_modulo.
+     * @param {cat_moduloCreateArgs} args - Arguments to create a Cat_modulo.
+     * @example
+     * // Create one Cat_modulo
+     * const Cat_modulo = await prisma.cat_modulo.create({
+     *   data: {
+     *     // ... data to create a Cat_modulo
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_moduloCreateArgs>(args: SelectSubset<T, cat_moduloCreateArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_modulos.
+     * @param {cat_moduloCreateManyArgs} args - Arguments to create many Cat_modulos.
+     * @example
+     * // Create many Cat_modulos
+     * const cat_modulo = await prisma.cat_modulo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_moduloCreateManyArgs>(args?: SelectSubset<T, cat_moduloCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_modulo.
+     * @param {cat_moduloDeleteArgs} args - Arguments to delete one Cat_modulo.
+     * @example
+     * // Delete one Cat_modulo
+     * const Cat_modulo = await prisma.cat_modulo.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_modulo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_moduloDeleteArgs>(args: SelectSubset<T, cat_moduloDeleteArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_modulo.
+     * @param {cat_moduloUpdateArgs} args - Arguments to update one Cat_modulo.
+     * @example
+     * // Update one Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_moduloUpdateArgs>(args: SelectSubset<T, cat_moduloUpdateArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_modulos.
+     * @param {cat_moduloDeleteManyArgs} args - Arguments to filter Cat_modulos to delete.
+     * @example
+     * // Delete a few Cat_modulos
+     * const { count } = await prisma.cat_modulo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_moduloDeleteManyArgs>(args?: SelectSubset<T, cat_moduloDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_modulos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_modulos
+     * const cat_modulo = await prisma.cat_modulo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_moduloUpdateManyArgs>(args: SelectSubset<T, cat_moduloUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_modulo.
+     * @param {cat_moduloUpsertArgs} args - Arguments to update or create a Cat_modulo.
+     * @example
+     * // Update or create a Cat_modulo
+     * const cat_modulo = await prisma.cat_modulo.upsert({
+     *   create: {
+     *     // ... data to create a Cat_modulo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_modulo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_moduloUpsertArgs>(args: SelectSubset<T, cat_moduloUpsertArgs<ExtArgs>>): Prisma__cat_moduloClient<$Result.GetResult<Prisma.$cat_moduloPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_modulos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloCountArgs} args - Arguments to filter Cat_modulos to count.
+     * @example
+     * // Count the number of Cat_modulos
+     * const count = await prisma.cat_modulo.count({
+     *   where: {
+     *     // ... the filter for the Cat_modulos we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_moduloCountArgs>(
+      args?: Subset<T, cat_moduloCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_moduloCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_modulo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_moduloAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_moduloAggregateArgs>(args: Subset<T, Cat_moduloAggregateArgs>): Prisma.PrismaPromise<GetCat_moduloAggregateType<T>>
+
+    /**
+     * Group by Cat_modulo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_moduloGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_moduloGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_moduloGroupByArgs['orderBy'] }
+        : { orderBy?: cat_moduloGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_moduloGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_moduloGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_modulo model
+   */
+  readonly fields: cat_moduloFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_modulo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_moduloClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_modulo model
+   */
+  interface cat_moduloFieldRefs {
+    readonly codigo: FieldRef<"cat_modulo", 'String'>
+    readonly descripcion: FieldRef<"cat_modulo", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_modulo findUnique
+   */
+  export type cat_moduloFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_modulo to fetch.
+     */
+    where: cat_moduloWhereUniqueInput
+  }
+
+  /**
+   * cat_modulo findUniqueOrThrow
+   */
+  export type cat_moduloFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_modulo to fetch.
+     */
+    where: cat_moduloWhereUniqueInput
+  }
+
+  /**
+   * cat_modulo findFirst
+   */
+  export type cat_moduloFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_modulo to fetch.
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_modulos to fetch.
+     */
+    orderBy?: cat_moduloOrderByWithRelationInput | cat_moduloOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_modulos.
+     */
+    cursor?: cat_moduloWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_modulos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_modulos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_modulos.
+     */
+    distinct?: Cat_moduloScalarFieldEnum | Cat_moduloScalarFieldEnum[]
+  }
+
+  /**
+   * cat_modulo findFirstOrThrow
+   */
+  export type cat_moduloFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_modulo to fetch.
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_modulos to fetch.
+     */
+    orderBy?: cat_moduloOrderByWithRelationInput | cat_moduloOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_modulos.
+     */
+    cursor?: cat_moduloWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_modulos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_modulos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_modulos.
+     */
+    distinct?: Cat_moduloScalarFieldEnum | Cat_moduloScalarFieldEnum[]
+  }
+
+  /**
+   * cat_modulo findMany
+   */
+  export type cat_moduloFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_modulos to fetch.
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_modulos to fetch.
+     */
+    orderBy?: cat_moduloOrderByWithRelationInput | cat_moduloOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_modulos.
+     */
+    cursor?: cat_moduloWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_modulos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_modulos.
+     */
+    skip?: number
+    distinct?: Cat_moduloScalarFieldEnum | Cat_moduloScalarFieldEnum[]
+  }
+
+  /**
+   * cat_modulo create
+   */
+  export type cat_moduloCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_modulo.
+     */
+    data: XOR<cat_moduloCreateInput, cat_moduloUncheckedCreateInput>
+  }
+
+  /**
+   * cat_modulo createMany
+   */
+  export type cat_moduloCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_modulos.
+     */
+    data: cat_moduloCreateManyInput | cat_moduloCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_modulo update
+   */
+  export type cat_moduloUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_modulo.
+     */
+    data: XOR<cat_moduloUpdateInput, cat_moduloUncheckedUpdateInput>
+    /**
+     * Choose, which cat_modulo to update.
+     */
+    where: cat_moduloWhereUniqueInput
+  }
+
+  /**
+   * cat_modulo updateMany
+   */
+  export type cat_moduloUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_modulos.
+     */
+    data: XOR<cat_moduloUpdateManyMutationInput, cat_moduloUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_modulos to update
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * Limit how many cat_modulos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_modulo upsert
+   */
+  export type cat_moduloUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_modulo to update in case it exists.
+     */
+    where: cat_moduloWhereUniqueInput
+    /**
+     * In case the cat_modulo found by the `where` argument doesn't exist, create a new cat_modulo with this data.
+     */
+    create: XOR<cat_moduloCreateInput, cat_moduloUncheckedCreateInput>
+    /**
+     * In case the cat_modulo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_moduloUpdateInput, cat_moduloUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_modulo delete
+   */
+  export type cat_moduloDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+    /**
+     * Filter which cat_modulo to delete.
+     */
+    where: cat_moduloWhereUniqueInput
+  }
+
+  /**
+   * cat_modulo deleteMany
+   */
+  export type cat_moduloDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_modulos to delete
+     */
+    where?: cat_moduloWhereInput
+    /**
+     * Limit how many cat_modulos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_modulo without action
+   */
+  export type cat_moduloDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_modulo
+     */
+    select?: cat_moduloSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_modulo
+     */
+    omit?: cat_moduloOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_fuente
+   */
+
+  export type AggregateCat_fuente = {
+    _count: Cat_fuenteCountAggregateOutputType | null
+    _min: Cat_fuenteMinAggregateOutputType | null
+    _max: Cat_fuenteMaxAggregateOutputType | null
+  }
+
+  export type Cat_fuenteMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_fuenteMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_fuenteCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_fuenteMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_fuenteMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_fuenteCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_fuenteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_fuente to aggregate.
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_fuentes to fetch.
+     */
+    orderBy?: cat_fuenteOrderByWithRelationInput | cat_fuenteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_fuenteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_fuentes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_fuentes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_fuentes
+    **/
+    _count?: true | Cat_fuenteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_fuenteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_fuenteMaxAggregateInputType
+  }
+
+  export type GetCat_fuenteAggregateType<T extends Cat_fuenteAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_fuente]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_fuente[P]>
+      : GetScalarType<T[P], AggregateCat_fuente[P]>
+  }
+
+
+
+
+  export type cat_fuenteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_fuenteWhereInput
+    orderBy?: cat_fuenteOrderByWithAggregationInput | cat_fuenteOrderByWithAggregationInput[]
+    by: Cat_fuenteScalarFieldEnum[] | Cat_fuenteScalarFieldEnum
+    having?: cat_fuenteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_fuenteCountAggregateInputType | true
+    _min?: Cat_fuenteMinAggregateInputType
+    _max?: Cat_fuenteMaxAggregateInputType
+  }
+
+  export type Cat_fuenteGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_fuenteCountAggregateOutputType | null
+    _min: Cat_fuenteMinAggregateOutputType | null
+    _max: Cat_fuenteMaxAggregateOutputType | null
+  }
+
+  type GetCat_fuenteGroupByPayload<T extends cat_fuenteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_fuenteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_fuenteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_fuenteGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_fuenteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_fuenteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_fuente"]>
+
+
+
+  export type cat_fuenteSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_fuenteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_fuente"]>
+
+  export type $cat_fuentePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_fuente"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_fuente"]>
+    composites: {}
+  }
+
+  type cat_fuenteGetPayload<S extends boolean | null | undefined | cat_fuenteDefaultArgs> = $Result.GetResult<Prisma.$cat_fuentePayload, S>
+
+  type cat_fuenteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_fuenteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_fuenteCountAggregateInputType | true
+    }
+
+  export interface cat_fuenteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_fuente'], meta: { name: 'cat_fuente' } }
+    /**
+     * Find zero or one Cat_fuente that matches the filter.
+     * @param {cat_fuenteFindUniqueArgs} args - Arguments to find a Cat_fuente
+     * @example
+     * // Get one Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_fuenteFindUniqueArgs>(args: SelectSubset<T, cat_fuenteFindUniqueArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_fuente that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_fuenteFindUniqueOrThrowArgs} args - Arguments to find a Cat_fuente
+     * @example
+     * // Get one Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_fuenteFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_fuenteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_fuente that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteFindFirstArgs} args - Arguments to find a Cat_fuente
+     * @example
+     * // Get one Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_fuenteFindFirstArgs>(args?: SelectSubset<T, cat_fuenteFindFirstArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_fuente that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteFindFirstOrThrowArgs} args - Arguments to find a Cat_fuente
+     * @example
+     * // Get one Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_fuenteFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_fuenteFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_fuentes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_fuentes
+     * const cat_fuentes = await prisma.cat_fuente.findMany()
+     * 
+     * // Get first 10 Cat_fuentes
+     * const cat_fuentes = await prisma.cat_fuente.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_fuenteWithCodigoOnly = await prisma.cat_fuente.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_fuenteFindManyArgs>(args?: SelectSubset<T, cat_fuenteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_fuente.
+     * @param {cat_fuenteCreateArgs} args - Arguments to create a Cat_fuente.
+     * @example
+     * // Create one Cat_fuente
+     * const Cat_fuente = await prisma.cat_fuente.create({
+     *   data: {
+     *     // ... data to create a Cat_fuente
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_fuenteCreateArgs>(args: SelectSubset<T, cat_fuenteCreateArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_fuentes.
+     * @param {cat_fuenteCreateManyArgs} args - Arguments to create many Cat_fuentes.
+     * @example
+     * // Create many Cat_fuentes
+     * const cat_fuente = await prisma.cat_fuente.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_fuenteCreateManyArgs>(args?: SelectSubset<T, cat_fuenteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_fuente.
+     * @param {cat_fuenteDeleteArgs} args - Arguments to delete one Cat_fuente.
+     * @example
+     * // Delete one Cat_fuente
+     * const Cat_fuente = await prisma.cat_fuente.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_fuente
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_fuenteDeleteArgs>(args: SelectSubset<T, cat_fuenteDeleteArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_fuente.
+     * @param {cat_fuenteUpdateArgs} args - Arguments to update one Cat_fuente.
+     * @example
+     * // Update one Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_fuenteUpdateArgs>(args: SelectSubset<T, cat_fuenteUpdateArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_fuentes.
+     * @param {cat_fuenteDeleteManyArgs} args - Arguments to filter Cat_fuentes to delete.
+     * @example
+     * // Delete a few Cat_fuentes
+     * const { count } = await prisma.cat_fuente.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_fuenteDeleteManyArgs>(args?: SelectSubset<T, cat_fuenteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_fuentes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_fuentes
+     * const cat_fuente = await prisma.cat_fuente.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_fuenteUpdateManyArgs>(args: SelectSubset<T, cat_fuenteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_fuente.
+     * @param {cat_fuenteUpsertArgs} args - Arguments to update or create a Cat_fuente.
+     * @example
+     * // Update or create a Cat_fuente
+     * const cat_fuente = await prisma.cat_fuente.upsert({
+     *   create: {
+     *     // ... data to create a Cat_fuente
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_fuente we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_fuenteUpsertArgs>(args: SelectSubset<T, cat_fuenteUpsertArgs<ExtArgs>>): Prisma__cat_fuenteClient<$Result.GetResult<Prisma.$cat_fuentePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_fuentes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteCountArgs} args - Arguments to filter Cat_fuentes to count.
+     * @example
+     * // Count the number of Cat_fuentes
+     * const count = await prisma.cat_fuente.count({
+     *   where: {
+     *     // ... the filter for the Cat_fuentes we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_fuenteCountArgs>(
+      args?: Subset<T, cat_fuenteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_fuenteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_fuente.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_fuenteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_fuenteAggregateArgs>(args: Subset<T, Cat_fuenteAggregateArgs>): Prisma.PrismaPromise<GetCat_fuenteAggregateType<T>>
+
+    /**
+     * Group by Cat_fuente.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_fuenteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_fuenteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_fuenteGroupByArgs['orderBy'] }
+        : { orderBy?: cat_fuenteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_fuenteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_fuenteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_fuente model
+   */
+  readonly fields: cat_fuenteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_fuente.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_fuenteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_fuente model
+   */
+  interface cat_fuenteFieldRefs {
+    readonly codigo: FieldRef<"cat_fuente", 'String'>
+    readonly descripcion: FieldRef<"cat_fuente", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_fuente findUnique
+   */
+  export type cat_fuenteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_fuente to fetch.
+     */
+    where: cat_fuenteWhereUniqueInput
+  }
+
+  /**
+   * cat_fuente findUniqueOrThrow
+   */
+  export type cat_fuenteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_fuente to fetch.
+     */
+    where: cat_fuenteWhereUniqueInput
+  }
+
+  /**
+   * cat_fuente findFirst
+   */
+  export type cat_fuenteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_fuente to fetch.
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_fuentes to fetch.
+     */
+    orderBy?: cat_fuenteOrderByWithRelationInput | cat_fuenteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_fuentes.
+     */
+    cursor?: cat_fuenteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_fuentes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_fuentes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_fuentes.
+     */
+    distinct?: Cat_fuenteScalarFieldEnum | Cat_fuenteScalarFieldEnum[]
+  }
+
+  /**
+   * cat_fuente findFirstOrThrow
+   */
+  export type cat_fuenteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_fuente to fetch.
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_fuentes to fetch.
+     */
+    orderBy?: cat_fuenteOrderByWithRelationInput | cat_fuenteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_fuentes.
+     */
+    cursor?: cat_fuenteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_fuentes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_fuentes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_fuentes.
+     */
+    distinct?: Cat_fuenteScalarFieldEnum | Cat_fuenteScalarFieldEnum[]
+  }
+
+  /**
+   * cat_fuente findMany
+   */
+  export type cat_fuenteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_fuentes to fetch.
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_fuentes to fetch.
+     */
+    orderBy?: cat_fuenteOrderByWithRelationInput | cat_fuenteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_fuentes.
+     */
+    cursor?: cat_fuenteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_fuentes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_fuentes.
+     */
+    skip?: number
+    distinct?: Cat_fuenteScalarFieldEnum | Cat_fuenteScalarFieldEnum[]
+  }
+
+  /**
+   * cat_fuente create
+   */
+  export type cat_fuenteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_fuente.
+     */
+    data: XOR<cat_fuenteCreateInput, cat_fuenteUncheckedCreateInput>
+  }
+
+  /**
+   * cat_fuente createMany
+   */
+  export type cat_fuenteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_fuentes.
+     */
+    data: cat_fuenteCreateManyInput | cat_fuenteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_fuente update
+   */
+  export type cat_fuenteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_fuente.
+     */
+    data: XOR<cat_fuenteUpdateInput, cat_fuenteUncheckedUpdateInput>
+    /**
+     * Choose, which cat_fuente to update.
+     */
+    where: cat_fuenteWhereUniqueInput
+  }
+
+  /**
+   * cat_fuente updateMany
+   */
+  export type cat_fuenteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_fuentes.
+     */
+    data: XOR<cat_fuenteUpdateManyMutationInput, cat_fuenteUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_fuentes to update
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * Limit how many cat_fuentes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_fuente upsert
+   */
+  export type cat_fuenteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_fuente to update in case it exists.
+     */
+    where: cat_fuenteWhereUniqueInput
+    /**
+     * In case the cat_fuente found by the `where` argument doesn't exist, create a new cat_fuente with this data.
+     */
+    create: XOR<cat_fuenteCreateInput, cat_fuenteUncheckedCreateInput>
+    /**
+     * In case the cat_fuente was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_fuenteUpdateInput, cat_fuenteUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_fuente delete
+   */
+  export type cat_fuenteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+    /**
+     * Filter which cat_fuente to delete.
+     */
+    where: cat_fuenteWhereUniqueInput
+  }
+
+  /**
+   * cat_fuente deleteMany
+   */
+  export type cat_fuenteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_fuentes to delete
+     */
+    where?: cat_fuenteWhereInput
+    /**
+     * Limit how many cat_fuentes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_fuente without action
+   */
+  export type cat_fuenteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_fuente
+     */
+    select?: cat_fuenteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_fuente
+     */
+    omit?: cat_fuenteOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_moneda
+   */
+
+  export type AggregateCat_moneda = {
+    _count: Cat_monedaCountAggregateOutputType | null
+    _min: Cat_monedaMinAggregateOutputType | null
+    _max: Cat_monedaMaxAggregateOutputType | null
+  }
+
+  export type Cat_monedaMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_monedaMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_monedaCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_monedaMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_monedaMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_monedaCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_monedaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_moneda to aggregate.
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_monedas to fetch.
+     */
+    orderBy?: cat_monedaOrderByWithRelationInput | cat_monedaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_monedaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_monedas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_monedas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_monedas
+    **/
+    _count?: true | Cat_monedaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_monedaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_monedaMaxAggregateInputType
+  }
+
+  export type GetCat_monedaAggregateType<T extends Cat_monedaAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_moneda]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_moneda[P]>
+      : GetScalarType<T[P], AggregateCat_moneda[P]>
+  }
+
+
+
+
+  export type cat_monedaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_monedaWhereInput
+    orderBy?: cat_monedaOrderByWithAggregationInput | cat_monedaOrderByWithAggregationInput[]
+    by: Cat_monedaScalarFieldEnum[] | Cat_monedaScalarFieldEnum
+    having?: cat_monedaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_monedaCountAggregateInputType | true
+    _min?: Cat_monedaMinAggregateInputType
+    _max?: Cat_monedaMaxAggregateInputType
+  }
+
+  export type Cat_monedaGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_monedaCountAggregateOutputType | null
+    _min: Cat_monedaMinAggregateOutputType | null
+    _max: Cat_monedaMaxAggregateOutputType | null
+  }
+
+  type GetCat_monedaGroupByPayload<T extends cat_monedaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_monedaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_monedaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_monedaGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_monedaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_monedaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_moneda"]>
+
+
+
+  export type cat_monedaSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_monedaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_moneda"]>
+
+  export type $cat_monedaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_moneda"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_moneda"]>
+    composites: {}
+  }
+
+  type cat_monedaGetPayload<S extends boolean | null | undefined | cat_monedaDefaultArgs> = $Result.GetResult<Prisma.$cat_monedaPayload, S>
+
+  type cat_monedaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_monedaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_monedaCountAggregateInputType | true
+    }
+
+  export interface cat_monedaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_moneda'], meta: { name: 'cat_moneda' } }
+    /**
+     * Find zero or one Cat_moneda that matches the filter.
+     * @param {cat_monedaFindUniqueArgs} args - Arguments to find a Cat_moneda
+     * @example
+     * // Get one Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_monedaFindUniqueArgs>(args: SelectSubset<T, cat_monedaFindUniqueArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_moneda that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_monedaFindUniqueOrThrowArgs} args - Arguments to find a Cat_moneda
+     * @example
+     * // Get one Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_monedaFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_monedaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_moneda that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaFindFirstArgs} args - Arguments to find a Cat_moneda
+     * @example
+     * // Get one Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_monedaFindFirstArgs>(args?: SelectSubset<T, cat_monedaFindFirstArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_moneda that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaFindFirstOrThrowArgs} args - Arguments to find a Cat_moneda
+     * @example
+     * // Get one Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_monedaFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_monedaFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_monedas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_monedas
+     * const cat_monedas = await prisma.cat_moneda.findMany()
+     * 
+     * // Get first 10 Cat_monedas
+     * const cat_monedas = await prisma.cat_moneda.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_monedaWithCodigoOnly = await prisma.cat_moneda.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_monedaFindManyArgs>(args?: SelectSubset<T, cat_monedaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_moneda.
+     * @param {cat_monedaCreateArgs} args - Arguments to create a Cat_moneda.
+     * @example
+     * // Create one Cat_moneda
+     * const Cat_moneda = await prisma.cat_moneda.create({
+     *   data: {
+     *     // ... data to create a Cat_moneda
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_monedaCreateArgs>(args: SelectSubset<T, cat_monedaCreateArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_monedas.
+     * @param {cat_monedaCreateManyArgs} args - Arguments to create many Cat_monedas.
+     * @example
+     * // Create many Cat_monedas
+     * const cat_moneda = await prisma.cat_moneda.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_monedaCreateManyArgs>(args?: SelectSubset<T, cat_monedaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_moneda.
+     * @param {cat_monedaDeleteArgs} args - Arguments to delete one Cat_moneda.
+     * @example
+     * // Delete one Cat_moneda
+     * const Cat_moneda = await prisma.cat_moneda.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_moneda
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_monedaDeleteArgs>(args: SelectSubset<T, cat_monedaDeleteArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_moneda.
+     * @param {cat_monedaUpdateArgs} args - Arguments to update one Cat_moneda.
+     * @example
+     * // Update one Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_monedaUpdateArgs>(args: SelectSubset<T, cat_monedaUpdateArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_monedas.
+     * @param {cat_monedaDeleteManyArgs} args - Arguments to filter Cat_monedas to delete.
+     * @example
+     * // Delete a few Cat_monedas
+     * const { count } = await prisma.cat_moneda.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_monedaDeleteManyArgs>(args?: SelectSubset<T, cat_monedaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_monedas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_monedas
+     * const cat_moneda = await prisma.cat_moneda.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_monedaUpdateManyArgs>(args: SelectSubset<T, cat_monedaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_moneda.
+     * @param {cat_monedaUpsertArgs} args - Arguments to update or create a Cat_moneda.
+     * @example
+     * // Update or create a Cat_moneda
+     * const cat_moneda = await prisma.cat_moneda.upsert({
+     *   create: {
+     *     // ... data to create a Cat_moneda
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_moneda we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_monedaUpsertArgs>(args: SelectSubset<T, cat_monedaUpsertArgs<ExtArgs>>): Prisma__cat_monedaClient<$Result.GetResult<Prisma.$cat_monedaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_monedas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaCountArgs} args - Arguments to filter Cat_monedas to count.
+     * @example
+     * // Count the number of Cat_monedas
+     * const count = await prisma.cat_moneda.count({
+     *   where: {
+     *     // ... the filter for the Cat_monedas we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_monedaCountArgs>(
+      args?: Subset<T, cat_monedaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_monedaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_moneda.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_monedaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_monedaAggregateArgs>(args: Subset<T, Cat_monedaAggregateArgs>): Prisma.PrismaPromise<GetCat_monedaAggregateType<T>>
+
+    /**
+     * Group by Cat_moneda.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_monedaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_monedaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_monedaGroupByArgs['orderBy'] }
+        : { orderBy?: cat_monedaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_monedaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_monedaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_moneda model
+   */
+  readonly fields: cat_monedaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_moneda.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_monedaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_moneda model
+   */
+  interface cat_monedaFieldRefs {
+    readonly codigo: FieldRef<"cat_moneda", 'String'>
+    readonly descripcion: FieldRef<"cat_moneda", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_moneda findUnique
+   */
+  export type cat_monedaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_moneda to fetch.
+     */
+    where: cat_monedaWhereUniqueInput
+  }
+
+  /**
+   * cat_moneda findUniqueOrThrow
+   */
+  export type cat_monedaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_moneda to fetch.
+     */
+    where: cat_monedaWhereUniqueInput
+  }
+
+  /**
+   * cat_moneda findFirst
+   */
+  export type cat_monedaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_moneda to fetch.
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_monedas to fetch.
+     */
+    orderBy?: cat_monedaOrderByWithRelationInput | cat_monedaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_monedas.
+     */
+    cursor?: cat_monedaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_monedas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_monedas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_monedas.
+     */
+    distinct?: Cat_monedaScalarFieldEnum | Cat_monedaScalarFieldEnum[]
+  }
+
+  /**
+   * cat_moneda findFirstOrThrow
+   */
+  export type cat_monedaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_moneda to fetch.
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_monedas to fetch.
+     */
+    orderBy?: cat_monedaOrderByWithRelationInput | cat_monedaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_monedas.
+     */
+    cursor?: cat_monedaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_monedas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_monedas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_monedas.
+     */
+    distinct?: Cat_monedaScalarFieldEnum | Cat_monedaScalarFieldEnum[]
+  }
+
+  /**
+   * cat_moneda findMany
+   */
+  export type cat_monedaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_monedas to fetch.
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_monedas to fetch.
+     */
+    orderBy?: cat_monedaOrderByWithRelationInput | cat_monedaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_monedas.
+     */
+    cursor?: cat_monedaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_monedas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_monedas.
+     */
+    skip?: number
+    distinct?: Cat_monedaScalarFieldEnum | Cat_monedaScalarFieldEnum[]
+  }
+
+  /**
+   * cat_moneda create
+   */
+  export type cat_monedaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_moneda.
+     */
+    data: XOR<cat_monedaCreateInput, cat_monedaUncheckedCreateInput>
+  }
+
+  /**
+   * cat_moneda createMany
+   */
+  export type cat_monedaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_monedas.
+     */
+    data: cat_monedaCreateManyInput | cat_monedaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_moneda update
+   */
+  export type cat_monedaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_moneda.
+     */
+    data: XOR<cat_monedaUpdateInput, cat_monedaUncheckedUpdateInput>
+    /**
+     * Choose, which cat_moneda to update.
+     */
+    where: cat_monedaWhereUniqueInput
+  }
+
+  /**
+   * cat_moneda updateMany
+   */
+  export type cat_monedaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_monedas.
+     */
+    data: XOR<cat_monedaUpdateManyMutationInput, cat_monedaUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_monedas to update
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * Limit how many cat_monedas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_moneda upsert
+   */
+  export type cat_monedaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_moneda to update in case it exists.
+     */
+    where: cat_monedaWhereUniqueInput
+    /**
+     * In case the cat_moneda found by the `where` argument doesn't exist, create a new cat_moneda with this data.
+     */
+    create: XOR<cat_monedaCreateInput, cat_monedaUncheckedCreateInput>
+    /**
+     * In case the cat_moneda was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_monedaUpdateInput, cat_monedaUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_moneda delete
+   */
+  export type cat_monedaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+    /**
+     * Filter which cat_moneda to delete.
+     */
+    where: cat_monedaWhereUniqueInput
+  }
+
+  /**
+   * cat_moneda deleteMany
+   */
+  export type cat_monedaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_monedas to delete
+     */
+    where?: cat_monedaWhereInput
+    /**
+     * Limit how many cat_monedas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_moneda without action
+   */
+  export type cat_monedaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_moneda
+     */
+    select?: cat_monedaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_moneda
+     */
+    omit?: cat_monedaOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_tipo_doc_identidad
+   */
+
+  export type AggregateCat_tipo_doc_identidad = {
+    _count: Cat_tipo_doc_identidadCountAggregateOutputType | null
+    _min: Cat_tipo_doc_identidadMinAggregateOutputType | null
+    _max: Cat_tipo_doc_identidadMaxAggregateOutputType | null
+  }
+
+  export type Cat_tipo_doc_identidadMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_tipo_doc_identidadMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_tipo_doc_identidadCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_tipo_doc_identidadMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_tipo_doc_identidadMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_tipo_doc_identidadCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_tipo_doc_identidadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_tipo_doc_identidad to aggregate.
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_tipo_doc_identidads to fetch.
+     */
+    orderBy?: cat_tipo_doc_identidadOrderByWithRelationInput | cat_tipo_doc_identidadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_tipo_doc_identidadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_tipo_doc_identidads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_tipo_doc_identidads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_tipo_doc_identidads
+    **/
+    _count?: true | Cat_tipo_doc_identidadCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_tipo_doc_identidadMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_tipo_doc_identidadMaxAggregateInputType
+  }
+
+  export type GetCat_tipo_doc_identidadAggregateType<T extends Cat_tipo_doc_identidadAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_tipo_doc_identidad]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_tipo_doc_identidad[P]>
+      : GetScalarType<T[P], AggregateCat_tipo_doc_identidad[P]>
+  }
+
+
+
+
+  export type cat_tipo_doc_identidadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_tipo_doc_identidadWhereInput
+    orderBy?: cat_tipo_doc_identidadOrderByWithAggregationInput | cat_tipo_doc_identidadOrderByWithAggregationInput[]
+    by: Cat_tipo_doc_identidadScalarFieldEnum[] | Cat_tipo_doc_identidadScalarFieldEnum
+    having?: cat_tipo_doc_identidadScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_tipo_doc_identidadCountAggregateInputType | true
+    _min?: Cat_tipo_doc_identidadMinAggregateInputType
+    _max?: Cat_tipo_doc_identidadMaxAggregateInputType
+  }
+
+  export type Cat_tipo_doc_identidadGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_tipo_doc_identidadCountAggregateOutputType | null
+    _min: Cat_tipo_doc_identidadMinAggregateOutputType | null
+    _max: Cat_tipo_doc_identidadMaxAggregateOutputType | null
+  }
+
+  type GetCat_tipo_doc_identidadGroupByPayload<T extends cat_tipo_doc_identidadGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_tipo_doc_identidadGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_tipo_doc_identidadGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_tipo_doc_identidadGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_tipo_doc_identidadGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_tipo_doc_identidadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_tipo_doc_identidad"]>
+
+
+
+  export type cat_tipo_doc_identidadSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_tipo_doc_identidadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_tipo_doc_identidad"]>
+
+  export type $cat_tipo_doc_identidadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_tipo_doc_identidad"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_tipo_doc_identidad"]>
+    composites: {}
+  }
+
+  type cat_tipo_doc_identidadGetPayload<S extends boolean | null | undefined | cat_tipo_doc_identidadDefaultArgs> = $Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload, S>
+
+  type cat_tipo_doc_identidadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_tipo_doc_identidadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_tipo_doc_identidadCountAggregateInputType | true
+    }
+
+  export interface cat_tipo_doc_identidadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_tipo_doc_identidad'], meta: { name: 'cat_tipo_doc_identidad' } }
+    /**
+     * Find zero or one Cat_tipo_doc_identidad that matches the filter.
+     * @param {cat_tipo_doc_identidadFindUniqueArgs} args - Arguments to find a Cat_tipo_doc_identidad
+     * @example
+     * // Get one Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_tipo_doc_identidadFindUniqueArgs>(args: SelectSubset<T, cat_tipo_doc_identidadFindUniqueArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_tipo_doc_identidad that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_tipo_doc_identidadFindUniqueOrThrowArgs} args - Arguments to find a Cat_tipo_doc_identidad
+     * @example
+     * // Get one Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_tipo_doc_identidadFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_tipo_doc_identidadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_tipo_doc_identidad that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadFindFirstArgs} args - Arguments to find a Cat_tipo_doc_identidad
+     * @example
+     * // Get one Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_tipo_doc_identidadFindFirstArgs>(args?: SelectSubset<T, cat_tipo_doc_identidadFindFirstArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_tipo_doc_identidad that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadFindFirstOrThrowArgs} args - Arguments to find a Cat_tipo_doc_identidad
+     * @example
+     * // Get one Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_tipo_doc_identidadFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_tipo_doc_identidadFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_tipo_doc_identidads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_tipo_doc_identidads
+     * const cat_tipo_doc_identidads = await prisma.cat_tipo_doc_identidad.findMany()
+     * 
+     * // Get first 10 Cat_tipo_doc_identidads
+     * const cat_tipo_doc_identidads = await prisma.cat_tipo_doc_identidad.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_tipo_doc_identidadWithCodigoOnly = await prisma.cat_tipo_doc_identidad.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_tipo_doc_identidadFindManyArgs>(args?: SelectSubset<T, cat_tipo_doc_identidadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_tipo_doc_identidad.
+     * @param {cat_tipo_doc_identidadCreateArgs} args - Arguments to create a Cat_tipo_doc_identidad.
+     * @example
+     * // Create one Cat_tipo_doc_identidad
+     * const Cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.create({
+     *   data: {
+     *     // ... data to create a Cat_tipo_doc_identidad
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_tipo_doc_identidadCreateArgs>(args: SelectSubset<T, cat_tipo_doc_identidadCreateArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_tipo_doc_identidads.
+     * @param {cat_tipo_doc_identidadCreateManyArgs} args - Arguments to create many Cat_tipo_doc_identidads.
+     * @example
+     * // Create many Cat_tipo_doc_identidads
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_tipo_doc_identidadCreateManyArgs>(args?: SelectSubset<T, cat_tipo_doc_identidadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_tipo_doc_identidad.
+     * @param {cat_tipo_doc_identidadDeleteArgs} args - Arguments to delete one Cat_tipo_doc_identidad.
+     * @example
+     * // Delete one Cat_tipo_doc_identidad
+     * const Cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_tipo_doc_identidad
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_tipo_doc_identidadDeleteArgs>(args: SelectSubset<T, cat_tipo_doc_identidadDeleteArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_tipo_doc_identidad.
+     * @param {cat_tipo_doc_identidadUpdateArgs} args - Arguments to update one Cat_tipo_doc_identidad.
+     * @example
+     * // Update one Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_tipo_doc_identidadUpdateArgs>(args: SelectSubset<T, cat_tipo_doc_identidadUpdateArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_tipo_doc_identidads.
+     * @param {cat_tipo_doc_identidadDeleteManyArgs} args - Arguments to filter Cat_tipo_doc_identidads to delete.
+     * @example
+     * // Delete a few Cat_tipo_doc_identidads
+     * const { count } = await prisma.cat_tipo_doc_identidad.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_tipo_doc_identidadDeleteManyArgs>(args?: SelectSubset<T, cat_tipo_doc_identidadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_tipo_doc_identidads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_tipo_doc_identidads
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_tipo_doc_identidadUpdateManyArgs>(args: SelectSubset<T, cat_tipo_doc_identidadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_tipo_doc_identidad.
+     * @param {cat_tipo_doc_identidadUpsertArgs} args - Arguments to update or create a Cat_tipo_doc_identidad.
+     * @example
+     * // Update or create a Cat_tipo_doc_identidad
+     * const cat_tipo_doc_identidad = await prisma.cat_tipo_doc_identidad.upsert({
+     *   create: {
+     *     // ... data to create a Cat_tipo_doc_identidad
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_tipo_doc_identidad we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_tipo_doc_identidadUpsertArgs>(args: SelectSubset<T, cat_tipo_doc_identidadUpsertArgs<ExtArgs>>): Prisma__cat_tipo_doc_identidadClient<$Result.GetResult<Prisma.$cat_tipo_doc_identidadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_tipo_doc_identidads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadCountArgs} args - Arguments to filter Cat_tipo_doc_identidads to count.
+     * @example
+     * // Count the number of Cat_tipo_doc_identidads
+     * const count = await prisma.cat_tipo_doc_identidad.count({
+     *   where: {
+     *     // ... the filter for the Cat_tipo_doc_identidads we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_tipo_doc_identidadCountArgs>(
+      args?: Subset<T, cat_tipo_doc_identidadCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_tipo_doc_identidadCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_tipo_doc_identidad.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_tipo_doc_identidadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_tipo_doc_identidadAggregateArgs>(args: Subset<T, Cat_tipo_doc_identidadAggregateArgs>): Prisma.PrismaPromise<GetCat_tipo_doc_identidadAggregateType<T>>
+
+    /**
+     * Group by Cat_tipo_doc_identidad.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_tipo_doc_identidadGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_tipo_doc_identidadGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_tipo_doc_identidadGroupByArgs['orderBy'] }
+        : { orderBy?: cat_tipo_doc_identidadGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_tipo_doc_identidadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_tipo_doc_identidadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_tipo_doc_identidad model
+   */
+  readonly fields: cat_tipo_doc_identidadFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_tipo_doc_identidad.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_tipo_doc_identidadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_tipo_doc_identidad model
+   */
+  interface cat_tipo_doc_identidadFieldRefs {
+    readonly codigo: FieldRef<"cat_tipo_doc_identidad", 'String'>
+    readonly descripcion: FieldRef<"cat_tipo_doc_identidad", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_tipo_doc_identidad findUnique
+   */
+  export type cat_tipo_doc_identidadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_tipo_doc_identidad to fetch.
+     */
+    where: cat_tipo_doc_identidadWhereUniqueInput
+  }
+
+  /**
+   * cat_tipo_doc_identidad findUniqueOrThrow
+   */
+  export type cat_tipo_doc_identidadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_tipo_doc_identidad to fetch.
+     */
+    where: cat_tipo_doc_identidadWhereUniqueInput
+  }
+
+  /**
+   * cat_tipo_doc_identidad findFirst
+   */
+  export type cat_tipo_doc_identidadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_tipo_doc_identidad to fetch.
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_tipo_doc_identidads to fetch.
+     */
+    orderBy?: cat_tipo_doc_identidadOrderByWithRelationInput | cat_tipo_doc_identidadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_tipo_doc_identidads.
+     */
+    cursor?: cat_tipo_doc_identidadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_tipo_doc_identidads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_tipo_doc_identidads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_tipo_doc_identidads.
+     */
+    distinct?: Cat_tipo_doc_identidadScalarFieldEnum | Cat_tipo_doc_identidadScalarFieldEnum[]
+  }
+
+  /**
+   * cat_tipo_doc_identidad findFirstOrThrow
+   */
+  export type cat_tipo_doc_identidadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_tipo_doc_identidad to fetch.
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_tipo_doc_identidads to fetch.
+     */
+    orderBy?: cat_tipo_doc_identidadOrderByWithRelationInput | cat_tipo_doc_identidadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_tipo_doc_identidads.
+     */
+    cursor?: cat_tipo_doc_identidadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_tipo_doc_identidads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_tipo_doc_identidads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_tipo_doc_identidads.
+     */
+    distinct?: Cat_tipo_doc_identidadScalarFieldEnum | Cat_tipo_doc_identidadScalarFieldEnum[]
+  }
+
+  /**
+   * cat_tipo_doc_identidad findMany
+   */
+  export type cat_tipo_doc_identidadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_tipo_doc_identidads to fetch.
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_tipo_doc_identidads to fetch.
+     */
+    orderBy?: cat_tipo_doc_identidadOrderByWithRelationInput | cat_tipo_doc_identidadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_tipo_doc_identidads.
+     */
+    cursor?: cat_tipo_doc_identidadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_tipo_doc_identidads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_tipo_doc_identidads.
+     */
+    skip?: number
+    distinct?: Cat_tipo_doc_identidadScalarFieldEnum | Cat_tipo_doc_identidadScalarFieldEnum[]
+  }
+
+  /**
+   * cat_tipo_doc_identidad create
+   */
+  export type cat_tipo_doc_identidadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_tipo_doc_identidad.
+     */
+    data: XOR<cat_tipo_doc_identidadCreateInput, cat_tipo_doc_identidadUncheckedCreateInput>
+  }
+
+  /**
+   * cat_tipo_doc_identidad createMany
+   */
+  export type cat_tipo_doc_identidadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_tipo_doc_identidads.
+     */
+    data: cat_tipo_doc_identidadCreateManyInput | cat_tipo_doc_identidadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_tipo_doc_identidad update
+   */
+  export type cat_tipo_doc_identidadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_tipo_doc_identidad.
+     */
+    data: XOR<cat_tipo_doc_identidadUpdateInput, cat_tipo_doc_identidadUncheckedUpdateInput>
+    /**
+     * Choose, which cat_tipo_doc_identidad to update.
+     */
+    where: cat_tipo_doc_identidadWhereUniqueInput
+  }
+
+  /**
+   * cat_tipo_doc_identidad updateMany
+   */
+  export type cat_tipo_doc_identidadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_tipo_doc_identidads.
+     */
+    data: XOR<cat_tipo_doc_identidadUpdateManyMutationInput, cat_tipo_doc_identidadUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_tipo_doc_identidads to update
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * Limit how many cat_tipo_doc_identidads to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_tipo_doc_identidad upsert
+   */
+  export type cat_tipo_doc_identidadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_tipo_doc_identidad to update in case it exists.
+     */
+    where: cat_tipo_doc_identidadWhereUniqueInput
+    /**
+     * In case the cat_tipo_doc_identidad found by the `where` argument doesn't exist, create a new cat_tipo_doc_identidad with this data.
+     */
+    create: XOR<cat_tipo_doc_identidadCreateInput, cat_tipo_doc_identidadUncheckedCreateInput>
+    /**
+     * In case the cat_tipo_doc_identidad was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_tipo_doc_identidadUpdateInput, cat_tipo_doc_identidadUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_tipo_doc_identidad delete
+   */
+  export type cat_tipo_doc_identidadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+    /**
+     * Filter which cat_tipo_doc_identidad to delete.
+     */
+    where: cat_tipo_doc_identidadWhereUniqueInput
+  }
+
+  /**
+   * cat_tipo_doc_identidad deleteMany
+   */
+  export type cat_tipo_doc_identidadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_tipo_doc_identidads to delete
+     */
+    where?: cat_tipo_doc_identidadWhereInput
+    /**
+     * Limit how many cat_tipo_doc_identidads to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_tipo_doc_identidad without action
+   */
+  export type cat_tipo_doc_identidadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_tipo_doc_identidad
+     */
+    select?: cat_tipo_doc_identidadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_tipo_doc_identidad
+     */
+    omit?: cat_tipo_doc_identidadOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_forma_pago
+   */
+
+  export type AggregateCat_forma_pago = {
+    _count: Cat_forma_pagoCountAggregateOutputType | null
+    _min: Cat_forma_pagoMinAggregateOutputType | null
+    _max: Cat_forma_pagoMaxAggregateOutputType | null
+  }
+
+  export type Cat_forma_pagoMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_forma_pagoMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_forma_pagoCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_forma_pagoMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_forma_pagoMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_forma_pagoCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_forma_pagoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_forma_pago to aggregate.
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_forma_pagos to fetch.
+     */
+    orderBy?: cat_forma_pagoOrderByWithRelationInput | cat_forma_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_forma_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_forma_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_forma_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_forma_pagos
+    **/
+    _count?: true | Cat_forma_pagoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_forma_pagoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_forma_pagoMaxAggregateInputType
+  }
+
+  export type GetCat_forma_pagoAggregateType<T extends Cat_forma_pagoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_forma_pago]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_forma_pago[P]>
+      : GetScalarType<T[P], AggregateCat_forma_pago[P]>
+  }
+
+
+
+
+  export type cat_forma_pagoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_forma_pagoWhereInput
+    orderBy?: cat_forma_pagoOrderByWithAggregationInput | cat_forma_pagoOrderByWithAggregationInput[]
+    by: Cat_forma_pagoScalarFieldEnum[] | Cat_forma_pagoScalarFieldEnum
+    having?: cat_forma_pagoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_forma_pagoCountAggregateInputType | true
+    _min?: Cat_forma_pagoMinAggregateInputType
+    _max?: Cat_forma_pagoMaxAggregateInputType
+  }
+
+  export type Cat_forma_pagoGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_forma_pagoCountAggregateOutputType | null
+    _min: Cat_forma_pagoMinAggregateOutputType | null
+    _max: Cat_forma_pagoMaxAggregateOutputType | null
+  }
+
+  type GetCat_forma_pagoGroupByPayload<T extends cat_forma_pagoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_forma_pagoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_forma_pagoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_forma_pagoGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_forma_pagoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_forma_pagoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_forma_pago"]>
+
+
+
+  export type cat_forma_pagoSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_forma_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_forma_pago"]>
+
+  export type $cat_forma_pagoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_forma_pago"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_forma_pago"]>
+    composites: {}
+  }
+
+  type cat_forma_pagoGetPayload<S extends boolean | null | undefined | cat_forma_pagoDefaultArgs> = $Result.GetResult<Prisma.$cat_forma_pagoPayload, S>
+
+  type cat_forma_pagoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_forma_pagoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_forma_pagoCountAggregateInputType | true
+    }
+
+  export interface cat_forma_pagoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_forma_pago'], meta: { name: 'cat_forma_pago' } }
+    /**
+     * Find zero or one Cat_forma_pago that matches the filter.
+     * @param {cat_forma_pagoFindUniqueArgs} args - Arguments to find a Cat_forma_pago
+     * @example
+     * // Get one Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_forma_pagoFindUniqueArgs>(args: SelectSubset<T, cat_forma_pagoFindUniqueArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_forma_pago that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_forma_pagoFindUniqueOrThrowArgs} args - Arguments to find a Cat_forma_pago
+     * @example
+     * // Get one Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_forma_pagoFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_forma_pagoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_forma_pago that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoFindFirstArgs} args - Arguments to find a Cat_forma_pago
+     * @example
+     * // Get one Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_forma_pagoFindFirstArgs>(args?: SelectSubset<T, cat_forma_pagoFindFirstArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_forma_pago that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoFindFirstOrThrowArgs} args - Arguments to find a Cat_forma_pago
+     * @example
+     * // Get one Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_forma_pagoFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_forma_pagoFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_forma_pagos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_forma_pagos
+     * const cat_forma_pagos = await prisma.cat_forma_pago.findMany()
+     * 
+     * // Get first 10 Cat_forma_pagos
+     * const cat_forma_pagos = await prisma.cat_forma_pago.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_forma_pagoWithCodigoOnly = await prisma.cat_forma_pago.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_forma_pagoFindManyArgs>(args?: SelectSubset<T, cat_forma_pagoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_forma_pago.
+     * @param {cat_forma_pagoCreateArgs} args - Arguments to create a Cat_forma_pago.
+     * @example
+     * // Create one Cat_forma_pago
+     * const Cat_forma_pago = await prisma.cat_forma_pago.create({
+     *   data: {
+     *     // ... data to create a Cat_forma_pago
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_forma_pagoCreateArgs>(args: SelectSubset<T, cat_forma_pagoCreateArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_forma_pagos.
+     * @param {cat_forma_pagoCreateManyArgs} args - Arguments to create many Cat_forma_pagos.
+     * @example
+     * // Create many Cat_forma_pagos
+     * const cat_forma_pago = await prisma.cat_forma_pago.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_forma_pagoCreateManyArgs>(args?: SelectSubset<T, cat_forma_pagoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_forma_pago.
+     * @param {cat_forma_pagoDeleteArgs} args - Arguments to delete one Cat_forma_pago.
+     * @example
+     * // Delete one Cat_forma_pago
+     * const Cat_forma_pago = await prisma.cat_forma_pago.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_forma_pago
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_forma_pagoDeleteArgs>(args: SelectSubset<T, cat_forma_pagoDeleteArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_forma_pago.
+     * @param {cat_forma_pagoUpdateArgs} args - Arguments to update one Cat_forma_pago.
+     * @example
+     * // Update one Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_forma_pagoUpdateArgs>(args: SelectSubset<T, cat_forma_pagoUpdateArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_forma_pagos.
+     * @param {cat_forma_pagoDeleteManyArgs} args - Arguments to filter Cat_forma_pagos to delete.
+     * @example
+     * // Delete a few Cat_forma_pagos
+     * const { count } = await prisma.cat_forma_pago.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_forma_pagoDeleteManyArgs>(args?: SelectSubset<T, cat_forma_pagoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_forma_pagos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_forma_pagos
+     * const cat_forma_pago = await prisma.cat_forma_pago.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_forma_pagoUpdateManyArgs>(args: SelectSubset<T, cat_forma_pagoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_forma_pago.
+     * @param {cat_forma_pagoUpsertArgs} args - Arguments to update or create a Cat_forma_pago.
+     * @example
+     * // Update or create a Cat_forma_pago
+     * const cat_forma_pago = await prisma.cat_forma_pago.upsert({
+     *   create: {
+     *     // ... data to create a Cat_forma_pago
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_forma_pago we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_forma_pagoUpsertArgs>(args: SelectSubset<T, cat_forma_pagoUpsertArgs<ExtArgs>>): Prisma__cat_forma_pagoClient<$Result.GetResult<Prisma.$cat_forma_pagoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_forma_pagos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoCountArgs} args - Arguments to filter Cat_forma_pagos to count.
+     * @example
+     * // Count the number of Cat_forma_pagos
+     * const count = await prisma.cat_forma_pago.count({
+     *   where: {
+     *     // ... the filter for the Cat_forma_pagos we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_forma_pagoCountArgs>(
+      args?: Subset<T, cat_forma_pagoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_forma_pagoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_forma_pago.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_forma_pagoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_forma_pagoAggregateArgs>(args: Subset<T, Cat_forma_pagoAggregateArgs>): Prisma.PrismaPromise<GetCat_forma_pagoAggregateType<T>>
+
+    /**
+     * Group by Cat_forma_pago.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_forma_pagoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_forma_pagoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_forma_pagoGroupByArgs['orderBy'] }
+        : { orderBy?: cat_forma_pagoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_forma_pagoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_forma_pagoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_forma_pago model
+   */
+  readonly fields: cat_forma_pagoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_forma_pago.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_forma_pagoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_forma_pago model
+   */
+  interface cat_forma_pagoFieldRefs {
+    readonly codigo: FieldRef<"cat_forma_pago", 'String'>
+    readonly descripcion: FieldRef<"cat_forma_pago", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_forma_pago findUnique
+   */
+  export type cat_forma_pagoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_forma_pago to fetch.
+     */
+    where: cat_forma_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_forma_pago findUniqueOrThrow
+   */
+  export type cat_forma_pagoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_forma_pago to fetch.
+     */
+    where: cat_forma_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_forma_pago findFirst
+   */
+  export type cat_forma_pagoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_forma_pago to fetch.
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_forma_pagos to fetch.
+     */
+    orderBy?: cat_forma_pagoOrderByWithRelationInput | cat_forma_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_forma_pagos.
+     */
+    cursor?: cat_forma_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_forma_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_forma_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_forma_pagos.
+     */
+    distinct?: Cat_forma_pagoScalarFieldEnum | Cat_forma_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_forma_pago findFirstOrThrow
+   */
+  export type cat_forma_pagoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_forma_pago to fetch.
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_forma_pagos to fetch.
+     */
+    orderBy?: cat_forma_pagoOrderByWithRelationInput | cat_forma_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_forma_pagos.
+     */
+    cursor?: cat_forma_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_forma_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_forma_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_forma_pagos.
+     */
+    distinct?: Cat_forma_pagoScalarFieldEnum | Cat_forma_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_forma_pago findMany
+   */
+  export type cat_forma_pagoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_forma_pagos to fetch.
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_forma_pagos to fetch.
+     */
+    orderBy?: cat_forma_pagoOrderByWithRelationInput | cat_forma_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_forma_pagos.
+     */
+    cursor?: cat_forma_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_forma_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_forma_pagos.
+     */
+    skip?: number
+    distinct?: Cat_forma_pagoScalarFieldEnum | Cat_forma_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_forma_pago create
+   */
+  export type cat_forma_pagoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_forma_pago.
+     */
+    data: XOR<cat_forma_pagoCreateInput, cat_forma_pagoUncheckedCreateInput>
+  }
+
+  /**
+   * cat_forma_pago createMany
+   */
+  export type cat_forma_pagoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_forma_pagos.
+     */
+    data: cat_forma_pagoCreateManyInput | cat_forma_pagoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_forma_pago update
+   */
+  export type cat_forma_pagoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_forma_pago.
+     */
+    data: XOR<cat_forma_pagoUpdateInput, cat_forma_pagoUncheckedUpdateInput>
+    /**
+     * Choose, which cat_forma_pago to update.
+     */
+    where: cat_forma_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_forma_pago updateMany
+   */
+  export type cat_forma_pagoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_forma_pagos.
+     */
+    data: XOR<cat_forma_pagoUpdateManyMutationInput, cat_forma_pagoUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_forma_pagos to update
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * Limit how many cat_forma_pagos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_forma_pago upsert
+   */
+  export type cat_forma_pagoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_forma_pago to update in case it exists.
+     */
+    where: cat_forma_pagoWhereUniqueInput
+    /**
+     * In case the cat_forma_pago found by the `where` argument doesn't exist, create a new cat_forma_pago with this data.
+     */
+    create: XOR<cat_forma_pagoCreateInput, cat_forma_pagoUncheckedCreateInput>
+    /**
+     * In case the cat_forma_pago was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_forma_pagoUpdateInput, cat_forma_pagoUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_forma_pago delete
+   */
+  export type cat_forma_pagoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+    /**
+     * Filter which cat_forma_pago to delete.
+     */
+    where: cat_forma_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_forma_pago deleteMany
+   */
+  export type cat_forma_pagoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_forma_pagos to delete
+     */
+    where?: cat_forma_pagoWhereInput
+    /**
+     * Limit how many cat_forma_pagos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_forma_pago without action
+   */
+  export type cat_forma_pagoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_forma_pago
+     */
+    select?: cat_forma_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_forma_pago
+     */
+    omit?: cat_forma_pagoOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_medio_pago
+   */
+
+  export type AggregateCat_medio_pago = {
+    _count: Cat_medio_pagoCountAggregateOutputType | null
+    _min: Cat_medio_pagoMinAggregateOutputType | null
+    _max: Cat_medio_pagoMaxAggregateOutputType | null
+  }
+
+  export type Cat_medio_pagoMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_medio_pagoMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_medio_pagoCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_medio_pagoMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_medio_pagoMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_medio_pagoCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_medio_pagoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_medio_pago to aggregate.
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_medio_pagos to fetch.
+     */
+    orderBy?: cat_medio_pagoOrderByWithRelationInput | cat_medio_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_medio_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_medio_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_medio_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_medio_pagos
+    **/
+    _count?: true | Cat_medio_pagoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_medio_pagoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_medio_pagoMaxAggregateInputType
+  }
+
+  export type GetCat_medio_pagoAggregateType<T extends Cat_medio_pagoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_medio_pago]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_medio_pago[P]>
+      : GetScalarType<T[P], AggregateCat_medio_pago[P]>
+  }
+
+
+
+
+  export type cat_medio_pagoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_medio_pagoWhereInput
+    orderBy?: cat_medio_pagoOrderByWithAggregationInput | cat_medio_pagoOrderByWithAggregationInput[]
+    by: Cat_medio_pagoScalarFieldEnum[] | Cat_medio_pagoScalarFieldEnum
+    having?: cat_medio_pagoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_medio_pagoCountAggregateInputType | true
+    _min?: Cat_medio_pagoMinAggregateInputType
+    _max?: Cat_medio_pagoMaxAggregateInputType
+  }
+
+  export type Cat_medio_pagoGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_medio_pagoCountAggregateOutputType | null
+    _min: Cat_medio_pagoMinAggregateOutputType | null
+    _max: Cat_medio_pagoMaxAggregateOutputType | null
+  }
+
+  type GetCat_medio_pagoGroupByPayload<T extends cat_medio_pagoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_medio_pagoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_medio_pagoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_medio_pagoGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_medio_pagoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_medio_pagoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_medio_pago"]>
+
+
+
+  export type cat_medio_pagoSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_medio_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_medio_pago"]>
+
+  export type $cat_medio_pagoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_medio_pago"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_medio_pago"]>
+    composites: {}
+  }
+
+  type cat_medio_pagoGetPayload<S extends boolean | null | undefined | cat_medio_pagoDefaultArgs> = $Result.GetResult<Prisma.$cat_medio_pagoPayload, S>
+
+  type cat_medio_pagoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_medio_pagoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_medio_pagoCountAggregateInputType | true
+    }
+
+  export interface cat_medio_pagoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_medio_pago'], meta: { name: 'cat_medio_pago' } }
+    /**
+     * Find zero or one Cat_medio_pago that matches the filter.
+     * @param {cat_medio_pagoFindUniqueArgs} args - Arguments to find a Cat_medio_pago
+     * @example
+     * // Get one Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_medio_pagoFindUniqueArgs>(args: SelectSubset<T, cat_medio_pagoFindUniqueArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_medio_pago that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_medio_pagoFindUniqueOrThrowArgs} args - Arguments to find a Cat_medio_pago
+     * @example
+     * // Get one Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_medio_pagoFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_medio_pagoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_medio_pago that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoFindFirstArgs} args - Arguments to find a Cat_medio_pago
+     * @example
+     * // Get one Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_medio_pagoFindFirstArgs>(args?: SelectSubset<T, cat_medio_pagoFindFirstArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_medio_pago that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoFindFirstOrThrowArgs} args - Arguments to find a Cat_medio_pago
+     * @example
+     * // Get one Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_medio_pagoFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_medio_pagoFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_medio_pagos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_medio_pagos
+     * const cat_medio_pagos = await prisma.cat_medio_pago.findMany()
+     * 
+     * // Get first 10 Cat_medio_pagos
+     * const cat_medio_pagos = await prisma.cat_medio_pago.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_medio_pagoWithCodigoOnly = await prisma.cat_medio_pago.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_medio_pagoFindManyArgs>(args?: SelectSubset<T, cat_medio_pagoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_medio_pago.
+     * @param {cat_medio_pagoCreateArgs} args - Arguments to create a Cat_medio_pago.
+     * @example
+     * // Create one Cat_medio_pago
+     * const Cat_medio_pago = await prisma.cat_medio_pago.create({
+     *   data: {
+     *     // ... data to create a Cat_medio_pago
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_medio_pagoCreateArgs>(args: SelectSubset<T, cat_medio_pagoCreateArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_medio_pagos.
+     * @param {cat_medio_pagoCreateManyArgs} args - Arguments to create many Cat_medio_pagos.
+     * @example
+     * // Create many Cat_medio_pagos
+     * const cat_medio_pago = await prisma.cat_medio_pago.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_medio_pagoCreateManyArgs>(args?: SelectSubset<T, cat_medio_pagoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_medio_pago.
+     * @param {cat_medio_pagoDeleteArgs} args - Arguments to delete one Cat_medio_pago.
+     * @example
+     * // Delete one Cat_medio_pago
+     * const Cat_medio_pago = await prisma.cat_medio_pago.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_medio_pago
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_medio_pagoDeleteArgs>(args: SelectSubset<T, cat_medio_pagoDeleteArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_medio_pago.
+     * @param {cat_medio_pagoUpdateArgs} args - Arguments to update one Cat_medio_pago.
+     * @example
+     * // Update one Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_medio_pagoUpdateArgs>(args: SelectSubset<T, cat_medio_pagoUpdateArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_medio_pagos.
+     * @param {cat_medio_pagoDeleteManyArgs} args - Arguments to filter Cat_medio_pagos to delete.
+     * @example
+     * // Delete a few Cat_medio_pagos
+     * const { count } = await prisma.cat_medio_pago.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_medio_pagoDeleteManyArgs>(args?: SelectSubset<T, cat_medio_pagoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_medio_pagos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_medio_pagos
+     * const cat_medio_pago = await prisma.cat_medio_pago.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_medio_pagoUpdateManyArgs>(args: SelectSubset<T, cat_medio_pagoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_medio_pago.
+     * @param {cat_medio_pagoUpsertArgs} args - Arguments to update or create a Cat_medio_pago.
+     * @example
+     * // Update or create a Cat_medio_pago
+     * const cat_medio_pago = await prisma.cat_medio_pago.upsert({
+     *   create: {
+     *     // ... data to create a Cat_medio_pago
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_medio_pago we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_medio_pagoUpsertArgs>(args: SelectSubset<T, cat_medio_pagoUpsertArgs<ExtArgs>>): Prisma__cat_medio_pagoClient<$Result.GetResult<Prisma.$cat_medio_pagoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_medio_pagos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoCountArgs} args - Arguments to filter Cat_medio_pagos to count.
+     * @example
+     * // Count the number of Cat_medio_pagos
+     * const count = await prisma.cat_medio_pago.count({
+     *   where: {
+     *     // ... the filter for the Cat_medio_pagos we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_medio_pagoCountArgs>(
+      args?: Subset<T, cat_medio_pagoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_medio_pagoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_medio_pago.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_medio_pagoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_medio_pagoAggregateArgs>(args: Subset<T, Cat_medio_pagoAggregateArgs>): Prisma.PrismaPromise<GetCat_medio_pagoAggregateType<T>>
+
+    /**
+     * Group by Cat_medio_pago.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_medio_pagoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_medio_pagoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_medio_pagoGroupByArgs['orderBy'] }
+        : { orderBy?: cat_medio_pagoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_medio_pagoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_medio_pagoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_medio_pago model
+   */
+  readonly fields: cat_medio_pagoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_medio_pago.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_medio_pagoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_medio_pago model
+   */
+  interface cat_medio_pagoFieldRefs {
+    readonly codigo: FieldRef<"cat_medio_pago", 'String'>
+    readonly descripcion: FieldRef<"cat_medio_pago", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_medio_pago findUnique
+   */
+  export type cat_medio_pagoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_medio_pago to fetch.
+     */
+    where: cat_medio_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_medio_pago findUniqueOrThrow
+   */
+  export type cat_medio_pagoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_medio_pago to fetch.
+     */
+    where: cat_medio_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_medio_pago findFirst
+   */
+  export type cat_medio_pagoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_medio_pago to fetch.
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_medio_pagos to fetch.
+     */
+    orderBy?: cat_medio_pagoOrderByWithRelationInput | cat_medio_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_medio_pagos.
+     */
+    cursor?: cat_medio_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_medio_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_medio_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_medio_pagos.
+     */
+    distinct?: Cat_medio_pagoScalarFieldEnum | Cat_medio_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_medio_pago findFirstOrThrow
+   */
+  export type cat_medio_pagoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_medio_pago to fetch.
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_medio_pagos to fetch.
+     */
+    orderBy?: cat_medio_pagoOrderByWithRelationInput | cat_medio_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_medio_pagos.
+     */
+    cursor?: cat_medio_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_medio_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_medio_pagos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_medio_pagos.
+     */
+    distinct?: Cat_medio_pagoScalarFieldEnum | Cat_medio_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_medio_pago findMany
+   */
+  export type cat_medio_pagoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_medio_pagos to fetch.
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_medio_pagos to fetch.
+     */
+    orderBy?: cat_medio_pagoOrderByWithRelationInput | cat_medio_pagoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_medio_pagos.
+     */
+    cursor?: cat_medio_pagoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_medio_pagos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_medio_pagos.
+     */
+    skip?: number
+    distinct?: Cat_medio_pagoScalarFieldEnum | Cat_medio_pagoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_medio_pago create
+   */
+  export type cat_medio_pagoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_medio_pago.
+     */
+    data: XOR<cat_medio_pagoCreateInput, cat_medio_pagoUncheckedCreateInput>
+  }
+
+  /**
+   * cat_medio_pago createMany
+   */
+  export type cat_medio_pagoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_medio_pagos.
+     */
+    data: cat_medio_pagoCreateManyInput | cat_medio_pagoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_medio_pago update
+   */
+  export type cat_medio_pagoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_medio_pago.
+     */
+    data: XOR<cat_medio_pagoUpdateInput, cat_medio_pagoUncheckedUpdateInput>
+    /**
+     * Choose, which cat_medio_pago to update.
+     */
+    where: cat_medio_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_medio_pago updateMany
+   */
+  export type cat_medio_pagoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_medio_pagos.
+     */
+    data: XOR<cat_medio_pagoUpdateManyMutationInput, cat_medio_pagoUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_medio_pagos to update
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * Limit how many cat_medio_pagos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_medio_pago upsert
+   */
+  export type cat_medio_pagoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_medio_pago to update in case it exists.
+     */
+    where: cat_medio_pagoWhereUniqueInput
+    /**
+     * In case the cat_medio_pago found by the `where` argument doesn't exist, create a new cat_medio_pago with this data.
+     */
+    create: XOR<cat_medio_pagoCreateInput, cat_medio_pagoUncheckedCreateInput>
+    /**
+     * In case the cat_medio_pago was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_medio_pagoUpdateInput, cat_medio_pagoUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_medio_pago delete
+   */
+  export type cat_medio_pagoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+    /**
+     * Filter which cat_medio_pago to delete.
+     */
+    where: cat_medio_pagoWhereUniqueInput
+  }
+
+  /**
+   * cat_medio_pago deleteMany
+   */
+  export type cat_medio_pagoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_medio_pagos to delete
+     */
+    where?: cat_medio_pagoWhereInput
+    /**
+     * Limit how many cat_medio_pagos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_medio_pago without action
+   */
+  export type cat_medio_pagoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_medio_pago
+     */
+    select?: cat_medio_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_medio_pago
+     */
+    omit?: cat_medio_pagoOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_indicador_afecto
+   */
+
+  export type AggregateCat_indicador_afecto = {
+    _count: Cat_indicador_afectoCountAggregateOutputType | null
+    _min: Cat_indicador_afectoMinAggregateOutputType | null
+    _max: Cat_indicador_afectoMaxAggregateOutputType | null
+  }
+
+  export type Cat_indicador_afectoMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_indicador_afectoMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_indicador_afectoCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_indicador_afectoMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_indicador_afectoMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_indicador_afectoCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_indicador_afectoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_indicador_afecto to aggregate.
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_indicador_afectos to fetch.
+     */
+    orderBy?: cat_indicador_afectoOrderByWithRelationInput | cat_indicador_afectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_indicador_afectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_indicador_afectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_indicador_afectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_indicador_afectos
+    **/
+    _count?: true | Cat_indicador_afectoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_indicador_afectoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_indicador_afectoMaxAggregateInputType
+  }
+
+  export type GetCat_indicador_afectoAggregateType<T extends Cat_indicador_afectoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_indicador_afecto]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_indicador_afecto[P]>
+      : GetScalarType<T[P], AggregateCat_indicador_afecto[P]>
+  }
+
+
+
+
+  export type cat_indicador_afectoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_indicador_afectoWhereInput
+    orderBy?: cat_indicador_afectoOrderByWithAggregationInput | cat_indicador_afectoOrderByWithAggregationInput[]
+    by: Cat_indicador_afectoScalarFieldEnum[] | Cat_indicador_afectoScalarFieldEnum
+    having?: cat_indicador_afectoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_indicador_afectoCountAggregateInputType | true
+    _min?: Cat_indicador_afectoMinAggregateInputType
+    _max?: Cat_indicador_afectoMaxAggregateInputType
+  }
+
+  export type Cat_indicador_afectoGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_indicador_afectoCountAggregateOutputType | null
+    _min: Cat_indicador_afectoMinAggregateOutputType | null
+    _max: Cat_indicador_afectoMaxAggregateOutputType | null
+  }
+
+  type GetCat_indicador_afectoGroupByPayload<T extends cat_indicador_afectoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_indicador_afectoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_indicador_afectoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_indicador_afectoGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_indicador_afectoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_indicador_afectoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_indicador_afecto"]>
+
+
+
+  export type cat_indicador_afectoSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_indicador_afectoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_indicador_afecto"]>
+
+  export type $cat_indicador_afectoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_indicador_afecto"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_indicador_afecto"]>
+    composites: {}
+  }
+
+  type cat_indicador_afectoGetPayload<S extends boolean | null | undefined | cat_indicador_afectoDefaultArgs> = $Result.GetResult<Prisma.$cat_indicador_afectoPayload, S>
+
+  type cat_indicador_afectoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_indicador_afectoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_indicador_afectoCountAggregateInputType | true
+    }
+
+  export interface cat_indicador_afectoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_indicador_afecto'], meta: { name: 'cat_indicador_afecto' } }
+    /**
+     * Find zero or one Cat_indicador_afecto that matches the filter.
+     * @param {cat_indicador_afectoFindUniqueArgs} args - Arguments to find a Cat_indicador_afecto
+     * @example
+     * // Get one Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_indicador_afectoFindUniqueArgs>(args: SelectSubset<T, cat_indicador_afectoFindUniqueArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_indicador_afecto that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_indicador_afectoFindUniqueOrThrowArgs} args - Arguments to find a Cat_indicador_afecto
+     * @example
+     * // Get one Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_indicador_afectoFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_indicador_afectoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_indicador_afecto that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoFindFirstArgs} args - Arguments to find a Cat_indicador_afecto
+     * @example
+     * // Get one Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_indicador_afectoFindFirstArgs>(args?: SelectSubset<T, cat_indicador_afectoFindFirstArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_indicador_afecto that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoFindFirstOrThrowArgs} args - Arguments to find a Cat_indicador_afecto
+     * @example
+     * // Get one Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_indicador_afectoFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_indicador_afectoFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_indicador_afectos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_indicador_afectos
+     * const cat_indicador_afectos = await prisma.cat_indicador_afecto.findMany()
+     * 
+     * // Get first 10 Cat_indicador_afectos
+     * const cat_indicador_afectos = await prisma.cat_indicador_afecto.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_indicador_afectoWithCodigoOnly = await prisma.cat_indicador_afecto.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_indicador_afectoFindManyArgs>(args?: SelectSubset<T, cat_indicador_afectoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_indicador_afecto.
+     * @param {cat_indicador_afectoCreateArgs} args - Arguments to create a Cat_indicador_afecto.
+     * @example
+     * // Create one Cat_indicador_afecto
+     * const Cat_indicador_afecto = await prisma.cat_indicador_afecto.create({
+     *   data: {
+     *     // ... data to create a Cat_indicador_afecto
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_indicador_afectoCreateArgs>(args: SelectSubset<T, cat_indicador_afectoCreateArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_indicador_afectos.
+     * @param {cat_indicador_afectoCreateManyArgs} args - Arguments to create many Cat_indicador_afectos.
+     * @example
+     * // Create many Cat_indicador_afectos
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_indicador_afectoCreateManyArgs>(args?: SelectSubset<T, cat_indicador_afectoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_indicador_afecto.
+     * @param {cat_indicador_afectoDeleteArgs} args - Arguments to delete one Cat_indicador_afecto.
+     * @example
+     * // Delete one Cat_indicador_afecto
+     * const Cat_indicador_afecto = await prisma.cat_indicador_afecto.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_indicador_afecto
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_indicador_afectoDeleteArgs>(args: SelectSubset<T, cat_indicador_afectoDeleteArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_indicador_afecto.
+     * @param {cat_indicador_afectoUpdateArgs} args - Arguments to update one Cat_indicador_afecto.
+     * @example
+     * // Update one Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_indicador_afectoUpdateArgs>(args: SelectSubset<T, cat_indicador_afectoUpdateArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_indicador_afectos.
+     * @param {cat_indicador_afectoDeleteManyArgs} args - Arguments to filter Cat_indicador_afectos to delete.
+     * @example
+     * // Delete a few Cat_indicador_afectos
+     * const { count } = await prisma.cat_indicador_afecto.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_indicador_afectoDeleteManyArgs>(args?: SelectSubset<T, cat_indicador_afectoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_indicador_afectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_indicador_afectos
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_indicador_afectoUpdateManyArgs>(args: SelectSubset<T, cat_indicador_afectoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_indicador_afecto.
+     * @param {cat_indicador_afectoUpsertArgs} args - Arguments to update or create a Cat_indicador_afecto.
+     * @example
+     * // Update or create a Cat_indicador_afecto
+     * const cat_indicador_afecto = await prisma.cat_indicador_afecto.upsert({
+     *   create: {
+     *     // ... data to create a Cat_indicador_afecto
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_indicador_afecto we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_indicador_afectoUpsertArgs>(args: SelectSubset<T, cat_indicador_afectoUpsertArgs<ExtArgs>>): Prisma__cat_indicador_afectoClient<$Result.GetResult<Prisma.$cat_indicador_afectoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_indicador_afectos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoCountArgs} args - Arguments to filter Cat_indicador_afectos to count.
+     * @example
+     * // Count the number of Cat_indicador_afectos
+     * const count = await prisma.cat_indicador_afecto.count({
+     *   where: {
+     *     // ... the filter for the Cat_indicador_afectos we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_indicador_afectoCountArgs>(
+      args?: Subset<T, cat_indicador_afectoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_indicador_afectoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_indicador_afecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_indicador_afectoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_indicador_afectoAggregateArgs>(args: Subset<T, Cat_indicador_afectoAggregateArgs>): Prisma.PrismaPromise<GetCat_indicador_afectoAggregateType<T>>
+
+    /**
+     * Group by Cat_indicador_afecto.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_indicador_afectoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_indicador_afectoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_indicador_afectoGroupByArgs['orderBy'] }
+        : { orderBy?: cat_indicador_afectoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_indicador_afectoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_indicador_afectoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_indicador_afecto model
+   */
+  readonly fields: cat_indicador_afectoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_indicador_afecto.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_indicador_afectoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_indicador_afecto model
+   */
+  interface cat_indicador_afectoFieldRefs {
+    readonly codigo: FieldRef<"cat_indicador_afecto", 'String'>
+    readonly descripcion: FieldRef<"cat_indicador_afecto", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_indicador_afecto findUnique
+   */
+  export type cat_indicador_afectoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_indicador_afecto to fetch.
+     */
+    where: cat_indicador_afectoWhereUniqueInput
+  }
+
+  /**
+   * cat_indicador_afecto findUniqueOrThrow
+   */
+  export type cat_indicador_afectoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_indicador_afecto to fetch.
+     */
+    where: cat_indicador_afectoWhereUniqueInput
+  }
+
+  /**
+   * cat_indicador_afecto findFirst
+   */
+  export type cat_indicador_afectoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_indicador_afecto to fetch.
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_indicador_afectos to fetch.
+     */
+    orderBy?: cat_indicador_afectoOrderByWithRelationInput | cat_indicador_afectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_indicador_afectos.
+     */
+    cursor?: cat_indicador_afectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_indicador_afectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_indicador_afectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_indicador_afectos.
+     */
+    distinct?: Cat_indicador_afectoScalarFieldEnum | Cat_indicador_afectoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_indicador_afecto findFirstOrThrow
+   */
+  export type cat_indicador_afectoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_indicador_afecto to fetch.
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_indicador_afectos to fetch.
+     */
+    orderBy?: cat_indicador_afectoOrderByWithRelationInput | cat_indicador_afectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_indicador_afectos.
+     */
+    cursor?: cat_indicador_afectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_indicador_afectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_indicador_afectos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_indicador_afectos.
+     */
+    distinct?: Cat_indicador_afectoScalarFieldEnum | Cat_indicador_afectoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_indicador_afecto findMany
+   */
+  export type cat_indicador_afectoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_indicador_afectos to fetch.
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_indicador_afectos to fetch.
+     */
+    orderBy?: cat_indicador_afectoOrderByWithRelationInput | cat_indicador_afectoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_indicador_afectos.
+     */
+    cursor?: cat_indicador_afectoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_indicador_afectos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_indicador_afectos.
+     */
+    skip?: number
+    distinct?: Cat_indicador_afectoScalarFieldEnum | Cat_indicador_afectoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_indicador_afecto create
+   */
+  export type cat_indicador_afectoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_indicador_afecto.
+     */
+    data: XOR<cat_indicador_afectoCreateInput, cat_indicador_afectoUncheckedCreateInput>
+  }
+
+  /**
+   * cat_indicador_afecto createMany
+   */
+  export type cat_indicador_afectoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_indicador_afectos.
+     */
+    data: cat_indicador_afectoCreateManyInput | cat_indicador_afectoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_indicador_afecto update
+   */
+  export type cat_indicador_afectoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_indicador_afecto.
+     */
+    data: XOR<cat_indicador_afectoUpdateInput, cat_indicador_afectoUncheckedUpdateInput>
+    /**
+     * Choose, which cat_indicador_afecto to update.
+     */
+    where: cat_indicador_afectoWhereUniqueInput
+  }
+
+  /**
+   * cat_indicador_afecto updateMany
+   */
+  export type cat_indicador_afectoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_indicador_afectos.
+     */
+    data: XOR<cat_indicador_afectoUpdateManyMutationInput, cat_indicador_afectoUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_indicador_afectos to update
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * Limit how many cat_indicador_afectos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_indicador_afecto upsert
+   */
+  export type cat_indicador_afectoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_indicador_afecto to update in case it exists.
+     */
+    where: cat_indicador_afectoWhereUniqueInput
+    /**
+     * In case the cat_indicador_afecto found by the `where` argument doesn't exist, create a new cat_indicador_afecto with this data.
+     */
+    create: XOR<cat_indicador_afectoCreateInput, cat_indicador_afectoUncheckedCreateInput>
+    /**
+     * In case the cat_indicador_afecto was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_indicador_afectoUpdateInput, cat_indicador_afectoUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_indicador_afecto delete
+   */
+  export type cat_indicador_afectoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+    /**
+     * Filter which cat_indicador_afecto to delete.
+     */
+    where: cat_indicador_afectoWhereUniqueInput
+  }
+
+  /**
+   * cat_indicador_afecto deleteMany
+   */
+  export type cat_indicador_afectoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_indicador_afectos to delete
+     */
+    where?: cat_indicador_afectoWhereInput
+    /**
+     * Limit how many cat_indicador_afectos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_indicador_afecto without action
+   */
+  export type cat_indicador_afectoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_indicador_afecto
+     */
+    select?: cat_indicador_afectoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_indicador_afecto
+     */
+    omit?: cat_indicador_afectoOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cat_concepto_flujo_efectivo
+   */
+
+  export type AggregateCat_concepto_flujo_efectivo = {
+    _count: Cat_concepto_flujo_efectivoCountAggregateOutputType | null
+    _min: Cat_concepto_flujo_efectivoMinAggregateOutputType | null
+    _max: Cat_concepto_flujo_efectivoMaxAggregateOutputType | null
+  }
+
+  export type Cat_concepto_flujo_efectivoMinAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_concepto_flujo_efectivoMaxAggregateOutputType = {
+    codigo: string | null
+    descripcion: string | null
+  }
+
+  export type Cat_concepto_flujo_efectivoCountAggregateOutputType = {
+    codigo: number
+    descripcion: number
+    _all: number
+  }
+
+
+  export type Cat_concepto_flujo_efectivoMinAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_concepto_flujo_efectivoMaxAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+  }
+
+  export type Cat_concepto_flujo_efectivoCountAggregateInputType = {
+    codigo?: true
+    descripcion?: true
+    _all?: true
+  }
+
+  export type Cat_concepto_flujo_efectivoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_concepto_flujo_efectivo to aggregate.
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_concepto_flujo_efectivos to fetch.
+     */
+    orderBy?: cat_concepto_flujo_efectivoOrderByWithRelationInput | cat_concepto_flujo_efectivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cat_concepto_flujo_efectivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_concepto_flujo_efectivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_concepto_flujo_efectivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cat_concepto_flujo_efectivos
+    **/
+    _count?: true | Cat_concepto_flujo_efectivoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Cat_concepto_flujo_efectivoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Cat_concepto_flujo_efectivoMaxAggregateInputType
+  }
+
+  export type GetCat_concepto_flujo_efectivoAggregateType<T extends Cat_concepto_flujo_efectivoAggregateArgs> = {
+        [P in keyof T & keyof AggregateCat_concepto_flujo_efectivo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCat_concepto_flujo_efectivo[P]>
+      : GetScalarType<T[P], AggregateCat_concepto_flujo_efectivo[P]>
+  }
+
+
+
+
+  export type cat_concepto_flujo_efectivoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cat_concepto_flujo_efectivoWhereInput
+    orderBy?: cat_concepto_flujo_efectivoOrderByWithAggregationInput | cat_concepto_flujo_efectivoOrderByWithAggregationInput[]
+    by: Cat_concepto_flujo_efectivoScalarFieldEnum[] | Cat_concepto_flujo_efectivoScalarFieldEnum
+    having?: cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Cat_concepto_flujo_efectivoCountAggregateInputType | true
+    _min?: Cat_concepto_flujo_efectivoMinAggregateInputType
+    _max?: Cat_concepto_flujo_efectivoMaxAggregateInputType
+  }
+
+  export type Cat_concepto_flujo_efectivoGroupByOutputType = {
+    codigo: string
+    descripcion: string
+    _count: Cat_concepto_flujo_efectivoCountAggregateOutputType | null
+    _min: Cat_concepto_flujo_efectivoMinAggregateOutputType | null
+    _max: Cat_concepto_flujo_efectivoMaxAggregateOutputType | null
+  }
+
+  type GetCat_concepto_flujo_efectivoGroupByPayload<T extends cat_concepto_flujo_efectivoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Cat_concepto_flujo_efectivoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Cat_concepto_flujo_efectivoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Cat_concepto_flujo_efectivoGroupByOutputType[P]>
+            : GetScalarType<T[P], Cat_concepto_flujo_efectivoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cat_concepto_flujo_efectivoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    codigo?: boolean
+    descripcion?: boolean
+  }, ExtArgs["result"]["cat_concepto_flujo_efectivo"]>
+
+
+
+  export type cat_concepto_flujo_efectivoSelectScalar = {
+    codigo?: boolean
+    descripcion?: boolean
+  }
+
+  export type cat_concepto_flujo_efectivoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"codigo" | "descripcion", ExtArgs["result"]["cat_concepto_flujo_efectivo"]>
+
+  export type $cat_concepto_flujo_efectivoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cat_concepto_flujo_efectivo"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      codigo: string
+      descripcion: string
+    }, ExtArgs["result"]["cat_concepto_flujo_efectivo"]>
+    composites: {}
+  }
+
+  type cat_concepto_flujo_efectivoGetPayload<S extends boolean | null | undefined | cat_concepto_flujo_efectivoDefaultArgs> = $Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload, S>
+
+  type cat_concepto_flujo_efectivoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cat_concepto_flujo_efectivoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Cat_concepto_flujo_efectivoCountAggregateInputType | true
+    }
+
+  export interface cat_concepto_flujo_efectivoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cat_concepto_flujo_efectivo'], meta: { name: 'cat_concepto_flujo_efectivo' } }
+    /**
+     * Find zero or one Cat_concepto_flujo_efectivo that matches the filter.
+     * @param {cat_concepto_flujo_efectivoFindUniqueArgs} args - Arguments to find a Cat_concepto_flujo_efectivo
+     * @example
+     * // Get one Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cat_concepto_flujo_efectivoFindUniqueArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoFindUniqueArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cat_concepto_flujo_efectivo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cat_concepto_flujo_efectivoFindUniqueOrThrowArgs} args - Arguments to find a Cat_concepto_flujo_efectivo
+     * @example
+     * // Get one Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cat_concepto_flujo_efectivoFindUniqueOrThrowArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_concepto_flujo_efectivo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoFindFirstArgs} args - Arguments to find a Cat_concepto_flujo_efectivo
+     * @example
+     * // Get one Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cat_concepto_flujo_efectivoFindFirstArgs>(args?: SelectSubset<T, cat_concepto_flujo_efectivoFindFirstArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cat_concepto_flujo_efectivo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoFindFirstOrThrowArgs} args - Arguments to find a Cat_concepto_flujo_efectivo
+     * @example
+     * // Get one Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cat_concepto_flujo_efectivoFindFirstOrThrowArgs>(args?: SelectSubset<T, cat_concepto_flujo_efectivoFindFirstOrThrowArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cat_concepto_flujo_efectivos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cat_concepto_flujo_efectivos
+     * const cat_concepto_flujo_efectivos = await prisma.cat_concepto_flujo_efectivo.findMany()
+     * 
+     * // Get first 10 Cat_concepto_flujo_efectivos
+     * const cat_concepto_flujo_efectivos = await prisma.cat_concepto_flujo_efectivo.findMany({ take: 10 })
+     * 
+     * // Only select the `codigo`
+     * const cat_concepto_flujo_efectivoWithCodigoOnly = await prisma.cat_concepto_flujo_efectivo.findMany({ select: { codigo: true } })
+     * 
+     */
+    findMany<T extends cat_concepto_flujo_efectivoFindManyArgs>(args?: SelectSubset<T, cat_concepto_flujo_efectivoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cat_concepto_flujo_efectivo.
+     * @param {cat_concepto_flujo_efectivoCreateArgs} args - Arguments to create a Cat_concepto_flujo_efectivo.
+     * @example
+     * // Create one Cat_concepto_flujo_efectivo
+     * const Cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.create({
+     *   data: {
+     *     // ... data to create a Cat_concepto_flujo_efectivo
+     *   }
+     * })
+     * 
+     */
+    create<T extends cat_concepto_flujo_efectivoCreateArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoCreateArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cat_concepto_flujo_efectivos.
+     * @param {cat_concepto_flujo_efectivoCreateManyArgs} args - Arguments to create many Cat_concepto_flujo_efectivos.
+     * @example
+     * // Create many Cat_concepto_flujo_efectivos
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cat_concepto_flujo_efectivoCreateManyArgs>(args?: SelectSubset<T, cat_concepto_flujo_efectivoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Cat_concepto_flujo_efectivo.
+     * @param {cat_concepto_flujo_efectivoDeleteArgs} args - Arguments to delete one Cat_concepto_flujo_efectivo.
+     * @example
+     * // Delete one Cat_concepto_flujo_efectivo
+     * const Cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.delete({
+     *   where: {
+     *     // ... filter to delete one Cat_concepto_flujo_efectivo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cat_concepto_flujo_efectivoDeleteArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoDeleteArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cat_concepto_flujo_efectivo.
+     * @param {cat_concepto_flujo_efectivoUpdateArgs} args - Arguments to update one Cat_concepto_flujo_efectivo.
+     * @example
+     * // Update one Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cat_concepto_flujo_efectivoUpdateArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoUpdateArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cat_concepto_flujo_efectivos.
+     * @param {cat_concepto_flujo_efectivoDeleteManyArgs} args - Arguments to filter Cat_concepto_flujo_efectivos to delete.
+     * @example
+     * // Delete a few Cat_concepto_flujo_efectivos
+     * const { count } = await prisma.cat_concepto_flujo_efectivo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cat_concepto_flujo_efectivoDeleteManyArgs>(args?: SelectSubset<T, cat_concepto_flujo_efectivoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cat_concepto_flujo_efectivos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cat_concepto_flujo_efectivos
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cat_concepto_flujo_efectivoUpdateManyArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cat_concepto_flujo_efectivo.
+     * @param {cat_concepto_flujo_efectivoUpsertArgs} args - Arguments to update or create a Cat_concepto_flujo_efectivo.
+     * @example
+     * // Update or create a Cat_concepto_flujo_efectivo
+     * const cat_concepto_flujo_efectivo = await prisma.cat_concepto_flujo_efectivo.upsert({
+     *   create: {
+     *     // ... data to create a Cat_concepto_flujo_efectivo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cat_concepto_flujo_efectivo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cat_concepto_flujo_efectivoUpsertArgs>(args: SelectSubset<T, cat_concepto_flujo_efectivoUpsertArgs<ExtArgs>>): Prisma__cat_concepto_flujo_efectivoClient<$Result.GetResult<Prisma.$cat_concepto_flujo_efectivoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cat_concepto_flujo_efectivos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoCountArgs} args - Arguments to filter Cat_concepto_flujo_efectivos to count.
+     * @example
+     * // Count the number of Cat_concepto_flujo_efectivos
+     * const count = await prisma.cat_concepto_flujo_efectivo.count({
+     *   where: {
+     *     // ... the filter for the Cat_concepto_flujo_efectivos we want to count
+     *   }
+     * })
+    **/
+    count<T extends cat_concepto_flujo_efectivoCountArgs>(
+      args?: Subset<T, cat_concepto_flujo_efectivoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Cat_concepto_flujo_efectivoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cat_concepto_flujo_efectivo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Cat_concepto_flujo_efectivoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Cat_concepto_flujo_efectivoAggregateArgs>(args: Subset<T, Cat_concepto_flujo_efectivoAggregateArgs>): Prisma.PrismaPromise<GetCat_concepto_flujo_efectivoAggregateType<T>>
+
+    /**
+     * Group by Cat_concepto_flujo_efectivo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cat_concepto_flujo_efectivoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cat_concepto_flujo_efectivoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cat_concepto_flujo_efectivoGroupByArgs['orderBy'] }
+        : { orderBy?: cat_concepto_flujo_efectivoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cat_concepto_flujo_efectivoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCat_concepto_flujo_efectivoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cat_concepto_flujo_efectivo model
+   */
+  readonly fields: cat_concepto_flujo_efectivoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cat_concepto_flujo_efectivo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cat_concepto_flujo_efectivoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cat_concepto_flujo_efectivo model
+   */
+  interface cat_concepto_flujo_efectivoFieldRefs {
+    readonly codigo: FieldRef<"cat_concepto_flujo_efectivo", 'String'>
+    readonly descripcion: FieldRef<"cat_concepto_flujo_efectivo", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cat_concepto_flujo_efectivo findUnique
+   */
+  export type cat_concepto_flujo_efectivoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_concepto_flujo_efectivo to fetch.
+     */
+    where: cat_concepto_flujo_efectivoWhereUniqueInput
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo findUniqueOrThrow
+   */
+  export type cat_concepto_flujo_efectivoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_concepto_flujo_efectivo to fetch.
+     */
+    where: cat_concepto_flujo_efectivoWhereUniqueInput
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo findFirst
+   */
+  export type cat_concepto_flujo_efectivoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_concepto_flujo_efectivo to fetch.
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_concepto_flujo_efectivos to fetch.
+     */
+    orderBy?: cat_concepto_flujo_efectivoOrderByWithRelationInput | cat_concepto_flujo_efectivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_concepto_flujo_efectivos.
+     */
+    cursor?: cat_concepto_flujo_efectivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_concepto_flujo_efectivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_concepto_flujo_efectivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_concepto_flujo_efectivos.
+     */
+    distinct?: Cat_concepto_flujo_efectivoScalarFieldEnum | Cat_concepto_flujo_efectivoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo findFirstOrThrow
+   */
+  export type cat_concepto_flujo_efectivoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_concepto_flujo_efectivo to fetch.
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_concepto_flujo_efectivos to fetch.
+     */
+    orderBy?: cat_concepto_flujo_efectivoOrderByWithRelationInput | cat_concepto_flujo_efectivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cat_concepto_flujo_efectivos.
+     */
+    cursor?: cat_concepto_flujo_efectivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_concepto_flujo_efectivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_concepto_flujo_efectivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cat_concepto_flujo_efectivos.
+     */
+    distinct?: Cat_concepto_flujo_efectivoScalarFieldEnum | Cat_concepto_flujo_efectivoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo findMany
+   */
+  export type cat_concepto_flujo_efectivoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter, which cat_concepto_flujo_efectivos to fetch.
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cat_concepto_flujo_efectivos to fetch.
+     */
+    orderBy?: cat_concepto_flujo_efectivoOrderByWithRelationInput | cat_concepto_flujo_efectivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cat_concepto_flujo_efectivos.
+     */
+    cursor?: cat_concepto_flujo_efectivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cat_concepto_flujo_efectivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cat_concepto_flujo_efectivos.
+     */
+    skip?: number
+    distinct?: Cat_concepto_flujo_efectivoScalarFieldEnum | Cat_concepto_flujo_efectivoScalarFieldEnum[]
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo create
+   */
+  export type cat_concepto_flujo_efectivoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cat_concepto_flujo_efectivo.
+     */
+    data: XOR<cat_concepto_flujo_efectivoCreateInput, cat_concepto_flujo_efectivoUncheckedCreateInput>
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo createMany
+   */
+  export type cat_concepto_flujo_efectivoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cat_concepto_flujo_efectivos.
+     */
+    data: cat_concepto_flujo_efectivoCreateManyInput | cat_concepto_flujo_efectivoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo update
+   */
+  export type cat_concepto_flujo_efectivoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cat_concepto_flujo_efectivo.
+     */
+    data: XOR<cat_concepto_flujo_efectivoUpdateInput, cat_concepto_flujo_efectivoUncheckedUpdateInput>
+    /**
+     * Choose, which cat_concepto_flujo_efectivo to update.
+     */
+    where: cat_concepto_flujo_efectivoWhereUniqueInput
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo updateMany
+   */
+  export type cat_concepto_flujo_efectivoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cat_concepto_flujo_efectivos.
+     */
+    data: XOR<cat_concepto_flujo_efectivoUpdateManyMutationInput, cat_concepto_flujo_efectivoUncheckedUpdateManyInput>
+    /**
+     * Filter which cat_concepto_flujo_efectivos to update
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * Limit how many cat_concepto_flujo_efectivos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo upsert
+   */
+  export type cat_concepto_flujo_efectivoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cat_concepto_flujo_efectivo to update in case it exists.
+     */
+    where: cat_concepto_flujo_efectivoWhereUniqueInput
+    /**
+     * In case the cat_concepto_flujo_efectivo found by the `where` argument doesn't exist, create a new cat_concepto_flujo_efectivo with this data.
+     */
+    create: XOR<cat_concepto_flujo_efectivoCreateInput, cat_concepto_flujo_efectivoUncheckedCreateInput>
+    /**
+     * In case the cat_concepto_flujo_efectivo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cat_concepto_flujo_efectivoUpdateInput, cat_concepto_flujo_efectivoUncheckedUpdateInput>
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo delete
+   */
+  export type cat_concepto_flujo_efectivoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+    /**
+     * Filter which cat_concepto_flujo_efectivo to delete.
+     */
+    where: cat_concepto_flujo_efectivoWhereUniqueInput
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo deleteMany
+   */
+  export type cat_concepto_flujo_efectivoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cat_concepto_flujo_efectivos to delete
+     */
+    where?: cat_concepto_flujo_efectivoWhereInput
+    /**
+     * Limit how many cat_concepto_flujo_efectivos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cat_concepto_flujo_efectivo without action
+   */
+  export type cat_concepto_flujo_efectivoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cat_concepto_flujo_efectivo
+     */
+    select?: cat_concepto_flujo_efectivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cat_concepto_flujo_efectivo
+     */
+    omit?: cat_concepto_flujo_efectivoOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -58991,6 +69345,155 @@ export namespace Prisma {
   export type Multifactura_detalleScalarFieldEnum = (typeof Multifactura_detalleScalarFieldEnum)[keyof typeof Multifactura_detalleScalarFieldEnum]
 
 
+  export const Lotes_importacion_contableScalarFieldEnum: {
+    id: 'id',
+    nombre_archivo: 'nombre_archivo',
+    total_filas: 'total_filas',
+    filas_validas: 'filas_validas',
+    filas_error: 'filas_error',
+    creado_por: 'creado_por',
+    creado_en: 'creado_en'
+  };
+
+  export type Lotes_importacion_contableScalarFieldEnum = (typeof Lotes_importacion_contableScalarFieldEnum)[keyof typeof Lotes_importacion_contableScalarFieldEnum]
+
+
+  export const Asientos_contablesScalarFieldEnum: {
+    id: 'id',
+    id_lote: 'id_lote',
+    correlativo: 'correlativo',
+    relacionado: 'relacionado',
+    codigo_tipo_medio_pago: 'codigo_tipo_medio_pago',
+    ejercicio: 'ejercicio',
+    periodo: 'periodo',
+    cod_modulo: 'cod_modulo',
+    modulo: 'modulo',
+    fuente: 'fuente',
+    numero_cuenta: 'numero_cuenta',
+    codigo_tipo_documento: 'codigo_tipo_documento',
+    numero_serie: 'numero_serie',
+    numero_documento: 'numero_documento',
+    concepto_fec: 'concepto_fec',
+    glosa: 'glosa',
+    codigo_moneda_origen: 'codigo_moneda_origen',
+    codigo_moneda_registro: 'codigo_moneda_registro',
+    codigo_centro_costo: 'codigo_centro_costo',
+    codigo_sub_centro_costo: 'codigo_sub_centro_costo',
+    codigo_sub_sub_centro_costo: 'codigo_sub_sub_centro_costo',
+    codigo_forma_provision: 'codigo_forma_provision',
+    codigo_forma_pago_cobro: 'codigo_forma_pago_cobro',
+    codigo_area: 'codigo_area',
+    identificador_ctr_mda: 'identificador_ctr_mda',
+    identificador_tip_afecto: 'identificador_tip_afecto',
+    nro_cheque: 'nro_cheque',
+    grdo: 'grdo',
+    fecha_emision_doc: 'fecha_emision_doc',
+    fecha_vencimiento_doc: 'fecha_vencimiento_doc',
+    fecha_movimiento: 'fecha_movimiento',
+    fecha_cbr: 'fecha_cbr',
+    fecha_registro: 'fecha_registro',
+    fecha_conc: 'fecha_conc',
+    fecha_dif: 'fecha_dif',
+    cod_tip_doc_ident_clt: 'cod_tip_doc_ident_clt',
+    nro_doc_clt: 'nro_doc_clt',
+    razon_social_1: 'razon_social_1',
+    cod_tip_doc_ident_prov: 'cod_tip_doc_ident_prov',
+    nro_doc_prov: 'nro_doc_prov',
+    razon_social_2: 'razon_social_2',
+    cod_tip_doc_ident_trab: 'cod_tip_doc_ident_trab',
+    nro_doc_trab: 'nro_doc_trab',
+    razon_social_3: 'razon_social_3',
+    monto_debe: 'monto_debe',
+    monto_haber: 'monto_haber',
+    monto_debe_me: 'monto_debe_me',
+    monto_haber_me: 'monto_haber_me',
+    cambio_moneda: 'cambio_moneda',
+    es_cancelado: 'es_cancelado',
+    es_conciliado: 'es_conciliado',
+    es_provision: 'es_provision',
+    es_anulado: 'es_anulado',
+    es_destino: 'es_destino',
+    doc_ref_fecha_emision: 'doc_ref_fecha_emision',
+    doc_ref_cod_tip_doc: 'doc_ref_cod_tip_doc',
+    doc_ref_nro_serie: 'doc_ref_nro_serie',
+    doc_ref_nro_doc: 'doc_ref_nro_doc',
+    numero_detraccion: 'numero_detraccion',
+    fecha_pago_detraccion: 'fecha_pago_detraccion',
+    campos_adicionales: 'campos_adicionales',
+    creado_por: 'creado_por',
+    creado_en: 'creado_en',
+    editado_por: 'editado_por',
+    fecha_edicion: 'fecha_edicion',
+    deleted_at: 'deleted_at'
+  };
+
+  export type Asientos_contablesScalarFieldEnum = (typeof Asientos_contablesScalarFieldEnum)[keyof typeof Asientos_contablesScalarFieldEnum]
+
+
+  export const Cat_moduloScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_moduloScalarFieldEnum = (typeof Cat_moduloScalarFieldEnum)[keyof typeof Cat_moduloScalarFieldEnum]
+
+
+  export const Cat_fuenteScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_fuenteScalarFieldEnum = (typeof Cat_fuenteScalarFieldEnum)[keyof typeof Cat_fuenteScalarFieldEnum]
+
+
+  export const Cat_monedaScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_monedaScalarFieldEnum = (typeof Cat_monedaScalarFieldEnum)[keyof typeof Cat_monedaScalarFieldEnum]
+
+
+  export const Cat_tipo_doc_identidadScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_tipo_doc_identidadScalarFieldEnum = (typeof Cat_tipo_doc_identidadScalarFieldEnum)[keyof typeof Cat_tipo_doc_identidadScalarFieldEnum]
+
+
+  export const Cat_forma_pagoScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_forma_pagoScalarFieldEnum = (typeof Cat_forma_pagoScalarFieldEnum)[keyof typeof Cat_forma_pagoScalarFieldEnum]
+
+
+  export const Cat_medio_pagoScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_medio_pagoScalarFieldEnum = (typeof Cat_medio_pagoScalarFieldEnum)[keyof typeof Cat_medio_pagoScalarFieldEnum]
+
+
+  export const Cat_indicador_afectoScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_indicador_afectoScalarFieldEnum = (typeof Cat_indicador_afectoScalarFieldEnum)[keyof typeof Cat_indicador_afectoScalarFieldEnum]
+
+
+  export const Cat_concepto_flujo_efectivoScalarFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type Cat_concepto_flujo_efectivoScalarFieldEnum = (typeof Cat_concepto_flujo_efectivoScalarFieldEnum)[keyof typeof Cat_concepto_flujo_efectivoScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -59504,6 +70007,120 @@ export namespace Prisma {
   };
 
   export type multifactura_detalleOrderByRelevanceFieldEnum = (typeof multifactura_detalleOrderByRelevanceFieldEnum)[keyof typeof multifactura_detalleOrderByRelevanceFieldEnum]
+
+
+  export const lotes_importacion_contableOrderByRelevanceFieldEnum: {
+    nombre_archivo: 'nombre_archivo'
+  };
+
+  export type lotes_importacion_contableOrderByRelevanceFieldEnum = (typeof lotes_importacion_contableOrderByRelevanceFieldEnum)[keyof typeof lotes_importacion_contableOrderByRelevanceFieldEnum]
+
+
+  export const asientos_contablesOrderByRelevanceFieldEnum: {
+    codigo_tipo_medio_pago: 'codigo_tipo_medio_pago',
+    ejercicio: 'ejercicio',
+    periodo: 'periodo',
+    cod_modulo: 'cod_modulo',
+    modulo: 'modulo',
+    fuente: 'fuente',
+    numero_cuenta: 'numero_cuenta',
+    codigo_tipo_documento: 'codigo_tipo_documento',
+    numero_serie: 'numero_serie',
+    numero_documento: 'numero_documento',
+    glosa: 'glosa',
+    codigo_moneda_origen: 'codigo_moneda_origen',
+    codigo_moneda_registro: 'codigo_moneda_registro',
+    codigo_centro_costo: 'codigo_centro_costo',
+    codigo_sub_centro_costo: 'codigo_sub_centro_costo',
+    codigo_sub_sub_centro_costo: 'codigo_sub_sub_centro_costo',
+    codigo_forma_provision: 'codigo_forma_provision',
+    codigo_forma_pago_cobro: 'codigo_forma_pago_cobro',
+    codigo_area: 'codigo_area',
+    identificador_ctr_mda: 'identificador_ctr_mda',
+    identificador_tip_afecto: 'identificador_tip_afecto',
+    nro_cheque: 'nro_cheque',
+    grdo: 'grdo',
+    cod_tip_doc_ident_clt: 'cod_tip_doc_ident_clt',
+    nro_doc_clt: 'nro_doc_clt',
+    razon_social_1: 'razon_social_1',
+    cod_tip_doc_ident_prov: 'cod_tip_doc_ident_prov',
+    nro_doc_prov: 'nro_doc_prov',
+    razon_social_2: 'razon_social_2',
+    cod_tip_doc_ident_trab: 'cod_tip_doc_ident_trab',
+    nro_doc_trab: 'nro_doc_trab',
+    razon_social_3: 'razon_social_3',
+    doc_ref_cod_tip_doc: 'doc_ref_cod_tip_doc',
+    doc_ref_nro_serie: 'doc_ref_nro_serie',
+    doc_ref_nro_doc: 'doc_ref_nro_doc',
+    numero_detraccion: 'numero_detraccion',
+    fecha_pago_detraccion: 'fecha_pago_detraccion'
+  };
+
+  export type asientos_contablesOrderByRelevanceFieldEnum = (typeof asientos_contablesOrderByRelevanceFieldEnum)[keyof typeof asientos_contablesOrderByRelevanceFieldEnum]
+
+
+  export const cat_moduloOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_moduloOrderByRelevanceFieldEnum = (typeof cat_moduloOrderByRelevanceFieldEnum)[keyof typeof cat_moduloOrderByRelevanceFieldEnum]
+
+
+  export const cat_fuenteOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_fuenteOrderByRelevanceFieldEnum = (typeof cat_fuenteOrderByRelevanceFieldEnum)[keyof typeof cat_fuenteOrderByRelevanceFieldEnum]
+
+
+  export const cat_monedaOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_monedaOrderByRelevanceFieldEnum = (typeof cat_monedaOrderByRelevanceFieldEnum)[keyof typeof cat_monedaOrderByRelevanceFieldEnum]
+
+
+  export const cat_tipo_doc_identidadOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_tipo_doc_identidadOrderByRelevanceFieldEnum = (typeof cat_tipo_doc_identidadOrderByRelevanceFieldEnum)[keyof typeof cat_tipo_doc_identidadOrderByRelevanceFieldEnum]
+
+
+  export const cat_forma_pagoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_forma_pagoOrderByRelevanceFieldEnum = (typeof cat_forma_pagoOrderByRelevanceFieldEnum)[keyof typeof cat_forma_pagoOrderByRelevanceFieldEnum]
+
+
+  export const cat_medio_pagoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_medio_pagoOrderByRelevanceFieldEnum = (typeof cat_medio_pagoOrderByRelevanceFieldEnum)[keyof typeof cat_medio_pagoOrderByRelevanceFieldEnum]
+
+
+  export const cat_indicador_afectoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_indicador_afectoOrderByRelevanceFieldEnum = (typeof cat_indicador_afectoOrderByRelevanceFieldEnum)[keyof typeof cat_indicador_afectoOrderByRelevanceFieldEnum]
+
+
+  export const cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion'
+  };
+
+  export type cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum = (typeof cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum)[keyof typeof cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum]
 
 
   /**
@@ -64198,6 +74815,741 @@ export namespace Prisma {
     url_factura?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
     url_guia?: StringNullableWithAggregatesFilter<"multifactura_detalle"> | string | null
     fecha_registro?: DateTimeNullableWithAggregatesFilter<"multifactura_detalle"> | Date | string | null
+  }
+
+  export type lotes_importacion_contableWhereInput = {
+    AND?: lotes_importacion_contableWhereInput | lotes_importacion_contableWhereInput[]
+    OR?: lotes_importacion_contableWhereInput[]
+    NOT?: lotes_importacion_contableWhereInput | lotes_importacion_contableWhereInput[]
+    id?: IntFilter<"lotes_importacion_contable"> | number
+    nombre_archivo?: StringNullableFilter<"lotes_importacion_contable"> | string | null
+    total_filas?: IntFilter<"lotes_importacion_contable"> | number
+    filas_validas?: IntFilter<"lotes_importacion_contable"> | number
+    filas_error?: IntFilter<"lotes_importacion_contable"> | number
+    creado_por?: IntNullableFilter<"lotes_importacion_contable"> | number | null
+    creado_en?: DateTimeFilter<"lotes_importacion_contable"> | Date | string
+    asientos_contables?: Asientos_contablesListRelationFilter
+  }
+
+  export type lotes_importacion_contableOrderByWithRelationInput = {
+    id?: SortOrder
+    nombre_archivo?: SortOrderInput | SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrderInput | SortOrder
+    creado_en?: SortOrder
+    asientos_contables?: asientos_contablesOrderByRelationAggregateInput
+    _relevance?: lotes_importacion_contableOrderByRelevanceInput
+  }
+
+  export type lotes_importacion_contableWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: lotes_importacion_contableWhereInput | lotes_importacion_contableWhereInput[]
+    OR?: lotes_importacion_contableWhereInput[]
+    NOT?: lotes_importacion_contableWhereInput | lotes_importacion_contableWhereInput[]
+    nombre_archivo?: StringNullableFilter<"lotes_importacion_contable"> | string | null
+    total_filas?: IntFilter<"lotes_importacion_contable"> | number
+    filas_validas?: IntFilter<"lotes_importacion_contable"> | number
+    filas_error?: IntFilter<"lotes_importacion_contable"> | number
+    creado_por?: IntNullableFilter<"lotes_importacion_contable"> | number | null
+    creado_en?: DateTimeFilter<"lotes_importacion_contable"> | Date | string
+    asientos_contables?: Asientos_contablesListRelationFilter
+  }, "id">
+
+  export type lotes_importacion_contableOrderByWithAggregationInput = {
+    id?: SortOrder
+    nombre_archivo?: SortOrderInput | SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrderInput | SortOrder
+    creado_en?: SortOrder
+    _count?: lotes_importacion_contableCountOrderByAggregateInput
+    _avg?: lotes_importacion_contableAvgOrderByAggregateInput
+    _max?: lotes_importacion_contableMaxOrderByAggregateInput
+    _min?: lotes_importacion_contableMinOrderByAggregateInput
+    _sum?: lotes_importacion_contableSumOrderByAggregateInput
+  }
+
+  export type lotes_importacion_contableScalarWhereWithAggregatesInput = {
+    AND?: lotes_importacion_contableScalarWhereWithAggregatesInput | lotes_importacion_contableScalarWhereWithAggregatesInput[]
+    OR?: lotes_importacion_contableScalarWhereWithAggregatesInput[]
+    NOT?: lotes_importacion_contableScalarWhereWithAggregatesInput | lotes_importacion_contableScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"lotes_importacion_contable"> | number
+    nombre_archivo?: StringNullableWithAggregatesFilter<"lotes_importacion_contable"> | string | null
+    total_filas?: IntWithAggregatesFilter<"lotes_importacion_contable"> | number
+    filas_validas?: IntWithAggregatesFilter<"lotes_importacion_contable"> | number
+    filas_error?: IntWithAggregatesFilter<"lotes_importacion_contable"> | number
+    creado_por?: IntNullableWithAggregatesFilter<"lotes_importacion_contable"> | number | null
+    creado_en?: DateTimeWithAggregatesFilter<"lotes_importacion_contable"> | Date | string
+  }
+
+  export type asientos_contablesWhereInput = {
+    AND?: asientos_contablesWhereInput | asientos_contablesWhereInput[]
+    OR?: asientos_contablesWhereInput[]
+    NOT?: asientos_contablesWhereInput | asientos_contablesWhereInput[]
+    id?: IntFilter<"asientos_contables"> | number
+    id_lote?: IntFilter<"asientos_contables"> | number
+    correlativo?: IntFilter<"asientos_contables"> | number
+    relacionado?: IntFilter<"asientos_contables"> | number
+    codigo_tipo_medio_pago?: StringNullableFilter<"asientos_contables"> | string | null
+    ejercicio?: StringFilter<"asientos_contables"> | string
+    periodo?: StringFilter<"asientos_contables"> | string
+    cod_modulo?: StringFilter<"asientos_contables"> | string
+    modulo?: StringFilter<"asientos_contables"> | string
+    fuente?: StringFilter<"asientos_contables"> | string
+    numero_cuenta?: StringFilter<"asientos_contables"> | string
+    codigo_tipo_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    concepto_fec?: IntNullableFilter<"asientos_contables"> | number | null
+    glosa?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_moneda_origen?: StringFilter<"asientos_contables"> | string
+    codigo_moneda_registro?: StringFilter<"asientos_contables"> | string
+    codigo_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_forma_provision?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_forma_pago_cobro?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_area?: StringFilter<"asientos_contables"> | string
+    identificador_ctr_mda?: StringNullableFilter<"asientos_contables"> | string | null
+    identificador_tip_afecto?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_cheque?: StringNullableFilter<"asientos_contables"> | string | null
+    grdo?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_emision_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_vencimiento_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_movimiento?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_cbr?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_conc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_dif?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    cod_tip_doc_ident_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_1?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_2?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_3?: StringNullableFilter<"asientos_contables"> | string | null
+    monto_debe?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    es_cancelado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_conciliado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_provision?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_anulado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_destino?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    doc_ref_fecha_emision?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    doc_ref_cod_tip_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_pago_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    campos_adicionales?: JsonNullableFilter<"asientos_contables">
+    creado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    creado_en?: DateTimeFilter<"asientos_contables"> | Date | string
+    editado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    lote?: XOR<Lotes_importacion_contableScalarRelationFilter, lotes_importacion_contableWhereInput>
+  }
+
+  export type asientos_contablesOrderByWithRelationInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    codigo_tipo_medio_pago?: SortOrderInput | SortOrder
+    ejercicio?: SortOrder
+    periodo?: SortOrder
+    cod_modulo?: SortOrder
+    modulo?: SortOrder
+    fuente?: SortOrder
+    numero_cuenta?: SortOrder
+    codigo_tipo_documento?: SortOrderInput | SortOrder
+    numero_serie?: SortOrderInput | SortOrder
+    numero_documento?: SortOrderInput | SortOrder
+    concepto_fec?: SortOrderInput | SortOrder
+    glosa?: SortOrderInput | SortOrder
+    codigo_moneda_origen?: SortOrder
+    codigo_moneda_registro?: SortOrder
+    codigo_centro_costo?: SortOrder
+    codigo_sub_centro_costo?: SortOrder
+    codigo_sub_sub_centro_costo?: SortOrder
+    codigo_forma_provision?: SortOrderInput | SortOrder
+    codigo_forma_pago_cobro?: SortOrderInput | SortOrder
+    codigo_area?: SortOrder
+    identificador_ctr_mda?: SortOrderInput | SortOrder
+    identificador_tip_afecto?: SortOrderInput | SortOrder
+    nro_cheque?: SortOrderInput | SortOrder
+    grdo?: SortOrderInput | SortOrder
+    fecha_emision_doc?: SortOrderInput | SortOrder
+    fecha_vencimiento_doc?: SortOrderInput | SortOrder
+    fecha_movimiento?: SortOrderInput | SortOrder
+    fecha_cbr?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    fecha_conc?: SortOrderInput | SortOrder
+    fecha_dif?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_clt?: SortOrderInput | SortOrder
+    nro_doc_clt?: SortOrderInput | SortOrder
+    razon_social_1?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_prov?: SortOrderInput | SortOrder
+    nro_doc_prov?: SortOrderInput | SortOrder
+    razon_social_2?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_trab?: SortOrderInput | SortOrder
+    nro_doc_trab?: SortOrderInput | SortOrder
+    razon_social_3?: SortOrderInput | SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrderInput | SortOrder
+    monto_haber_me?: SortOrderInput | SortOrder
+    cambio_moneda?: SortOrder
+    es_cancelado?: SortOrderInput | SortOrder
+    es_conciliado?: SortOrderInput | SortOrder
+    es_provision?: SortOrderInput | SortOrder
+    es_anulado?: SortOrderInput | SortOrder
+    es_destino?: SortOrderInput | SortOrder
+    doc_ref_fecha_emision?: SortOrderInput | SortOrder
+    doc_ref_cod_tip_doc?: SortOrderInput | SortOrder
+    doc_ref_nro_serie?: SortOrderInput | SortOrder
+    doc_ref_nro_doc?: SortOrderInput | SortOrder
+    numero_detraccion?: SortOrderInput | SortOrder
+    fecha_pago_detraccion?: SortOrderInput | SortOrder
+    campos_adicionales?: SortOrderInput | SortOrder
+    creado_por?: SortOrderInput | SortOrder
+    creado_en?: SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    lote?: lotes_importacion_contableOrderByWithRelationInput
+    _relevance?: asientos_contablesOrderByRelevanceInput
+  }
+
+  export type asientos_contablesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: asientos_contablesWhereInput | asientos_contablesWhereInput[]
+    OR?: asientos_contablesWhereInput[]
+    NOT?: asientos_contablesWhereInput | asientos_contablesWhereInput[]
+    id_lote?: IntFilter<"asientos_contables"> | number
+    correlativo?: IntFilter<"asientos_contables"> | number
+    relacionado?: IntFilter<"asientos_contables"> | number
+    codigo_tipo_medio_pago?: StringNullableFilter<"asientos_contables"> | string | null
+    ejercicio?: StringFilter<"asientos_contables"> | string
+    periodo?: StringFilter<"asientos_contables"> | string
+    cod_modulo?: StringFilter<"asientos_contables"> | string
+    modulo?: StringFilter<"asientos_contables"> | string
+    fuente?: StringFilter<"asientos_contables"> | string
+    numero_cuenta?: StringFilter<"asientos_contables"> | string
+    codigo_tipo_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    concepto_fec?: IntNullableFilter<"asientos_contables"> | number | null
+    glosa?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_moneda_origen?: StringFilter<"asientos_contables"> | string
+    codigo_moneda_registro?: StringFilter<"asientos_contables"> | string
+    codigo_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_forma_provision?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_forma_pago_cobro?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_area?: StringFilter<"asientos_contables"> | string
+    identificador_ctr_mda?: StringNullableFilter<"asientos_contables"> | string | null
+    identificador_tip_afecto?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_cheque?: StringNullableFilter<"asientos_contables"> | string | null
+    grdo?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_emision_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_vencimiento_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_movimiento?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_cbr?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_conc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_dif?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    cod_tip_doc_ident_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_1?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_2?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_3?: StringNullableFilter<"asientos_contables"> | string | null
+    monto_debe?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    es_cancelado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_conciliado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_provision?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_anulado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_destino?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    doc_ref_fecha_emision?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    doc_ref_cod_tip_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_pago_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    campos_adicionales?: JsonNullableFilter<"asientos_contables">
+    creado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    creado_en?: DateTimeFilter<"asientos_contables"> | Date | string
+    editado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    lote?: XOR<Lotes_importacion_contableScalarRelationFilter, lotes_importacion_contableWhereInput>
+  }, "id">
+
+  export type asientos_contablesOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    codigo_tipo_medio_pago?: SortOrderInput | SortOrder
+    ejercicio?: SortOrder
+    periodo?: SortOrder
+    cod_modulo?: SortOrder
+    modulo?: SortOrder
+    fuente?: SortOrder
+    numero_cuenta?: SortOrder
+    codigo_tipo_documento?: SortOrderInput | SortOrder
+    numero_serie?: SortOrderInput | SortOrder
+    numero_documento?: SortOrderInput | SortOrder
+    concepto_fec?: SortOrderInput | SortOrder
+    glosa?: SortOrderInput | SortOrder
+    codigo_moneda_origen?: SortOrder
+    codigo_moneda_registro?: SortOrder
+    codigo_centro_costo?: SortOrder
+    codigo_sub_centro_costo?: SortOrder
+    codigo_sub_sub_centro_costo?: SortOrder
+    codigo_forma_provision?: SortOrderInput | SortOrder
+    codigo_forma_pago_cobro?: SortOrderInput | SortOrder
+    codigo_area?: SortOrder
+    identificador_ctr_mda?: SortOrderInput | SortOrder
+    identificador_tip_afecto?: SortOrderInput | SortOrder
+    nro_cheque?: SortOrderInput | SortOrder
+    grdo?: SortOrderInput | SortOrder
+    fecha_emision_doc?: SortOrderInput | SortOrder
+    fecha_vencimiento_doc?: SortOrderInput | SortOrder
+    fecha_movimiento?: SortOrderInput | SortOrder
+    fecha_cbr?: SortOrderInput | SortOrder
+    fecha_registro?: SortOrderInput | SortOrder
+    fecha_conc?: SortOrderInput | SortOrder
+    fecha_dif?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_clt?: SortOrderInput | SortOrder
+    nro_doc_clt?: SortOrderInput | SortOrder
+    razon_social_1?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_prov?: SortOrderInput | SortOrder
+    nro_doc_prov?: SortOrderInput | SortOrder
+    razon_social_2?: SortOrderInput | SortOrder
+    cod_tip_doc_ident_trab?: SortOrderInput | SortOrder
+    nro_doc_trab?: SortOrderInput | SortOrder
+    razon_social_3?: SortOrderInput | SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrderInput | SortOrder
+    monto_haber_me?: SortOrderInput | SortOrder
+    cambio_moneda?: SortOrder
+    es_cancelado?: SortOrderInput | SortOrder
+    es_conciliado?: SortOrderInput | SortOrder
+    es_provision?: SortOrderInput | SortOrder
+    es_anulado?: SortOrderInput | SortOrder
+    es_destino?: SortOrderInput | SortOrder
+    doc_ref_fecha_emision?: SortOrderInput | SortOrder
+    doc_ref_cod_tip_doc?: SortOrderInput | SortOrder
+    doc_ref_nro_serie?: SortOrderInput | SortOrder
+    doc_ref_nro_doc?: SortOrderInput | SortOrder
+    numero_detraccion?: SortOrderInput | SortOrder
+    fecha_pago_detraccion?: SortOrderInput | SortOrder
+    campos_adicionales?: SortOrderInput | SortOrder
+    creado_por?: SortOrderInput | SortOrder
+    creado_en?: SortOrder
+    editado_por?: SortOrderInput | SortOrder
+    fecha_edicion?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    _count?: asientos_contablesCountOrderByAggregateInput
+    _avg?: asientos_contablesAvgOrderByAggregateInput
+    _max?: asientos_contablesMaxOrderByAggregateInput
+    _min?: asientos_contablesMinOrderByAggregateInput
+    _sum?: asientos_contablesSumOrderByAggregateInput
+  }
+
+  export type asientos_contablesScalarWhereWithAggregatesInput = {
+    AND?: asientos_contablesScalarWhereWithAggregatesInput | asientos_contablesScalarWhereWithAggregatesInput[]
+    OR?: asientos_contablesScalarWhereWithAggregatesInput[]
+    NOT?: asientos_contablesScalarWhereWithAggregatesInput | asientos_contablesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"asientos_contables"> | number
+    id_lote?: IntWithAggregatesFilter<"asientos_contables"> | number
+    correlativo?: IntWithAggregatesFilter<"asientos_contables"> | number
+    relacionado?: IntWithAggregatesFilter<"asientos_contables"> | number
+    codigo_tipo_medio_pago?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    ejercicio?: StringWithAggregatesFilter<"asientos_contables"> | string
+    periodo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    cod_modulo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    modulo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    fuente?: StringWithAggregatesFilter<"asientos_contables"> | string
+    numero_cuenta?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_tipo_documento?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    numero_serie?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    numero_documento?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    concepto_fec?: IntNullableWithAggregatesFilter<"asientos_contables"> | number | null
+    glosa?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    codigo_moneda_origen?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_moneda_registro?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_centro_costo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_sub_centro_costo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_sub_sub_centro_costo?: StringWithAggregatesFilter<"asientos_contables"> | string
+    codigo_forma_provision?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    codigo_forma_pago_cobro?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    codigo_area?: StringWithAggregatesFilter<"asientos_contables"> | string
+    identificador_ctr_mda?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    identificador_tip_afecto?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    nro_cheque?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    grdo?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    fecha_emision_doc?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_vencimiento_doc?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_movimiento?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_cbr?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_registro?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_conc?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    fecha_dif?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    cod_tip_doc_ident_clt?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    nro_doc_clt?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    razon_social_1?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_prov?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    nro_doc_prov?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    razon_social_2?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_trab?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    nro_doc_trab?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    razon_social_3?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    monto_debe?: DecimalWithAggregatesFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalWithAggregatesFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: DecimalNullableWithAggregatesFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: DecimalNullableWithAggregatesFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalWithAggregatesFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    es_cancelado?: BoolNullableWithAggregatesFilter<"asientos_contables"> | boolean | null
+    es_conciliado?: BoolNullableWithAggregatesFilter<"asientos_contables"> | boolean | null
+    es_provision?: BoolNullableWithAggregatesFilter<"asientos_contables"> | boolean | null
+    es_anulado?: BoolNullableWithAggregatesFilter<"asientos_contables"> | boolean | null
+    es_destino?: BoolNullableWithAggregatesFilter<"asientos_contables"> | boolean | null
+    doc_ref_fecha_emision?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    doc_ref_cod_tip_doc?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    doc_ref_nro_serie?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    doc_ref_nro_doc?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    numero_detraccion?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    fecha_pago_detraccion?: StringNullableWithAggregatesFilter<"asientos_contables"> | string | null
+    campos_adicionales?: JsonNullableWithAggregatesFilter<"asientos_contables">
+    creado_por?: IntNullableWithAggregatesFilter<"asientos_contables"> | number | null
+    creado_en?: DateTimeWithAggregatesFilter<"asientos_contables"> | Date | string
+    editado_por?: IntNullableWithAggregatesFilter<"asientos_contables"> | number | null
+    fecha_edicion?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"asientos_contables"> | Date | string | null
+  }
+
+  export type cat_moduloWhereInput = {
+    AND?: cat_moduloWhereInput | cat_moduloWhereInput[]
+    OR?: cat_moduloWhereInput[]
+    NOT?: cat_moduloWhereInput | cat_moduloWhereInput[]
+    codigo?: StringFilter<"cat_modulo"> | string
+    descripcion?: StringFilter<"cat_modulo"> | string
+  }
+
+  export type cat_moduloOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_moduloOrderByRelevanceInput
+  }
+
+  export type cat_moduloWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_moduloWhereInput | cat_moduloWhereInput[]
+    OR?: cat_moduloWhereInput[]
+    NOT?: cat_moduloWhereInput | cat_moduloWhereInput[]
+    descripcion?: StringFilter<"cat_modulo"> | string
+  }, "codigo">
+
+  export type cat_moduloOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_moduloCountOrderByAggregateInput
+    _max?: cat_moduloMaxOrderByAggregateInput
+    _min?: cat_moduloMinOrderByAggregateInput
+  }
+
+  export type cat_moduloScalarWhereWithAggregatesInput = {
+    AND?: cat_moduloScalarWhereWithAggregatesInput | cat_moduloScalarWhereWithAggregatesInput[]
+    OR?: cat_moduloScalarWhereWithAggregatesInput[]
+    NOT?: cat_moduloScalarWhereWithAggregatesInput | cat_moduloScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_modulo"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_modulo"> | string
+  }
+
+  export type cat_fuenteWhereInput = {
+    AND?: cat_fuenteWhereInput | cat_fuenteWhereInput[]
+    OR?: cat_fuenteWhereInput[]
+    NOT?: cat_fuenteWhereInput | cat_fuenteWhereInput[]
+    codigo?: StringFilter<"cat_fuente"> | string
+    descripcion?: StringFilter<"cat_fuente"> | string
+  }
+
+  export type cat_fuenteOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_fuenteOrderByRelevanceInput
+  }
+
+  export type cat_fuenteWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_fuenteWhereInput | cat_fuenteWhereInput[]
+    OR?: cat_fuenteWhereInput[]
+    NOT?: cat_fuenteWhereInput | cat_fuenteWhereInput[]
+    descripcion?: StringFilter<"cat_fuente"> | string
+  }, "codigo">
+
+  export type cat_fuenteOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_fuenteCountOrderByAggregateInput
+    _max?: cat_fuenteMaxOrderByAggregateInput
+    _min?: cat_fuenteMinOrderByAggregateInput
+  }
+
+  export type cat_fuenteScalarWhereWithAggregatesInput = {
+    AND?: cat_fuenteScalarWhereWithAggregatesInput | cat_fuenteScalarWhereWithAggregatesInput[]
+    OR?: cat_fuenteScalarWhereWithAggregatesInput[]
+    NOT?: cat_fuenteScalarWhereWithAggregatesInput | cat_fuenteScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_fuente"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_fuente"> | string
+  }
+
+  export type cat_monedaWhereInput = {
+    AND?: cat_monedaWhereInput | cat_monedaWhereInput[]
+    OR?: cat_monedaWhereInput[]
+    NOT?: cat_monedaWhereInput | cat_monedaWhereInput[]
+    codigo?: StringFilter<"cat_moneda"> | string
+    descripcion?: StringFilter<"cat_moneda"> | string
+  }
+
+  export type cat_monedaOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_monedaOrderByRelevanceInput
+  }
+
+  export type cat_monedaWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_monedaWhereInput | cat_monedaWhereInput[]
+    OR?: cat_monedaWhereInput[]
+    NOT?: cat_monedaWhereInput | cat_monedaWhereInput[]
+    descripcion?: StringFilter<"cat_moneda"> | string
+  }, "codigo">
+
+  export type cat_monedaOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_monedaCountOrderByAggregateInput
+    _max?: cat_monedaMaxOrderByAggregateInput
+    _min?: cat_monedaMinOrderByAggregateInput
+  }
+
+  export type cat_monedaScalarWhereWithAggregatesInput = {
+    AND?: cat_monedaScalarWhereWithAggregatesInput | cat_monedaScalarWhereWithAggregatesInput[]
+    OR?: cat_monedaScalarWhereWithAggregatesInput[]
+    NOT?: cat_monedaScalarWhereWithAggregatesInput | cat_monedaScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_moneda"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_moneda"> | string
+  }
+
+  export type cat_tipo_doc_identidadWhereInput = {
+    AND?: cat_tipo_doc_identidadWhereInput | cat_tipo_doc_identidadWhereInput[]
+    OR?: cat_tipo_doc_identidadWhereInput[]
+    NOT?: cat_tipo_doc_identidadWhereInput | cat_tipo_doc_identidadWhereInput[]
+    codigo?: StringFilter<"cat_tipo_doc_identidad"> | string
+    descripcion?: StringFilter<"cat_tipo_doc_identidad"> | string
+  }
+
+  export type cat_tipo_doc_identidadOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_tipo_doc_identidadOrderByRelevanceInput
+  }
+
+  export type cat_tipo_doc_identidadWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_tipo_doc_identidadWhereInput | cat_tipo_doc_identidadWhereInput[]
+    OR?: cat_tipo_doc_identidadWhereInput[]
+    NOT?: cat_tipo_doc_identidadWhereInput | cat_tipo_doc_identidadWhereInput[]
+    descripcion?: StringFilter<"cat_tipo_doc_identidad"> | string
+  }, "codigo">
+
+  export type cat_tipo_doc_identidadOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_tipo_doc_identidadCountOrderByAggregateInput
+    _max?: cat_tipo_doc_identidadMaxOrderByAggregateInput
+    _min?: cat_tipo_doc_identidadMinOrderByAggregateInput
+  }
+
+  export type cat_tipo_doc_identidadScalarWhereWithAggregatesInput = {
+    AND?: cat_tipo_doc_identidadScalarWhereWithAggregatesInput | cat_tipo_doc_identidadScalarWhereWithAggregatesInput[]
+    OR?: cat_tipo_doc_identidadScalarWhereWithAggregatesInput[]
+    NOT?: cat_tipo_doc_identidadScalarWhereWithAggregatesInput | cat_tipo_doc_identidadScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_tipo_doc_identidad"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_tipo_doc_identidad"> | string
+  }
+
+  export type cat_forma_pagoWhereInput = {
+    AND?: cat_forma_pagoWhereInput | cat_forma_pagoWhereInput[]
+    OR?: cat_forma_pagoWhereInput[]
+    NOT?: cat_forma_pagoWhereInput | cat_forma_pagoWhereInput[]
+    codigo?: StringFilter<"cat_forma_pago"> | string
+    descripcion?: StringFilter<"cat_forma_pago"> | string
+  }
+
+  export type cat_forma_pagoOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_forma_pagoOrderByRelevanceInput
+  }
+
+  export type cat_forma_pagoWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_forma_pagoWhereInput | cat_forma_pagoWhereInput[]
+    OR?: cat_forma_pagoWhereInput[]
+    NOT?: cat_forma_pagoWhereInput | cat_forma_pagoWhereInput[]
+    descripcion?: StringFilter<"cat_forma_pago"> | string
+  }, "codigo">
+
+  export type cat_forma_pagoOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_forma_pagoCountOrderByAggregateInput
+    _max?: cat_forma_pagoMaxOrderByAggregateInput
+    _min?: cat_forma_pagoMinOrderByAggregateInput
+  }
+
+  export type cat_forma_pagoScalarWhereWithAggregatesInput = {
+    AND?: cat_forma_pagoScalarWhereWithAggregatesInput | cat_forma_pagoScalarWhereWithAggregatesInput[]
+    OR?: cat_forma_pagoScalarWhereWithAggregatesInput[]
+    NOT?: cat_forma_pagoScalarWhereWithAggregatesInput | cat_forma_pagoScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_forma_pago"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_forma_pago"> | string
+  }
+
+  export type cat_medio_pagoWhereInput = {
+    AND?: cat_medio_pagoWhereInput | cat_medio_pagoWhereInput[]
+    OR?: cat_medio_pagoWhereInput[]
+    NOT?: cat_medio_pagoWhereInput | cat_medio_pagoWhereInput[]
+    codigo?: StringFilter<"cat_medio_pago"> | string
+    descripcion?: StringFilter<"cat_medio_pago"> | string
+  }
+
+  export type cat_medio_pagoOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_medio_pagoOrderByRelevanceInput
+  }
+
+  export type cat_medio_pagoWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_medio_pagoWhereInput | cat_medio_pagoWhereInput[]
+    OR?: cat_medio_pagoWhereInput[]
+    NOT?: cat_medio_pagoWhereInput | cat_medio_pagoWhereInput[]
+    descripcion?: StringFilter<"cat_medio_pago"> | string
+  }, "codigo">
+
+  export type cat_medio_pagoOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_medio_pagoCountOrderByAggregateInput
+    _max?: cat_medio_pagoMaxOrderByAggregateInput
+    _min?: cat_medio_pagoMinOrderByAggregateInput
+  }
+
+  export type cat_medio_pagoScalarWhereWithAggregatesInput = {
+    AND?: cat_medio_pagoScalarWhereWithAggregatesInput | cat_medio_pagoScalarWhereWithAggregatesInput[]
+    OR?: cat_medio_pagoScalarWhereWithAggregatesInput[]
+    NOT?: cat_medio_pagoScalarWhereWithAggregatesInput | cat_medio_pagoScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_medio_pago"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_medio_pago"> | string
+  }
+
+  export type cat_indicador_afectoWhereInput = {
+    AND?: cat_indicador_afectoWhereInput | cat_indicador_afectoWhereInput[]
+    OR?: cat_indicador_afectoWhereInput[]
+    NOT?: cat_indicador_afectoWhereInput | cat_indicador_afectoWhereInput[]
+    codigo?: StringFilter<"cat_indicador_afecto"> | string
+    descripcion?: StringFilter<"cat_indicador_afecto"> | string
+  }
+
+  export type cat_indicador_afectoOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_indicador_afectoOrderByRelevanceInput
+  }
+
+  export type cat_indicador_afectoWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_indicador_afectoWhereInput | cat_indicador_afectoWhereInput[]
+    OR?: cat_indicador_afectoWhereInput[]
+    NOT?: cat_indicador_afectoWhereInput | cat_indicador_afectoWhereInput[]
+    descripcion?: StringFilter<"cat_indicador_afecto"> | string
+  }, "codigo">
+
+  export type cat_indicador_afectoOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_indicador_afectoCountOrderByAggregateInput
+    _max?: cat_indicador_afectoMaxOrderByAggregateInput
+    _min?: cat_indicador_afectoMinOrderByAggregateInput
+  }
+
+  export type cat_indicador_afectoScalarWhereWithAggregatesInput = {
+    AND?: cat_indicador_afectoScalarWhereWithAggregatesInput | cat_indicador_afectoScalarWhereWithAggregatesInput[]
+    OR?: cat_indicador_afectoScalarWhereWithAggregatesInput[]
+    NOT?: cat_indicador_afectoScalarWhereWithAggregatesInput | cat_indicador_afectoScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_indicador_afecto"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_indicador_afecto"> | string
+  }
+
+  export type cat_concepto_flujo_efectivoWhereInput = {
+    AND?: cat_concepto_flujo_efectivoWhereInput | cat_concepto_flujo_efectivoWhereInput[]
+    OR?: cat_concepto_flujo_efectivoWhereInput[]
+    NOT?: cat_concepto_flujo_efectivoWhereInput | cat_concepto_flujo_efectivoWhereInput[]
+    codigo?: StringFilter<"cat_concepto_flujo_efectivo"> | string
+    descripcion?: StringFilter<"cat_concepto_flujo_efectivo"> | string
+  }
+
+  export type cat_concepto_flujo_efectivoOrderByWithRelationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _relevance?: cat_concepto_flujo_efectivoOrderByRelevanceInput
+  }
+
+  export type cat_concepto_flujo_efectivoWhereUniqueInput = Prisma.AtLeast<{
+    codigo?: string
+    AND?: cat_concepto_flujo_efectivoWhereInput | cat_concepto_flujo_efectivoWhereInput[]
+    OR?: cat_concepto_flujo_efectivoWhereInput[]
+    NOT?: cat_concepto_flujo_efectivoWhereInput | cat_concepto_flujo_efectivoWhereInput[]
+    descripcion?: StringFilter<"cat_concepto_flujo_efectivo"> | string
+  }, "codigo">
+
+  export type cat_concepto_flujo_efectivoOrderByWithAggregationInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    _count?: cat_concepto_flujo_efectivoCountOrderByAggregateInput
+    _max?: cat_concepto_flujo_efectivoMaxOrderByAggregateInput
+    _min?: cat_concepto_flujo_efectivoMinOrderByAggregateInput
+  }
+
+  export type cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput = {
+    AND?: cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput | cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput[]
+    OR?: cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput[]
+    NOT?: cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput | cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput[]
+    codigo?: StringWithAggregatesFilter<"cat_concepto_flujo_efectivo"> | string
+    descripcion?: StringWithAggregatesFilter<"cat_concepto_flujo_efectivo"> | string
   }
 
   export type almacenesCreateInput = {
@@ -69003,6 +80355,836 @@ export namespace Prisma {
     fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type lotes_importacion_contableCreateInput = {
+    nombre_archivo?: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por?: number | null
+    creado_en?: Date | string
+    asientos_contables?: asientos_contablesCreateNestedManyWithoutLoteInput
+  }
+
+  export type lotes_importacion_contableUncheckedCreateInput = {
+    id?: number
+    nombre_archivo?: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por?: number | null
+    creado_en?: Date | string
+    asientos_contables?: asientos_contablesUncheckedCreateNestedManyWithoutLoteInput
+  }
+
+  export type lotes_importacion_contableUpdateInput = {
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    asientos_contables?: asientos_contablesUpdateManyWithoutLoteNestedInput
+  }
+
+  export type lotes_importacion_contableUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    asientos_contables?: asientos_contablesUncheckedUpdateManyWithoutLoteNestedInput
+  }
+
+  export type lotes_importacion_contableCreateManyInput = {
+    id?: number
+    nombre_archivo?: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por?: number | null
+    creado_en?: Date | string
+  }
+
+  export type lotes_importacion_contableUpdateManyMutationInput = {
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type lotes_importacion_contableUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type asientos_contablesCreateInput = {
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+    lote: lotes_importacion_contableCreateNestedOneWithoutAsientos_contablesInput
+  }
+
+  export type asientos_contablesUncheckedCreateInput = {
+    id?: number
+    id_lote: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type asientos_contablesUpdateInput = {
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lote?: lotes_importacion_contableUpdateOneRequiredWithoutAsientos_contablesNestedInput
+  }
+
+  export type asientos_contablesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_lote?: IntFieldUpdateOperationsInput | number
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type asientos_contablesCreateManyInput = {
+    id?: number
+    id_lote: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type asientos_contablesUpdateManyMutationInput = {
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type asientos_contablesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_lote?: IntFieldUpdateOperationsInput | number
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type cat_moduloCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_moduloUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_moduloUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_moduloUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_moduloCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_moduloUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_moduloUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_fuenteCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_fuenteUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_fuenteUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_fuenteUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_fuenteCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_fuenteUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_fuenteUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_monedaCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_monedaUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_monedaUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_monedaUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_monedaCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_monedaUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_monedaUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_tipo_doc_identidadCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_tipo_doc_identidadUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_tipo_doc_identidadUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_tipo_doc_identidadUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_tipo_doc_identidadCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_tipo_doc_identidadUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_tipo_doc_identidadUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_forma_pagoCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_forma_pagoUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_forma_pagoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_forma_pagoUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_forma_pagoCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_forma_pagoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_forma_pagoUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_medio_pagoCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_medio_pagoUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_medio_pagoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_medio_pagoUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_medio_pagoCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_medio_pagoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_medio_pagoUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_indicador_afectoCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_indicador_afectoUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_indicador_afectoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_indicador_afectoUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_indicador_afectoCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_indicador_afectoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_indicador_afectoUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_concepto_flujo_efectivoCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_concepto_flujo_efectivoUncheckedCreateInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_concepto_flujo_efectivoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_concepto_flujo_efectivoUncheckedUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_concepto_flujo_efectivoCreateManyInput = {
+    codigo: string
+    descripcion: string
+  }
+
+  export type cat_concepto_flujo_efectivoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cat_concepto_flujo_efectivoUncheckedUpdateManyInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -73199,6 +85381,482 @@ export namespace Prisma {
     id_orden_servicio?: SortOrder
   }
 
+  export type Asientos_contablesListRelationFilter = {
+    every?: asientos_contablesWhereInput
+    some?: asientos_contablesWhereInput
+    none?: asientos_contablesWhereInput
+  }
+
+  export type asientos_contablesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type lotes_importacion_contableOrderByRelevanceInput = {
+    fields: lotes_importacion_contableOrderByRelevanceFieldEnum | lotes_importacion_contableOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type lotes_importacion_contableCountOrderByAggregateInput = {
+    id?: SortOrder
+    nombre_archivo?: SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type lotes_importacion_contableAvgOrderByAggregateInput = {
+    id?: SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrder
+  }
+
+  export type lotes_importacion_contableMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nombre_archivo?: SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type lotes_importacion_contableMinOrderByAggregateInput = {
+    id?: SortOrder
+    nombre_archivo?: SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type lotes_importacion_contableSumOrderByAggregateInput = {
+    id?: SortOrder
+    total_filas?: SortOrder
+    filas_validas?: SortOrder
+    filas_error?: SortOrder
+    creado_por?: SortOrder
+  }
+
+  export type Lotes_importacion_contableScalarRelationFilter = {
+    is?: lotes_importacion_contableWhereInput
+    isNot?: lotes_importacion_contableWhereInput
+  }
+
+  export type asientos_contablesOrderByRelevanceInput = {
+    fields: asientos_contablesOrderByRelevanceFieldEnum | asientos_contablesOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type asientos_contablesCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    codigo_tipo_medio_pago?: SortOrder
+    ejercicio?: SortOrder
+    periodo?: SortOrder
+    cod_modulo?: SortOrder
+    modulo?: SortOrder
+    fuente?: SortOrder
+    numero_cuenta?: SortOrder
+    codigo_tipo_documento?: SortOrder
+    numero_serie?: SortOrder
+    numero_documento?: SortOrder
+    concepto_fec?: SortOrder
+    glosa?: SortOrder
+    codigo_moneda_origen?: SortOrder
+    codigo_moneda_registro?: SortOrder
+    codigo_centro_costo?: SortOrder
+    codigo_sub_centro_costo?: SortOrder
+    codigo_sub_sub_centro_costo?: SortOrder
+    codigo_forma_provision?: SortOrder
+    codigo_forma_pago_cobro?: SortOrder
+    codigo_area?: SortOrder
+    identificador_ctr_mda?: SortOrder
+    identificador_tip_afecto?: SortOrder
+    nro_cheque?: SortOrder
+    grdo?: SortOrder
+    fecha_emision_doc?: SortOrder
+    fecha_vencimiento_doc?: SortOrder
+    fecha_movimiento?: SortOrder
+    fecha_cbr?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_conc?: SortOrder
+    fecha_dif?: SortOrder
+    cod_tip_doc_ident_clt?: SortOrder
+    nro_doc_clt?: SortOrder
+    razon_social_1?: SortOrder
+    cod_tip_doc_ident_prov?: SortOrder
+    nro_doc_prov?: SortOrder
+    razon_social_2?: SortOrder
+    cod_tip_doc_ident_trab?: SortOrder
+    nro_doc_trab?: SortOrder
+    razon_social_3?: SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrder
+    monto_haber_me?: SortOrder
+    cambio_moneda?: SortOrder
+    es_cancelado?: SortOrder
+    es_conciliado?: SortOrder
+    es_provision?: SortOrder
+    es_anulado?: SortOrder
+    es_destino?: SortOrder
+    doc_ref_fecha_emision?: SortOrder
+    doc_ref_cod_tip_doc?: SortOrder
+    doc_ref_nro_serie?: SortOrder
+    doc_ref_nro_doc?: SortOrder
+    numero_detraccion?: SortOrder
+    fecha_pago_detraccion?: SortOrder
+    campos_adicionales?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type asientos_contablesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    concepto_fec?: SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrder
+    monto_haber_me?: SortOrder
+    cambio_moneda?: SortOrder
+    creado_por?: SortOrder
+    editado_por?: SortOrder
+  }
+
+  export type asientos_contablesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    codigo_tipo_medio_pago?: SortOrder
+    ejercicio?: SortOrder
+    periodo?: SortOrder
+    cod_modulo?: SortOrder
+    modulo?: SortOrder
+    fuente?: SortOrder
+    numero_cuenta?: SortOrder
+    codigo_tipo_documento?: SortOrder
+    numero_serie?: SortOrder
+    numero_documento?: SortOrder
+    concepto_fec?: SortOrder
+    glosa?: SortOrder
+    codigo_moneda_origen?: SortOrder
+    codigo_moneda_registro?: SortOrder
+    codigo_centro_costo?: SortOrder
+    codigo_sub_centro_costo?: SortOrder
+    codigo_sub_sub_centro_costo?: SortOrder
+    codigo_forma_provision?: SortOrder
+    codigo_forma_pago_cobro?: SortOrder
+    codigo_area?: SortOrder
+    identificador_ctr_mda?: SortOrder
+    identificador_tip_afecto?: SortOrder
+    nro_cheque?: SortOrder
+    grdo?: SortOrder
+    fecha_emision_doc?: SortOrder
+    fecha_vencimiento_doc?: SortOrder
+    fecha_movimiento?: SortOrder
+    fecha_cbr?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_conc?: SortOrder
+    fecha_dif?: SortOrder
+    cod_tip_doc_ident_clt?: SortOrder
+    nro_doc_clt?: SortOrder
+    razon_social_1?: SortOrder
+    cod_tip_doc_ident_prov?: SortOrder
+    nro_doc_prov?: SortOrder
+    razon_social_2?: SortOrder
+    cod_tip_doc_ident_trab?: SortOrder
+    nro_doc_trab?: SortOrder
+    razon_social_3?: SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrder
+    monto_haber_me?: SortOrder
+    cambio_moneda?: SortOrder
+    es_cancelado?: SortOrder
+    es_conciliado?: SortOrder
+    es_provision?: SortOrder
+    es_anulado?: SortOrder
+    es_destino?: SortOrder
+    doc_ref_fecha_emision?: SortOrder
+    doc_ref_cod_tip_doc?: SortOrder
+    doc_ref_nro_serie?: SortOrder
+    doc_ref_nro_doc?: SortOrder
+    numero_detraccion?: SortOrder
+    fecha_pago_detraccion?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type asientos_contablesMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    codigo_tipo_medio_pago?: SortOrder
+    ejercicio?: SortOrder
+    periodo?: SortOrder
+    cod_modulo?: SortOrder
+    modulo?: SortOrder
+    fuente?: SortOrder
+    numero_cuenta?: SortOrder
+    codigo_tipo_documento?: SortOrder
+    numero_serie?: SortOrder
+    numero_documento?: SortOrder
+    concepto_fec?: SortOrder
+    glosa?: SortOrder
+    codigo_moneda_origen?: SortOrder
+    codigo_moneda_registro?: SortOrder
+    codigo_centro_costo?: SortOrder
+    codigo_sub_centro_costo?: SortOrder
+    codigo_sub_sub_centro_costo?: SortOrder
+    codigo_forma_provision?: SortOrder
+    codigo_forma_pago_cobro?: SortOrder
+    codigo_area?: SortOrder
+    identificador_ctr_mda?: SortOrder
+    identificador_tip_afecto?: SortOrder
+    nro_cheque?: SortOrder
+    grdo?: SortOrder
+    fecha_emision_doc?: SortOrder
+    fecha_vencimiento_doc?: SortOrder
+    fecha_movimiento?: SortOrder
+    fecha_cbr?: SortOrder
+    fecha_registro?: SortOrder
+    fecha_conc?: SortOrder
+    fecha_dif?: SortOrder
+    cod_tip_doc_ident_clt?: SortOrder
+    nro_doc_clt?: SortOrder
+    razon_social_1?: SortOrder
+    cod_tip_doc_ident_prov?: SortOrder
+    nro_doc_prov?: SortOrder
+    razon_social_2?: SortOrder
+    cod_tip_doc_ident_trab?: SortOrder
+    nro_doc_trab?: SortOrder
+    razon_social_3?: SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrder
+    monto_haber_me?: SortOrder
+    cambio_moneda?: SortOrder
+    es_cancelado?: SortOrder
+    es_conciliado?: SortOrder
+    es_provision?: SortOrder
+    es_anulado?: SortOrder
+    es_destino?: SortOrder
+    doc_ref_fecha_emision?: SortOrder
+    doc_ref_cod_tip_doc?: SortOrder
+    doc_ref_nro_serie?: SortOrder
+    doc_ref_nro_doc?: SortOrder
+    numero_detraccion?: SortOrder
+    fecha_pago_detraccion?: SortOrder
+    creado_por?: SortOrder
+    creado_en?: SortOrder
+    editado_por?: SortOrder
+    fecha_edicion?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type asientos_contablesSumOrderByAggregateInput = {
+    id?: SortOrder
+    id_lote?: SortOrder
+    correlativo?: SortOrder
+    relacionado?: SortOrder
+    concepto_fec?: SortOrder
+    monto_debe?: SortOrder
+    monto_haber?: SortOrder
+    monto_debe_me?: SortOrder
+    monto_haber_me?: SortOrder
+    cambio_moneda?: SortOrder
+    creado_por?: SortOrder
+    editado_por?: SortOrder
+  }
+
+  export type cat_moduloOrderByRelevanceInput = {
+    fields: cat_moduloOrderByRelevanceFieldEnum | cat_moduloOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_moduloCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_moduloMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_moduloMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_fuenteOrderByRelevanceInput = {
+    fields: cat_fuenteOrderByRelevanceFieldEnum | cat_fuenteOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_fuenteCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_fuenteMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_fuenteMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_monedaOrderByRelevanceInput = {
+    fields: cat_monedaOrderByRelevanceFieldEnum | cat_monedaOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_monedaCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_monedaMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_monedaMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_tipo_doc_identidadOrderByRelevanceInput = {
+    fields: cat_tipo_doc_identidadOrderByRelevanceFieldEnum | cat_tipo_doc_identidadOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_tipo_doc_identidadCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_tipo_doc_identidadMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_tipo_doc_identidadMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_forma_pagoOrderByRelevanceInput = {
+    fields: cat_forma_pagoOrderByRelevanceFieldEnum | cat_forma_pagoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_forma_pagoCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_forma_pagoMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_forma_pagoMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_medio_pagoOrderByRelevanceInput = {
+    fields: cat_medio_pagoOrderByRelevanceFieldEnum | cat_medio_pagoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_medio_pagoCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_medio_pagoMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_medio_pagoMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_indicador_afectoOrderByRelevanceInput = {
+    fields: cat_indicador_afectoOrderByRelevanceFieldEnum | cat_indicador_afectoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_indicador_afectoCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_indicador_afectoMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_indicador_afectoMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_concepto_flujo_efectivoOrderByRelevanceInput = {
+    fields: cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum | cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type cat_concepto_flujo_efectivoCountOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_concepto_flujo_efectivoMaxOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
+  export type cat_concepto_flujo_efectivoMinOrderByAggregateInput = {
+    codigo?: SortOrder
+    descripcion?: SortOrder
+  }
+
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {
     create?: XOR<almacenesCreateWithoutOther_almacenesInput, almacenesUncheckedCreateWithoutOther_almacenesInput>
     connectOrCreate?: almacenesCreateOrConnectWithoutOther_almacenesInput
@@ -76233,6 +88891,62 @@ export namespace Prisma {
     delete?: ordenes_servicioWhereInput | boolean
     connect?: ordenes_servicioWhereUniqueInput
     update?: XOR<XOR<ordenes_servicioUpdateToOneWithWhereWithoutMultifactura_detalleInput, ordenes_servicioUpdateWithoutMultifactura_detalleInput>, ordenes_servicioUncheckedUpdateWithoutMultifactura_detalleInput>
+  }
+
+  export type asientos_contablesCreateNestedManyWithoutLoteInput = {
+    create?: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput> | asientos_contablesCreateWithoutLoteInput[] | asientos_contablesUncheckedCreateWithoutLoteInput[]
+    connectOrCreate?: asientos_contablesCreateOrConnectWithoutLoteInput | asientos_contablesCreateOrConnectWithoutLoteInput[]
+    createMany?: asientos_contablesCreateManyLoteInputEnvelope
+    connect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+  }
+
+  export type asientos_contablesUncheckedCreateNestedManyWithoutLoteInput = {
+    create?: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput> | asientos_contablesCreateWithoutLoteInput[] | asientos_contablesUncheckedCreateWithoutLoteInput[]
+    connectOrCreate?: asientos_contablesCreateOrConnectWithoutLoteInput | asientos_contablesCreateOrConnectWithoutLoteInput[]
+    createMany?: asientos_contablesCreateManyLoteInputEnvelope
+    connect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+  }
+
+  export type asientos_contablesUpdateManyWithoutLoteNestedInput = {
+    create?: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput> | asientos_contablesCreateWithoutLoteInput[] | asientos_contablesUncheckedCreateWithoutLoteInput[]
+    connectOrCreate?: asientos_contablesCreateOrConnectWithoutLoteInput | asientos_contablesCreateOrConnectWithoutLoteInput[]
+    upsert?: asientos_contablesUpsertWithWhereUniqueWithoutLoteInput | asientos_contablesUpsertWithWhereUniqueWithoutLoteInput[]
+    createMany?: asientos_contablesCreateManyLoteInputEnvelope
+    set?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    disconnect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    delete?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    connect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    update?: asientos_contablesUpdateWithWhereUniqueWithoutLoteInput | asientos_contablesUpdateWithWhereUniqueWithoutLoteInput[]
+    updateMany?: asientos_contablesUpdateManyWithWhereWithoutLoteInput | asientos_contablesUpdateManyWithWhereWithoutLoteInput[]
+    deleteMany?: asientos_contablesScalarWhereInput | asientos_contablesScalarWhereInput[]
+  }
+
+  export type asientos_contablesUncheckedUpdateManyWithoutLoteNestedInput = {
+    create?: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput> | asientos_contablesCreateWithoutLoteInput[] | asientos_contablesUncheckedCreateWithoutLoteInput[]
+    connectOrCreate?: asientos_contablesCreateOrConnectWithoutLoteInput | asientos_contablesCreateOrConnectWithoutLoteInput[]
+    upsert?: asientos_contablesUpsertWithWhereUniqueWithoutLoteInput | asientos_contablesUpsertWithWhereUniqueWithoutLoteInput[]
+    createMany?: asientos_contablesCreateManyLoteInputEnvelope
+    set?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    disconnect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    delete?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    connect?: asientos_contablesWhereUniqueInput | asientos_contablesWhereUniqueInput[]
+    update?: asientos_contablesUpdateWithWhereUniqueWithoutLoteInput | asientos_contablesUpdateWithWhereUniqueWithoutLoteInput[]
+    updateMany?: asientos_contablesUpdateManyWithWhereWithoutLoteInput | asientos_contablesUpdateManyWithWhereWithoutLoteInput[]
+    deleteMany?: asientos_contablesScalarWhereInput | asientos_contablesScalarWhereInput[]
+  }
+
+  export type lotes_importacion_contableCreateNestedOneWithoutAsientos_contablesInput = {
+    create?: XOR<lotes_importacion_contableCreateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedCreateWithoutAsientos_contablesInput>
+    connectOrCreate?: lotes_importacion_contableCreateOrConnectWithoutAsientos_contablesInput
+    connect?: lotes_importacion_contableWhereUniqueInput
+  }
+
+  export type lotes_importacion_contableUpdateOneRequiredWithoutAsientos_contablesNestedInput = {
+    create?: XOR<lotes_importacion_contableCreateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedCreateWithoutAsientos_contablesInput>
+    connectOrCreate?: lotes_importacion_contableCreateOrConnectWithoutAsientos_contablesInput
+    upsert?: lotes_importacion_contableUpsertWithoutAsientos_contablesInput
+    connect?: lotes_importacion_contableWhereUniqueInput
+    update?: XOR<XOR<lotes_importacion_contableUpdateToOneWithWhereWithoutAsientos_contablesInput, lotes_importacion_contableUpdateWithoutAsientos_contablesInput>, lotes_importacion_contableUncheckedUpdateWithoutAsientos_contablesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -86899,6 +99613,293 @@ export namespace Prisma {
     detalles_orden_servicio?: detalles_orden_servicioUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   }
 
+  export type asientos_contablesCreateWithoutLoteInput = {
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type asientos_contablesUncheckedCreateWithoutLoteInput = {
+    id?: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type asientos_contablesCreateOrConnectWithoutLoteInput = {
+    where: asientos_contablesWhereUniqueInput
+    create: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput>
+  }
+
+  export type asientos_contablesCreateManyLoteInputEnvelope = {
+    data: asientos_contablesCreateManyLoteInput | asientos_contablesCreateManyLoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type asientos_contablesUpsertWithWhereUniqueWithoutLoteInput = {
+    where: asientos_contablesWhereUniqueInput
+    update: XOR<asientos_contablesUpdateWithoutLoteInput, asientos_contablesUncheckedUpdateWithoutLoteInput>
+    create: XOR<asientos_contablesCreateWithoutLoteInput, asientos_contablesUncheckedCreateWithoutLoteInput>
+  }
+
+  export type asientos_contablesUpdateWithWhereUniqueWithoutLoteInput = {
+    where: asientos_contablesWhereUniqueInput
+    data: XOR<asientos_contablesUpdateWithoutLoteInput, asientos_contablesUncheckedUpdateWithoutLoteInput>
+  }
+
+  export type asientos_contablesUpdateManyWithWhereWithoutLoteInput = {
+    where: asientos_contablesScalarWhereInput
+    data: XOR<asientos_contablesUpdateManyMutationInput, asientos_contablesUncheckedUpdateManyWithoutLoteInput>
+  }
+
+  export type asientos_contablesScalarWhereInput = {
+    AND?: asientos_contablesScalarWhereInput | asientos_contablesScalarWhereInput[]
+    OR?: asientos_contablesScalarWhereInput[]
+    NOT?: asientos_contablesScalarWhereInput | asientos_contablesScalarWhereInput[]
+    id?: IntFilter<"asientos_contables"> | number
+    id_lote?: IntFilter<"asientos_contables"> | number
+    correlativo?: IntFilter<"asientos_contables"> | number
+    relacionado?: IntFilter<"asientos_contables"> | number
+    codigo_tipo_medio_pago?: StringNullableFilter<"asientos_contables"> | string | null
+    ejercicio?: StringFilter<"asientos_contables"> | string
+    periodo?: StringFilter<"asientos_contables"> | string
+    cod_modulo?: StringFilter<"asientos_contables"> | string
+    modulo?: StringFilter<"asientos_contables"> | string
+    fuente?: StringFilter<"asientos_contables"> | string
+    numero_cuenta?: StringFilter<"asientos_contables"> | string
+    codigo_tipo_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_documento?: StringNullableFilter<"asientos_contables"> | string | null
+    concepto_fec?: IntNullableFilter<"asientos_contables"> | number | null
+    glosa?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_moneda_origen?: StringFilter<"asientos_contables"> | string
+    codigo_moneda_registro?: StringFilter<"asientos_contables"> | string
+    codigo_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_sub_sub_centro_costo?: StringFilter<"asientos_contables"> | string
+    codigo_forma_provision?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_forma_pago_cobro?: StringNullableFilter<"asientos_contables"> | string | null
+    codigo_area?: StringFilter<"asientos_contables"> | string
+    identificador_ctr_mda?: StringNullableFilter<"asientos_contables"> | string | null
+    identificador_tip_afecto?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_cheque?: StringNullableFilter<"asientos_contables"> | string | null
+    grdo?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_emision_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_vencimiento_doc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_movimiento?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_cbr?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_registro?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_conc?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    fecha_dif?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    cod_tip_doc_ident_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_clt?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_1?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_prov?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_2?: StringNullableFilter<"asientos_contables"> | string | null
+    cod_tip_doc_ident_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    nro_doc_trab?: StringNullableFilter<"asientos_contables"> | string | null
+    razon_social_3?: StringNullableFilter<"asientos_contables"> | string | null
+    monto_debe?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: DecimalNullableFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFilter<"asientos_contables"> | Decimal | DecimalJsLike | number | string
+    es_cancelado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_conciliado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_provision?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_anulado?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    es_destino?: BoolNullableFilter<"asientos_contables"> | boolean | null
+    doc_ref_fecha_emision?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    doc_ref_cod_tip_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_serie?: StringNullableFilter<"asientos_contables"> | string | null
+    doc_ref_nro_doc?: StringNullableFilter<"asientos_contables"> | string | null
+    numero_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    fecha_pago_detraccion?: StringNullableFilter<"asientos_contables"> | string | null
+    campos_adicionales?: JsonNullableFilter<"asientos_contables">
+    creado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    creado_en?: DateTimeFilter<"asientos_contables"> | Date | string
+    editado_por?: IntNullableFilter<"asientos_contables"> | number | null
+    fecha_edicion?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"asientos_contables"> | Date | string | null
+  }
+
+  export type lotes_importacion_contableCreateWithoutAsientos_contablesInput = {
+    nombre_archivo?: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por?: number | null
+    creado_en?: Date | string
+  }
+
+  export type lotes_importacion_contableUncheckedCreateWithoutAsientos_contablesInput = {
+    id?: number
+    nombre_archivo?: string | null
+    total_filas: number
+    filas_validas: number
+    filas_error: number
+    creado_por?: number | null
+    creado_en?: Date | string
+  }
+
+  export type lotes_importacion_contableCreateOrConnectWithoutAsientos_contablesInput = {
+    where: lotes_importacion_contableWhereUniqueInput
+    create: XOR<lotes_importacion_contableCreateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedCreateWithoutAsientos_contablesInput>
+  }
+
+  export type lotes_importacion_contableUpsertWithoutAsientos_contablesInput = {
+    update: XOR<lotes_importacion_contableUpdateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedUpdateWithoutAsientos_contablesInput>
+    create: XOR<lotes_importacion_contableCreateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedCreateWithoutAsientos_contablesInput>
+    where?: lotes_importacion_contableWhereInput
+  }
+
+  export type lotes_importacion_contableUpdateToOneWithWhereWithoutAsientos_contablesInput = {
+    where?: lotes_importacion_contableWhereInput
+    data: XOR<lotes_importacion_contableUpdateWithoutAsientos_contablesInput, lotes_importacion_contableUncheckedUpdateWithoutAsientos_contablesInput>
+  }
+
+  export type lotes_importacion_contableUpdateWithoutAsientos_contablesInput = {
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type lotes_importacion_contableUncheckedUpdateWithoutAsientos_contablesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre_archivo?: NullableStringFieldUpdateOperationsInput | string | null
+    total_filas?: IntFieldUpdateOperationsInput | number
+    filas_validas?: IntFieldUpdateOperationsInput | number
+    filas_error?: IntFieldUpdateOperationsInput | number
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type almacenesCreateManyAlmacenesInput = {
     id_almacen?: number
     codigo_almacen: string
@@ -90331,6 +103332,277 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     subcodigo?: StringFieldUpdateOperationsInput | string
     subdescripcion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type asientos_contablesCreateManyLoteInput = {
+    id?: number
+    correlativo: number
+    relacionado: number
+    codigo_tipo_medio_pago?: string | null
+    ejercicio: string
+    periodo: string
+    cod_modulo: string
+    modulo: string
+    fuente: string
+    numero_cuenta: string
+    codigo_tipo_documento?: string | null
+    numero_serie?: string | null
+    numero_documento?: string | null
+    concepto_fec?: number | null
+    glosa?: string | null
+    codigo_moneda_origen: string
+    codigo_moneda_registro: string
+    codigo_centro_costo: string
+    codigo_sub_centro_costo: string
+    codigo_sub_sub_centro_costo: string
+    codigo_forma_provision?: string | null
+    codigo_forma_pago_cobro?: string | null
+    codigo_area: string
+    identificador_ctr_mda?: string | null
+    identificador_tip_afecto?: string | null
+    nro_cheque?: string | null
+    grdo?: string | null
+    fecha_emision_doc?: Date | string | null
+    fecha_vencimiento_doc?: Date | string | null
+    fecha_movimiento?: Date | string | null
+    fecha_cbr?: Date | string | null
+    fecha_registro?: Date | string | null
+    fecha_conc?: Date | string | null
+    fecha_dif?: Date | string | null
+    cod_tip_doc_ident_clt?: string | null
+    nro_doc_clt?: string | null
+    razon_social_1?: string | null
+    cod_tip_doc_ident_prov?: string | null
+    nro_doc_prov?: string | null
+    razon_social_2?: string | null
+    cod_tip_doc_ident_trab?: string | null
+    nro_doc_trab?: string | null
+    razon_social_3?: string | null
+    monto_debe: Decimal | DecimalJsLike | number | string
+    monto_haber: Decimal | DecimalJsLike | number | string
+    monto_debe_me?: Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: Decimal | DecimalJsLike | number | string | null
+    cambio_moneda: Decimal | DecimalJsLike | number | string
+    es_cancelado?: boolean | null
+    es_conciliado?: boolean | null
+    es_provision?: boolean | null
+    es_anulado?: boolean | null
+    es_destino?: boolean | null
+    doc_ref_fecha_emision?: Date | string | null
+    doc_ref_cod_tip_doc?: string | null
+    doc_ref_nro_serie?: string | null
+    doc_ref_nro_doc?: string | null
+    numero_detraccion?: string | null
+    fecha_pago_detraccion?: string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: number | null
+    creado_en?: Date | string
+    editado_por?: number | null
+    fecha_edicion?: Date | string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type asientos_contablesUpdateWithoutLoteInput = {
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type asientos_contablesUncheckedUpdateWithoutLoteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type asientos_contablesUncheckedUpdateManyWithoutLoteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    correlativo?: IntFieldUpdateOperationsInput | number
+    relacionado?: IntFieldUpdateOperationsInput | number
+    codigo_tipo_medio_pago?: NullableStringFieldUpdateOperationsInput | string | null
+    ejercicio?: StringFieldUpdateOperationsInput | string
+    periodo?: StringFieldUpdateOperationsInput | string
+    cod_modulo?: StringFieldUpdateOperationsInput | string
+    modulo?: StringFieldUpdateOperationsInput | string
+    fuente?: StringFieldUpdateOperationsInput | string
+    numero_cuenta?: StringFieldUpdateOperationsInput | string
+    codigo_tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    concepto_fec?: NullableIntFieldUpdateOperationsInput | number | null
+    glosa?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_moneda_origen?: StringFieldUpdateOperationsInput | string
+    codigo_moneda_registro?: StringFieldUpdateOperationsInput | string
+    codigo_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_sub_sub_centro_costo?: StringFieldUpdateOperationsInput | string
+    codigo_forma_provision?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_forma_pago_cobro?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_area?: StringFieldUpdateOperationsInput | string
+    identificador_ctr_mda?: NullableStringFieldUpdateOperationsInput | string | null
+    identificador_tip_afecto?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_cheque?: NullableStringFieldUpdateOperationsInput | string | null
+    grdo?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_emision_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_vencimiento_doc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_movimiento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_cbr?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_registro?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_conc?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_dif?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cod_tip_doc_ident_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_clt?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_1?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_prov?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_2?: NullableStringFieldUpdateOperationsInput | string | null
+    cod_tip_doc_ident_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    nro_doc_trab?: NullableStringFieldUpdateOperationsInput | string | null
+    razon_social_3?: NullableStringFieldUpdateOperationsInput | string | null
+    monto_debe?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_haber?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monto_debe_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monto_haber_me?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cambio_moneda?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    es_cancelado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_conciliado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_provision?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_anulado?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    es_destino?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    doc_ref_fecha_emision?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doc_ref_cod_tip_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_serie?: NullableStringFieldUpdateOperationsInput | string | null
+    doc_ref_nro_doc?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_pago_detraccion?: NullableStringFieldUpdateOperationsInput | string | null
+    campos_adicionales?: NullableJsonNullValueInput | InputJsonValue
+    creado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    creado_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    editado_por?: NullableIntFieldUpdateOperationsInput | number | null
+    fecha_edicion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

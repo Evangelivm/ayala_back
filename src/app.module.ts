@@ -45,6 +45,7 @@ import { SearchModule } from './search/search.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { OpcionesProgramacionModule } from './opciones-programacion/opciones-programacion.module';
+import { ContabilidadModule } from './contabilidad/contabilidad.module';
 
 @Module({
   imports: [
@@ -94,6 +95,7 @@ import { OpcionesProgramacionModule } from './opciones-programacion/opciones-pro
     AuthModule,
     UsuariosModule,
     OpcionesProgramacionModule,
+    ContabilidadModule,
   ],
   controllers: [AppController, AdminLogsController],
   providers: [AppService],
