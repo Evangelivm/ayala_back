@@ -379,6 +379,13 @@ export class SearchService implements OnModuleInit {
     const trimmedQ = q ? q.trim() : '';
     const isNumericQ = /^\d+$/.test(trimmedQ);
 
+    // Los docs solo tienen deleted_at indexado cuando el registro fue
+    // eliminado (soft delete); un valor null explícito no se indexa.
+    // "not exists" = no está borrado.
+    const notDeletedFilter = {
+      bool: { must_not: { exists: { field: 'deleted_at' } } },
+    };
+
     const esQuery: any = trimmedQ
       ? {
           bool: {
@@ -396,9 +403,10 @@ export class SearchService implements OnModuleInit {
                 : []),
             ],
             minimum_should_match: 1,
+            filter: [notDeletedFilter],
           },
         }
-      : { match_all: {} };
+      : notDeletedFilter;
 
     const result = await this.client.search({
       index,
@@ -654,16 +662,19 @@ export class SearchService implements OnModuleInit {
   // ─── Órdenes de Compra ─────────────────────────────────────────────────────
 
   private async searchOrdenesCompra(q: string, page: number, limit: number) {
-    const where: any = q
-      ? {
-          OR: [
-            { numero_orden: { contains: q } },
-            { estado: { contains: q } },
-            { proveedores: { nombre_proveedor: { contains: q } } },
-            { proveedores: { ruc: { contains: q } } },
-          ],
-        }
-      : {};
+    const where: any = {
+      deleted_at: null,
+      ...(q
+        ? {
+            OR: [
+              { numero_orden: { contains: q } },
+              { estado: { contains: q } },
+              { proveedores: { nombre_proveedor: { contains: q } } },
+              { proveedores: { ruc: { contains: q } } },
+            ],
+          }
+        : {}),
+    };
 
     const [total, ordenes] = await Promise.all([
       this.prismaThird.ordenes_compra.count({ where }),
@@ -690,7 +701,7 @@ export class SearchService implements OnModuleInit {
 
   private async getOrdenesCompraByIds(ids: number[]): Promise<any[]> {
     const ordenes = await this.prismaThird.ordenes_compra.findMany({
-      where: { id_orden_compra: { in: ids } },
+      where: { id_orden_compra: { in: ids }, deleted_at: null },
       orderBy: { fecha_registro: 'desc' },
       include: {
         proveedores: true,
@@ -751,16 +762,19 @@ export class SearchService implements OnModuleInit {
   // ─── Órdenes de Servicio ───────────────────────────────────────────────────
 
   private async searchOrdenesServicio(q: string, page: number, limit: number) {
-    const where: any = q
-      ? {
-          OR: [
-            { numero_orden: { contains: q } },
-            { estado: { contains: q } },
-            { proveedores: { nombre_proveedor: { contains: q } } },
-            { proveedores: { ruc: { contains: q } } },
-          ],
-        }
-      : {};
+    const where: any = {
+      deleted_at: null,
+      ...(q
+        ? {
+            OR: [
+              { numero_orden: { contains: q } },
+              { estado: { contains: q } },
+              { proveedores: { nombre_proveedor: { contains: q } } },
+              { proveedores: { ruc: { contains: q } } },
+            ],
+          }
+        : {}),
+    };
 
     const [total, ordenes] = await Promise.all([
       this.prismaThird.ordenes_servicio.count({ where }),
@@ -787,7 +801,7 @@ export class SearchService implements OnModuleInit {
 
   private async getOrdenesServicioByIds(ids: number[]): Promise<any[]> {
     const ordenes = await this.prismaThird.ordenes_servicio.findMany({
-      where: { id_orden_servicio: { in: ids } },
+      where: { id_orden_servicio: { in: ids }, deleted_at: null },
       orderBy: { fecha_registro: 'desc' },
       include: {
         proveedores: true,

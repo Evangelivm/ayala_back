@@ -119,8 +119,12 @@ export class OrdenCompraService {
         orderBy: {
           fecha_registro: 'desc',
         },
+        // Límite temporal mientras se migra este listado a la búsqueda
+        // por Elasticsearch (con paginación real). Sin esto, la query
+        // traía la tabla completa con detalles anidados en cada carga.
+        take: 300,
         include: {
-          proveedores: true,
+          proveedores: { select: { nombre_proveedor: true, ruc: true } },
           detalles_orden_compra: true,
           multifactura_detalle: { select: { nro_serie: true, nro_factura: true } },
           usuarios: { select: { nombre: true } },
@@ -651,11 +655,12 @@ export class OrdenCompraService {
           __dirname,
           '..',
           'assets',
-          'ayala_logo.jpeg',
+          'nuevo_ayala_logo.png',
         );
         doc.image(logoPath, 40, yPos, {
-          width: 100,
-          height: 60,
+          fit: [95, 95],
+          align: 'center',
+          valign: 'center',
         });
 
         // Título (izquierda) - alineado verticalmente con el logo
