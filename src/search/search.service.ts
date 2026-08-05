@@ -977,15 +977,24 @@ export class SearchService implements OnModuleInit {
     }
     if (filtros.procede_pago) where.procede_pago = filtros.procede_pago;
 
-    if (filtros.placa_unidad || filtros.tipo_unidad) {
+    if (filtros.placa_unidad || filtros.tipo_unidad || filtros.chofer) {
       const camionWhere: Record<string, any> = {};
       if (filtros.placa_unidad) camionWhere.placa = filtros.placa_unidad;
       if (filtros.tipo_unidad) camionWhere.tipo = filtros.tipo_unidad;
       const camiones = await this.prisma.camiones.findMany({
         where: camionWhere,
-        select: { id_camion: true },
+        select: { id_camion: true, nombre_chofer: true, apellido_chofer: true },
       });
-      where.id_camion = { in: camiones.map((c) => c.id_camion) };
+      // "chofer" llega como "nombre apellido" concatenado (no hay ese campo
+      // en la tabla), así que se filtra en memoria tras traer los candidatos.
+      const filtrados = filtros.chofer
+        ? camiones.filter(
+            (c) =>
+              [c.nombre_chofer, c.apellido_chofer].filter(Boolean).join(' ') ===
+              filtros.chofer,
+          )
+        : camiones;
+      where.id_camion = { in: filtrados.map((c) => c.id_camion) };
     }
 
     return where;
