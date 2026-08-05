@@ -993,12 +993,32 @@ export class SearchService implements OnModuleInit {
 
   // ─── Órdenes de Compra ─────────────────────────────────────────────────────
 
+  /**
+   * ordenes_compra/servicio no tienen relación Prisma directa con camiones,
+   * así que la búsqueda libre por placa/chofer (fallback sin ES) resuelve
+   * primero los id_camion que matchean y los agrega como OR adicional.
+   */
+  private async camionIdsByQuery(q: string): Promise<number[]> {
+    const camiones = await this.prisma.camiones.findMany({
+      where: {
+        OR: [
+          { placa: { contains: q } },
+          { nombre_chofer: { contains: q } },
+          { apellido_chofer: { contains: q } },
+        ],
+      },
+      select: { id_camion: true },
+    });
+    return camiones.map((c) => c.id_camion);
+  }
+
   private async searchOrdenesCompra(
     q: string,
     page: number,
     limit: number,
     filtros: Record<string, string | boolean> = {},
   ) {
+    const camionIds = q ? await this.camionIdsByQuery(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1009,6 +1029,9 @@ export class SearchService implements OnModuleInit {
               { estado: { contains: q } },
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
+              ...(camionIds.length > 0
+                ? [{ id_camion: { in: camionIds } }]
+                : []),
             ],
           }
         : {}),
@@ -1105,6 +1128,7 @@ export class SearchService implements OnModuleInit {
     limit: number,
     filtros: Record<string, string | boolean> = {},
   ) {
+    const camionIds = q ? await this.camionIdsByQuery(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1115,6 +1139,9 @@ export class SearchService implements OnModuleInit {
               { estado: { contains: q } },
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
+              ...(camionIds.length > 0
+                ? [{ id_camion: { in: camionIds } }]
+                : []),
             ],
           }
         : {}),
