@@ -114,7 +114,10 @@ export class SearchService implements OnModuleInit {
             fecha_orden: { type: 'date' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
-            placa_unidad: { type: 'keyword' },
+            placa_unidad: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
             tipo_unidad: { type: 'keyword' },
             nombre_chofer: { type: 'text' },
             apellido_chofer: { type: 'text' },
@@ -141,7 +144,10 @@ export class SearchService implements OnModuleInit {
             fecha_orden: { type: 'date' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
-            placa_unidad: { type: 'keyword' },
+            placa_unidad: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
             tipo_unidad: { type: 'keyword' },
             nombre_chofer: { type: 'text' },
             apellido_chofer: { type: 'text' },
@@ -632,7 +638,11 @@ export class SearchService implements OnModuleInit {
     const filterClauses: any[] = [notDeletedFilter];
     for (const [campo, valor] of Object.entries(filtros)) {
       if (valor === undefined || valor === null || valor === '') continue;
-      filterClauses.push({ term: { [campo]: valor } });
+      // placa_unidad pasó a mapearse como `text` (para soportar búsqueda
+      // libre parcial); el filtro exacto del dropdown debe apuntar a su
+      // subcampo `.keyword`, que sí es un término no analizado.
+      const campoTerm = campo === 'placa_unidad' ? 'placa_unidad.keyword' : campo;
+      filterClauses.push({ term: { [campoTerm]: valor } });
     }
 
     const esQuery: any = trimmedQ
