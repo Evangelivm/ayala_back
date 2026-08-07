@@ -103,6 +103,9 @@ export class SearchService implements OnModuleInit {
       {
         name: 'ordenes_compra',
         mappings: {
+          // Evita que ES infiera tipo `date` para campos de texto nuevos
+          // con pinta de fecha antes de que el mapping explícito se aplique.
+          date_detection: false,
           properties: {
             id: { type: 'integer' },
             numero_orden: {
@@ -112,7 +115,6 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
-            fecha_orden_str: { type: 'keyword' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
             placa_unidad: {
@@ -160,6 +162,7 @@ export class SearchService implements OnModuleInit {
       {
         name: 'ordenes_servicio',
         mappings: {
+          date_detection: false,
           properties: {
             id: { type: 'integer' },
             numero_orden: {
@@ -169,7 +172,6 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
-            fecha_orden_str: { type: 'keyword' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
             placa_unidad: {
@@ -229,6 +231,9 @@ export class SearchService implements OnModuleInit {
           await this.client.indices.putMapping({
             index: index.name,
             properties: index.mappings.properties,
+            ...(index.mappings.date_detection !== undefined
+              ? { date_detection: index.mappings.date_detection }
+              : {}),
           });
         } catch (e) {
           this.logger.warn(`putMapping ${index.name}: ${(e as Error).message}`);
@@ -376,9 +381,6 @@ export class SearchService implements OnModuleInit {
       fecha_orden: orden.fecha_orden
         ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
         : null,
-      fecha_orden_str: orden.fecha_orden
-        ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
-        : null,
       fecha_registro: orden.fecha_registro
         ? dayjs.utc(orden.fecha_registro).format('YYYY-MM-DD')
         : null,
@@ -423,9 +425,6 @@ export class SearchService implements OnModuleInit {
       nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
       ruc_proveedor: (orden as any).proveedores?.ruc || null,
       fecha_orden: (orden as any).fecha_orden
-        ? dayjs.utc((orden as any).fecha_orden).format('YYYY-MM-DD')
-        : null,
-      fecha_orden_str: (orden as any).fecha_orden
         ? dayjs.utc((orden as any).fecha_orden).format('YYYY-MM-DD')
         : null,
       fecha_registro: (orden as any).fecha_registro
@@ -591,9 +590,6 @@ export class SearchService implements OnModuleInit {
           fecha_orden: o.fecha_orden
             ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
             : null,
-          fecha_orden_str: o.fecha_orden
-            ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
-            : null,
           fecha_registro: o.fecha_registro
             ? dayjs.utc(o.fecha_registro).format('YYYY-MM-DD')
             : null,
@@ -651,9 +647,6 @@ export class SearchService implements OnModuleInit {
           nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
           ruc_proveedor: (o as any).proveedores?.ruc || null,
           fecha_orden: (o as any).fecha_orden
-            ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
-            : null,
-          fecha_orden_str: (o as any).fecha_orden
             ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
             : null,
           fecha_registro: (o as any).fecha_registro
@@ -744,7 +737,6 @@ export class SearchService implements OnModuleInit {
         'condicion',
         'tipo_detraccion',
         'items_texto',
-        'fecha_orden_str',
         'total',
       ],
       ordenes_servicio: [
@@ -765,7 +757,6 @@ export class SearchService implements OnModuleInit {
         'condicion',
         'tipo_detraccion',
         'items_texto',
-        'fecha_orden_str',
         'total',
       ],
     };
