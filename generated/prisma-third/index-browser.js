@@ -924,6 +924,31 @@ exports.Prisma.Cat_concepto_flujo_efectivoScalarFieldEnum = {
   descripcion: 'descripcion'
 };
 
+exports.Prisma.MasivoScalarFieldEnum = {
+  id: 'id',
+  campo: 'campo',
+  sub_diario: 'sub_diario',
+  num_comprobante: 'num_comprobante',
+  fecha_documento: 'fecha_documento',
+  fecha_vencimiento: 'fecha_vencimiento',
+  tipo_documento: 'tipo_documento',
+  numero_documento: 'numero_documento',
+  codigo_anexo: 'codigo_anexo',
+  glosa_principal: 'glosa_principal',
+  importe_original: 'importe_original',
+  debe_haber: 'debe_haber',
+  cod_moneda: 'cod_moneda',
+  tasa_igv: 'tasa_igv',
+  cuenta_contable: 'cuenta_contable',
+  codigo_auxiliar: 'codigo_auxiliar',
+  tipo_doc_referencia: 'tipo_doc_referencia',
+  num_doc_referencia: 'num_doc_referencia',
+  fecha_doc_referencia: 'fecha_doc_referencia',
+  tipo_conversion: 'tipo_conversion',
+  flag_conversion: 'flag_conversion',
+  creado_en: 'creado_en'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1375,6 +1400,23 @@ exports.Prisma.cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum = {
   codigo: 'codigo',
   descripcion: 'descripcion'
 };
+
+exports.Prisma.masivoOrderByRelevanceFieldEnum = {
+  num_comprobante: 'num_comprobante',
+  tipo_documento: 'tipo_documento',
+  numero_documento: 'numero_documento',
+  codigo_anexo: 'codigo_anexo',
+  glosa_principal: 'glosa_principal',
+  debe_haber: 'debe_haber',
+  cod_moneda: 'cod_moneda',
+  tasa_igv: 'tasa_igv',
+  cuenta_contable: 'cuenta_contable',
+  codigo_auxiliar: 'codigo_auxiliar',
+  tipo_doc_referencia: 'tipo_doc_referencia',
+  num_doc_referencia: 'num_doc_referencia',
+  tipo_conversion: 'tipo_conversion',
+  flag_conversion: 'flag_conversion'
+};
 exports.almacenes_tipo_almacen = exports.$Enums.almacenes_tipo_almacen = {
   PRINCIPAL: 'PRINCIPAL',
   AUXILIAR: 'AUXILIAR',
@@ -1587,7 +1629,8 @@ exports.Prisma.ModelName = {
   cat_forma_pago: 'cat_forma_pago',
   cat_medio_pago: 'cat_medio_pago',
   cat_indicador_afecto: 'cat_indicador_afecto',
-  cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo'
+  cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo',
+  masivo: 'masivo'
 };
 
 /**

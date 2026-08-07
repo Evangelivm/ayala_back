@@ -112,6 +112,7 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
+            fecha_orden_str: { type: 'keyword' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
             placa_unidad: {
@@ -126,6 +127,32 @@ export class SearchService implements OnModuleInit {
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
             procede_pago: { type: 'keyword' },
+            nro_factura: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            nro_serie: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            observaciones: { type: 'text', analyzer: 'standard' },
+            centro_costo_nivel1: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            centro_costo_nivel2: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            centro_costo_nivel3: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            moneda: { type: 'keyword' },
+            condicion: { type: 'keyword' },
+            tipo_detraccion: { type: 'keyword' },
+            items_texto: { type: 'text', analyzer: 'standard' },
+            total: { type: 'text' },
             deleted_at: { type: 'date' },
           },
         },
@@ -142,6 +169,7 @@ export class SearchService implements OnModuleInit {
             nombre_proveedor: { type: 'text', analyzer: 'standard' },
             ruc_proveedor: { type: 'keyword' },
             fecha_orden: { type: 'date' },
+            fecha_orden_str: { type: 'keyword' },
             fecha_registro: { type: 'date' },
             estado: { type: 'keyword' },
             placa_unidad: {
@@ -156,6 +184,32 @@ export class SearchService implements OnModuleInit {
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
             procede_pago: { type: 'keyword' },
+            nro_factura: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            nro_serie: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            observaciones: { type: 'text', analyzer: 'standard' },
+            centro_costo_nivel1: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            centro_costo_nivel2: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            centro_costo_nivel3: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            moneda: { type: 'keyword' },
+            condicion: { type: 'keyword' },
+            tipo_detraccion: { type: 'keyword' },
+            items_texto: { type: 'text', analyzer: 'standard' },
+            total: { type: 'text' },
             deleted_at: { type: 'date' },
           },
         },
@@ -289,10 +343,27 @@ export class SearchService implements OnModuleInit {
     };
   }
 
+  /**
+   * Texto libre concatenando código + descripción de cada ítem de la orden,
+   * para que la búsqueda por producto (p.ej. "cemento" o "CEM-001") funcione
+   * sin tener que abrir la orden.
+   */
+  private itemsTexto(
+    detalles: Array<{ codigo_item?: string | null; descripcion_item?: string | null }> | null | undefined,
+  ): string | null {
+    if (!detalles || detalles.length === 0) return null;
+    return (
+      detalles
+        .map((d) => [d.codigo_item, d.descripcion_item].filter(Boolean).join(' '))
+        .filter(Boolean)
+        .join(' | ') || null
+    );
+  }
+
   private async buildOrdenCompraDoc(id: number) {
     const orden = await this.prismaThird.ordenes_compra.findUnique({
       where: { id_orden_compra: id },
-      include: { proveedores: true },
+      include: { proveedores: true, detalles_orden_compra: true },
     });
     if (!orden) return null;
     const camion = await this.getCamionResumen(orden.id_camion);
@@ -303,6 +374,9 @@ export class SearchService implements OnModuleInit {
       nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
       ruc_proveedor: (orden as any).proveedores?.ruc || null,
       fecha_orden: orden.fecha_orden
+        ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
+        : null,
+      fecha_orden_str: orden.fecha_orden
         ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
         : null,
       fecha_registro: orden.fecha_registro
@@ -318,6 +392,17 @@ export class SearchService implements OnModuleInit {
       auto_contabilidad: orden.auto_contabilidad === true,
       jefe_proyecto: orden.jefe_proyecto === true,
       procede_pago: orden.procede_pago || null,
+      nro_factura: orden.nro_factura || null,
+      nro_serie: orden.nro_serie || null,
+      observaciones: orden.observaciones || null,
+      centro_costo_nivel1: orden.centro_costo_nivel1 || null,
+      centro_costo_nivel2: orden.centro_costo_nivel2 || null,
+      centro_costo_nivel3: orden.centro_costo_nivel3 || null,
+      moneda: orden.moneda || null,
+      condicion: orden.condicion || null,
+      tipo_detraccion: orden.tipo_detraccion || null,
+      items_texto: this.itemsTexto((orden as any).detalles_orden_compra),
+      total: orden.total != null ? orden.total.toString() : null,
       deleted_at: orden.deleted_at
         ? dayjs(orden.deleted_at).toISOString()
         : null,
@@ -327,7 +412,7 @@ export class SearchService implements OnModuleInit {
   private async buildOrdenServicioDoc(id: number) {
     const orden = await this.prismaThird.ordenes_servicio.findUnique({
       where: { id_orden_servicio: id },
-      include: { proveedores: true },
+      include: { proveedores: true, detalles_orden_servicio: true },
     });
     if (!orden) return null;
     const camion = await this.getCamionResumen((orden as any).id_camion);
@@ -338,6 +423,9 @@ export class SearchService implements OnModuleInit {
       nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
       ruc_proveedor: (orden as any).proveedores?.ruc || null,
       fecha_orden: (orden as any).fecha_orden
+        ? dayjs.utc((orden as any).fecha_orden).format('YYYY-MM-DD')
+        : null,
+      fecha_orden_str: (orden as any).fecha_orden
         ? dayjs.utc((orden as any).fecha_orden).format('YYYY-MM-DD')
         : null,
       fecha_registro: (orden as any).fecha_registro
@@ -353,6 +441,17 @@ export class SearchService implements OnModuleInit {
       auto_contabilidad: (orden as any).auto_contabilidad === true,
       jefe_proyecto: (orden as any).jefe_proyecto === true,
       procede_pago: (orden as any).procede_pago || null,
+      nro_factura: (orden as any).nro_factura || null,
+      nro_serie: (orden as any).nro_serie || null,
+      observaciones: (orden as any).observaciones || null,
+      centro_costo_nivel1: (orden as any).centro_costo_nivel1 || null,
+      centro_costo_nivel2: (orden as any).centro_costo_nivel2 || null,
+      centro_costo_nivel3: (orden as any).centro_costo_nivel3 || null,
+      moneda: (orden as any).moneda || null,
+      condicion: (orden as any).condicion || null,
+      tipo_detraccion: (orden as any).tipo_detraccion || null,
+      items_texto: this.itemsTexto((orden as any).detalles_orden_servicio),
+      total: (orden as any).total != null ? (orden as any).total.toString() : null,
       deleted_at: (orden as any).deleted_at
         ? dayjs((orden as any).deleted_at).toISOString()
         : null,
@@ -469,7 +568,7 @@ export class SearchService implements OnModuleInit {
 
     // ── ordenes_compra ────────────────────────────────────────────────────────
     const ordCompra = await this.prismaThird.ordenes_compra.findMany({
-      include: { proveedores: true },
+      include: { proveedores: true, detalles_orden_compra: true },
     });
     const camionesMapOC = await this.buildCamionesMap(
       ordCompra.map((o) => o.id_camion),
@@ -492,6 +591,9 @@ export class SearchService implements OnModuleInit {
           fecha_orden: o.fecha_orden
             ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
             : null,
+          fecha_orden_str: o.fecha_orden
+            ? dayjs.utc(o.fecha_orden).format('YYYY-MM-DD')
+            : null,
           fecha_registro: o.fecha_registro
             ? dayjs.utc(o.fecha_registro).format('YYYY-MM-DD')
             : null,
@@ -505,6 +607,17 @@ export class SearchService implements OnModuleInit {
           auto_contabilidad: o.auto_contabilidad === true,
           jefe_proyecto: o.jefe_proyecto === true,
           procede_pago: o.procede_pago || null,
+          nro_factura: o.nro_factura || null,
+          nro_serie: o.nro_serie || null,
+          observaciones: o.observaciones || null,
+          centro_costo_nivel1: o.centro_costo_nivel1 || null,
+          centro_costo_nivel2: o.centro_costo_nivel2 || null,
+          centro_costo_nivel3: o.centro_costo_nivel3 || null,
+          moneda: o.moneda || null,
+          condicion: o.condicion || null,
+          tipo_detraccion: o.tipo_detraccion || null,
+          items_texto: this.itemsTexto((o as any).detalles_orden_compra),
+          total: o.total != null ? o.total.toString() : null,
           deleted_at: o.deleted_at ? dayjs(o.deleted_at).toISOString() : null,
         },
       ];
@@ -516,7 +629,7 @@ export class SearchService implements OnModuleInit {
 
     // ── ordenes_servicio ──────────────────────────────────────────────────────
     const ordServicio = await this.prismaThird.ordenes_servicio.findMany({
-      include: { proveedores: true },
+      include: { proveedores: true, detalles_orden_servicio: true },
     });
     const camionesMapOS = await this.buildCamionesMap(
       ordServicio.map((o) => (o as any).id_camion),
@@ -540,6 +653,9 @@ export class SearchService implements OnModuleInit {
           fecha_orden: (o as any).fecha_orden
             ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
             : null,
+          fecha_orden_str: (o as any).fecha_orden
+            ? dayjs.utc((o as any).fecha_orden).format('YYYY-MM-DD')
+            : null,
           fecha_registro: (o as any).fecha_registro
             ? dayjs.utc((o as any).fecha_registro).format('YYYY-MM-DD')
             : null,
@@ -553,6 +669,17 @@ export class SearchService implements OnModuleInit {
           auto_contabilidad: (o as any).auto_contabilidad === true,
           jefe_proyecto: (o as any).jefe_proyecto === true,
           procede_pago: (o as any).procede_pago || null,
+          nro_factura: (o as any).nro_factura || null,
+          nro_serie: (o as any).nro_serie || null,
+          observaciones: (o as any).observaciones || null,
+          centro_costo_nivel1: (o as any).centro_costo_nivel1 || null,
+          centro_costo_nivel2: (o as any).centro_costo_nivel2 || null,
+          centro_costo_nivel3: (o as any).centro_costo_nivel3 || null,
+          moneda: (o as any).moneda || null,
+          condicion: (o as any).condicion || null,
+          tipo_detraccion: (o as any).tipo_detraccion || null,
+          items_texto: this.itemsTexto((o as any).detalles_orden_servicio),
+          total: (o as any).total != null ? (o as any).total.toString() : null,
           deleted_at: (o as any).deleted_at
             ? dayjs((o as any).deleted_at).toISOString()
             : null,
@@ -607,6 +734,18 @@ export class SearchService implements OnModuleInit {
         'placa_unidad',
         'nombre_chofer',
         'apellido_chofer',
+        'nro_factura',
+        'nro_serie',
+        'observaciones',
+        'centro_costo_nivel1',
+        'centro_costo_nivel2',
+        'centro_costo_nivel3',
+        'moneda',
+        'condicion',
+        'tipo_detraccion',
+        'items_texto',
+        'fecha_orden_str',
+        'total',
       ],
       ordenes_servicio: [
         'numero_orden',
@@ -616,6 +755,18 @@ export class SearchService implements OnModuleInit {
         'placa_unidad',
         'nombre_chofer',
         'apellido_chofer',
+        'nro_factura',
+        'nro_serie',
+        'observaciones',
+        'centro_costo_nivel1',
+        'centro_costo_nivel2',
+        'centro_costo_nivel3',
+        'moneda',
+        'condicion',
+        'tipo_detraccion',
+        'items_texto',
+        'fecha_orden_str',
+        'total',
       ],
     };
 
@@ -655,9 +806,10 @@ export class SearchService implements OnModuleInit {
                   fields: searchFields[index],
                   type: 'best_fields',
                   fuzziness: 'AUTO',
+                  operator: 'and',
                 },
               },
-              ...(isNumericQ && index === 'programacion_tecnica'
+              ...(isNumericQ
                 ? [{ term: { id: parseInt(trimmedQ) } }]
                 : []),
             ],
@@ -1007,6 +1159,22 @@ export class SearchService implements OnModuleInit {
    * así que la búsqueda libre por placa/chofer (fallback sin ES) resuelve
    * primero los id_camion que matchean y los agrega como OR adicional.
    */
+  // "estado" es un enum en Prisma (no admite `contains`); se resuelve a los
+  // valores del enum cuyo texto matchea parcialmente el término buscado.
+  private static readonly ORDEN_ESTADOS = [
+    'PENDIENTE',
+    'APROBADA',
+    'PARCIALMENTE_RECEPCIONADA',
+    'COMPLETADA',
+    'CANCELADA',
+    'FIRMADA',
+  ];
+
+  private estadosMatching(q: string): string[] {
+    const upper = q.toUpperCase();
+    return SearchService.ORDEN_ESTADOS.filter((e) => e.includes(upper));
+  }
+
   private async camionIdsByQuery(q: string): Promise<number[]> {
     const camiones = await this.prisma.camiones.findMany({
       where: {
@@ -1028,6 +1196,7 @@ export class SearchService implements OnModuleInit {
     filtros: Record<string, string | boolean> = {},
   ) {
     const camionIds = q ? await this.camionIdsByQuery(q) : [];
+    const estadosMatch = q ? this.estadosMatching(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1035,11 +1204,35 @@ export class SearchService implements OnModuleInit {
         ? {
             OR: [
               { numero_orden: { contains: q } },
-              { estado: { contains: q } },
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
+              { nro_factura: { contains: q } },
+              { nro_serie: { contains: q } },
+              { observaciones: { contains: q } },
+              { centro_costo_nivel1: { contains: q } },
+              { centro_costo_nivel2: { contains: q } },
+              { centro_costo_nivel3: { contains: q } },
+              { moneda: { contains: q } },
+              { condicion: { contains: q } },
+              { tipo_detraccion: { contains: q } },
+              {
+                detalles_orden_compra: {
+                  some: {
+                    OR: [
+                      { codigo_item: { contains: q } },
+                      { descripcion_item: { contains: q } },
+                    ],
+                  },
+                },
+              },
+              ...(estadosMatch.length > 0
+                ? [{ estado: { in: estadosMatch } }]
+                : []),
               ...(camionIds.length > 0
                 ? [{ id_camion: { in: camionIds } }]
+                : []),
+              ...(/^\d+$/.test(q.trim())
+                ? [{ id_orden_compra: parseInt(q.trim()) }]
                 : []),
             ],
           }
@@ -1138,6 +1331,7 @@ export class SearchService implements OnModuleInit {
     filtros: Record<string, string | boolean> = {},
   ) {
     const camionIds = q ? await this.camionIdsByQuery(q) : [];
+    const estadosMatch = q ? this.estadosMatching(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1145,11 +1339,35 @@ export class SearchService implements OnModuleInit {
         ? {
             OR: [
               { numero_orden: { contains: q } },
-              { estado: { contains: q } },
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
+              { nro_factura: { contains: q } },
+              { nro_serie: { contains: q } },
+              { observaciones: { contains: q } },
+              { centro_costo_nivel1: { contains: q } },
+              { centro_costo_nivel2: { contains: q } },
+              { centro_costo_nivel3: { contains: q } },
+              { moneda: { contains: q } },
+              { condicion: { contains: q } },
+              { tipo_detraccion: { contains: q } },
+              {
+                detalles_orden_servicio: {
+                  some: {
+                    OR: [
+                      { codigo_item: { contains: q } },
+                      { descripcion_item: { contains: q } },
+                    ],
+                  },
+                },
+              },
+              ...(estadosMatch.length > 0
+                ? [{ estado: { in: estadosMatch } }]
+                : []),
               ...(camionIds.length > 0
                 ? [{ id_camion: { in: camionIds } }]
+                : []),
+              ...(/^\d+$/.test(q.trim())
+                ? [{ id_orden_servicio: parseInt(q.trim()) }]
                 : []),
             ],
           }

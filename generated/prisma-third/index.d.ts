@@ -308,6 +308,11 @@ export type cat_indicador_afecto = $Result.DefaultSelection<Prisma.$cat_indicado
  * 
  */
 export type cat_concepto_flujo_efectivo = $Result.DefaultSelection<Prisma.$cat_concepto_flujo_efectivoPayload>
+/**
+ * Model masivo
+ * 
+ */
+export type masivo = $Result.DefaultSelection<Prisma.$masivoPayload>
 
 /**
  * Enums
@@ -1342,6 +1347,16 @@ export class PrismaClient<
     * ```
     */
   get cat_concepto_flujo_efectivo(): Prisma.cat_concepto_flujo_efectivoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.masivo`: Exposes CRUD operations for the **masivo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Masivos
+    * const masivos = await prisma.masivo.findMany()
+    * ```
+    */
+  get masivo(): Prisma.masivoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1841,7 +1856,8 @@ export namespace Prisma {
     cat_forma_pago: 'cat_forma_pago',
     cat_medio_pago: 'cat_medio_pago',
     cat_indicador_afecto: 'cat_indicador_afecto',
-    cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo'
+    cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo',
+    masivo: 'masivo'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1860,7 +1876,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo"
+      modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo" | "masivo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5758,6 +5774,72 @@ export namespace Prisma {
           }
         }
       }
+      masivo: {
+        payload: Prisma.$masivoPayload<ExtArgs>
+        fields: Prisma.masivoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.masivoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.masivoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          findFirst: {
+            args: Prisma.masivoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.masivoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          findMany: {
+            args: Prisma.masivoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>[]
+          }
+          create: {
+            args: Prisma.masivoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          createMany: {
+            args: Prisma.masivoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.masivoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          update: {
+            args: Prisma.masivoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          deleteMany: {
+            args: Prisma.masivoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.masivoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.masivoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$masivoPayload>
+          }
+          aggregate: {
+            args: Prisma.MasivoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasivo>
+          }
+          groupBy: {
+            args: Prisma.masivoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasivoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.masivoCountArgs<ExtArgs>
+            result: $Utils.Optional<MasivoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5913,6 +5995,7 @@ export namespace Prisma {
     cat_medio_pago?: cat_medio_pagoOmit
     cat_indicador_afecto?: cat_indicador_afectoOmit
     cat_concepto_flujo_efectivo?: cat_concepto_flujo_efectivoOmit
+    masivo?: masivoOmit
   }
 
   /* Types for Logging */
@@ -68501,6 +68584,1121 @@ export namespace Prisma {
 
 
   /**
+   * Model masivo
+   */
+
+  export type AggregateMasivo = {
+    _count: MasivoCountAggregateOutputType | null
+    _avg: MasivoAvgAggregateOutputType | null
+    _sum: MasivoSumAggregateOutputType | null
+    _min: MasivoMinAggregateOutputType | null
+    _max: MasivoMaxAggregateOutputType | null
+  }
+
+  export type MasivoAvgAggregateOutputType = {
+    id: number | null
+    campo: number | null
+    sub_diario: number | null
+    importe_original: Decimal | null
+  }
+
+  export type MasivoSumAggregateOutputType = {
+    id: number | null
+    campo: number | null
+    sub_diario: number | null
+    importe_original: Decimal | null
+  }
+
+  export type MasivoMinAggregateOutputType = {
+    id: number | null
+    campo: number | null
+    sub_diario: number | null
+    num_comprobante: string | null
+    fecha_documento: Date | null
+    fecha_vencimiento: Date | null
+    tipo_documento: string | null
+    numero_documento: string | null
+    codigo_anexo: string | null
+    glosa_principal: string | null
+    importe_original: Decimal | null
+    debe_haber: string | null
+    cod_moneda: string | null
+    tasa_igv: string | null
+    cuenta_contable: string | null
+    codigo_auxiliar: string | null
+    tipo_doc_referencia: string | null
+    num_doc_referencia: string | null
+    fecha_doc_referencia: Date | null
+    tipo_conversion: string | null
+    flag_conversion: string | null
+    creado_en: Date | null
+  }
+
+  export type MasivoMaxAggregateOutputType = {
+    id: number | null
+    campo: number | null
+    sub_diario: number | null
+    num_comprobante: string | null
+    fecha_documento: Date | null
+    fecha_vencimiento: Date | null
+    tipo_documento: string | null
+    numero_documento: string | null
+    codigo_anexo: string | null
+    glosa_principal: string | null
+    importe_original: Decimal | null
+    debe_haber: string | null
+    cod_moneda: string | null
+    tasa_igv: string | null
+    cuenta_contable: string | null
+    codigo_auxiliar: string | null
+    tipo_doc_referencia: string | null
+    num_doc_referencia: string | null
+    fecha_doc_referencia: Date | null
+    tipo_conversion: string | null
+    flag_conversion: string | null
+    creado_en: Date | null
+  }
+
+  export type MasivoCountAggregateOutputType = {
+    id: number
+    campo: number
+    sub_diario: number
+    num_comprobante: number
+    fecha_documento: number
+    fecha_vencimiento: number
+    tipo_documento: number
+    numero_documento: number
+    codigo_anexo: number
+    glosa_principal: number
+    importe_original: number
+    debe_haber: number
+    cod_moneda: number
+    tasa_igv: number
+    cuenta_contable: number
+    codigo_auxiliar: number
+    tipo_doc_referencia: number
+    num_doc_referencia: number
+    fecha_doc_referencia: number
+    tipo_conversion: number
+    flag_conversion: number
+    creado_en: number
+    _all: number
+  }
+
+
+  export type MasivoAvgAggregateInputType = {
+    id?: true
+    campo?: true
+    sub_diario?: true
+    importe_original?: true
+  }
+
+  export type MasivoSumAggregateInputType = {
+    id?: true
+    campo?: true
+    sub_diario?: true
+    importe_original?: true
+  }
+
+  export type MasivoMinAggregateInputType = {
+    id?: true
+    campo?: true
+    sub_diario?: true
+    num_comprobante?: true
+    fecha_documento?: true
+    fecha_vencimiento?: true
+    tipo_documento?: true
+    numero_documento?: true
+    codigo_anexo?: true
+    glosa_principal?: true
+    importe_original?: true
+    debe_haber?: true
+    cod_moneda?: true
+    tasa_igv?: true
+    cuenta_contable?: true
+    codigo_auxiliar?: true
+    tipo_doc_referencia?: true
+    num_doc_referencia?: true
+    fecha_doc_referencia?: true
+    tipo_conversion?: true
+    flag_conversion?: true
+    creado_en?: true
+  }
+
+  export type MasivoMaxAggregateInputType = {
+    id?: true
+    campo?: true
+    sub_diario?: true
+    num_comprobante?: true
+    fecha_documento?: true
+    fecha_vencimiento?: true
+    tipo_documento?: true
+    numero_documento?: true
+    codigo_anexo?: true
+    glosa_principal?: true
+    importe_original?: true
+    debe_haber?: true
+    cod_moneda?: true
+    tasa_igv?: true
+    cuenta_contable?: true
+    codigo_auxiliar?: true
+    tipo_doc_referencia?: true
+    num_doc_referencia?: true
+    fecha_doc_referencia?: true
+    tipo_conversion?: true
+    flag_conversion?: true
+    creado_en?: true
+  }
+
+  export type MasivoCountAggregateInputType = {
+    id?: true
+    campo?: true
+    sub_diario?: true
+    num_comprobante?: true
+    fecha_documento?: true
+    fecha_vencimiento?: true
+    tipo_documento?: true
+    numero_documento?: true
+    codigo_anexo?: true
+    glosa_principal?: true
+    importe_original?: true
+    debe_haber?: true
+    cod_moneda?: true
+    tasa_igv?: true
+    cuenta_contable?: true
+    codigo_auxiliar?: true
+    tipo_doc_referencia?: true
+    num_doc_referencia?: true
+    fecha_doc_referencia?: true
+    tipo_conversion?: true
+    flag_conversion?: true
+    creado_en?: true
+    _all?: true
+  }
+
+  export type MasivoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which masivo to aggregate.
+     */
+    where?: masivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of masivos to fetch.
+     */
+    orderBy?: masivoOrderByWithRelationInput | masivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: masivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` masivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` masivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned masivos
+    **/
+    _count?: true | MasivoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MasivoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasivoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MasivoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MasivoMaxAggregateInputType
+  }
+
+  export type GetMasivoAggregateType<T extends MasivoAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasivo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMasivo[P]>
+      : GetScalarType<T[P], AggregateMasivo[P]>
+  }
+
+
+
+
+  export type masivoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: masivoWhereInput
+    orderBy?: masivoOrderByWithAggregationInput | masivoOrderByWithAggregationInput[]
+    by: MasivoScalarFieldEnum[] | MasivoScalarFieldEnum
+    having?: masivoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MasivoCountAggregateInputType | true
+    _avg?: MasivoAvgAggregateInputType
+    _sum?: MasivoSumAggregateInputType
+    _min?: MasivoMinAggregateInputType
+    _max?: MasivoMaxAggregateInputType
+  }
+
+  export type MasivoGroupByOutputType = {
+    id: number
+    campo: number
+    sub_diario: number
+    num_comprobante: string
+    fecha_documento: Date
+    fecha_vencimiento: Date
+    tipo_documento: string | null
+    numero_documento: string | null
+    codigo_anexo: string | null
+    glosa_principal: string | null
+    importe_original: Decimal
+    debe_haber: string
+    cod_moneda: string
+    tasa_igv: string | null
+    cuenta_contable: string
+    codigo_auxiliar: string | null
+    tipo_doc_referencia: string | null
+    num_doc_referencia: string | null
+    fecha_doc_referencia: Date | null
+    tipo_conversion: string | null
+    flag_conversion: string | null
+    creado_en: Date | null
+    _count: MasivoCountAggregateOutputType | null
+    _avg: MasivoAvgAggregateOutputType | null
+    _sum: MasivoSumAggregateOutputType | null
+    _min: MasivoMinAggregateOutputType | null
+    _max: MasivoMaxAggregateOutputType | null
+  }
+
+  type GetMasivoGroupByPayload<T extends masivoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MasivoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MasivoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MasivoGroupByOutputType[P]>
+            : GetScalarType<T[P], MasivoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type masivoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campo?: boolean
+    sub_diario?: boolean
+    num_comprobante?: boolean
+    fecha_documento?: boolean
+    fecha_vencimiento?: boolean
+    tipo_documento?: boolean
+    numero_documento?: boolean
+    codigo_anexo?: boolean
+    glosa_principal?: boolean
+    importe_original?: boolean
+    debe_haber?: boolean
+    cod_moneda?: boolean
+    tasa_igv?: boolean
+    cuenta_contable?: boolean
+    codigo_auxiliar?: boolean
+    tipo_doc_referencia?: boolean
+    num_doc_referencia?: boolean
+    fecha_doc_referencia?: boolean
+    tipo_conversion?: boolean
+    flag_conversion?: boolean
+    creado_en?: boolean
+  }, ExtArgs["result"]["masivo"]>
+
+
+
+  export type masivoSelectScalar = {
+    id?: boolean
+    campo?: boolean
+    sub_diario?: boolean
+    num_comprobante?: boolean
+    fecha_documento?: boolean
+    fecha_vencimiento?: boolean
+    tipo_documento?: boolean
+    numero_documento?: boolean
+    codigo_anexo?: boolean
+    glosa_principal?: boolean
+    importe_original?: boolean
+    debe_haber?: boolean
+    cod_moneda?: boolean
+    tasa_igv?: boolean
+    cuenta_contable?: boolean
+    codigo_auxiliar?: boolean
+    tipo_doc_referencia?: boolean
+    num_doc_referencia?: boolean
+    fecha_doc_referencia?: boolean
+    tipo_conversion?: boolean
+    flag_conversion?: boolean
+    creado_en?: boolean
+  }
+
+  export type masivoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campo" | "sub_diario" | "num_comprobante" | "fecha_documento" | "fecha_vencimiento" | "tipo_documento" | "numero_documento" | "codigo_anexo" | "glosa_principal" | "importe_original" | "debe_haber" | "cod_moneda" | "tasa_igv" | "cuenta_contable" | "codigo_auxiliar" | "tipo_doc_referencia" | "num_doc_referencia" | "fecha_doc_referencia" | "tipo_conversion" | "flag_conversion" | "creado_en", ExtArgs["result"]["masivo"]>
+
+  export type $masivoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "masivo"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      campo: number
+      sub_diario: number
+      num_comprobante: string
+      fecha_documento: Date
+      fecha_vencimiento: Date
+      tipo_documento: string | null
+      numero_documento: string | null
+      codigo_anexo: string | null
+      glosa_principal: string | null
+      importe_original: Prisma.Decimal
+      debe_haber: string
+      cod_moneda: string
+      tasa_igv: string | null
+      cuenta_contable: string
+      codigo_auxiliar: string | null
+      tipo_doc_referencia: string | null
+      num_doc_referencia: string | null
+      fecha_doc_referencia: Date | null
+      tipo_conversion: string | null
+      flag_conversion: string | null
+      creado_en: Date | null
+    }, ExtArgs["result"]["masivo"]>
+    composites: {}
+  }
+
+  type masivoGetPayload<S extends boolean | null | undefined | masivoDefaultArgs> = $Result.GetResult<Prisma.$masivoPayload, S>
+
+  type masivoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<masivoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasivoCountAggregateInputType | true
+    }
+
+  export interface masivoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['masivo'], meta: { name: 'masivo' } }
+    /**
+     * Find zero or one Masivo that matches the filter.
+     * @param {masivoFindUniqueArgs} args - Arguments to find a Masivo
+     * @example
+     * // Get one Masivo
+     * const masivo = await prisma.masivo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends masivoFindUniqueArgs>(args: SelectSubset<T, masivoFindUniqueArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Masivo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {masivoFindUniqueOrThrowArgs} args - Arguments to find a Masivo
+     * @example
+     * // Get one Masivo
+     * const masivo = await prisma.masivo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends masivoFindUniqueOrThrowArgs>(args: SelectSubset<T, masivoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Masivo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoFindFirstArgs} args - Arguments to find a Masivo
+     * @example
+     * // Get one Masivo
+     * const masivo = await prisma.masivo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends masivoFindFirstArgs>(args?: SelectSubset<T, masivoFindFirstArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Masivo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoFindFirstOrThrowArgs} args - Arguments to find a Masivo
+     * @example
+     * // Get one Masivo
+     * const masivo = await prisma.masivo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends masivoFindFirstOrThrowArgs>(args?: SelectSubset<T, masivoFindFirstOrThrowArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Masivos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Masivos
+     * const masivos = await prisma.masivo.findMany()
+     * 
+     * // Get first 10 Masivos
+     * const masivos = await prisma.masivo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const masivoWithIdOnly = await prisma.masivo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends masivoFindManyArgs>(args?: SelectSubset<T, masivoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Masivo.
+     * @param {masivoCreateArgs} args - Arguments to create a Masivo.
+     * @example
+     * // Create one Masivo
+     * const Masivo = await prisma.masivo.create({
+     *   data: {
+     *     // ... data to create a Masivo
+     *   }
+     * })
+     * 
+     */
+    create<T extends masivoCreateArgs>(args: SelectSubset<T, masivoCreateArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Masivos.
+     * @param {masivoCreateManyArgs} args - Arguments to create many Masivos.
+     * @example
+     * // Create many Masivos
+     * const masivo = await prisma.masivo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends masivoCreateManyArgs>(args?: SelectSubset<T, masivoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Masivo.
+     * @param {masivoDeleteArgs} args - Arguments to delete one Masivo.
+     * @example
+     * // Delete one Masivo
+     * const Masivo = await prisma.masivo.delete({
+     *   where: {
+     *     // ... filter to delete one Masivo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends masivoDeleteArgs>(args: SelectSubset<T, masivoDeleteArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Masivo.
+     * @param {masivoUpdateArgs} args - Arguments to update one Masivo.
+     * @example
+     * // Update one Masivo
+     * const masivo = await prisma.masivo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends masivoUpdateArgs>(args: SelectSubset<T, masivoUpdateArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Masivos.
+     * @param {masivoDeleteManyArgs} args - Arguments to filter Masivos to delete.
+     * @example
+     * // Delete a few Masivos
+     * const { count } = await prisma.masivo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends masivoDeleteManyArgs>(args?: SelectSubset<T, masivoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Masivos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Masivos
+     * const masivo = await prisma.masivo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends masivoUpdateManyArgs>(args: SelectSubset<T, masivoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Masivo.
+     * @param {masivoUpsertArgs} args - Arguments to update or create a Masivo.
+     * @example
+     * // Update or create a Masivo
+     * const masivo = await prisma.masivo.upsert({
+     *   create: {
+     *     // ... data to create a Masivo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Masivo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends masivoUpsertArgs>(args: SelectSubset<T, masivoUpsertArgs<ExtArgs>>): Prisma__masivoClient<$Result.GetResult<Prisma.$masivoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Masivos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoCountArgs} args - Arguments to filter Masivos to count.
+     * @example
+     * // Count the number of Masivos
+     * const count = await prisma.masivo.count({
+     *   where: {
+     *     // ... the filter for the Masivos we want to count
+     *   }
+     * })
+    **/
+    count<T extends masivoCountArgs>(
+      args?: Subset<T, masivoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MasivoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Masivo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasivoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MasivoAggregateArgs>(args: Subset<T, MasivoAggregateArgs>): Prisma.PrismaPromise<GetMasivoAggregateType<T>>
+
+    /**
+     * Group by Masivo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {masivoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends masivoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: masivoGroupByArgs['orderBy'] }
+        : { orderBy?: masivoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, masivoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasivoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the masivo model
+   */
+  readonly fields: masivoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for masivo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__masivoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the masivo model
+   */
+  interface masivoFieldRefs {
+    readonly id: FieldRef<"masivo", 'Int'>
+    readonly campo: FieldRef<"masivo", 'Int'>
+    readonly sub_diario: FieldRef<"masivo", 'Int'>
+    readonly num_comprobante: FieldRef<"masivo", 'String'>
+    readonly fecha_documento: FieldRef<"masivo", 'DateTime'>
+    readonly fecha_vencimiento: FieldRef<"masivo", 'DateTime'>
+    readonly tipo_documento: FieldRef<"masivo", 'String'>
+    readonly numero_documento: FieldRef<"masivo", 'String'>
+    readonly codigo_anexo: FieldRef<"masivo", 'String'>
+    readonly glosa_principal: FieldRef<"masivo", 'String'>
+    readonly importe_original: FieldRef<"masivo", 'Decimal'>
+    readonly debe_haber: FieldRef<"masivo", 'String'>
+    readonly cod_moneda: FieldRef<"masivo", 'String'>
+    readonly tasa_igv: FieldRef<"masivo", 'String'>
+    readonly cuenta_contable: FieldRef<"masivo", 'String'>
+    readonly codigo_auxiliar: FieldRef<"masivo", 'String'>
+    readonly tipo_doc_referencia: FieldRef<"masivo", 'String'>
+    readonly num_doc_referencia: FieldRef<"masivo", 'String'>
+    readonly fecha_doc_referencia: FieldRef<"masivo", 'DateTime'>
+    readonly tipo_conversion: FieldRef<"masivo", 'String'>
+    readonly flag_conversion: FieldRef<"masivo", 'String'>
+    readonly creado_en: FieldRef<"masivo", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * masivo findUnique
+   */
+  export type masivoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter, which masivo to fetch.
+     */
+    where: masivoWhereUniqueInput
+  }
+
+  /**
+   * masivo findUniqueOrThrow
+   */
+  export type masivoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter, which masivo to fetch.
+     */
+    where: masivoWhereUniqueInput
+  }
+
+  /**
+   * masivo findFirst
+   */
+  export type masivoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter, which masivo to fetch.
+     */
+    where?: masivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of masivos to fetch.
+     */
+    orderBy?: masivoOrderByWithRelationInput | masivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for masivos.
+     */
+    cursor?: masivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` masivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` masivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of masivos.
+     */
+    distinct?: MasivoScalarFieldEnum | MasivoScalarFieldEnum[]
+  }
+
+  /**
+   * masivo findFirstOrThrow
+   */
+  export type masivoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter, which masivo to fetch.
+     */
+    where?: masivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of masivos to fetch.
+     */
+    orderBy?: masivoOrderByWithRelationInput | masivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for masivos.
+     */
+    cursor?: masivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` masivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` masivos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of masivos.
+     */
+    distinct?: MasivoScalarFieldEnum | MasivoScalarFieldEnum[]
+  }
+
+  /**
+   * masivo findMany
+   */
+  export type masivoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter, which masivos to fetch.
+     */
+    where?: masivoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of masivos to fetch.
+     */
+    orderBy?: masivoOrderByWithRelationInput | masivoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing masivos.
+     */
+    cursor?: masivoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` masivos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` masivos.
+     */
+    skip?: number
+    distinct?: MasivoScalarFieldEnum | MasivoScalarFieldEnum[]
+  }
+
+  /**
+   * masivo create
+   */
+  export type masivoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a masivo.
+     */
+    data: XOR<masivoCreateInput, masivoUncheckedCreateInput>
+  }
+
+  /**
+   * masivo createMany
+   */
+  export type masivoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many masivos.
+     */
+    data: masivoCreateManyInput | masivoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * masivo update
+   */
+  export type masivoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a masivo.
+     */
+    data: XOR<masivoUpdateInput, masivoUncheckedUpdateInput>
+    /**
+     * Choose, which masivo to update.
+     */
+    where: masivoWhereUniqueInput
+  }
+
+  /**
+   * masivo updateMany
+   */
+  export type masivoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update masivos.
+     */
+    data: XOR<masivoUpdateManyMutationInput, masivoUncheckedUpdateManyInput>
+    /**
+     * Filter which masivos to update
+     */
+    where?: masivoWhereInput
+    /**
+     * Limit how many masivos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * masivo upsert
+   */
+  export type masivoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the masivo to update in case it exists.
+     */
+    where: masivoWhereUniqueInput
+    /**
+     * In case the masivo found by the `where` argument doesn't exist, create a new masivo with this data.
+     */
+    create: XOR<masivoCreateInput, masivoUncheckedCreateInput>
+    /**
+     * In case the masivo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<masivoUpdateInput, masivoUncheckedUpdateInput>
+  }
+
+  /**
+   * masivo delete
+   */
+  export type masivoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+    /**
+     * Filter which masivo to delete.
+     */
+    where: masivoWhereUniqueInput
+  }
+
+  /**
+   * masivo deleteMany
+   */
+  export type masivoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which masivos to delete
+     */
+    where?: masivoWhereInput
+    /**
+     * Limit how many masivos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * masivo without action
+   */
+  export type masivoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the masivo
+     */
+    select?: masivoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the masivo
+     */
+    omit?: masivoOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -69494,6 +70692,34 @@ export namespace Prisma {
   export type Cat_concepto_flujo_efectivoScalarFieldEnum = (typeof Cat_concepto_flujo_efectivoScalarFieldEnum)[keyof typeof Cat_concepto_flujo_efectivoScalarFieldEnum]
 
 
+  export const MasivoScalarFieldEnum: {
+    id: 'id',
+    campo: 'campo',
+    sub_diario: 'sub_diario',
+    num_comprobante: 'num_comprobante',
+    fecha_documento: 'fecha_documento',
+    fecha_vencimiento: 'fecha_vencimiento',
+    tipo_documento: 'tipo_documento',
+    numero_documento: 'numero_documento',
+    codigo_anexo: 'codigo_anexo',
+    glosa_principal: 'glosa_principal',
+    importe_original: 'importe_original',
+    debe_haber: 'debe_haber',
+    cod_moneda: 'cod_moneda',
+    tasa_igv: 'tasa_igv',
+    cuenta_contable: 'cuenta_contable',
+    codigo_auxiliar: 'codigo_auxiliar',
+    tipo_doc_referencia: 'tipo_doc_referencia',
+    num_doc_referencia: 'num_doc_referencia',
+    fecha_doc_referencia: 'fecha_doc_referencia',
+    tipo_conversion: 'tipo_conversion',
+    flag_conversion: 'flag_conversion',
+    creado_en: 'creado_en'
+  };
+
+  export type MasivoScalarFieldEnum = (typeof MasivoScalarFieldEnum)[keyof typeof MasivoScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -70121,6 +71347,26 @@ export namespace Prisma {
   };
 
   export type cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum = (typeof cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum)[keyof typeof cat_concepto_flujo_efectivoOrderByRelevanceFieldEnum]
+
+
+  export const masivoOrderByRelevanceFieldEnum: {
+    num_comprobante: 'num_comprobante',
+    tipo_documento: 'tipo_documento',
+    numero_documento: 'numero_documento',
+    codigo_anexo: 'codigo_anexo',
+    glosa_principal: 'glosa_principal',
+    debe_haber: 'debe_haber',
+    cod_moneda: 'cod_moneda',
+    tasa_igv: 'tasa_igv',
+    cuenta_contable: 'cuenta_contable',
+    codigo_auxiliar: 'codigo_auxiliar',
+    tipo_doc_referencia: 'tipo_doc_referencia',
+    num_doc_referencia: 'num_doc_referencia',
+    tipo_conversion: 'tipo_conversion',
+    flag_conversion: 'flag_conversion'
+  };
+
+  export type masivoOrderByRelevanceFieldEnum = (typeof masivoOrderByRelevanceFieldEnum)[keyof typeof masivoOrderByRelevanceFieldEnum]
 
 
   /**
@@ -75550,6 +76796,146 @@ export namespace Prisma {
     NOT?: cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput | cat_concepto_flujo_efectivoScalarWhereWithAggregatesInput[]
     codigo?: StringWithAggregatesFilter<"cat_concepto_flujo_efectivo"> | string
     descripcion?: StringWithAggregatesFilter<"cat_concepto_flujo_efectivo"> | string
+  }
+
+  export type masivoWhereInput = {
+    AND?: masivoWhereInput | masivoWhereInput[]
+    OR?: masivoWhereInput[]
+    NOT?: masivoWhereInput | masivoWhereInput[]
+    id?: IntFilter<"masivo"> | number
+    campo?: IntFilter<"masivo"> | number
+    sub_diario?: IntFilter<"masivo"> | number
+    num_comprobante?: StringFilter<"masivo"> | string
+    fecha_documento?: DateTimeFilter<"masivo"> | Date | string
+    fecha_vencimiento?: DateTimeFilter<"masivo"> | Date | string
+    tipo_documento?: StringNullableFilter<"masivo"> | string | null
+    numero_documento?: StringNullableFilter<"masivo"> | string | null
+    codigo_anexo?: StringNullableFilter<"masivo"> | string | null
+    glosa_principal?: StringNullableFilter<"masivo"> | string | null
+    importe_original?: DecimalFilter<"masivo"> | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFilter<"masivo"> | string
+    cod_moneda?: StringFilter<"masivo"> | string
+    tasa_igv?: StringNullableFilter<"masivo"> | string | null
+    cuenta_contable?: StringFilter<"masivo"> | string
+    codigo_auxiliar?: StringNullableFilter<"masivo"> | string | null
+    tipo_doc_referencia?: StringNullableFilter<"masivo"> | string | null
+    num_doc_referencia?: StringNullableFilter<"masivo"> | string | null
+    fecha_doc_referencia?: DateTimeNullableFilter<"masivo"> | Date | string | null
+    tipo_conversion?: StringNullableFilter<"masivo"> | string | null
+    flag_conversion?: StringNullableFilter<"masivo"> | string | null
+    creado_en?: DateTimeNullableFilter<"masivo"> | Date | string | null
+  }
+
+  export type masivoOrderByWithRelationInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    num_comprobante?: SortOrder
+    fecha_documento?: SortOrder
+    fecha_vencimiento?: SortOrder
+    tipo_documento?: SortOrderInput | SortOrder
+    numero_documento?: SortOrderInput | SortOrder
+    codigo_anexo?: SortOrderInput | SortOrder
+    glosa_principal?: SortOrderInput | SortOrder
+    importe_original?: SortOrder
+    debe_haber?: SortOrder
+    cod_moneda?: SortOrder
+    tasa_igv?: SortOrderInput | SortOrder
+    cuenta_contable?: SortOrder
+    codigo_auxiliar?: SortOrderInput | SortOrder
+    tipo_doc_referencia?: SortOrderInput | SortOrder
+    num_doc_referencia?: SortOrderInput | SortOrder
+    fecha_doc_referencia?: SortOrderInput | SortOrder
+    tipo_conversion?: SortOrderInput | SortOrder
+    flag_conversion?: SortOrderInput | SortOrder
+    creado_en?: SortOrderInput | SortOrder
+    _relevance?: masivoOrderByRelevanceInput
+  }
+
+  export type masivoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: masivoWhereInput | masivoWhereInput[]
+    OR?: masivoWhereInput[]
+    NOT?: masivoWhereInput | masivoWhereInput[]
+    campo?: IntFilter<"masivo"> | number
+    sub_diario?: IntFilter<"masivo"> | number
+    num_comprobante?: StringFilter<"masivo"> | string
+    fecha_documento?: DateTimeFilter<"masivo"> | Date | string
+    fecha_vencimiento?: DateTimeFilter<"masivo"> | Date | string
+    tipo_documento?: StringNullableFilter<"masivo"> | string | null
+    numero_documento?: StringNullableFilter<"masivo"> | string | null
+    codigo_anexo?: StringNullableFilter<"masivo"> | string | null
+    glosa_principal?: StringNullableFilter<"masivo"> | string | null
+    importe_original?: DecimalFilter<"masivo"> | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFilter<"masivo"> | string
+    cod_moneda?: StringFilter<"masivo"> | string
+    tasa_igv?: StringNullableFilter<"masivo"> | string | null
+    cuenta_contable?: StringFilter<"masivo"> | string
+    codigo_auxiliar?: StringNullableFilter<"masivo"> | string | null
+    tipo_doc_referencia?: StringNullableFilter<"masivo"> | string | null
+    num_doc_referencia?: StringNullableFilter<"masivo"> | string | null
+    fecha_doc_referencia?: DateTimeNullableFilter<"masivo"> | Date | string | null
+    tipo_conversion?: StringNullableFilter<"masivo"> | string | null
+    flag_conversion?: StringNullableFilter<"masivo"> | string | null
+    creado_en?: DateTimeNullableFilter<"masivo"> | Date | string | null
+  }, "id">
+
+  export type masivoOrderByWithAggregationInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    num_comprobante?: SortOrder
+    fecha_documento?: SortOrder
+    fecha_vencimiento?: SortOrder
+    tipo_documento?: SortOrderInput | SortOrder
+    numero_documento?: SortOrderInput | SortOrder
+    codigo_anexo?: SortOrderInput | SortOrder
+    glosa_principal?: SortOrderInput | SortOrder
+    importe_original?: SortOrder
+    debe_haber?: SortOrder
+    cod_moneda?: SortOrder
+    tasa_igv?: SortOrderInput | SortOrder
+    cuenta_contable?: SortOrder
+    codigo_auxiliar?: SortOrderInput | SortOrder
+    tipo_doc_referencia?: SortOrderInput | SortOrder
+    num_doc_referencia?: SortOrderInput | SortOrder
+    fecha_doc_referencia?: SortOrderInput | SortOrder
+    tipo_conversion?: SortOrderInput | SortOrder
+    flag_conversion?: SortOrderInput | SortOrder
+    creado_en?: SortOrderInput | SortOrder
+    _count?: masivoCountOrderByAggregateInput
+    _avg?: masivoAvgOrderByAggregateInput
+    _max?: masivoMaxOrderByAggregateInput
+    _min?: masivoMinOrderByAggregateInput
+    _sum?: masivoSumOrderByAggregateInput
+  }
+
+  export type masivoScalarWhereWithAggregatesInput = {
+    AND?: masivoScalarWhereWithAggregatesInput | masivoScalarWhereWithAggregatesInput[]
+    OR?: masivoScalarWhereWithAggregatesInput[]
+    NOT?: masivoScalarWhereWithAggregatesInput | masivoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"masivo"> | number
+    campo?: IntWithAggregatesFilter<"masivo"> | number
+    sub_diario?: IntWithAggregatesFilter<"masivo"> | number
+    num_comprobante?: StringWithAggregatesFilter<"masivo"> | string
+    fecha_documento?: DateTimeWithAggregatesFilter<"masivo"> | Date | string
+    fecha_vencimiento?: DateTimeWithAggregatesFilter<"masivo"> | Date | string
+    tipo_documento?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    numero_documento?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    codigo_anexo?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    glosa_principal?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    importe_original?: DecimalWithAggregatesFilter<"masivo"> | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringWithAggregatesFilter<"masivo"> | string
+    cod_moneda?: StringWithAggregatesFilter<"masivo"> | string
+    tasa_igv?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    cuenta_contable?: StringWithAggregatesFilter<"masivo"> | string
+    codigo_auxiliar?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    tipo_doc_referencia?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    num_doc_referencia?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    fecha_doc_referencia?: DateTimeNullableWithAggregatesFilter<"masivo"> | Date | string | null
+    tipo_conversion?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    flag_conversion?: StringNullableWithAggregatesFilter<"masivo"> | string | null
+    creado_en?: DateTimeNullableWithAggregatesFilter<"masivo"> | Date | string | null
   }
 
   export type almacenesCreateInput = {
@@ -81185,6 +82571,178 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
   }
 
+  export type masivoCreateInput = {
+    campo: number
+    sub_diario: number
+    num_comprobante: string
+    fecha_documento: Date | string
+    fecha_vencimiento: Date | string
+    tipo_documento?: string | null
+    numero_documento?: string | null
+    codigo_anexo?: string | null
+    glosa_principal?: string | null
+    importe_original: Decimal | DecimalJsLike | number | string
+    debe_haber: string
+    cod_moneda: string
+    tasa_igv?: string | null
+    cuenta_contable: string
+    codigo_auxiliar?: string | null
+    tipo_doc_referencia?: string | null
+    num_doc_referencia?: string | null
+    fecha_doc_referencia?: Date | string | null
+    tipo_conversion?: string | null
+    flag_conversion?: string | null
+    creado_en?: Date | string | null
+  }
+
+  export type masivoUncheckedCreateInput = {
+    id?: number
+    campo: number
+    sub_diario: number
+    num_comprobante: string
+    fecha_documento: Date | string
+    fecha_vencimiento: Date | string
+    tipo_documento?: string | null
+    numero_documento?: string | null
+    codigo_anexo?: string | null
+    glosa_principal?: string | null
+    importe_original: Decimal | DecimalJsLike | number | string
+    debe_haber: string
+    cod_moneda: string
+    tasa_igv?: string | null
+    cuenta_contable: string
+    codigo_auxiliar?: string | null
+    tipo_doc_referencia?: string | null
+    num_doc_referencia?: string | null
+    fecha_doc_referencia?: Date | string | null
+    tipo_conversion?: string | null
+    flag_conversion?: string | null
+    creado_en?: Date | string | null
+  }
+
+  export type masivoUpdateInput = {
+    campo?: IntFieldUpdateOperationsInput | number
+    sub_diario?: IntFieldUpdateOperationsInput | number
+    num_comprobante?: StringFieldUpdateOperationsInput | string
+    fecha_documento?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_anexo?: NullableStringFieldUpdateOperationsInput | string | null
+    glosa_principal?: NullableStringFieldUpdateOperationsInput | string | null
+    importe_original?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFieldUpdateOperationsInput | string
+    cod_moneda?: StringFieldUpdateOperationsInput | string
+    tasa_igv?: NullableStringFieldUpdateOperationsInput | string | null
+    cuenta_contable?: StringFieldUpdateOperationsInput | string
+    codigo_auxiliar?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    num_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_doc_referencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    flag_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    creado_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type masivoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    campo?: IntFieldUpdateOperationsInput | number
+    sub_diario?: IntFieldUpdateOperationsInput | number
+    num_comprobante?: StringFieldUpdateOperationsInput | string
+    fecha_documento?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_anexo?: NullableStringFieldUpdateOperationsInput | string | null
+    glosa_principal?: NullableStringFieldUpdateOperationsInput | string | null
+    importe_original?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFieldUpdateOperationsInput | string
+    cod_moneda?: StringFieldUpdateOperationsInput | string
+    tasa_igv?: NullableStringFieldUpdateOperationsInput | string | null
+    cuenta_contable?: StringFieldUpdateOperationsInput | string
+    codigo_auxiliar?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    num_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_doc_referencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    flag_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    creado_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type masivoCreateManyInput = {
+    id?: number
+    campo: number
+    sub_diario: number
+    num_comprobante: string
+    fecha_documento: Date | string
+    fecha_vencimiento: Date | string
+    tipo_documento?: string | null
+    numero_documento?: string | null
+    codigo_anexo?: string | null
+    glosa_principal?: string | null
+    importe_original: Decimal | DecimalJsLike | number | string
+    debe_haber: string
+    cod_moneda: string
+    tasa_igv?: string | null
+    cuenta_contable: string
+    codigo_auxiliar?: string | null
+    tipo_doc_referencia?: string | null
+    num_doc_referencia?: string | null
+    fecha_doc_referencia?: Date | string | null
+    tipo_conversion?: string | null
+    flag_conversion?: string | null
+    creado_en?: Date | string | null
+  }
+
+  export type masivoUpdateManyMutationInput = {
+    campo?: IntFieldUpdateOperationsInput | number
+    sub_diario?: IntFieldUpdateOperationsInput | number
+    num_comprobante?: StringFieldUpdateOperationsInput | string
+    fecha_documento?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_anexo?: NullableStringFieldUpdateOperationsInput | string | null
+    glosa_principal?: NullableStringFieldUpdateOperationsInput | string | null
+    importe_original?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFieldUpdateOperationsInput | string
+    cod_moneda?: StringFieldUpdateOperationsInput | string
+    tasa_igv?: NullableStringFieldUpdateOperationsInput | string | null
+    cuenta_contable?: StringFieldUpdateOperationsInput | string
+    codigo_auxiliar?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    num_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_doc_referencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    flag_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    creado_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type masivoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    campo?: IntFieldUpdateOperationsInput | number
+    sub_diario?: IntFieldUpdateOperationsInput | number
+    num_comprobante?: StringFieldUpdateOperationsInput | string
+    fecha_documento?: DateTimeFieldUpdateOperationsInput | Date | string
+    fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_anexo?: NullableStringFieldUpdateOperationsInput | string | null
+    glosa_principal?: NullableStringFieldUpdateOperationsInput | string | null
+    importe_original?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    debe_haber?: StringFieldUpdateOperationsInput | string
+    cod_moneda?: StringFieldUpdateOperationsInput | string
+    tasa_igv?: NullableStringFieldUpdateOperationsInput | string | null
+    cuenta_contable?: StringFieldUpdateOperationsInput | string
+    codigo_auxiliar?: NullableStringFieldUpdateOperationsInput | string | null
+    tipo_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    num_doc_referencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_doc_referencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    flag_conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    creado_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -85855,6 +87413,101 @@ export namespace Prisma {
   export type cat_concepto_flujo_efectivoMinOrderByAggregateInput = {
     codigo?: SortOrder
     descripcion?: SortOrder
+  }
+
+  export type masivoOrderByRelevanceInput = {
+    fields: masivoOrderByRelevanceFieldEnum | masivoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type masivoCountOrderByAggregateInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    num_comprobante?: SortOrder
+    fecha_documento?: SortOrder
+    fecha_vencimiento?: SortOrder
+    tipo_documento?: SortOrder
+    numero_documento?: SortOrder
+    codigo_anexo?: SortOrder
+    glosa_principal?: SortOrder
+    importe_original?: SortOrder
+    debe_haber?: SortOrder
+    cod_moneda?: SortOrder
+    tasa_igv?: SortOrder
+    cuenta_contable?: SortOrder
+    codigo_auxiliar?: SortOrder
+    tipo_doc_referencia?: SortOrder
+    num_doc_referencia?: SortOrder
+    fecha_doc_referencia?: SortOrder
+    tipo_conversion?: SortOrder
+    flag_conversion?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type masivoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    importe_original?: SortOrder
+  }
+
+  export type masivoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    num_comprobante?: SortOrder
+    fecha_documento?: SortOrder
+    fecha_vencimiento?: SortOrder
+    tipo_documento?: SortOrder
+    numero_documento?: SortOrder
+    codigo_anexo?: SortOrder
+    glosa_principal?: SortOrder
+    importe_original?: SortOrder
+    debe_haber?: SortOrder
+    cod_moneda?: SortOrder
+    tasa_igv?: SortOrder
+    cuenta_contable?: SortOrder
+    codigo_auxiliar?: SortOrder
+    tipo_doc_referencia?: SortOrder
+    num_doc_referencia?: SortOrder
+    fecha_doc_referencia?: SortOrder
+    tipo_conversion?: SortOrder
+    flag_conversion?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type masivoMinOrderByAggregateInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    num_comprobante?: SortOrder
+    fecha_documento?: SortOrder
+    fecha_vencimiento?: SortOrder
+    tipo_documento?: SortOrder
+    numero_documento?: SortOrder
+    codigo_anexo?: SortOrder
+    glosa_principal?: SortOrder
+    importe_original?: SortOrder
+    debe_haber?: SortOrder
+    cod_moneda?: SortOrder
+    tasa_igv?: SortOrder
+    cuenta_contable?: SortOrder
+    codigo_auxiliar?: SortOrder
+    tipo_doc_referencia?: SortOrder
+    num_doc_referencia?: SortOrder
+    fecha_doc_referencia?: SortOrder
+    tipo_conversion?: SortOrder
+    flag_conversion?: SortOrder
+    creado_en?: SortOrder
+  }
+
+  export type masivoSumOrderByAggregateInput = {
+    id?: SortOrder
+    campo?: SortOrder
+    sub_diario?: SortOrder
+    importe_original?: SortOrder
   }
 
   export type almacenesCreateNestedOneWithoutOther_almacenesInput = {

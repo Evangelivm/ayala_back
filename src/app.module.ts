@@ -46,6 +46,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { OpcionesProgramacionModule } from './opciones-programacion/opciones-programacion.module';
 import { ContabilidadModule } from './contabilidad/contabilidad.module';
+import { RegistroComprasModule } from './registro-compras/registro-compras.module';
 
 @Module({
   imports: [
@@ -96,6 +97,7 @@ import { ContabilidadModule } from './contabilidad/contabilidad.module';
     UsuariosModule,
     OpcionesProgramacionModule,
     ContabilidadModule,
+    RegistroComprasModule,
   ],
   controllers: [AppController, AdminLogsController],
   providers: [AppService],

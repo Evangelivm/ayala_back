@@ -1225,3 +1225,33 @@ model cat_concepto_flujo_efectivo {
   codigo      String @id @db.VarChar(1)
   descripcion String @db.VarChar(50)
 }
+
+// Asientos generados desde el Excel de Registro de Compras (reemplaza la
+// herramienta standalone "herramienta_excel" que insertaba en una tabla
+// `masivo` de la BD sire2024/sire2025).
+model masivo {
+  id                   Int       @id @default(autoincrement())
+  campo                Int
+  sub_diario           Int
+  num_comprobante      String    @db.VarChar(20)
+  fecha_documento      DateTime  @db.DateTime(0)
+  fecha_vencimiento    DateTime  @db.DateTime(0)
+  tipo_documento       String?   @db.VarChar(10)
+  numero_documento     String?   @db.VarChar(50)
+  codigo_anexo         String?   @db.VarChar(20)
+  glosa_principal      String?   @db.VarChar(100)
+  importe_original     Decimal   @db.Decimal(14, 2)
+  debe_haber           String    @db.VarChar(1)
+  cod_moneda           String    @db.VarChar(5)
+  tasa_igv             String?   @db.VarChar(5)
+  cuenta_contable      String    @db.VarChar(20)
+  codigo_auxiliar      String?   @db.VarChar(20)
+  tipo_doc_referencia  String?   @db.VarChar(10)
+  num_doc_referencia   String?   @db.VarChar(20)
+  fecha_doc_referencia DateTime? @db.DateTime(0)
+  tipo_conversion      String?   @db.VarChar(5)
+  flag_conversion      String?   @db.VarChar(5)
+  creado_en            DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([num_comprobante], map: "idx_masivo_num_comprobante")
+}
