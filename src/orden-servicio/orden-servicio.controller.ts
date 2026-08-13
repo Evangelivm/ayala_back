@@ -348,6 +348,24 @@ export class OrdenServicioController {
     }
   }
 
+  @Patch(':id/numero-rh')
+  @HttpCode(HttpStatus.OK)
+  async actualizarNumeroRH(
+    @Param('id') id: string,
+    @Body() body: { nro_rh: string },
+  ) {
+    try {
+      await this.ordenServicioService.actualizarNumeroRH(+id, body.nro_rh);
+      return {
+        success: true,
+        message: 'Número de RH actualizado exitosamente',
+      };
+    } catch (error) {
+      console.error('Error al actualizar número de RH:', error);
+      throw error;
+    }
+  }
+
   @Post('migrar-estados')
   @HttpCode(HttpStatus.OK)
   async migrarEstados() {

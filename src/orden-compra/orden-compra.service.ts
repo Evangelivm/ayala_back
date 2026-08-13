@@ -330,6 +330,8 @@ export class OrdenCompraService {
             almacen_central: createOrdenCompraDto.almacen_central,
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
             tiene_anticipo: createOrdenCompraDto.tiene_anticipo,
+            tipo_comprobante: createOrdenCompraDto.tipo_comprobante || 'FACTURA',
+            nro_rh: createOrdenCompraDto.nro_rh,
             tipo_cambio: tipoCambio,
             formato_pdf_version: 2,
           },
@@ -1586,6 +1588,8 @@ export class OrdenCompraService {
               almacen_central: updateOrdenCompraDto.almacen_central,
               has_anticipo: updateOrdenCompraDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenCompraDto.tiene_anticipo,
+              tipo_comprobante: updateOrdenCompraDto.tipo_comprobante || 'FACTURA',
+              nro_rh: updateOrdenCompraDto.nro_rh,
               tipo_cambio: tipoCambio,
             },
             include: {
@@ -2232,6 +2236,39 @@ export class OrdenCompraService {
       console.error('Error al actualizar número de factura:', error);
       throw new BadRequestException(
         `Error al actualizar número de factura: ${error.message}`,
+      );
+    }
+  }
+
+  async actualizarNumeroRH(id: number, nroRH: string): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el número de RH
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { nro_rh: nroRH },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar número de RH:', error);
+      throw new BadRequestException(
+        `Error al actualizar número de RH: ${error.message}`,
       );
     }
   }

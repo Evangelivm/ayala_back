@@ -57,6 +57,8 @@ export const CreateOrdenCompraSchema = z
     almacen_central: z.string().optional(),
     has_anticipo: z.number().int().min(0).max(1).optional(),
     tiene_anticipo: z.string().optional(),
+    tipo_comprobante: z.enum(['FACTURA', 'RH']).optional(),
+    nro_rh: z.string().optional(),
     items: z
       .array(CreateDetalleOrdenCompraSchema)
       .min(1, 'Debe incluir al menos un item'),

@@ -335,6 +335,8 @@ export class OrdenServicioService {
             almacen_central: createOrdenServicioDto.almacen_central,
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
+            tipo_comprobante: createOrdenServicioDto.tipo_comprobante || 'FACTURA',
+            nro_rh: createOrdenServicioDto.nro_rh,
             tipo_cambio: tipoCambio,
             formato_pdf_version: 2,
           },
@@ -1644,6 +1646,8 @@ export class OrdenServicioService {
               almacen_central: updateOrdenServicioDto.almacen_central,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenServicioDto.tiene_anticipo,
+              tipo_comprobante: updateOrdenServicioDto.tipo_comprobante || 'FACTURA',
+              nro_rh: updateOrdenServicioDto.nro_rh,
               tipo_cambio: tipoCambio,
             },
             include: {
@@ -2291,6 +2295,39 @@ export class OrdenServicioService {
       console.error('Error al actualizar número de factura:', error);
       throw new BadRequestException(
         `Error al actualizar número de factura: ${error.message}`,
+      );
+    }
+  }
+
+  async actualizarNumeroRH(id: number, nroRH: string): Promise<void> {
+    try {
+      // Verificar que la orden existe
+      const ordenExiste = await this.prismaThird.ordenes_servicio.findUnique({
+        where: { id_orden_servicio: id },
+      });
+
+      if (!ordenExiste) {
+        throw new BadRequestException(
+          `Orden de servicio con ID ${id} no encontrada`,
+        );
+      }
+
+      // Actualizar el número de RH
+      await this.prismaThird.ordenes_servicio.update({
+        where: { id_orden_servicio: id },
+        data: { nro_rh: nroRH },
+      });
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenServicioUpdate();
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al actualizar número de RH:', error);
+      throw new BadRequestException(
+        `Error al actualizar número de RH: ${error.message}`,
       );
     }
   }
