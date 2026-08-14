@@ -137,9 +137,6 @@ export class ProveedoresService {
     // Generar el código de proveedor automáticamente
     const codigoProveedor = await this.generateCodigoProveedor();
 
-    // Generar el código de empresa para empresas_2025
-    const codigoEmpresa = await this.generateCodigoEmpresa();
-
     // Crear el proveedor con el código generado
     const proveedor = await this.prismaThird.proveedores.create({
       data: {
@@ -159,24 +156,33 @@ export class ProveedoresService {
       },
     });
 
-    // También crear el registro en empresas_2025
+    // También crear (o reutilizar) el registro en empresas_2025 para que el
+    // proveedor aparezca en los selects que se alimentan de esa tabla.
+    let empresaSincronizada = true;
     try {
-      await this.prisma.empresas_2025.create({
-        data: {
-          codigo: codigoEmpresa,
-          razon_social: createProveedorDto.nombre_proveedor,
-          nro_documento: createProveedorDto.ruc,
-          tipo: 'Cliente',
-          direccion: createProveedorDto.direccion || null,
-        },
+      const empresaExistente = await this.prisma.empresas_2025.findFirst({
+        where: { nro_documento: createProveedorDto.ruc },
       });
+
+      if (!empresaExistente) {
+        const codigoEmpresa = await this.generateCodigoEmpresa();
+        await this.prisma.empresas_2025.create({
+          data: {
+            codigo: codigoEmpresa,
+            razon_social: createProveedorDto.nombre_proveedor,
+            nro_documento: createProveedorDto.ruc,
+            tipo: 'PROVEEDOR',
+            direccion: createProveedorDto.direccion || null,
+          },
+        });
+      }
     } catch (error) {
-      // Log del error pero no fallar la creación del proveedor
+      // No se aborta la creación del proveedor si esto falla, pero se
+      // informa al frontend para que avise al usuario (ver empresaSincronizada).
+      empresaSincronizada = false;
       console.error('Error al crear registro en empresas_2025:', error);
-      // Nota: Podrías considerar hacer rollback del proveedor si esto falla
-      // pero por ahora solo registramos el error
     }
 
-    return proveedor;
+    return { ...proveedor, empresaSincronizada };
   }
 }
