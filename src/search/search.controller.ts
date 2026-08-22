@@ -114,6 +114,15 @@ export class SearchController {
     };
   }
 
+  @Post('recreate-indices')
+  async recreateIndices() {
+    const result = await this.searchService.recreateIndices();
+    return {
+      message: 'Índices recreados y repoblados',
+      counts: result,
+    };
+  }
+
   private buildFiltrosOrdenes(params: {
     estado?: string;
     fecha?: string;

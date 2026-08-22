@@ -242,6 +242,41 @@ export class SearchService implements OnModuleInit {
     }
   }
 
+  /**
+   * Borra y vuelve a crear los 3 índices desde cero (con el mapping actual
+   * del código) y repuebla desde Prisma. A diferencia de reindexAll(), esto
+   * SÍ corrige conflictos de tipo de campo (ej. keyword -> text) que
+   * putMapping no puede aplicar sobre un índice existente.
+   */
+  async recreateIndices(): Promise<{
+    programacion_tecnica: number;
+    ordenes_compra: number;
+    ordenes_servicio: number;
+  }> {
+    if (!this.esAvailable || !this.client) {
+      throw new Error('Elasticsearch no está disponible');
+    }
+
+    const nombres: SearchIndex[] = [
+      'programacion_tecnica',
+      'ordenes_compra',
+      'ordenes_servicio',
+    ];
+
+    for (const nombre of nombres) {
+      const existe = await this.client.indices.exists({ index: nombre });
+      if (existe) {
+        await this.client.indices.delete({ index: nombre });
+        this.logger.warn(`Índice eliminado para recrear: ${nombre}`);
+      }
+      this.esIndexReady[nombre] = false;
+    }
+
+    await this.ensureIndices();
+
+    return this.reindexAll();
+  }
+
   // ─── Métodos públicos ──────────────────────────────────────────────────────
 
   async indexDoc(
