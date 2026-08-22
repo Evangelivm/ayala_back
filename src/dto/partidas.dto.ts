@@ -26,6 +26,10 @@ export const CreatePartidaSchema = z.object({
     .min(0, 'El total debe ser positivo')
     .optional()
     .transform((val) => (val ? Number(val) : undefined)),
+  centro_costos: z
+    .string()
+    .max(50, 'El centro de costos no puede exceder 50 caracteres')
+    .optional(),
   orden: z.number().min(1).optional(), // Se calculará automáticamente si no se proporciona
   activo: z.boolean().default(true),
 });
@@ -45,6 +49,7 @@ export const PartidaResponseSchema = z.object({
   cantidad: z.number(), // Decimal en Prisma se mapea a number
   precio_unitario: z.number().nullable(),
   total: z.number().nullable(),
+  centro_costos: z.string().nullable(),
   created_at: z.date().nullable(),
   updated_at: z.date().nullable(),
   activo: z.boolean().nullable(),
