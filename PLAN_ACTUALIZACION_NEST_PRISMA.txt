@@ -1,0 +1,405 @@
+GUIA DE ACTUALIZACION - NESTJS Y PRISMA (ayala_back)
+======================================================
+Generado: 2026-08-22
+Actualizado: 2026-08-22 (tras ejecutar la migracion real en la rama "pruebas")
+Alcance: ayala_back (NestJS v11 -> v11 al dia, Prisma v6.19 -> v7)
+
+ESTADO: EJECUTADO Y VALIDADO en la rama "pruebas" (commit "Actualizar NestJS..."
+para la Fase 1, y un commit separado para la Fase 2). Ver la seccion
+"CORRECCIONES DESCUBIERTAS AL EJECUTAR" al final: el plan original de mas
+abajo tenia varios detalles incompletos que solo aparecieron al correr los
+comandos de verdad. Esa seccion final es la fuente de la verdad sobre pasos
+exactos; el resto del documento queda como contexto/razonamiento original.
+
+IMPORTANTE - RED DE SEGURIDAD
+------------------------------
+Esta carpeta no tenia repositorio git al momento de escribir esta guia.
+Antes de aplicar cualquier cambio de aqui:
+  1. Crear un repo git si no existe (git init) y commitear el estado actual
+     como punto de partida limpio.
+  2. Crear una rama dedicada, por ejemplo:
+       git checkout -b upgrade/nest-prisma-v7
+  3. Correr todos los pasos de esta guia DENTRO de esa rama.
+  4. No mezclar esta actualizacion con cambios de features (partidas,
+     centro de costos, etc.) - debe ser un commit/PR aislado.
+
+
+FASE 1 - ACTUALIZAR NESTJS (riesgo bajo, ~15 min)
+===================================================
+Son bumps de parche/menor dentro de la v11 (la v12 sigue en alpha, NO usarla
+todavia: @nestjs/core@next = 12.0.0-alpha.5, no apta para produccion).
+
+Comandos:
+
+  cd ayala_back
+  npm install @nestjs/core@^11.2.1 @nestjs/common@^11.2.1 @nestjs/platform-express@^11.2.1 \
+    @nestjs/microservices@^11.2.1 @nestjs/platform-socket.io@^11.2.1 @nestjs/websockets@^11.2.1 \
+    @nestjs/testing@^11.2.1 @nestjs/config@^4.0.4 @nestjs/schedule@^6.1.3
+  npm install --save-dev @nestjs/cli@^11.0.24 @nestjs/schematics@^11.1.0
+
+Verificacion:
+
+  npm run build
+  npm test
+  npm run start:dev
+  -> smoke test manual: /programacion, /orden-compra, /orden-servicio, /search
+
+Si compila y los modulos cargan sin errores, commitear este paso solo
+(separado de la Fase 2).
+
+
+FASE 2 - PRISMA 6 -> 7 (mayor, por etapas)
+===================================================
+Orden recomendado, de menor a mayor riesgo:
+  1. prisma_second   (no la usa ningun service en src/ -> cero impacto real,
+                       sirve como ensayo del proceso)
+  2. prisma_third    (servidor remoto 161.132.54.103, tiene tablas erp_*
+                       no modeladas -> mas sensible)
+  3. prisma          (la principal, la mas usada en toda la app -> hacerla
+                       al final, con la receta ya probada)
+
+Prerrequisitos (ya cumplidos hoy):
+  - Node >= 20.19        (instalado: 22.14) OK
+  - TypeScript >= 5.4    (instalado: 5.8.3) OK
+
+
+2.1 Instalar paquetes nuevos
+-----------------------------
+  npm install prisma@latest @prisma/client@latest
+  npm install @prisma/adapter-mariadb
+
+
+2.2 Editar el bloque "generator" en CADA schema
+-------------------------------------------------
+Archivos: prisma/schema.prisma, prisma_second/schema.prisma,
+          prisma_third/schema.prisma
+
+Antes:
+  generator client {
+    provider      = "prisma-client-js"
+    output        = "../generated/prisma"
+    binaryTargets = ["native", "debian-openssl-3.0.x"]
+  }
+
+Despues:
+  generator client {
+    provider     = "prisma-client"
+    output       = "../generated/prisma"
+    moduleFormat = "cjs"
+  }
+
+Notas:
+  - moduleFormat = "cjs" es CLAVE: mantiene compatibilidad con NestJS/
+    CommonJS. Sin esto, Prisma 7 emite ESM y rompe el build de Nest.
+  - Se quita binaryTargets: ya no aplica (no hay motor Rust nativo que
+    distribuir en v7, el cliente es TypeScript puro).
+  - Ajustar el "output" segun cada carpeta (../generated/prisma,
+    ../generated/prisma-second, ../generated/prisma-third).
+
+
+2.3 Crear un prisma.config.ts por cada schema
+-------------------------------------------------
+Como son 3 proyectos independientes (3 datasources distintos), hacen
+falta 3 archivos de config.
+
+ayala_back/prisma.config.ts (para el principal):
+
+  import 'dotenv/config';
+  import { defineConfig } from 'prisma/config';
+
+  export default defineConfig({
+    schema: 'prisma/schema.prisma',
+  });
+
+ayala_back/prisma.config.second.ts:
+
+  import 'dotenv/config';
+  import { defineConfig } from 'prisma/config';
+
+  export default defineConfig({
+    schema: 'prisma_second/schema.prisma',
+  });
+
+ayala_back/prisma.config.third.ts:
+
+  import 'dotenv/config';
+  import { defineConfig } from 'prisma/config';
+
+  export default defineConfig({
+    schema: 'prisma_third/schema.prisma',
+  });
+
+Uso desde CLI (reemplaza al viejo --schema=...):
+
+  npx prisma generate --config prisma.config.ts
+  npx prisma generate --config prisma.config.second.ts
+  npx prisma generate --config prisma.config.third.ts
+
+OJO: en Prisma 7 el comando "prisma db execute" YA NO acepta --schema ni
+--url. El flujo que se uso para verificar columnas nuevas (por ejemplo
+la de centro_costos en partida) debe rehacerse con --config o con un
+script node suelto que use el PrismaClient generado.
+
+
+2.4 Actualizar PrismaService y PrismaThirdService
+-------------------------------------------------
+Archivo: src/prisma/prisma.service.ts
+
+Antes:
+  import { Injectable, OnModuleInit } from '@nestjs/common';
+  import { PrismaClient } from '@generated/prisma';
+
+  @Injectable()
+  export class PrismaService extends PrismaClient implements OnModuleInit {
+    async onModuleInit() {
+      await this.$connect();
+    }
+  }
+
+Despues:
+  import { Injectable, OnModuleInit } from '@nestjs/common';
+  import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+  import { PrismaClient } from '@generated/prisma';
+
+  @Injectable()
+  export class PrismaService extends PrismaClient implements OnModuleInit {
+    constructor() {
+      super({
+        adapter: new PrismaMariaDb({
+          host: process.env.DB_HOST,
+          port: Number(process.env.DB_PORT) || 3306,
+          user: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME,
+        }),
+      });
+    }
+
+    async onModuleInit() {
+      await this.$connect();
+    }
+  }
+
+Analogo en src/prisma/prisma-third.service.ts, usando las variables
+correspondientes a DATABASE_URL_THIRD.
+
+OJO CON EL FORMATO DE CONEXION:
+  Hoy el .env tiene una URL unica por schema:
+    DATABASE_URL=mysql://usuario:pass@host:puerto/basededatos
+    DATABASE_URL_SECOND=mysql://...
+    DATABASE_URL_THIRD=mysql://...
+  El adapter @prisma/adapter-mariadb documenta mejor el esquema
+  "mariadb://" que "mysql://". Para no arriesgar el parseo:
+    a) Probar primero si funciona pasarle la URL cruda tal cual:
+         new PrismaMariaDb(process.env.DATABASE_URL)
+    b) Si falla o da error de parseo, parsear la URL manualmente con el
+       modulo "url" de Node y pasar host/port/user/password/database
+       como campos sueltos (mas seguro, evita el tema del esquema).
+
+
+2.5 Generar y compilar (en el orden de menor a mayor riesgo)
+-------------------------------------------------
+  npx prisma generate --config prisma.config.second.ts
+  npx prisma generate --config prisma.config.third.ts
+  npx prisma generate --config prisma.config.ts
+  npm run build
+
+
+2.6 Probar cada schema ANTES de avanzar al siguiente
+-------------------------------------------------
+- prisma_second (no tiene service en src/): armar un script suelto
+  (tipo el que se uso para verificar la columna centro_costos) que
+  importe el cliente generado y haga un findFirst de prueba.
+
+- prisma_third y prisma (principal): correr "npm run start:dev" y
+  probar a mano los endpoints que dependen de ellos. Prestar especial
+  atencion a los 5 archivos que usan $queryRaw:
+    src/programacion/programacion.service.ts
+    src/search/search.service.ts
+    src/acarreo/acarreo.service.ts
+    src/gre/gre-extendido-crud.controller.ts
+    src/services/informe-consumo-combustible.service.ts
+  y al CRUD de orden-compra / orden-servicio (usan PrismaThirdService).
+
+
+2.7 Ajustar el build
+-------------------------------------------------
+Revisar que "postbuild" y "prestart:dev" en package.json
+("shx cp -r generated dist/") sigan funcionando igual. La carpeta
+generada deberia quedar mas liviana (sin binarios de motor Rust).
+
+
+FASE 3 - CIERRE
+===================================================
+  - Correr la suite completa: npm test
+  - Smoke test manual de: proyectos, programacion tecnica, ordenes de
+    compra/servicio, busqueda (Elasticsearch + fallback Prisma),
+    contabilidad.
+  - Si se cambio el esquema de variables de entorno (URL unica -> campos
+    sueltos), actualizar el .env de referencia / documentacion interna.
+  - Una vez validado todo en la rama upgrade/nest-prisma-v7, abrir PR /
+    mergear a la rama principal.
+
+
+RESUMEN DE RIESGOS Y MITIGACIONES (referencia rapida)
+===================================================
+- Generator provider + output obligatorio      -> ya se cumple, output
+                                                    ya definido en los 3 schemas
+- Modulo ESM vs NestJS CommonJS                -> moduleFormat = "cjs"
+- Driver adapter obligatorio                    -> @prisma/adapter-mariadb
+- prisma.config.ts obligatorio, reemplaza flags -> 3 archivos de config,
+                                                    uno por schema
+- .env ya no se carga automatico en el CLI      -> import 'dotenv/config'
+                                                    en cada prisma.config.ts
+- "prisma db execute --schema/--url" removido   -> usar --config o script
+                                                    node con el cliente
+- $use() middleware removido                    -> no se usa en este repo
+                                                    (verificado, sin impacto)
+- prisma_second sin uso en src/                 -> sirve de ensayo, cero
+                                                    riesgo real
+- Mongo no soportado en v7                      -> no aplica, este proyecto
+                                                    es MySQL
+- NestJS v12                                    -> sigue en alpha
+                                                    (12.0.0-alpha.5), NO
+                                                    actualizar todavia
+
+
+CORRECCIONES DESCUBIERTAS AL EJECUTAR (2026-08-22)
+===================================================
+La investigacion previa a correr esto no detecto estos puntos. Quedan
+documentados aqui para la proxima vez (otro schema, otro proyecto, o si
+hay que rehacer esto desde cero).
+
+1. El campo "url" del bloque datasource NO se soporta en absoluto en v7,
+   ni siquiera para que el CLI lo use. Hay que borrarlo del schema.prisma
+   por completo:
+     datasource db {
+       provider = "mysql"
+     }
+   La URL real se pasa en dos lugares distintos y separados:
+     a) prisma.config.ts (para el CLI / prisma generate):
+          datasource: { url: process.env.DATABASE_URL }
+     b) el adapter en el constructor de PrismaClient (para runtime):
+          new PrismaMariaDb(process.env.DATABASE_URL!)
+   IMPORTANTE: "prisma generate" funciona incluso si datasource.url es
+   undefined (probado explicitamente). Esto es clave para el build de
+   Docker, donde el .env todavia no esta disponible en la etapa donde
+   se corre "prisma generate".
+
+2. El cliente generado en v7 (provider = "prisma-client") YA NO tiene un
+   archivo indice en la raiz (nada de "@generated/prisma" a secas). Hay
+   que importar siempre desde el subpath /client:
+     import { PrismaClient, Prisma } from '@generated/prisma/client';
+   (antes era "from '@generated/prisma'"). Esto afecta a CUALQUIER
+   archivo que importe PrismaClient o el namespace Prisma, no solo a
+   los PrismaService. En este repo se tuvo que corregir en:
+     src/prisma/prisma.service.ts
+     src/prisma/prisma-third.service.ts
+     src/acarreo/acarreo.service.ts
+     src/programacion/programacion.service.ts
+     src/gre/gre-extendido-crud.controller.ts
+     src/search/search.service.ts
+     src/contabilidad/contabilidad.service.ts
+     src/contabilidad/seed-catalogos.ts
+
+3. El cliente generado en v7 es codigo TypeScript fuente (client.ts,
+   models.ts, enums.ts, etc.), NO viene precompilado a .js ni trae su
+   propio package.json (a diferencia de v6). Lo compila el propio
+   "nest build" (tsc) igual que el resto de src/, porque este proyecto
+   no tiene "include"/"exclude" en tsconfig.json que excluya la carpeta
+   generated/. No hace falta ningun paso extra para compilarlo, pero:
+
+   OJO: si no se borra la carpeta generated/<schema>/ ANTES de correr
+   "prisma generate" por primera vez en v7, quedan mezclados los
+   archivos viejos de v6 (index.js, los binarios query_engine-*.dll.node
+   / .so.node, package.json con "version": "6.19.0") junto a los nuevos
+   .ts de v7. Esto puede hacer que un import "resuelva" al archivo
+   viejo sin dar error (falso positivo). Siempre correr:
+     rm -rf generated/prisma generated/prisma-second generated/prisma-third
+   antes de regenerar con los nuevos generator blocks.
+
+4. "@prisma/client/runtime/library" (usado para importar el tipo
+   Decimal) ya no existe en v7. El path nuevo es:
+     import { Decimal } from '@prisma/client/runtime/client';
+   Afectó a: src/factura/interfaces/factura-item.interface.ts,
+   src/factura/interfaces/factura.interface.ts,
+   src/factura/services/factura-detector.service.ts
+
+5. TypeScript es estricto con "process.env.X" (tipo string | undefined)
+   pasado al constructor de PrismaMariaDb (que pide string | PoolConfig).
+   Se resolvio con non-null assertion (!), asumiendo que la env var
+   siempre esta seteada en runtime (igual que asumia el codigo viejo):
+     new PrismaMariaDb(process.env.DATABASE_URL!)
+
+6. El adapter @prisma/adapter-mariadb SI acepta la URL cruda tal cual
+   viene en .env (formato "mysql://user:pass@host:puerto/db"), no hizo
+   falta parsearla a campos sueltos (host/port/user/password/database).
+   Probado y confirmado contra los 3 schemas, incluido el servidor
+   remoto de prisma_third.
+
+7. dotenv (usado dentro de los prisma.config*.ts) imprime un mensaje
+   tipo publicidad en consola al llamar a config() (algo como
+   "tip: auth for agents [www.vestauth.com]" o "secrets for agents
+   [www.dotenvx.com]"). Es un comportamiento conocido de versiones
+   recientes de dotenv, no es un error ni algo que haya que arreglar,
+   pero puede sorprender si no se esperaba verlo en los logs.
+
+8. El Dockerfile original solo copiaba y generaba el schema principal
+   (prisma/) antes de "npm run build". Con 3 schemas/configs
+   independientes hay que copiar tambien prisma.config.ts,
+   prisma.config.second.ts, prisma.config.third.ts, prisma_second/ y
+   prisma_third/, y correr "prisma generate --config <archivo>" para
+   cada uno por separado (ya no basta un solo "npx prisma generate" a
+   secas). Se corrigio en el Dockerfile, PERO OJO: este fix del
+   Dockerfile no se probo con un "docker build" real (no se corrio en
+   esta sesion) - conviene validarlo antes de desplegar.
+
+9. Se agrego "dotenv" como devDependency explicita (antes solo estaba
+   como dependencia transitiva via @nestjs/config), porque los
+   prisma.config*.ts la importan directamente con "import 'dotenv/config'".
+
+10. Efecto colateral no relacionado con Prisma: al reinstalar paquetes,
+    "typescript" (rango ^5.7.3 en package.json, sin tocar) subio de
+    5.8.3 a 5.9.3 dentro de su propio rango permitido. TS 5.9 es mas
+    estricto tipando Buffer, lo que rompio un cast en
+    src/gre/gre-extendido-crud.controller.ts:1192 ("as Buffer" ->
+    "Buffer.from(...)"). No tiene relacion con NestJS ni Prisma, pero
+    aparecio como parte del mismo "npm install" y hubo que arreglarlo
+    para que el build siguiera pasando.
+
+11. generated/prisma-third esta trackeado en git (a diferencia de
+    generated/prisma y generated/prisma-second, que estan en
+    .gitignore). Al regenerar con el nuevo formato v7, el diff de ese
+    commit es grande (se borran todos los .js/.d.ts viejos y aparecen
+    los .ts nuevos) - es esperado, no es un error.
+
+12. prisma_second se migro (generator, datasource, config) solo como
+    "ensayo" del proceso: no existe ningun PrismaSecondService ni import
+    de su cliente en src/, sigue sin usarse en produccion. Si en el
+    futuro se activa, ya esta listo para v7.
+
+13. Validacion final hecha en esta sesion (todo en verde):
+    - npm run build: sin errores
+    - npm test: 15/15 tests OK
+    - npm run start:dev: arranca limpio, "Nest application successfully
+      started", Kafka conecta, todos los modulos cargan
+    - GET /api/proyectos -> 200 (DB principal)
+    - GET /api/partidas -> 200, incluye el campo centro_costos
+    - GET /api/ordenes-compra -> 200 (DB tercera, servidor remoto)
+    - GET /api/contabilidad/catalogos -> 200 (DB tercera)
+    - GET /api/search/programacion-tecnica -> 200 ($queryRaw, DB principal)
+    - GET /api/search/ordenes-compra -> 200 ($queryRaw, DB tercera)
+    - GET /api/registro-compras/ultimo-numero -> 500, pero por un
+      problema de datos preexistente y no relacionado (tabla "masivo"
+      no existe en la base real "inventariosayala2025" - hubiera fallado
+      igual en Prisma 6, es drift entre schema.prisma y la BD real, ver
+      la nota ya existente sobre no hacer "db push" a ciegas).
+
+PENDIENTE (no cubierto en esta sesion):
+    - Probar "docker build" de punta a punta con el Dockerfile corregido.
+    - Investigar y corregir el drift de la tabla "masivo" en
+      inventariosayala2025 (prisma_third) si ese endpoint se usa en
+      produccion.
+    - Decidir si vale la pena quitar la instalacion de "openssl" en el
+      Dockerfile (ya no hace falta para el motor Rust, que no existe
+      mas en v7) - no se toco, es opcional.

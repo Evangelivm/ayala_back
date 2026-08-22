@@ -20,7 +20,7 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import * as archiver from 'archiver';
 import axios from 'axios';
-import { Prisma } from '@generated/prisma';
+import { Prisma } from '@generated/prisma/client';
 import * as ExcelJS from 'exceljs';
 
 // Extender dayjs con plugins
@@ -1189,7 +1189,7 @@ export class GreExtendidoCrudController {
         }
       });
 
-      const buffer = (await wb.xlsx.writeBuffer()) as Buffer;
+      const buffer = Buffer.from(await wb.xlsx.writeBuffer());
       const nombreArchivo = `programacion_extendida_${dayjs().format('YYYY-MM-DD')}.xlsx`;
 
       res.setHeader(

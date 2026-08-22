@@ -3,7 +3,9 @@
 // usa upsert, así que se puede correr varias veces sin duplicar filas.
 //
 // Uso: npx ts-node -r tsconfig-paths/register src/contabilidad/seed-catalogos.ts
-import { PrismaClient } from '@generated/prisma-third';
+import 'dotenv/config';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { PrismaClient } from '@generated/prisma-third/client';
 import { CATALOGOS_SEED } from './contabilidad.catalogos';
 
 async function sembrarTabla(
@@ -21,7 +23,9 @@ async function sembrarTabla(
 }
 
 async function main() {
-  const prisma = new PrismaClient();
+  const prisma = new PrismaClient({
+    adapter: new PrismaMariaDb(process.env.DATABASE_URL_THIRD!),
+  });
 
   try {
     await sembrarTabla(

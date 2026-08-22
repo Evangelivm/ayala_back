@@ -11,7 +11,7 @@ import {
   type ProgramacionItemDto,
   type ProgramacionResponseDto,
 } from '../dto/programacion.dto';
-import { Prisma } from '@generated/prisma';
+import { Prisma } from '@generated/prisma/client';
 import { generarIdentificadorAleatorio } from '../utils/codigo-generator';
 import { SearchService } from '../search/search.service';
 import * as dayjs from 'dayjs';

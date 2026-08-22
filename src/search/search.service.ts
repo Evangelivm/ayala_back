@@ -2,7 +2,7 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Client } from '@elastic/elasticsearch';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
-import { Prisma } from '@generated/prisma';
+import { Prisma } from '@generated/prisma/client';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
