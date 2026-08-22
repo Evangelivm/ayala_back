@@ -1189,7 +1189,7 @@ export class GreExtendidoCrudController {
         }
       });
 
-      const buffer = (await wb.xlsx.writeBuffer()) as Buffer;
+      const buffer = Buffer.from(await wb.xlsx.writeBuffer());
       const nombreArchivo = `programacion_extendida_${dayjs().format('YYYY-MM-DD')}.xlsx`;
 
       res.setHeader(
