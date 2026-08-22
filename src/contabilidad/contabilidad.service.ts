@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { Prisma } from '@generated/prisma-third';
+import { Prisma } from '@generated/prisma-third/client';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import {
   AsientoContableRow,

@@ -10,7 +10,10 @@ RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists
 # Copia los archivos de tu proyecto necesarios para instalar dependencias
 COPY package*.json ./
 COPY tsconfig*.json ./
+COPY prisma.config.ts prisma.config.second.ts prisma.config.third.ts ./
 COPY prisma ./prisma/
+COPY prisma_second ./prisma_second/
+COPY prisma_third ./prisma_third/
 
 # Limpia la caché de npm para evitar problemas anteriores
 RUN npm cache clean --force
@@ -18,8 +21,10 @@ RUN npm cache clean --force
 # Instala las dependencias
 RUN npm install
 
-# Genera el cliente de Prisma
-RUN npx prisma generate
+# Genera los 3 clientes de Prisma (uno por schema/datasource independiente)
+RUN npx prisma generate --config prisma.config.ts
+RUN npx prisma generate --config prisma.config.second.ts
+RUN npx prisma generate --config prisma.config.third.ts
 
 # Copia el resto de los archivos del proyecto
 COPY . .

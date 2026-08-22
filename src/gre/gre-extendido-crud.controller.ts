@@ -20,7 +20,7 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import * as archiver from 'archiver';
 import axios from 'axios';
-import { Prisma } from '@generated/prisma';
+import { Prisma } from '@generated/prisma/client';
 import * as ExcelJS from 'exceljs';
 
 // Extender dayjs con plugins
