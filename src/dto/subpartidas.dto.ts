@@ -20,6 +20,10 @@ export const CreateSubpartidaSchema = z.object({
     .min(0, 'El precio unitario debe ser mayor o igual a 0')
     .optional(),
   total: z.number().min(0, 'El total debe ser mayor o igual a 0').optional(),
+  centro_costos: z
+    .string()
+    .max(50, 'El centro de costos no puede exceder 50 caracteres')
+    .optional(),
   orden: z.number().min(1).optional(),
   activo: z.boolean().default(true),
 });
@@ -37,6 +41,7 @@ export const SubpartidaResponseSchema = z.object({
   cantidad: z.number(),
   precio_unitario: z.number().nullable(),
   total: z.number().nullable(),
+  centro_costos: z.string().nullable(),
   orden: z.number(),
   activo: z.boolean(),
   created_at: z.string().nullable(),
