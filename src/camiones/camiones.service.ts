@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { Prisma } from '@generated/prisma/client';
 import type {
   CreateCamionDto,
   UpdateCamionDto,
@@ -106,33 +107,45 @@ export class CamionesService {
   }
 
   async create(data: CreateCamionDto) {
-    const camion = await this.prisma.camiones.create({
-      data: {
-        placa: data.placa,
-        marca: data.marca || null,
-        modelo: data.modelo || null,
-        a_o: data.año || null,
-        capacidad_tanque: data.capacidad_tanque || null,
-        id_tipo_combustible_preferido:
-          data.id_tipo_combustible_preferido || null,
-        activo: data.activo ?? true,
-        dni: data.dni || null,
-        nombre_chofer: data.nombre_chofer || null,
-        apellido_chofer: data.apellido_chofer || null,
-        numero_licencia: data.numero_licencia || null,
-        empresa: data.empresa || null,
-        tipo: data.tipo,
-      },
-    });
+    try {
+      const camion = await this.prisma.camiones.create({
+        data: {
+          placa: data.placa,
+          marca: data.marca || null,
+          modelo: data.modelo || null,
+          a_o: data.año || null,
+          capacidad_tanque: data.capacidad_tanque || null,
+          id_tipo_combustible_preferido:
+            data.id_tipo_combustible_preferido || null,
+          activo: data.activo ?? true,
+          dni: data.dni || null,
+          nombre_chofer: data.nombre_chofer || null,
+          apellido_chofer: data.apellido_chofer || null,
+          numero_licencia: data.numero_licencia || null,
+          empresa: data.empresa || null,
+          tipo: data.tipo,
+        },
+      });
 
-    return {
-      ...camion,
-      año: camion.a_o || null,
-      capacidad_tanque: camion.capacidad_tanque
-        ? Number(camion.capacidad_tanque)
-        : null,
-      fecha_registro: camion.fecha_registro?.toISOString() || null,
-    };
+      return {
+        ...camion,
+        año: camion.a_o || null,
+        capacidad_tanque: camion.capacidad_tanque
+          ? Number(camion.capacidad_tanque)
+          : null,
+        fecha_registro: camion.fecha_registro?.toISOString() || null,
+      };
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException(
+          `Ya existe un camión con la placa ${data.placa}`,
+        );
+      }
+      throw error;
+    }
   }
 
   async update(id: number, data: UpdateCamionDto) {
@@ -157,19 +170,31 @@ export class CamionesService {
       updateData.numero_licencia = data.numero_licencia;
     if (data.empresa !== undefined) updateData.empresa = data.empresa;
 
-    const camion = await this.prisma.camiones.update({
-      where: { id_camion: id },
-      data: updateData,
-    });
+    try {
+      const camion = await this.prisma.camiones.update({
+        where: { id_camion: id },
+        data: updateData,
+      });
 
-    return {
-      ...camion,
-      año: camion.a_o || null,
-      capacidad_tanque: camion.capacidad_tanque
-        ? Number(camion.capacidad_tanque)
-        : null,
-      fecha_registro: camion.fecha_registro?.toISOString() || null,
-    };
+      return {
+        ...camion,
+        año: camion.a_o || null,
+        capacidad_tanque: camion.capacidad_tanque
+          ? Number(camion.capacidad_tanque)
+          : null,
+        fecha_registro: camion.fecha_registro?.toISOString() || null,
+      };
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException(
+          `Ya existe un camión con la placa ${updateData.placa}`,
+        );
+      }
+      throw error;
+    }
   }
 
   async remove(id: number) {
