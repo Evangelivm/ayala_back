@@ -78,6 +78,7 @@ export class ProyectosService {
                 ? Number(partida.precio_unitario)
                 : null,
               total: partida.total ? Number(partida.total) : null,
+              centro_costos: partida.centro_costos,
             })),
           })),
         })),
@@ -155,6 +156,7 @@ export class ProyectosService {
                 ? Number(partida.precio_unitario)
                 : null,
               total: partida.total ? Number(partida.total) : null,
+              centro_costos: partida.centro_costos,
             })),
           })),
         })),
