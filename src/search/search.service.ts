@@ -124,7 +124,10 @@ export class SearchService implements OnModuleInit {
             tipo_unidad: { type: 'keyword' },
             nombre_chofer: { type: 'text' },
             apellido_chofer: { type: 'text' },
-            chofer: { type: 'keyword' },
+            chofer: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
             auto_administrador: { type: 'boolean' },
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
@@ -181,7 +184,10 @@ export class SearchService implements OnModuleInit {
             tipo_unidad: { type: 'keyword' },
             nombre_chofer: { type: 'text' },
             apellido_chofer: { type: 'text' },
-            chofer: { type: 'keyword' },
+            chofer: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
             auto_administrador: { type: 'boolean' },
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
@@ -344,7 +350,9 @@ export class SearchService implements OnModuleInit {
     const rows = await this.prisma.$queryRaw<any[]>`
       SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion, pt.deleted_at,
              pt.programacion, pt.m3,
-             c.nombre_chofer, c.apellido_chofer, c.placa AS unidad_placa,
+             COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+             COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
+             c.placa AS unidad_placa,
              e.razon_social AS empresa_razon_social,
              p.nombre AS nombre_proyecto,
              sp.nombre AS nombre_subproyecto
@@ -551,7 +559,9 @@ export class SearchService implements OnModuleInit {
     const ptRows = await this.prisma.$queryRaw<any[]>`
       SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion, pt.deleted_at,
              pt.programacion, pt.m3,
-             c.nombre_chofer, c.apellido_chofer, c.placa AS unidad_placa,
+             COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+             COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
+             c.placa AS unidad_placa,
              e.razon_social AS empresa_razon_social,
              p.nombre AS nombre_proyecto,
              sp.nombre AS nombre_subproyecto
@@ -762,6 +772,7 @@ export class SearchService implements OnModuleInit {
         'placa_unidad',
         'nombre_chofer',
         'apellido_chofer',
+        'chofer',
         'nro_factura',
         'nro_serie',
         'observaciones',
@@ -782,6 +793,7 @@ export class SearchService implements OnModuleInit {
         'placa_unidad',
         'nombre_chofer',
         'apellido_chofer',
+        'chofer',
         'nro_factura',
         'nro_serie',
         'observaciones',
@@ -815,10 +827,13 @@ export class SearchService implements OnModuleInit {
     const filterClauses: any[] = [notDeletedFilter];
     for (const [campo, valor] of Object.entries(filtros)) {
       if (valor === undefined || valor === null || valor === '') continue;
-      // placa_unidad pasó a mapearse como `text` (para soportar búsqueda
+      // placa_unidad/chofer se mapean como `text` (para soportar búsqueda
       // libre parcial); el filtro exacto del dropdown debe apuntar a su
       // subcampo `.keyword`, que sí es un término no analizado.
-      const campoTerm = campo === 'placa_unidad' ? 'placa_unidad.keyword' : campo;
+      const camposConKeyword = ['placa_unidad', 'chofer'];
+      const campoTerm = camposConKeyword.includes(campo)
+        ? `${campo}.keyword`
+        : campo;
       filterClauses.push({ term: { [campoTerm]: valor } });
     }
 
@@ -944,6 +959,8 @@ export class SearchService implements OnModuleInit {
             WHERE (e.razon_social LIKE ${searchParam}
                 OR c.nombre_chofer LIKE ${searchParam}
                 OR c.apellido_chofer LIKE ${searchParam}
+                OR pt.nombre_chofer_registro LIKE ${searchParam}
+                OR pt.apellido_chofer_registro LIKE ${searchParam}
                 OR c.placa LIKE ${searchParam}
                 OR pt.identificador_unico LIKE ${searchParam}
                 OR pt.estado_programacion LIKE ${searchParam}
@@ -957,7 +974,9 @@ export class SearchService implements OnModuleInit {
         ),
         this.prisma.$queryRaw<any[]>(
           Prisma.sql`SELECT pt.*,
-              c.placa AS unidad_placa, c.nombre_chofer, c.apellido_chofer,
+              c.placa AS unidad_placa,
+              COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+              COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
               e.razon_social AS empresa_razon_social,
               gr.enlace_del_pdf, gr.enlace_del_xml, gr.enlace_del_cdr,
               p.nombre AS nombre_proyecto,
@@ -974,6 +993,8 @@ export class SearchService implements OnModuleInit {
             WHERE (e.razon_social LIKE ${searchParam}
                 OR c.nombre_chofer LIKE ${searchParam}
                 OR c.apellido_chofer LIKE ${searchParam}
+                OR pt.nombre_chofer_registro LIKE ${searchParam}
+                OR pt.apellido_chofer_registro LIKE ${searchParam}
                 OR c.placa LIKE ${searchParam}
                 OR pt.identificador_unico LIKE ${searchParam}
                 OR pt.estado_programacion LIKE ${searchParam}
@@ -1003,7 +1024,9 @@ export class SearchService implements OnModuleInit {
         ),
         this.prisma.$queryRaw<any[]>(
           Prisma.sql`SELECT pt.*,
-              c.placa AS unidad_placa, c.nombre_chofer, c.apellido_chofer,
+              c.placa AS unidad_placa,
+              COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+              COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
               e.razon_social AS empresa_razon_social,
               gr.enlace_del_pdf, gr.enlace_del_xml, gr.enlace_del_cdr,
               p.nombre AS nombre_proyecto,
@@ -1034,7 +1057,9 @@ export class SearchService implements OnModuleInit {
   private async getProgramacionTecnicaByIds(ids: number[]): Promise<any[]> {
     const rows = await this.prisma.$queryRaw<any[]>(
       Prisma.sql`SELECT pt.*,
-          c.placa AS unidad_placa, c.nombre_chofer, c.apellido_chofer,
+          c.placa AS unidad_placa,
+              COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+              COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
           e.razon_social AS empresa_razon_social,
           gr.enlace_del_pdf, gr.enlace_del_xml, gr.enlace_del_cdr,
           p.nombre AS nombre_proyecto,
@@ -1201,17 +1226,22 @@ export class SearchService implements OnModuleInit {
     return SearchService.ORDEN_ESTADOS.filter((e) => e.includes(upper));
   }
 
+  /**
+   * `contains` por columna no encuentra el nombre completo del chofer
+   * (p.ej. "MIGUEL ANGEL LEDEZMA CHAHUA"), porque nombre y apellido viven
+   * en columnas separadas — ningún campo individual contiene la cadena
+   * completa. Se agrega un match adicional por CONCAT para que buscar el
+   * nombre completo (como se muestra en la UI) también encuentre resultados.
+   */
   private async camionIdsByQuery(q: string): Promise<number[]> {
-    const camiones = await this.prisma.camiones.findMany({
-      where: {
-        OR: [
-          { placa: { contains: q } },
-          { nombre_chofer: { contains: q } },
-          { apellido_chofer: { contains: q } },
-        ],
-      },
-      select: { id_camion: true },
-    });
+    const searchParam = `%${q}%`;
+    const camiones = await this.prisma.$queryRaw<{ id_camion: number }[]>(
+      Prisma.sql`SELECT id_camion FROM camiones
+        WHERE placa LIKE ${searchParam}
+           OR nombre_chofer LIKE ${searchParam}
+           OR apellido_chofer LIKE ${searchParam}
+           OR CONCAT(nombre_chofer, ' ', apellido_chofer) LIKE ${searchParam}`,
+    );
     return camiones.map((c) => c.id_camion);
   }
 

@@ -57,6 +57,28 @@ export class ProgramacionService {
     );
 
     try {
+      // Congelar el chofer actual de cada unidad al momento de crear el
+      // registro: si luego cambia el chofer asignado al camión, estos
+      // registros históricos deben conservar el chofer de cuando se creó
+      // el viaje, no el chofer actual del camión.
+      const unidadIds = [
+        ...new Set(data.map((item) => item.unidad).filter(Boolean)),
+      ] as number[];
+      const camionesChofer =
+        unidadIds.length > 0
+          ? await this.prisma.camiones.findMany({
+              where: { id_camion: { in: unidadIds } },
+              select: {
+                id_camion: true,
+                nombre_chofer: true,
+                apellido_chofer: true,
+              },
+            })
+          : [];
+      const choferPorUnidad = new Map(
+        camionesChofer.map((c) => [c.id_camion, c]),
+      );
+
       // Preparar datos para inserción
       const programacionData = data.map((item: ProgramacionItemDto) => ({
         fecha: item.fecha instanceof Date ? item.fecha : new Date(item.fecha),
@@ -99,6 +121,12 @@ export class ProgramacionService {
             (item: ProgramacionItemDto, index: number) => ({
               fecha: programacionData[index].fecha,
               unidad: programacionData[index].unidad,
+              nombre_chofer_registro:
+                choferPorUnidad.get(programacionData[index].unidad)
+                  ?.nombre_chofer ?? null,
+              apellido_chofer_registro:
+                choferPorUnidad.get(programacionData[index].unidad)
+                  ?.apellido_chofer ?? null,
               proveedor: programacionData[index].proveedor,
               programacion: programacionData[index].programacion,
               hora_partida: programacionData[index].hora_partida,
@@ -159,7 +187,9 @@ export class ProgramacionService {
             Prisma.sql`
               SELECT pt.id, pt.fecha, pt.identificador_unico, pt.estado_programacion,
                      pt.programacion, pt.m3,
-                     c.placa AS unidad_placa, c.nombre_chofer, c.apellido_chofer,
+                     c.placa AS unidad_placa,
+                     COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+                     COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
                      e.razon_social AS empresa_razon_social,
                      p.nombre AS nombre_proyecto,
                      sp.nombre AS nombre_subproyecto
@@ -410,8 +440,8 @@ export class ProgramacionService {
         SELECT
           pt.*,
           c.placa as unidad_placa,
-          c.nombre_chofer,
-          c.apellido_chofer,
+          COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) as nombre_chofer,
+          COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) as apellido_chofer,
           c.capacidad_tanque as camion_capacidad,
           e.razon_social as empresa_razon_social,
           gr.enlace_del_pdf,
@@ -519,8 +549,8 @@ export class ProgramacionService {
         SELECT
           pt.*,
           c.placa as unidad_placa,
-          c.nombre_chofer,
-          c.apellido_chofer,
+          COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) as nombre_chofer,
+          COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) as apellido_chofer,
           c.capacidad_tanque as camion_capacidad,
           e.razon_social as empresa_razon_social,
           gr.enlace_del_pdf,
@@ -783,8 +813,20 @@ export class ProgramacionService {
           }
         }
       }
-      if ('unidad' in updateData)
+      if ('unidad' in updateData) {
         dataToUpdate.unidad = updateData.unidad ?? null;
+        // Al reasignar la unidad, se vuelve a congelar el chofer de la
+        // nueva unidad — igual que al crear el registro.
+        const nuevoCamion = updateData.unidad
+          ? await this.prisma.camiones.findUnique({
+              where: { id_camion: updateData.unidad },
+              select: { nombre_chofer: true, apellido_chofer: true },
+            })
+          : null;
+        dataToUpdate.nombre_chofer_registro = nuevoCamion?.nombre_chofer ?? null;
+        dataToUpdate.apellido_chofer_registro =
+          nuevoCamion?.apellido_chofer ?? null;
+      }
       if ('programacion' in updateData)
         dataToUpdate.programacion = updateData.programacion ?? null;
 
@@ -879,8 +921,8 @@ export class ProgramacionService {
         SELECT
           pt.*,
           c.placa as unidad_placa,
-          c.nombre_chofer,
-          c.apellido_chofer,
+          COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) as nombre_chofer,
+          COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) as apellido_chofer,
           c.capacidad_tanque as camion_capacidad,
           e.razon_social as empresa_razon_social,
           gr.enlace_del_pdf,
@@ -1035,8 +1077,8 @@ export class ProgramacionService {
         pt.cantidad_viaje,
         pt.numero_orden,
         c.placa AS unidad,
-        c.nombre_chofer,
-        c.apellido_chofer,
+        COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+        COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
         e.razon_social AS proveedor,
         COALESCE(sp.nombre, p.nombre) AS proyecto,
         CASE WHEN sp.id_subproyecto IS NOT NULL THEN 'Subproyecto' ELSE 'Proyecto' END AS tipo_proyecto,
@@ -1229,8 +1271,8 @@ export class ProgramacionService {
         pt.punto_llegada_ubigeo,
         pt.punto_llegada_direccion,
         c.placa AS unidad,
-        c.nombre_chofer,
-        c.apellido_chofer,
+        COALESCE(pt.nombre_chofer_registro, c.nombre_chofer) AS nombre_chofer,
+        COALESCE(pt.apellido_chofer_registro, c.apellido_chofer) AS apellido_chofer,
         e.razon_social AS proveedor,
         COALESCE(sp.nombre, p.nombre) AS proyecto,
         CASE WHEN sp.id_subproyecto IS NOT NULL THEN 'Subproyecto' ELSE 'Proyecto' END AS tipo_proyecto,

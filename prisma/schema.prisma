@@ -1469,6 +1469,8 @@ model programacion_tecnica {
   id                             Int       @id @default(autoincrement())
   fecha                          DateTime? @db.Date
   unidad                         Int?
+  nombre_chofer_registro         String?   @db.VarChar(255)
+  apellido_chofer_registro       String?   @db.VarChar(255)
   proveedor                      String?   @db.VarChar(255)
   programacion                   String?   @db.VarChar(255)
   hora_partida                   DateTime? @db.Time(0)
