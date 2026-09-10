@@ -533,17 +533,18 @@ export class SearchService implements OnModuleInit {
     page: number,
     limit: number,
     filtros: Record<string, string | boolean> = {},
+    orden: 'asc' | 'desc' = 'desc',
   ): Promise<{ data: any[]; total: number }> {
     if (this.esAvailable && this.esIndexReady[index]) {
       try {
-        return await this.esSearch(index, q, page, limit, filtros);
+        return await this.esSearch(index, q, page, limit, filtros, orden);
       } catch (error) {
         this.logger.warn(
           `ES search falló (${index}): ${error.message}. Usando Prisma.`,
         );
       }
     }
-    return this.prismaSearch(index, q, page, limit, filtros);
+    return this.prismaSearch(index, q, page, limit, filtros, orden);
   }
 
   async reindexAll(): Promise<{
@@ -749,6 +750,7 @@ export class SearchService implements OnModuleInit {
     page: number,
     limit: number,
     filtros: Record<string, string | boolean> = {},
+    orden: 'asc' | 'desc' = 'desc',
   ): Promise<{ data: any[]; total: number }> {
     const from = (page - 1) * limit;
 
@@ -808,14 +810,20 @@ export class SearchService implements OnModuleInit {
       ],
     };
 
+    // programacion_tecnica ordena por id (orden de creación) por defecto,
+    // ya que `fecha` es una fecha de trabajo asignada manualmente y puede
+    // no coincidir con el orden real en que se crearon los registros.
     const sortField: Record<SearchIndex, string> = {
-      programacion_tecnica: 'fecha',
+      programacion_tecnica: 'id',
       ordenes_compra: 'fecha_orden',
       ordenes_servicio: 'fecha_orden',
     };
 
     const trimmedQ = q ? q.trim() : '';
     const isNumericQ = /^\d+$/.test(trimmedQ);
+    // Escapa los caracteres especiales de wildcard (* ? \) antes de envolver
+    // el término del usuario entre asteriscos.
+    const wildcardQ = trimmedQ.replace(/[\\*?]/g, (c) => `\\${c}`);
 
     // Los docs solo tienen deleted_at indexado cuando el registro fue
     // eliminado (soft delete); un valor null explícito no se indexa.
@@ -853,6 +861,21 @@ export class SearchService implements OnModuleInit {
               ...(isNumericQ
                 ? [{ term: { id: parseInt(trimmedQ) } }]
                 : []),
+              // Coincidencia parcial explícita sobre numero_orden (ej. "02712"
+              // debe encontrar "0000-02712") sin depender de cómo el
+              // analizador tokenice el separador.
+              ...(index === 'ordenes_compra' || index === 'ordenes_servicio'
+                ? [
+                    {
+                      wildcard: {
+                        'numero_orden.keyword': {
+                          value: `*${wildcardQ}*`,
+                          case_insensitive: true,
+                        },
+                      },
+                    },
+                  ]
+                : []),
             ],
             minimum_should_match: 1,
             filter: filterClauses,
@@ -865,7 +888,7 @@ export class SearchService implements OnModuleInit {
       from,
       size: limit,
       query: esQuery,
-      sort: [{ [sortField[index]]: { order: 'desc', missing: '_last' } }],
+      sort: [{ [sortField[index]]: { order: orden, missing: '_last' } }],
     });
 
     const hits = result.hits.hits;
@@ -879,7 +902,7 @@ export class SearchService implements OnModuleInit {
     }
 
     const ids = hits.map((hit) => parseInt(hit._id as string));
-    const data = await this.getFullDataByIds(index, ids);
+    const data = await this.getFullDataByIds(index, ids, orden);
     return { data, total };
   }
 
@@ -891,10 +914,11 @@ export class SearchService implements OnModuleInit {
     page: number,
     limit: number,
     filtros: Record<string, string | boolean> = {},
+    orden: 'asc' | 'desc' = 'desc',
   ): Promise<{ data: any[]; total: number }> {
     switch (index) {
       case 'programacion_tecnica':
-        return this.searchProgramacionTecnica(q, page, limit, filtros);
+        return this.searchProgramacionTecnica(q, page, limit, filtros, orden);
       case 'ordenes_compra':
         return this.searchOrdenesCompra(q, page, limit, filtros);
       case 'ordenes_servicio':
@@ -905,10 +929,11 @@ export class SearchService implements OnModuleInit {
   private async getFullDataByIds(
     index: SearchIndex,
     ids: number[],
+    orden: 'asc' | 'desc' = 'desc',
   ): Promise<any[]> {
     switch (index) {
       case 'programacion_tecnica':
-        return this.getProgramacionTecnicaByIds(ids);
+        return this.getProgramacionTecnicaByIds(ids, orden);
       case 'ordenes_compra':
         return this.getOrdenesCompraByIds(ids);
       case 'ordenes_servicio':
@@ -930,6 +955,9 @@ export class SearchService implements OnModuleInit {
         Prisma.sql`pt.estado_programacion = ${filtros.estado_programacion}`,
       );
     }
+    if (filtros.fecha) {
+      fragments.push(Prisma.sql`pt.fecha = ${filtros.fecha}`);
+    }
     return fragments.length > 0
       ? Prisma.sql`AND ${Prisma.join(fragments, ' AND ')}`
       : Prisma.sql``;
@@ -940,9 +968,11 @@ export class SearchService implements OnModuleInit {
     page: number,
     limit: number,
     filtros: Record<string, string | boolean> = {},
+    orden: 'asc' | 'desc' = 'desc',
   ) {
     const offset = (page - 1) * limit;
     const filtrosSql = this.programacionTecnicaFiltrosSql(filtros);
+    const ordenSql = orden === 'asc' ? Prisma.sql`ASC` : Prisma.sql`DESC`;
 
     if (q) {
       const searchParam = `%${q}%`;
@@ -1005,7 +1035,7 @@ export class SearchService implements OnModuleInit {
                 OR sp.nombre LIKE ${searchParam}
                 OR CAST(pt.id AS CHAR) = ${q})
             ${filtrosSql}
-            ORDER BY pt.fecha DESC
+            ORDER BY pt.id ${ordenSql}
             LIMIT ${limit} OFFSET ${offset}`,
         ),
       ]);
@@ -1041,7 +1071,7 @@ export class SearchService implements OnModuleInit {
             LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
             LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
             WHERE 1=1 ${filtrosSql}
-            ORDER BY pt.fecha DESC
+            ORDER BY pt.id ${ordenSql}
             LIMIT ${limit} OFFSET ${offset}`,
         ),
       ]);
@@ -1054,7 +1084,11 @@ export class SearchService implements OnModuleInit {
     }
   }
 
-  private async getProgramacionTecnicaByIds(ids: number[]): Promise<any[]> {
+  private async getProgramacionTecnicaByIds(
+    ids: number[],
+    orden: 'asc' | 'desc' = 'desc',
+  ): Promise<any[]> {
+    const ordenSql = orden === 'asc' ? Prisma.sql`ASC` : Prisma.sql`DESC`;
     const rows = await this.prisma.$queryRaw<any[]>(
       Prisma.sql`SELECT pt.*,
           c.placa AS unidad_placa,
@@ -1074,7 +1108,7 @@ export class SearchService implements OnModuleInit {
         LEFT JOIN proyecto p ON pt.id_proyecto = p.id_proyecto
         LEFT JOIN subproyectos sp ON pt.id_subproyecto = sp.id_subproyecto
         WHERE pt.id IN (${Prisma.join(ids)})
-        ORDER BY pt.fecha DESC`,
+        ORDER BY pt.id ${ordenSql}`,
     );
     return rows.map((r) => this.mapProgramacionTecnicaRow(r));
   }

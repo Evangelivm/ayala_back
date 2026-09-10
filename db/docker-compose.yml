@@ -13,6 +13,7 @@ services:
       - mysql_data:/var/lib/mysql # Volumen para persistir datos
     networks:
       - shared_network
+    restart: unless-stopped
 
 networks:
   shared_network:

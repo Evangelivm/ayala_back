@@ -19,7 +19,10 @@ export class SearchController {
     @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
     @Query('programacion') programacion?: string,
     @Query('estadoProgramacion') estadoProgramacion?: string,
+    @Query('fecha') fecha?: string,
+    @Query('orden') orden?: string,
   ) {
+    const ordenDireccion: 'asc' | 'desc' = orden === 'asc' ? 'asc' : 'desc';
     const { data, total } = await this.searchService.search(
       'programacion_tecnica',
       q,
@@ -30,7 +33,9 @@ export class SearchController {
         ...(estadoProgramacion
           ? { estado_programacion: estadoProgramacion }
           : {}),
+        ...(fecha ? { fecha } : {}),
       },
+      ordenDireccion,
     );
     return { data, total, page, limit };
   }
