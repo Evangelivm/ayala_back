@@ -48,6 +48,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { OpcionesProgramacionModule } from './opciones-programacion/opciones-programacion.module';
 import { ContabilidadModule } from './contabilidad/contabilidad.module';
 import { RegistroComprasModule } from './registro-compras/registro-compras.module';
+import { ReciboOcrModule } from './recibo-ocr/recibo-ocr.module';
 
 @Module({
   imports: [
@@ -100,6 +101,7 @@ import { RegistroComprasModule } from './registro-compras/registro-compras.modul
     OpcionesProgramacionModule,
     ContabilidadModule,
     RegistroComprasModule,
+    ReciboOcrModule,
   ],
   controllers: [AppController, AdminLogsController],
   providers: [AppService],

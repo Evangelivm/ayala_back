@@ -10,6 +10,7 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       FRONTEND_URL: ${FRONTEND_URL}
       PORT: ${PORT:-3001}
+      OCR_SERVICE_URL: ${OCR_SERVICE_URL:-http://ocr:8866}
     networks:
       - shared_network
     privileged: true
