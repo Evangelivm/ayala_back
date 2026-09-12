@@ -1,0 +1,19 @@
+services:
+  ocr:
+    build:
+      context: ./ocr
+    container_name: receipt_ocr
+    restart: unless-stopped
+    ports:
+      - "8866:8866"
+    volumes:
+      - ocr_models:/root/.rapidocr
+    networks:
+      - shared_network
+
+volumes:
+  ocr_models:
+
+networks:
+  shared_network:
+    external: true

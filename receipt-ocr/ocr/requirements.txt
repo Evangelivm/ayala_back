@@ -1,0 +1,10 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+pillow>=10.0
+onnxruntime>=1.16
+rapidocr>=2.0.0
+# NumPy >=2.0 en PyPI viene compilado asumiendo baseline x86-64-v2
+# (SSE4.2/POPCNT). Si el host/CPU no lo soporta (ej. VPS con CPU virtualizada
+# antigua), falla con RuntimeError al importar. Por eso se fija <2.0.
+numpy<2.0
