@@ -1163,6 +1163,7 @@ export class SearchService implements OnModuleInit {
       tipo_proyecto,
       programacion: pt.programacion,
       hora_partida,
+      hora_registro: pt.hora_registro || null,
       estado_programacion: pt.estado_programacion,
       comentarios: pt.comentarios,
       validacion: pt.validacion,
