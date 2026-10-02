@@ -540,7 +540,7 @@ export class OrdenCompraService {
       datosOrdenCompra: {
         direccion:
           'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
-        condicion: 'CREDITO',
+        condicion: 'CONTADO',
         moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
         almacenCentral: ordenCompra.almacen_central?.toUpperCase() === 'SI',
