@@ -263,6 +263,11 @@ export type subirfasecontrol_copy1 = Prisma.subirfasecontrol_copy1Model
  */
 export type multifactura_detalle = Prisma.multifactura_detalleModel
 /**
+ * Model reservas_numero_orden
+ * Reservas temporales de número de orden. Se opera con SQL crudo (ver NumeracionOrdenService).
+ */
+export type reservas_numero_orden = Prisma.reservas_numero_ordenModel
+/**
  * Model lotes_importacion_contable
  * 
  */

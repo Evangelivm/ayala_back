@@ -8,9 +8,14 @@ import * as timezone from 'dayjs/plugin/timezone';
 import { OrdenCompraData, DetalleItem } from './orden-compra.interfaces';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateOrdenCompraDto } from './dto/create-orden-compra.dto';
+import { randomUUID } from 'crypto';
+import {
+  CreateOrdenCompraDto,
+  CreateBatchOrdenCompraDto,
+} from './dto/create-orden-compra.dto';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
 import { SearchService } from '../search/search.service';
+import { NumeracionOrdenService } from '../numeracion-orden/numeracion-orden.service';
 
 // Configurar plugins de dayjs
 dayjs.extend(utc);
@@ -22,6 +27,7 @@ export class OrdenCompraService {
     private readonly prismaThird: PrismaThirdService,
     private readonly prisma: PrismaService,
     private readonly websocketGateway: WebsocketGateway,
+    private readonly numeracion: NumeracionOrdenService,
     @Optional() private readonly searchService?: SearchService,
   ) {}
 
@@ -271,17 +277,6 @@ export class OrdenCompraService {
         );
       }
 
-      // Validar que el número de orden no existe
-      const ordenExistente = await this.prismaThird.ordenes_compra.findUnique({
-        where: { numero_orden: createOrdenCompraDto.numero_orden },
-      });
-
-      if (ordenExistente) {
-        throw new BadRequestException(
-          `Ya existe una orden de compra con el número ${createOrdenCompraDto.numero_orden}`,
-        );
-      }
-
       // Validar que los items existen
       for (const item of createOrdenCompraDto.items) {
         const itemDB = await this.prismaThird.listado_items_2025.findUnique({
@@ -298,12 +293,246 @@ export class OrdenCompraService {
       // Obtener el tipo de cambio antes de crear la orden
       const tipoCambio = await this.obtenerTipoCambioSunat();
 
-      // Crear la orden de compra con sus detalles en una transacción
-      const ordenCompra = await this.prismaThird.$transaction(async (tx) => {
-        // Crear la orden de compra
+      // Crear la orden de compra con sus detalles en una transacción.
+      // Si el número solicitado ya no es válido (lo usó otra orden o lo tiene
+      // reservado otra persona) se reasigna el siguiente libre en vez de fallar.
+      let forzarNuevoNumero = false;
+      let numeroReasignado = false;
+      let ordenCompra: Awaited<
+        ReturnType<OrdenCompraService['crearOrdenCompraTx']>
+      >;
+      for (let intento = 1; ; intento++) {
+        try {
+          const resultado = await this.prismaThird.$transaction(async (tx) => {
+            const asignado = await this.numeracion.prepararNumeroParaGuardar(
+              tx,
+              'compra',
+              createOrdenCompraDto.reserva_owner,
+              createOrdenCompraDto.numero_orden,
+              forzarNuevoNumero,
+            );
+            const creada = await this.crearOrdenCompraTx(
+              tx,
+              createOrdenCompraDto,
+              usuarioId,
+              tipoCambio,
+              asignado.numero_orden,
+            );
+            await this.numeracion.consumirReservas(tx, 'compra', [
+              createOrdenCompraDto.numero_orden,
+              asignado.numero_orden,
+            ]);
+            return { creada, reasignado: asignado.reasignado };
+          });
+          ordenCompra = resultado.creada;
+          numeroReasignado = resultado.reasignado;
+          break;
+        } catch (error) {
+          // Choque de número con otro guardado simultáneo: reintentar con uno nuevo
+          if (this.numeracion.esViolacionUnica(error) && intento < 3) {
+            forzarNuevoNumero = true;
+            continue;
+          }
+          throw error;
+        }
+      }
+
+      // Emitir evento WebSocket para actualizar los clientes en tiempo real
+      this.websocketGateway.emitOrdenCompraUpdate();
+
+      // Indexar en Elasticsearch (fire-and-forget)
+      if (this.searchService) {
+        this.searchService.reindexOne(
+          'ordenes_compra',
+          ordenCompra.id_orden_compra,
+        );
+      }
+
+      return {
+        success: true,
+        message: 'Orden de compra creada exitosamente',
+        data: ordenCompra,
+        numero_orden: ordenCompra.numero_orden,
+        numero_reasignado: numeroReasignado,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('Error al crear orden de compra:', error);
+      throw new BadRequestException(
+        `Error al crear orden de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Crea varias órdenes de compra a la vez (multifactura). Todas comparten
+   * un grupo_id y se guardan en una sola transacción: si una falla, ninguna
+   * se crea. Los números se resuelven igual que en create() (reasignación
+   * automática si alguno ya no es válido).
+   */
+  async createBatch(batchDto: CreateBatchOrdenCompraDto, usuarioId: number) {
+    try {
+      const { ordenes, reserva_owner } = batchDto;
+
+      for (const orden of ordenes) {
+        const proveedor = await this.prismaThird.proveedores.findUnique({
+          where: { id_proveedor: orden.id_proveedor },
+        });
+        if (!proveedor) {
+          throw new BadRequestException(
+            `Proveedor con ID ${orden.id_proveedor} no encontrado`,
+          );
+        }
+        for (const item of orden.items) {
+          const itemDB = await this.prismaThird.listado_items_2025.findUnique({
+            where: { codigo: item.codigo_item },
+          });
+          if (!itemDB) {
+            throw new BadRequestException(
+              `Item con código ${item.codigo_item} no encontrado`,
+            );
+          }
+        }
+      }
+
+      const tipoCambio = await this.obtenerTipoCambioSunat();
+      const grupoId = randomUUID();
+
+      let forzarNuevoNumero = false;
+      let creadas: {
+        orden: Awaited<ReturnType<OrdenCompraService['crearOrdenCompraTx']>>;
+        solicitado: string;
+        reasignado: boolean;
+      }[] = [];
+
+      for (let intento = 1; ; intento++) {
+        try {
+          creadas = await this.prismaThird.$transaction(
+            async (tx) => {
+              const resultado: typeof creadas = [];
+              // En secuencia: cada orden creada ocupa su número para la siguiente
+              for (const dtoOrden of ordenes) {
+                const asignado =
+                  await this.numeracion.prepararNumeroParaGuardar(
+                    tx,
+                    'compra',
+                    reserva_owner,
+                    dtoOrden.numero_orden,
+                    forzarNuevoNumero,
+                  );
+                const orden = await this.crearOrdenCompraTx(
+                  tx,
+                  dtoOrden,
+                  usuarioId,
+                  tipoCambio,
+                  asignado.numero_orden,
+                  grupoId,
+                );
+                await this.numeracion.consumirReservas(tx, 'compra', [
+                  dtoOrden.numero_orden,
+                  asignado.numero_orden,
+                ]);
+                resultado.push({
+                  orden,
+                  solicitado: dtoOrden.numero_orden,
+                  reasignado: asignado.reasignado,
+                });
+              }
+              return resultado;
+            },
+            { timeout: 30000 },
+          );
+          break;
+        } catch (error) {
+          if (this.numeracion.esViolacionUnica(error) && intento < 3) {
+            forzarNuevoNumero = true;
+            continue;
+          }
+          throw error;
+        }
+      }
+
+      this.websocketGateway.emitOrdenCompraUpdate();
+
+      if (this.searchService) {
+        for (const { orden } of creadas) {
+          this.searchService.reindexOne(
+            'ordenes_compra',
+            orden.id_orden_compra,
+          );
+        }
+      }
+
+      return {
+        success: true,
+        message: `${creadas.length} órdenes de compra creadas exitosamente`,
+        grupo_id: grupoId,
+        ordenes: creadas.map(({ orden, solicitado, reasignado }) => ({
+          id_orden_compra: orden.id_orden_compra,
+          numero_orden: orden.numero_orden,
+          numero_solicitado: solicitado,
+          numero_reasignado: reasignado,
+          total: orden.total,
+        })),
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      console.error('Error al crear multifactura de compra:', error);
+      throw new BadRequestException(
+        `Error al crear las órdenes de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Copia la cotización de una orden a las demás órdenes de su grupo
+   * (la cotización de una multifactura es una sola para todas).
+   */
+  async propagarCotizacionAGrupo(id: number): Promise<{ actualizadas: number }> {
+    const origen = await this.prismaThird.ordenes_compra.findUnique({
+      where: { id_orden_compra: id },
+      select: { grupo_id: true, url_cotizacion: true },
+    });
+    if (!origen) {
+      throw new BadRequestException(`Orden de compra con ID ${id} no encontrada`);
+    }
+    if (!origen.grupo_id || !origen.url_cotizacion) return { actualizadas: 0 };
+
+    const hermanas = await this.prismaThird.ordenes_compra.findMany({
+      where: {
+        grupo_id: origen.grupo_id,
+        id_orden_compra: { not: id },
+        deleted_at: null,
+      },
+      select: { id_orden_compra: true },
+    });
+    for (const h of hermanas) {
+      await this.updateCotizacionUrl(h.id_orden_compra, origen.url_cotizacion);
+    }
+    return { actualizadas: hermanas.length };
+  }
+
+  /** Inserta la orden y sus detalles dentro de una transacción ya abierta */
+  async crearOrdenCompraTx(
+    tx: Parameters<Parameters<PrismaThirdService['$transaction']>[0]>[0],
+    createOrdenCompraDto: CreateOrdenCompraDto,
+    usuarioId: number,
+    tipoCambio: number,
+    numeroOrden: string,
+    grupoId?: string,
+  ) {
+    {
+      {
+        // Crear la orden de compra (el número ya viene resuelto)
         const nuevaOrden = await tx.ordenes_compra.create({
           data: {
-            numero_orden: createOrdenCompraDto.numero_orden,
+            numero_orden: numeroOrden,
+            grupo_id: grupoId ?? null,
             id_proveedor: createOrdenCompraDto.id_proveedor,
             fecha_orden: new Date(createOrdenCompraDto.fecha_orden),
             subtotal: createOrdenCompraDto.subtotal,
@@ -360,37 +589,7 @@ export class OrdenCompraService {
           ...nuevaOrden,
           detalles: detallesCreados,
         };
-      });
-
-      // Emitir evento WebSocket para actualizar los clientes en tiempo real
-      this.websocketGateway.emitOrdenCompraUpdate();
-
-      // Obtener el siguiente número de orden disponible y emitirlo a todos los clientes
-      const siguienteNumero = await this.obtenerSiguienteNumeroOrden();
-      this.websocketGateway.emitSiguienteNumeroOrdenCompra(siguienteNumero);
-
-      // Indexar en Elasticsearch (fire-and-forget)
-      if (this.searchService) {
-        this.searchService.reindexOne(
-          'ordenes_compra',
-          ordenCompra.id_orden_compra,
-        );
       }
-
-      return {
-        success: true,
-        message: 'Orden de compra creada exitosamente',
-        data: ordenCompra,
-      };
-    } catch (error) {
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-
-      console.error('Error al crear orden de compra:', error);
-      throw new BadRequestException(
-        `Error al crear orden de compra: ${error.message}`,
-      );
     }
   }
 

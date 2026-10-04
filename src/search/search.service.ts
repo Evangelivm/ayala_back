@@ -535,6 +535,84 @@ export class SearchService implements OnModuleInit {
     filtros: Record<string, string | boolean> = {},
     orden: 'asc' | 'desc' = 'desc',
   ): Promise<{ data: any[]; total: number }> {
+    const resultado = await this.searchBase(
+      index,
+      q,
+      page,
+      limit,
+      filtros,
+      orden,
+    );
+    if (index === 'ordenes_compra' || index === 'ordenes_servicio') {
+      try {
+        resultado.data = await this.incluirHermanasDeGrupo(
+          index,
+          resultado.data,
+        );
+      } catch (error) {
+        this.logger.warn(
+          `No se pudieron agregar las órdenes del grupo (${index}): ${error.message}`,
+        );
+      }
+    }
+    return resultado;
+  }
+
+  /**
+   * Multifactura: si en el resultado hay una orden de un grupo, se agregan las
+   * demás órdenes de ese grupo (aunque no coincidan con la búsqueda o caigan
+   * en otra página) para que el listado muestre el grupo completo.
+   */
+  private async incluirHermanasDeGrupo(
+    index: 'ordenes_compra' | 'ordenes_servicio',
+    data: any[],
+  ): Promise<any[]> {
+    const grupos = [
+      ...new Set(data.map((o) => o.grupo_id).filter(Boolean)),
+    ] as string[];
+    if (grupos.length === 0) return data;
+
+    if (index === 'ordenes_compra') {
+      const presentes = new Set(data.map((o) => o.id_orden_compra));
+      const hermanas = (
+        await this.prismaThird.ordenes_compra.findMany({
+          where: { grupo_id: { in: grupos }, deleted_at: null },
+          include: { proveedores: true, detalles_orden_compra: true },
+        })
+      ).filter((h) => !presentes.has(h.id_orden_compra));
+      const camionesMap = await this.buildCamionesMap(
+        hermanas.map((o) => o.id_camion),
+      );
+      return [
+        ...data,
+        ...hermanas.map((o) => this.mapOrdenCompra(o, camionesMap)),
+      ];
+    }
+
+    const presentes = new Set(data.map((o) => o.id_orden_servicio));
+    const hermanas = (
+      await this.prismaThird.ordenes_servicio.findMany({
+        where: { grupo_id: { in: grupos }, deleted_at: null },
+        include: { proveedores: true, detalles_orden_servicio: true },
+      })
+    ).filter((h) => !presentes.has(h.id_orden_servicio));
+    const camionesMap = await this.buildCamionesMap(
+      hermanas.map((o) => o.id_camion),
+    );
+    return [
+      ...data,
+      ...hermanas.map((o) => this.mapOrdenServicio(o, camionesMap)),
+    ];
+  }
+
+  private async searchBase(
+    index: SearchIndex,
+    q: string,
+    page: number,
+    limit: number,
+    filtros: Record<string, string | boolean> = {},
+    orden: 'asc' | 'desc' = 'desc',
+  ): Promise<{ data: any[]; total: number }> {
     if (this.esAvailable && this.esIndexReady[index]) {
       try {
         return await this.esSearch(index, q, page, limit, filtros, orden);

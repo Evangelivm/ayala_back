@@ -22,6 +22,8 @@ import { OrdenCompraService } from './orden-compra.service';
 import {
   CreateOrdenCompraDto,
   CreateOrdenCompraSchema,
+  CreateBatchOrdenCompraDto,
+  CreateBatchOrdenCompraSchema,
 } from './dto/create-orden-compra.dto';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { DropboxService } from '../dropbox/dropbox.service';
@@ -109,6 +111,24 @@ export class OrdenCompraController {
       console.error('Error creando orden de compra:', error);
       throw error;
     }
+  }
+
+  @Post('batch')
+  @HttpCode(HttpStatus.CREATED)
+  async createBatch(
+    @Body(new ZodValidationPipe(CreateBatchOrdenCompraSchema))
+    batchDto: CreateBatchOrdenCompraDto,
+    @Request() req: any,
+  ) {
+    const usuarioId =
+      batchDto.ordenes[0]?.registrado_por || req.user?.id || 1;
+    return this.ordenCompraService.createBatch(batchDto, usuarioId);
+  }
+
+  @Post(':id/propagar-cotizacion')
+  @HttpCode(HttpStatus.OK)
+  async propagarCotizacion(@Param('id') id: string) {
+    return this.ordenCompraService.propagarCotizacionAGrupo(+id);
   }
 
   @Put(':id')

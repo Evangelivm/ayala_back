@@ -328,12 +328,14 @@ model ordenes_compra {
   editado_por                 Int?
   fecha_edicion               DateTime?                    @db.Timestamp(0)
   formato_pdf_version         Int                          @default(1)
+  grupo_id                    String?                      @db.VarChar(36)
   detalles_orden_compra       detalles_orden_compra[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
   usuarios                    usuarios                     @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_2")
   recepciones_compra          recepciones_compra[]
 
+  @@index([grupo_id], map: "idx_grupo")
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")
   @@index([id_proveedor], map: "idx_proveedor")
@@ -545,11 +547,13 @@ model ordenes_servicio {
   editado_por                 Int?
   fecha_edicion               DateTime?                      @db.Timestamp(0)
   formato_pdf_version         Int                            @default(1)
+  grupo_id                    String?                        @db.VarChar(36)
   detalles_orden_servicio     detalles_orden_servicio[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
   usuarios                    usuarios                       @relation(fields: [registrado_por], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_2")
 
+  @@index([grupo_id], map: "idx_grupo")
   @@index([estado], map: "idx_estado")
   @@index([fecha_orden], map: "idx_fecha_orden")
   @@index([id_proveedor], map: "idx_proveedor")
@@ -916,6 +920,21 @@ model multifactura_detalle {
 
   @@index([id_orden_compra], map: "idx_multifactura_compra")
   @@index([id_orden_servicio], map: "idx_multifactura_servicio")
+}
+
+/// Reservas temporales de número de orden. Se opera con SQL crudo (ver NumeracionOrdenService).
+model reservas_numero_orden {
+  id          Int       @id @default(autoincrement())
+  tipo        String    @db.VarChar(10)
+  serie       String    @db.VarChar(10)
+  nro         Int
+  propietario String    @db.VarChar(64)
+  expira_en   DateTime  @db.DateTime(0)
+  creado_en   DateTime? @default(now()) @db.Timestamp(0)
+
+  @@unique([tipo, serie, nro], map: "uk_reserva_numero")
+  @@index([propietario], map: "idx_reserva_propietario")
+  @@index([expira_en], map: "idx_reserva_expira")
 }
 
 enum configuracion_notificaciones_tipo_notificacion {

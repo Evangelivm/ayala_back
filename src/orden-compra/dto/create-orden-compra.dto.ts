@@ -68,10 +68,27 @@ export const CreateOrdenCompraSchema = z
     observaciones: z.string().optional(),
     registrado_por: z.number().int().positive().optional(),
     editado_por: z.number().int().positive().optional(),
+    // Clave de reserva del número (generada por el navegador al abrir el dialog)
+    reserva_owner: z.string().max(64).optional(),
   })
   .strip(); // Ignorar campos adicionales que no están en el schema
 
+// Guardado en lote (multifactura): 2 o más órdenes que forman un grupo
+export const CreateBatchOrdenCompraSchema = z
+  .object({
+    ordenes: z
+      .array(CreateOrdenCompraSchema)
+      .min(2, 'Una multifactura requiere al menos 2 órdenes')
+      .max(20, 'Máximo 20 órdenes por multifactura'),
+    // Clave de reserva de los números (misma para todas las tabs del dialog)
+    reserva_owner: z.string().max(64).optional(),
+  })
+  .strip();
+
 // Tipos inferidos de los schemas
+export type CreateBatchOrdenCompraDto = z.infer<
+  typeof CreateBatchOrdenCompraSchema
+>;
 export type CreateDetalleOrdenCompraDto = z.infer<
   typeof CreateDetalleOrdenCompraSchema
 >;

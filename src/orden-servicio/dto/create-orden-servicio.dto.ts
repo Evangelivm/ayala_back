@@ -68,10 +68,27 @@ export const CreateOrdenServicioSchema = z
     observaciones: z.string().optional(),
     registrado_por: z.number().int().positive().optional(),
     editado_por: z.number().int().positive().optional(),
+    // Clave de reserva del número (generada por el navegador al abrir el dialog)
+    reserva_owner: z.string().max(64).optional(),
   })
   .strip(); // Ignorar campos adicionales que no están en el schema
 
+// Guardado en lote (multifactura): 2 o más órdenes que forman un grupo
+export const CreateBatchOrdenServicioSchema = z
+  .object({
+    ordenes: z
+      .array(CreateOrdenServicioSchema)
+      .min(2, 'Una multifactura requiere al menos 2 órdenes')
+      .max(20, 'Máximo 20 órdenes por multifactura'),
+    // Clave de reserva de los números (misma para todas las tabs del dialog)
+    reserva_owner: z.string().max(64).optional(),
+  })
+  .strip();
+
 // Tipos inferidos de los schemas
+export type CreateBatchOrdenServicioDto = z.infer<
+  typeof CreateBatchOrdenServicioSchema
+>;
 export type CreateDetalleOrdenServicioDto = z.infer<
   typeof CreateDetalleOrdenServicioSchema
 >;

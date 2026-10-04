@@ -446,6 +446,7 @@ export const ModelName = {
   oldfasecontrol: 'oldfasecontrol',
   subirfasecontrol_copy1: 'subirfasecontrol_copy1',
   multifactura_detalle: 'multifactura_detalle',
+  reservas_numero_orden: 'reservas_numero_orden',
   lotes_importacion_contable: 'lotes_importacion_contable',
   asientos_contables: 'asientos_contables',
   cat_modulo: 'cat_modulo',
@@ -472,7 +473,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo" | "masivo"
+    modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "reservas_numero_orden" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo" | "masivo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3710,6 +3711,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    reservas_numero_orden: {
+      payload: Prisma.$reservas_numero_ordenPayload<ExtArgs>
+      fields: Prisma.reservas_numero_ordenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.reservas_numero_ordenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.reservas_numero_ordenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        findFirst: {
+          args: Prisma.reservas_numero_ordenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.reservas_numero_ordenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        findMany: {
+          args: Prisma.reservas_numero_ordenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>[]
+        }
+        create: {
+          args: Prisma.reservas_numero_ordenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        createMany: {
+          args: Prisma.reservas_numero_ordenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.reservas_numero_ordenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        update: {
+          args: Prisma.reservas_numero_ordenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        deleteMany: {
+          args: Prisma.reservas_numero_ordenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.reservas_numero_ordenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.reservas_numero_ordenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$reservas_numero_ordenPayload>
+        }
+        aggregate: {
+          args: Prisma.Reservas_numero_ordenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReservas_numero_orden>
+        }
+        groupBy: {
+          args: Prisma.reservas_numero_ordenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Reservas_numero_ordenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.reservas_numero_ordenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Reservas_numero_ordenCountAggregateOutputType> | number
+        }
+      }
+    }
     lotes_importacion_contable: {
       payload: Prisma.$lotes_importacion_contablePayload<ExtArgs>
       fields: Prisma.lotes_importacion_contableFieldRefs
@@ -4754,7 +4821,8 @@ export const Ordenes_compraScalarFieldEnum = {
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
-  formato_pdf_version: 'formato_pdf_version'
+  formato_pdf_version: 'formato_pdf_version',
+  grupo_id: 'grupo_id'
 } as const
 
 export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -4934,7 +5002,8 @@ export const Ordenes_servicioScalarFieldEnum = {
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
-  formato_pdf_version: 'formato_pdf_version'
+  formato_pdf_version: 'formato_pdf_version',
+  grupo_id: 'grupo_id'
 } as const
 
 export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -5308,6 +5377,19 @@ export const Multifactura_detalleScalarFieldEnum = {
 } as const
 
 export type Multifactura_detalleScalarFieldEnum = (typeof Multifactura_detalleScalarFieldEnum)[keyof typeof Multifactura_detalleScalarFieldEnum]
+
+
+export const Reservas_numero_ordenScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  serie: 'serie',
+  nro: 'nro',
+  propietario: 'propietario',
+  expira_en: 'expira_en',
+  creado_en: 'creado_en'
+} as const
+
+export type Reservas_numero_ordenScalarFieldEnum = (typeof Reservas_numero_ordenScalarFieldEnum)[keyof typeof Reservas_numero_ordenScalarFieldEnum]
 
 
 export const Lotes_importacion_contableScalarFieldEnum = {
@@ -5687,7 +5769,8 @@ export const ordenes_compraOrderByRelevanceFieldEnum = {
   nro_rh: 'nro_rh',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  grupo_id: 'grupo_id'
 } as const
 
 export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -5782,7 +5865,8 @@ export const ordenes_servicioOrderByRelevanceFieldEnum = {
   nro_rh: 'nro_rh',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  grupo_id: 'grupo_id'
 } as const
 
 export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -6004,6 +6088,15 @@ export const multifactura_detalleOrderByRelevanceFieldEnum = {
 } as const
 
 export type multifactura_detalleOrderByRelevanceFieldEnum = (typeof multifactura_detalleOrderByRelevanceFieldEnum)[keyof typeof multifactura_detalleOrderByRelevanceFieldEnum]
+
+
+export const reservas_numero_ordenOrderByRelevanceFieldEnum = {
+  tipo: 'tipo',
+  serie: 'serie',
+  propietario: 'propietario'
+} as const
+
+export type reservas_numero_ordenOrderByRelevanceFieldEnum = (typeof reservas_numero_ordenOrderByRelevanceFieldEnum)[keyof typeof reservas_numero_ordenOrderByRelevanceFieldEnum]
 
 
 export const lotes_importacion_contableOrderByRelevanceFieldEnum = {
@@ -6569,6 +6662,7 @@ export type GlobalOmitConfig = {
   oldfasecontrol?: Prisma.oldfasecontrolOmit
   subirfasecontrol_copy1?: Prisma.subirfasecontrol_copy1Omit
   multifactura_detalle?: Prisma.multifactura_detalleOmit
+  reservas_numero_orden?: Prisma.reservas_numero_ordenOmit
   lotes_importacion_contable?: Prisma.lotes_importacion_contableOmit
   asientos_contables?: Prisma.asientos_contablesOmit
   cat_modulo?: Prisma.cat_moduloOmit

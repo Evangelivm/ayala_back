@@ -22,6 +22,8 @@ import { OrdenServicioService } from './orden-servicio.service';
 import {
   CreateOrdenServicioDto,
   CreateOrdenServicioSchema,
+  CreateBatchOrdenServicioDto,
+  CreateBatchOrdenServicioSchema,
 } from './dto/create-orden-servicio.dto';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { DropboxService } from '../dropbox/dropbox.service';
@@ -110,6 +112,24 @@ export class OrdenServicioController {
       console.error('Error creando orden de servicio:', error);
       throw error;
     }
+  }
+
+  @Post('batch')
+  @HttpCode(HttpStatus.CREATED)
+  async createBatch(
+    @Body(new ZodValidationPipe(CreateBatchOrdenServicioSchema))
+    batchDto: CreateBatchOrdenServicioDto,
+    @Request() req: any,
+  ) {
+    const usuarioId =
+      batchDto.ordenes[0]?.registrado_por || req.user?.id || 1;
+    return this.ordenServicioService.createBatch(batchDto, usuarioId);
+  }
+
+  @Post(':id/propagar-cotizacion')
+  @HttpCode(HttpStatus.OK)
+  async propagarCotizacion(@Param('id') id: string) {
+    return this.ordenServicioService.propagarCotizacionAGrupo(+id);
   }
 
   @Put(':id')

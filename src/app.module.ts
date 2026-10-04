@@ -31,6 +31,7 @@ import { ProveedoresModule } from './proveedores/proveedores.module';
 import { AcarreoModule } from './acarreo/acarreo.module';
 import { OrdenCompraModule } from './orden-compra/orden-compra.module';
 import { OrdenServicioModule } from './orden-servicio/orden-servicio.module';
+import { NumeracionOrdenModule } from './numeracion-orden/numeracion-orden.module';
 import { ReporteCentroCostosModule } from './reporte-centro-costos/reporte-centro-costos.module';
 import { ItemsModule } from './items/items.module';
 import { CentrosCostoModule } from './centros-costo/centros-costo.module';
@@ -86,6 +87,7 @@ import { ReciboOcrModule } from './recibo-ocr/recibo-ocr.module';
     AcarreoModule,
     OrdenCompraModule,
     OrdenServicioModule,
+    NumeracionOrdenModule,
     ReporteCentroCostosModule,
     ItemsModule,
     CentrosCostoModule,

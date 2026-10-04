@@ -114,6 +114,7 @@ export type Ordenes_compraMinAggregateOutputType = {
   editado_por: number | null
   fecha_edicion: Date | null
   formato_pdf_version: number | null
+  grupo_id: string | null
 }
 
 export type Ordenes_compraMaxAggregateOutputType = {
@@ -172,6 +173,7 @@ export type Ordenes_compraMaxAggregateOutputType = {
   editado_por: number | null
   fecha_edicion: Date | null
   formato_pdf_version: number | null
+  grupo_id: string | null
 }
 
 export type Ordenes_compraCountAggregateOutputType = {
@@ -230,6 +232,7 @@ export type Ordenes_compraCountAggregateOutputType = {
   editado_por: number
   fecha_edicion: number
   formato_pdf_version: number
+  grupo_id: number
   _all: number
 }
 
@@ -322,6 +325,7 @@ export type Ordenes_compraMinAggregateInputType = {
   editado_por?: true
   fecha_edicion?: true
   formato_pdf_version?: true
+  grupo_id?: true
 }
 
 export type Ordenes_compraMaxAggregateInputType = {
@@ -380,6 +384,7 @@ export type Ordenes_compraMaxAggregateInputType = {
   editado_por?: true
   fecha_edicion?: true
   formato_pdf_version?: true
+  grupo_id?: true
 }
 
 export type Ordenes_compraCountAggregateInputType = {
@@ -438,6 +443,7 @@ export type Ordenes_compraCountAggregateInputType = {
   editado_por?: true
   fecha_edicion?: true
   formato_pdf_version?: true
+  grupo_id?: true
   _all?: true
 }
 
@@ -583,6 +589,7 @@ export type Ordenes_compraGroupByOutputType = {
   editado_por: number | null
   fecha_edicion: Date | null
   formato_pdf_version: number
+  grupo_id: string | null
   _count: Ordenes_compraCountAggregateOutputType | null
   _avg: Ordenes_compraAvgAggregateOutputType | null
   _sum: Ordenes_compraSumAggregateOutputType | null
@@ -664,6 +671,7 @@ export type ordenes_compraWhereInput = {
   editado_por?: Prisma.IntNullableFilter<"ordenes_compra"> | number | null
   fecha_edicion?: Prisma.DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
   formato_pdf_version?: Prisma.IntFilter<"ordenes_compra"> | number
+  grupo_id?: Prisma.StringNullableFilter<"ordenes_compra"> | string | null
   detalles_orden_compra?: Prisma.Detalles_orden_compraListRelationFilter
   multifactura_detalle?: Prisma.Multifactura_detalleListRelationFilter
   proveedores?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.proveedoresWhereInput>
@@ -727,6 +735,7 @@ export type ordenes_compraOrderByWithRelationInput = {
   editado_por?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_edicion?: Prisma.SortOrderInput | Prisma.SortOrder
   formato_pdf_version?: Prisma.SortOrder
+  grupo_id?: Prisma.SortOrderInput | Prisma.SortOrder
   detalles_orden_compra?: Prisma.detalles_orden_compraOrderByRelationAggregateInput
   multifactura_detalle?: Prisma.multifactura_detalleOrderByRelationAggregateInput
   proveedores?: Prisma.proveedoresOrderByWithRelationInput
@@ -794,6 +803,7 @@ export type ordenes_compraWhereUniqueInput = Prisma.AtLeast<{
   editado_por?: Prisma.IntNullableFilter<"ordenes_compra"> | number | null
   fecha_edicion?: Prisma.DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
   formato_pdf_version?: Prisma.IntFilter<"ordenes_compra"> | number
+  grupo_id?: Prisma.StringNullableFilter<"ordenes_compra"> | string | null
   detalles_orden_compra?: Prisma.Detalles_orden_compraListRelationFilter
   multifactura_detalle?: Prisma.Multifactura_detalleListRelationFilter
   proveedores?: Prisma.XOR<Prisma.ProveedoresScalarRelationFilter, Prisma.proveedoresWhereInput>
@@ -857,6 +867,7 @@ export type ordenes_compraOrderByWithAggregationInput = {
   editado_por?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_edicion?: Prisma.SortOrderInput | Prisma.SortOrder
   formato_pdf_version?: Prisma.SortOrder
+  grupo_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ordenes_compraCountOrderByAggregateInput
   _avg?: Prisma.ordenes_compraAvgOrderByAggregateInput
   _max?: Prisma.ordenes_compraMaxOrderByAggregateInput
@@ -923,6 +934,7 @@ export type ordenes_compraScalarWhereWithAggregatesInput = {
   editado_por?: Prisma.IntNullableWithAggregatesFilter<"ordenes_compra"> | number | null
   fecha_edicion?: Prisma.DateTimeNullableWithAggregatesFilter<"ordenes_compra"> | Date | string | null
   formato_pdf_version?: Prisma.IntWithAggregatesFilter<"ordenes_compra"> | number
+  grupo_id?: Prisma.StringNullableWithAggregatesFilter<"ordenes_compra"> | string | null
 }
 
 export type ordenes_compraCreateInput = {
@@ -978,6 +990,7 @@ export type ordenes_compraCreateInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
   proveedores: Prisma.proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -1041,6 +1054,7 @@ export type ordenes_compraUncheckedCreateInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -1099,6 +1113,7 @@ export type ordenes_compraUpdateInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
   proveedores?: Prisma.proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -1162,6 +1177,7 @@ export type ordenes_compraUncheckedUpdateInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -1223,6 +1239,7 @@ export type ordenes_compraCreateManyInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
 }
 
 export type ordenes_compraUpdateManyMutationInput = {
@@ -1278,6 +1295,7 @@ export type ordenes_compraUpdateManyMutationInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ordenes_compraUncheckedUpdateManyInput = {
@@ -1336,6 +1354,7 @@ export type ordenes_compraUncheckedUpdateManyInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type Ordenes_compraScalarRelationFilter = {
@@ -1405,6 +1424,7 @@ export type ordenes_compraCountOrderByAggregateInput = {
   editado_por?: Prisma.SortOrder
   fecha_edicion?: Prisma.SortOrder
   formato_pdf_version?: Prisma.SortOrder
+  grupo_id?: Prisma.SortOrder
 }
 
 export type ordenes_compraAvgOrderByAggregateInput = {
@@ -1479,6 +1499,7 @@ export type ordenes_compraMaxOrderByAggregateInput = {
   editado_por?: Prisma.SortOrder
   fecha_edicion?: Prisma.SortOrder
   formato_pdf_version?: Prisma.SortOrder
+  grupo_id?: Prisma.SortOrder
 }
 
 export type ordenes_compraMinOrderByAggregateInput = {
@@ -1537,6 +1558,7 @@ export type ordenes_compraMinOrderByAggregateInput = {
   editado_por?: Prisma.SortOrder
   fecha_edicion?: Prisma.SortOrder
   formato_pdf_version?: Prisma.SortOrder
+  grupo_id?: Prisma.SortOrder
 }
 
 export type ordenes_compraSumOrderByAggregateInput = {
@@ -1759,6 +1781,7 @@ export type ordenes_compraCreateWithoutDetalles_orden_compraInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   multifactura_detalle?: Prisma.multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
   proveedores: Prisma.proveedoresCreateNestedOneWithoutOrdenes_compraInput
   usuarios: Prisma.usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -1821,6 +1844,7 @@ export type ordenes_compraUncheckedCreateWithoutDetalles_orden_compraInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
 }
@@ -1894,6 +1918,7 @@ export type ordenes_compraUpdateWithoutDetalles_orden_compraInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   multifactura_detalle?: Prisma.multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
   proveedores?: Prisma.proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
   usuarios?: Prisma.usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -1956,6 +1981,7 @@ export type ordenes_compraUncheckedUpdateWithoutDetalles_orden_compraInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
 }
@@ -2013,6 +2039,7 @@ export type ordenes_compraCreateWithoutProveedoresInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
   usuarios: Prisma.usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -2074,6 +2101,7 @@ export type ordenes_compraUncheckedCreateWithoutProveedoresInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -2164,6 +2192,7 @@ export type ordenes_compraScalarWhereInput = {
   editado_por?: Prisma.IntNullableFilter<"ordenes_compra"> | number | null
   fecha_edicion?: Prisma.DateTimeNullableFilter<"ordenes_compra"> | Date | string | null
   formato_pdf_version?: Prisma.IntFilter<"ordenes_compra"> | number
+  grupo_id?: Prisma.StringNullableFilter<"ordenes_compra"> | string | null
 }
 
 export type ordenes_compraCreateWithoutRecepciones_compraInput = {
@@ -2219,6 +2248,7 @@ export type ordenes_compraCreateWithoutRecepciones_compraInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
   proveedores: Prisma.proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -2281,6 +2311,7 @@ export type ordenes_compraUncheckedCreateWithoutRecepciones_compraInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
 }
@@ -2354,6 +2385,7 @@ export type ordenes_compraUpdateWithoutRecepciones_compraInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
   proveedores?: Prisma.proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -2416,6 +2448,7 @@ export type ordenes_compraUncheckedUpdateWithoutRecepciones_compraInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
 }
@@ -2473,6 +2506,7 @@ export type ordenes_compraCreateWithoutUsuariosInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleCreateNestedManyWithoutOrdenes_compraInput
   proveedores: Prisma.proveedoresCreateNestedOneWithoutOrdenes_compraInput
@@ -2534,6 +2568,7 @@ export type ordenes_compraUncheckedCreateWithoutUsuariosInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedCreateNestedManyWithoutOrdenes_compraInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
@@ -2618,6 +2653,7 @@ export type ordenes_compraCreateWithoutMultifactura_detalleInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraCreateNestedManyWithoutOrdenes_compraInput
   proveedores: Prisma.proveedoresCreateNestedOneWithoutOrdenes_compraInput
   usuarios: Prisma.usuariosCreateNestedOneWithoutOrdenes_compraInput
@@ -2680,6 +2716,7 @@ export type ordenes_compraUncheckedCreateWithoutMultifactura_detalleInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedCreateNestedManyWithoutOrdenes_compraInput
 }
@@ -2753,6 +2790,7 @@ export type ordenes_compraUpdateWithoutMultifactura_detalleInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
   proveedores?: Prisma.proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
   usuarios?: Prisma.usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -2815,6 +2853,7 @@ export type ordenes_compraUncheckedUpdateWithoutMultifactura_detalleInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
 }
@@ -2874,6 +2913,7 @@ export type ordenes_compraCreateManyProveedoresInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
 }
 
 export type ordenes_compraUpdateWithoutProveedoresInput = {
@@ -2929,6 +2969,7 @@ export type ordenes_compraUpdateWithoutProveedoresInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
   usuarios?: Prisma.usuariosUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -2990,6 +3031,7 @@ export type ordenes_compraUncheckedUpdateWithoutProveedoresInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -3050,6 +3092,7 @@ export type ordenes_compraUncheckedUpdateManyWithoutProveedoresInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ordenes_compraCreateManyUsuariosInput = {
@@ -3107,6 +3150,7 @@ export type ordenes_compraCreateManyUsuariosInput = {
   editado_por?: number | null
   fecha_edicion?: Date | string | null
   formato_pdf_version?: number
+  grupo_id?: string | null
 }
 
 export type ordenes_compraUpdateWithoutUsuariosInput = {
@@ -3162,6 +3206,7 @@ export type ordenes_compraUpdateWithoutUsuariosInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUpdateManyWithoutOrdenes_compraNestedInput
   proveedores?: Prisma.proveedoresUpdateOneRequiredWithoutOrdenes_compraNestedInput
@@ -3223,6 +3268,7 @@ export type ordenes_compraUncheckedUpdateWithoutUsuariosInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   detalles_orden_compra?: Prisma.detalles_orden_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   multifactura_detalle?: Prisma.multifactura_detalleUncheckedUpdateManyWithoutOrdenes_compraNestedInput
   recepciones_compra?: Prisma.recepciones_compraUncheckedUpdateManyWithoutOrdenes_compraNestedInput
@@ -3283,6 +3329,7 @@ export type ordenes_compraUncheckedUpdateManyWithoutUsuariosInput = {
   editado_por?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_edicion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   formato_pdf_version?: Prisma.IntFieldUpdateOperationsInput | number
+  grupo_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -3390,6 +3437,7 @@ export type ordenes_compraSelect<ExtArgs extends runtime.Types.Extensions.Intern
   editado_por?: boolean
   fecha_edicion?: boolean
   formato_pdf_version?: boolean
+  grupo_id?: boolean
   detalles_orden_compra?: boolean | Prisma.ordenes_compra$detalles_orden_compraArgs<ExtArgs>
   multifactura_detalle?: boolean | Prisma.ordenes_compra$multifactura_detalleArgs<ExtArgs>
   proveedores?: boolean | Prisma.proveedoresDefaultArgs<ExtArgs>
@@ -3456,9 +3504,10 @@ export type ordenes_compraSelectScalar = {
   editado_por?: boolean
   fecha_edicion?: boolean
   formato_pdf_version?: boolean
+  grupo_id?: boolean
 }
 
-export type ordenes_compraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "tipo_comprobante" | "nro_rh" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs" | "editado_por" | "fecha_edicion" | "formato_pdf_version", ExtArgs["result"]["ordenes_compra"]>
+export type ordenes_compraOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_orden_compra" | "numero_orden" | "id_proveedor" | "fecha_orden" | "fecha_entrega_prevista" | "subtotal" | "igv" | "total" | "estado" | "observaciones" | "fecha_registro" | "registrado_por" | "tiene_anticipo" | "procede_pago" | "fecha_procede_pago" | "auto_administrador" | "fecha_auto_administrador" | "auto_contabilidad" | "fecha_auto_contabilidad" | "jefe_proyecto" | "fecha_jefe_proyecto" | "has_anticipo" | "direccion" | "centro_costo_nivel1" | "centro_costo_nivel2" | "centro_costo_nivel3" | "condicion" | "moneda" | "tipo_cambio" | "hora_firma" | "usuario_firma" | "estado_firma" | "ruta_pdf" | "retencion" | "porcentaje_valor_retencion" | "valor_retencion" | "detraccion" | "porcentaje_valor_detraccion" | "valor_detraccion" | "tipo_detraccion" | "id_camion" | "almacen_central" | "url" | "url_cotizacion" | "url_factura" | "nro_factura" | "tipo_comprobante" | "nro_rh" | "url_comprobante_retencion" | "nro_serie" | "deleted_at" | "backend_logs" | "editado_por" | "fecha_edicion" | "formato_pdf_version" | "grupo_id", ExtArgs["result"]["ordenes_compra"]>
 export type ordenes_compraInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   detalles_orden_compra?: boolean | Prisma.ordenes_compra$detalles_orden_compraArgs<ExtArgs>
   multifactura_detalle?: boolean | Prisma.ordenes_compra$multifactura_detalleArgs<ExtArgs>
@@ -3533,6 +3582,7 @@ export type $ordenes_compraPayload<ExtArgs extends runtime.Types.Extensions.Inte
     editado_por: number | null
     fecha_edicion: Date | null
     formato_pdf_version: number
+    grupo_id: string | null
   }, ExtArgs["result"]["ordenes_compra"]>
   composites: {}
 }
@@ -3962,6 +4012,7 @@ export interface ordenes_compraFieldRefs {
   readonly editado_por: Prisma.FieldRef<"ordenes_compra", 'Int'>
   readonly fecha_edicion: Prisma.FieldRef<"ordenes_compra", 'DateTime'>
   readonly formato_pdf_version: Prisma.FieldRef<"ordenes_compra", 'Int'>
+  readonly grupo_id: Prisma.FieldRef<"ordenes_compra", 'String'>
 }
     
 

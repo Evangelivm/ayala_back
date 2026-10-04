@@ -100,6 +100,7 @@ export const ModelName = {
   oldfasecontrol: 'oldfasecontrol',
   subirfasecontrol_copy1: 'subirfasecontrol_copy1',
   multifactura_detalle: 'multifactura_detalle',
+  reservas_numero_orden: 'reservas_numero_orden',
   lotes_importacion_contable: 'lotes_importacion_contable',
   asientos_contables: 'asientos_contables',
   cat_modulo: 'cat_modulo',
@@ -408,7 +409,8 @@ export const Ordenes_compraScalarFieldEnum = {
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
-  formato_pdf_version: 'formato_pdf_version'
+  formato_pdf_version: 'formato_pdf_version',
+  grupo_id: 'grupo_id'
 } as const
 
 export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -588,7 +590,8 @@ export const Ordenes_servicioScalarFieldEnum = {
   backend_logs: 'backend_logs',
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
-  formato_pdf_version: 'formato_pdf_version'
+  formato_pdf_version: 'formato_pdf_version',
+  grupo_id: 'grupo_id'
 } as const
 
 export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -962,6 +965,19 @@ export const Multifactura_detalleScalarFieldEnum = {
 } as const
 
 export type Multifactura_detalleScalarFieldEnum = (typeof Multifactura_detalleScalarFieldEnum)[keyof typeof Multifactura_detalleScalarFieldEnum]
+
+
+export const Reservas_numero_ordenScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  serie: 'serie',
+  nro: 'nro',
+  propietario: 'propietario',
+  expira_en: 'expira_en',
+  creado_en: 'creado_en'
+} as const
+
+export type Reservas_numero_ordenScalarFieldEnum = (typeof Reservas_numero_ordenScalarFieldEnum)[keyof typeof Reservas_numero_ordenScalarFieldEnum]
 
 
 export const Lotes_importacion_contableScalarFieldEnum = {
@@ -1341,7 +1357,8 @@ export const ordenes_compraOrderByRelevanceFieldEnum = {
   nro_rh: 'nro_rh',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  grupo_id: 'grupo_id'
 } as const
 
 export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -1436,7 +1453,8 @@ export const ordenes_servicioOrderByRelevanceFieldEnum = {
   nro_rh: 'nro_rh',
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
-  backend_logs: 'backend_logs'
+  backend_logs: 'backend_logs',
+  grupo_id: 'grupo_id'
 } as const
 
 export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]
@@ -1658,6 +1676,15 @@ export const multifactura_detalleOrderByRelevanceFieldEnum = {
 } as const
 
 export type multifactura_detalleOrderByRelevanceFieldEnum = (typeof multifactura_detalleOrderByRelevanceFieldEnum)[keyof typeof multifactura_detalleOrderByRelevanceFieldEnum]
+
+
+export const reservas_numero_ordenOrderByRelevanceFieldEnum = {
+  tipo: 'tipo',
+  serie: 'serie',
+  propietario: 'propietario'
+} as const
+
+export type reservas_numero_ordenOrderByRelevanceFieldEnum = (typeof reservas_numero_ordenOrderByRelevanceFieldEnum)[keyof typeof reservas_numero_ordenOrderByRelevanceFieldEnum]
 
 
 export const lotes_importacion_contableOrderByRelevanceFieldEnum = {
