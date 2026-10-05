@@ -85,7 +85,26 @@ export const CreateBatchOrdenServicioSchema = z
   })
   .strip();
 
+// Convertir órdenes existentes en multifactura (o sumarlas a un grupo existente)
+export const AgruparOrdenesSchema = z
+  .object({
+    ids: z.array(z.number().int().positive()).min(1).max(20),
+    // Sin grupo_id se crea un grupo nuevo (requiere 2 o más órdenes)
+    grupo_id: z.string().min(8).max(36).optional(),
+  })
+  .strip();
+
+// Crear una orden nueva dentro del grupo de una orden existente
+export const AgregarOrdenNuevaSchema = z
+  .object({
+    orden: CreateOrdenServicioSchema,
+    reserva_owner: z.string().max(64).optional(),
+  })
+  .strip();
+
 // Tipos inferidos de los schemas
+export type AgruparOrdenesDto = z.infer<typeof AgruparOrdenesSchema>;
+export type AgregarOrdenNuevaDto = z.infer<typeof AgregarOrdenNuevaSchema>;
 export type CreateBatchOrdenServicioDto = z.infer<
   typeof CreateBatchOrdenServicioSchema
 >;

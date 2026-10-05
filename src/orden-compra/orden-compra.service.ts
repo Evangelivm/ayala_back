@@ -12,6 +12,8 @@ import { randomUUID } from 'crypto';
 import {
   CreateOrdenCompraDto,
   CreateBatchOrdenCompraDto,
+  AgruparOrdenesDto,
+  AgregarOrdenNuevaDto,
 } from './dto/create-orden-compra.dto';
 import { WebsocketGateway } from '../websocket/websocket.gateway';
 import { SearchService } from '../search/search.service';
@@ -515,6 +517,334 @@ export class OrdenCompraService {
       await this.updateCotizacionUrl(h.id_orden_compra, origen.url_cotizacion);
     }
     return { actualizadas: hermanas.length };
+  }
+
+  /**
+   * Un grupo con una sola orden vigente (o ninguna) deja de ser grupo:
+   * se limpia el grupo_id de la que quede.
+   */
+  private async normalizarGrupo(grupoId: string | null | undefined) {
+    if (!grupoId) return;
+    const miembros = await this.prismaThird.ordenes_compra.findMany({
+      where: { grupo_id: grupoId, deleted_at: null },
+      select: { id_orden_compra: true },
+    });
+    if (miembros.length !== 1) return;
+    const id = miembros[0].id_orden_compra;
+    await this.prismaThird.ordenes_compra.update({
+      where: { id_orden_compra: id },
+      data: { grupo_id: null },
+    });
+    this.searchService?.reindexOne('ordenes_compra', id);
+  }
+
+  /**
+   * Convierte órdenes existentes en multifactura: crea un grupo nuevo con ellas
+   * (2 o más) o las suma a un grupo existente. No cambia números ni datos.
+   * Cotización: manda la del grupo; si no hay, se usa la primera que exista, y
+   * se copia a las órdenes que no la tengan o tengan otra distinta.
+   */
+  async agrupar(dto: AgruparOrdenesDto) {
+    try {
+      const ids = [...new Set(dto.ids)];
+      const ordenes = await this.prismaThird.ordenes_compra.findMany({
+        where: { id_orden_compra: { in: ids }, deleted_at: null },
+        select: {
+          id_orden_compra: true,
+          numero_orden: true,
+          grupo_id: true,
+          url_cotizacion: true,
+          _count: { select: { multifactura_detalle: true } },
+        },
+      });
+      if (ordenes.length !== ids.length) {
+        throw new BadRequestException(
+          'Alguna de las órdenes no existe o fue eliminada',
+        );
+      }
+
+      const conDetalleViejo = ordenes.filter(
+        (o) => o._count.multifactura_detalle > 0,
+      );
+      if (conDetalleViejo.length > 0) {
+        throw new BadRequestException(
+          `Estas órdenes ya usan "Multifacturas" (filas de factura/guía) y no se pueden agrupar: ${conDetalleViejo.map((o) => o.numero_orden).join(', ')}`,
+        );
+      }
+
+      let miembrosGrupo: {
+        id_orden_compra: number;
+        numero_orden: string;
+        url_cotizacion: string | null;
+      }[] = [];
+      let grupoId = dto.grupo_id;
+
+      if (grupoId) {
+        miembrosGrupo = await this.prismaThird.ordenes_compra.findMany({
+          where: { grupo_id: grupoId, deleted_at: null },
+          select: {
+            id_orden_compra: true,
+            numero_orden: true,
+            url_cotizacion: true,
+          },
+        });
+        if (miembrosGrupo.length === 0) {
+          throw new BadRequestException('La multifactura indicada no existe');
+        }
+        const enOtroGrupo = ordenes.filter(
+          (o) => o.grupo_id && o.grupo_id !== grupoId,
+        );
+        if (enOtroGrupo.length > 0) {
+          throw new BadRequestException(
+            `Ya pertenecen a otra multifactura (sáquelas primero): ${enOtroGrupo.map((o) => o.numero_orden).join(', ')}`,
+          );
+        }
+      } else {
+        if (ordenes.length < 2) {
+          throw new BadRequestException(
+            'Una multifactura nueva requiere al menos 2 órdenes',
+          );
+        }
+        const yaAgrupadas = ordenes.filter((o) => o.grupo_id);
+        if (yaAgrupadas.length > 0) {
+          throw new BadRequestException(
+            `Ya pertenecen a una multifactura: ${yaAgrupadas.map((o) => o.numero_orden).join(', ')}`,
+          );
+        }
+        grupoId = randomUUID();
+      }
+
+      await this.prismaThird.ordenes_compra.updateMany({
+        where: { id_orden_compra: { in: ids } },
+        data: { grupo_id: grupoId },
+      });
+
+      // Cotización compartida
+      const todos = [
+        ...miembrosGrupo,
+        ...ordenes.filter(
+          (o) =>
+            !miembrosGrupo.some(
+              (m) => m.id_orden_compra === o.id_orden_compra,
+            ),
+        ),
+      ];
+      const urlCotizacion =
+        miembrosGrupo.find((m) => m.url_cotizacion)?.url_cotizacion ??
+        todos.find((o) => o.url_cotizacion)?.url_cotizacion ??
+        null;
+      const cotizacionReemplazada: string[] = [];
+      if (urlCotizacion) {
+        for (const o of todos) {
+          if (o.url_cotizacion === urlCotizacion) continue;
+          if (o.url_cotizacion) cotizacionReemplazada.push(o.numero_orden);
+          await this.updateCotizacionUrl(o.id_orden_compra, urlCotizacion);
+        }
+      }
+
+      if (this.searchService) {
+        for (const o of todos) {
+          this.searchService.reindexOne('ordenes_compra', o.id_orden_compra);
+        }
+      }
+      this.websocketGateway.emitOrdenCompraUpdate();
+
+      return {
+        success: true,
+        grupo_id: grupoId,
+        ordenes: todos.map((o) => ({
+          id_orden_compra: o.id_orden_compra,
+          numero_orden: o.numero_orden,
+        })),
+        // Órdenes que tenían otra cotización y ahora usan la del grupo
+        cotizacion_reemplazada: cotizacionReemplazada,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) throw error;
+      console.error('Error al agrupar órdenes de compra:', error);
+      throw new BadRequestException(
+        `Error al agrupar las órdenes de compra: ${error.message}`,
+      );
+    }
+  }
+
+  /** Saca una orden de su multifactura; si el grupo queda con una sola, se disuelve */
+  async desagrupar(id: number) {
+    try {
+      const orden = await this.prismaThird.ordenes_compra.findUnique({
+        where: { id_orden_compra: id },
+        select: { grupo_id: true },
+      });
+      if (!orden) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${id} no encontrada`,
+        );
+      }
+      if (!orden.grupo_id) return { success: true };
+
+      await this.prismaThird.ordenes_compra.update({
+        where: { id_orden_compra: id },
+        data: { grupo_id: null },
+      });
+      this.searchService?.reindexOne('ordenes_compra', id);
+      await this.normalizarGrupo(orden.grupo_id);
+      this.websocketGateway.emitOrdenCompraUpdate();
+      return { success: true };
+    } catch (error) {
+      if (error instanceof BadRequestException) throw error;
+      console.error('Error al sacar orden de compra del grupo:', error);
+      throw new BadRequestException(
+        `Error al sacar la orden del grupo: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Crea una orden nueva junto a una existente: la existente pasa a ser parte
+   * de una multifactura (o la nueva entra a la que ya tenía). Todo en una sola
+   * transacción; el número de la nueva se resuelve igual que en create().
+   */
+  async agregarOrdenNueva(
+    baseId: number,
+    dto: AgregarOrdenNuevaDto,
+    usuarioId: number,
+  ) {
+    try {
+      const base = await this.prismaThird.ordenes_compra.findFirst({
+        where: { id_orden_compra: baseId, deleted_at: null },
+        select: {
+          id_orden_compra: true,
+          numero_orden: true,
+          grupo_id: true,
+          url_cotizacion: true,
+          _count: { select: { multifactura_detalle: true } },
+        },
+      });
+      if (!base) {
+        throw new BadRequestException(
+          `Orden de compra con ID ${baseId} no encontrada`,
+        );
+      }
+      if (base._count.multifactura_detalle > 0) {
+        throw new BadRequestException(
+          `La orden ${base.numero_orden} ya usa "Multifacturas" (filas de factura/guía) y no se puede agrupar`,
+        );
+      }
+
+      const ordenDto = dto.orden;
+      const proveedor = await this.prismaThird.proveedores.findUnique({
+        where: { id_proveedor: ordenDto.id_proveedor },
+      });
+      if (!proveedor) {
+        throw new BadRequestException(
+          `Proveedor con ID ${ordenDto.id_proveedor} no encontrado`,
+        );
+      }
+      for (const item of ordenDto.items) {
+        const itemDB = await this.prismaThird.listado_items_2025.findUnique({
+          where: { codigo: item.codigo_item },
+        });
+        if (!itemDB) {
+          throw new BadRequestException(
+            `Item con código ${item.codigo_item} no encontrado`,
+          );
+        }
+      }
+
+      const tipoCambio = await this.obtenerTipoCambioSunat();
+      const grupoId = base.grupo_id ?? randomUUID();
+
+      let forzarNuevoNumero = false;
+      let creada: Awaited<
+        ReturnType<OrdenCompraService['crearOrdenCompraTx']>
+      >;
+      let numeroReasignado = false;
+      for (let intento = 1; ; intento++) {
+        try {
+          const resultado = await this.prismaThird.$transaction(
+            async (tx) => {
+              if (!base.grupo_id) {
+                await tx.ordenes_compra.update({
+                  where: { id_orden_compra: baseId },
+                  data: { grupo_id: grupoId },
+                });
+              }
+              const asignado = await this.numeracion.prepararNumeroParaGuardar(
+                tx,
+                'compra',
+                dto.reserva_owner,
+                ordenDto.numero_orden,
+                forzarNuevoNumero,
+              );
+              const orden = await this.crearOrdenCompraTx(
+                tx,
+                ordenDto,
+                usuarioId,
+                tipoCambio,
+                asignado.numero_orden,
+                grupoId,
+              );
+              await this.numeracion.consumirReservas(tx, 'compra', [
+                ordenDto.numero_orden,
+                asignado.numero_orden,
+              ]);
+              return { orden, reasignado: asignado.reasignado };
+            },
+            { timeout: 30000 },
+          );
+          creada = resultado.orden;
+          numeroReasignado = resultado.reasignado;
+          break;
+        } catch (error) {
+          if (this.numeracion.esViolacionUnica(error) && intento < 3) {
+            forzarNuevoNumero = true;
+            continue;
+          }
+          throw error;
+        }
+      }
+
+      // La cotización del grupo (o de la orden base) pasa a la nueva
+      const urlCotizacion =
+        base.url_cotizacion ??
+        (base.grupo_id
+          ? (
+              await this.prismaThird.ordenes_compra.findFirst({
+                where: {
+                  grupo_id: base.grupo_id,
+                  deleted_at: null,
+                  url_cotizacion: { not: null },
+                },
+                select: { url_cotizacion: true },
+              })
+            )?.url_cotizacion
+          : null);
+      if (urlCotizacion) {
+        await this.updateCotizacionUrl(creada.id_orden_compra, urlCotizacion);
+      }
+
+      this.searchService?.reindexOne('ordenes_compra', baseId);
+      this.searchService?.reindexOne(
+        'ordenes_compra',
+        creada.id_orden_compra,
+      );
+      this.websocketGateway.emitOrdenCompraUpdate();
+
+      return {
+        success: true,
+        message: 'Orden de compra creada y agregada a la multifactura',
+        grupo_id: grupoId,
+        data: creada,
+        numero_orden: creada.numero_orden,
+        numero_reasignado: numeroReasignado,
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) throw error;
+      console.error('Error al agregar orden de compra nueva al grupo:', error);
+      throw new BadRequestException(
+        `Error al crear la orden de compra en la multifactura: ${error.message}`,
+      );
+    }
   }
 
   /** Inserta la orden y sus detalles dentro de una transacción ya abierta */
@@ -1877,6 +2207,9 @@ export class OrdenCompraService {
         data: { deleted_at: new Date() },
       });
 
+      // Si era de una multifactura y queda una sola orden, el grupo se disuelve
+      await this.normalizarGrupo(ordenExiste.grupo_id);
+
       // Actualizar en Elasticsearch (fire-and-forget)
       if (this.searchService) {
         this.searchService.reindexOne('ordenes_compra', id);
@@ -1909,6 +2242,9 @@ export class OrdenCompraService {
         where: { id_orden_compra: id },
         data: { deleted_at: null },
       });
+
+      // Si quedó sola en su grupo, deja de ser multifactura
+      await this.normalizarGrupo(ordenExiste.grupo_id);
 
       // Actualizar en Elasticsearch (fire-and-forget)
       if (this.searchService) {

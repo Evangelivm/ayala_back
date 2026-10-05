@@ -54,6 +54,7 @@ export class SearchController {
     @Query('autoContabilidad') autoContabilidad?: string,
     @Query('jefeProyecto') jefeProyecto?: string,
     @Query('procedePago') procedePago?: string,
+    @Query('agrupar') agrupar?: string,
   ) {
     const { data, total } = await this.searchService.search(
       'ordenes_compra',
@@ -71,6 +72,8 @@ export class SearchController {
         jefeProyecto,
         procedePago,
       }),
+      'desc',
+      agrupar === 'true',
     );
     return { data, total, page, limit };
   }
@@ -89,6 +92,7 @@ export class SearchController {
     @Query('autoContabilidad') autoContabilidad?: string,
     @Query('jefeProyecto') jefeProyecto?: string,
     @Query('procedePago') procedePago?: string,
+    @Query('agrupar') agrupar?: string,
   ) {
     const { data, total } = await this.searchService.search(
       'ordenes_servicio',
@@ -106,6 +110,8 @@ export class SearchController {
         jefeProyecto,
         procedePago,
       }),
+      'desc',
+      agrupar === 'true',
     );
     return { data, total, page, limit };
   }

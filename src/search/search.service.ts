@@ -534,6 +534,9 @@ export class SearchService implements OnModuleInit {
     limit: number,
     filtros: Record<string, string | boolean> = {},
     orden: 'asc' | 'desc' = 'desc',
+    // Solo el listado agrupado (orden-compra-servicio) pide las hermanas de cada
+    // multifactura; el resto de pantallas ve las órdenes de una en una.
+    expandirGrupos = false,
   ): Promise<{ data: any[]; total: number }> {
     const resultado = await this.searchBase(
       index,
@@ -543,7 +546,10 @@ export class SearchService implements OnModuleInit {
       filtros,
       orden,
     );
-    if (index === 'ordenes_compra' || index === 'ordenes_servicio') {
+    if (
+      expandirGrupos &&
+      (index === 'ordenes_compra' || index === 'ordenes_servicio')
+    ) {
       try {
         resultado.data = await this.incluirHermanasDeGrupo(
           index,

@@ -24,6 +24,10 @@ import {
   CreateOrdenCompraSchema,
   CreateBatchOrdenCompraDto,
   CreateBatchOrdenCompraSchema,
+  AgruparOrdenesDto,
+  AgruparOrdenesSchema,
+  AgregarOrdenNuevaDto,
+  AgregarOrdenNuevaSchema,
 } from './dto/create-orden-compra.dto';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { DropboxService } from '../dropbox/dropbox.service';
@@ -123,6 +127,32 @@ export class OrdenCompraController {
     const usuarioId =
       batchDto.ordenes[0]?.registrado_por || req.user?.id || 1;
     return this.ordenCompraService.createBatch(batchDto, usuarioId);
+  }
+
+  @Post('agrupar')
+  @HttpCode(HttpStatus.OK)
+  async agrupar(
+    @Body(new ZodValidationPipe(AgruparOrdenesSchema)) dto: AgruparOrdenesDto,
+  ) {
+    return this.ordenCompraService.agrupar(dto);
+  }
+
+  @Post(':id/desagrupar')
+  @HttpCode(HttpStatus.OK)
+  async desagrupar(@Param('id') id: string) {
+    return this.ordenCompraService.desagrupar(+id);
+  }
+
+  @Post(':id/agregar-orden')
+  @HttpCode(HttpStatus.CREATED)
+  async agregarOrdenNueva(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(AgregarOrdenNuevaSchema))
+    dto: AgregarOrdenNuevaDto,
+    @Request() req: any,
+  ) {
+    const usuarioId = dto.orden.registrado_por || req.user?.id || 1;
+    return this.ordenCompraService.agregarOrdenNueva(+id, dto, usuarioId);
   }
 
   @Post(':id/propagar-cotizacion')
