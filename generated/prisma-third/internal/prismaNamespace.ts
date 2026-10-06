@@ -457,7 +457,8 @@ export const ModelName = {
   cat_medio_pago: 'cat_medio_pago',
   cat_indicador_afecto: 'cat_indicador_afecto',
   cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo',
-  masivo: 'masivo'
+  masivo: 'masivo',
+  grupos_multifactura: 'grupos_multifactura'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -473,7 +474,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "reservas_numero_orden" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo" | "masivo"
+    modelProps: "almacenes" | "configuracion_notificaciones" | "configuracion_reportes" | "conteo_ciclico" | "detalles_conteo_ciclico" | "detalles_orden_compra" | "detalles_recepcion_compra" | "familias_productos" | "historial_reportes" | "listado_items_2025" | "logs_actividad" | "modulos" | "movimientos_inventario" | "notificaciones" | "notificaciones_enviadas" | "ordenes_compra" | "permisos_reportes" | "permisos_rol" | "proveedores" | "recepciones_compra" | "solicitudes_salida" | "stock_almacenes" | "tipos_movimiento" | "usuarios" | "ordenes_servicio" | "tipo_cambio" | "usuarios_consulta" | "detalles_orden_servicio" | "email_notifications" | "dROPBOX" | "proyecto" | "factura" | "factura_guia" | "factura_item" | "factura_unidad_medida" | "factura_venta_credito" | "movimientos_adicionales" | "tipo_detraccion" | "centroproyecto" | "centrosubproyecto" | "fasecontrol" | "rubro" | "subrubro" | "detallado" | "balances_iniciales" | "camiones" | "oldfasecontrol" | "subirfasecontrol_copy1" | "multifactura_detalle" | "reservas_numero_orden" | "lotes_importacion_contable" | "asientos_contables" | "cat_modulo" | "cat_fuente" | "cat_moneda" | "cat_tipo_doc_identidad" | "cat_forma_pago" | "cat_medio_pago" | "cat_indicador_afecto" | "cat_concepto_flujo_efectivo" | "masivo" | "grupos_multifactura"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4503,6 +4504,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    grupos_multifactura: {
+      payload: Prisma.$grupos_multifacturaPayload<ExtArgs>
+      fields: Prisma.grupos_multifacturaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.grupos_multifacturaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.grupos_multifacturaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        findFirst: {
+          args: Prisma.grupos_multifacturaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.grupos_multifacturaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        findMany: {
+          args: Prisma.grupos_multifacturaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>[]
+        }
+        create: {
+          args: Prisma.grupos_multifacturaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        createMany: {
+          args: Prisma.grupos_multifacturaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.grupos_multifacturaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        update: {
+          args: Prisma.grupos_multifacturaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        deleteMany: {
+          args: Prisma.grupos_multifacturaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.grupos_multifacturaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.grupos_multifacturaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$grupos_multifacturaPayload>
+        }
+        aggregate: {
+          args: Prisma.Grupos_multifacturaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGrupos_multifactura>
+        }
+        groupBy: {
+          args: Prisma.grupos_multifacturaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Grupos_multifacturaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.grupos_multifacturaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Grupos_multifacturaCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -5569,6 +5636,15 @@ export const MasivoScalarFieldEnum = {
 export type MasivoScalarFieldEnum = (typeof MasivoScalarFieldEnum)[keyof typeof MasivoScalarFieldEnum]
 
 
+export const Grupos_multifacturaScalarFieldEnum = {
+  nro: 'nro',
+  grupo_id: 'grupo_id',
+  creado_en: 'creado_en'
+} as const
+
+export type Grupos_multifacturaScalarFieldEnum = (typeof Grupos_multifacturaScalarFieldEnum)[keyof typeof Grupos_multifacturaScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -6233,6 +6309,13 @@ export const masivoOrderByRelevanceFieldEnum = {
 export type masivoOrderByRelevanceFieldEnum = (typeof masivoOrderByRelevanceFieldEnum)[keyof typeof masivoOrderByRelevanceFieldEnum]
 
 
+export const grupos_multifacturaOrderByRelevanceFieldEnum = {
+  grupo_id: 'grupo_id'
+} as const
+
+export type grupos_multifacturaOrderByRelevanceFieldEnum = (typeof grupos_multifacturaOrderByRelevanceFieldEnum)[keyof typeof grupos_multifacturaOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -6674,6 +6757,7 @@ export type GlobalOmitConfig = {
   cat_indicador_afecto?: Prisma.cat_indicador_afectoOmit
   cat_concepto_flujo_efectivo?: Prisma.cat_concepto_flujo_efectivoOmit
   masivo?: Prisma.masivoOmit
+  grupos_multifactura?: Prisma.grupos_multifacturaOmit
 }
 
 /* Types for Logging */

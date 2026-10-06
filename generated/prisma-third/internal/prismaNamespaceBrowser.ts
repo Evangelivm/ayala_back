@@ -111,7 +111,8 @@ export const ModelName = {
   cat_medio_pago: 'cat_medio_pago',
   cat_indicador_afecto: 'cat_indicador_afecto',
   cat_concepto_flujo_efectivo: 'cat_concepto_flujo_efectivo',
-  masivo: 'masivo'
+  masivo: 'masivo',
+  grupos_multifactura: 'grupos_multifactura'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1157,6 +1158,15 @@ export const MasivoScalarFieldEnum = {
 export type MasivoScalarFieldEnum = (typeof MasivoScalarFieldEnum)[keyof typeof MasivoScalarFieldEnum]
 
 
+export const Grupos_multifacturaScalarFieldEnum = {
+  nro: 'nro',
+  grupo_id: 'grupo_id',
+  creado_en: 'creado_en'
+} as const
+
+export type Grupos_multifacturaScalarFieldEnum = (typeof Grupos_multifacturaScalarFieldEnum)[keyof typeof Grupos_multifacturaScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1819,4 +1829,11 @@ export const masivoOrderByRelevanceFieldEnum = {
 } as const
 
 export type masivoOrderByRelevanceFieldEnum = (typeof masivoOrderByRelevanceFieldEnum)[keyof typeof masivoOrderByRelevanceFieldEnum]
+
+
+export const grupos_multifacturaOrderByRelevanceFieldEnum = {
+  grupo_id: 'grupo_id'
+} as const
+
+export type grupos_multifacturaOrderByRelevanceFieldEnum = (typeof grupos_multifacturaOrderByRelevanceFieldEnum)[keyof typeof grupos_multifacturaOrderByRelevanceFieldEnum]
 

@@ -2,6 +2,10 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Client } from '@elastic/elasticsearch';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaThirdService } from '../prisma/prisma-third.service';
+import {
+  conCodigoGrupo,
+  obtenerCodigosGrupos,
+} from '../numeracion-orden/grupo-multifactura';
 import { Prisma } from '@generated/prisma/client';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
@@ -415,10 +419,16 @@ export class SearchService implements OnModuleInit {
     });
     if (!orden) return null;
     const camion = await this.getCamionResumen(orden.id_camion);
+    const grupoCodigo = orden.grupo_id
+      ? ((await obtenerCodigosGrupos(this.prismaThird, [orden.grupo_id])).get(
+          orden.grupo_id,
+        ) ?? null)
+      : null;
 
     return {
       id: orden.id_orden_compra,
       numero_orden: orden.numero_orden,
+      grupo_codigo: grupoCodigo,
       nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
       ruc_proveedor: (orden as any).proveedores?.ruc || null,
       fecha_orden: orden.fecha_orden
@@ -461,10 +471,16 @@ export class SearchService implements OnModuleInit {
     });
     if (!orden) return null;
     const camion = await this.getCamionResumen((orden as any).id_camion);
+    const grupoCodigo = (orden as any).grupo_id
+      ? ((
+          await obtenerCodigosGrupos(this.prismaThird, [(orden as any).grupo_id])
+        ).get((orden as any).grupo_id) ?? null)
+      : null;
 
     return {
       id: (orden as any).id_orden_servicio,
       numero_orden: (orden as any).numero_orden,
+      grupo_codigo: grupoCodigo,
       nombre_proveedor: (orden as any).proveedores?.nombre_proveedor || null,
       ruc_proveedor: (orden as any).proveedores?.ruc || null,
       fecha_orden: (orden as any).fecha_orden
@@ -561,7 +577,26 @@ export class SearchService implements OnModuleInit {
         );
       }
     }
+    if (index === 'ordenes_compra' || index === 'ordenes_servicio') {
+      try {
+        resultado.data = await conCodigoGrupo(this.prismaThird, resultado.data);
+      } catch (error) {
+        this.logger.warn(
+          `No se pudieron agregar los códigos de multifactura (${index}): ${error.message}`,
+        );
+      }
+    }
     return resultado;
+  }
+
+  /** Si la búsqueda es un código de multifactura (MF-45, mf-000045) devuelve su grupo_id */
+  private async gruposPorCodigo(q: string): Promise<string[]> {
+    const m = /^mf-?0*(\d+)$/i.exec(q.trim());
+    if (!m) return [];
+    const fila = await this.prismaThird.grupos_multifactura.findUnique({
+      where: { nro: Number(m[1]) },
+    });
+    return fila ? [fila.grupo_id] : [];
   }
 
   /**
@@ -703,6 +738,10 @@ export class SearchService implements OnModuleInit {
       ordCompra.map((o) => o.id_camion),
     );
 
+    const codigosOC = await obtenerCodigosGrupos(
+      this.prismaThird,
+      ordCompra.map((o) => o.grupo_id),
+    );
     const ocOps = ordCompra.flatMap((o) => {
       const camion = o.id_camion ? camionesMapOC.get(o.id_camion) : null;
       return [
@@ -715,6 +754,7 @@ export class SearchService implements OnModuleInit {
         {
           id: o.id_orden_compra,
           numero_orden: o.numero_orden,
+          grupo_codigo: o.grupo_id ? (codigosOC.get(o.grupo_id) ?? null) : null,
           nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
           ruc_proveedor: (o as any).proveedores?.ruc || null,
           fecha_orden: o.fecha_orden
@@ -761,6 +801,10 @@ export class SearchService implements OnModuleInit {
       ordServicio.map((o) => (o as any).id_camion),
     );
 
+    const codigosOS = await obtenerCodigosGrupos(
+      this.prismaThird,
+      ordServicio.map((o) => (o as any).grupo_id),
+    );
     const osOps = ordServicio.flatMap((o) => {
       const idCamion = (o as any).id_camion;
       const camion = idCamion ? camionesMapOS.get(idCamion) : null;
@@ -774,6 +818,9 @@ export class SearchService implements OnModuleInit {
         {
           id: (o as any).id_orden_servicio,
           numero_orden: (o as any).numero_orden,
+          grupo_codigo: (o as any).grupo_id
+            ? (codigosOS.get((o as any).grupo_id) ?? null)
+            : null,
           nombre_proveedor: (o as any).proveedores?.nombre_proveedor || null,
           ruc_proveedor: (o as any).proveedores?.ruc || null,
           fecha_orden: (o as any).fecha_orden
@@ -852,6 +899,7 @@ export class SearchService implements OnModuleInit {
       ],
       ordenes_compra: [
         'numero_orden',
+        'grupo_codigo',
         'nombre_proveedor',
         'ruc_proveedor',
         'estado',
@@ -873,6 +921,7 @@ export class SearchService implements OnModuleInit {
       ],
       ordenes_servicio: [
         'numero_orden',
+        'grupo_codigo',
         'nombre_proveedor',
         'ruc_proveedor',
         'estado',
@@ -1372,6 +1421,7 @@ export class SearchService implements OnModuleInit {
   ) {
     const camionIds = q ? await this.camionIdsByQuery(q) : [];
     const estadosMatch = q ? this.estadosMatching(q) : [];
+    const gruposQ = q ? await this.gruposPorCodigo(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1379,6 +1429,7 @@ export class SearchService implements OnModuleInit {
         ? {
             OR: [
               { numero_orden: { contains: q } },
+              ...(gruposQ.length > 0 ? [{ grupo_id: { in: gruposQ } }] : []),
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
               { nro_factura: { contains: q } },
@@ -1507,6 +1558,7 @@ export class SearchService implements OnModuleInit {
   ) {
     const camionIds = q ? await this.camionIdsByQuery(q) : [];
     const estadosMatch = q ? this.estadosMatching(q) : [];
+    const gruposQ = q ? await this.gruposPorCodigo(q) : [];
     const where: any = {
       deleted_at: null,
       ...(await this.ordenesFiltrosWhere(filtros)),
@@ -1514,6 +1566,7 @@ export class SearchService implements OnModuleInit {
         ? {
             OR: [
               { numero_orden: { contains: q } },
+              ...(gruposQ.length > 0 ? [{ grupo_id: { in: gruposQ } }] : []),
               { proveedores: { nombre_proveedor: { contains: q } } },
               { proveedores: { ruc: { contains: q } } },
               { nro_factura: { contains: q } },

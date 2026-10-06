@@ -4,6 +4,8 @@ export interface OrdenCompraHeader {
   ruc: string;
   creadoPor?: string;
   creadoEn?: string;
+  /** Código del grupo de multifactura (MF-000045), si la orden pertenece a uno */
+  multifactura?: string;
   editadoPor?: string;
   editadoEn?: string;
 }

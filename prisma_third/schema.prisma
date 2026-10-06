@@ -1277,3 +1277,11 @@ model masivo {
 
   @@index([num_comprobante], map: "idx_masivo_num_comprobante")
 }
+
+/// Código legible de cada grupo de multifactura: MF-000045 = LPAD(nro, 6, 0).
+/// Se crea junto con el grupo (ver grupo-multifactura.ts). Ver prisma_third/sql_grupos_multifactura.sql
+model grupos_multifactura {
+  nro       Int      @id @default(autoincrement())
+  grupo_id  String   @unique(map: "uk_grupo_multifactura") @db.VarChar(36)
+  creado_en DateTime @default(now()) @db.Timestamp(0)
+}

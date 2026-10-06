@@ -322,3 +322,9 @@ export type cat_concepto_flujo_efectivo = Prisma.cat_concepto_flujo_efectivoMode
  * 
  */
 export type masivo = Prisma.masivoModel
+/**
+ * Model grupos_multifactura
+ * Código legible de cada grupo de multifactura: MF-000045 = LPAD(nro, 6, 0).
+ * Se crea junto con el grupo (ver grupo-multifactura.ts). Ver prisma_third/sql_grupos_multifactura.sql
+ */
+export type grupos_multifactura = Prisma.grupos_multifacturaModel

@@ -18,6 +18,10 @@ import {
 import { WebsocketGateway } from '../websocket/websocket.gateway';
 import { SearchService } from '../search/search.service';
 import { NumeracionOrdenService } from '../numeracion-orden/numeracion-orden.service';
+import {
+  asegurarCodigoGrupo,
+  obtenerCodigosGrupos,
+} from '../numeracion-orden/grupo-multifactura';
 
 // Configurar plugins de dayjs
 dayjs.extend(utc);
@@ -164,12 +168,20 @@ export class OrdenCompraService {
         camiones.forEach((c) => camionesMap.set(c.id_camion, c));
       }
 
+      const codigosGrupo = await obtenerCodigosGrupos(
+        this.prismaThird,
+        ordenes.map((o) => o.grupo_id),
+      );
+
       return ordenes.map((orden) => {
         const camion = orden.id_camion
           ? camionesMap.get(orden.id_camion)
           : null;
         return {
           ...orden,
+          grupo_codigo: orden.grupo_id
+            ? (codigosGrupo.get(orden.grupo_id) ?? null)
+            : null,
           fecha_orden: orden.fecha_orden
             ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
             : null,
@@ -415,6 +427,7 @@ export class OrdenCompraService {
           creadas = await this.prismaThird.$transaction(
             async (tx) => {
               const resultado: typeof creadas = [];
+              await asegurarCodigoGrupo(tx, grupoId);
               // En secuencia: cada orden creada ocupa su número para la siguiente
               for (const dtoOrden of ordenes) {
                 const asignado =
@@ -618,6 +631,7 @@ export class OrdenCompraService {
         where: { id_orden_compra: { in: ids } },
         data: { grupo_id: grupoId },
       });
+      await asegurarCodigoGrupo(this.prismaThird, grupoId);
 
       // Cotización compartida
       const todos = [
@@ -763,6 +777,7 @@ export class OrdenCompraService {
         try {
           const resultado = await this.prismaThird.$transaction(
             async (tx) => {
+              await asegurarCodigoGrupo(tx, grupoId);
               if (!base.grupo_id) {
                 await tx.ordenes_compra.update({
                   where: { id_orden_compra: baseId },
@@ -1038,6 +1053,12 @@ export class OrdenCompraService {
       nombreEditor = editor?.nombre || '';
     }
 
+    const grupoCodigo = ordenCompra.grupo_id
+      ? (
+          await obtenerCodigosGrupos(this.prismaThird, [ordenCompra.grupo_id])
+        ).get(ordenCompra.grupo_id)
+      : undefined;
+
     const creadoEn = ordenCompra.fecha_registro
       ? dayjs(ordenCompra.fecha_registro).format('DD/MM/YYYY')
       : '';
@@ -1057,6 +1078,7 @@ export class OrdenCompraService {
         ruc: '20603739061',
         creadoPor: nombreRegistrador,
         creadoEn,
+        multifactura: grupoCodigo,
         editadoPor: nombreEditor || undefined,
         editadoEn: editadoEn || undefined,
       },
@@ -1217,7 +1239,9 @@ export class OrdenCompraService {
         const headerBoxWidth = 155;
 
         const hasEdit = !!ordenData.header.editadoPor;
-        const boxHeight = hasEdit ? 104 : 78;
+        const tieneMultifactura = !!ordenData.header.multifactura;
+        const boxHeight =
+          78 + (tieneMultifactura ? 13 : 0) + (hasEdit ? 26 : 0);
         this.drawBox(doc, headerBoxX, headerBoxY, headerBoxWidth, boxHeight);
 
         doc.fontSize(8).font('Helvetica');
@@ -1248,19 +1272,29 @@ export class OrdenCompraService {
           headerBoxY + 63,
         );
 
+        // Filas opcionales bajo "F. creación": la fila siguiente baja 13 pt
+        let filaExtraY = headerBoxY + 76;
+        if (tieneMultifactura) {
+          doc.text('Multifactura:', headerBoxX + 5, filaExtraY);
+          doc.font('Helvetica-Bold');
+          doc.text(ordenData.header.multifactura || '', headerBoxX + 80, filaExtraY);
+          doc.font('Helvetica');
+          filaExtraY += 13;
+        }
+
         if (hasEdit) {
-          doc.text('Editado por:', headerBoxX + 5, headerBoxY + 76);
+          doc.text('Editado por:', headerBoxX + 5, filaExtraY);
           doc.text(
             ordenData.header.editadoPor || '',
             headerBoxX + 80,
-            headerBoxY + 76,
+            filaExtraY,
           );
 
-          doc.text('F. edición:', headerBoxX + 5, headerBoxY + 89);
+          doc.text('F. edición:', headerBoxX + 5, filaExtraY + 13);
           doc.text(
             ordenData.header.editadoEn || '',
             headerBoxX + 80,
-            headerBoxY + 89,
+            filaExtraY + 13,
           );
         }
 
@@ -2357,12 +2391,20 @@ export class OrdenCompraService {
         camiones.forEach((c) => camionesMap.set(c.id_camion, c));
       }
 
+      const codigosGrupo = await obtenerCodigosGrupos(
+        this.prismaThird,
+        ordenes.map((o) => o.grupo_id),
+      );
+
       return ordenes.map((orden) => {
         const camion = orden.id_camion
           ? camionesMap.get(orden.id_camion)
           : null;
         return {
           ...orden,
+          grupo_codigo: orden.grupo_id
+            ? (codigosGrupo.get(orden.grupo_id) ?? null)
+            : null,
           fecha_orden: orden.fecha_orden
             ? dayjs.utc(orden.fecha_orden).format('YYYY-MM-DD')
             : null,
