@@ -62,7 +62,7 @@ services:
       retries: 5
 
   pgbouncer:
-    image: pgbouncer/pgbouncer:latest # TODO: fijar a un tag/digest concreto tras probar
+    image: edoburu/pgbouncer:v1.26.0-p0 # tag fijado a propósito; actualizar a mano tras probar
     container_name: ayala_pgbouncer
     restart: unless-stopped
     depends_on:
@@ -72,20 +72,22 @@ services:
       # Solo loopback del VPS. Para acceso remoto: ssh -L 5432:127.0.0.1:5432 usuario@vps
       - '127.0.0.1:${PGBOUNCER_BIND_PORT:-5432}:6432'
     environment:
-      DATABASES_HOST: db
-      DATABASES_PORT: 5432
-      DATABASES_USER: ${POSTGRES_USER:-nestuser}
-      DATABASES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
-      DATABASES_DBNAME: ${POSTGRES_DB:-ayala_01}
+      # Nombre único: "db" es ambiguo porque shared_network lo comparte con otros stacks.
+      DB_HOST: ayala_postgres
+      DB_PORT: '5432'
+      DB_USER: ${POSTGRES_USER:-nestuser}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      DB_NAME: ${POSTGRES_DB:-ayala_01}
+      LISTEN_PORT: '6432'
       AUTH_TYPE: scram-sha-256
       POOL_MODE: transaction
-      PGBOUNCER_SERVER_RESET_QUERY: 'DISCARD ALL'
-      PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
-      PGBOUNCER_MAX_CLIENT_CONN: '200'
-      PGBOUNCER_DEFAULT_POOL_SIZE: '30'
-      PGBOUNCER_MIN_POOL_SIZE: '10'
-      PGBOUNCER_RESERVE_POOL_SIZE: '5'
-      PGBOUNCER_SERVER_IDLE_TIMEOUT: '300'
+      SERVER_RESET_QUERY: 'DISCARD ALL'
+      IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
+      MAX_CLIENT_CONN: '200'
+      DEFAULT_POOL_SIZE: '30'
+      MIN_POOL_SIZE: '10'
+      RESERVE_POOL_SIZE: '5'
+      SERVER_IDLE_TIMEOUT: '300'
     networks:
       - db_internal
       - shared_network
