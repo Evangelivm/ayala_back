@@ -93,9 +93,9 @@ services:
     # El entrypoint genera pgbouncer.ini y userlist.txt al arrancar, por eso /etc/pgbouncer es tmpfs.
     tmpfs:
       - /tmp
-      - /etc/pgbouncer
-      - /var/log/pgbouncer
-      - /var/run/pgbouncer
+      - /etc/pgbouncer:mode=1777
+      - /var/log/pgbouncer:mode=1777
+      - /var/run/pgbouncer:mode=1777
     security_opt:
       - no-new-privileges:true
     cap_drop:
