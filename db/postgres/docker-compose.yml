@@ -1,33 +1,83 @@
+# Postgres endurecido.
+# - Sin secretos en el archivo: se leen de .env (ver .env.example). Falla si faltan.
+# - Postgres NO publica puertos; solo pgbouncer, y solo en 127.0.0.1 (acceso remoto: túnel SSH).
+# - Red interna aislada entre db y pgbouncer; solo pgbouncer toca shared_network.
+# - Autenticación scram-sha-256 y pg_hba.conf restrictivo.
+# - Contenedores sin privilegios, filesystem de solo lectura, con límites de CPU/RAM/PIDs
+#   (un minero no puede disparar el consumo del VPS).
+
 services:
   db:
     image: postgres:17
     container_name: ayala_postgres
     restart: unless-stopped
-    ports:
-      - '5433:5432'
+    # Sin "ports": nadie fuera de la red interna puede alcanzar Postgres.
+    command:
+      - postgres
+      - -c
+      - hba_file=/etc/postgresql/pg_hba.conf
+      - -c
+      - password_encryption=scram-sha-256
+      - -c
+      - listen_addresses=*
+      - -c
+      - log_connections=on
+      - -c
+      - log_disconnections=on
+      - -c
+      - log_statement=ddl
+      - -c
+      - max_connections=100
     environment:
-      POSTGRES_DB: ayala_01
-      POSTGRES_USER: nestuser
-      POSTGRES_PASSWORD: XXXperu2020XXX.
+      POSTGRES_DB: ${POSTGRES_DB:-ayala_01}
+      POSTGRES_USER: ${POSTGRES_USER:-nestuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
     networks:
-      - shared_network
+      - db_internal
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+      - FOWNER
+      - DAC_OVERRIDE
+    pids_limit: 200
+    mem_limit: 2g
+    cpus: 2.0
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgbouncer:
-    image: pgbouncer/pgbouncer:latest
+    image: pgbouncer/pgbouncer:latest # TODO: fijar a un tag/digest concreto tras probar
     container_name: ayala_pgbouncer
     restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
-      - '5432:6432'
+      # Solo loopback del VPS. Para acceso remoto: ssh -L 5432:127.0.0.1:5432 usuario@vps
+      - '127.0.0.1:${PGBOUNCER_BIND_PORT:-5432}:6432'
     environment:
       DATABASES_HOST: db
       DATABASES_PORT: 5432
-      DATABASES_USER: nestuser
-      DATABASES_PASSWORD: XXXperu2020XXX.
-      DATABASES_DBNAME: ayala_01
+      DATABASES_USER: ${POSTGRES_USER:-nestuser}
+      DATABASES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      DATABASES_DBNAME: ${POSTGRES_DB:-ayala_01}
+      AUTH_TYPE: scram-sha-256
       POOL_MODE: transaction
       PGBOUNCER_SERVER_RESET_QUERY: 'DISCARD ALL'
       PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
@@ -37,9 +87,23 @@ services:
       PGBOUNCER_RESERVE_POOL_SIZE: '5'
       PGBOUNCER_SERVER_IDLE_TIMEOUT: '300'
     networks:
+      - db_internal
       - shared_network
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 100
+    mem_limit: 256m
+    cpus: 0.5
 
 networks:
+  # internal: true => sin salida a internet ni acceso desde fuera
+  db_internal:
+    internal: true
   shared_network:
     external: true
 
