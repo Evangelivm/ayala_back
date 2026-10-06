@@ -90,8 +90,12 @@ services:
       - db_internal
       - shared_network
     read_only: true
+    # El entrypoint genera pgbouncer.ini y userlist.txt al arrancar, por eso /etc/pgbouncer es tmpfs.
     tmpfs:
       - /tmp
+      - /etc/pgbouncer
+      - /var/log/pgbouncer
+      - /var/run/pgbouncer
     security_opt:
       - no-new-privileges:true
     cap_drop:
