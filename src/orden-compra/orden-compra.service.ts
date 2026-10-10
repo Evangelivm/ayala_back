@@ -1941,19 +1941,23 @@ export class OrdenCompraService {
     const fontSize = 7;
     const descripcionFontSize = 6; // Tamaño más pequeño para descripciones
 
+    const drawHeaders = () => {
+      let headerX = startX;
+      headers.forEach((header, index) => {
+        doc.rect(headerX, currentY, colWidths[index], baseRowHeight).stroke();
+        doc.fontSize(fontSize).font('Helvetica-Bold');
+        doc.text(header, headerX + 2, currentY + 5, {
+          width: colWidths[index] - 4,
+          align: 'center',
+        });
+        headerX += colWidths[index];
+      });
+      currentY += baseRowHeight;
+    };
+
     // Headers
     let currentX = startX;
-    headers.forEach((header, index) => {
-      doc.rect(currentX, currentY, colWidths[index], baseRowHeight).stroke();
-      doc.fontSize(fontSize).font('Helvetica-Bold');
-      doc.text(header, currentX + 2, currentY + 5, {
-        width: colWidths[index] - 4,
-        align: 'center',
-      });
-      currentX += colWidths[index];
-    });
-
-    currentY += baseRowHeight;
+    drawHeaders();
 
     // Data rows
     items.forEach((item) => {
@@ -2003,6 +2007,15 @@ export class OrdenCompraService {
         descripcionLines * 8 + 6,
         centroCostoLines * 9 + 6,
       );
+
+      // Si la fila no cabe, saltar de página manualmente y repetir encabezados.
+      // Sin esto PDFKit agrega una página nueva por cada celda que cae bajo el margen.
+      const limiteInferior = doc.page.height - doc.page.margins.bottom;
+      if (currentY + rowHeight > limiteInferior) {
+        doc.addPage({ size: 'A4', margin: 40 });
+        currentY = doc.page.margins.top;
+        drawHeaders();
+      }
 
       // Dibujar las celdas con la altura calculada
       rowData.forEach((cell, index) => {
