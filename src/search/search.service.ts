@@ -136,6 +136,7 @@ export class SearchService implements OnModuleInit {
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
             procede_pago: { type: 'keyword' },
+            condicion_pago: { type: 'keyword' }, // CREDITO | CONTADO
             nro_factura: {
               type: 'text',
               fields: { keyword: { type: 'keyword' } },
@@ -196,6 +197,7 @@ export class SearchService implements OnModuleInit {
             auto_contabilidad: { type: 'boolean' },
             jefe_proyecto: { type: 'boolean' },
             procede_pago: { type: 'keyword' },
+            condicion_pago: { type: 'keyword' }, // CREDITO | CONTADO
             nro_factura: {
               type: 'text',
               fields: { keyword: { type: 'keyword' } },
@@ -447,6 +449,7 @@ export class SearchService implements OnModuleInit {
       auto_contabilidad: orden.auto_contabilidad === true,
       jefe_proyecto: orden.jefe_proyecto === true,
       procede_pago: orden.procede_pago || null,
+      condicion_pago: this.condicionPago(orden.condicion),
       nro_factura: orden.nro_factura || null,
       nro_serie: orden.nro_serie || null,
       observaciones: orden.observaciones || null,
@@ -499,6 +502,7 @@ export class SearchService implements OnModuleInit {
       auto_contabilidad: (orden as any).auto_contabilidad === true,
       jefe_proyecto: (orden as any).jefe_proyecto === true,
       procede_pago: (orden as any).procede_pago || null,
+      condicion_pago: this.condicionPago(orden.condicion),
       nro_factura: (orden as any).nro_factura || null,
       nro_serie: (orden as any).nro_serie || null,
       observaciones: (orden as any).observaciones || null,
@@ -527,6 +531,13 @@ export class SearchService implements OnModuleInit {
         apellido_chofer: true,
       },
     });
+  }
+
+  // Normaliza la condición de pago de la orden: lo que no sea crédito es contado
+  private condicionPago(condicion?: string | null): 'CREDITO' | 'CONTADO' {
+    return (condicion || '').toUpperCase().startsWith('CR')
+      ? 'CREDITO'
+      : 'CONTADO';
   }
 
   private nombreCompletoChofer(
@@ -773,6 +784,7 @@ export class SearchService implements OnModuleInit {
           auto_contabilidad: o.auto_contabilidad === true,
           jefe_proyecto: o.jefe_proyecto === true,
           procede_pago: o.procede_pago || null,
+          condicion_pago: this.condicionPago(o.condicion),
           nro_factura: o.nro_factura || null,
           nro_serie: o.nro_serie || null,
           observaciones: o.observaciones || null,
@@ -839,6 +851,7 @@ export class SearchService implements OnModuleInit {
           auto_contabilidad: (o as any).auto_contabilidad === true,
           jefe_proyecto: (o as any).jefe_proyecto === true,
           procede_pago: (o as any).procede_pago || null,
+          condicion_pago: this.condicionPago(o.condicion),
           nro_factura: (o as any).nro_factura || null,
           nro_serie: (o as any).nro_serie || null,
           observaciones: (o as any).observaciones || null,
@@ -968,6 +981,13 @@ export class SearchService implements OnModuleInit {
     const filterClauses: any[] = [notDeletedFilter];
     for (const [campo, valor] of Object.entries(filtros)) {
       if (valor === undefined || valor === null || valor === '') continue;
+      // Los docs viejos no tienen condicion_pago: sin el campo = CONTADO
+      if (campo === 'condicion_pago' && valor === 'CONTADO') {
+        filterClauses.push({
+          bool: { must_not: { term: { condicion_pago: 'CREDITO' } } },
+        });
+        continue;
+      }
       // placa_unidad/chofer se mapean como `text` (para soportar búsqueda
       // libre parcial); el filtro exacto del dropdown debe apuntar a su
       // subcampo `.keyword`, que sí es un término no analizado.
@@ -1347,6 +1367,13 @@ export class SearchService implements OnModuleInit {
         filtros.jefe_proyecto === true || filtros.jefe_proyecto === 'true';
     }
     if (filtros.procede_pago) where.procede_pago = filtros.procede_pago;
+    if (filtros.condicion_pago === 'CREDITO') {
+      where.condicion = { startsWith: 'CR' };
+    } else if (filtros.condicion_pago === 'CONTADO') {
+      where.AND = [
+        { OR: [{ condicion: null }, { NOT: { condicion: { startsWith: 'CR' } } }] },
+      ];
+    }
 
     if (filtros.placa_unidad || filtros.tipo_unidad || filtros.chofer) {
       const camionWhere: Record<string, any> = {};

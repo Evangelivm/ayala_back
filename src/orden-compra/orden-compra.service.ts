@@ -902,6 +902,7 @@ export class OrdenCompraService {
             tipo_detraccion: createOrdenCompraDto.tipo_detraccion,
             valor_detraccion: createOrdenCompraDto.valor_detraccion,
             almacen_central: createOrdenCompraDto.almacen_central,
+            condicion: createOrdenCompraDto.condicion || 'CONTADO',
             has_anticipo: createOrdenCompraDto.has_anticipo === 1,
             tiene_anticipo: createOrdenCompraDto.tiene_anticipo,
             tipo_comprobante: createOrdenCompraDto.tipo_comprobante || 'FACTURA',
@@ -1091,7 +1092,7 @@ export class OrdenCompraService {
       datosOrdenCompra: {
         direccion:
           'CALLE LOS ANDES NRO. 155 URB. SAN GREGORIO LIMA - LIMA - ATE',
-        condicion: 'CONTADO',
+        condicion: ordenCompra.condicion || 'CONTADO',
         moneda: ordenCompra.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
         almacenCentral: ordenCompra.almacen_central?.toUpperCase() === 'SI',
@@ -2162,6 +2163,7 @@ export class OrdenCompraService {
               tipo_detraccion: updateOrdenCompraDto.tipo_detraccion,
               valor_detraccion: updateOrdenCompraDto.valor_detraccion,
               almacen_central: updateOrdenCompraDto.almacen_central,
+              condicion: updateOrdenCompraDto.condicion,
               has_anticipo: updateOrdenCompraDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenCompraDto.tiene_anticipo,
               tipo_comprobante: updateOrdenCompraDto.tipo_comprobante || 'FACTURA',

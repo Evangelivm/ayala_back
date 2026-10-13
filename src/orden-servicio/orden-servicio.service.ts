@@ -913,6 +913,7 @@ export class OrdenServicioService {
               createOrdenServicioDto.porcentaje_valor_retencion,
             valor_retencion: createOrdenServicioDto.valor_retencion,
             almacen_central: createOrdenServicioDto.almacen_central,
+            condicion: createOrdenServicioDto.condicion || 'CONTADO',
             has_anticipo: createOrdenServicioDto.has_anticipo === 1,
             tiene_anticipo: createOrdenServicioDto.tiene_anticipo,
             tipo_comprobante: createOrdenServicioDto.tipo_comprobante || 'FACTURA',
@@ -1112,7 +1113,7 @@ export class OrdenServicioService {
       },
       datosOrdenServicio: {
         direccion: proveedor.direccion || '',
-        condicion: ordenServicio.condicion || '',
+        condicion: ordenServicio.condicion || 'CONTADO',
         moneda: ordenServicio.moneda || '',
         tipoCambio: tipoCambio, // Usar el tipo de cambio de venta
         almacenCentral: ordenServicio.almacen_central?.toUpperCase() === 'SI',
@@ -2223,6 +2224,7 @@ export class OrdenServicioService {
                 updateOrdenServicioDto.porcentaje_valor_retencion,
               valor_retencion: updateOrdenServicioDto.valor_retencion,
               almacen_central: updateOrdenServicioDto.almacen_central,
+              condicion: updateOrdenServicioDto.condicion,
               has_anticipo: updateOrdenServicioDto.has_anticipo === 1,
               tiene_anticipo: updateOrdenServicioDto.tiene_anticipo,
               tipo_comprobante: updateOrdenServicioDto.tipo_comprobante || 'FACTURA',

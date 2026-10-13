@@ -54,6 +54,7 @@ export class SearchController {
     @Query('autoContabilidad') autoContabilidad?: string,
     @Query('jefeProyecto') jefeProyecto?: string,
     @Query('procedePago') procedePago?: string,
+    @Query('condicion') condicion?: string,
     @Query('agrupar') agrupar?: string,
   ) {
     const { data, total } = await this.searchService.search(
@@ -71,6 +72,7 @@ export class SearchController {
         autoContabilidad,
         jefeProyecto,
         procedePago,
+        condicion,
       }),
       'desc',
       agrupar === 'true',
@@ -92,6 +94,7 @@ export class SearchController {
     @Query('autoContabilidad') autoContabilidad?: string,
     @Query('jefeProyecto') jefeProyecto?: string,
     @Query('procedePago') procedePago?: string,
+    @Query('condicion') condicion?: string,
     @Query('agrupar') agrupar?: string,
   ) {
     const { data, total } = await this.searchService.search(
@@ -109,6 +112,7 @@ export class SearchController {
         autoContabilidad,
         jefeProyecto,
         procedePago,
+        condicion,
       }),
       'desc',
       agrupar === 'true',
@@ -144,6 +148,7 @@ export class SearchController {
     autoContabilidad?: string;
     jefeProyecto?: string;
     procedePago?: string;
+    condicion?: string;
   }): Record<string, string | boolean> {
     const filtros: Record<string, string | boolean> = {};
     if (params.estado) filtros.estado = params.estado;
@@ -161,6 +166,9 @@ export class SearchController {
       filtros.jefe_proyecto = params.jefeProyecto === 'true';
     }
     if (params.procedePago) filtros.procede_pago = params.procedePago;
+    if (params.condicion === 'CREDITO' || params.condicion === 'CONTADO') {
+      filtros.condicion_pago = params.condicion;
+    }
     return filtros;
   }
 }
