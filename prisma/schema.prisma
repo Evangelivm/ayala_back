@@ -1223,7 +1223,7 @@ model programacion {
   km_del_dia              String?   @db.VarChar(255)
   mes                     String?   @db.VarChar(255)
   num_semana              String?   @db.VarChar(255)
-  peso                    Decimal?  @db.Decimal(12, 10)
+  peso                    Decimal?  @db.Decimal(12, 3)
   punto_partida_ubigeo    String?   @db.VarChar(255)
   punto_partida_direccion String?   @db.VarChar(255)
   punto_llegada_ubigeo    String?   @db.VarChar(255)
