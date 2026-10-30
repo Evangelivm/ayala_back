@@ -36,7 +36,7 @@ export class EtapasService {
 
   async findByProyecto(idProyecto: number) {
     return this.prisma.etapas.findMany({
-      where: { id_proyecto: idProyecto },
+      where: { id_proyecto: idProyecto, activo: true, proyecto: { activo: true, estado: 'activo' } },
       orderBy: { orden: 'asc' },
     });
   }

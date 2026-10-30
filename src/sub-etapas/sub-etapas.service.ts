@@ -52,6 +52,7 @@ export class SubEtapasService {
       where: {
         id_subproyecto: idSubproyecto,
         activo: true,
+        subproyecto: { activo: true, proyecto: { activo: true, estado: 'activo' } },
       },
       include: {
         subproyecto: true,

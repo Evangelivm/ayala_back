@@ -31,61 +31,48 @@ export class SubproyectosService {
     });
   }
 
-  async findAll() {
-    return this.prisma.subproyectos.findMany({
-      where: { activo: true },
-      include: {
-        proyecto: true,
-        sub_etapas: {
-          where: { activo: true },
-          include: {
-            subsector: {
-              where: { activo: true },
-              include: {
-                subfrente: {
-                  where: { activo: true },
-                  include: {
-                    subpartida: {
-                      where: { activo: true },
-                    },
-                  },
+  // Los selects solo ven lo activo; la página de proyectos pide
+  // incluirInactivos para poder reactivar.
+  private arbol(incluirInactivos: boolean) {
+    const soloActivos = incluirInactivos ? undefined : { activo: true };
+    return {
+      proyecto: true,
+      sub_etapas: {
+        where: soloActivos,
+        include: {
+          subsector: {
+            where: soloActivos,
+            include: {
+              subfrente: {
+                where: soloActivos,
+                include: {
+                  subpartida: { where: soloActivos },
                 },
               },
             },
           },
         },
       },
+    };
+  }
+
+  async findAll(incluirInactivos = false) {
+    return this.prisma.subproyectos.findMany({
+      where: incluirInactivos
+        ? undefined
+        : { activo: true, proyecto: { activo: true, estado: 'activo' } },
+      include: this.arbol(incluirInactivos),
       orderBy: { orden: 'asc' },
     });
   }
 
-  async findByProyecto(idProyecto: number) {
+  async findByProyecto(idProyecto: number, incluirInactivos = false) {
     return this.prisma.subproyectos.findMany({
       where: {
         id_proyecto: idProyecto,
-        activo: true,
+        ...(incluirInactivos ? {} : { activo: true, proyecto: { activo: true, estado: 'activo' } }),
       },
-      include: {
-        proyecto: true,
-        sub_etapas: {
-          where: { activo: true },
-          include: {
-            subsector: {
-              where: { activo: true },
-              include: {
-                subfrente: {
-                  where: { activo: true },
-                  include: {
-                    subpartida: {
-                      where: { activo: true },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
+      include: this.arbol(incluirInactivos),
       orderBy: { orden: 'asc' },
     });
   }

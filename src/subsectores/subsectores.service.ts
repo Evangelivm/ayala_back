@@ -43,6 +43,10 @@ export class SubsectoresService {
       where: {
         id_sub_etapa: idSubEtapa,
         activo: true,
+        sub_etapa: {
+          activo: true,
+          subproyecto: { activo: true, proyecto: { activo: true, estado: 'activo' } },
+        },
       },
       include: {
         sub_etapa: true,

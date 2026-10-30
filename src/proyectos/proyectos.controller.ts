@@ -23,12 +23,15 @@ export class ProyectosController {
   constructor(private readonly proyectosService: ProyectosService) {}
 
   @Get()
-  async findAll(@Query('nombre') nombre?: string) {
+  async findAll(
+    @Query('nombre') nombre?: string,
+    @Query('incluir_inactivos') incluirInactivos?: string,
+  ) {
     if (nombre) {
       const proyecto = await this.proyectosService.findByNombre(nombre);
       return proyecto ? [proyecto] : [];
     }
-    return this.proyectosService.findAll();
+    return this.proyectosService.findAll(incluirInactivos === 'true');
   }
 
   @Get(':id')

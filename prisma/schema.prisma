@@ -523,6 +523,7 @@ model proyecto {
   fecha_inicio            DateTime?                 @db.Date
   fecha_fin               DateTime?                 @db.Date
   estado                  proyecto_estado?          @default(activo)
+  activo                  Boolean                   @default(true)
   created_at              DateTime?                 @default(now()) @db.Timestamp(0)
   updated_at              DateTime?                 @default(now()) @db.Timestamp(0)
   cliente                 String?                   @db.VarChar(200)
@@ -539,6 +540,7 @@ model proyecto {
   viajes_eliminacion      viajes_eliminacion[]
 
   @@index([cliente], map: "proyecto_ibfk_1_idx")
+  @@index([activo], map: "idx_proyecto_activo")
 }
 
 model sector {
@@ -2491,6 +2493,7 @@ enum proyecto_estado {
   activo
   inactivo
   finalizado
+  borrador
 }
 
 enum orden_compra_estado {

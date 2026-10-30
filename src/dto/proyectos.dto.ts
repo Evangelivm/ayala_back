@@ -49,7 +49,7 @@ export const ProyectoSchema = z.object({
   fecha_inicio: z.string().optional(), // Fecha en formato ISO string
   fecha_fin: z.string().optional(), // Fecha en formato ISO string
   estado: z
-    .enum(['activo', 'inactivo', 'finalizado'])
+    .enum(['activo', 'inactivo', 'finalizado', 'borrador'])
     .optional()
     .default('activo'),
   activo: z.boolean().default(true),
@@ -84,7 +84,7 @@ export const ProyectoResponseSchema = z.object({
   descripcion: z.string().nullable(),
   fecha_inicio: z.string().nullable(),
   fecha_fin: z.string().nullable(),
-  estado: z.enum(['activo', 'inactivo', 'finalizado']),
+  estado: z.enum(['activo', 'inactivo', 'finalizado', 'borrador']),
   activo: z.boolean(),
   sectores: z.array(
     z.object({
@@ -122,7 +122,7 @@ export const ProyectoResponseSchema = z.object({
 // Schema para filtros de búsqueda
 export const ProyectoFilterSchema = z.object({
   nombre: z.string().optional(),
-  estado: z.enum(['activo', 'inactivo', 'finalizado']).optional(),
+  estado: z.enum(['activo', 'inactivo', 'finalizado', 'borrador']).optional(),
   fecha_inicio_desde: z.string().optional(),
   fecha_inicio_hasta: z.string().optional(),
   fecha_fin_desde: z.string().optional(),

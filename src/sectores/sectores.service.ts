@@ -36,7 +36,11 @@ export class SectoresService {
 
   async findByEtapa(idEtapa: number) {
     return this.prisma.sector.findMany({
-      where: { id_etapa: idEtapa },
+      where: {
+        id_etapa: idEtapa,
+        activo: true,
+        etapa: { activo: true, proyecto: { activo: true, estado: 'activo' } },
+      },
       orderBy: { orden: 'asc' },
     });
   }

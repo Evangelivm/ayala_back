@@ -25,11 +25,15 @@ export class SubproyectosController {
   }
 
   @Get()
-  findAll(@Query('id_proyecto') idProyecto?: string) {
+  findAll(
+    @Query('id_proyecto') idProyecto?: string,
+    @Query('incluir_inactivos') incluirInactivos?: string,
+  ) {
+    const incluir = incluirInactivos === 'true';
     if (idProyecto) {
-      return this.subproyectosService.findByProyecto(parseInt(idProyecto));
+      return this.subproyectosService.findByProyecto(parseInt(idProyecto), incluir);
     }
-    return this.subproyectosService.findAll();
+    return this.subproyectosService.findAll(incluir);
   }
 
   @Get(':id')

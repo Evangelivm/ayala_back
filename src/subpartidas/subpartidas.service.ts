@@ -39,6 +39,16 @@ export class SubpartidasService {
       where: {
         id_subfrente: idSubfrente,
         activo: true,
+        subfrente: {
+          activo: true,
+          subsector: {
+            activo: true,
+            sub_etapa: {
+              activo: true,
+              subproyecto: { activo: true, proyecto: { activo: true, estado: 'activo' } },
+            },
+          },
+        },
       },
       include: {
         subfrente: true,

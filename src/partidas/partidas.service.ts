@@ -36,7 +36,17 @@ export class PartidasService {
 
   async findByFrente(idFrente: number) {
     return this.prisma.partida.findMany({
-      where: { id_frente: idFrente },
+      where: {
+        id_frente: idFrente,
+        activo: true,
+        frente: {
+          activo: true,
+          sector: {
+            activo: true,
+            etapa: { activo: true, proyecto: { activo: true, estado: 'activo' } },
+          },
+        },
+      },
       orderBy: { orden: 'asc' },
     });
   }

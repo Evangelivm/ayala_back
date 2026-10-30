@@ -13,18 +13,27 @@ import type {
 export class ProyectosService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
+  // Por defecto solo devuelve proyectos aprobados y activos (para los selects).
+  // La página de proyectos pide incluirInactivos para ver también los
+  // desactivados y los borradores (cotizaciones, aún sin aprobar).
+  async findAll(incluirInactivos = false) {
+    const soloActivos = incluirInactivos ? undefined : { activo: true };
     const proyectos = await this.prisma.proyecto.findMany({
-      where: { estado: 'activo' },
+      where: incluirInactivos
+        ? { estado: { in: ['activo', 'borrador'] } }
+        : { estado: 'activo', activo: true },
       include: {
         empresas_2025: true,
         etapas: {
+          where: soloActivos,
           include: {
             sector: {
+              where: soloActivos,
               include: {
                 frente: {
+                  where: soloActivos,
                   include: {
-                    partida: true,
+                    partida: { where: soloActivos },
                   },
                 },
               },
@@ -53,24 +62,28 @@ export class ProyectosService {
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
-      activo: proyecto.estado === 'activo',
+      activo: proyecto.activo,
       etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
+        activo: etapa.activo,
         sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
+          activo: sector.activo,
           ubicacion: sector.ubicacion,
           frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,
+            activo: frente.activo,
             responsable: frente.responsable,
             partidas: frente.partida.map((partida) => ({
               id: partida.id_partida,
               codigo: partida.codigo,
+              activo: partida.activo,
               descripcion: partida.descripcion,
               unidad_medida: partida.unidad_medida,
               cantidad: Number(partida.cantidad),
@@ -131,24 +144,28 @@ export class ProyectosService {
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
-      activo: proyecto.estado === 'activo',
+      activo: proyecto.activo,
       etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
+        activo: etapa.activo,
         sectores: etapa.sector.map((sector) => ({
           id: sector.id_sector,
           nombre: sector.nombre,
           descripcion: sector.descripcion,
+          activo: sector.activo,
           ubicacion: sector.ubicacion,
           frentes: sector.frente.map((frente) => ({
             id: frente.id_frente,
             nombre: frente.nombre,
             descripcion: frente.descripcion,
+            activo: frente.activo,
             responsable: frente.responsable,
             partidas: frente.partida.map((partida) => ({
               id: partida.id_partida,
               codigo: partida.codigo,
+              activo: partida.activo,
               descripcion: partida.descripcion,
               unidad_medida: partida.unidad_medida,
               cantidad: Number(partida.cantidad),
@@ -208,7 +225,7 @@ export class ProyectosService {
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
-      activo: proyecto.estado === 'activo',
+      activo: proyecto.activo,
       etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,
@@ -247,7 +264,9 @@ export class ProyectosService {
         ubicacion: data.ubicacion || '',
         fecha_inicio: data.fecha_inicio ? new Date(data.fecha_inicio) : null,
         fecha_fin: data.fecha_fin ? new Date(data.fecha_fin) : null,
-        estado: data.activo ? 'activo' : 'inactivo',
+        // 'borrador' = cotización; solo pasa a 'activo' al aprobarse
+        estado: data.estado,
+        activo: data.activo,
       },
       include: {
         empresas_2025: true,
@@ -273,7 +292,7 @@ export class ProyectosService {
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
-      activo: proyecto.estado === 'activo',
+      activo: proyecto.activo,
       etapas: [],
       created_at: proyecto.created_at?.toISOString(),
       updated_at: proyecto.updated_at?.toISOString(),
@@ -311,12 +330,8 @@ export class ProyectosService {
           ? new Date(data.fecha_inicio)
           : undefined,
         fecha_fin: data.fecha_fin ? new Date(data.fecha_fin) : undefined,
-        estado:
-          data.activo !== undefined
-            ? data.activo
-              ? 'activo'
-              : 'inactivo'
-            : undefined,
+        estado: data.estado,
+        activo: data.activo,
         updated_at: new Date(),
       },
       include: {
@@ -351,7 +366,7 @@ export class ProyectosService {
       fecha_inicio: proyecto.fecha_inicio?.toISOString().split('T')[0],
       fecha_fin: proyecto.fecha_fin?.toISOString().split('T')[0],
       estado: proyecto.estado,
-      activo: proyecto.estado === 'activo',
+      activo: proyecto.activo,
       etapas: proyecto.etapas.map((etapa) => ({
         id: etapa.id_etapa,
         nombre: etapa.nombre,

@@ -36,7 +36,14 @@ export class FrentesService {
 
   async findBySector(idSector: number) {
     return this.prisma.frente.findMany({
-      where: { id_sector: idSector },
+      where: {
+        id_sector: idSector,
+        activo: true,
+        sector: {
+          activo: true,
+          etapa: { activo: true, proyecto: { activo: true, estado: 'activo' } },
+        },
+      },
       orderBy: { orden: 'asc' },
     });
   }
