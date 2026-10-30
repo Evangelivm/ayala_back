@@ -455,7 +455,7 @@ export class DashboardService {
   async getActiveProjects() {
     try {
       return await this.prisma.proyecto.findMany({
-        where: { estado: 'activo' },
+        where: { estado: 'activo', activo: true },
         select: {
           id_proyecto: true,
           nombre: true,
