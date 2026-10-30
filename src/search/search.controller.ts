@@ -20,6 +20,7 @@ export class SearchController {
     @Query('programacion') programacion?: string,
     @Query('estadoProgramacion') estadoProgramacion?: string,
     @Query('fecha') fecha?: string,
+    @Query('fechaHasta') fechaHasta?: string,
     @Query('orden') orden?: string,
   ) {
     const ordenDireccion: 'asc' | 'desc' = orden === 'asc' ? 'asc' : 'desc';
@@ -34,6 +35,7 @@ export class SearchController {
           ? { estado_programacion: estadoProgramacion }
           : {}),
         ...(fecha ? { fecha } : {}),
+        ...(fechaHasta ? { fecha_hasta: fechaHasta } : {}),
       },
       ordenDireccion,
     );

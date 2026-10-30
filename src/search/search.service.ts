@@ -981,6 +981,20 @@ export class SearchService implements OnModuleInit {
     const filterClauses: any[] = [notDeletedFilter];
     for (const [campo, valor] of Object.entries(filtros)) {
       if (valor === undefined || valor === null || valor === '') continue;
+      // Rango de fechas (programacion_tecnica): `fecha` pasa a ser "desde"
+      // cuando viene `fecha_hasta`; ambos se combinan en un único range.
+      if (campo === 'fecha_hasta') {
+        if (!filtros.fecha) {
+          filterClauses.push({ range: { fecha: { lte: valor } } });
+        }
+        continue;
+      }
+      if (campo === 'fecha' && filtros.fecha_hasta) {
+        filterClauses.push({
+          range: { fecha: { gte: valor, lte: filtros.fecha_hasta } },
+        });
+        continue;
+      }
       // Los docs viejos no tienen condicion_pago: sin el campo = CONTADO
       if (campo === 'condicion_pago' && valor === 'CONTADO') {
         filterClauses.push({
@@ -1108,8 +1122,13 @@ export class SearchService implements OnModuleInit {
         Prisma.sql`pt.estado_programacion = ${filtros.estado_programacion}`,
       );
     }
-    if (filtros.fecha) {
+    if (filtros.fecha && filtros.fecha_hasta) {
+      fragments.push(Prisma.sql`pt.fecha >= ${filtros.fecha}`);
+    } else if (filtros.fecha) {
       fragments.push(Prisma.sql`pt.fecha = ${filtros.fecha}`);
+    }
+    if (filtros.fecha_hasta) {
+      fragments.push(Prisma.sql`pt.fecha <= ${filtros.fecha_hasta}`);
     }
     return fragments.length > 0
       ? Prisma.sql`AND ${Prisma.join(fragments, ' AND ')}`
