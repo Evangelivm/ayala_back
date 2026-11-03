@@ -3,6 +3,7 @@ services:
     image: confluentinc/cp-kafka:7.4.0
     hostname: kafka
     container_name: kafka
+    restart: unless-stopped
     user: root
     ports:
       - "9092:9092"
