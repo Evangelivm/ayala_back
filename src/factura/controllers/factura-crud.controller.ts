@@ -14,7 +14,9 @@ import {
   UsePipes,
   UseInterceptors,
   HttpCode,
+  Optional,
 } from '@nestjs/common';
+import { SearchService } from '../../search/search.service';
 import { BackendLogsInterceptor } from '../../common/interceptors/backend-logs.interceptor';
 import { PrismaThirdService } from '../../prisma/prisma-third.service';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
@@ -35,6 +37,7 @@ export class FacturaCrudController {
     private readonly facturaConsumer: FacturaConsumerService,
     private readonly facturaDetector: FacturaDetectorService,
     private readonly websocketGateway: WebsocketGateway,
+    @Optional() private readonly searchService?: SearchService,
   ) {}
 
   /**
@@ -543,6 +546,9 @@ export class FacturaCrudController {
         `Factura ${factura.serie}-${factura.numero} creada exitosamente con ID ${factura.id_factura}`,
       );
 
+      // Sincronizar con Elasticsearch (fire-and-forget)
+      void this.searchService?.reindexOne('facturas', factura.id_factura);
+
       // Llamar a NubeFact sincrónicamenmente (sin esperar al cron de 30s)
       try {
         this.logger.log(
@@ -840,6 +846,9 @@ export class FacturaCrudController {
 
       this.logger.log(`Factura ${id} actualizada exitosamente`);
 
+      // Sincronizar con Elasticsearch (fire-and-forget)
+      void this.searchService?.reindexOne('facturas', id_factura);
+
       // Retornar la factura actualizada con sus relaciones
       const facturaCompleta = await this.prisma.factura.findUnique({
         where: { id_factura },
@@ -904,6 +913,9 @@ export class FacturaCrudController {
       await this.prisma.factura.delete({
         where: { id_factura: parseInt(id) },
       });
+
+      // Quitar del índice de Elasticsearch (fire-and-forget)
+      void this.searchService?.deleteDoc('facturas', String(parseInt(id)));
 
       return {
         message: 'Factura eliminada exitosamente',

@@ -122,6 +122,27 @@ export class SearchController {
     return { data, total, page, limit };
   }
 
+  @Get('facturas')
+  async searchFacturas(
+    @Query('q') q: string = '',
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+    @Query('fechaDesde') fechaDesde?: string,
+    @Query('fechaHasta') fechaHasta?: string,
+  ) {
+    const { data, total } = await this.searchService.search(
+      'facturas',
+      q,
+      page,
+      limit,
+      {
+        ...(fechaDesde ? { fecha_emision_desde: fechaDesde } : {}),
+        ...(fechaHasta ? { fecha_emision_hasta: fechaHasta } : {}),
+      },
+    );
+    return { data, total, page, limit };
+  }
+
   @Post('reindex')
   async reindex() {
     const result = await this.searchService.reindexAll();

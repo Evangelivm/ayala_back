@@ -17,7 +17,8 @@ dayjs.extend(timezone);
 export type SearchIndex =
   | 'programacion_tecnica'
   | 'ordenes_compra'
-  | 'ordenes_servicio';
+  | 'ordenes_servicio'
+  | 'facturas';
 
 @Injectable()
 export class SearchService implements OnModuleInit {
@@ -28,6 +29,7 @@ export class SearchService implements OnModuleInit {
     programacion_tecnica: false,
     ordenes_compra: false,
     ordenes_servicio: false,
+    facturas: false,
   };
   private readonly logger = new Logger(SearchService.name);
 
@@ -52,19 +54,21 @@ export class SearchService implements OnModuleInit {
       this.esAvailable = true;
 
       // Verificar si los índices ya tienen datos (p.ej. tras restart con reindex previo)
-      const [ptCount, ocCount, osCount] = await Promise.all([
+      const [ptCount, ocCount, osCount, facCount] = await Promise.all([
         this.client.count({ index: 'programacion_tecnica' }),
         this.client.count({ index: 'ordenes_compra' }),
         this.client.count({ index: 'ordenes_servicio' }),
+        this.client.count({ index: 'facturas' }),
       ]);
       this.esIndexReady.programacion_tecnica = ptCount.count > 0;
       this.esIndexReady.ordenes_compra = ocCount.count > 0;
       this.esIndexReady.ordenes_servicio = osCount.count > 0;
+      this.esIndexReady.facturas = facCount.count > 0;
 
       const hayDatos = Object.values(this.esIndexReady).some(Boolean);
       if (hayDatos) {
         this.logger.log(
-          `Elasticsearch conectado con datos (PT:${ptCount.count} OC:${ocCount.count} OS:${osCount.count}) — modo ES activo`,
+          `Elasticsearch conectado con datos (PT:${ptCount.count} OC:${ocCount.count} OS:${osCount.count} FAC:${facCount.count}) — modo ES activo`,
         );
       } else {
         this.logger.warn(
@@ -228,6 +232,46 @@ export class SearchService implements OnModuleInit {
           },
         },
       },
+      {
+        name: 'facturas',
+        mappings: {
+          date_detection: false,
+          properties: {
+            id: { type: 'integer' },
+            serie: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            numero: { type: 'text' },
+            // "SERIE-00000012": para búsqueda parcial vía wildcard sobre .keyword
+            numero_factura: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            cliente_denominacion: { type: 'text', analyzer: 'standard' },
+            cliente_numero_documento: { type: 'keyword' },
+            nombre_proveedor: { type: 'text', analyzer: 'standard' },
+            ruc_proveedor: { type: 'keyword' },
+            fecha_emision: { type: 'date' },
+            observaciones: { type: 'text', analyzer: 'standard' },
+            placa_vehiculo: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            orden_compra_servicio: {
+              type: 'text',
+              fields: { keyword: { type: 'keyword' } },
+            },
+            centro_costo_nivel1: { type: 'text' },
+            centro_costo_nivel2: { type: 'text' },
+            centro_costo_nivel3: { type: 'text' },
+            moneda: { type: 'keyword' },
+            items_texto: { type: 'text', analyzer: 'standard' },
+            total: { type: 'text' },
+            deleted_at: { type: 'date' },
+          },
+        },
+      },
     ];
 
     for (const index of indices) {
@@ -264,6 +308,7 @@ export class SearchService implements OnModuleInit {
     programacion_tecnica: number;
     ordenes_compra: number;
     ordenes_servicio: number;
+    facturas: number;
   }> {
     if (!this.esAvailable || !this.client) {
       throw new Error('Elasticsearch no está disponible');
@@ -273,6 +318,7 @@ export class SearchService implements OnModuleInit {
       'programacion_tecnica',
       'ordenes_compra',
       'ordenes_servicio',
+      'facturas',
     ];
 
     for (const nombre of nombres) {
@@ -349,7 +395,45 @@ export class SearchService implements OnModuleInit {
         return this.buildOrdenCompraDoc(id);
       case 'ordenes_servicio':
         return this.buildOrdenServicioDoc(id);
+      case 'facturas':
+        return this.buildFacturaDoc(id);
     }
+  }
+
+  // ─── Facturas (DB terciaria) ───────────────────────────────────────────────
+
+  private facturaToDoc(f: any): Record<string, any> {
+    const numeroFactura = `${f.serie}-${String(f.numero).padStart(8, '0')}`;
+    return {
+      id: f.id_factura,
+      serie: f.serie,
+      numero: String(f.numero),
+      numero_factura: numeroFactura,
+      cliente_denominacion: f.cliente_denominacion || null,
+      cliente_numero_documento: f.cliente_numero_documento || null,
+      nombre_proveedor: f.proveedores?.nombre_proveedor || null,
+      ruc_proveedor: f.proveedores?.ruc || null,
+      fecha_emision: f.fecha_emision
+        ? dayjs.utc(f.fecha_emision).format('YYYY-MM-DD')
+        : null,
+      observaciones: f.observaciones || null,
+      placa_vehiculo: f.placa_vehiculo || null,
+      orden_compra_servicio: f.orden_compra_servicio || null,
+      centro_costo_nivel1: f.centro_costo_nivel1_codigo || null,
+      centro_costo_nivel2: f.centro_costo_nivel2_codigo || null,
+      centro_costo_nivel3: f.centro_costo_nivel3_codigo || null,
+      moneda: f.moneda === 2 ? 'DOLARES' : 'SOLES',
+      items_texto: this.itemsTexto(f.factura_item),
+      total: f.total != null ? f.total.toString() : null,
+    };
+  }
+
+  private async buildFacturaDoc(id: number) {
+    const f = await this.prismaThird.factura.findUnique({
+      where: { id_factura: id },
+      include: { proveedores: true, factura_item: true },
+    });
+    return f ? this.facturaToDoc(f) : null;
   }
 
   private async buildProgramacionTecnicaDoc(id: number) {
@@ -681,6 +765,7 @@ export class SearchService implements OnModuleInit {
     programacion_tecnica: number;
     ordenes_compra: number;
     ordenes_servicio: number;
+    facturas: number;
   }> {
     if (!this.esAvailable) {
       throw new Error('Elasticsearch no está disponible');
@@ -874,15 +959,29 @@ export class SearchService implements OnModuleInit {
       await this.client.bulk({ operations: osOps, refresh: true });
     }
 
+    // ── facturas ──────────────────────────────────────────────────────────────
+    const facturas = await this.prismaThird.factura.findMany({
+      include: { proveedores: true, factura_item: true },
+    });
+    const facOps = facturas.flatMap((f) => [
+      { index: { _index: 'facturas', _id: f.id_factura.toString() } },
+      this.facturaToDoc(f),
+    ]);
+    if (facOps.length > 0) {
+      await this.client.bulk({ operations: facOps, refresh: true });
+    }
+
     this.esIndexReady.programacion_tecnica = ptRows.length > 0;
     this.esIndexReady.ordenes_compra = ordCompra.length > 0;
     this.esIndexReady.ordenes_servicio = ordServicio.length > 0;
+    this.esIndexReady.facturas = facturas.length > 0;
     this.logger.log('Reindex completado — modo ES activado para búsqueda');
 
     return {
       programacion_tecnica: ptRows.length,
       ordenes_compra: ordCompra.length,
       ordenes_servicio: ordServicio.length,
+      facturas: facturas.length,
     };
   }
 
@@ -954,6 +1053,24 @@ export class SearchService implements OnModuleInit {
         'items_texto',
         'total',
       ],
+      facturas: [
+        'serie',
+        'numero',
+        'numero_factura',
+        'cliente_denominacion',
+        'cliente_numero_documento',
+        'nombre_proveedor',
+        'ruc_proveedor',
+        'observaciones',
+        'placa_vehiculo',
+        'orden_compra_servicio',
+        'centro_costo_nivel1',
+        'centro_costo_nivel2',
+        'centro_costo_nivel3',
+        'moneda',
+        'items_texto',
+        'total',
+      ],
     };
 
     // programacion_tecnica ordena por id (orden de creación) por defecto,
@@ -963,6 +1080,7 @@ export class SearchService implements OnModuleInit {
       programacion_tecnica: 'id',
       ordenes_compra: 'fecha_orden',
       ordenes_servicio: 'fecha_orden',
+      facturas: 'id',
     };
 
     const trimmedQ = q ? q.trim() : '';
@@ -993,6 +1111,15 @@ export class SearchService implements OnModuleInit {
         filterClauses.push({
           range: { fecha: { gte: valor, lte: filtros.fecha_hasta } },
         });
+        continue;
+      }
+      // Rango de fecha de emisión (facturas)
+      if (campo === 'fecha_emision_desde') {
+        filterClauses.push({ range: { fecha_emision: { gte: valor } } });
+        continue;
+      }
+      if (campo === 'fecha_emision_hasta') {
+        filterClauses.push({ range: { fecha_emision: { lte: valor } } });
         continue;
       }
       // Los docs viejos no tienen condicion_pago: sin el campo = CONTADO
@@ -1036,6 +1163,19 @@ export class SearchService implements OnModuleInit {
                     {
                       wildcard: {
                         'numero_orden.keyword': {
+                          value: `*${wildcardQ}*`,
+                          case_insensitive: true,
+                        },
+                      },
+                    },
+                  ]
+                : []),
+              // Igual para facturas: "12" debe encontrar "FFF2-00000012"
+              ...(index === 'facturas'
+                ? [
+                    {
+                      wildcard: {
+                        'numero_factura.keyword': {
                           value: `*${wildcardQ}*`,
                           case_insensitive: true,
                         },
@@ -1090,6 +1230,8 @@ export class SearchService implements OnModuleInit {
         return this.searchOrdenesCompra(q, page, limit, filtros);
       case 'ordenes_servicio':
         return this.searchOrdenesServicio(q, page, limit, filtros);
+      case 'facturas':
+        return this.searchFacturas(q, page, limit, filtros);
     }
   }
 
@@ -1105,7 +1247,102 @@ export class SearchService implements OnModuleInit {
         return this.getOrdenesCompraByIds(ids);
       case 'ordenes_servicio':
         return this.getOrdenesServicioByIds(ids);
+      case 'facturas':
+        return this.getFacturasByIds(ids);
     }
+  }
+
+  // ─── Facturas ──────────────────────────────────────────────────────────────
+
+  private facturasFiltrosWhere(
+    filtros: Record<string, string | boolean>,
+  ): Record<string, any> {
+    const where: Record<string, any> = {};
+    if (filtros.fecha_emision_desde || filtros.fecha_emision_hasta) {
+      where.fecha_emision = {
+        ...(filtros.fecha_emision_desde
+          ? { gte: new Date(`${filtros.fecha_emision_desde}T00:00:00.000Z`) }
+          : {}),
+        ...(filtros.fecha_emision_hasta
+          ? { lte: new Date(`${filtros.fecha_emision_hasta}T00:00:00.000Z`) }
+          : {}),
+      };
+    }
+    return where;
+  }
+
+  private async searchFacturas(
+    q: string,
+    page: number,
+    limit: number,
+    filtros: Record<string, string | boolean> = {},
+  ) {
+    const termino = (q || '').trim();
+    // "SERIE-00000012" -> serie + número exactos
+    const serieNumero = /^([A-Za-z0-9]{4})-0*(\d+)$/.exec(termino);
+    const where: any = {
+      ...this.facturasFiltrosWhere(filtros),
+      ...(termino
+        ? {
+            OR: [
+              { serie: { contains: termino } },
+              ...(serieNumero
+                ? [
+                    {
+                      serie: serieNumero[1].toUpperCase(),
+                      numero: parseInt(serieNumero[2]),
+                    },
+                  ]
+                : []),
+              ...(/^\d+$/.test(termino)
+                ? [{ numero: parseInt(termino) }, { id_factura: parseInt(termino) }]
+                : []),
+              { cliente_denominacion: { contains: termino } },
+              { cliente_numero_documento: { contains: termino } },
+              { proveedores: { nombre_proveedor: { contains: termino } } },
+              { proveedores: { ruc: { contains: termino } } },
+              { observaciones: { contains: termino } },
+              { placa_vehiculo: { contains: termino } },
+              { orden_compra_servicio: { contains: termino } },
+              { centro_costo_nivel1_codigo: { contains: termino } },
+              { centro_costo_nivel2_codigo: { contains: termino } },
+              { centro_costo_nivel3_codigo: { contains: termino } },
+              {
+                factura_item: {
+                  some: {
+                    OR: [
+                      { codigo_item: { contains: termino } },
+                      { descripcion_item: { contains: termino } },
+                    ],
+                  },
+                },
+              },
+            ],
+          }
+        : {}),
+    };
+
+    const [total, data] = await Promise.all([
+      this.prismaThird.factura.count({ where }),
+      this.prismaThird.factura.findMany({
+        where,
+        orderBy: { created_at: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+        include: { proveedores: true, factura_item: true },
+      }),
+    ]);
+    return { data, total };
+  }
+
+  private async getFacturasByIds(ids: number[]): Promise<any[]> {
+    const facturas = await this.prismaThird.factura.findMany({
+      where: { id_factura: { in: ids } },
+      include: { proveedores: true, factura_item: true },
+    });
+    // Respetar el orden en que ES devolvió los ids
+    const porId = new Map(facturas.map((f) => [f.id_factura, f]));
+    return ids.map((id) => porId.get(id)).filter(Boolean);
   }
 
   // ─── Programación Técnica ──────────────────────────────────────────────────
