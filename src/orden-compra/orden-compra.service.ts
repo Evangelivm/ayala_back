@@ -1178,7 +1178,14 @@ export class OrdenCompraService {
     };
   }
 
-  async generatePDF(ordenData: OrdenCompraData): Promise<Buffer> {
+  async generatePDF(
+    ordenData: OrdenCompraData,
+    firma?: string,
+  ): Promise<Buffer> {
+    const firmaPath =
+      firma === 'vladimir'
+        ? path.join(__dirname, '..', 'assets', 'firma1.png')
+        : null;
     return new Promise((resolve, reject) => {
       try {
         const doc = new PDFDocument({
@@ -1469,7 +1476,10 @@ export class OrdenCompraService {
         // Calcular espacio necesario para totales y firmas (ajustado según logs reales)
         const espacioNecesarioTotales = 90; // Espacio para totales + retención/detracción + anticipo
         const espacioNecesarioFirmas = 40; // Espacio para firmas
-        const espacioTotal = espacioNecesarioTotales + espacioNecesarioFirmas; // Total: 130
+        const espacioTotal =
+          espacioNecesarioTotales +
+          espacioNecesarioFirmas +
+          (firmaPath ? 25 : 0); // +25 si lleva imagen de firma // Total: 130
         const alturaPagina = 792; // Altura de página A4 en puntos
         const margenInferior = 40; // Margen inferior
 
@@ -1629,7 +1639,7 @@ export class OrdenCompraService {
           yPos += 25; // Reducido de 35 a 25
         }
 
-        yPos += 20; // Espacio reducido antes de las firmas (era 40)
+        yPos += 20 + (firmaPath ? 25 : 0); // Espacio antes de las firmas
 
         // ==================== FIRMAS ====================
         // 4 firmas en una sola fila
@@ -1645,14 +1655,28 @@ export class OrdenCompraService {
 
         // Firma 1: Genera orden
         const firma1X = startX;
-        doc
-          .moveTo(firma1X, firmaLineY)
-          .lineTo(firma1X + firmaWidth, firmaLineY)
-          .stroke();
-        doc.text('Genera orden', firma1X, firmaLineY + 10, {
-          width: firmaWidth,
-          align: 'center',
-        });
+        if (firmaPath) {
+          // La imagen trae su propia línea, nombre y cargo: su línea interna
+          // (61% de la altura, 60% del ancho) se alinea con la línea de firma.
+          const imgW = 100;
+          const imgH = imgW * (832 / 1260);
+          const centroX = firma1X + firmaWidth / 2;
+          doc.image(
+            firmaPath,
+            centroX - imgW * 0.6,
+            firmaLineY - imgH * 0.613,
+            { width: imgW },
+          );
+        } else {
+          doc
+            .moveTo(firma1X, firmaLineY)
+            .lineTo(firma1X + firmaWidth, firmaLineY)
+            .stroke();
+          doc.text('Genera orden', firma1X, firmaLineY + 10, {
+            width: firmaWidth,
+            align: 'center',
+          });
+        }
         if (ordenData.firmas.generaOrden) {
           doc
             .font('Helvetica-Bold')

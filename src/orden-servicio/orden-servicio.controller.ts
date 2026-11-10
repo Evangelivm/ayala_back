@@ -7,6 +7,7 @@ import {
   Patch,
   Body,
   Param,
+  Query,
   Res,
   HttpCode,
   HttpStatus,
@@ -188,10 +189,17 @@ export class OrdenServicioController {
   }
 
   @Get('pdf/:id')
-  async generatePdf(@Param('id') id: string, @Res() res: Response) {
+  async generatePdf(
+    @Param('id') id: string,
+    @Query('firma') firma: string,
+    @Res() res: Response,
+  ) {
     try {
       const mockData = await this.ordenServicioService.getMockData(id);
-      const pdfBuffer = await this.ordenServicioService.generatePDF(mockData);
+      const pdfBuffer = await this.ordenServicioService.generatePDF(
+        mockData,
+        firma,
+      );
 
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader(
