@@ -80,4 +80,5 @@ export interface OrdenServicioData {
   firmas: Firmas;
   /** 1 = formato legado (placa/máquina en cabecera), 2 = formato nuevo (vehículo por ítem) */
   formatoVersion: number;
+  firmaGenera?: string | null; // Firma guardada en la orden ('vladimir' | 'raul' | null)
 }

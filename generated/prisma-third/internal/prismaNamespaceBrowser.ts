@@ -411,7 +411,8 @@ export const Ordenes_compraScalarFieldEnum = {
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
   formato_pdf_version: 'formato_pdf_version',
-  grupo_id: 'grupo_id'
+  grupo_id: 'grupo_id',
+  firma_genera: 'firma_genera'
 } as const
 
 export type Ordenes_compraScalarFieldEnum = (typeof Ordenes_compraScalarFieldEnum)[keyof typeof Ordenes_compraScalarFieldEnum]
@@ -592,7 +593,8 @@ export const Ordenes_servicioScalarFieldEnum = {
   editado_por: 'editado_por',
   fecha_edicion: 'fecha_edicion',
   formato_pdf_version: 'formato_pdf_version',
-  grupo_id: 'grupo_id'
+  grupo_id: 'grupo_id',
+  firma_genera: 'firma_genera'
 } as const
 
 export type Ordenes_servicioScalarFieldEnum = (typeof Ordenes_servicioScalarFieldEnum)[keyof typeof Ordenes_servicioScalarFieldEnum]
@@ -1368,7 +1370,8 @@ export const ordenes_compraOrderByRelevanceFieldEnum = {
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
   backend_logs: 'backend_logs',
-  grupo_id: 'grupo_id'
+  grupo_id: 'grupo_id',
+  firma_genera: 'firma_genera'
 } as const
 
 export type ordenes_compraOrderByRelevanceFieldEnum = (typeof ordenes_compraOrderByRelevanceFieldEnum)[keyof typeof ordenes_compraOrderByRelevanceFieldEnum]
@@ -1464,7 +1467,8 @@ export const ordenes_servicioOrderByRelevanceFieldEnum = {
   url_comprobante_retencion: 'url_comprobante_retencion',
   nro_serie: 'nro_serie',
   backend_logs: 'backend_logs',
-  grupo_id: 'grupo_id'
+  grupo_id: 'grupo_id',
+  firma_genera: 'firma_genera'
 } as const
 
 export type ordenes_servicioOrderByRelevanceFieldEnum = (typeof ordenes_servicioOrderByRelevanceFieldEnum)[keyof typeof ordenes_servicioOrderByRelevanceFieldEnum]

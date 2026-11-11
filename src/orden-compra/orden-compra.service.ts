@@ -1175,6 +1175,7 @@ export class OrdenCompraService {
         jefeProyectos: '',
       },
       formatoVersion: ordenCompra.formato_pdf_version,
+      firmaGenera: ordenCompra.firma_genera,
     };
   }
 
@@ -1191,7 +1192,9 @@ export class OrdenCompraService {
       vladimir: { archivo: 'firma1.png', ancho: 1260, alto: 832, lineaY: 0.613, lineaX: 0.6 },
       raul: { archivo: 'firma2.png', ancho: 788, alto: 525, lineaY: 0.596, lineaX: 0.48 },
     };
-    const firmaImg = firma ? FIRMAS_IMG[firma] : undefined;
+    // El query param (si viene) manda; si no, la firma guardada en la orden
+    const firmaSel = firma ?? ordenData.firmaGenera ?? undefined;
+    const firmaImg = firmaSel ? FIRMAS_IMG[firmaSel] : undefined;
     const firmaPath = firmaImg
       ? path.join(__dirname, '..', 'assets', firmaImg.archivo)
       : null;
@@ -2863,6 +2866,24 @@ export class OrdenCompraService {
         `Error al actualizar número de factura: ${error.message}`,
       );
     }
+  }
+
+  // Guarda la firma que se imprime en "Genera orden" (null = sin firma)
+  async actualizarFirma(id: number, firma: string | null): Promise<void> {
+    if (firma !== null && !['vladimir', 'raul'].includes(firma)) {
+      throw new BadRequestException('Firma no válida');
+    }
+    const existe = await this.prismaThird.ordenes_compra.findUnique({
+      where: { id_orden_compra: id },
+    });
+    if (!existe) {
+      throw new BadRequestException(`Orden de compra con ID ${id} no encontrada`);
+    }
+    await this.prismaThird.ordenes_compra.update({
+      where: { id_orden_compra: id },
+      data: { firma_genera: firma },
+    });
+    this.websocketGateway.emitOrdenCompraUpdate();
   }
 
   async actualizarNumeroRH(id: number, nroRH: string): Promise<void> {

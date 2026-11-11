@@ -406,6 +406,19 @@ export class OrdenServicioController {
     }
   }
 
+  @Patch(':id/firma')
+  @HttpCode(HttpStatus.OK)
+  async actualizarFirma(
+    @Param('id') id: string,
+    @Body() body: { firma: string | null },
+  ) {
+    await this.ordenServicioService.actualizarFirma(
+      +id,
+      body.firma && body.firma !== 'sin' ? body.firma : null,
+    );
+    return { success: true, message: 'Firma actualizada exitosamente' };
+  }
+
   @Patch(':id/numero-rh')
   @HttpCode(HttpStatus.OK)
   async actualizarNumeroRH(

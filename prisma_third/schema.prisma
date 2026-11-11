@@ -329,6 +329,7 @@ model ordenes_compra {
   fecha_edicion               DateTime?                    @db.Timestamp(0)
   formato_pdf_version         Int                          @default(1)
   grupo_id                    String?                      @db.VarChar(36)
+  firma_genera                String?                      @db.VarChar(20)
   detalles_orden_compra       detalles_orden_compra[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                  @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_compra_ibfk_1")
@@ -548,6 +549,7 @@ model ordenes_servicio {
   fecha_edicion               DateTime?                      @db.Timestamp(0)
   formato_pdf_version         Int                            @default(1)
   grupo_id                    String?                        @db.VarChar(36)
+  firma_genera                String?                        @db.VarChar(20)
   detalles_orden_servicio     detalles_orden_servicio[]
   multifactura_detalle        multifactura_detalle[]
   proveedores                 proveedores                    @relation(fields: [id_proveedor], references: [id_proveedor], onDelete: NoAction, onUpdate: NoAction, map: "ordenes_servicio_ibfk_1")
