@@ -1182,10 +1182,19 @@ export class OrdenCompraService {
     ordenData: OrdenCompraData,
     firma?: string,
   ): Promise<Buffer> {
-    const firmaPath =
-      firma === 'vladimir'
-        ? path.join(__dirname, '..', 'assets', 'firma1.png')
-        : null;
+    // Imágenes de firma disponibles. lineaY/lineaX = posición (proporción) de la
+    // línea interna de la imagen, para alinearla con la línea de firma del PDF.
+    const FIRMAS_IMG: Record<
+      string,
+      { archivo: string; ancho: number; alto: number; lineaY: number; lineaX: number }
+    > = {
+      vladimir: { archivo: 'firma1.png', ancho: 1260, alto: 832, lineaY: 0.613, lineaX: 0.6 },
+      raul: { archivo: 'firma2.png', ancho: 788, alto: 525, lineaY: 0.596, lineaX: 0.48 },
+    };
+    const firmaImg = firma ? FIRMAS_IMG[firma] : undefined;
+    const firmaPath = firmaImg
+      ? path.join(__dirname, '..', 'assets', firmaImg.archivo)
+      : null;
     return new Promise((resolve, reject) => {
       try {
         const doc = new PDFDocument({
@@ -1657,14 +1666,14 @@ export class OrdenCompraService {
         const firma1X = startX;
         if (firmaPath) {
           // La imagen trae su propia línea, nombre y cargo: su línea interna
-          // (61% de la altura, 60% del ancho) se alinea con la línea de firma.
+          // se alinea con la línea de firma del PDF.
           const imgW = 100;
-          const imgH = imgW * (832 / 1260);
+          const imgH = imgW * (firmaImg!.alto / firmaImg!.ancho);
           const centroX = firma1X + firmaWidth / 2;
           doc.image(
             firmaPath,
-            centroX - imgW * 0.6,
-            firmaLineY - imgH * 0.613,
+            centroX - imgW * firmaImg!.lineaX,
+            firmaLineY - imgH * firmaImg!.lineaY,
             { width: imgW },
           );
         } else {
